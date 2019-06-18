@@ -1,3 +1,4 @@
+
 NAME = doom-nukem
 
 SRC_PATH = src
@@ -35,32 +36,32 @@ ABSOLUTE_DIR = $(shell pwd)
 SDL2_SRC = $(ABSOLUTE_DIR)/SDL2-2.0.9
 SDL2_MIX_SRC = $(ABSOLUTE_DIR)/SDL2_mixer-2.0.4
 
-all: $(NAME)
+all: sdl $(NAME)
 
-# sdl :
-# 	if test ! -f SDL_2.0.9.tar.gz; \
-# 	then curl http://libsdl.org/release/SDL2-2.0.9.tar.gz -o SDL_2.0.9.tar.gz; \
-# 	fi
-# 	if test ! -d SDL2-2.0.9; \
-# 	then tar xvf SDL_2.0.9.tar.gz; \
-# 	fi
-# 	mkdir -p SDL2 2> /dev/null || true
-# 	mkdir -p SDL2/build 2> /dev/null || true
-# 	cd SDL2/build; \
-# 		$(SDL2_SRC)/configure --prefix $(ABSOLUTE_DIR)/SDL2; \
-# 		@make -j6; \
-# 		make install;
-# 	cd $(ABSOLUTE_DIR)
-# 	if test ! -f SDL2_mixer-2.0.4.tar.gz; \
-# 	then curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o SDL2_mixer-2.0.4.tar.gz; \
-# 	fi
-# 	if test ! -d SDL2_mixer-2.0.4; \
-# 	then tar xvf SDL2_mixer-2.0.4.tar.gz; \
-# 	fi
-# 	cd SDL2/build; \
-# 		$(SDL2_MIX_SRC)/configure --prefix $(ABSOLUTE_DIR)/SDL2; \
-# 		@make -j6; \
-# 		make install;
+sdl :
+	if test ! -f SDL_2.0.9.tar.gz; \
+	then curl http://libsdl.org/release/SDL2-2.0.9.tar.gz -o SDL_2.0.9.tar.gz; \
+	fi
+	if test ! -d SDL2-2.0.9; \
+	then tar xvf SDL_2.0.9.tar.gz; \
+	fi
+	mkdir -p SDL2 2> /dev/null || true
+	mkdir -p SDL2/build 2> /dev/null || true
+	cd SDL2/build; \
+		$(SDL2_SRC)/configure --prefix $(ABSOLUTE_DIR)/SDL2; \
+		@make -j6; \
+		make install;
+	cd $(ABSOLUTE_DIR)
+	if test ! -f SDL2_mixer-2.0.4.tar.gz; \
+	then curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o SDL2_mixer-2.0.4.tar.gz; \
+	fi
+	if test ! -d SDL2_mixer-2.0.4; \
+	then tar xvf SDL2_mixer-2.0.4.tar.gz; \
+	fi
+	cd SDL2/build; \
+		$(SDL2_MIX_SRC)/configure --prefix $(ABSOLUTE_DIR)/SDL2; \
+		@make -j6; \
+		make install;
 
 $(NAME): $(OBJ)
 	make -C libft/
