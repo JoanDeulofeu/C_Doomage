@@ -3,7 +3,7 @@ NAME = doom-nukem
 
 SRC_PATH = src
 
-SRC_NAME =	main.c
+SRC_NAME =	main.c controls.c actions.c images.c editor.c
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
 
