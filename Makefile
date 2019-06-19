@@ -3,7 +3,13 @@ NAME = doom-nukem
 
 SRC_PATH = src
 
-SRC_NAME =	main.c controls.c actions.c images.c editor.c
+SRC_NAME =	main.c \
+			controls.c \
+			actions.c \
+			images.c \
+			editor.c \
+			errors.c \
+			structs_initialize.c
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
 
@@ -11,7 +17,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra #-Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
@@ -36,7 +42,7 @@ ABSOLUTE_DIR = $(shell pwd)
 SDL2_SRC = $(ABSOLUTE_DIR)/SDL2-2.0.9
 SDL2_MIX_SRC = $(ABSOLUTE_DIR)/SDL2_mixer-2.0.4
 
-all: sdl $(NAME)
+all: $(NAME)
 
 sdl :
 	if test ! -f SDL_2.0.9.tar.gz; \
