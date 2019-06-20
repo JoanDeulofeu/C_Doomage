@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:10:18 by ydonse            #+#    #+#             */
-/*   Updated: 2019/06/19 16:26:01 by ydonse           ###   ########.fr       */
+/*   Updated: 2019/06/20 14:54:52 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
-# define WIDTH 1000
-# define HEIGHT 800
+# define WIDTH 1000 //multiple de 20
+# define HEIGHT 800 //multiple de 20
 
 # define FILE_ERROR 1
 # define SIZE_ERROR 2
@@ -55,10 +55,10 @@ typedef struct		s_dpos {
 	double			y;
 }					t_dpos;
 
-typedef struct		s_position {
+typedef struct		s_pos {
 	short			x;
 	short			y;
-}					t_position;
+}					t_pos;
 
 typedef struct		s_sdl {
 	SDL_Window		*pwindow;
@@ -66,6 +66,7 @@ typedef struct		s_sdl {
 	SDL_Event		event;
 	t_texture		*map;
 	t_texture		*game;
+	t_texture		*editor;
 	int				x_o;
 	int				y_o;
 	// t_sounds		sounds;
@@ -92,8 +93,9 @@ void				ft_error_sdl(char *str);
 //IMAGES
 void				update_image(t_main *s, t_texture *texture);
 void				draw_rect(t_texture *text, t_dpos orig, t_dpos dest, Uint32 color);
-void				set_pixel(t_texture *text, Uint32 color, t_position coord);
+void				set_pixel(t_texture *text, Uint32 color, t_pos coord);
 void				draw_player(t_main *s, t_dpos p_pos);
+void				ft_draw_grid(t_texture *tex);
 
 //CONTROLS
 

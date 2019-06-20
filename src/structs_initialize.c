@@ -29,6 +29,8 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 		exit(-1);
 	if (!(sdl->game = initialize_texture(sdl, WIDTH, HEIGHT)))
 		exit(-1);
+	if (!(sdl->editor = initialize_texture(sdl, WIDTH, HEIGHT)))
+		exit(-1);
 	// sdl->x_o = WIDTH / 2 - ((SPACE * s->width) / 2);
 	// sdl->y_o = HEIGHT / 2 - ((SPACE * s->height) / 2);
 	sdl->musique = NULL;

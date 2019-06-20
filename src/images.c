@@ -10,7 +10,7 @@ void	update_image(t_main *s, t_texture *texture)
 	SDL_RenderPresent(s->sdl->prenderer);
 }
 
-void	set_pixel(t_texture *text, Uint32 color, t_position coord)
+void	set_pixel(t_texture *text, Uint32 color, t_pos coord)
 {
 	if (coord.x >= 0 && coord.x < WIDTH && coord.y >= 0 && coord.y < HEIGHT)
 	{
@@ -22,7 +22,7 @@ void	draw_rect(t_texture *text, t_dpos orig, t_dpos dest, Uint32 color)
 {
 	int			i;
 	int			j;
-	t_position	coord;
+	t_pos		coord;
 
 	orig.x = orig.x < 0 ? 0 : orig.x;
 	orig.y = orig.y < 0 ? 0 : orig.y;

@@ -83,7 +83,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 
 sdlclean:
-	@@rm -rf $(SDL2_SRC) $(SDL2_MIX_SRC) SDL_2.0.9.tar.gz SDL2_mixer-2.0.4.tar.gz SDL2
+	@rm -rf $(SDL2_SRC) $(SDL2_MIX_SRC) SDL_2.0.9.tar.gz SDL2_mixer-2.0.4.tar.gz SDL2
 	@$(OK)
 
 clean:
