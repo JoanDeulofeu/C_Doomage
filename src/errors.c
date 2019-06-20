@@ -18,6 +18,7 @@ void	display_error(int error_nb)
 
 void	handle_error(t_main *s, int error_nb)
 {
+	(void)s;
 	if (error_nb != 0)
 		display_error(error_nb);
 	Mix_HaltMusic();

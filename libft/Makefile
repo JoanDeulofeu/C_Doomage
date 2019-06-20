@@ -6,7 +6,7 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2019/05/13 15:02:58 by malluin          ###   ########.fr        #
+#    Updated: 2019/06/20 11:51:35 by jgehin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,13 @@ HEADER_NAME = libft.h get_next_line.h
 
 HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
+OK = echo "[32m OK ✓ [0m"
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $@ $^
+	@ar rcs $@ $^
+	@$(OK)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true

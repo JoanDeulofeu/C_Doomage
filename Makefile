@@ -42,6 +42,8 @@ ABSOLUTE_DIR = $(shell pwd)
 SDL2_SRC = $(ABSOLUTE_DIR)/SDL2-2.0.9
 SDL2_MIX_SRC = $(ABSOLUTE_DIR)/SDL2_mixer-2.0.4
 
+OK = echo "[32m OK ✓ [0m"
+
 all: $(NAME)
 
 sdl :
@@ -70,26 +72,30 @@ sdl :
 		make install;
 
 $(NAME): $(OBJ)
-	make -C libft/
-	$(CC) $(CFLAGS) $(LDFLAGS) $(SDLFLAGS) $(MIXFLAGS) $(MIXINCL) $(LDLIBS) $(SDLFMK) $^ -o $@
+	@make -C libft/
+	@$(CC) $(CFLAGS) $(LDFLAGS) $(SDLFLAGS) $(MIXFLAGS) $(MIXINCL) $(LDLIBS) $(SDLFMK) $^ -o $@
+	@$(OK)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -I $(HEADER_PATH) $(SDLINCL) $(MIXINCL) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -I $(HEADER_PATH) $(SDLINCL) $(MIXINCL) -o $@ -c $<
 
 $(OBJ_PATH):
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 
 sdlclean:
-	rm -rf $(SDL2_SRC) $(SDL2_MIX_SRC) SDL_2.0.9.tar.gz SDL2_mixer-2.0.4.tar.gz SDL2
+	@@rm -rf $(SDL2_SRC) $(SDL2_MIX_SRC) SDL_2.0.9.tar.gz SDL2_mixer-2.0.4.tar.gz SDL2
+	@$(OK)
 
 clean:
-	make clean -C libft/
-	rm -f $(OBJ) $(OBJ:.o=.d)
+	@make clean -C libft/
+	@rm -f $(OBJ) $(OBJ:.o=.d)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@$(OK)
 
 fclean: clean
-	make fclean -C libft/
-	rm -f $(NAME)
+	@make fclean -C libft/
+	@rm -f $(NAME)
+	@$(OK)
 
 re: fclean
 	$(MAKE) all

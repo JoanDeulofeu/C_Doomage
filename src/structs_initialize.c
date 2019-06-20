@@ -13,6 +13,7 @@ void	pre_initialize_sdl(t_main *s)
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
 {
+	(void)s;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		ft_error_sdl("Échec de l'initialisation de la SDL");
 	if (!(sdl->pwindow = SDL_CreateWindow("Doom Nukem", 100,
