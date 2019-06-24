@@ -1,37 +1,41 @@
 #include "doom.h"
 
-int		ft_add_vertex(t_main *s, int x, int y)
+//RAPPEL tmp est egale au bon secteur(s->sector), celui que l'on veut remplir)
+int			ft_parse_sector(t_main *s, char *line, int size_line)
 {
-	t_vertex	*tmp;
+	t_sector	*tmp;
+	int			i;
+	int			value;
+	int			floor;
+	int			ceiling;
 
-	tmp = s->vertex;
-	if (s->vertex == NULL)
+	i = 7;
+	floor = ft_atoi(&line[i]);
+	i += ft_longlen(floor) + 1;
+	ceiling = ft_atoi(&line[i]);
+	tmp = ft_add_sector(s, floor, ceiling);
+	while (line[i] != '|')
+		i++;
+	i += 2;
+	while (line[i] != '|') //fill des vecteurs dans le secteur
 	{
-		if (!(s->vertex = (t_vertex*)malloc(sizeof(t_vertex))))
-			handle_error(s, MALLOC_ERROR);
-		s->vertex->prev = NULL;
-		tmp = s->vertex;
-		tmp->id = 1;
+		printf("line[%d] = %c\n", i, line[i]);
+		value = ft_atoi(&line[i]);
+		ft_add_intarray(s, tmp->vertex, value);
+		i += ft_longlen(value) + 1;
 	}
-	else
+	i += 2;
+	while (i < size_line) //fill des wall et portal dans le secteur
 	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		if (!(tmp->next = (t_vertex*)malloc(sizeof(t_vertex))))
-			handle_error(s, MALLOC_ERROR);
-		tmp->next->prev = tmp;
-		tmp = tmp->next;
-		tmp->id = tmp->prev->id + 1;
+		value = ft_atoi(&line[i]);
+		ft_add_intarray(s, tmp->wall, value);
+		i += ft_longlen(value) + 1;
 	}
-	tmp->next = NULL;
-	tmp->x = x;
-	tmp->y = y;
 	return (0);
 }
 
-int		ft_parcing(t_main *s)
+int		ft_parsing(t_main *s)
 {
-	(void)s;
 	int		fd;
 	int		x;
 	int		y;
@@ -52,9 +56,14 @@ int		ft_parcing(t_main *s)
 				x = ft_atoi(&line[i]);
 				ft_add_vertex(s, x, y);
 				// printf("y %d | x %d | i %d\n", y, x, i);
-				i += ft_nbrlen(x) + 1;
+				i += ft_longlen(x) + 1;
 			}
 		}
+		else if (line[0] == 's')
+		{
+			ft_parse_sector(s, line, size_line);
+		}
 	}
+	ft_test_chainlist(s);
 	return (0);
 }

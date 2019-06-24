@@ -2,6 +2,7 @@
 
 int		keyboard_controls(t_main *s, int key)
 {
+	(void)s;
 	if (key == SDLK_ESCAPE)
 		return (0);
 	// else if (key == SDLK_e)

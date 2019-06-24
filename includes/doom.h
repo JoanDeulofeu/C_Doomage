@@ -46,15 +46,15 @@ typedef struct		s_dpos {
 }					t_dpos;
 
 typedef struct		s_line {
-	int			x1;
-	int			x2;
-	int			y1;
-	int			y2;
-	int			e;
-	int			pixel_o;
-	int			dx;
-	int			dy;
-}				t_line;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	int				e;
+	int				pixel_o;
+	int				dx;
+	int				dy;
+}					t_line;
 
 typedef struct		s_mouse {
 	double			x;
@@ -66,6 +66,13 @@ typedef struct		s_pos {
 	short			y;
 }					t_pos;
 
+typedef struct		s_int {
+	int				id;
+	int				value;
+	struct s_int	*next;
+	struct s_int	*prev;
+}					t_int;
+
 typedef struct		s_vertex {
 	int				id;
 	int				x;
@@ -73,6 +80,16 @@ typedef struct		s_vertex {
 	struct s_vertex	*next;
 	struct s_vertex	*prev;
 }					t_vertex;
+
+typedef struct		s_sector {
+	int				id;
+	int				floor;
+	int				ceiling;
+	t_int			*vertex;
+	t_int			*wall;
+	struct s_sector	*next;
+	struct s_sector	*prev;
+}					t_sector;
 
 typedef struct		s_sdl {
 	SDL_Window		*pwindow;
@@ -93,6 +110,7 @@ typedef struct		s_main {
 	t_mouse			ft_mouse;
 	t_line			line;
 	t_vertex		*vertex;
+	t_sector		*sector;
 
 	// t_case			**map;
 }					t_main;
@@ -131,6 +149,13 @@ void				handle_keys(t_main *s);
 
 //MAP
 
-int					ft_parcing(t_main *s);
+int					ft_parsing(t_main *s);
+
+//CHAINLIST
+
+int					ft_add_vertex(t_main *s, int x, int y);
+t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
+int					ft_add_intarray(t_main *s, t_int *array, int value);
+void				ft_test_chainlist(t_main *s);
 
 #endif

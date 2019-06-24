@@ -29,7 +29,7 @@ int main (int argc, char **argv)
 	draw_player(s, s->p_pos);
 	SDL_ShowCursor(1);
 	ft_draw_grid(s->sdl->editor);
-	ft_parcing(s);
+	ft_parsing(s);
 	editor_handler(s);
 	// event_handler(s);
 }

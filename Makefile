@@ -13,7 +13,8 @@ SRC_NAME =	main.c \
 			editor_controls.c \
 			lines.c \
 			mouse.c \
-			parcing.c
+			parcing.c \
+			chainlist.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
