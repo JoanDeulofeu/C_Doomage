@@ -32,6 +32,7 @@
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
 # define WHITE 0xFFFFFFFF
+# define GREEN 0x32CD32FF
 
 
 typedef struct		s_texture {
