@@ -9,6 +9,7 @@ void	pre_initialize_sdl(t_main *s)
 	s->sdl->map = NULL;
 	s->sdl->game = NULL;
 	s->sdl->musique = NULL;
+	s->sdl->editor = NULL;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
@@ -62,6 +63,8 @@ t_main		*initialize_main(void)
 
 	if (!(s = (t_main *)malloc(sizeof(t_main))))
 		exit(-1);
+	// s->mouse.x = 0;
+	// s->mouse.y = 0;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	return (s);

@@ -6,7 +6,11 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:10:18 by ydonse            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/06/24 15:43:02 by jgehin           ###   ########.fr       */
+=======
+/*   Updated: 2019/06/24 15:08:10 by ydonse           ###   ########.fr       */
+>>>>>>> 3b63948a4da1a9983cf52991bae02a4ff2ca6563
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +47,8 @@
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
+# define WHITE 0xFFFFFFFF
+
 
 typedef struct		s_texture {
 	Uint32			*content;
@@ -54,6 +60,22 @@ typedef struct		s_dpos {
 	double			x;
 	double			y;
 }					t_dpos;
+
+typedef struct		s_line {
+	int			x1;
+	int			x2;
+	int			y1;
+	int			y2;
+	int			e;
+	int			pixel_o;
+	int			dx;
+	int			dy;
+}				t_line;
+
+typedef struct		s_mouse {
+	double			x;
+	double			y;
+}					t_mouse;
 
 typedef struct		s_pos {
 	short			x;
@@ -84,7 +106,14 @@ typedef struct		s_sdl {
 typedef struct		s_main {
 	t_sdl			*sdl;
 	t_dpos			p_pos;
+<<<<<<< HEAD
 	t_vertex		*vertex;
+=======
+	t_mouse			ft_mouse;
+	t_line			line;
+
+	// t_case			**map;
+>>>>>>> 3b63948a4da1a9983cf52991bae02a4ff2ca6563
 }					t_main;
 
 //INITIALIZE
@@ -104,10 +133,18 @@ void				draw_rect(t_texture *text, t_dpos orig, t_dpos dest, Uint32 color);
 void				set_pixel(t_texture *text, Uint32 color, t_pos coord);
 void				draw_player(t_main *s, t_dpos p_pos);
 void				ft_draw_grid(t_texture *tex);
+void				draw_wall(t_main *s, t_pos ori);
+
+//LINES
+
+int					trace_line(t_main *s, Uint32 color);
+void				trace_vertical(t_main *s, Uint32 color);
+void				get_line(t_main *s, Uint32 color);
 
 //CONTROLS
 
 int					keyboard_controls(t_main *s, int key);
+void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
 

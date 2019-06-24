@@ -3,14 +3,18 @@ NAME = doom-nukem
 
 SRC_PATH = src
 
-SRC_NAME =	main.c					\
-			controls.c				\
-			actions.c				\
-			images.c				\
-			editor.c				\
-			errors.c				\
-			structs_initialize.c	\
+SRC_NAME =	main.c \
+			controls.c \
+			actions.c \
+			images.c \
+			editor.c \
+			errors.c \
+			structs_initialize.c \
+			editor_controls.c \
+			lines.c \
+			mouse.c \
 			parcing.c
+
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
 
@@ -18,7 +22,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -g#-Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
