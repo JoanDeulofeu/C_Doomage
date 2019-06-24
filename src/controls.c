@@ -44,7 +44,7 @@ void	event_handler(t_main *s)
 	int			game;
 
 	game = 1;
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (game)
 	{

@@ -27,6 +27,8 @@ int main (int argc, char **argv)
 	s->p_pos.x = 500;
 	s->p_pos.y = 330;
 	draw_player(s, s->p_pos);
+	SDL_ShowCursor(1);
 	ft_draw_grid(s->sdl->editor);
-	event_handler(s);
+	editor_handler(s);
+	// event_handler(s);
 }

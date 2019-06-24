@@ -65,6 +65,11 @@ void	ft_draw_grid(t_texture *tex)
 	ft_gridx(tex, &orig, &dest, &coord);
 	ft_gridy(tex, &orig, &dest, &coord);
 
+}
 
-
+void	draw_wall(t_main *s, t_pos ori)
+{
+	s->line.x1 = ori.x;
+	s->line.y1 = ori.y;
+	get_line(s, WHITE);
 }
