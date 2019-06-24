@@ -1,19 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   doom.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/18 14:10:18 by ydonse            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/06/24 15:43:02 by jgehin           ###   ########.fr       */
-=======
-/*   Updated: 2019/06/24 15:08:10 by ydonse           ###   ########.fr       */
->>>>>>> 3b63948a4da1a9983cf52991bae02a4ff2ca6563
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef DOOM_H
 # define DOOM_H
 # include "libft.h"
@@ -106,14 +90,11 @@ typedef struct		s_sdl {
 typedef struct		s_main {
 	t_sdl			*sdl;
 	t_dpos			p_pos;
-<<<<<<< HEAD
-	t_vertex		*vertex;
-=======
 	t_mouse			ft_mouse;
 	t_line			line;
+	t_vertex		*vertex;
 
 	// t_case			**map;
->>>>>>> 3b63948a4da1a9983cf52991bae02a4ff2ca6563
 }					t_main;
 
 //INITIALIZE
@@ -151,6 +132,5 @@ void				handle_keys(t_main *s);
 //MAP
 
 int					ft_parcing(t_main *s);
-
 
 #endif
