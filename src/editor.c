@@ -5,7 +5,7 @@ void	ft_gridx(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
 	int			x;
 	int			y;
 	int			espy;
-	Uint32		color = 0x4c4c4cFF;
+	Uint32		color = 0x4c4c4c7F;
 
 	x = orig->x;
 	y = orig->y;
@@ -29,7 +29,7 @@ void	ft_gridy(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
 	int			x;
 	int			y;
 	int			espx;
-	Uint32		color = 0x4c4c4cFF;
+	Uint32		color = 0x4c4c4c7F;
 
 	x = orig->x;
 	y = orig->y;

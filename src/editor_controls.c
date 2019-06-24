@@ -34,8 +34,40 @@ void	handle_editor_keys(t_main *s)
 	// 	raycast_visualization(s);
 		// draw_player(s, s->p_pos);
 		// update_image(s, s->sdl->game);
-		ft_draw_grid(s->sdl->editor);
+		// ft_draw_grid(s->sdl->editor);
 		update_image(s, s->sdl->editor);
+	// }
+}
+
+void	create_anchor(t_main *s, t_pos ori)
+{
+	//on dessine la carre la ou on a cliqué
+	t_dpos		init;
+	t_dpos		dest;
+	short		size;
+	t_vertex	*temp;
+
+	size = 5;
+	temp = s->vertex;
+	init.x = ori.x - size;
+	init.y = ori.y - size;
+	dest.x = ori.x + size;
+	dest.y = ori.y + size;
+	while (temp)
+	{
+		if (temp->x == ori.x && temp->y == ori.y)
+			return;
+		temp = temp->next;
+
+	}
+	draw_rect(s->sdl->editor, init, dest, GREEN);
+	ft_add_vertex(s, ori.x, ori.y);
+	// temp = s->vertex;
+	// while (temp)
+	// {
+	// 	printf("vertex.x = %d\n", temp->x);
+	// 	temp = temp->next;
+	//
 	// }
 }
 
@@ -45,6 +77,7 @@ void	editor_handler(t_main *s)
 	int			click;
 	int rest;
 	t_pos		ori;
+	t_pos		dest;
 
 	editor = 1;
 	click = 0;
@@ -55,8 +88,10 @@ void	editor_handler(t_main *s)
 	{
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
-			s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
-			s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
+			// s->line.x2 = s->sdl->event.button.x;
+			// s->line.y2 = s->sdl->event.button.y;
+			// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
+			// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
@@ -67,16 +102,24 @@ void	editor_handler(t_main *s)
 					{
 						ori.x = 20 * round(s->sdl->event.button.x / 20) + 10;
 						ori.y = 20 * round(s->sdl->event.button.y / 20) + 10;
+						//ajouer verif ancre
+						create_anchor(s, ori);
 						click = 1;
 					}
 					else
 					{
+						dest.x = 20 * round(s->sdl->event.button.x / 20) + 10;
+						dest.y = 20 * round(s->sdl->event.button.y / 20) + 10;
+						// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
+						// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
+						//ajouer verif ancre
+						create_anchor(s, dest);
+						// draw_wall(s, ori);
 						click = 0;
 					}
 				}
 			}
-			if (click)
-				draw_wall(s, ori);
+
 
 			if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls(s, s->sdl->event.key.keysym.sym) == 0)
