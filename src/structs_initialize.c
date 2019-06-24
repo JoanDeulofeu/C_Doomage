@@ -10,6 +10,7 @@ void	pre_initialize_sdl(t_main *s)
 	s->sdl->game = NULL;
 	s->sdl->musique = NULL;
 	s->sdl->editor = NULL;
+	s->vertex = NULL;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)

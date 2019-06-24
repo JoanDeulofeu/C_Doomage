@@ -40,7 +40,7 @@ int		ft_parcing(t_main *s)
 	int		i;
 
 	fd = open("map.map", O_RDWR);
-	while (get_next_line(fd, &line))
+	while ((SDL_PollEvent(&(s->sdl->event))) && get_next_line(fd, &line))
 	{
 		size_line = ft_strlen(line);
 		if (line[0] == 'v')
@@ -50,12 +50,11 @@ int		ft_parcing(t_main *s)
 			while (i < size_line)
 			{
 				x = ft_atoi(&line[i]);
-				// ft_add_vertex(s, x, y);
-				printf("x %d | y %d | i %d\n", x, y, i);
+				ft_add_vertex(s, x, y);
+				// printf("y %d | x %d | i %d\n", y, x, i);
 				i += ft_nbrlen(x) + 1;
 			}
 		}
-
 	}
 	return (0);
 }

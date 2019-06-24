@@ -24,12 +24,12 @@ int main (int argc, char **argv)
 	t_main *s;
 
 	s = initialize_main();
-	// ft_parcing(s);
 	s->p_pos.x = 500;
 	s->p_pos.y = 330;
 	draw_player(s, s->p_pos);
 	SDL_ShowCursor(1);
 	ft_draw_grid(s->sdl->editor);
+	ft_parcing(s);
 	editor_handler(s);
 	// event_handler(s);
 }
