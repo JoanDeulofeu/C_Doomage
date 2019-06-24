@@ -55,13 +55,8 @@ void	editor_handler(t_main *s)
 	{
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
-
-			rest = round(s->sdl->event.button.x) % 20;
-			s->line.x2 = rest < 10 ? round(s->sdl->event.button.x) - rest
-			:  round(s->sdl->event.button.x) + rest;
-			rest = round(s->sdl->event.button.y) % 20;
-			s->line.y2 = rest < 10 ? round(s->sdl->event.button.y) - rest 
-			:  round(s->sdl->event.button.y) + rest;
+			s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
+			s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
@@ -70,8 +65,8 @@ void	editor_handler(t_main *s)
 				{
 					if (click == 0)
 					{
-						ori.x = 10 * round(s->sdl->event.button.x / 10);
-						ori.y = 10 * round(s->sdl->event.button.y / 10);
+						ori.x = 20 * round(s->sdl->event.button.x / 20) + 10;
+						ori.y = 20 * round(s->sdl->event.button.y / 20) + 10;
 						click = 1;
 					}
 					else

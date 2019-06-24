@@ -24,7 +24,7 @@ int main (int argc, char **argv)
 	t_main *s;
 
 	s = initialize_main();
-	ft_parcing(s);
+	// ft_parcing(s);
 	s->p_pos.x = 500;
 	s->p_pos.y = 330;
 	draw_player(s, s->p_pos);
