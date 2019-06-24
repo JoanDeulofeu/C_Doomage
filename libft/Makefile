@@ -6,7 +6,7 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2019/06/20 11:51:35 by jgehin           ###   ########.fr        #
+#    Updated: 2019/06/24 15:47:01 by jgehin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ ft_lstiter.c	ft_lstmap.c		ft_swap.c		ft_sort_integer_table.c\
 ft_print_words_tables.c		ft_recursive_power.c	ft_sqrt.c\
 ft_strsub_free.c	ft_strdup_free.c	ft_strjoin_free.c get_next_line.c\
 ft_sqrt_high.c ft_get_nbr.c ft_free_tab_str.c ft_llitoa.c ft_lutoa.c\
-ft_longlen.c ft_abs.c switch_bool.c ft_gnl_utils.c
+ft_longlen.c ft_abs.c switch_bool.c ft_gnl_utils.c ft_nbrlen.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

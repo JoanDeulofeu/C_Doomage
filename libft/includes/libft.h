@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:58:15 by ydonse            #+#    #+#             */
-/*   Updated: 2019/05/13 15:03:06 by malluin          ###   ########.fr       */
+/*   Updated: 2019/06/24 15:46:18 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,5 @@ char				*ft_lutoa(unsigned long n);
 int					ft_longlen(long nb);
 long				ft_abs(long nb);
 t_bool				switch_bool(t_bool v);
+int					ft_nbrlen(long long nb);
 #endif

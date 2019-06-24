@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:10:18 by ydonse            #+#    #+#             */
-/*   Updated: 2019/06/20 14:54:52 by jgehin           ###   ########.fr       */
+/*   Updated: 2019/06/24 15:43:02 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct		s_pos {
 	short			y;
 }					t_pos;
 
+typedef struct		s_vertex {
+	int				id;
+	int				x;
+	int				y;
+	struct s_vertex	*next;
+	struct s_vertex	*prev;
+}					t_vertex;
+
 typedef struct		s_sdl {
 	SDL_Window		*pwindow;
 	SDL_Renderer	*prenderer;
@@ -76,7 +84,7 @@ typedef struct		s_sdl {
 typedef struct		s_main {
 	t_sdl			*sdl;
 	t_dpos			p_pos;
-	// t_case			**map;
+	t_vertex		*vertex;
 }					t_main;
 
 //INITIALIZE
@@ -102,6 +110,10 @@ void				ft_draw_grid(t_texture *tex);
 int					keyboard_controls(t_main *s, int key);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
+
+//MAP
+
+int					ft_parcing(t_main *s);
 
 
 #endif

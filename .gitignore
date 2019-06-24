@@ -52,4 +52,5 @@ dkms.conf
 
 SDL2
 SDL2/*
+SDL2/build/build/.libs/*
 doom-nukem
