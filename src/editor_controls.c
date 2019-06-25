@@ -89,10 +89,92 @@ void	display_map(t_main *s)
 	}
 }
 
+void	print_grid(t_main *s)
+{
+	int i;
+	int j;
+	int grid_width;
+	int	grid_height;
+
+	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / G_SPACE;
+	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / G_SPACE;
+	i = 0;
+	j = 0;
+	while (i < grid_width)
+	{
+		while (j < grid_height)
+		{
+			printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+			j++;
+		}
+		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+		i++;
+		printf("\n", j);
+		j = 0;
+	}
+}
+
+void	fill_grid(t_main *s)
+{
+	int i;
+	int j;
+	int grid_width;
+	int	grid_height;
+
+	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / G_SPACE;
+	// printf("grid width = %d\n", grid_width);
+	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / G_SPACE;
+	i = 0;
+	j = 0;
+	while (i <= grid_width)
+	{
+		while (j <= grid_height)
+		{
+			s->grid[i][j].x = i * G_SPACE + GRID_SIDE_MARGIN;
+			s->grid[i][j].y = j * G_SPACE + GRID_TOP_MARGIN;
+			s->grid[i][j].anchor = 0;
+			s->grid[i][j].clicked = 0;
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+}
+
+void	initialize_grid(t_main *s)
+{
+	int grid_width;
+	int	grid_height;
+	int i;
+
+	i = 0;
+	grid_width = WIDTH - (GRID_SIDE_MARGIN * 2) / G_SPACE;
+	grid_height = HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN) / G_SPACE;
+	if (!(s->grid = (t_point**)malloc(sizeof(t_point*)
+		* grid_width)))
+		handle_error(s, MALLOC_ERROR);
+	while (i < grid_width)
+		s->grid[i++] = NULL;
+	i = 0;
+	while (i < grid_width)
+	{
+		if (!(s->grid[i] = (t_point*)malloc(sizeof(t_point) * grid_height)))
+			handle_error(s, MALLOC_ERROR);
+		i++;
+	}
+}
+
+// void	get_vertex_data(t_main *s)
+// {
+//
+// }
+
 void	get_grid_tab(t_main *s)
 {
-	// if (!(s->grid = (t_point**)malloc(sizeof(t_point) * (WIDTH))))
-	// 	return (NULL);
+	initialize_grid(s);
+	fill_grid(s);
+	// print_grid(s);
+	// get_vertex_data(s);
 }
 
 void	editor_handler(t_main *s)
