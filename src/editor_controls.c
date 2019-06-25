@@ -57,6 +57,9 @@ void	create_anchor(t_main *s, t_pos ori)
 {
 	t_vertex	*temp;
 
+	if (ori.x < GRID_SIDE_MARGIN || ori.x > WIDTH - GRID_SIDE_MARGIN
+		|| ori.y < GRID_TOP_MARGIN || ori.y > HEIGHT - GRID_SIDE_MARGIN)
+		return;
 	draw_anchor(s, ori);
 	temp = s->vertex;
 	while (temp)
@@ -79,11 +82,17 @@ void	display_map(t_main *s)
 		while (temp)
 	{
 		printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
-		pos.x = temp->x * 20 + 10;
-		pos.y = temp->y * 20 + 110;
+		pos.x = temp->x * G_SPACE + GRID_SIDE_MARGIN;
+		pos.y = temp->y * G_SPACE + GRID_TOP_MARGIN;
 		draw_anchor(s, pos);
 		temp = temp->next;
 	}
+}
+
+void	get_grid_tab(t_main *s)
+{
+	// if (!(s->grid = (t_point**)malloc(sizeof(t_point) * (WIDTH))))
+	// 	return (NULL);
 }
 
 void	editor_handler(t_main *s)
@@ -134,8 +143,6 @@ void	editor_handler(t_main *s)
 					}
 				}
 			}
-
-
 			if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls(s, s->sdl->event.key.keysym.sym) == 0)
 				editor = 0;

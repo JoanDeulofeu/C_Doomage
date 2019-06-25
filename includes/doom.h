@@ -11,6 +11,9 @@
 # include <time.h>
 # define WIDTH 1000 //multiple de 20
 # define HEIGHT 800 //multiple de 20
+# define GRID_SIDE_MARGIN 10
+# define GRID_TOP_MARGIN 110
+# define G_SPACE 20
 
 # define FILE_ERROR 1
 # define SIZE_ERROR 2
@@ -33,6 +36,7 @@
 
 # define WHITE 0xFFFFFFFF
 # define GREEN 0x32CD32FF
+# define BLUE 0x0000FFFF
 
 
 typedef struct		s_texture {
@@ -61,6 +65,13 @@ typedef struct		s_mouse {
 	double			x;
 	double			y;
 }					t_mouse;
+
+typedef struct		s_point {
+	short			x;
+	short			y;
+	char			anchor;
+	char			clicked;
+}					t_point;
 
 typedef struct		s_pos {
 	short			x;
@@ -112,6 +123,8 @@ typedef struct		s_main {
 	t_line			line;
 	t_vertex		*vertex;
 	t_sector		*sector;
+	t_point			**grid;
+
 
 	// t_case			**map;
 }					t_main;

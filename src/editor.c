@@ -4,12 +4,10 @@ void	ft_gridx(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
 {
 	int			x;
 	int			y;
-	int			espy;
 	Uint32		color = 0x4c4c4c7F;
 
 	x = orig->x;
 	y = orig->y;
-	espy = 20;
 	while (y <= dest->y)
 	{
 		while (x <= dest->x)
@@ -20,7 +18,7 @@ void	ft_gridx(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
 			x++;
 		}
 		x = orig->x;
-		y += espy;
+		y += G_SPACE;
 	}
 }
 
@@ -28,12 +26,10 @@ void	ft_gridy(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
 {
 	int			x;
 	int			y;
-	int			espx;
 	Uint32		color = 0x4c4c4c7F;
 
 	x = orig->x;
 	y = orig->y;
-	espx = 20;
 	while (x <= dest->x)
 	{
 		while (y <= dest->y)
@@ -44,7 +40,7 @@ void	ft_gridy(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
 			y++;
 		}
 		y = orig->y;
-		x += espx;
+		x += G_SPACE;
 	}
 }
 
@@ -57,10 +53,10 @@ void	ft_draw_grid(t_texture *tex)
 
 	// espx = (WIDTH - 20) / nbcase;
 	// espy = (HEIGHT - 20) / nbcase;
-	orig.x = 10;
-	orig.y = 110;
-	dest.x = WIDTH - 10;
-	dest.y = HEIGHT - 10;
+	orig.x = GRID_SIDE_MARGIN;
+	orig.y = GRID_TOP_MARGIN;
+	dest.x = WIDTH - GRID_SIDE_MARGIN;
+	dest.y = HEIGHT - GRID_SIDE_MARGIN;
 
 	ft_gridx(tex, &orig, &dest, &coord);
 	ft_gridy(tex, &orig, &dest, &coord);

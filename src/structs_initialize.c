@@ -10,8 +10,6 @@ void	pre_initialize_sdl(t_main *s)
 	s->sdl->game = NULL;
 	s->sdl->musique = NULL;
 	s->sdl->editor = NULL;
-	s->vertex = NULL;
-	s->sector = NULL;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
@@ -65,6 +63,9 @@ t_main		*initialize_main(void)
 
 	if (!(s = (t_main *)malloc(sizeof(t_main))))
 		exit(-1);
+	s->vertex = NULL;
+	s->sector = NULL;
+	s->grid = NULL;
 	// s->mouse.x = 0;
 	// s->mouse.y = 0;
 	pre_initialize_sdl(s);
