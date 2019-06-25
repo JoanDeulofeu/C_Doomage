@@ -60,17 +60,19 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 	return (tmp);
 }
 
-int			ft_add_intarray(t_main *s, t_int *array, int value)
+int			ft_add_intarray(t_main *s, t_sector *sector, int value, int what)
 {
-	printf("TEST\n");
 	t_int	*tmp;
 
-	tmp = array;
-	if (array == NULL)
+	tmp = (what == 1 ? sector->vertex : sector->wall);
+	if ((what == 1 ? sector->vertex : sector->wall) == NULL)
 	{
-		if (!(array = (t_int*)malloc(sizeof(t_int))))
+		if (!(tmp = (t_int*)malloc(sizeof(t_int))))
 			handle_error(s, MALLOC_ERROR);
-		tmp = array;
+		if (what == 1)
+			sector->vertex = tmp;
+		else
+			sector->wall = tmp;
 		tmp->id = 1;
 		tmp->prev = NULL;
 	}
@@ -117,17 +119,54 @@ void	ft_test_chainlist(t_main *s)
 			if (s_tmp->vertex != NULL)
 			{
 				i_tmp = s_tmp->vertex;
-				printf("--vertex[%d] =", i_tmp->id);
 				while (i_tmp->next != NULL)
 				{
-					printf(" %d", i_tmp->value);
+					printf("--vertex[%d] =", i_tmp->id);
+					printf(" %d\n", i_tmp->value);
 					i_tmp = i_tmp->next;
 				}
+				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
+			}
+			if (s_tmp->wall != NULL)
+			{
+				i_tmp = s_tmp->wall;
+				while (i_tmp->next != NULL)
+				{
+					printf("--wall[%d] =", i_tmp->id);
+					printf(" %d\n", i_tmp->value);
+					i_tmp = i_tmp->next;
+				}
+				printf("--wall[%d] =", i_tmp->id);
+				printf(" %d\n\n", i_tmp->value);
 			}
 			s_tmp = s_tmp->next;
 		}
 		printf("Sector[%d] =  sol %d  |  plafond %d\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
+		if (s_tmp->vertex != NULL)
+		{
+			i_tmp = s_tmp->vertex;
+			while (i_tmp->next != NULL)
+			{
+				printf("--vertex[%d] =", i_tmp->id);
+				printf(" %d\n", i_tmp->value);
+				i_tmp = i_tmp->next;
+			}
+			printf("--vertex[%d] =", i_tmp->id);
+			printf(" %d\n", i_tmp->value);
+		}
+		if (s_tmp->wall != NULL)
+		{
+			i_tmp = s_tmp->wall;
+			while (i_tmp->next != NULL)
+			{
+				printf("--wall[%d] =", i_tmp->id);
+				printf(" %d\n", i_tmp->value);
+				i_tmp = i_tmp->next;
+			}
+			printf("--wall[%d] =", i_tmp->id);
+			printf(" %d\n\n", i_tmp->value);
+		}
 	}
 }
 

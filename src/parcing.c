@@ -19,16 +19,15 @@ int			ft_parse_sector(t_main *s, char *line, int size_line)
 	i += 2;
 	while (line[i] != '|') //fill des vecteurs dans le secteur
 	{
-		printf("line[%d] = %c\n", i, line[i]);
 		value = ft_atoi(&line[i]);
-		ft_add_intarray(s, tmp->vertex, value);
+		ft_add_intarray(s, tmp, value, 1);
 		i += ft_longlen(value) + 1;
 	}
 	i += 2;
 	while (i < size_line) //fill des wall et portal dans le secteur
 	{
 		value = ft_atoi(&line[i]);
-		ft_add_intarray(s, tmp->wall, value);
+		ft_add_intarray(s, tmp, value, 2);
 		i += ft_longlen(value) + 1;
 	}
 	return (0);
@@ -44,9 +43,10 @@ int		ft_parsing(t_main *s)
 	int		i;
 
 	fd = open("map.map", O_RDWR);
-	while ((SDL_PollEvent(&(s->sdl->event))) && get_next_line(fd, &line))
+	while (get_next_line(fd, &line) > 0)
 	{
 		size_line = ft_strlen(line);
+		// printf("test = %c\n", line[0]);
 		if (line[0] == 'v')
 		{
 			y = ft_atoi(&line[7]);
