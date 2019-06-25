@@ -39,7 +39,7 @@ void	handle_editor_keys(t_main *s)
 	// }
 }
 
-void	draw_anchor(t_main *s, t_pos ori)
+void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 {
 	t_dpos		init;
 	t_dpos		dest;
@@ -50,7 +50,7 @@ void	draw_anchor(t_main *s, t_pos ori)
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
-	draw_rect(s->sdl->editor, init, dest, GREEN);
+	draw_rect(s->sdl->editor, init, dest, color);
 }
 
 void	create_anchor(t_main *s, t_pos ori)
@@ -60,12 +60,15 @@ void	create_anchor(t_main *s, t_pos ori)
 	if (ori.x < GRID_SIDE_MARGIN || ori.x > WIDTH - GRID_SIDE_MARGIN
 		|| ori.y < GRID_TOP_MARGIN || ori.y > HEIGHT - GRID_SIDE_MARGIN)
 		return;
-	draw_anchor(s, ori);
+	draw_anchor(s, ori, GREEN);
 	temp = s->vertex;
 	while (temp)
 	{
 		if (temp->x == ori.x && temp->y == ori.y)
+		{
+			draw_anchor(s, ori, BLUE);
 			return;
+		}
 		temp = temp->next;
 
 	}
@@ -84,7 +87,7 @@ void	display_map(t_main *s)
 		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
 		pos.x = temp->x * G_SPACE + GRID_SIDE_MARGIN;
 		pos.y = temp->y * G_SPACE + GRID_TOP_MARGIN;
-		draw_anchor(s, pos);
+		draw_anchor(s, pos, GREEN);
 		temp = temp->next;
 	}
 }
@@ -205,16 +208,16 @@ void	editor_handler(t_main *s)
 				{
 					if (click == 0)
 					{
-						ori.x = 20 * round(s->sdl->event.button.x / 20) + 10;
-						ori.y = 20 * round(s->sdl->event.button.y / 20) + 10;
+						ori.x = G_SPACE * round(s->sdl->event.button.x / G_SPACE) + GRID_SIDE_MARGIN;
+						ori.y = G_SPACE * round(s->sdl->event.button.y / G_SPACE) + GRID_SIDE_MARGIN;
 						//ajouer verif ancre
 						create_anchor(s, ori);
 						click = 1;
 					}
 					else
 					{
-						dest.x = 20 * round(s->sdl->event.button.x / 20) + 10;
-						dest.y = 20 * round(s->sdl->event.button.y / 20) + 10;
+						dest.x = G_SPACE * round(s->sdl->event.button.x / G_SPACE) + GRID_SIDE_MARGIN;
+						dest.y = G_SPACE * round(s->sdl->event.button.y / G_SPACE) + GRID_SIDE_MARGIN;
 						// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
 						// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
 						//ajouer verif ancre
