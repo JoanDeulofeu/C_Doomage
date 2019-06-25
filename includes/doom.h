@@ -173,7 +173,7 @@ int					ft_parsing(t_main *s);
 
 int					ft_add_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
-int					ft_add_intarray(t_main *s, t_int *array, int value);
+int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
 void				ft_test_chainlist(t_main *s);
 
 #endif

@@ -81,7 +81,7 @@ void	display_map(t_main *s)
 	temp = s->vertex;
 		while (temp)
 	{
-		printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
+		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
 		pos.x = temp->x * G_SPACE + GRID_SIDE_MARGIN;
 		pos.y = temp->y * G_SPACE + GRID_TOP_MARGIN;
 		draw_anchor(s, pos);
@@ -89,17 +89,16 @@ void	display_map(t_main *s)
 	}
 }
 
-void	get_grid_tab(t_main *s)
-{
-	// if (!(s->grid = (t_point**)malloc(sizeof(t_point) * (WIDTH))))
-	// 	return (NULL);
-}
+// void	get_grid_tab(t_main *s)
+// {
+// 	// if (!(s->grid = (t_point**)malloc(sizeof(t_point) * (WIDTH))))
+// 	// 	return (NULL);
+// }
 
 void	editor_handler(t_main *s)
 {
 	int			editor;
 	int			click;
-	int rest;
 	t_pos		ori;
 	t_pos		dest;
 
