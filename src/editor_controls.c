@@ -39,20 +39,26 @@ void	handle_editor_keys(t_main *s)
 	// }
 }
 
-void	create_anchor(t_main *s, t_pos ori)
+void	draw_anchor(t_main *s, t_pos ori)
 {
-	//on dessine la carre la ou on a cliqué
 	t_dpos		init;
 	t_dpos		dest;
 	short		size;
-	t_vertex	*temp;
 
 	size = 5;
-	temp = s->vertex;
 	init.x = ori.x - size;
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
+	draw_rect(s->sdl->editor, init, dest, GREEN);
+}
+
+void	create_anchor(t_main *s, t_pos ori)
+{
+	t_vertex	*temp;
+
+	draw_anchor(s, ori);
+	temp = s->vertex;
 	while (temp)
 	{
 		if (temp->x == ori.x && temp->y == ori.y)
@@ -60,15 +66,24 @@ void	create_anchor(t_main *s, t_pos ori)
 		temp = temp->next;
 
 	}
-	draw_rect(s->sdl->editor, init, dest, GREEN);
 	ft_add_vertex(s, ori.x, ori.y);
-	// temp = s->vertex;
-	// while (temp)
-	// {
-	// 	printf("vertex.x = %d\n", temp->x);
-	// 	temp = temp->next;
-	//
-	// }
+}
+
+void	display_map(t_main *s)
+{
+	t_vertex	*temp;
+	t_pos		pos;
+
+	ft_draw_grid(s->sdl->editor);
+	temp = s->vertex;
+		while (temp)
+	{
+		printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
+		pos.x = temp->x * 20 + 10;
+		pos.y = temp->y * 20 + 110;
+		draw_anchor(s, pos);
+		temp = temp->next;
+	}
 }
 
 void	editor_handler(t_main *s)

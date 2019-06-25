@@ -127,12 +127,16 @@ void				display_error(int error_nb);
 void				handle_error(t_main *s, int error_nb);
 void				ft_error_sdl(char *str);
 
+//EDITOR
+
+void				display_map(t_main *s);
+void				ft_draw_grid(t_texture *tex);
+
 //IMAGES
 void				update_image(t_main *s, t_texture *texture);
 void				draw_rect(t_texture *text, t_dpos orig, t_dpos dest, Uint32 color);
 void				set_pixel(t_texture *text, Uint32 color, t_pos coord);
 void				draw_player(t_main *s, t_dpos p_pos);
-void				ft_draw_grid(t_texture *tex);
 void				draw_wall(t_main *s, t_pos ori);
 
 //LINES
