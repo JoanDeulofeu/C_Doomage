@@ -24,7 +24,7 @@ void	handle_editor_keys(t_main *s)
 	// }
 }
 
-void	draw_anchor(t_main *s, t_pos ori)
+void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 {
 	t_dpos		init;
 	t_dpos		dest;
@@ -35,7 +35,7 @@ void	draw_anchor(t_main *s, t_pos ori)
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
-	draw_rect(s->sdl->editor, init, dest, GREEN);
+	draw_rect(s->sdl->editor, init, dest, color);
 }
 
 void	create_anchor(t_main *s, t_pos ori)
@@ -45,12 +45,15 @@ void	create_anchor(t_main *s, t_pos ori)
 	if (ori.x < GRID_SIDE_MARGIN || ori.x > WIDTH - GRID_SIDE_MARGIN
 		|| ori.y < GRID_TOP_MARGIN || ori.y > HEIGHT - GRID_SIDE_MARGIN)
 		return;
-	draw_anchor(s, ori);
+	draw_anchor(s, ori, GREEN);
 	temp = s->vertex;
 	while (temp)
 	{
 		if (temp->x == ori.x && temp->y == ori.y)
+		{
+			draw_anchor(s, ori, BLUE);
 			return;
+		}
 		temp = temp->next;
 
 	}
@@ -69,16 +72,98 @@ void	display_map(t_main *s)
 		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
 		pos.x = temp->x * G_SPACE + GRID_SIDE_MARGIN;
 		pos.y = temp->y * G_SPACE + GRID_TOP_MARGIN;
-		draw_anchor(s, pos);
+		draw_anchor(s, pos, GREEN);
 		temp = temp->next;
 	}
 }
 
-// void	get_grid_tab(t_main *s)
+void	print_grid(t_main *s)
+{
+	int i;
+	int j;
+	int grid_width;
+	int	grid_height;
+
+	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / G_SPACE;
+	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / G_SPACE;
+	i = 0;
+	j = 0;
+	while (i < grid_width)
+	{
+		while (j < grid_height)
+		{
+			printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+			j++;
+		}
+		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+		i++;
+		printf("\n", j);
+		j = 0;
+	}
+}
+
+void	fill_grid(t_main *s)
+{
+	int i;
+	int j;
+	int grid_width;
+	int	grid_height;
+
+	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / G_SPACE;
+	// printf("grid width = %d\n", grid_width);
+	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / G_SPACE;
+	i = 0;
+	j = 0;
+	while (i <= grid_width)
+	{
+		while (j <= grid_height)
+		{
+			s->grid[i][j].x = i * G_SPACE + GRID_SIDE_MARGIN;
+			s->grid[i][j].y = j * G_SPACE + GRID_TOP_MARGIN;
+			s->grid[i][j].anchor = 0;
+			s->grid[i][j].clicked = 0;
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+}
+
+void	initialize_grid(t_main *s)
+{
+	int grid_width;
+	int	grid_height;
+	int i;
+
+	i = 0;
+	grid_width = WIDTH - (GRID_SIDE_MARGIN * 2) / G_SPACE;
+	grid_height = HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN) / G_SPACE;
+	if (!(s->grid = (t_point**)malloc(sizeof(t_point*)
+		* grid_width)))
+		handle_error(s, MALLOC_ERROR);
+	while (i < grid_width)
+		s->grid[i++] = NULL;
+	i = 0;
+	while (i < grid_width)
+	{
+		if (!(s->grid[i] = (t_point*)malloc(sizeof(t_point) * grid_height)))
+			handle_error(s, MALLOC_ERROR);
+		i++;
+	}
+}
+
+// void	get_vertex_data(t_main *s)
 // {
-// 	// if (!(s->grid = (t_point**)malloc(sizeof(t_point) * (WIDTH))))
-// 	// 	return (NULL);
+//
 // }
+
+void	get_grid_tab(t_main *s)
+{
+	initialize_grid(s);
+	fill_grid(s);
+	// print_grid(s);
+	// get_vertex_data(s);
+}
 
 void	editor_handler(t_main *s)
 {
@@ -108,16 +193,16 @@ void	editor_handler(t_main *s)
 				{
 					if (click == 0)
 					{
-						ori.x = 20 * round(s->sdl->event.button.x / 20) + 10;
-						ori.y = 20 * round(s->sdl->event.button.y / 20) + 10;
+						ori.x = G_SPACE * round(s->sdl->event.button.x / G_SPACE) + GRID_SIDE_MARGIN;
+						ori.y = G_SPACE * round(s->sdl->event.button.y / G_SPACE) + GRID_SIDE_MARGIN;
 						//ajouer verif ancre
 						create_anchor(s, ori);
 						click = 1;
 					}
 					else
 					{
-						dest.x = 20 * round(s->sdl->event.button.x / 20) + 10;
-						dest.y = 20 * round(s->sdl->event.button.y / 20) + 10;
+						dest.x = G_SPACE * round(s->sdl->event.button.x / G_SPACE) + GRID_SIDE_MARGIN;
+						dest.y = G_SPACE * round(s->sdl->event.button.y / G_SPACE) + GRID_SIDE_MARGIN;
 						// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
 						// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
 						//ajouer verif ancre

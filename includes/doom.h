@@ -149,6 +149,7 @@ void				ft_error_sdl(char *str);
 //EDITOR
 
 void				display_map(t_main *s);
+void				get_grid_tab(t_main *s);
 void				ft_draw_editor(t_editor *edi, t_texture *tex);
 
 //IMAGES
