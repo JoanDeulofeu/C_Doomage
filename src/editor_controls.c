@@ -1,20 +1,5 @@
 #include "doom.h"
 
-// int		keyboard_controls(t_main *s, int key)
-// {
-// 	if (key == SDLK_ESCAPE)
-// 		return (0);
-// 	// else if (key == SDLK_e)
-// 	// 	open_door(s);
-// 	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
-// 	// 	<= s->width)
-// 	// {
-// 	// 	s->active_map = !s->active_map;
-// 	// 	draw_interface(s);
-// 	// }
-// 	return (1);
-// }
-
 void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
@@ -34,7 +19,7 @@ void	handle_editor_keys(t_main *s)
 	// 	raycast_visualization(s);
 		// draw_player(s, s->p_pos);
 		// update_image(s, s->sdl->game);
-		// ft_draw_grid(s->sdl->editor);
+		// ft_draw_editor(s->sdl->editor);
 		update_image(s, s->sdl->editor);
 	// }
 }
@@ -77,7 +62,7 @@ void	display_map(t_main *s)
 	t_vertex	*temp;
 	t_pos		pos;
 
-	ft_draw_grid(s->sdl->editor);
+	ft_draw_editor(s->editor, s->sdl->editor);
 	temp = s->vertex;
 		while (temp)
 	{
@@ -147,5 +132,6 @@ void	editor_handler(t_main *s)
 				editor = 0;
 		}
 		handle_editor_keys(s);
+		ft_test_chainlist(s);
 	}
 }

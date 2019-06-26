@@ -64,6 +64,5 @@ int		ft_parsing(t_main *s)
 			ft_parse_sector(s, line, size_line);
 		}
 	}
-	ft_test_chainlist(s);
 	return (0);
 }

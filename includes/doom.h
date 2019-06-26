@@ -11,8 +11,6 @@
 # include <time.h>
 # define WIDTH 1000 //multiple de 20
 # define HEIGHT 800 //multiple de 20
-# define GRID_SIDE_MARGIN 10
-# define GRID_TOP_MARGIN 110
 # define G_SPACE 20
 
 # define FILE_ERROR 1
@@ -116,8 +114,16 @@ typedef struct		s_sdl {
 	Mix_Music		*musique;
 }					t_sdl;
 
+typedef struct		s_editor {
+	int				space;
+	int				decal_x;
+	int				decal_y;
+	t_pos			ref;
+}					t_editor;
+
 typedef struct		s_main {
 	t_sdl			*sdl;
+	t_editor		*editor;
 	t_dpos			p_pos;
 	t_mouse			ft_mouse;
 	t_line			line;
@@ -143,7 +149,7 @@ void				ft_error_sdl(char *str);
 //EDITOR
 
 void				display_map(t_main *s);
-void				ft_draw_grid(t_texture *tex);
+void				ft_draw_editor(t_editor *edi, t_texture *tex);
 
 //IMAGES
 void				update_image(t_main *s, t_texture *texture);

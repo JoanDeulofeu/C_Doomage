@@ -1,66 +1,28 @@
 #include "doom.h"
 
-void	ft_gridx(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
+void	ft_draw_editor(t_editor *edi, t_texture *tex)
 {
-	int			x;
-	int			y;
-	Uint32		color = 0x4c4c4c7F;
+	int		modu;
+	t_pos	coord;
+	Uint32	color = 0x4c4c4c7F;
 
-	x = orig->x;
-	y = orig->y;
-	while (y <= dest->y)
+	coord.x = edi->decal_x % edi->space;
+	coord.y = edi->decal_y % edi->space;
+	// edi->ref.x = 11 = (decal_x + (space - coord.x)) / space;
+	if (coord.x != 0)
+		edi->ref.x = (edi->decal_x > 0) ? (edi->decal_x / edi->space) + 1 : (edi->decal_x / edi->space) - 1;
+	if (coord.y != 0)
+		edi->ref.y = (edi->decal_y > 0) ? (edi->decal_y / edi->space) + 1 : (edi->decal_y / edi->space) - 1;
+	while (coord.y < HEIGHT)
 	{
-		while (x <= dest->x)
+		while (coord.x < WIDTH)
 		{
-			coord->x = x;
-			coord->y = y;
 			set_pixel(tex, color, *coord);
-			x++;
+			coord.x += edi->space;
 		}
-		x = orig->x;
-		y += G_SPACE;
+		coord.x = edi->decal_x % edi->space;
+		coord.y += edi->space;
 	}
-}
-
-void	ft_gridy(t_texture *tex, t_dpos *orig, t_dpos *dest, t_pos *coord)
-{
-	int			x;
-	int			y;
-	Uint32		color = 0x4c4c4c7F;
-
-	x = orig->x;
-	y = orig->y;
-	while (x <= dest->x)
-	{
-		while (y <= dest->y)
-		{
-			coord->x = x;
-			coord->y = y;
-			set_pixel(tex, color, *coord);
-			y++;
-		}
-		y = orig->y;
-		x += G_SPACE;
-	}
-}
-
-void	ft_draw_grid(t_texture *tex)
-{
-	t_dpos		orig;
-	t_dpos		dest;
-	// int			nbcase = 32;
-	t_pos		coord;
-
-	// espx = (WIDTH - 20) / nbcase;
-	// espy = (HEIGHT - 20) / nbcase;
-	orig.x = GRID_SIDE_MARGIN;
-	orig.y = GRID_TOP_MARGIN;
-	dest.x = WIDTH - GRID_SIDE_MARGIN;
-	dest.y = HEIGHT - GRID_SIDE_MARGIN;
-
-	ft_gridx(tex, &orig, &dest, &coord);
-	ft_gridy(tex, &orig, &dest, &coord);
-
 }
 
 void	draw_wall(t_main *s, t_pos ori)

@@ -59,10 +59,17 @@ t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
 
 t_main		*initialize_main(void)
 {
-	t_main	*s;
+	t_main		*s;
 
-	if (!(s = (t_main *)malloc(sizeof(t_main))))
+	if (!(s = (t_main*)malloc(sizeof(t_main))))
 		exit(-1);
+	if (!(s->editor = (t_editor*)malloc(sizeof(t_editor))))
+		exit(-1);
+	s->editor->space = G_SPACE;
+	s->editor->decal_x = 0;
+	s->editor->decal_y = 0;
+	s->editor->ref.x = 0;
+	s->editor->ref.y = 0;
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
