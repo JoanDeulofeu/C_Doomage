@@ -96,8 +96,15 @@ void	display_map(t_main *s)
 	while (temp)
 	{
 		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
-		pos.x = (temp->x - s->editor->ref.x) * s->editor->space - (s->editor->decal_x % s->editor->space);
-		pos.y = (temp->y - s->editor->ref.y) * s->editor->space - (s->editor->decal_y % s->editor->space);
+		if (s->editor->decal_x % s->editor->space < s->editor->space / 2)
+			pos.x = (temp->x - s->editor->ref.x) * s->editor->space + (s->editor->decal_x % s->editor->space);
+		else
+			pos.x = (temp->x - s->editor->ref.x) * s->editor->space - (s->editor->decal_x % s->editor->space);
+		if (s->editor->decal_y % s->editor->space < s->editor->space / 2)
+			pos.y = (temp->y - s->editor->ref.y) * s->editor->space + (s->editor->decal_y % s->editor->space);
+		else
+			pos.y = (temp->y - s->editor->ref.y) * s->editor->space - (s->editor->decal_y % s->editor->space);
+
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			draw_anchor(s, pos, GREEN);
 		temp = temp->next;
