@@ -2,9 +2,8 @@
 
 void	ft_draw_editor(t_editor *edi, t_texture *tex)
 {
-	int		modu;
 	t_pos	coord;
-	Uint32	color = 0x4c4c4c7F;
+	Uint32	color = 0xaca7a7FF; // #aca7a7
 
 	coord.x = edi->decal_x % edi->space;
 	coord.y = edi->decal_y % edi->space;
@@ -17,7 +16,7 @@ void	ft_draw_editor(t_editor *edi, t_texture *tex)
 	{
 		while (coord.x < WIDTH)
 		{
-			set_pixel(tex, color, *coord);
+			set_pixel(tex, color, coord);
 			coord.x += edi->space;
 		}
 		coord.x = edi->decal_x % edi->space;

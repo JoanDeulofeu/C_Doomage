@@ -1,5 +1,23 @@
 #include "doom.h"
 
+int		keyboard_controls_edi(t_main *s, int key)
+{
+	(void)s;
+	if (key == SDLK_ESCAPE)
+		return (0);
+	if (key == SDLK_RIGHT)
+		s->editor->decal_x += 5;
+	// else if (key == SDLK_e)
+	// 	open_door(s);
+	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
+	// 	<= s->width)
+	// {
+	// 	s->active_map = !s->active_map;
+	// 	draw_interface(s);
+	// }
+	return (1);
+}
+
 void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
@@ -97,7 +115,7 @@ void	print_grid(t_main *s)
 		}
 		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
 		i++;
-		printf("\n", j);
+		// printf("\n", j);
 		j = 0;
 	}
 }
@@ -213,10 +231,11 @@ void	editor_handler(t_main *s)
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
-				&& keyboard_controls(s, s->sdl->event.key.keysym.sym) == 0)
+				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 0)
 				editor = 0;
 		}
 		handle_editor_keys(s);
-		ft_test_chainlist(s);
+		printf("decalx = %d\n", s->editor->decal_x );
+		// ft_test_chainlist(s);
 	}
 }

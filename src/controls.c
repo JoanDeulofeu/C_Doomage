@@ -35,7 +35,7 @@ void	handle_keys(t_main *s)
 	// 	raycast_visualization(s);
 		// draw_player(s, s->p_pos);
 		// update_image(s, s->sdl->game);
-		ft_draw_grid(s->sdl->editor);
+		ft_draw_editor(s->editor, s->sdl->editor);
 		update_image(s, s->sdl->editor);
 	// }
 }

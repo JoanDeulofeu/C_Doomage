@@ -12,6 +12,8 @@
 # define WIDTH 1000 //multiple de 20
 # define HEIGHT 800 //multiple de 20
 # define G_SPACE 20
+# define GRID_SIDE_MARGIN 20
+# define GRID_TOP_MARGIN 20
 
 # define FILE_ERROR 1
 # define SIZE_ERROR 2
