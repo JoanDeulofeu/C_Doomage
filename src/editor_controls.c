@@ -7,6 +7,12 @@ int		keyboard_controls_edi(t_main *s, int key)
 		return (0);
 	if (key == SDLK_RIGHT)
 		s->editor->decal_x += 5;
+	if (key == SDLK_LEFT)
+		s->editor->decal_x -= 5;
+	if (key == SDLK_UP)
+		s->editor->decal_y -= 5;
+	if (key == SDLK_DOWN)
+		s->editor->decal_y += 5;
 	// else if (key == SDLK_e)
 	// 	open_door(s);
 	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
@@ -37,7 +43,8 @@ void	handle_editor_keys(t_main *s)
 	// 	raycast_visualization(s);
 		// draw_player(s, s->p_pos);
 		// update_image(s, s->sdl->game);
-		// ft_draw_editor(s->sdl->editor);
+		ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
+		ft_draw_editor(s->editor, s->sdl->editor);
 		update_image(s, s->sdl->editor);
 	// }
 }
