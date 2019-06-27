@@ -91,22 +91,25 @@ void	display_map(t_main *s)
 	t_vertex	*temp;
 	t_editor	*edi;
 	t_pos		pos;
+	int			correc = 0;
+	int			etat = 0;
 
 	ft_draw_editor(s->editor, s->sdl->editor);
 	edi = s->editor;
 	temp = s->vertex;
 	while (temp)
 	{
-		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
-		if (edi->decal_x % edi->space < edi->space / 2)
-			pos.x = (temp->x - edi->ref.x) * edi->space + (edi->decal_x % edi->space);
+		if (edi->decal_x <= 0)
+			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 		else
-			pos.x = (temp->x - edi->ref.x) * edi->space - (edi->decal_x % edi->space);
-		if (edi->decal_y % edi->space < edi->space / 2)
-			pos.y = (temp->y - edi->ref.y) * edi->space + (edi->decal_y % edi->space);
-		else
-			pos.y = (temp->y - edi->ref.y) * edi->space - (edi->decal_y % edi->space);
-		printf("vertex.x = %d, vertex.y = %d | ref.x = %d, ref.y = %d | pos.x = %d, pos.y = %d | decalX = %d\n", temp->x, temp->y, edi->ref.x, edi->ref.y, pos.x, pos.y, edi->decal_x);
+			correc = 0;
+			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);etat = 1;
+		// correc = edi->decal_y % edi->space != 0 ? 1 : 0;
+		pos.y = (temp->y - edi->ref.y) * edi->space + (edi->decal_y % edi->space);
+		
+		// printf("Etat[%d]   (%d) * %d + (%d)\n", etat, temp->x - edi->ref.x + correc, edi->space, edi->decal_x % edi->space);
+		// printf("vertex.x = %d, vertex.y = %d | ref.x = %d, ref.y = %d | pos.x = %d, pos.y = %d | decalX = %d | correc %d\n", temp->x, temp->y, edi->ref.x, edi->ref.y, pos.x, pos.y, edi->decal_x, correc);
+
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			draw_anchor(s, pos, GREEN);
 		temp = temp->next;
@@ -255,6 +258,6 @@ void	editor_handler(t_main *s)
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		ft_test_chainlist(s);
+		// ft_test_chainlist(s);
 	}
 }
