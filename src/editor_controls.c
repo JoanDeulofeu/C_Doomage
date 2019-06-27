@@ -224,6 +224,7 @@ void	display_map(t_main *s)
 
 void	editor_handler(t_main *s)
 {
+	int			zoom;
 	int			editor;
 	int			click;
 	t_pos		ori;
@@ -231,13 +232,18 @@ void	editor_handler(t_main *s)
 
 	editor = 1;
 	click = 0;
-
+	zoom = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
 	{
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
+			if (s->sdl->event.type == SDL_MOUSEMOTION)
+			{
+				s->ft_mouse.x = s->sdl->event.motion.x;
+				s->ft_mouse.y = s->sdl->event.motion.y;
+			}
 			// s->line.x2 = s->sdl->event.button.x;
 			// s->line.y2 = s->sdl->event.button.y;
 			// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
@@ -246,6 +252,7 @@ void	editor_handler(t_main *s)
 				editor = 0;
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
 			{
+				printf("buttonx = %d\n", s->sdl->event.wheel.x);
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
 					// if (click == 0)
@@ -279,9 +286,32 @@ void	editor_handler(t_main *s)
 					// }
 				}
 			}
+			if (s->sdl->event.type == SDL_MOUSEWHEEL)
+			{
+				printf("Mouse moved to (%f,%f)\n",s->ft_mouse.x, s->ft_mouse.y);
+				if (s->sdl->event.wheel.y > 0 && zoom < 15)
+				{
+					s->editor->space += 5;
+					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
+					s->editor->decal_y = HEIGHT/2 -s->ft_mouse.y;
+					//printf("decalx = %d", s->editor->decal_x);
+					//s->sdl->event.button.x;
+					zoom++;
+				}
+				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
+				{
+					s->editor->space -= 5;
+					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
+					s->editor->decal_y = HEIGHT/2 -s->ft_mouse.y;
+					zoom--;
+				}
+				//printf("buttonx = %d", s->sdl->event.button.x);
+				//printf("buttony = %d", s->sdl->event.button.y);
+			}
 			if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 0)
 				editor = 0;
+
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );

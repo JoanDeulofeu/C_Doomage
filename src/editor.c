@@ -38,10 +38,14 @@ void	ft_draw_editor(t_editor *edi, t_texture *tex)
 	// printf("\ncoord.x = %d\ndecal_x = %d\nref.x = %d\n",coord.x , edi->decal_x, edi->ref.x);
 	// printf("\ncoord.x = %d\ndecal_x = %d\nref.x = %d\n",coord.x , edi->decal_x, edi->ref.x);
 	// printf("coord.y = %d\ndecal_y = %d\nref.y = %d\n\n\n",coord.y , edi->decal_y, edi->ref.y);
+<<<<<<< HEAD
+	//printf("REF   X %d | Y %d\n",edi->ref.x, edi->ref.y);
+=======
 	// printf("REF   X %d | Y %d\n\n",edi->ref.x, edi->ref.y);
 
 	if (coord.y < 0)
 		coord.y += 20;
+>>>>>>> 0c913ef6fb8806825af5ff75fde4e2d4b30b442b
 	while (coord.y < HEIGHT)
 	{
 		if (coord.x < 0)
