@@ -92,7 +92,6 @@ void	display_map(t_main *s)
 	t_editor	*edi;
 	t_pos		pos;
 	int			correc = 0;
-	int			etat = 0;
 
 	ft_draw_editor(s->editor, s->sdl->editor);
 	edi = s->editor;
@@ -103,10 +102,14 @@ void	display_map(t_main *s)
 			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 		else
 			correc = 0;
-			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);etat = 1;
-		// correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-		pos.y = (temp->y - edi->ref.y) * edi->space + (edi->decal_y % edi->space);
-		
+		pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
+
+		if (edi->decal_y <= 0)
+			correc = edi->decal_y % edi->space != 0 ? 1 : 0;
+		else
+			correc = 0;
+		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
+
 		// printf("Etat[%d]   (%d) * %d + (%d)\n", etat, temp->x - edi->ref.x + correc, edi->space, edi->decal_x % edi->space);
 		// printf("vertex.x = %d, vertex.y = %d | ref.x = %d, ref.y = %d | pos.x = %d, pos.y = %d | decalX = %d | correc %d\n", temp->x, temp->y, edi->ref.x, edi->ref.y, pos.x, pos.y, edi->decal_x, correc);
 
