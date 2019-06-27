@@ -14,7 +14,7 @@ int		ft_find_ref(t_editor *edi, int decal)
 void	ft_draw_editor(t_editor *edi, t_texture *tex)
 {
 	t_pos	coord;
-	Uint32	color = 0xaca7a7FF; //JE SUIS TROP FORT 💪 💪 💪 💪 💪
+	Uint32	color = 0xaca7a7FF; 
 
 	// decal_x = decalage total en pixels entre le point 0,0 et le premier point dans l'ecran.
 	// coord.x  decalage en pixels entre le pixel 0 de l'ecran et le premier point de la grille affichée a l'ecran.

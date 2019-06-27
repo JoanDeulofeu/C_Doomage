@@ -61,6 +61,7 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
+	printf("%f\n", init.x);
 	draw_rect(s->sdl->editor, init, dest, color);
 }
 
@@ -83,6 +84,8 @@ void	create_anchor(t_main *s, t_pos ori)
 		temp = temp->next;
 
 	}
+	ori.x = ori.x / s->editor->space - s->editor->ref.x;
+	ori.y = ori.y / s->editor->space - s->editor->ref.y;
 	ft_add_vertex(s, ori.x, ori.y);
 }
 
@@ -106,7 +109,7 @@ void	display_map(t_main *s)
 			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);etat = 1;
 		// correc = edi->decal_y % edi->space != 0 ? 1 : 0;
 		pos.y = (temp->y - edi->ref.y) * edi->space + (edi->decal_y % edi->space);
-		
+
 		// printf("Etat[%d]   (%d) * %d + (%d)\n", etat, temp->x - edi->ref.x + correc, edi->space, edi->decal_x % edi->space);
 		// printf("vertex.x = %d, vertex.y = %d | ref.x = %d, ref.y = %d | pos.x = %d, pos.y = %d | decalX = %d | correc %d\n", temp->x, temp->y, edi->ref.x, edi->ref.y, pos.x, pos.y, edi->decal_x, correc);
 
@@ -230,26 +233,36 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (click == 0)
-					{
-						ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
-						ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space);
-						printf("ori.x = %d ori .y = %d | souris = %d\n", ori.x, ori.y, s->sdl->event.button.x);
+					// if (click == 0)
+					// {
+						// ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
+						if (s->editor->decal_x >= 0)
+						{
+							ori.x = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_x;
+						}
+						else
+							ori.x = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) - s->editor->decal_x;
+						if (s->editor->decal_y >= 0)
+							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_y;
+						else
+							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) - s->editor->decal_y;
+
+						// printf("ori.x = %d ori .y = %d | souris = %d\n", ori.x, ori.y, s->sdl->event.button.x);
 						//ajouer verif ancre
 						create_anchor(s, ori);
 						click = 1;
-					}
-					else
-					{
-						dest.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
-						dest.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space);
-						// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
-						// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
-						//ajouer verif ancre
-						create_anchor(s, dest);
-						// draw_wall(s, ori);
-						click = 0;
-					}
+					// }
+					// else
+					// {
+					// 	dest.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
+					// 	dest.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space);
+					// 	// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
+					// 	// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
+					// 	//ajouer verif ancre
+					// 	create_anchor(s, dest);
+					// 	// draw_wall(s, ori);
+					// 	click = 0;
+					// }
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
