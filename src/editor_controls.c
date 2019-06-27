@@ -84,8 +84,20 @@ void	create_anchor(t_main *s, t_pos ori)
 		temp = temp->next;
 
 	}
-	ori.x = ori.x / s->editor->space - s->editor->ref.x;
-	ori.y = ori.y / s->editor->space - s->editor->ref.y;
+	// printf("ori.x = %d, modulo = %d\n", ori.x, s->editor->decal_x % s->editor->space);
+	// ori.x = s->editor->ref.x + (ori.x - ((s->editor->decal_x % s->editor->space)) / s->editor->space);
+	ori.x = s->editor->ref.x + (ori.x/ s->editor->space);
+	ori.y = s->editor->ref.y + (ori.y / s->editor->space);
+	// ori.y = s->editor->ref.y + (ori.y - ((s->editor->decal_y % s->editor->space)) / s->editor->space);
+	// if (s->editor->decal_x <= 0)
+	// 	ori.x = (ori.x - s->editor->decal_x) / s->editor->space - s->editor->ref.x;
+	// else
+	// 	ori.x = (ori.x + s->editor->decal_x) / s->editor->space - s->editor->ref.x;
+	// if (s->editor->decal_y <= 0)
+	// 	ori.y = (ori.y - s->editor->decal_y) / s->editor->space - s->editor->ref.y;
+	// else
+	// 	ori.y = (ori.y + s->editor->decal_y) / s->editor->space - s->editor->ref.y;
+	// printf("decalx = %d | ori.x = %d | refx = %d\n", s->editor->decal_x, ori.x, s->editor->ref.x);
 	ft_add_vertex(s, ori.x, ori.y);
 }
 
@@ -238,15 +250,16 @@ void	editor_handler(t_main *s)
 				{
 					// if (click == 0)
 					// {
+					//orig.x = position de la souris arrondie pour etre sur un point
 						// ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
 						if (s->editor->decal_x >= 0)
-							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) + s->editor->decal_x;
+							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) - s->editor->decal_x % s->editor->space;
 						else
-							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) - s->editor->decal_x;
+							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) + s->editor->decal_x % s->editor->space;
 						if (s->editor->decal_y >= 0)
-							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_y;
+							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) - s->editor->decal_y % s->editor->space;
 						else
-							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) - s->editor->decal_y;
+							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_y % s->editor->space;
 
 						// printf("ori.x = %d ori .y = %d | souris = %d\n", ori.x, ori.y, s->sdl->event.button.x);
 						//ajouer verif ancre
