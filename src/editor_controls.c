@@ -30,7 +30,7 @@ void	handle_editor_keys(t_main *s)
 
 	keys = SDL_GetKeyboardState(NULL);
 	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
-	// 	move_player(s, keys, keys[SPRINT]);
+	// 	keyboard_controls_edi(s, keys);
 	// if (keys[LEFT_AR] || keys[RIGHT_AR] || keys[UP_AR] || keys[DOWN_AR])
 	// 	turn_camera(s, keys, 0);
 	// if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -61,6 +61,7 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
+	// printf("%f\n", init.x);
 	draw_rect(s->sdl->editor, init, dest, color);
 }
 
@@ -83,121 +84,131 @@ void	create_anchor(t_main *s, t_pos ori)
 		temp = temp->next;
 
 	}
+	ori.x = ori.x / s->editor->space - s->editor->ref.x;
+	ori.y = ori.y / s->editor->space - s->editor->ref.y;
 	ft_add_vertex(s, ori.x, ori.y);
 }
 
 void	display_map(t_main *s)
 {
 	t_vertex	*temp;
+	t_editor	*edi;
 	t_pos		pos;
+	int			correc = 0;
 
 	ft_draw_editor(s->editor, s->sdl->editor);
+	edi = s->editor;
 	temp = s->vertex;
 	while (temp)
 	{
-		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
-		if (s->editor->decal_x % s->editor->space < s->editor->space / 2)
-			pos.x = (temp->x - s->editor->ref.x) * s->editor->space + (s->editor->decal_x % s->editor->space);
+		if (edi->decal_x <= 0)
+			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 		else
-			pos.x = (temp->x - s->editor->ref.x) * s->editor->space - (s->editor->decal_x % s->editor->space);
-		if (s->editor->decal_y % s->editor->space < s->editor->space / 2)
-			pos.y = (temp->y - s->editor->ref.y) * s->editor->space + (s->editor->decal_y % s->editor->space);
+			correc = 0;
+		pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
+
+		if (edi->decal_y <= 0)
+			correc = edi->decal_y % edi->space != 0 ? 1 : 0;
 		else
-			pos.y = (temp->y - s->editor->ref.y) * s->editor->space - (s->editor->decal_y % s->editor->space);
+			correc = 0;
+		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
+
+		// printf("Etat[%d]   (%d) * %d + (%d)\n", etat, temp->x - edi->ref.x + correc, edi->space, edi->decal_x % edi->space);
+		// printf("vertex.x = %d, vertex.y = %d | ref.x = %d, ref.y = %d | pos.x = %d, pos.y = %d | decalX = %d | correc %d\n", temp->x, temp->y, edi->ref.x, edi->ref.y, pos.x, pos.y, edi->decal_x, correc);
 
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			draw_anchor(s, pos, GREEN);
 		temp = temp->next;
 	}
 }
+//
+// void	print_grid(t_main *s)
+// {
+// 	int i;
+// 	int j;
+// 	int grid_width;
+// 	int	grid_height;
+//
+// 	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
+// 	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < grid_width)
+// 	{
+// 		while (j < grid_height)
+// 		{
+// 			printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+// 			j++;
+// 		}
+// 		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+// 		i++;
+// 		// printf("\n", j);
+// 		j = 0;
+// 	}
+// }
+//
+// void	fill_grid(t_main *s)
+// {
+// 	int i;
+// 	int j;
+// 	int grid_width;
+// 	int	grid_height;
+//
+// 	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
+// 	// printf("grid width = %d\n", grid_width);
+// 	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
+// 	i = 0;
+// 	j = 0;
+// 	while (i <= grid_width)
+// 	{
+// 		while (j <= grid_height)
+// 		{
+// 			s->grid[i][j].x = i * s->editor->space + GRID_SIDE_MARGIN;
+// 			s->grid[i][j].y = j * s->editor->space + GRID_TOP_MARGIN;
+// 			s->grid[i][j].anchor = 0;
+// 			s->grid[i][j].clicked = 0;
+// 			j++;
+// 		}
+// 		i++;
+// 		j = 0;
+// 	}
+// }
 
-void	print_grid(t_main *s)
-{
-	int i;
-	int j;
-	int grid_width;
-	int	grid_height;
-
-	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
-	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
-	i = 0;
-	j = 0;
-	while (i < grid_width)
-	{
-		while (j < grid_height)
-		{
-			printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
-			j++;
-		}
-		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
-		i++;
-		// printf("\n", j);
-		j = 0;
-	}
-}
-
-void	fill_grid(t_main *s)
-{
-	int i;
-	int j;
-	int grid_width;
-	int	grid_height;
-
-	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
-	// printf("grid width = %d\n", grid_width);
-	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
-	i = 0;
-	j = 0;
-	while (i <= grid_width)
-	{
-		while (j <= grid_height)
-		{
-			s->grid[i][j].x = i * s->editor->space + GRID_SIDE_MARGIN;
-			s->grid[i][j].y = j * s->editor->space + GRID_TOP_MARGIN;
-			s->grid[i][j].anchor = 0;
-			s->grid[i][j].clicked = 0;
-			j++;
-		}
-		i++;
-		j = 0;
-	}
-}
-
-void	initialize_grid(t_main *s)
-{
-	int grid_width;
-	int	grid_height;
-	int i;
-
-	i = 0;
-	grid_width = WIDTH - (GRID_SIDE_MARGIN * 2) / s->editor->space;
-	grid_height = HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN) / s->editor->space;
-	if (!(s->grid = (t_point**)malloc(sizeof(t_point*)
-		* grid_width)))
-		handle_error(s, MALLOC_ERROR);
-	while (i < grid_width)
-		s->grid[i++] = NULL;
-	i = 0;
-	while (i < grid_width)
-	{
-		if (!(s->grid[i] = (t_point*)malloc(sizeof(t_point) * grid_height)))
-			handle_error(s, MALLOC_ERROR);
-		i++;
-	}
-}
+// void	initialize_grid(t_main *s)
+// {
+// 	int grid_width;
+// 	int	grid_height;
+// 	int i;
+//
+// 	i = 0;
+// 	grid_width = WIDTH - (GRID_SIDE_MARGIN * 2) / s->editor->space;
+// 	grid_height = HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN) / s->editor->space;
+// 	if (!(s->grid = (t_point**)malloc(sizeof(t_point*)
+// 		* grid_width)))
+// 		handle_error(s, MALLOC_ERROR);
+// 	while (i < grid_width)
+// 		s->grid[i++] = NULL;
+// 	i = 0;
+// 	while (i < grid_width)
+// 	{
+// 		if (!(s->grid[i] = (t_point*)malloc(sizeof(t_point) * grid_height)))
+// 			handle_error(s, MALLOC_ERROR);
+// 		i++;
+// 	}
+// }
 
 // void	get_vertex_data(t_main *s)
 // {
 //
 // }
 
-void	get_grid_tab(t_main *s)
-{
-	initialize_grid(s);
-	fill_grid(s);
-	// print_grid(s);
-	// get_vertex_data(s);
-}
+// void	get_grid_tab(t_main *s)
+// {
+// 	initialize_grid(s);
+// 	fill_grid(s);
+// 	// print_grid(s);
+// 	// get_vertex_data(s);
+// }
 
 void	editor_handler(t_main *s)
 {
@@ -232,26 +243,34 @@ void	editor_handler(t_main *s)
 				printf("buttonx = %d\n", s->sdl->event.wheel.x);
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (click == 0)
-					{
-						ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
-						ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space);
-						printf("ori.x = %d ori .y = %d | souris = %d\n", ori.x, ori.y, s->sdl->event.button.x);
+					// if (click == 0)
+					// {
+						// ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
+						if (s->editor->decal_x >= 0)
+							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) + s->editor->decal_x;
+						else
+							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) - s->editor->decal_x;
+						if (s->editor->decal_y >= 0)
+							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_y;
+						else
+							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) - s->editor->decal_y;
+
+						// printf("ori.x = %d ori .y = %d | souris = %d\n", ori.x, ori.y, s->sdl->event.button.x);
 						//ajouer verif ancre
 						create_anchor(s, ori);
 						click = 1;
-					}
-					else
-					{
-						dest.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
-						dest.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space);
-						// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
-						// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
-						//ajouer verif ancre
-						create_anchor(s, dest);
-						// draw_wall(s, ori);
-						click = 0;
-					}
+					// }
+					// else
+					// {
+					// 	dest.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
+					// 	dest.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space);
+					// 	// s->line.x2 = 20 * round(s->sdl->event.button.x / 20) + 10;
+					// 	// s->line.y2 = 20 * round(s->sdl->event.button.y / 20) + 10;
+					// 	//ajouer verif ancre
+					// 	create_anchor(s, dest);
+					// 	// draw_wall(s, ori);
+					// 	click = 0;
+					// }
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
