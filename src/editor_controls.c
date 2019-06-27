@@ -89,22 +89,23 @@ void	create_anchor(t_main *s, t_pos ori)
 void	display_map(t_main *s)
 {
 	t_vertex	*temp;
+	t_editor	*edi;
 	t_pos		pos;
 
 	ft_draw_editor(s->editor, s->sdl->editor);
+	edi = s->editor;
 	temp = s->vertex;
 	while (temp)
 	{
 		// printf("vertex.x = %d, vertex.y = %d\n", temp->x, temp->y);
-		if (s->editor->decal_x % s->editor->space < s->editor->space / 2)
-			pos.x = (temp->x - s->editor->ref.x) * s->editor->space + (s->editor->decal_x % s->editor->space);
+		if (edi->decal_x % edi->space < edi->space / 2)
+			pos.x = (temp->x - edi->ref.x) * edi->space + (edi->decal_x % edi->space);
 		else
-			pos.x = (temp->x - s->editor->ref.x) * s->editor->space - (s->editor->decal_x % s->editor->space);
-		if (s->editor->decal_y % s->editor->space < s->editor->space / 2)
-			pos.y = (temp->y - s->editor->ref.y) * s->editor->space + (s->editor->decal_y % s->editor->space);
+			pos.x = (temp->x - edi->ref.x) * edi->space - (edi->decal_x % edi->space);
+		if (edi->decal_y % edi->space < edi->space / 2)
+			pos.y = (temp->y - edi->ref.y) * edi->space + (edi->decal_y % edi->space);
 		else
-			pos.y = (temp->y - s->editor->ref.y) * s->editor->space - (s->editor->decal_y % s->editor->space);
-
+			pos.y = (temp->y - edi->ref.y) * edi->space - (edi->decal_y % edi->space);
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			draw_anchor(s, pos, GREEN);
 		temp = temp->next;
@@ -253,6 +254,6 @@ void	editor_handler(t_main *s)
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		// ft_test_chainlist(s);
+		ft_test_chainlist(s);
 	}
 }

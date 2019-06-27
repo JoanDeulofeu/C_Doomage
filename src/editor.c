@@ -28,7 +28,7 @@ void	ft_draw_editor(t_editor *edi, t_texture *tex)
 	edi->ref.y = ft_find_ref(edi, edi->decal_y);
 	// printf("coord.x = %d\ndecal_x = %d\nref.x = %d\n\n",coord.x , edi->decal_x, edi->ref.x);
 	// printf("coord.y = %d\ndecal_y = %d\nref.y = %d\n\n\n",coord.y , edi->decal_y, edi->ref.y);
-	printf("REF   X %d | Y %d\n",edi->ref.x, edi->ref.y);
+	// printf("REF   X %d | Y %d\n",edi->ref.x, edi->ref.y);
 	while (coord.y < HEIGHT)
 	{
 		while (coord.x < WIDTH)
