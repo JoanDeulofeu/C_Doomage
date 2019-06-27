@@ -30,7 +30,7 @@ void	handle_editor_keys(t_main *s)
 
 	keys = SDL_GetKeyboardState(NULL);
 	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
-	// 	move_player(s, keys, keys[SPRINT]);
+	// 	keyboard_controls_edi(s, keys);
 	// if (keys[LEFT_AR] || keys[RIGHT_AR] || keys[UP_AR] || keys[DOWN_AR])
 	// 	turn_camera(s, keys, 0);
 	// if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -106,99 +106,100 @@ void	display_map(t_main *s)
 			pos.y = (temp->y - edi->ref.y) * edi->space + (edi->decal_y % edi->space);
 		else
 			pos.y = (temp->y - edi->ref.y) * edi->space - (edi->decal_y % edi->space);
+		printf("vertex.x = %d, vertex.y = %d | ref.x = %d, ref.y = %d | pos.x = %d, pos.y = %d | decalX = %d\n", temp->x, temp->y, edi->ref.x, edi->ref.y, pos.x, pos.y, edi->decal_x);
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			draw_anchor(s, pos, GREEN);
 		temp = temp->next;
 	}
 }
+//
+// void	print_grid(t_main *s)
+// {
+// 	int i;
+// 	int j;
+// 	int grid_width;
+// 	int	grid_height;
+//
+// 	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
+// 	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < grid_width)
+// 	{
+// 		while (j < grid_height)
+// 		{
+// 			printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+// 			j++;
+// 		}
+// 		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
+// 		i++;
+// 		// printf("\n", j);
+// 		j = 0;
+// 	}
+// }
+//
+// void	fill_grid(t_main *s)
+// {
+// 	int i;
+// 	int j;
+// 	int grid_width;
+// 	int	grid_height;
+//
+// 	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
+// 	// printf("grid width = %d\n", grid_width);
+// 	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
+// 	i = 0;
+// 	j = 0;
+// 	while (i <= grid_width)
+// 	{
+// 		while (j <= grid_height)
+// 		{
+// 			s->grid[i][j].x = i * s->editor->space + GRID_SIDE_MARGIN;
+// 			s->grid[i][j].y = j * s->editor->space + GRID_TOP_MARGIN;
+// 			s->grid[i][j].anchor = 0;
+// 			s->grid[i][j].clicked = 0;
+// 			j++;
+// 		}
+// 		i++;
+// 		j = 0;
+// 	}
+// }
 
-void	print_grid(t_main *s)
-{
-	int i;
-	int j;
-	int grid_width;
-	int	grid_height;
-
-	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
-	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
-	i = 0;
-	j = 0;
-	while (i < grid_width)
-	{
-		while (j < grid_height)
-		{
-			printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
-			j++;
-		}
-		printf(" %d %d |",s->grid[i][j].x, s->grid[i][j].y);
-		i++;
-		// printf("\n", j);
-		j = 0;
-	}
-}
-
-void	fill_grid(t_main *s)
-{
-	int i;
-	int j;
-	int grid_width;
-	int	grid_height;
-
-	grid_width = (WIDTH - (GRID_SIDE_MARGIN * 2)) / s->editor->space;
-	// printf("grid width = %d\n", grid_width);
-	grid_height = (HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN)) / s->editor->space;
-	i = 0;
-	j = 0;
-	while (i <= grid_width)
-	{
-		while (j <= grid_height)
-		{
-			s->grid[i][j].x = i * s->editor->space + GRID_SIDE_MARGIN;
-			s->grid[i][j].y = j * s->editor->space + GRID_TOP_MARGIN;
-			s->grid[i][j].anchor = 0;
-			s->grid[i][j].clicked = 0;
-			j++;
-		}
-		i++;
-		j = 0;
-	}
-}
-
-void	initialize_grid(t_main *s)
-{
-	int grid_width;
-	int	grid_height;
-	int i;
-
-	i = 0;
-	grid_width = WIDTH - (GRID_SIDE_MARGIN * 2) / s->editor->space;
-	grid_height = HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN) / s->editor->space;
-	if (!(s->grid = (t_point**)malloc(sizeof(t_point*)
-		* grid_width)))
-		handle_error(s, MALLOC_ERROR);
-	while (i < grid_width)
-		s->grid[i++] = NULL;
-	i = 0;
-	while (i < grid_width)
-	{
-		if (!(s->grid[i] = (t_point*)malloc(sizeof(t_point) * grid_height)))
-			handle_error(s, MALLOC_ERROR);
-		i++;
-	}
-}
+// void	initialize_grid(t_main *s)
+// {
+// 	int grid_width;
+// 	int	grid_height;
+// 	int i;
+//
+// 	i = 0;
+// 	grid_width = WIDTH - (GRID_SIDE_MARGIN * 2) / s->editor->space;
+// 	grid_height = HEIGHT - (GRID_TOP_MARGIN + GRID_SIDE_MARGIN) / s->editor->space;
+// 	if (!(s->grid = (t_point**)malloc(sizeof(t_point*)
+// 		* grid_width)))
+// 		handle_error(s, MALLOC_ERROR);
+// 	while (i < grid_width)
+// 		s->grid[i++] = NULL;
+// 	i = 0;
+// 	while (i < grid_width)
+// 	{
+// 		if (!(s->grid[i] = (t_point*)malloc(sizeof(t_point) * grid_height)))
+// 			handle_error(s, MALLOC_ERROR);
+// 		i++;
+// 	}
+// }
 
 // void	get_vertex_data(t_main *s)
 // {
 //
 // }
 
-void	get_grid_tab(t_main *s)
-{
-	initialize_grid(s);
-	fill_grid(s);
-	// print_grid(s);
-	// get_vertex_data(s);
-}
+// void	get_grid_tab(t_main *s)
+// {
+// 	initialize_grid(s);
+// 	fill_grid(s);
+// 	// print_grid(s);
+// 	// get_vertex_data(s);
+// }
 
 void	editor_handler(t_main *s)
 {
