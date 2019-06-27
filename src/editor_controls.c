@@ -61,7 +61,7 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
-	printf("%f\n", init.x);
+	// printf("%f\n", init.x);
 	draw_rect(s->sdl->editor, init, dest, color);
 }
 
@@ -240,11 +240,9 @@ void	editor_handler(t_main *s)
 					// {
 						// ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space);
 						if (s->editor->decal_x >= 0)
-						{
-							ori.x = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_x;
-						}
+							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) + s->editor->decal_x;
 						else
-							ori.x = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) - s->editor->decal_x;
+							ori.x = s->editor->space * round(s->sdl->event.button.x / (float)s->editor->space) - s->editor->decal_x;
 						if (s->editor->decal_y >= 0)
 							ori.y = s->editor->space * round(s->sdl->event.button.y / (float)s->editor->space) + s->editor->decal_y;
 						else
