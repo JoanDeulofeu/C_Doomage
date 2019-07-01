@@ -2,6 +2,7 @@
 
 int		ft_find_ref(t_editor *edi, int decal)
 {
+	printf("Ref : x %d | y : %d | decalx = %d\n", edi->ref.x, edi->ref.y, edi->decal_x);
 	if (decal >= 0 && decal < edi->space)
 	{
 		// printf("ETAT [1] ");
@@ -27,7 +28,7 @@ int		ft_find_ref(t_editor *edi, int decal)
 void	ft_draw_editor(t_editor *edi, t_texture *tex)
 {
 	t_pos	coord;
-	Uint32	color = 0xaca7a7FF; 
+	Uint32	color = 0xaca7a7FF;
 
 	// decal_x = decalage total en pixels entre le point 0,0 et le premier point dans l'ecran.
 	// coord.x  decalage en pixels entre le pixel 0 de l'ecran et le premier point de la grille affichée a l'ecran.
@@ -38,18 +39,17 @@ void	ft_draw_editor(t_editor *edi, t_texture *tex)
 	// printf("\ncoord.x = %d\ndecal_x = %d\nref.x = %d\n",coord.x , edi->decal_x, edi->ref.x);
 	// printf("\ncoord.x = %d\ndecal_x = %d\nref.x = %d\n",coord.x , edi->decal_x, edi->ref.x);
 	// printf("coord.y = %d\ndecal_y = %d\nref.y = %d\n\n\n",coord.y , edi->decal_y, edi->ref.y);
-<<<<<<< HEAD
-	//printf("REF   X %d | Y %d\n",edi->ref.x, edi->ref.y);
-=======
-	// printf("REF   X %d | Y %d\n\n",edi->ref.x, edi->ref.y);
 
+	//printf("REF   X %d | Y %d\n",edi->ref.x, edi->ref.y);
+
+	// printf("REF   X %d | Y %d\n\n",edi->ref.x, edi->ref.y);
+	// printf("coord.x = %d\n", coord.x);
 	if (coord.y < 0)
-		coord.y += 20;
->>>>>>> 0c913ef6fb8806825af5ff75fde4e2d4b30b442b
+		coord.y += edi->space;
 	while (coord.y < HEIGHT)
 	{
 		if (coord.x < 0)
-			coord.x += 20;
+			coord.x += edi->space;
 		while (coord.x < WIDTH)
 		{
 			set_pixel(tex, color, coord);
