@@ -2,7 +2,7 @@
 
 int		ft_find_ref(t_editor *edi, int decal)
 {
-	printf("Ref : x %d | y : %d | decalx = %d\n", edi->ref.x, edi->ref.y, edi->decal_x);
+	// printf("Ref : x %d | y : %d | decalx = %d\n", edi->ref.x, edi->ref.y, edi->decal_x);
 	if (decal >= 0 && decal < edi->space)
 	{
 		// printf("ETAT [1] ");

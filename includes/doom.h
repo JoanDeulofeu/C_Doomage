@@ -185,4 +185,8 @@ t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
 int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
 void				ft_test_chainlist(t_main *s);
 
+//UTILS
+
+int					arround(int space, int nb);
+
 #endif

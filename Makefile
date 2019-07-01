@@ -14,7 +14,8 @@ SRC_NAME =	main.c \
 			lines.c \
 			mouse.c \
 			parcing.c \
-			chainlist.c
+			chainlist.c \
+			utils_1.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
