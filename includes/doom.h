@@ -38,7 +38,6 @@
 # define GREEN 0x32CD32FF
 # define BLUE 0x0000FFFF
 
-
 typedef struct		s_texture {
 	Uint32			*content;
 	SDL_Texture		*texture;
@@ -136,6 +135,10 @@ typedef struct		s_main {
 
 	// t_case			**map;
 }					t_main;
+
+typedef enum  s_mode {
+	move, wall, vertex;
+};
 
 //INITIALIZE
 
