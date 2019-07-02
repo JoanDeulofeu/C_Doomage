@@ -160,7 +160,6 @@ typedef struct		s_main {
 }					t_main;
 
 //INITIALIZE
-
 void				pre_initialize_sdl(t_main *s);
 void				initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture			*initialize_texture(t_sdl *sdl, int width, int height);
@@ -171,7 +170,6 @@ void				handle_error(t_main *s, int error_nb);
 void				ft_error_sdl(char *str);
 
 //EDITOR
-
 void				display_map(t_main *s);
 void				get_grid_tab(t_main *s);
 void				ft_draw_editor(t_editor *edi, t_texture *tex);
@@ -184,14 +182,12 @@ void				draw_player(t_main *s, t_dpos p_pos);
 void				draw_wall(t_main *s, t_pos ori);
 
 //LINES
-
 int					trace_line(t_main *s, Uint32 color);
 void				trace_vertical(t_main *s, Uint32 color);
 void				get_line(t_main *s, Uint32 color);
 void				ft_draw_all_wall(t_main *s);
 
 //CONTROLS
-
 int					keyboard_controls(t_main *s, int key);
 void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
@@ -199,18 +195,15 @@ void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
 
 //MAP
-
 int					ft_parsing(t_main *s);
 
 //CHAINLIST
-
 int					ft_add_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
 int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
 void				ft_test_chainlist(t_main *s);
 
 //VERTEX
-
 void				draw_anchor(t_main *s, t_pos ori, Uint32 color);
 void				create_anchor(t_main *s, t_pos ori);
 int					anchor_exists(t_main *s, t_pos ori);
@@ -219,9 +212,11 @@ t_pos				get_abs_pos(t_main *s, t_pos ori);
 void				move_anchor(t_main *s, int id);
 void				remove_anchor(t_main *s, int id);
 
+//SECTOR
+int					ft_parse_sector(t_main *s, char *line, int size_line);
+void				ft_sector_mode(t_main *s, int x, int y);
 
 //UTILS
-
 int					arround(int space, int nb);
 
 #endif

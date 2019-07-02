@@ -177,7 +177,7 @@ void	editor_handler(t_main *s)
 					else if (s->editor->mode == move)
 					{
 						s->editor->decal_x = s->sdl->event.motion.x;
-            s->editor->decal_y = s->sdl->event.motion.y;
+						s->editor->decal_y = s->sdl->event.motion.y;
 					}
 					else if (s->editor->mode == sector)
 					{
