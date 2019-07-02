@@ -1,5 +1,16 @@
 #include "doom.h"
 
+void	change_mode(t_main *s, int key)
+{
+	if (key == MOVE)
+		s->editor->mode = move;
+	else if (key == WALL)
+		s->editor->mode = wall;
+	else if (key == VERTEX)
+		s->editor->mode = vertex;
+	printf("mode = %d\n", s->editor->mode);
+}
+
 int		ft_find_ref(t_editor *edi, int decal)
 {
 	// printf("Ref : x %d | y : %d | decalx = %d\n", edi->ref.x, edi->ref.y, edi->decal_x);

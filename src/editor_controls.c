@@ -13,6 +13,8 @@ int		keyboard_controls_edi(t_main *s, int key)
 		s->editor->decal_y -= 5;
 	if (key == SDLK_DOWN)
 		s->editor->decal_y += 5;
+	if (key == MOVE || key == VERTEX || key == WALL)
+		change_mode(s, key);
 	// else if (key == SDLK_e)
 	// 	open_door(s);
 	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
