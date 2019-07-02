@@ -97,6 +97,7 @@ typedef struct		s_vertex {
 	int				id;
 	int				x;
 	int				y;
+	char			selected;
 	struct s_vertex	*next;
 	struct s_vertex	*prev;
 }					t_vertex;
@@ -194,6 +195,12 @@ int					ft_add_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
 int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
 void				ft_test_chainlist(t_main *s);
+
+//VERTEX
+
+void				draw_anchor(t_main *s, t_pos ori, Uint32 color);
+void				create_anchor(t_main *s, t_pos ori);
+
 
 //UTILS
 

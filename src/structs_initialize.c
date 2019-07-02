@@ -12,6 +12,16 @@ void	pre_initialize_sdl(t_main *s)
 	s->sdl->editor = NULL;
 }
 
+void	initialize_editor(t_editor *edi)
+{
+	edi->space = G_SPACE;
+	edi->mode = move;
+	edi->decal_x = 0;
+	edi->decal_y = 0;
+	edi->ref.x = 0;
+	edi->ref.y = 0;
+}
+
 void		initialize_sdl(t_main *s, t_sdl *sdl)
 {
 	(void)s;
@@ -65,16 +75,10 @@ t_main		*initialize_main(void)
 		exit(-1);
 	if (!(s->editor = (t_editor*)malloc(sizeof(t_editor))))
 		exit(-1);
-	s->editor->space = G_SPACE;
-	s->editor->decal_x = 0;
-	s->editor->decal_y = 0;
-	s->editor->ref.x = 0;
-	s->editor->ref.y = 0;
+	initialize_editor(s->editor);
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
-	// s->mouse.x = 0;
-	// s->mouse.y = 0;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	return (s);
