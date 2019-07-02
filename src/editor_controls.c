@@ -83,6 +83,7 @@ void	display_map(t_main *s)
 		else
 			correc = 0;
 		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
+		temp->pos = pos;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		{
 			if (temp->selected == 1)
@@ -161,6 +162,6 @@ void	editor_handler(t_main *s)
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		// ft_test_chainlist(s);
+		ft_test_chainlist(s);
 	}
 }
