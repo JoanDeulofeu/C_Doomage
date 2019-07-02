@@ -130,6 +130,10 @@ void	editor_handler(t_main *s)
 							&& ori.y >= 0 && ori.y <= HEIGHT)
 								create_anchor(s, ori);
 					}
+					else if (s->editor->mode == move)
+					{
+						 
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
