@@ -50,12 +50,12 @@ int		ft_parsing(t_main *s)
 		if (line[0] == 'v')
 		{
 			y = ft_atoi(&line[7]);
-			i = 9;
+			i = 10;
 			while (i < size_line)
 			{
 				x = ft_atoi(&line[i]);
 				ft_add_vertex(s, x, y);
-				// printf("y %d | x %d | i %d\n", y, x, i);
+				// printf("y %d | x %d | i %d | cc = %d\n", y, x, i, ft_longlen(x) + 1);
 				i += ft_longlen(x) + 1;
 			}
 		}

@@ -46,7 +46,9 @@ void	handle_editor_keys(t_main *s)
 		ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
+		ft_draw_all_wall(s);
 		update_image(s, s->sdl->editor);
+		// printf("MDR\n");
 	// }
 }
 
