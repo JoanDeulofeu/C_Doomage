@@ -99,12 +99,12 @@ void	editor_handler(t_main *s)
 {
 	int			zoom;
 	int			editor;
-	int			click;
+	int			selected;
 	t_pos		ori;
 	// t_pos		dest;
 
 	editor = 1;
-	click = 0;
+	selected = 0;
 	zoom = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
@@ -116,24 +116,39 @@ void	editor_handler(t_main *s)
 			{
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
+				// if (selected)
+				// 	move_anchor();
 			}
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
-			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
+			if (s->sdl->event.type == SDL_MOUSEBUTTONUP)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
+					printf ("true\n");
+					selected = 0;
+					set_selected(s, ori, 0);
+				}
+			}
+			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
+				{	
 					if (s->editor->mode == vertex)
 					{
 						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
 						if (ori.x >= 0 && ori.x <= WIDTH
 							&& ori.y >= 0 && ori.y <= HEIGHT)
-								create_anchor(s, ori);
-					}
-					else if (s->editor->mode == move)
-					{
-						 
+							{
+								if (anchor_exists(s, ori))
+								{
+									selected = 1;
+									set_selected(s, ori, 1);
+								}
+								else
+									create_anchor(s, ori);
+							}
 					}
 				}
 			}

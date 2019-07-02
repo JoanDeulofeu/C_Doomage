@@ -202,6 +202,10 @@ void				ft_test_chainlist(t_main *s);
 
 void				draw_anchor(t_main *s, t_pos ori, Uint32 color);
 void				create_anchor(t_main *s, t_pos ori);
+int					anchor_exists(t_main *s, t_pos ori);
+void				set_selected(t_main *s, t_pos ori, char on);
+t_pos				get_abs_pos(t_main *s, t_pos ori);
+void				move_anchor(t_main *s, int id);
 
 
 //UTILS
