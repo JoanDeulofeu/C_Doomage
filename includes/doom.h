@@ -31,12 +31,21 @@
 # define RIGHT	SDL_SCANCODE_D
 # define UP		SDL_SCANCODE_W
 # define DOWN	SDL_SCANCODE_S
+# define MOVE	SDLK_v
+# define WALL	SDLK_m
+# define VERTEX	SDLK_b
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
 # define WHITE 0xFFFFFFFF
 # define GREEN 0x32CD32FF
 # define BLUE 0x0000FFFF
+
+typedef enum  	e_mode {
+	move,
+	wall,
+	vertex
+}				t_mode;
 
 typedef struct		s_texture {
 	Uint32			*content;
@@ -88,6 +97,7 @@ typedef struct		s_vertex {
 	int				id;
 	int				x;
 	int				y;
+	char			selected;
 	struct s_vertex	*next;
 	struct s_vertex	*prev;
 }					t_vertex;
@@ -120,6 +130,7 @@ typedef struct		s_editor {
 	int				decal_x;
 	int				decal_y;
 	t_pos			ref;
+	t_mode			mode;
 }					t_editor;
 
 typedef struct		s_main {
@@ -135,12 +146,6 @@ typedef struct		s_main {
 
 	// t_case			**map;
 }					t_main;
-
-typedef enum  	e_mode {
-	move,
-	wall,
-	vertex
-}				t_mode;
 
 //INITIALIZE
 
@@ -179,6 +184,7 @@ int					keyboard_controls(t_main *s, int key);
 void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
+void				change_mode(t_main *s, int key);
 
 //MAP
 
@@ -190,6 +196,12 @@ int					ft_add_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
 int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
 void				ft_test_chainlist(t_main *s);
+
+//VERTEX
+
+void				draw_anchor(t_main *s, t_pos ori, Uint32 color);
+void				create_anchor(t_main *s, t_pos ori);
+
 
 //UTILS
 
