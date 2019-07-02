@@ -1,5 +1,57 @@
 #include "doom.h"
 
+void	remove_sector(t_main *s, int id)
+{
+	// //parcourir la liste des secteurs.
+	// //Pour chaque secteur verifier s'il y a un vertex qui contient l'id donnee
+	// // Si c'est le cas il faut free le secteur.
+	// //De la on recommence a reparcourir les secteurs depuis le debut
+	// //Si un secteur a un portail vers le secteur supprimé, le portail devient -1
+	//
+	// t_sector	*temp_s;
+	// t_vertex	*temp_v;
+	//
+	// temp_s = s->sector;
+	// while (temp_s)
+	// {
+	// 	temp_v = temp_s->vertex;
+	// 	while (temp_v)
+	// 	{
+	// 		if (temp_v->value == id)
+	// 		{
+	//
+	// 		}
+	// 		temp_v = temp_v->next;
+	// 	}
+	// }
+}
+
+void	remove_anchor(t_main *s, int id)
+{
+	// t_vertex	*temp;
+	//
+	// temp = s->vertex;
+	// while (temp)
+	// {
+	// 	if (temp->id == id)
+	// 	{
+	// 		// printf("id actuel = %d\n", temp->id);
+	// 		// printf("id du maillon suivant le precedent (notmalemnt le meme id) = %d\n", temp->prev->next->id);
+	// 		temp->prev->next = temp->next;
+	// 		// printf("id du maillon suivant le precedent (notmalemnt plus le meme id) = %d\n", temp->prev->next->id);
+	// 		temp->next->prev = temp->prev;
+	// 		temp->next = NULL;
+	// 		temp->prev = NULL;
+	// 		free(temp->next);
+	// 		free(temp->prev);
+	// 		free(temp);
+	// 		// ft_test_chainlist(s);
+	// 		return;
+	// 	}
+	// 	temp = temp->next;
+	// }
+}
+
 t_pos	get_abs_pos(t_main *s, t_pos ori)
 {
 	t_pos	res;

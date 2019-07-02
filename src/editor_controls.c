@@ -15,6 +15,8 @@ int		keyboard_controls_edi(t_main *s, int key)
 		s->editor->decal_y += 5;
 	if (key == MOVE || key == VERTEX || key == WALL)
 		change_mode(s, key);
+	if (key == DELETE)
+		return(2);
 	// else if (key == SDLK_e)
 	// 	open_door(s);
 	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
@@ -194,10 +196,14 @@ void	editor_handler(t_main *s)
 			if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 0)
 				editor = 0;
+			else if (s->sdl->event.type == SDL_KEYDOWN
+				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 2
+				&& selected == 1 && s->editor->mode == vertex)
+					remove_anchor(s, id);
 
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		// ft_test_chainlist(s);
+		ft_test_chainlist(s);
 	}
 }

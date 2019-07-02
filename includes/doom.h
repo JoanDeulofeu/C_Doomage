@@ -34,6 +34,7 @@
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
+# define DELETE	SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
@@ -208,6 +209,7 @@ int					anchor_exists(t_main *s, t_pos ori);
 void				set_selected(t_main *s, t_pos ori, char on);
 t_pos				get_abs_pos(t_main *s, t_pos ori);
 void				move_anchor(t_main *s, int id);
+void				remove_anchor(t_main *s, int id);
 
 
 //UTILS
