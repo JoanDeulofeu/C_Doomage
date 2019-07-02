@@ -45,7 +45,8 @@
 typedef enum  	e_mode {
 	move,
 	sector,
-	vertex
+	vertex,
+	player
 }				t_mode;
 
 typedef struct		s_texture {
