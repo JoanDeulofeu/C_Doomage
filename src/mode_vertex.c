@@ -28,7 +28,7 @@ int		anchor_exists(t_main *s, t_pos ori)
 	while (temp)
 	{
 		if (temp->x == ori.x && temp->y == ori.y)
-			return (1);
+			return (temp->id);
 		temp = temp->next;
 	}
 	return (0);
@@ -40,38 +40,26 @@ void	set_selected(t_main *s, t_pos ori, char on)
 
 	temp = s->vertex;
 	ori = get_abs_pos(s, ori);
-	if (on)
+	while (temp)
 	{
-		while (temp)
+		if (temp->x == ori.x && temp->y == ori.y && on)
 		{
-			if (temp->x == ori.x && temp->y == ori.y)
-			{
-				if (on)
-					temp->selected = 1;
-				return;
-			}
-			temp = temp->next;
+			temp->selected = 1;
+			return;
 		}
-	}
-	else
-	{
-		while (temp)
+		if (temp->selected == 1 && !on)
 		{
-			if (temp->selected == 1)
-			{
-				temp->selected = 0;
-				return;
-			}
-			temp = temp->next;
+			temp->selected = 0;
+			return;
 		}
+		temp = temp->next;
 	}
+}
+
+void	move_anchor(t_main *s, int id)
+{
 
 }
-//
-// void	move_anchor(t_main *s, int id)
-// {
-//
-// }
 
 void	create_anchor(t_main *s, t_pos ori)
 {

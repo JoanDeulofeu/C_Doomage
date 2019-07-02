@@ -125,9 +125,15 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					printf ("true\n");
-					selected = 0;
-					set_selected(s, ori, 0);
+					if (s->editor->mode == vertex)
+					{
+						selected = 0;
+						set_selected(s, ori, 0);
+					}
+					else if (s->editor->mode == move)
+					{
+						selected = 0;
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
