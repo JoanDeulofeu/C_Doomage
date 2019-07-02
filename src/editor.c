@@ -5,12 +5,16 @@ void	change_mode(t_main *s, int key)
 	if (key == MOVE)
 		s->editor->mode = move;
 	else if (key == WALL)
-		s->editor->mode = wall;
+		s->editor->mode = sector;
 	else if (key == VERTEX)
 		s->editor->mode = vertex;
+<<<<<<< HEAD
 	else if (key == PLAYER)
 		s->editor->mode = player;
 	printf("mode = %d\n", s->editor->mode);
+=======
+	// printf("mode = %d\n", s->editor->mode);
+>>>>>>> b9e400cb611947af9c3498b7f5ddea9619f0c0f2
 }
 
 int		ft_find_ref(t_editor *edi, int decal)

@@ -1,13 +1,13 @@
-vertex 7		2
-vertex 8		21
-vertex 12		16
-vertex 14		5
-vertex 18		17
-vertex 21		8
-vertex 23		20
+vertex 5		5
+vertex 7		20
+vertex 12		24
+vertex 14		20
+vertex 15		6
+vertex 17		20
+vertex 19		6
 
 
-sector 0 20 | 1 2 3 5 4 | -1 -1 2 -1 -1
-sector 0 20 | 4 5 7 6 | -1 -1 -1 1
+sector 0 20 | 1 2 3 4 5 | -1 -1 2 -1 -1
+sector 0 20 | 5 4 6 7 | -1 -1 -1 1
 
 # sol/plafond | vecteur | mur

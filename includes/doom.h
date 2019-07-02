@@ -44,9 +44,14 @@
 
 typedef enum  	e_mode {
 	move,
+<<<<<<< HEAD
 	wall,
 	vertex,
 	player
+=======
+	sector,
+	vertex
+>>>>>>> b9e400cb611947af9c3498b7f5ddea9619f0c0f2
 }				t_mode;
 
 typedef struct		s_texture {
@@ -135,6 +140,7 @@ typedef struct		s_player
 
 typedef struct		s_editor {
 	int				space;
+	int				anchor_size;
 	int				decal_x;
 	int				decal_y;
 	t_pos			ref;
@@ -151,7 +157,8 @@ typedef struct		s_main {
 	t_sector		*sector;
 	t_player		player;
 	t_point			**grid;
-
+	char			*str_vtx;	//save la liste des vertex du
+								//secteur en cours de creation.
 
 	// t_case			**map;
 }					t_main;
@@ -210,6 +217,10 @@ void				ft_test_chainlist(t_main *s);
 
 void				draw_anchor(t_main *s, t_pos ori, Uint32 color);
 void				create_anchor(t_main *s, t_pos ori);
+int					anchor_exists(t_main *s, t_pos ori);
+void				set_selected(t_main *s, t_pos ori, char on);
+t_pos				get_abs_pos(t_main *s, t_pos ori);
+void				move_anchor(t_main *s, int id);
 
 
 //UTILS
