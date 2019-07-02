@@ -34,6 +34,8 @@
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
+# define PLAYER SDLK_p
+# define DELETE	SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
@@ -44,7 +46,8 @@
 typedef enum  	e_mode {
 	move,
 	sector,
-	vertex
+	vertex,
+	player
 }				t_mode;
 
 typedef struct		s_texture {
@@ -201,6 +204,7 @@ int					anchor_exists(t_main *s, t_pos ori);
 void				set_selected(t_main *s, t_pos ori, char on);
 t_pos				get_abs_pos(t_main *s, t_pos ori);
 void				move_anchor(t_main *s, int id);
+void				remove_anchor(t_main *s, int id);
 
 //SECTOR
 int					ft_parse_sector(t_main *s, char *line, int size_line);

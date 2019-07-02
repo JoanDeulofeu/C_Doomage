@@ -6,15 +6,29 @@ int		keyboard_controls_edi(t_main *s, int key)
 	if (key == SDLK_ESCAPE)
 		return (0);
 	if (key == SDLK_RIGHT)
+	{
 		s->editor->decal_x += 5;
+		s->player.pos.x += 5;
+	}
 	if (key == SDLK_LEFT)
+	{
 		s->editor->decal_x -= 5;
+		s->player.pos.x -= 5;
+	}
 	if (key == SDLK_UP)
+	{
 		s->editor->decal_y -= 5;
+		s->player.pos.y -= 5;
+	}
 	if (key == SDLK_DOWN)
+	{
 		s->editor->decal_y += 5;
-	if (key == MOVE || key == VERTEX || key == WALL)
+		s->player.pos.y += 5;
+	}
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
 		change_mode(s, key);
+	if (key == DELETE)
+		return(2);
 	// else if (key == SDLK_e)
 	// 	open_door(s);
 	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
@@ -93,6 +107,8 @@ void	display_map(t_main *s)
 		}
 		temp = temp->next;
 	}
+	//player anchor
+		draw_anchor(s, s->player.pos, BLUE);
 }
 
 void	editor_handler(t_main *s)
@@ -101,11 +117,13 @@ void	editor_handler(t_main *s)
 	int			editor;
 	int			selected;
 	t_pos		ori;
+	int			id;
 	// t_pos		dest;
 
 	editor = 1;
 	selected = 0;
 	zoom = 0;
+	id = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -116,8 +134,8 @@ void	editor_handler(t_main *s)
 			{
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
-				// if (selected)
-				// 	move_anchor();
+				if (selected && s->editor->mode == vertex)
+					move_anchor(s, id);
 			}
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
@@ -125,9 +143,15 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					// printf ("true\n");
-					selected = 0;
-					set_selected(s, ori, 0);
+					if (s->editor->mode == vertex)
+					{
+						selected = 0;
+						set_selected(s, ori, 0);
+					}
+					else if (s->editor->mode == move)
+					{
+						selected = 0;
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
@@ -141,7 +165,7 @@ void	editor_handler(t_main *s)
 						if (ori.x >= 0 && ori.x <= WIDTH
 							&& ori.y >= 0 && ori.y <= HEIGHT)
 							{
-								if (anchor_exists(s, ori))
+								if ((id = anchor_exists(s, ori)) != 0)
 								{
 									selected = 1;
 									set_selected(s, ori, 1);
@@ -152,31 +176,39 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == move)
 					{
-
+						s->editor->decal_x = s->sdl->event.motion.x;
+						s->editor->decal_y = s->sdl->event.motion.y;
 					}
 					else if (s->editor->mode == sector)
 					{
 						ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 					}
+					else if (s->editor->mode == player)
+					{
+						s->player.pos.x = s->mouse.x;
+						s->player.pos.y = s->mouse.y;
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
-				// printf("Mouse moved to (%f,%f)\n",s->ft_mouse.x, s->ft_mouse.y);
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					s->editor->space += 5;
 					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
 					s->editor->decal_y = HEIGHT/2 - s->ft_mouse.y;
 					//printf("decalx = %d", s->editor->decal_x);
-					//s->sdl->event.button.x;
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					s->editor->space -= 5;
-					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
-					s->editor->decal_y = HEIGHT/2 -s->ft_mouse.y;
+
+					s->player.pos.x += s->editor->decal_x % s->editor->space;
+					s->player.pos.y += s->editor->decal_y % s->editor->space;
+
+				//		s->editor->decal_x = WIDTH/2 - s->mouse.x;
+				//	s->editor->decal_y = HEIGHT/2 -s->mouse.y;
 					zoom--;
 				}
 				//printf("buttonx = %d", s->sdl->event.button.x);
@@ -185,10 +217,14 @@ void	editor_handler(t_main *s)
 			if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 0)
 				editor = 0;
+			else if (s->sdl->event.type == SDL_KEYDOWN
+				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 2
+				&& selected == 1 && s->editor->mode == vertex)
+					remove_anchor(s, id);
 
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		// ft_test_chainlist(s);
+		ft_test_chainlist(s);
 	}
 }

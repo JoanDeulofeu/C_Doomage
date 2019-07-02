@@ -1,5 +1,57 @@
 #include "doom.h"
 
+void	remove_sector(t_main *s, int id)
+{
+	// //parcourir la liste des secteurs.
+	// //Pour chaque secteur verifier s'il y a un vertex qui contient l'id donnee
+	// // Si c'est le cas il faut free le secteur.
+	// //De la on recommence a reparcourir les secteurs depuis le debut
+	// //Si un secteur a un portail vers le secteur supprimé, le portail devient -1
+	//
+	// t_sector	*temp_s;
+	// t_vertex	*temp_v;
+	//
+	// temp_s = s->sector;
+	// while (temp_s)
+	// {
+	// 	temp_v = temp_s->vertex;
+	// 	while (temp_v)
+	// 	{
+	// 		if (temp_v->value == id)
+	// 		{
+	//
+	// 		}
+	// 		temp_v = temp_v->next;
+	// 	}
+	// }
+}
+
+void	remove_anchor(t_main *s, int id)
+{
+	// t_vertex	*temp;
+	//
+	// temp = s->vertex;
+	// while (temp)
+	// {
+	// 	if (temp->id == id)
+	// 	{
+	// 		// printf("id actuel = %d\n", temp->id);
+	// 		// printf("id du maillon suivant le precedent (notmalemnt le meme id) = %d\n", temp->prev->next->id);
+	// 		temp->prev->next = temp->next;
+	// 		// printf("id du maillon suivant le precedent (notmalemnt plus le meme id) = %d\n", temp->prev->next->id);
+	// 		temp->next->prev = temp->prev;
+	// 		temp->next = NULL;
+	// 		temp->prev = NULL;
+	// 		free(temp->next);
+	// 		free(temp->prev);
+	// 		free(temp);
+	// 		// ft_test_chainlist(s);
+	// 		return;
+	// 	}
+	// 	temp = temp->next;
+	// }
+}
+
 t_pos	get_abs_pos(t_main *s, t_pos ori)
 {
 	t_pos	res;
@@ -40,38 +92,45 @@ void	set_selected(t_main *s, t_pos ori, char on)
 
 	temp = s->vertex;
 	ori = get_abs_pos(s, ori);
-	if (on)
+	while (temp)
 	{
-		while (temp)
+		if (temp->x == ori.x && temp->y == ori.y && on)
 		{
-			if (temp->x == ori.x && temp->y == ori.y)
-			{
-				if (on)
-					temp->selected = 1;
-				return;
-			}
-			temp = temp->next;
+			temp->selected = 1;
+			return;
 		}
-	}
-	else
-	{
-		while (temp)
+		if (temp->selected == 1 && !on)
 		{
-			if (temp->selected == 1)
-			{
-				temp->selected = 0;
-				return;
-			}
-			temp = temp->next;
+			temp->selected = 0;
+			return;
 		}
+		temp = temp->next;
 	}
-
 }
-//
-// void	move_anchor(t_main *s, int id)
-// {
-//
-// }
+
+void	move_anchor(t_main *s, int id)
+{
+	t_vertex	*temp;
+	t_pos		ori;
+	t_pos		abs;
+
+	temp = s->vertex;
+	while (temp)
+	{
+		if (temp->id == id)
+		{
+			ori.x = arround(s->editor->space, s->ft_mouse.x - (s->editor->decal_x % s->editor->space));
+			ori.y = arround(s->editor->space, s->ft_mouse.y - (s->editor->decal_y % s->editor->space));
+			temp->pos = ori;
+			abs = get_abs_pos(s, ori);
+			temp->x = abs.x;
+			temp->y = abs.y;
+			// printf ("true");
+			return;
+		}
+		temp = temp->next;
+	}
+}
 
 void	create_anchor(t_main *s, t_pos ori)
 {
