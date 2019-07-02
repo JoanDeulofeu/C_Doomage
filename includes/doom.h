@@ -34,6 +34,7 @@
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
+# define PLAYER SDLK_p
 # define DELETE	SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
