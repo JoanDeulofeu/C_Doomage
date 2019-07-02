@@ -28,7 +28,7 @@ int		anchor_exists(t_main *s, t_pos ori)
 	while (temp)
 	{
 		if (temp->x == ori.x && temp->y == ori.y)
-			return (1);
+			return (temp->id);
 		temp = temp->next;
 	}
 	return (0);
