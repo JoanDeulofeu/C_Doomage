@@ -34,6 +34,7 @@
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
+# define PLAYER	SDLK_p
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
@@ -44,7 +45,8 @@
 typedef enum  	e_mode {
 	move,
 	wall,
-	vertex
+	vertex,
+	player
 }				t_mode;
 
 typedef struct		s_texture {
@@ -126,6 +128,11 @@ typedef struct		s_sdl {
 	Mix_Music		*musique;
 }					t_sdl;
 
+typedef struct		s_player
+{
+	t_pos		pos;
+}					t_player;
+
 typedef struct		s_editor {
 	int				space;
 	int				decal_x;
@@ -138,10 +145,11 @@ typedef struct		s_main {
 	t_sdl			*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
-	t_mouse			ft_mouse;
+	t_mouse			mouse;
 	t_line			line;
 	t_vertex		*vertex;
 	t_sector		*sector;
+	t_player		player;
 	t_point			**grid;
 
 

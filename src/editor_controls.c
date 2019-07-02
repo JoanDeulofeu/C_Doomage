@@ -6,15 +6,28 @@ int		keyboard_controls_edi(t_main *s, int key)
 	if (key == SDLK_ESCAPE)
 		return (0);
 	if (key == SDLK_RIGHT)
+	{
 		s->editor->decal_x += 5;
+		s->player.pos.x += 5;
+	}
 	if (key == SDLK_LEFT)
+	{
 		s->editor->decal_x -= 5;
+		s->player.pos.x -= 5;
+	}
 	if (key == SDLK_UP)
+	{
 		s->editor->decal_y -= 5;
+		s->player.pos.y -= 5;
+	}
 	if (key == SDLK_DOWN)
+	{
 		s->editor->decal_y += 5;
-	if (key == MOVE || key == VERTEX || key == WALL)
+		s->player.pos.y += 5;
+	}
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
 		change_mode(s, key);
+	
 	// else if (key == SDLK_e)
 	// 	open_door(s);
 	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
@@ -92,6 +105,8 @@ void	display_map(t_main *s)
 		}
 		temp = temp->next;
 	}
+	//player anchor
+		draw_anchor(s, s->player.pos, BLUE);
 }
 
 void	editor_handler(t_main *s)
@@ -113,8 +128,8 @@ void	editor_handler(t_main *s)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
-				s->ft_mouse.x = s->sdl->event.motion.x;
-				s->ft_mouse.y = s->sdl->event.motion.y;
+				s->mouse.x = s->sdl->event.motion.x;
+				s->mouse.y = s->sdl->event.motion.y;
 			}
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
@@ -134,25 +149,34 @@ void	editor_handler(t_main *s)
 					{
 						 
 					}
+					else if (s->editor->mode == player)
+					{
+						s->player.pos.x = s->mouse.x;
+						s->player.pos.y = s->mouse.y;
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
-				// printf("Mouse moved to (%f,%f)\n",s->ft_mouse.x, s->ft_mouse.y);
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					s->editor->space += 5;
-					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
-					s->editor->decal_y = HEIGHT/2 -s->ft_mouse.y;
+					s->player.pos.x += s->editor->decal_x % s->editor->space;
+					s->player.pos.y += s->editor->decal_y % s->editor->space;
+					//s->editor->decal_x = WIDTH/2 - s->mouse.x;
+					//s->editor->decal_y = HEIGHT/2 -s->mouse.y;
 					//printf("decalx = %d", s->editor->decal_x);
-					//s->sdl->event.button.x;
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					s->editor->space -= 5;
-					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
-					s->editor->decal_y = HEIGHT/2 -s->ft_mouse.y;
+					
+					s->player.pos.x += s->editor->decal_x % s->editor->space;
+					s->player.pos.y += s->editor->decal_y % s->editor->space;
+					
+				//		s->editor->decal_x = WIDTH/2 - s->mouse.x;
+				//	s->editor->decal_y = HEIGHT/2 -s->mouse.y;
 					zoom--;
 				}
 				//printf("buttonx = %d", s->sdl->event.button.x);
@@ -164,7 +188,7 @@ void	editor_handler(t_main *s)
 
 		}
 		handle_editor_keys(s);
-		// printf("decalx = %d\n", s->editor->decal_x );
+		//printf("decalx = %d\n", s->editor->decal_x );
 		// ft_test_chainlist(s);
 	}
 }

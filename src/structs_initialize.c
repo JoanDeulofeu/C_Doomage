@@ -79,6 +79,8 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	s->player.pos.x = 0;
+	s->player.pos.y = 0;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	return (s);

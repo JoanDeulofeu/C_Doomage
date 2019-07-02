@@ -11,33 +11,33 @@ void	ft_draw_all_wall(t_main *s)
 	sct = s->sector;
 	while (sct)
 	{
-		printf("SECTOR [%d]\n", sct->id);
+	//	printf("SECTOR [%d]\n", sct->id);
 		first_vtx = sct->vertex;
 		while (sct->vertex)
 		{
-			printf("VERTEX [%d]\n", sct->vertex->id);
+	//		printf("VERTEX [%d]\n", sct->vertex->id);
 			if (sct->vertex->next != NULL)
 			{
-				printf("1---\n");
+	//			printf("1---\n");
 				vtx = s->vertex;
 				while (sct->vertex->id != vtx->id && vtx->next)
 					vtx = vtx->next;
 				s->line.x1 = vtx->x;
 				s->line.y1 = vtx->y;
-				printf("line x1 %d | ", s->line.x1);
-				printf("line y1 %d | ", s->line.y1);
+	//			printf("line x1 %d | ", s->line.x1);
+	//			printf("line y1 %d | ", s->line.y1);
 				vtx = s->vertex;
 				while (sct->vertex->next->id != vtx->id && vtx->next)
 					vtx = vtx->next;
 				s->line.x2 = vtx->x;
 				s->line.y2 = vtx->y;
-				printf("line x2 %d | ", s->line.x2);
-				printf("line y2 %d\n", s->line.y2);
+	//			printf("line x2 %d | ", s->line.x2);
+	//			printf("line y2 %d\n", s->line.y2);
 				get_line(s, color);
 			}
 			else
 			{
-				printf("2---\n");
+	//			printf("2---\n");
 				vtx = s->vertex;
 				while (sct->vertex->id != vtx->id && vtx->next)
 					vtx = vtx->next;
