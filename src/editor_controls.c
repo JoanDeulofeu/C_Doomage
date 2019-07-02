@@ -157,6 +157,7 @@ void	editor_handler(t_main *s)
 					else if (s->editor->mode == sector)
 					{
 						ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
