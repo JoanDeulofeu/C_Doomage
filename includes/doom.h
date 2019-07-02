@@ -97,6 +97,7 @@ typedef struct		s_vertex {
 	int				id;
 	int				x;
 	int				y;
+	t_pos			pos;
 	char			selected;
 	struct s_vertex	*next;
 	struct s_vertex	*prev;
