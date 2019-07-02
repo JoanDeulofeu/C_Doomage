@@ -136,9 +136,11 @@ typedef struct		s_main {
 	// t_case			**map;
 }					t_main;
 
-typedef enum  s_mode {
-	move, wall, vertex;
-};
+typedef enum  	e_mode {
+	move,
+	wall,
+	vertex
+}				t_mode;
 
 //INITIALIZE
 
