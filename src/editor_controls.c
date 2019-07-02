@@ -133,7 +133,11 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == move)
 					{
-						 
+
+					}
+					else if (s->editor->mode == sector)
+					{
+						ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 					}
 				}
 			}
@@ -144,7 +148,7 @@ void	editor_handler(t_main *s)
 				{
 					s->editor->space += 5;
 					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
-					s->editor->decal_y = HEIGHT/2 -s->ft_mouse.y;
+					s->editor->decal_y = HEIGHT/2 - s->ft_mouse.y;
 					//printf("decalx = %d", s->editor->decal_x);
 					//s->sdl->event.button.x;
 					zoom++;
@@ -166,6 +170,6 @@ void	editor_handler(t_main *s)
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		ft_test_chainlist(s);
+		// ft_test_chainlist(s);
 	}
 }

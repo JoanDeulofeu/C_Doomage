@@ -24,6 +24,8 @@ int			ft_add_vertex(t_main *s, int x, int y)
 		tmp->id = tmp->prev->id + 1;
 	}
 	tmp->next = NULL;
+	tmp->pos.x = 0;
+	tmp->pos.y = 0;
 	tmp->x = x;
 	tmp->y = y;
 	return (0);

@@ -15,6 +15,7 @@ void	pre_initialize_sdl(t_main *s)
 void	initialize_editor(t_editor *edi)
 {
 	edi->space = G_SPACE;
+	edi->anchor_size = 5;
 	edi->mode = move;
 	edi->decal_x = 0;
 	edi->decal_y = 0;
@@ -79,6 +80,7 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	s->str_vtx = NULL;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	return (s);

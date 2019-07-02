@@ -43,7 +43,7 @@
 
 typedef enum  	e_mode {
 	move,
-	wall,
+	sector,
 	vertex
 }				t_mode;
 
@@ -128,6 +128,7 @@ typedef struct		s_sdl {
 
 typedef struct		s_editor {
 	int				space;
+	int				anchor_size;
 	int				decal_x;
 	int				decal_y;
 	t_pos			ref;
@@ -143,7 +144,8 @@ typedef struct		s_main {
 	t_vertex		*vertex;
 	t_sector		*sector;
 	t_point			**grid;
-
+	char			*str_vtx;	//save la liste des vertex du
+								//secteur en cours de creation.
 
 	// t_case			**map;
 }					t_main;

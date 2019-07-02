@@ -33,7 +33,8 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	t_dpos		dest;
 	short		size;
 
-	size = 5;
+	// size = 5;
+	size = s->editor->anchor_size;
 	init.x = ori.x - size;
 	init.y = ori.y - size;
 	dest.x = ori.x + size;
