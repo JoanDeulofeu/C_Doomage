@@ -185,8 +185,8 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == player)
 					{
-						s->player.pos.x = s->mouse.x;
-						s->player.pos.y = s->mouse.y;
+						s->player.pos.x = s->ft_mouse.x;
+						s->player.pos.y = s->ft_mouse.y;
 					}
 				}
 			}

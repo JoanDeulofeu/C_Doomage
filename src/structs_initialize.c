@@ -80,12 +80,9 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
-<<<<<<< HEAD
 	s->player.pos.x = 0;
 	s->player.pos.y = 0;
-=======
 	s->str_vtx = NULL;
->>>>>>> b9e400cb611947af9c3498b7f5ddea9619f0c0f2
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	return (s);

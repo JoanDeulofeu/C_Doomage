@@ -89,6 +89,11 @@ typedef struct		s_pos {
 	short			y;
 }					t_pos;
 
+typedef struct			s_player
+{
+	t_pos				pos;
+}						t_player;
+
 typedef struct		s_int {
 	int				id;
 	int				value;
@@ -144,6 +149,7 @@ typedef struct		s_main {
 	t_dpos			p_pos;
 	t_mouse			ft_mouse;
 	t_line			line;
+	t_player		player;
 	t_vertex		*vertex;
 	t_sector		*sector;
 	t_point			**grid;
