@@ -58,7 +58,26 @@ void	set_selected(t_main *s, t_pos ori, char on)
 
 void	move_anchor(t_main *s, int id)
 {
+	t_vertex	*temp;
+	t_pos		ori;
+	t_pos		abs;
 
+	temp = s->vertex;
+	while (temp)
+	{
+		if (temp->id == id)
+		{
+			ori.x = arround(s->editor->space, s->ft_mouse.x - (s->editor->decal_x % s->editor->space));
+			ori.y = arround(s->editor->space, s->ft_mouse.y - (s->editor->decal_y % s->editor->space));
+			temp->pos = ori;
+			abs = get_abs_pos(s, ori);
+			temp->x = abs.x;
+			temp->y = abs.y;
+			// printf ("true");
+			return;
+		}
+		temp = temp->next;
+	}
 }
 
 void	create_anchor(t_main *s, t_pos ori)

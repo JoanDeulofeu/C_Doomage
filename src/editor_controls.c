@@ -101,11 +101,13 @@ void	editor_handler(t_main *s)
 	int			editor;
 	int			selected;
 	t_pos		ori;
+	int			id;
 	// t_pos		dest;
 
 	editor = 1;
 	selected = 0;
 	zoom = 0;
+	id = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -116,8 +118,8 @@ void	editor_handler(t_main *s)
 			{
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
-				// if (selected)
-				// 	move_anchor();
+				if (selected && s->editor->mode == vertex)
+					move_anchor(s, id);
 			}
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
@@ -147,7 +149,7 @@ void	editor_handler(t_main *s)
 						if (ori.x >= 0 && ori.x <= WIDTH
 							&& ori.y >= 0 && ori.y <= HEIGHT)
 							{
-								if (anchor_exists(s, ori))
+								if ((id = anchor_exists(s, ori)) != 0)
 								{
 									selected = 1;
 									set_selected(s, ori, 1);
