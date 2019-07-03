@@ -89,10 +89,10 @@ typedef struct		s_pos {
 	short			y;
 }					t_pos;
 
-typedef struct			s_player
+typedef struct		s_player
 {
-	t_pos				pos;
-}						t_player;
+	t_pos			pos;
+}					t_player;
 
 typedef struct		s_int {
 	int				id;

@@ -8,43 +8,75 @@ void	remove_sector(t_main *s, int id)
 	//De la on recommence a reparcourir les secteurs depuis le debut
 	//Si un secteur a un portail vers le secteur supprimé, le portail devient -1
 
-	t_sector	*temp_s;
-	t_int		*temp_v;
-	t_int		*temp_v2;
+	t_sector	*temp_sector;
+	t_sector	*temp_sector2;
+	t_int		*temp_vertex;
+	t_int		*temp_vertex2;
+	int			sector_id;
 
-	temp_s = s->sector;
-	while (temp_s)
+	sector_id = 0;
+	temp_sector = s->sector;
+	while (temp_sector)
 	{
-		temp_v = temp_s->vertex;
-		while (temp_v)
+		printf ("SECTEUR [%d]\n", temp_sector->id);
+		sector_id = temp_sector->id;
+		temp_vertex = temp_sector->vertex;
+		while (temp_vertex)
 		{
-			if (temp_v->value == id)
+			if (temp_vertex->value == id)
 			{
-				temp_v = temp_s->vertex;
-				while (temp_v)
+				printf ("Vertex %d trouvé !!\n", id);
+				temp_vertex = temp_sector->vertex;
+				while (temp_vertex)
 				{
-					temp_v2 = temp_v;
-					temp_v = temp_v->next;
-					free(temp_v2);
+					temp_vertex2 = temp_vertex;
+					temp_vertex = temp_vertex->next;
+					printf ("Free vertex %d !!\n", temp_vertex2->id);
+					free(temp_vertex2);
 				}
-			}
-			temp_v = temp_v->next;
-		}
-		temp_v = temp_s->wall;
-		while (temp_v)
-		{
-			if (temp_v->value == id)
-			{
-				temp_v = temp_s->wall;
-				while (temp_v)
+				temp_vertex = temp_sector->wall;
+				while (temp_vertex)
 				{
-					temp_v2 = temp_v;
-					temp_v = temp_v->next;
-					free(temp_v2);
+					temp_vertex2 = temp_vertex;
+					temp_vertex = temp_vertex->next;
+					printf ("Free wall %d !!\n", temp_vertex2->id);
+					free(temp_vertex2);
 				}
+				if (temp_sector->prev && temp_sector->next)
+				{
+					// printf ("Le secteur precedent est le %d !!\n", temp_sector->prev->id);
+					temp_sector->prev->next = temp_sector->next;
+					temp_sector->next->prev = temp_sector->prev;
+				}
+				else if (temp_sector->prev && !temp_sector->next)
+					temp_sector->prev->next = NULL;
+				else if (!temp_sector->prev && temp_sector->next)
+					s->sector = temp_sector->next;
+				else if (!temp_sector->prev && !temp_sector->next)
+					s->sector = NULL;
+				temp_sector2 = temp_sector;
+				temp_sector = s->sector;
+				printf ("Free Sector %d !!\n", temp_sector2->id);
+				free(temp_sector2);
+				while (temp_sector)
+				{
+					temp_vertex = temp_sector->wall;
+					while (temp_vertex)
+					{
+						if (temp_vertex->value == sector_id)
+							temp_vertex->value = -1;
+						temp_vertex = temp_vertex->next;
+					}
+					temp_sector = temp_sector->next;
+				}
+				temp_sector = s->sector;
+				break;
 			}
-			temp_v = temp_v->next;
+			else
+				temp_vertex = temp_vertex->next;
 		}
+		if (temp_sector)
+			temp_sector = temp_sector->next;
 	}
 }
 
@@ -57,20 +89,34 @@ void	remove_anchor(t_main *s, int id)
 	{
 		if (temp->id == id)
 		{
+			remove_sector(s, id);
 			// printf("id actuel = %d\n", temp->id);
 			// printf("id du maillon suivant le precedent (notmalemnt le meme id) = %d\n", temp->prev->next->id);
-			temp->prev->next = temp->next;
-			// printf("id du maillon suivant le precedent (notmalemnt plus le meme id) = %d\n", temp->prev->next->id);
-			temp->next->prev = temp->prev;
-			temp->next = NULL;
-			temp->prev = NULL;
-			free(temp->next);
-			free(temp->prev);
+			if (temp->prev && temp->next)
+			{
+				temp->prev->next = temp->next;
+				temp->next->prev = temp->prev;
+			// printf("id du maillon suivant le precedent (notamment plus le meme id) = %d\n", temp->prev->next->id);
+
+			}
+			else if (temp->prev && !temp->next)
+				temp->prev->next = NULL;
+
+			else if (!temp->prev && temp->next)
+				s->vertex = temp->next;
+			else if (!temp->prev && !temp->next)
+				s->vertex = NULL;
+			// temp->next = NULL;
+			// temp->prev = NULL;
+			// free(temp->next);
+			// free(temp->prev);
 			free(temp);
+			temp = NULL;
 			// ft_test_chainlist(s);
 			return;
 		}
-		temp = temp->next;
+		if (temp)
+			temp = temp->next;
 	}
 }
 
