@@ -1,27 +1,15 @@
 #include "doom.h"
 
-void  mode_deplacement(t_main *s)
+void mouse_grid(t_main *s, t_pos save)
 {
-  int   editor;
+	int diffx;
+	int diffy;
 
-  editor = 1;
-  while (editor)
-  {
-    while ((SDL_PollEvent(&(s->sdl->event))) != 0)
-    {
-      if (s->sdl->event.type ==  SDL_KEYDOWN)
-      {
-        if (s->sdl->event.key.keysym.sym == SDLK_v)
-        {
-          if (s->sdl->event.type == SDL_MOUSEMOTION && (s->sdl->event.motion.state & SDL_BUTTON_LEFT))
-          {
-            if (s->sdl->event.buttonx
-          }
-        }
-      }
-      else if (s->sdl->envent.type == SDL_QUIT)
-        editor = 0;
-    }
+	diffx = s->ft_mouse.x - save.x;
+	diffy = s->ft_mouse.y - save.y;
+	s->editor->decal_x += diffx;
+	s->editor->decal_y += diffy;
+	// printf("souris X = %f et souris Y = %f\n", s->ft_mouse.x, s->ft_mouse.y);
+	// printf("souris X = %f et souris Y = %f\n", s->ft_mouse.x, s->ft_mouse.y);
 
-  }
 }
