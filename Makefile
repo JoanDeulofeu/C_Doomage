@@ -17,7 +17,8 @@ SRC_NAME =	main.c \
 			chainlist.c \
 			utils_1.c \
 			mode_vertex.c \
-			wall.c
+			wall.c \
+			mode_deplacement.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

@@ -118,6 +118,7 @@ void	editor_handler(t_main *s)
 	int			selected;
 	t_pos		ori;
 	int			id;
+	t_pos		mouse_save;
 	// t_pos		dest;
 
 	editor = 1;
@@ -136,6 +137,8 @@ void	editor_handler(t_main *s)
 				s->ft_mouse.y = s->sdl->event.motion.y;
 				if (selected && s->editor->mode == vertex)
 					move_anchor(s, id);
+				if (s->editor->mode == move && selected == 1)
+					mouse_grid(s, mouse_save);
 			}
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
@@ -151,6 +154,7 @@ void	editor_handler(t_main *s)
 					else if (s->editor->mode == move)
 					{
 						selected = 0;
+
 					}
 				}
 			}
@@ -176,8 +180,11 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == move)
 					{
-						s->editor->decal_x = s->sdl->event.motion.x;
-						s->editor->decal_y = s->sdl->event.motion.y;
+						mouse_save.x = s->ft_mouse.x;
+						mouse_save.y = s->ft_mouse.y;
+						selected = 1;
+						// s->editor->decal_x = s->sdl->event.motion.x;
+						// s->editor->decal_y = s->sdl->event.motion.y;
 					}
 					else if (s->editor->mode == sector)
 					{
@@ -225,6 +232,6 @@ void	editor_handler(t_main *s)
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		ft_test_chainlist(s);
+		// ft_test_chainlist(s);
 	}
 }
