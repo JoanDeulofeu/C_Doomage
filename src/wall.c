@@ -89,7 +89,6 @@ void	ft_close_sector(t_main *s)
 {
 	int		nb_wall;
 	int		init;
-	int		size_line;
 	char	*begin;
 	char	*end;
 
@@ -107,8 +106,7 @@ void	ft_close_sector(t_main *s)
 		nb_wall--;
 	}
 	// printf("FINAL str_vtx = %s\n", s->str_vtx);
-	size_line = ft_strlen(s->str_vtx);
-	ft_parse_sector(s, s->str_vtx, size_line);
+	ft_parse_sector(s, s->str_vtx);
 	s->str_vtx = NULL;
 	ft_reset_color_vertex(s);
 }
