@@ -25,7 +25,8 @@ int		keyboard_controls_edi(t_main *s, int key)
 		s->editor->decal_y += 5;
 		s->player.pos.y += 5;
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER
+		|| key == SUPP)
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -100,8 +101,10 @@ void	display_map(t_main *s)
 	int			correc = 0;
 
 	ft_draw_editor(s->editor, s->sdl->editor);
+	temp = NULL;
 	edi = s->editor;
-	temp = s->vertex;
+	if (s->vertex)
+		temp = s->vertex;
 	while (temp)
 	{
 		if (edi->decal_x <= 0)
@@ -171,7 +174,7 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == vertex)
+					if (s->editor->mode == vertex || s->editor->mode == supp)
 					{
 						selected = 0;
 						set_selected(s, ori, 0);
@@ -187,7 +190,7 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == vertex)
+					if (s->editor->mode == vertex || s->editor->mode == supp)
 					{
 						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
@@ -199,10 +202,12 @@ void	editor_handler(t_main *s)
 									selected = 1;
 									set_selected(s, ori, 1);
 								}
-								else
+								else if (!id && s->editor->mode == vertex)
 									create_anchor(s, ori);
 							}
 					}
+					// else if (s->editor->mode == supp && selected == 1)
+					// 	remove_anchor(s, id);
 					else if (s->editor->mode == move)
 					{
 						mouse_save.x = s->ft_mouse.x;
@@ -255,8 +260,11 @@ void	editor_handler(t_main *s)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 2
-				&& selected == 1 && s->editor->mode == vertex)
+				&& selected == 1 && s->editor->mode == supp)
+				{
 					remove_anchor(s, id);
+					id = 0;
+				}
 
 		}
 		handle_editor_keys(s);
