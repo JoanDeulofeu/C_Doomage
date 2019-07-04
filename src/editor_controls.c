@@ -69,6 +69,7 @@ void set_player(t_main *s)
 	t_pos		pos;
 	t_editor 	*edi;
 	int 		correc;
+	t_dpos 		res;
 
 	correc = 0;
 	edi = s->editor;
@@ -81,9 +82,12 @@ void set_player(t_main *s)
 		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
 	else
 		correc = 0;
-	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space) + s->player.p_ori.y;//+ s->player.p_ori.x;
-	//pos.x += s->player.p_ori.x;
-	//pos.y += s->player.p_ori.y;
+	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
+
+	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space)* edi->space;// - ((s->player.init_space - edi->space)/2);
+	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space)* edi->space;
+	pos.x += (int)res.x;
+	pos.y += (int)res.y;
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
 }
@@ -122,7 +126,9 @@ void	display_map(t_main *s)
 		temp->pos = pos;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		{
-			if (temp->selected == 1)
+			if (temp->selected == 2)
+				draw_anchor(s, pos, PINK);
+			else if (temp->selected == 1)
 				draw_anchor(s, pos, BLUE);
 			else
 				draw_anchor(s, pos, GREEN);
@@ -142,12 +148,14 @@ void	editor_handler(t_main *s)
 	t_pos		ori;
 	int			id;
 	t_pos		mouse_save;
+	char		color_sector;
 	// t_pos		dest;
 
 	editor = 1;
 	selected = 0;
 	zoom = 0;
 	id = 0;
+	color_sector = 2;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -214,7 +222,13 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sector)
 					{
-						ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
+						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
+						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+						if (ori.x >= 0 && ori.x <= WIDTH
+							&& ori.y >= 0 && ori.y <= HEIGHT)
+								if ((id = anchor_exists(s, ori)) != 0)
+									set_selected(s, ori, color_sector);
+						color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 					}
 					else if (s->editor->mode == player)
 					{
@@ -225,12 +239,18 @@ void	editor_handler(t_main *s)
 						s->player.p_ori.x = s->player.pos.x - s->player.ori.x;
 						s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
 						s->player.ori = get_abs_pos(s,s->player.ori);
+						s->player.init_space = s->editor->space;
 						//printf("player.pos.x = %d\n",s->player.pos.x);
 						//printf("player.pos.y = %d\n",s->player.pos.y);
-					//	printf("ori.x = %d\n",s->player.ori.x);
+						//printf("ori.x = %d\n",s->player.ori.x);
 						//printf("ori.y = %d\n",s->player.ori.y);
 						//printf("p_ori.x = %d\n",s->player.p_ori.x);
 						//printf("p_ori.y = %d\n",s->player.p_ori.y);
+
+						//printf("space = %d\n", s->editor->space );
+						//printf("init_space = %d\n", s->player.init_space);
+						//printf("decalx = %d\n", s->editor->decal_x );
+						//printf("decaly = %d\n", s->editor->decal_y );
 
 					}
 				}
@@ -240,11 +260,18 @@ void	editor_handler(t_main *s)
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					s->editor->space += 5;
+					//s->player.p_ori.x = s->player.ori.x + (s->player.p_ori.x + 5);
+					//s->player.p_ori.y = s->player.ori.y + (s->player.p_ori.y + 5);
+					//s->player.p_ori.y += s->player.ori.y * 5;
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					s->editor->space -= 5;
+					//s->player.p_ori.x = s->player.ori.x + (s->player.p_ori.x - 5);
+					//s->player.p_ori.y = s->player.ori.y + (s->player.p_ori.y - 5);
+					//s->editor->space -= 5;
+
 					zoom--;
 				}
 				//printf("buttonx = %d", s->sdl->event.button.x);

@@ -40,9 +40,11 @@
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
+# define YELLOW 0xFFF736FF
+# define PINK 0xFF36F7FF
 # define WHITE 0xFFFFFFFF
 # define GREEN 0x32CD32FF
-# define BLUE 0x0000FFFF
+# define BLUE 0x57C7FFFF
 
 typedef enum  	e_mode {
 	move,
@@ -96,6 +98,7 @@ typedef struct		s_player
 	t_pos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
+	int 			init_space;
 }					t_player;
 
 typedef struct		s_int {
@@ -200,7 +203,7 @@ void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
 
 //MAP
-int					ft_parsing(t_main *s);
+int					ft_parsing(t_main *s, int x, int y, int fd);
 
 //CHAINLIST
 int					ft_add_vertex(t_main *s, int x, int y);
@@ -217,10 +220,11 @@ t_pos				get_abs_pos(t_main *s, t_pos ori);
 void				move_anchor(t_main *s, int id);
 void				remove_anchor(t_main *s, int id);
 void				remove_sector(t_main *s, int id, int del, int sct_id);
+void				ft_reset_color_vertex(t_main *s);
 
 //SECTOR
-int					ft_parse_sector(t_main *s, char *line, int size_line);
-void				ft_sector_mode(t_main *s, int x, int y);
+int					ft_parse_sector(t_main *s, char *line);
+int					ft_sector_mode(t_main *s, int x, int y);
 
 //UTILS
 int					arround(int space, int nb);
