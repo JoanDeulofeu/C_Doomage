@@ -94,6 +94,8 @@ typedef struct		s_pos {
 typedef struct		s_player
 {
 	t_pos			pos;
+	t_pos 			ori;
+	t_pos 			p_ori;
 }					t_player;
 
 typedef struct		s_int {

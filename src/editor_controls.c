@@ -69,6 +69,30 @@ void	handle_editor_keys(t_main *s)
 	// }
 }
 
+void set_player(t_main *s)
+{
+	t_pos		pos;
+	t_editor 	*edi;
+	int 		correc;
+
+	correc = 0;
+	edi = s->editor;
+	//if (edi->decal_x <= 0)
+//		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
+//	else
+	//	correc = 0;
+	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);// + s->player.p_ori.x;
+//	if (edi->decal_y <= 0)
+//		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
+//	else
+	//	correc = 0;
+	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
+	pos.x += s->player.p_ori.x;
+	pos.y += s->player.p_ori.y;
+	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
+		draw_anchor(s, pos, BLUE);
+}
+
 void	display_map(t_main *s)
 {
 	t_vertex	*temp;
@@ -111,7 +135,8 @@ void	display_map(t_main *s)
 		temp = temp->next;
 	}
 	//player anchor
-		draw_anchor(s, s->player.pos, BLUE);
+		//draw_anchor(s, s->player.pos, BLUE);
+		set_player(s);
 }
 
 void	editor_handler(t_main *s)
@@ -187,6 +212,7 @@ void	editor_handler(t_main *s)
 					{
 						mouse_save.x = s->ft_mouse.x;
 						mouse_save.y = s->ft_mouse.y;
+
 						selected = 1;
 						// s->editor->decal_x = s->sdl->event.motion.x;
 						// s->editor->decal_y = s->sdl->event.motion.y;
@@ -197,8 +223,19 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == player)
 					{
-						s->player.pos.x = s->ft_mouse.x;
-						s->player.pos.y = s->ft_mouse.y;
+						s->player.pos.x = s->sdl->event.button.x;
+						s->player.pos.y = s->sdl->event.button.y;
+						s->player.ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
+						s->player.ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+						s->player.p_ori.x = s->player.pos.x - s->player.ori.x;
+						s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
+						s->player.ori = get_abs_pos(s,s->player.ori);
+						//printf("player.pos.x = %d\n",s->player.pos.x);
+						//printf("player.pos.y = %d\n",s->player.pos.y);
+					//	printf("ori.x = %d\n",s->player.ori.x);
+						//printf("ori.y = %d\n",s->player.ori.y);
+						//printf("p_ori.x = %d\n",s->player.p_ori.x);
+						//printf("p_ori.y = %d\n",s->player.p_ori.y);
 					}
 				}
 			}
@@ -207,20 +244,11 @@ void	editor_handler(t_main *s)
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					s->editor->space += 5;
-					s->editor->decal_x = WIDTH/2 - s->ft_mouse.x;
-					s->editor->decal_y = HEIGHT/2 - s->ft_mouse.y;
-					//printf("decalx = %d", s->editor->decal_x);
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					s->editor->space -= 5;
-
-					s->player.pos.x += s->editor->decal_x % s->editor->space;
-					s->player.pos.y += s->editor->decal_y % s->editor->space;
-
-				//		s->editor->decal_x = WIDTH/2 - s->mouse.x;
-				//	s->editor->decal_y = HEIGHT/2 -s->mouse.y;
 					zoom--;
 				}
 				//printf("buttonx = %d", s->sdl->event.button.x);
