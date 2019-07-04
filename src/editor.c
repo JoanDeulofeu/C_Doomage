@@ -10,11 +10,6 @@ void	change_mode(t_main *s, int key)
 		s->editor->mode = vertex;
 	else if (key == PLAYER)
 		s->editor->mode = player;
-<<<<<<< HEAD
-=======
-	else if (key == SUPP)
-		s->editor->mode = supp;
->>>>>>> d960c7473ec17ec48cf6108a1baabdc00aae89ce
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);
 }
