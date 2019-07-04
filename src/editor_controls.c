@@ -8,22 +8,18 @@ int		keyboard_controls_edi(t_main *s, int key)
 	if (key == SDLK_RIGHT)
 	{
 		s->editor->decal_x += 5;
-		s->player.pos.x += 5;
 	}
 	if (key == SDLK_LEFT)
 	{
 		s->editor->decal_x -= 5;
-		s->player.pos.x -= 5;
 	}
 	if (key == SDLK_UP)
 	{
 		s->editor->decal_y -= 5;
-		s->player.pos.y -= 5;
 	}
 	if (key == SDLK_DOWN)
 	{
 		s->editor->decal_y += 5;
-		s->player.pos.y += 5;
 	}
 	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER
 		|| key == SUPP)
@@ -87,8 +83,8 @@ void set_player(t_main *s)
 	else
 		correc = 0;
 	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
-	pos.x += s->player.p_ori.x;
-	pos.y += s->player.p_ori.y;
+	//pos.x += s->player.p_ori.x;
+	//pos.y += s->player.p_ori.y;
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
 }
@@ -236,7 +232,7 @@ void	editor_handler(t_main *s)
 						//printf("ori.y = %d\n",s->player.ori.y);
 						//printf("p_ori.x = %d\n",s->player.p_ori.x);
 						//printf("p_ori.y = %d\n",s->player.p_ori.y);
-						
+
 					}
 				}
 			}
