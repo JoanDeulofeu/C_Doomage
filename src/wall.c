@@ -13,6 +13,30 @@ int		ft_howmany_char(char *str, char c)
 	return (res);
 }
 
+int		ft_nb_is_in_str(char *str, int nb)
+{
+	int i;
+	int	tmp;
+	int	strlg;
+
+	i = 0;
+	tmp = 0;
+	strlg = ft_strlen(str);
+	while (i <= strlg)
+	{
+		while ((str[i] < 48 || str[i] > 57) && str[i] != '\0')
+			i++;
+		if (str[i] == '\0')
+			return (0);
+		tmp = ft_atoi(&str[i]);
+		// printf("tmp = %d et nb = %d\n", tmp, nb);
+		if (tmp == nb)
+			return (1);
+		i += ft_longlen(tmp) + 1;
+	}
+	return (0);
+}
+
 void	ft_save_sector_vextex(t_main *s, int id_vtx)
 {
 	char	*tmp;
@@ -21,7 +45,7 @@ void	ft_save_sector_vextex(t_main *s, int id_vtx)
 	tmp = ft_itoa(id_vtx);
 	if (s->str_vtx == NULL)
 		s->str_vtx = tmp;
-	else
+	else if ((ft_nb_is_in_str(s->str_vtx, id_vtx)) == 0)
 	{
 		if (!(space = (char*)malloc(sizeof(char) * 2)))
 			handle_error(s, MALLOC_ERROR);
@@ -31,6 +55,7 @@ void	ft_save_sector_vextex(t_main *s, int id_vtx)
 		s->str_vtx = ft_strjoin_free(&s->str_vtx, &tmp);
 	}
 	// printf("str_vtx = %s|\n", s->str_vtx);
+	// printf("lol\n");
 }
 
 void	ft_close_sector(t_main *s)
@@ -76,9 +101,11 @@ void	ft_close_sector(t_main *s)
 	// printf("FINAL str_vtx = %s\n", s->str_vtx);
 	size_line = ft_strlen(s->str_vtx);
 	ft_parse_sector(s, s->str_vtx, size_line);
+	s->str_vtx = NULL;
+	ft_reset_color_vertex(s);
 }
 
-void	ft_sector_mode(t_main *s, int x, int y)
+int		ft_sector_mode(t_main *s, int x, int y)
 {
 	t_vertex	*vtx;
 	t_pos		mouse;
@@ -91,10 +118,18 @@ void	ft_sector_mode(t_main *s, int x, int y)
 	if ((id = anchor_exists(s, mouse)))
 	{
 		if (s->str_vtx != NULL && ft_atoi(s->str_vtx) == id)
-			ft_close_sector(s);
+		{
+			if ((ft_howmany_char(s->str_vtx, ' ') + 1) > 2)
+				ft_close_sector(s);
+			return (2);
+		}
 		else
+		{
 			ft_save_sector_vextex(s, id);
+			return (1);
+		}
 	}
+	return (0);
 }
 
 void	ft_draw_all_wall(t_main *s)

@@ -100,7 +100,9 @@ void	display_map(t_main *s)
 		temp->pos = pos;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		{
-			if (temp->selected == 1)
+			if (temp->selected == 2)
+				draw_anchor(s, pos, PINK);
+			else if (temp->selected == 1)
 				draw_anchor(s, pos, BLUE);
 			else
 				draw_anchor(s, pos, GREEN);
@@ -119,12 +121,14 @@ void	editor_handler(t_main *s)
 	t_pos		ori;
 	int			id;
 	t_pos		mouse_save;
+	char		color_sector;
 	// t_pos		dest;
 
 	editor = 1;
 	selected = 0;
 	zoom = 0;
 	id = 0;
+	color_sector = 2;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -188,7 +192,13 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sector)
 					{
-						ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
+						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
+						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+						if (ori.x >= 0 && ori.x <= WIDTH
+							&& ori.y >= 0 && ori.y <= HEIGHT)
+								if ((id = anchor_exists(s, ori)) != 0)
+									set_selected(s, ori, color_sector);
+						color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 					}
 					else if (s->editor->mode == player)
 					{
