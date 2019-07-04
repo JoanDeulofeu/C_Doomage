@@ -35,6 +35,7 @@
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
 # define PLAYER SDLK_p
+# define SUPP	SDLK_s
 # define DELETE	SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
@@ -49,7 +50,8 @@ typedef enum  	e_mode {
 	move,
 	sector,
 	vertex,
-	player
+	player,
+	supp
 }				t_mode;
 
 typedef struct		s_texture {
@@ -94,6 +96,8 @@ typedef struct		s_pos {
 typedef struct		s_player
 {
 	t_pos			pos;
+	t_pos 			ori;
+	t_pos 			p_ori;
 }					t_player;
 
 typedef struct		s_int {
