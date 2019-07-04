@@ -21,8 +21,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 	{
 		s->editor->decal_y += 5;
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER
-		|| key == SUPP)
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -70,6 +69,7 @@ void set_player(t_main *s)
 	t_pos		pos;
 	t_editor 	*edi;
 	int 		correc;
+	t_dpos 		res;
 
 	correc = 0;
 	edi = s->editor;
@@ -77,14 +77,17 @@ void set_player(t_main *s)
 		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 	else
 		correc = 0;
-	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);// + s->player.p_ori.x;
+	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space) + s->player.p_ori.x;// + s->player.p_ori.x;
 	if (edi->decal_y <= 0)
 		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
 	else
 		correc = 0;
 	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
-	//pos.x += s->player.p_ori.x;
-	//pos.y += s->player.p_ori.y;
+
+	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space)* edi->space;// - ((s->player.init_space - edi->space)/2);
+	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space)* edi->space;
+	pos.x += (int)res.x;
+	pos.y += (int)res.y;
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
 }
@@ -188,7 +191,7 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == vertex || s->editor->mode == supp)
+					if (s->editor->mode == vertex)
 					{
 						selected = 0;
 						set_selected(s, ori, 0);
@@ -204,7 +207,7 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == vertex || s->editor->mode == supp)
+					if (s->editor->mode == vertex)
 					{
 						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
@@ -257,12 +260,18 @@ void	editor_handler(t_main *s)
 						s->player.p_ori.x = s->player.pos.x - s->player.ori.x;
 						s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
 						s->player.ori = get_abs_pos(s,s->player.ori);
+						s->player.init_space = s->editor->space;
 						//printf("player.pos.x = %d\n",s->player.pos.x);
 						//printf("player.pos.y = %d\n",s->player.pos.y);
-					//	printf("ori.x = %d\n",s->player.ori.x);
+						//printf("ori.x = %d\n",s->player.ori.x);
 						//printf("ori.y = %d\n",s->player.ori.y);
 						//printf("p_ori.x = %d\n",s->player.p_ori.x);
 						//printf("p_ori.y = %d\n",s->player.p_ori.y);
+
+						//printf("space = %d\n", s->editor->space );
+						//printf("init_space = %d\n", s->player.init_space);
+						//printf("decalx = %d\n", s->editor->decal_x );
+						//printf("decaly = %d\n", s->editor->decal_y );
 
 					}
 				}
@@ -289,11 +298,18 @@ void	editor_handler(t_main *s)
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					s->editor->space += 5;
+					//s->player.p_ori.x = s->player.ori.x + (s->player.p_ori.x + 5);
+					//s->player.p_ori.y = s->player.ori.y + (s->player.p_ori.y + 5);
+					//s->player.p_ori.y += s->player.ori.y * 5;
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					s->editor->space -= 5;
+					//s->player.p_ori.x = s->player.ori.x + (s->player.p_ori.x - 5);
+					//s->player.p_ori.y = s->player.ori.y + (s->player.p_ori.y - 5);
+					//s->editor->space -= 5;
+
 					zoom--;
 				}
 				//printf("buttonx = %d", s->sdl->event.button.x);
@@ -304,7 +320,7 @@ void	editor_handler(t_main *s)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
 				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 2
-				&& selected == 1 && s->editor->mode == supp)
+				&& selected == 1)
 				{
 					remove_anchor(s, id);
 					id = 0;

@@ -13,10 +13,12 @@ SRC_NAME =	main.c \
 			editor_controls.c \
 			lines.c \
 			mouse.c \
-			parcing.c \
+			parsing.c \
 			chainlist.c \
 			utils_1.c \
+			anchors_general.c \
 			mode_vertex.c \
+			remove_sectors.c \
 			wall.c \
 			mode_deplacement.c
 

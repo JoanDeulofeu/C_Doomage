@@ -58,11 +58,37 @@ void	ft_save_sector_vextex(t_main *s, int id_vtx)
 	// printf("lol\n");
 }
 
+int		ft_norm_close_sector(t_main *s, int part, char *end)
+{
+	if (part == 1)
+	{
+		if (!(end = (char*)malloc(sizeof(char) * 6)))
+			handle_error(s, MALLOC_ERROR);
+		end[0] = ' ';
+		end[1] = '|';
+		end[2] = ' ';
+		end[3] = '-';
+		end[4] = '1';
+		end[5] = '\0';
+		s->str_vtx = ft_strjoin_free(&s->str_vtx, &end);
+	}
+	else
+	{
+		if (!(end = (char*)malloc(sizeof(char) * 2)))
+			handle_error(s, MALLOC_ERROR);
+		end[0] = ' ';
+		end[1] = '-';
+		end[2] = '1';
+		end[3] = '\0';
+		s->str_vtx = ft_strjoin_free(&s->str_vtx, &end);
+	}
+	return (0);
+}
+
 void	ft_close_sector(t_main *s)
 {
 	int		nb_wall;
 	int		init;
-	int		size_line;
 	char	*begin;
 	char	*end;
 
@@ -74,33 +100,13 @@ void	ft_close_sector(t_main *s)
 	while (nb_wall > 0)
 	{
 		if (init)
-		{
-			init = 0;
-			if (!(end = (char*)malloc(sizeof(char) * 6)))
-				handle_error(s, MALLOC_ERROR);
-			end[0] = ' ';
-			end[1] = '|';
-			end[2] = ' ';
-			end[3] = '-';
-			end[4] = '1';
-			end[5] = '\0';
-			s->str_vtx = ft_strjoin_free(&s->str_vtx, &end);
-		}
+			init = ft_norm_close_sector(s, 1, end);
 		else
-		{
-			if (!(end = (char*)malloc(sizeof(char) * 2)))
-				handle_error(s, MALLOC_ERROR);
-			end[0] = ' ';
-			end[1] = '-';
-			end[2] = '1';
-			end[3] = '\0';
-			s->str_vtx = ft_strjoin_free(&s->str_vtx, &end);
-		}
+			ft_norm_close_sector(s, 2, end);
 		nb_wall--;
 	}
 	// printf("FINAL str_vtx = %s\n", s->str_vtx);
-	size_line = ft_strlen(s->str_vtx);
-	ft_parse_sector(s, s->str_vtx, size_line);
+	ft_parse_sector(s, s->str_vtx);
 	s->str_vtx = NULL;
 	ft_reset_color_vertex(s);
 }
@@ -112,9 +118,10 @@ int		ft_sector_mode(t_main *s, int x, int y)
 	int			id;
 
 	vtx = s->vertex;
-	// printf("salut\n");
-	mouse.x = arround(s->editor->space, x - (s->editor->decal_x % s->editor->space));
-	mouse.y = arround(s->editor->space, y - (s->editor->decal_y % s->editor->space));
+	mouse.x = arround(s->editor->space, x
+		- (s->editor->decal_x % s->editor->space));
+	mouse.y = arround(s->editor->space, y
+		- (s->editor->decal_y % s->editor->space));
 	if ((id = anchor_exists(s, mouse)))
 	{
 		if (s->str_vtx != NULL && ft_atoi(s->str_vtx) == id)
@@ -132,52 +139,45 @@ int		ft_sector_mode(t_main *s, int x, int y)
 	return (0);
 }
 
+void	ft_trump(t_main *s, t_sector *sct, t_vertex *vtx, t_int *first_vtx)
+{
+	Uint32	color = 0xff7062FF; //#ff7062
+
+	vtx = s->vertex;
+	while (vtx && sct->vertex && sct->vertex->value != vtx->id && vtx->next)
+		vtx = vtx->next;
+		s->line.x1 = vtx->pos.x;
+		s->line.y1 = vtx->pos.y;
+	vtx = s->vertex;
+	if (sct->vertex->next != NULL)
+	{
+		while (vtx && sct->vertex->next && sct->vertex->next->value != vtx->id)
+			vtx = vtx->next;
+	}
+	else
+	{
+		while (vtx && first_vtx->value != vtx->id)
+			vtx = vtx->next;
+	}
+	s->line.x2 = vtx->pos.x;
+	s->line.y2 = vtx->pos.y;
+	get_line(s, color);
+}
+
 void	ft_draw_all_wall(t_main *s)
 {
 	t_vertex	*vtx;
 	t_int		*first_vtx;
 	t_sector	*sct;
-	Uint32		color = 0xff7062FF; //#ff7062
-
 
 	sct = s->sector;
+	vtx = NULL;
 	while (sct)
 	{
 		first_vtx = sct->vertex;
 		while (sct->vertex)
 		{
-			if (sct->vertex->next != NULL)
-			{
-				vtx = s->vertex;
-				while (vtx && sct->vertex->value != vtx->id && vtx->next)
-					vtx = vtx->next;
-					s->line.x1 = vtx->pos.x;
-					s->line.y1 = vtx->pos.y;
-
-				vtx = s->vertex;
-				while (vtx && sct->vertex->next && sct->vertex->next->value != vtx->id)
-					vtx = vtx->next;
-
-					s->line.x2 = vtx->pos.x;
-					s->line.y2 = vtx->pos.y;
-				get_line(s, color);
-			}
-			else
-			{
-				vtx = s->vertex;
-				while (vtx && sct->vertex && sct->vertex->value != vtx->id && vtx->next)
-					vtx = vtx->next;
-				s->line.x1 = vtx->pos.x;
-				s->line.y1 = vtx->pos.y;
-				vtx = s->vertex;
-				while (vtx && first_vtx->value != vtx->id)
-					vtx = vtx->next;
-
-					s->line.x2 = vtx->pos.x;
-					s->line.y2 = vtx->pos.y;
-
-				get_line(s, color);
-			}
+			ft_trump(s, sct, vtx, first_vtx);
 			sct->vertex = sct->vertex->next;
 		}
 		sct->vertex = first_vtx;
