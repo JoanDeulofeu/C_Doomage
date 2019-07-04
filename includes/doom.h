@@ -98,6 +98,7 @@ typedef struct		s_player
 	t_pos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
+	int 			init_space;
 }					t_player;
 
 typedef struct		s_int {

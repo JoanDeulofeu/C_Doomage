@@ -70,6 +70,7 @@ void set_player(t_main *s)
 	t_pos		pos;
 	t_editor 	*edi;
 	int 		correc;
+	t_dpos 		res;
 
 	correc = 0;
 	edi = s->editor;
@@ -83,8 +84,11 @@ void set_player(t_main *s)
 	else
 		correc = 0;
 	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
-	//pos.x += s->player.p_ori.x;
-	//pos.y += s->player.p_ori.y;
+
+	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space)* edi->space;// - ((s->player.init_space - edi->space)/2);
+	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space)* edi->space;
+	pos.x += (int)res.x;
+	pos.y += (int)res.y;
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
 }
@@ -236,12 +240,18 @@ void	editor_handler(t_main *s)
 						s->player.p_ori.x = s->player.pos.x - s->player.ori.x;
 						s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
 						s->player.ori = get_abs_pos(s,s->player.ori);
+						s->player.init_space = s->editor->space;
 						//printf("player.pos.x = %d\n",s->player.pos.x);
 						//printf("player.pos.y = %d\n",s->player.pos.y);
-					//	printf("ori.x = %d\n",s->player.ori.x);
+						//printf("ori.x = %d\n",s->player.ori.x);
 						//printf("ori.y = %d\n",s->player.ori.y);
 						//printf("p_ori.x = %d\n",s->player.p_ori.x);
 						//printf("p_ori.y = %d\n",s->player.p_ori.y);
+
+						//printf("space = %d\n", s->editor->space );
+						//printf("init_space = %d\n", s->player.init_space);
+						//printf("decalx = %d\n", s->editor->decal_x );
+						//printf("decaly = %d\n", s->editor->decal_y );
 
 					}
 				}
@@ -251,11 +261,18 @@ void	editor_handler(t_main *s)
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					s->editor->space += 5;
+					//s->player.p_ori.x = s->player.ori.x + (s->player.p_ori.x + 5);
+					//s->player.p_ori.y = s->player.ori.y + (s->player.p_ori.y + 5);
+					//s->player.p_ori.y += s->player.ori.y * 5;
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					s->editor->space -= 5;
+					//s->player.p_ori.x = s->player.ori.x + (s->player.p_ori.x - 5);
+					//s->player.p_ori.y = s->player.ori.y + (s->player.p_ori.y - 5);
+					//s->editor->space -= 5;
+
 					zoom--;
 				}
 				//printf("buttonx = %d", s->sdl->event.button.x);
