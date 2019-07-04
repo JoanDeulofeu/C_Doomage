@@ -76,15 +76,15 @@ void set_player(t_main *s)
 
 	correc = 0;
 	edi = s->editor;
-	//if (edi->decal_x <= 0)
-//		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-//	else
-	//	correc = 0;
+	if (edi->decal_x <= 0)
+		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
+	else
+		correc = 0;
 	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);// + s->player.p_ori.x;
-//	if (edi->decal_y <= 0)
-//		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-//	else
-	//	correc = 0;
+	if (edi->decal_y <= 0)
+		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
+	else
+		correc = 0;
 	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
 	pos.x += s->player.p_ori.x;
 	pos.y += s->player.p_ori.y;
@@ -231,6 +231,7 @@ void	editor_handler(t_main *s)
 						//printf("ori.y = %d\n",s->player.ori.y);
 						//printf("p_ori.x = %d\n",s->player.p_ori.x);
 						//printf("p_ori.y = %d\n",s->player.p_ori.y);
+						
 					}
 				}
 			}
