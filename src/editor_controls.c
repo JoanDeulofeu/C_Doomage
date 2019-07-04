@@ -96,6 +96,7 @@ void	display_map(t_main *s)
 	t_pos		pos;
 	int			correc = 0;
 
+
 	ft_draw_editor(s->editor, s->sdl->editor);
 	temp = NULL;
 	edi = s->editor;
@@ -132,6 +133,8 @@ void	display_map(t_main *s)
 		}
 		temp = temp->next;
 	}
+	// printf("decalx = %d\n", s->editor->decal_x );
+
 	//player anchor
 		//draw_anchor(s, s->player.pos, BLUE);
 		set_player(s);
@@ -146,6 +149,10 @@ void	editor_handler(t_main *s)
 	int			id;
 	t_pos		mouse_save;
 	char		color_sector;
+	t_pos 		tmp;
+	t_pos 		tmp2;
+	t_pos diff;
+
 	// t_pos		dest;
 
 	editor = 1;
@@ -166,7 +173,14 @@ void	editor_handler(t_main *s)
 				if (selected && s->editor->mode == vertex)
 					move_anchor(s, id);
 				if (s->editor->mode == move && selected == 1)
-					mouse_grid(s, mouse_save);
+				{
+					//diff.x = s->ft_mouse.x - mouse_save.x;
+					//tmp2.x = s->editor->decal_x;
+					//tmp2.y = s->editor->decal_y;
+					s->editor->decal_x = tmp2.x + s->ft_mouse.x - mouse_save.x;
+					s->editor->decal_y = tmp2.y +s->ft_mouse.y - mouse_save.y;
+					//mouse_grid(s, diff);
+				}
 			}
 			if (s->sdl->event.type == SDL_QUIT)
 				editor = 0;
@@ -210,12 +224,19 @@ void	editor_handler(t_main *s)
 					// 	remove_anchor(s, id);
 					else if (s->editor->mode == move)
 					{
-						mouse_save.x = s->ft_mouse.x;
-						mouse_save.y = s->ft_mouse.y;
+						tmp2.x = s->editor->decal_x;
+						tmp2.y = s->editor->decal_y;
+						tmp.x = s->editor->decal_x;
+						tmp.y = s->editor->decal_y;
+						mouse_save.x = s->sdl->event.button.x;
+						mouse_save.y = s->sdl->event.button.y;
+						printf("mouse save X = %d et save Y = %d\n", mouse_save.x, mouse_save.y);
+						 printf("decalx = %d\n", s->editor->decal_x );
+						 printf("decaly = %d\n", s->editor->decal_y );
 
+						//mouse_grid(s, mouse_save);
 						selected = 1;
-						// s->editor->decal_x = s->sdl->event.motion.x;
-						// s->editor->decal_y = s->sdl->event.motion.y;
+
 					}
 					else if (s->editor->mode == sector)
 					{
@@ -246,6 +267,23 @@ void	editor_handler(t_main *s)
 					}
 				}
 			}
+			if (s->sdl->event.type == SDL_MOUSEBUTTONUP)
+			{
+				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
+				{
+					if (s->editor->mode == move)
+					{
+						//printf("ok\n");
+						s->editor->decal_x = tmp.x;
+						s->editor->decal_y = tmp.y;
+
+						diff.x = s->ft_mouse.x - mouse_save.x;
+						diff.y = s->ft_mouse.y - mouse_save.y;
+						mouse_grid(s, diff);
+					}
+				}
+			}
+
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)

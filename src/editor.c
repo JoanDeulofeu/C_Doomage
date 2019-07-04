@@ -10,11 +10,8 @@ void	change_mode(t_main *s, int key)
 		s->editor->mode = vertex;
 	else if (key == PLAYER)
 		s->editor->mode = player;
-<<<<<<< HEAD
-=======
 	else if (key == SUPP)
 		s->editor->mode = supp;
->>>>>>> d960c7473ec17ec48cf6108a1baabdc00aae89ce
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);
 }
@@ -53,6 +50,7 @@ void	ft_draw_editor(t_editor *edi, t_texture *tex)
 	// coord.x  decalage en pixels entre le pixel 0 de l'ecran et le premier point de la grille affichée a l'ecran.
 	coord.x = edi->decal_x % edi->space;
 	coord.y = edi->decal_y % edi->space;
+
 	edi->ref.x = ft_find_ref(edi, edi->decal_x);
 	edi->ref.y = ft_find_ref(edi, edi->decal_y);
 	// printf("\ncoord.x = %d\ndecal_x = %d\nref.x = %d\n",coord.x , edi->decal_x, edi->ref.x);
