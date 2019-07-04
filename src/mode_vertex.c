@@ -2,36 +2,29 @@
 
 void	remove_sector(t_main *s, int id)
 {
-	//parcourir la liste des secteurs.
-	//Pour chaque secteur verifier s'il y a un vertex qui contient l'id donnee
-	// Si c'est le cas il faut free le secteur.
-	//De la on recommence a reparcourir les secteurs depuis le debut
-	//Si un secteur a un portail vers le secteur supprimé, le portail devient -1
-
 	t_sector	*temp_sector;
 	t_sector	*temp_sector2;
 	t_int		*temp_vertex;
 	t_int		*temp_vertex2;
 	int			sector_id;
+	int del;
 
+	del = 0;
 	sector_id = 0;
 	temp_sector = s->sector;
 	while (temp_sector)
 	{
-		printf ("SECTEUR [%d]\n", temp_sector->id);
 		sector_id = temp_sector->id;
 		temp_vertex = temp_sector->vertex;
 		while (temp_vertex)
 		{
 			if (temp_vertex->value == id)
 			{
-				printf ("Vertex %d trouvé !!\n", id);
 				temp_vertex = temp_sector->vertex;
 				while (temp_vertex)
 				{
 					temp_vertex2 = temp_vertex;
 					temp_vertex = temp_vertex->next;
-					printf ("Free vertex %d !!\n", temp_vertex2->id);
 					free(temp_vertex2);
 				}
 				temp_vertex = temp_sector->wall;
@@ -39,24 +32,25 @@ void	remove_sector(t_main *s, int id)
 				{
 					temp_vertex2 = temp_vertex;
 					temp_vertex = temp_vertex->next;
-					printf ("Free wall %d !!\n", temp_vertex2->id);
 					free(temp_vertex2);
 				}
 				if (temp_sector->prev && temp_sector->next)
 				{
-					// printf ("Le secteur precedent est le %d !!\n", temp_sector->prev->id);
 					temp_sector->prev->next = temp_sector->next;
 					temp_sector->next->prev = temp_sector->prev;
 				}
 				else if (temp_sector->prev && !temp_sector->next)
 					temp_sector->prev->next = NULL;
 				else if (!temp_sector->prev && temp_sector->next)
+				{
 					s->sector = temp_sector->next;
+					s->sector->prev = NULL;
+				}
+
 				else if (!temp_sector->prev && !temp_sector->next)
 					s->sector = NULL;
 				temp_sector2 = temp_sector;
 				temp_sector = s->sector;
-				printf ("Free Sector %d !!\n", temp_sector2->id);
 				free(temp_sector2);
 				while (temp_sector)
 				{
@@ -70,12 +64,16 @@ void	remove_sector(t_main *s, int id)
 					temp_sector = temp_sector->next;
 				}
 				temp_sector = s->sector;
+				del = 1;
 				break;
 			}
 			else
+			{
 				temp_vertex = temp_vertex->next;
+				del = 0;
+			}
 		}
-		if (temp_sector)
+		if (temp_sector && !del)
 			temp_sector = temp_sector->next;
 	}
 }
@@ -90,29 +88,22 @@ void	remove_anchor(t_main *s, int id)
 		if (temp->id == id)
 		{
 			remove_sector(s, id);
-			// printf("id actuel = %d\n", temp->id);
-			// printf("id du maillon suivant le precedent (notmalemnt le meme id) = %d\n", temp->prev->next->id);
 			if (temp->prev && temp->next)
 			{
 				temp->prev->next = temp->next;
 				temp->next->prev = temp->prev;
-			// printf("id du maillon suivant le precedent (notamment plus le meme id) = %d\n", temp->prev->next->id);
-
 			}
 			else if (temp->prev && !temp->next)
 				temp->prev->next = NULL;
-
 			else if (!temp->prev && temp->next)
+			{
 				s->vertex = temp->next;
+				s->vertex->prev = NULL;
+			}
 			else if (!temp->prev && !temp->next)
 				s->vertex = NULL;
-			// temp->next = NULL;
-			// temp->prev = NULL;
-			// free(temp->next);
-			// free(temp->prev);
 			free(temp);
 			temp = NULL;
-			// ft_test_chainlist(s);
 			return;
 		}
 		if (temp)
@@ -182,21 +173,25 @@ void	move_anchor(t_main *s, int id)
 	t_pos		ori;
 	t_pos		abs;
 
-	temp = s->vertex;
+	temp = NULL;
+	if (s->vertex)
+		temp = s->vertex;
 	while (temp)
 	{
 		if (temp->id == id)
 		{
-			ori.x = arround(s->editor->space, s->ft_mouse.x - (s->editor->decal_x % s->editor->space));
-			ori.y = arround(s->editor->space, s->ft_mouse.y - (s->editor->decal_y % s->editor->space));
+			ori.x = arround(s->editor->space, s->ft_mouse.x
+				- (s->editor->decal_x % s->editor->space));
+			ori.y = arround(s->editor->space, s->ft_mouse.y
+				- (s->editor->decal_y % s->editor->space));
 			temp->pos = ori;
 			abs = get_abs_pos(s, ori);
 			temp->x = abs.x;
 			temp->y = abs.y;
-			// printf ("true");
 			return;
 		}
-		temp = temp->next;
+		if (temp)
+			temp = temp->next;
 	}
 }
 
@@ -212,7 +207,6 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	t_dpos		dest;
 	short		size;
 
-	// size = 5;
 	size = s->editor->anchor_size;
 	init.x = ori.x - size;
 	init.y = ori.y - size;

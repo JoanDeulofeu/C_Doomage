@@ -114,29 +114,33 @@ void	ft_draw_all_wall(t_main *s)
 			if (sct->vertex->next != NULL)
 			{
 				vtx = s->vertex;
-				while (sct->vertex->value != vtx->id && vtx->next)
+				while (vtx && sct->vertex->value != vtx->id && vtx->next)
 					vtx = vtx->next;
-				s->line.x1 = vtx->pos.x;
-				s->line.y1 = vtx->pos.y;
+					s->line.x1 = vtx->pos.x;
+					s->line.y1 = vtx->pos.y;
+
 				vtx = s->vertex;
-				while (sct->vertex->next->value != vtx->id)
+				while (vtx && sct->vertex->next && sct->vertex->next->value != vtx->id)
 					vtx = vtx->next;
-				s->line.x2 = vtx->pos.x;
-				s->line.y2 = vtx->pos.y;
+
+					s->line.x2 = vtx->pos.x;
+					s->line.y2 = vtx->pos.y;
 				get_line(s, color);
 			}
 			else
 			{
 				vtx = s->vertex;
-				while (sct->vertex->value != vtx->id && vtx->next)
+				while (vtx && sct->vertex && sct->vertex->value != vtx->id && vtx->next)
 					vtx = vtx->next;
 				s->line.x1 = vtx->pos.x;
 				s->line.y1 = vtx->pos.y;
 				vtx = s->vertex;
-				while (first_vtx->value != vtx->id)
+				while (vtx && first_vtx->value != vtx->id)
 					vtx = vtx->next;
-				s->line.x2 = vtx->pos.x;
-				s->line.y2 = vtx->pos.y;
+
+					s->line.x2 = vtx->pos.x;
+					s->line.y2 = vtx->pos.y;
+
 				get_line(s, color);
 			}
 			sct->vertex = sct->vertex->next;
