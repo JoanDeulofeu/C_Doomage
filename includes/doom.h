@@ -216,6 +216,7 @@ void				set_selected(t_main *s, t_pos ori, char on);
 t_pos				get_abs_pos(t_main *s, t_pos ori);
 void				move_anchor(t_main *s, int id);
 void				remove_anchor(t_main *s, int id);
+void				remove_sector(t_main *s, int id, int del, int sct_id);
 
 //SECTOR
 int					ft_parse_sector(t_main *s, char *line, int size_line);

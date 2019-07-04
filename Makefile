@@ -16,7 +16,9 @@ SRC_NAME =	main.c \
 			parcing.c \
 			chainlist.c \
 			utils_1.c \
+			anchors_general.c \
 			mode_vertex.c \
+			remove_sectors.c \
 			wall.c \
 			mode_deplacement.c
 
