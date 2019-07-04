@@ -230,9 +230,9 @@ void	editor_handler(t_main *s)
 						tmp.y = s->editor->decal_y;
 						mouse_save.x = s->sdl->event.button.x;
 						mouse_save.y = s->sdl->event.button.y;
-						printf("mouse save X = %d et save Y = %d\n", mouse_save.x, mouse_save.y);
-						 printf("decalx = %d\n", s->editor->decal_x );
-						 printf("decaly = %d\n", s->editor->decal_y );
+						//printf("mouse save X = %d et save Y = %d\n", mouse_save.x, mouse_save.y);
+						// printf("decalx = %d\n", s->editor->decal_x );
+						// printf("decaly = %d\n", s->editor->decal_y );
 
 						//mouse_grid(s, mouse_save);
 						selected = 1;
