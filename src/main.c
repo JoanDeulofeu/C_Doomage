@@ -1,13 +1,5 @@
-
 #include "doom.h"
 
-//Dessine la direction dans laquelle regarde le joueur
-// draw_view()
-// {
-// 	//utiliser fonction dessiner_ligne de FDF ?
-// }
-
-//Dessine le carré representant le joueur en debug
 void	draw_player(t_main *s, t_dpos p_pos)
 {
 	t_dpos p_size;

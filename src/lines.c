@@ -4,7 +4,6 @@ void	trace_vertical(t_main *s, Uint32 color)
 {
 	int sens_x;
 	int sens_y;
-	// int perct;
 	t_pos coord;
 
 	s->line.e = s->line.y2 > s->line.y1 ? s->line.y2 - s->line.y1 : s->line.y1 - s->line.y2;
@@ -29,12 +28,6 @@ void	trace_vertical(t_main *s, Uint32 color)
 
 void	get_line(t_main *s, Uint32 color)
 {
-
-		// s->line.x1 = s->line.grid[i][j]->x;
-		// s->line.y1 = s->line.grid[i][j]->y;
-		// s->line.x2 = s->line.grid[i + 1][j]->x;
-		// s->line.y2 = s->line.grid[i + 1][j]->y;
-		// s->line.z2 = s->line.grid[i + 1][j]->z;
 		s->line.e = s->line.x2 > s->line.x1 ? s->line.x2 - s->line.x1 : s->line.x1 - s->line.x2;
 		s->line.dy = s->line.y2 > s->line.y1 ? (s->line.y2 - s->line.y1) * 2 : (s->line.y1 - s->line.y2) * 2;
 		s->line.dx = s->line.e * 2;
