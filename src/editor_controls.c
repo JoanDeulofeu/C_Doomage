@@ -64,15 +64,38 @@ void	handle_editor_keys(t_main *s)
 	// }
 }
 
+t_pos 	get_px_pos(t_main *s, t_pos ref)
+{
+	t_pos		pos;
+	t_editor 	*edi;
+	int 		correc;
+
+	correc = 0;
+	edi = s->editor;
+	if (edi->decal_x <= 0)
+		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
+	else
+		correc = 0;
+	pos.x = (ref.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
+	if (edi->decal_y <= 0)
+		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
+	else
+		correc = 0;
+	pos.y = (ref.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
+	return (pos);
+}
+
 void set_player(t_main *s)
 {
 	t_pos		pos;
 	t_editor 	*edi;
 	int 		correc;
 	t_dpos 		res;
+	t_pos 		ori;
 
 	correc = 0;
 	edi = s->editor;
+
 	if (edi->decal_x <= 0)
 		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 	else
@@ -83,11 +106,10 @@ void set_player(t_main *s)
 	else
 		correc = 0;
 	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
-
-	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space)* edi->space;
-	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space)* edi->space;
-	pos.x += (int)res.x;
-	pos.y += (int)res.y;
+	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space) * edi->space;
+	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space) * edi->space;
+	pos.x += (int)res.x - s->player.p_ref.x;
+	pos.y += (int)res.y - s->player.p_ref.y;
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
 }
@@ -256,6 +278,13 @@ void	editor_handler(t_main *s)
 						s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
 						s->player.ori = get_abs_pos(s,s->player.ori);
 						s->player.init_space = s->editor->space;
+						s->player.p_ref = get_px_pos(s, s->editor->ref);
+
+						//s->player.p_ref.x = (s->editor->ref.x - s->editor->ref.x + correc) * s->editor->space + (s->editor->decal_x % s->editor->space);
+						//s->player.p_ref.y = (s->editor->ref.y - s->editor->ref.y + correc) * s->editor->space + (s->editor->decal_y % s->editor->space);
+
+						//printf("refx = %d\n", s->player.p_ref.x);
+						//printf("refy = %d\n", s->player.p_ref.y);
 						//printf("player.pos.x = %d\n",s->player.pos.x);
 						//printf("player.pos.y = %d\n",s->player.pos.y);
 						//printf("ori.x = %d\n",s->player.ori.x);

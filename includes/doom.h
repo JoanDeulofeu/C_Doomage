@@ -98,6 +98,7 @@ typedef struct		s_player
 	t_pos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
+	t_pos 			p_ref;
 	int 			init_space;
 }					t_player;
 
@@ -228,5 +229,7 @@ int					ft_sector_mode(t_main *s, int x, int y);
 
 //UTILS
 int					arround(int space, int nb);
+t_pos 				get_px_pos(t_main *s, t_pos ref);
+
 
 #endif
