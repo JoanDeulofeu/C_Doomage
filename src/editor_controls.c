@@ -77,14 +77,14 @@ void set_player(t_main *s)
 		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 	else
 		correc = 0;
-	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space) + s->player.p_ori.x;// + s->player.p_ori.x;
+	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
 	if (edi->decal_y <= 0)
 		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
 	else
 		correc = 0;
-	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);//+ s->player.p_ori.x;
+	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
 
-	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space)* edi->space;// - ((s->player.init_space - edi->space)/2);
+	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space)* edi->space;
 	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space)* edi->space;
 	pos.x += (int)res.x;
 	pos.y += (int)res.y;
