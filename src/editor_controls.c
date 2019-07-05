@@ -153,7 +153,7 @@ void	editor_handler(t_main *s)
 	t_pos		mouse_save;
 	char		color_sector;
 	t_pos 		tmp;
-	t_pos 		tmp2;
+	// t_pos 		tmp2;
 	t_pos		diff;
 
 	// t_pos		dest;
@@ -177,8 +177,10 @@ void	editor_handler(t_main *s)
 					move_anchor(s, id);
 				if (s->editor->mode == move && selected == 1)
 				{
-					s->editor->decal_x = tmp2.x + s->ft_mouse.x - mouse_save.x;
-					s->editor->decal_y = tmp2.y + s->ft_mouse.y - mouse_save.y;
+					// s->editor->decal_x = tmp2.x + s->ft_mouse.x - mouse_save.x;
+					// s->editor->decal_y = tmp2.y + s->ft_mouse.y - mouse_save.y;
+					s->editor->decal_x = tmp.x + s->ft_mouse.x - mouse_save.x;
+					s->editor->decal_y = tmp.y + s->ft_mouse.y - mouse_save.y;
 				}
 			}
 			if (s->sdl->event.type == SDL_QUIT)
@@ -222,8 +224,8 @@ void	editor_handler(t_main *s)
 					// 	remove_anchor(s, id);
 					else if (s->editor->mode == move)
 					{
-						tmp2.x = s->editor->decal_x;
-						tmp2.y = s->editor->decal_y;
+						// tmp2.x = s->editor->decal_x;
+						// tmp2.y = s->editor->decal_y;
 						tmp.x = s->editor->decal_x;
 						tmp.y = s->editor->decal_y;
 						mouse_save.x = s->sdl->event.button.x;
