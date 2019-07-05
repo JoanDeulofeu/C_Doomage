@@ -39,6 +39,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
+	t_pos test;
 
 	keys = SDL_GetKeyboardState(NULL);
 	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
@@ -59,6 +60,10 @@ void	handle_editor_keys(t_main *s)
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
 		ft_draw_all_wall(s);
+		test.x = s->vertex->pos.x + 30;
+		test.y = s->vertex->pos.y + 20;
+		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
+		draw_sector(s, test.x, test.y);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
@@ -242,8 +247,11 @@ void	editor_handler(t_main *s)
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
 						if (ori.x >= 0 && ori.x <= WIDTH
 							&& ori.y >= 0 && ori.y <= HEIGHT)
+							{
 								if ((id = anchor_exists(s, ori)) != 0)
 									set_selected(s, ori, color_sector);
+							}
+
 						color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 					}
 					else if (s->editor->mode == player)

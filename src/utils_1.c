@@ -29,3 +29,11 @@ t_pos	get_abs_pos(t_main *s, t_pos ori)
 	res.y = s->editor->ref.y + (ori.y / s->editor->space) + correc_y;
 	return (res);
 }
+
+Uint32	get_pixel_color(t_texture *text, int x, int y)
+{
+	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+		return (text->content[x + y * WIDTH]);
+	else
+		return (2);
+}

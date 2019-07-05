@@ -16,6 +16,34 @@ void	change_mode(t_main *s, int key)
 	// printf("mode = %d\n", s->editor->mode);
 }
 
+void	draw_sector(t_main *s, int x, int y)
+{
+	Uint32 color;
+	t_pos coord;
+
+	coord.x = x;
+	coord.y = y;
+
+	color = YELLOW;
+	//On part du point donné et on verifie dans quel secteur il est.
+	// On chosiit la couleur en fonction du secteur
+	// Si le pixel est noir ou blanc on colorie.
+	// On fait la meme chose pour chaque coté
+	// if (x <= 0 || x >= WIDTH || y <= 0 || y >= HEIGHT)
+	// 	return ;
+	// printf("x = %d\n", x);
+	if (get_pixel_color(s->sdl->editor, x, y) == BLACK || get_pixel_color(s->sdl->editor, x, y) == 0xaca7a7FF)
+	{
+		set_pixel(s->sdl->editor, color, coord);
+		draw_sector(s, x + 1, y);
+		draw_sector(s, x - 1, y);
+		draw_sector(s, x, y - 1);
+		draw_sector(s, x, y + 1);
+	}
+
+
+}
+
 int		ft_find_ref(t_editor *edi, int decal)
 {
 	// printf("Ref : x %d | y : %d | decalx = %d\n", edi->ref.x, edi->ref.y, edi->decal_x);
