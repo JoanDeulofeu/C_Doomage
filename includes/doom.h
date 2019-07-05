@@ -111,6 +111,8 @@ typedef struct		s_player
 	t_pos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
+	t_pos 			p_ref;
+	int 			correc;
 	int 			init_space;
 }					t_player;
 
@@ -243,5 +245,7 @@ void				draw_sector(t_main *s, int x, int y);
 //UTILS
 int					arround(int space, int nb);
 Uint32				get_pixel_color(t_texture *text, int x, int y);
+t_pos 				get_px_pos(t_main *s, t_pos ref);
+
 
 #endif
