@@ -99,6 +99,7 @@ typedef struct		s_player
 	t_pos 			ori;
 	t_pos 			p_ori;
 	t_pos 			p_ref;
+	int 			correc;
 	int 			init_space;
 }					t_player;
 
