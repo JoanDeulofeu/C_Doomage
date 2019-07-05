@@ -154,7 +154,7 @@ void	editor_handler(t_main *s)
 	char		color_sector;
 	t_pos 		tmp;
 	t_pos 		tmp2;
-	t_pos diff;
+	t_pos		diff;
 
 	// t_pos		dest;
 
@@ -177,12 +177,8 @@ void	editor_handler(t_main *s)
 					move_anchor(s, id);
 				if (s->editor->mode == move && selected == 1)
 				{
-					//diff.x = s->ft_mouse.x - mouse_save.x;
-					//tmp2.x = s->editor->decal_x;
-					//tmp2.y = s->editor->decal_y;
 					s->editor->decal_x = tmp2.x + s->ft_mouse.x - mouse_save.x;
-					s->editor->decal_y = tmp2.y +s->ft_mouse.y - mouse_save.y;
-					//mouse_grid(s, diff);
+					s->editor->decal_y = tmp2.y + s->ft_mouse.y - mouse_save.y;
 				}
 			}
 			if (s->sdl->event.type == SDL_QUIT)
@@ -199,7 +195,6 @@ void	editor_handler(t_main *s)
 					else if (s->editor->mode == move)
 					{
 						selected = 0;
-
 					}
 				}
 			}
@@ -234,10 +229,8 @@ void	editor_handler(t_main *s)
 						mouse_save.x = s->sdl->event.button.x;
 						mouse_save.y = s->sdl->event.button.y;
 						//printf("mouse save X = %d et save Y = %d\n", mouse_save.x, mouse_save.y);
-						// printf("decalx = %d\n", s->editor->decal_x );
-						// printf("decaly = %d\n", s->editor->decal_y );
-
-						//mouse_grid(s, mouse_save);
+						//printf("decalx = %d\n", s->editor->decal_x );
+						//printf("decaly = %d\n", s->editor->decal_y );
 						selected = 1;
 
 					}
@@ -282,10 +275,8 @@ void	editor_handler(t_main *s)
 				{
 					if (s->editor->mode == move)
 					{
-						//printf("ok\n");
 						s->editor->decal_x = tmp.x;
 						s->editor->decal_y = tmp.y;
-
 						diff.x = s->ft_mouse.x - mouse_save.x;
 						diff.y = s->ft_mouse.y - mouse_save.y;
 						mouse_grid(s, diff);
