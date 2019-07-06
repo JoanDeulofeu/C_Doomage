@@ -40,11 +40,18 @@
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
-# define YELLOW 0xFFF736FF
+# define YELLOW 0xFFF73611
 # define PINK 0xFF36F7FF
 # define WHITE 0xFFFFFFFF
+# define BLACK 0x00000000
 # define GREEN 0x32CD32FF
 # define BLUE 0x57C7FFFF
+
+typedef enum  	e_type {
+	ennemi,
+	boss,
+	autre
+}				t_type;
 
 typedef enum  	e_mode {
 	move,
@@ -98,11 +105,19 @@ typedef struct		s_pos {
 	short			y;
 }					t_pos;
 
+typedef struct		s_sprite {
+	int				id;
+	t_pos			pos;
+	t_type			type;
+}					t_sprite;
+
 typedef struct		s_player
 {
 	t_pos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
+	t_pos 			p_ref;
+	int 			correc;
 	int 			init_space;
 }					t_player;
 
@@ -221,6 +236,7 @@ void				draw_anchor(t_main *s, t_pos ori, Uint32 color);
 void				create_anchor(t_main *s, t_pos ori);
 int					anchor_exists(t_main *s, t_pos ori);
 void				set_selected(t_main *s, t_pos ori, char on);
+
 t_pos				get_abs_pos(t_main *s, t_pos ori);
 void				move_anchor(t_main *s, int id);
 void				remove_anchor(t_main *s, int id);
@@ -230,9 +246,13 @@ void				ft_reset_color_vertex(t_main *s);
 //SECTOR
 int					ft_parse_sector(t_main *s, char *line);
 int					ft_sector_mode(t_main *s, int x, int y);
+void				draw_sector(t_main *s, int x, int y);
 
 //UTILS
 int					arround(int space, int nb);
-int		ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
+Uint32				get_pixel_color(t_texture *text, int x, int y);
+t_pos 				get_px_pos(t_main *s, t_pos ref);
+int					ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
+
 
 #endif
