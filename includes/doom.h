@@ -60,6 +60,11 @@ typedef struct		s_texture {
 	Uint32			color_tmp;
 }					t_texture;
 
+typedef struct		s_abpos {
+	float			a;
+	float			b;
+}					t_abpos;
+
 typedef struct		s_dpos {
 	double			x;
 	double			y;
@@ -228,5 +233,6 @@ int					ft_sector_mode(t_main *s, int x, int y);
 
 //UTILS
 int					arround(int space, int nb);
+int		ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
 
 #endif
