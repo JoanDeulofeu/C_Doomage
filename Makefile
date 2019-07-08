@@ -21,7 +21,8 @@ SRC_NAME =	main.c \
 			remove_sectors.c \
 			wall.c \
 			mode_deplacement.c \
-			ft_is_in_sector.c
+			ft_is_in_sector.c \
+			piles.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
@@ -30,7 +31,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -g#-Werror
+CFLAGS = -Wall -Wextra -g #-Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
