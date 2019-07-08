@@ -183,7 +183,6 @@ void	editor_handler(t_main *s)
 	t_pos		ori;
 	int			id;
 	t_pos		mouse_save;
-	char		color_sector;
 	t_pos 		tmp;
 	// t_pos 		tmp2;
 	t_pos		diff;
@@ -194,7 +193,6 @@ void	editor_handler(t_main *s)
 	selected = 0;
 	zoom = 0;
 	id = 0;
-	color_sector = 2;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -276,10 +274,9 @@ void	editor_handler(t_main *s)
 							&& ori.y >= 0 && ori.y <= HEIGHT)
 							{
 								if ((id = anchor_exists(s, ori)) != 0)
-									set_selected(s, ori, color_sector);
+									set_selected(s, ori, s->editor->color_sector);
 							}
-
-						color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
+						s->editor->color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 
 
 						t_pos point_2;

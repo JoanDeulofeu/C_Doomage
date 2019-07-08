@@ -35,6 +35,7 @@ int		ft_nb_is_in_str(char *str, int nb)
 		i += ft_longlen(tmp) + 1;
 	}
 	return (0);
+	//hstghs
 }
 
 void	ft_save_sector_vextex(t_main *s, int id_vtx)

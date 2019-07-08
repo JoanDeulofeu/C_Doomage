@@ -3,15 +3,32 @@
 void	change_mode(t_main *s, int key)
 {
 	if (key == MOVE)
+	{
 		s->editor->mode = move;
+		ft_reset_color_vertex(s);
+	}
 	else if (key == WALL)
+	{
 		s->editor->mode = sector;
+		s->editor->color_sector = 2;
+		ft_reset_color_vertex(s);
+		ft_memdel((void **)&s->str_vtx);
+	}
 	else if (key == VERTEX)
+	{
 		s->editor->mode = vertex;
+		ft_reset_color_vertex(s);
+	}
 	else if (key == PLAYER)
+	{
 		s->editor->mode = player;
+		ft_reset_color_vertex(s);
+	}
 	else if (key == SUPP)
+	{
 		s->editor->mode = supp;
+		ft_reset_color_vertex(s);
+	}
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);
 }

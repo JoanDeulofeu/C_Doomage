@@ -168,6 +168,7 @@ typedef struct		s_editor {
 	int				decal_y;
 	t_pos			ref;
 	t_mode			mode;
+	char			color_sector;
 }					t_editor;
 
 typedef struct		s_main {
