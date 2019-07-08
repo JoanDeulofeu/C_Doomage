@@ -272,7 +272,6 @@ void				draw_sector(t_main *s, int x, int y);
 int					arround(int space, int nb);
 Uint32				get_pixel_color(t_texture *text, int x, int y);
 t_pos 				get_px_pos(t_main *s, t_pos ref);
-int					ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
 void				empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos				depiler(t_pile *pile);
 int					ft_is_in_sector(t_main *s, t_pos point_2);

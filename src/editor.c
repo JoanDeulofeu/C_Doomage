@@ -54,7 +54,7 @@ void	remplissage(t_main *s, t_pos coord)
 	pile->first = NULL;
 
 	color_got = get_pixel_color(s->sdl->editor, coord.x, coord.y);
-	if (color_got != BLACK && color_got != 0xaca7a7FF)
+	if (color_got != BLACK_SCREEN && color_got != 0xaca7a7FF)
 		return ;
 	empiler(s, pile, coord);
 	// printf("%d\n", pile.first->pixel.x);
@@ -65,28 +65,28 @@ void	remplissage(t_main *s, t_pos coord)
 		set_pixel(s->sdl->editor, YELLOW, cur);
 
 		color_got = get_pixel_color(s->sdl->editor, cur.x, cur.y - 1);
-		if (color_got == BLACK || color_got == 0xaca7a7FF)
+		if (color_got == BLACK_SCREEN || color_got == 0xaca7a7FF)
 		{
 			cur.y -= 1;
 			empiler(s, pile, cur);
 			cur.y += 1;
 		}
 		color_got = get_pixel_color(s->sdl->editor, cur.x, cur.y + 1);
-		if (color_got == BLACK || color_got == 0xaca7a7FF)
+		if (color_got == BLACK_SCREEN || color_got == 0xaca7a7FF)
 		{
 			cur.y += 1;
 			empiler(s, pile, cur);
 			cur.y -= 1;
 		}
 		color_got = get_pixel_color(s->sdl->editor, cur.x - 1, cur.y);
-		if (color_got == BLACK || color_got == 0xaca7a7FF)
+		if (color_got == BLACK_SCREEN || color_got == 0xaca7a7FF)
 		{
 			cur.x -= 1;
 			empiler(s, pile, cur);
 			cur.x += 1;
 		}
 		color_got = get_pixel_color(s->sdl->editor, cur.x + 1, cur.y);
-		if (color_got == BLACK || color_got == 0xaca7a7FF)
+		if (color_got == BLACK_SCREEN || color_got == 0xaca7a7FF)
 		{
 			cur.x += 1;
 			empiler(s, pile, cur);
@@ -113,14 +113,14 @@ void	draw_sector(t_main *s, int x, int y)
 	// if (x <= 0 || x >= WIDTH || y <= 0 || y >= HEIGHT)
 	// 	return ;
 	// printf("x = %d\n", x);
-	if (get_pixel_color(s->sdl->editor, x, y) == BLACK_SCREEN || get_pixel_color(s->sdl->editor, x, y) == 0xaca7a7FF)
-	{
-		set_pixel(s->sdl->editor, color, coord);
-		draw_sector(s, x + 1, y);
-		draw_sector(s, x - 1, y);
-		draw_sector(s, x, y - 1);
-		draw_sector(s, x, y + 1);
-	}
+	// if (get_pixel_color(s->sdl->editor, x, y) == BLACK_SCREEN || get_pixel_color(s->sdl->editor, x, y) == 0xaca7a7FF)
+	// {
+	// 	set_pixel(s->sdl->editor, color, coord);
+	// 	draw_sector(s, x + 1, y);
+	// 	draw_sector(s, x - 1, y);
+	// 	draw_sector(s, x, y - 1);
+	// 	draw_sector(s, x, y + 1);
+	// }
 
 }
 
