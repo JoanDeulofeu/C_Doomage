@@ -36,6 +36,15 @@ int		keyboard_controls_edi(t_main *s, int key)
 	return (1);
 }
 
+void	ft_reset_color_screen(Uint32 *str, int size)
+{
+	int i;
+
+	i = -1;
+	while (++i < size)
+		str[i] = 0x13131dFF; // #13131d
+}
+
 void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
@@ -56,7 +65,8 @@ void	handle_editor_keys(t_main *s)
 	// 	raycast_visualization(s);
 		// draw_player(s, s->p_pos);
 		// update_image(s, s->sdl->game);
-		ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
+		// ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
+		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
 		ft_draw_all_wall(s);
