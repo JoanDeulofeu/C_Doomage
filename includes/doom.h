@@ -1,3 +1,7 @@
+
+
+
+
 #ifndef DOOM_H
 # define DOOM_H
 # include "libft.h"
@@ -27,10 +31,10 @@
 # define UP_AR		SDL_SCANCODE_UP
 # define DOWN_AR	SDL_SCANCODE_DOWN
 
-# define LEFT	SDL_SCANCODE_A
-# define RIGHT	SDL_SCANCODE_D
-# define UP		SDL_SCANCODE_W
-# define DOWN	SDL_SCANCODE_S
+# define LEFT	SDLK_a
+# define RIGHT	SDLK_d
+# define UP		SDLK_w
+# define DOWN	SDLK_s
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
@@ -221,6 +225,8 @@ void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
+void					move_player(t_main *s, int key);
+
 
 //MAP
 int					ft_parsing(t_main *s, int x, int y, int fd);
@@ -252,10 +258,6 @@ void				draw_sector(t_main *s, int x, int y);
 int					arround(int space, int nb);
 Uint32				get_pixel_color(t_texture *text, int x, int y);
 t_pos 				get_px_pos(t_main *s, t_pos ref);
-<<<<<<< HEAD
 int					ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
-=======
->>>>>>> 74cdf8d541507574778a021bb0e93cd4e12f7c53
-
 
 #endif
