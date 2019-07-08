@@ -396,6 +396,7 @@ void	editor_handler(t_main *s)
 					s->player.pos.x = ((double)s->player.pos.x / (double)s->player.init_space) * s->editor->space;
 					s->player.pos.y = ((double)s->player.pos.y / (double)s->player.init_space) * s->editor->space;
 					zoom--;
+					
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
