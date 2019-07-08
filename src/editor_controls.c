@@ -282,16 +282,13 @@ void	editor_handler(t_main *s)
 						color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 
 
-						// t_dpos point_1;
-						// t_dpos point_2;
-						// int iii = -1;
-						// printf("----   TEST    ----\n\n");
-						// point_1.x = s->sdl->event.button.x - 1000;
-						// point_1.y = s->sdl->event.button.y;
-						// point_2.x = s->sdl->event.button.x;
-						// point_2.y = s->sdl->event.button.y;
-						// iii = ft_is_in_sector(s, point_1, point_2);
-						// printf("SECTOR IS %d\n", iii);
+						t_pos point_2;
+						int iii = -1;
+						point_2.x = s->sdl->event.button.x;
+						point_2.y = s->sdl->event.button.y;
+						iii = ft_is_in_sector(s, point_2);
+						printf("SECTOR IS %d\n", iii);
+						// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 					}
 					else if (s->editor->mode == player)
 					{

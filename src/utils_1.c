@@ -37,3 +37,21 @@ Uint32	get_pixel_color(t_texture *text, int x, int y)
 	else
 		return (2);
 }
+
+t_dpos	ft_pos_to_dpos(t_pos pos)
+{
+	t_dpos	dpos;
+
+	dpos.x = (float)pos.x;
+	dpos.y = (float)pos.y;
+	return (dpos);
+}
+
+t_pos	ft_dpos_to_pos(t_dpos dpos)
+{
+	t_pos	pos;
+
+	pos.x = (int)dpos.x;
+	pos.y = (int)dpos.y;
+	return (pos);
+}
