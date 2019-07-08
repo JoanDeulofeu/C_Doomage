@@ -175,6 +175,11 @@ void	ft_draw_all_wall(t_main *s)
 	vtx = NULL;
 	while (sct)
 	{
+		if (s->editor->mode == m_floor && sct->floor != s->editor->dply_floor)
+		{
+			sct = sct->next;
+			continue;
+		}
 		first_vtx = sct->vertex;
 		while (sct->vertex)
 		{

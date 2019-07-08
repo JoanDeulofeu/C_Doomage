@@ -34,7 +34,8 @@
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
-# define PLAYER SDLK_p
+# define PLAYER	SDLK_p
+# define FLOOR	SDLK_f
 # define SUPP	SDLK_s
 # define DELETE	SDLK_DELETE
 
@@ -59,6 +60,7 @@ typedef enum  	e_mode {
 	sector,
 	vertex,
 	player,
+	m_floor,
 	supp
 }				t_mode;
 
@@ -170,6 +172,7 @@ typedef struct		s_editor {
 	t_pos			ref;
 	t_mode			mode;
 	char			color_sector;
+	int				dply_floor;
 }					t_editor;
 
 typedef struct		s_main {
