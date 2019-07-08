@@ -141,10 +141,12 @@ void	handle_editor_keys(t_main *s)
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
 		ft_draw_all_wall(s);
-		// test.x = s->vertex->pos.x + 30;
-		// test.y = s->vertex->pos.y + 20;
-		// // printf("test .x = %d, test.y =%d\n", test.x, test.y);
-		// draw_sector(s, test.x, test.y);
+		// test.x = 12;
+		// test.y = 12;
+		test.x = s->vertex->pos.x + 30;
+		test.y = s->vertex->pos.y + 20;
+		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
+		draw_sector(s, test.x, test.y);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
