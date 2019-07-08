@@ -95,7 +95,7 @@ int		ft_find_intersection(t_dpos	begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpo
 	return (1);
 }
 
-int		ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2)
+int		ft_is_in_sector(t_main *s, t_pos position)
 {
 	t_sector	*sct;
 	t_vertex	*vtx;
@@ -104,8 +104,13 @@ int		ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2)
 	t_dpos		seg2;
 	int			id;
 	int			count;
+	t_dpos		point_1;
+	t_dpos		point_2;
 
 	sct = s->sector;
+	point_2 = ft_pos_to_dpos(position);
+	point_1.x = point_2.x - 1000;
+	point_1.y = point_2.y;
 	while (sct) // chaque secteur
 	{
 		count = 0;
