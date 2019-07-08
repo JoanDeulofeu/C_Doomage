@@ -42,8 +42,12 @@ void set_player(t_main *s)
 	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space) * edi->space;
 	pos.x += (int)res.x - s->player.p_ref.x;
 	pos.y += (int)res.y - s->player.p_ref.y;
+	s->player.r_pos.x = (double)s->player.ori.x + ((double)s->player.p_ori.x / edi->space);
+	s->player.r_pos.y = (double)s->player.ori.y + ((double)s->player.p_ori.y / edi->space);
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
+	printf("r_pos.x = %f\n",s->player.r_pos.x);
+	printf("r_pos.y = %f\n",s->player.r_pos.y);
 }
 
 int		keyboard_controls_edi(t_main *s, int key)
@@ -396,7 +400,7 @@ void	editor_handler(t_main *s)
 					s->player.pos.x = ((double)s->player.pos.x / (double)s->player.init_space) * s->editor->space;
 					s->player.pos.y = ((double)s->player.pos.y / (double)s->player.init_space) * s->editor->space;
 					zoom--;
-					
+
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
