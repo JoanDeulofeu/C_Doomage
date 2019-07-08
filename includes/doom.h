@@ -1,3 +1,7 @@
+
+
+
+
 #ifndef DOOM_H
 # define DOOM_H
 # include "libft.h"
@@ -27,14 +31,15 @@
 # define UP_AR		SDL_SCANCODE_UP
 # define DOWN_AR	SDL_SCANCODE_DOWN
 
-# define LEFT	SDL_SCANCODE_A
-# define RIGHT	SDL_SCANCODE_D
-# define UP		SDL_SCANCODE_W
-# define DOWN	SDL_SCANCODE_S
+# define LEFT	SDLK_a
+# define RIGHT	SDLK_d
+# define UP		SDLK_w
+# define DOWN	SDLK_s
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
-# define PLAYER SDLK_p
+# define PLAYER	SDLK_p
+# define FLOOR	SDLK_f
 # define SUPP	SDLK_s
 # define DELETE	SDLK_DELETE
 
@@ -43,9 +48,10 @@
 # define YELLOW 0xFFF73611
 # define PINK 0xFF36F7FF
 # define WHITE 0xFFFFFFFF
-# define BLACK 0x00000000
+# define BLACK 0x000000FF
 # define GREEN 0x32CD32FF
 # define BLUE 0x57C7FFFF
+# define BLACK_SCREEN 0x13131dFF
 
 typedef enum  	e_type {
 	ennemi,
@@ -58,6 +64,7 @@ typedef enum  	e_mode {
 	sector,
 	vertex,
 	player,
+	m_floor,
 	supp
 }				t_mode;
 
@@ -168,6 +175,8 @@ typedef struct		s_editor {
 	int				decal_y;
 	t_pos			ref;
 	t_mode			mode;
+	char			color_sector;
+	int				dply_floor;
 }					t_editor;
 
 typedef struct		s_main {
@@ -221,6 +230,8 @@ void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
+void					move_player(t_main *s, int key);
+
 
 //MAP
 int					ft_parsing(t_main *s, int x, int y, int fd);
@@ -255,7 +266,10 @@ t_pos 				get_px_pos(t_main *s, t_pos ref);
 <<<<<<< HEAD
 int					ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
 =======
->>>>>>> 74cdf8d541507574778a021bb0e93cd4e12f7c53
+int					ft_is_in_sector(t_main *s, t_pos point_2);
+t_pos				ft_dpos_to_pos(t_dpos dpos);
+t_dpos				ft_pos_to_dpos(t_pos pos);
 
+>>>>>>> 19f1f142f3a38c1622fa9ecc224c370ec57ff48a
 
 #endif
