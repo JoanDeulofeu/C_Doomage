@@ -35,6 +35,7 @@ int		ft_nb_is_in_str(char *str, int nb)
 		i += ft_longlen(tmp) + 1;
 	}
 	return (0);
+	//hstghs
 }
 
 void	ft_save_sector_vextex(t_main *s, int id_vtx)
@@ -174,6 +175,11 @@ void	ft_draw_all_wall(t_main *s)
 	vtx = NULL;
 	while (sct)
 	{
+		if (s->editor->mode == m_floor && sct->floor != s->editor->dply_floor)
+		{
+			sct = sct->next;
+			continue;
+		}
 		first_vtx = sct->vertex;
 		while (sct->vertex)
 		{

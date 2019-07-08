@@ -38,7 +38,8 @@
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
-# define PLAYER SDLK_p
+# define PLAYER	SDLK_p
+# define FLOOR	SDLK_f
 # define SUPP	SDLK_s
 # define DELETE	SDLK_DELETE
 
@@ -47,9 +48,10 @@
 # define YELLOW 0xFFF73611
 # define PINK 0xFF36F7FF
 # define WHITE 0xFFFFFFFF
-# define BLACK 0x00000000
+# define BLACK 0x000000FF
 # define GREEN 0x32CD32FF
 # define BLUE 0x57C7FFFF
+# define BLACK_SCREEN 0x13131dFF
 
 typedef enum  	e_type {
 	ennemi,
@@ -62,6 +64,7 @@ typedef enum  	e_mode {
 	sector,
 	vertex,
 	player,
+	m_floor,
 	supp
 }				t_mode;
 
@@ -172,6 +175,8 @@ typedef struct		s_editor {
 	int				decal_y;
 	t_pos			ref;
 	t_mode			mode;
+	char			color_sector;
+	int				dply_floor;
 }					t_editor;
 
 typedef struct		s_main {
@@ -258,6 +263,13 @@ void				draw_sector(t_main *s, int x, int y);
 int					arround(int space, int nb);
 Uint32				get_pixel_color(t_texture *text, int x, int y);
 t_pos 				get_px_pos(t_main *s, t_pos ref);
+<<<<<<< HEAD
 int					ft_is_in_sector(t_main *s, t_dpos point_1, t_dpos point_2);
+=======
+int					ft_is_in_sector(t_main *s, t_pos point_2);
+t_pos				ft_dpos_to_pos(t_dpos dpos);
+t_dpos				ft_pos_to_dpos(t_pos pos);
+
+>>>>>>> 19f1f142f3a38c1622fa9ecc224c370ec57ff48a
 
 #endif

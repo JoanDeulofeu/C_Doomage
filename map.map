@@ -8,6 +8,4 @@ vertex 19		6
 
 
 sector 0 20 | 1 2 3 4 5 | -1 -1 2 -1 -1
-sector 0 20 | 5 4 6 7 | -1 -1 -1 1
-
-# sol/plafond | vecteur | mur
+sector 20 40 | 5 4 6 7 | -1 -1 -1 1

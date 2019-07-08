@@ -71,6 +71,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 		s->player.pos.y += 5;
 		s->editor->decal_y += 5;
 	}
+<<<<<<< HEAD
 	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
 	{
 	//	printf("ko");
@@ -78,6 +79,17 @@ int		keyboard_controls_edi(t_main *s, int key)
 		set_player(s);
 	}
 	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
+=======
+	if (key == SDLK_KP_PLUS)
+	{
+		s->editor->dply_floor += 10;
+	}
+	if (key == SDLK_KP_MINUS)
+	{
+		s->editor->dply_floor -= 10;
+	}
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == FLOOR)
+>>>>>>> 19f1f142f3a38c1622fa9ecc224c370ec57ff48a
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -91,6 +103,15 @@ int		keyboard_controls_edi(t_main *s, int key)
 	// 	draw_interface(s);
 	// }
 	return (1);
+}
+
+void	ft_reset_color_screen(Uint32 *str, int size)
+{
+	int i;
+
+	i = -1;
+	while (++i < size)
+		str[i] = 0x13131dFF; // #13131d
 }
 
 void	handle_editor_keys(t_main *s)
@@ -113,14 +134,15 @@ void	handle_editor_keys(t_main *s)
 	// 	raycast_visualization(s);
 		// draw_player(s, s->p_pos);
 		// update_image(s, s->sdl->game);
-		ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
+		// ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
+		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
 		ft_draw_all_wall(s);
-		test.x = s->vertex->pos.x + 30;
-		test.y = s->vertex->pos.y + 20;
-		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
-		draw_sector(s, test.x, test.y);
+		// test.x = s->vertex->pos.x + 30;
+		// test.y = s->vertex->pos.y + 20;
+		// // printf("test .x = %d, test.y =%d\n", test.x, test.y);
+		// draw_sector(s, test.x, test.y);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
@@ -148,6 +170,44 @@ t_pos 	get_px_pos(t_main *s, t_pos ref)
 }
 
 
+int		ft_vertex_worst_sector(t_main *s, int id)
+{
+	t_sector	*sct;
+	t_int		*vtx;
+
+	sct = s->sector;
+	while (sct)
+	{
+		vtx = sct->vertex;
+		while (vtx)
+		{
+			if (vtx->value == id && sct->floor == s->editor->dply_floor)
+				return (1);
+			vtx = vtx->next;
+		}
+		sct = sct->next;
+	}
+	return (0);
+}
+
+void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
+{
+	if (s->editor->mode != m_floor)
+	{
+		if (temp->selected == 2)
+			draw_anchor(s, pos, PINK);
+		else if (temp->selected == 1)
+			draw_anchor(s, pos, BLUE);
+		else
+			draw_anchor(s, pos, GREEN);
+	}
+	else
+	{
+		if (ft_vertex_worst_sector(s, temp->id))
+			draw_anchor(s, pos, PINK);
+	}
+}
+
 void	display_map(t_main *s)
 {
 	t_vertex	*temp;
@@ -155,8 +215,6 @@ void	display_map(t_main *s)
 	t_pos		pos;
 	int			correc = 0;
 
-
-	ft_draw_editor(s->editor, s->sdl->editor);
 	temp = NULL;
 	edi = s->editor;
 	if (s->vertex)
@@ -182,14 +240,7 @@ void	display_map(t_main *s)
 		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
 		temp->pos = pos;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
-		{
-			if (temp->selected == 2)
-				draw_anchor(s, pos, PINK);
-			else if (temp->selected == 1)
-				draw_anchor(s, pos, BLUE);
-			else
-				draw_anchor(s, pos, GREEN);
-		}
+			ft_choose_draw_vertex(s, temp, pos);
 		temp = temp->next;
 	}
 	// printf("decalx = %d\n", s->editor->decal_x );
@@ -207,7 +258,6 @@ void	editor_handler(t_main *s)
 	t_pos		ori;
 	int			id;
 	t_pos		mouse_save;
-	char		color_sector;
 	t_pos 		tmp;
 	// t_pos 		tmp2;
 	t_pos		diff;
@@ -218,7 +268,6 @@ void	editor_handler(t_main *s)
 	selected = 0;
 	zoom = 0;
 	id = 0;
-	color_sector = 2;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -298,22 +347,18 @@ void	editor_handler(t_main *s)
 							&& ori.y >= 0 && ori.y <= HEIGHT)
 							{
 								if ((id = anchor_exists(s, ori)) != 0)
-									set_selected(s, ori, color_sector);
+									set_selected(s, ori, s->editor->color_sector);
 							}
+						s->editor->color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 
-						color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
 
-
-						// t_dpos point_1;
-						// t_dpos point_2;
-						// int iii = -1;
-						// printf("----   TEST    ----\n\n");
-						// point_1.x = s->sdl->event.button.x - 1000;
-						// point_1.y = s->sdl->event.button.y;
-						// point_2.x = s->sdl->event.button.x;
-						// point_2.y = s->sdl->event.button.y;
-						// iii = ft_is_in_sector(s, point_1, point_2);
-						// printf("SECTOR IS %d\n", iii);
+						t_pos point_2;
+						int iii = -1;
+						point_2.x = s->sdl->event.button.x;
+						point_2.y = s->sdl->event.button.y;
+						iii = ft_is_in_sector(s, point_2);
+						printf("SECTOR IS %d\n", iii);
+						// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 					}
 					else if (s->editor->mode == player)
 					{

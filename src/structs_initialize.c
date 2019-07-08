@@ -21,6 +21,8 @@ void	initialize_editor(t_editor *edi)
 	edi->decal_y = 0;
 	edi->ref.x = 0;
 	edi->ref.y = 0;
+	edi->color_sector = 2;
+	edi->dply_floor = 0;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
