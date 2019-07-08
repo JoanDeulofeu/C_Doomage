@@ -43,9 +43,10 @@
 # define YELLOW 0xFFF73611
 # define PINK 0xFF36F7FF
 # define WHITE 0xFFFFFFFF
-# define BLACK 0x00000000
+# define BLACK 0x000000FF
 # define GREEN 0x32CD32FF
 # define BLUE 0x57C7FFFF
+# define BLACK_SCREEN 0x13131dFF
 
 typedef enum  	e_type {
 	ennemi,

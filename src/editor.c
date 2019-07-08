@@ -49,7 +49,7 @@ void	draw_sector(t_main *s, int x, int y)
 	// if (x <= 0 || x >= WIDTH || y <= 0 || y >= HEIGHT)
 	// 	return ;
 	// printf("x = %d\n", x);
-	if (get_pixel_color(s->sdl->editor, x, y) == BLACK || get_pixel_color(s->sdl->editor, x, y) == 0xaca7a7FF)
+	if (get_pixel_color(s->sdl->editor, x, y) == BLACK_SCREEN || get_pixel_color(s->sdl->editor, x, y) == 0xaca7a7FF)
 	{
 		set_pixel(s->sdl->editor, color, coord);
 		draw_sector(s, x + 1, y);
