@@ -22,6 +22,17 @@ void	r_check_y(t_main *s, t_pile *pile, t_pos pos)
 	}
 }
 
+// Uint32	get_color(int sct_id)
+// {
+// 	int res;
+//
+// 	res = 10 % sct_id;
+// 	if (res == 0)
+// 		return (YELLOW);
+// 	else if (res == 1)
+// 		return (YELLOW);
+// }
+
 void	remplissage(t_main *s, t_pile *pile, Uint32 r_color)
 {
 	t_pos	w;
@@ -69,29 +80,80 @@ void	draw_sector(t_main *s, int x, int y, Uint32 r_color)
 		remplissage(s, pile, r_color);
 }
 
-// t_pos	check_around_vtx(t_main *s, t_int vtx)
-// {
-// 	t_pos		pos;
-// 	t_vertex	temp_v;
-//
-// 	temp_v =
-// 	pos.x =
-// 	if ()
-// }
-//
-// void	fill_sectors(t_main *s)
-// {
-// 	t_sector	*tmp_sct;
-// 	t_int		*tmp_vtx;
-//
-// 	tmp_sct = s->sector;
-// 	while (s->tmp_sct)
-// 	{
-// 		tmp_vtx = tmp_sct->vertex;
-// 		while (tmp_vtx)
-// 		{
-// 			tmp_vtx = tmp_vtx->next;
-// 		}
-// 		tmp_sct = tmp_sct->next;
-// 	}
-// }
+int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
+{
+	t_vertex	*temp_v;
+	Uint32	color_got;
+	int test;
+
+	printf("secteur id = %d\n", sct_id);
+	temp_v = s->vertex;
+	while (temp_v && temp_v->id != vtx->value)
+	{
+		temp_v = temp_v->next;
+	}
+	pos->x = temp_v->pos.x;
+	pos->y = temp_v->pos.y;
+	pos->y -= 8;
+	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
+	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
+	{
+		printf("haut : is in sector renvoie = %d\n", test);
+		return (1);
+	}
+	pos->y += 16;
+	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
+	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
+	{
+		printf("bas : is in sector renvoie = %d\n", test);
+		return (1);
+	}
+	pos->y -= 8;
+	pos->x -= 8;
+	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
+	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
+	{
+		printf("gauche : is in sector renvoie = %d\n", test);
+		return (1);
+	}
+	pos->x += 16;
+	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
+	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
+	{
+		printf("droite : is in sector renvoie = %d\n", test);
+		return (1);
+	}
+	return (0);
+}
+
+void	fill_sectors(t_main *s)
+{
+	t_sector	*tmp_sct;
+	t_int		*tmp_vtx;
+	t_pos		*pos;
+
+	if (!(pos = (t_pos*)malloc(sizeof(t_pos))))
+		handle_error(s, MALLOC_ERROR);
+	pos->x = 0;
+	pos->y = 0;
+	tmp_sct = s->sector;
+	while (tmp_sct)
+	{
+		printf ("check sector[%d]\n", tmp_sct->id);
+		tmp_vtx = tmp_sct->vertex;
+		while (tmp_vtx)
+		{
+			// printf ("check vertex[%d]\n", tmp_vtx->value);
+			if (check_around_vtx(s, tmp_vtx, tmp_sct->id, pos))
+			{
+				printf ("check vertex[%d]\n", tmp_vtx->value);
+				printf("pos x[%d] et pos y[%d]\n", pos->x, pos->y);
+				draw_sector(s, pos->x, pos->y, YELLOW);
+				break;
+			}
+			tmp_vtx = tmp_vtx->next;
+		}
+		tmp_sct = tmp_sct->next;
+	}
+	free (pos);
+}

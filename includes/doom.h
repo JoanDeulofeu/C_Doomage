@@ -52,6 +52,12 @@
 # define GREEN 0x32CD32FF
 # define BLUE 0x57C7FFFF
 # define BLACK_SCREEN 0x13131dFF
+# define COLOR_WALL 0xff7062FF
+
+# define S_YELLOW 0xFFF73611
+# define S_PINK 0xFF36F7FF
+# define S_BLUE 0x57C7FFFF
+# define S_GREEN 0x32CD32FF
 
 typedef enum  	e_type {
 	ennemi,
@@ -267,6 +273,7 @@ void				ft_reset_color_vertex(t_main *s);
 //SECTOR
 int					ft_parse_sector(t_main *s, char *line);
 int					ft_sector_mode(t_main *s, int x, int y);
+void				fill_sectors(t_main *s);
 void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
 
 //UTILS
