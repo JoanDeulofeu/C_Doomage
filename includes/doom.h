@@ -61,6 +61,12 @@
 # define S_PINK 0xFF36F7FF
 # define S_BLUE 0x57C7FFFF
 # define S_GREEN 0x32CD32FF
+# define S_PURPLE 0xBA3FB8FF
+# define S_BROWN 0xE19F3AFF
+# define S_RED 0xCD1515FF
+# define S_ORANGE 0xED5F18FF
+# define S_DBLUE 0x081EDBFF
+# define S_DGREEN 0x288333FF
 
 typedef enum  	e_type {
 	ennemi,
