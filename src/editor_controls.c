@@ -46,8 +46,8 @@ void set_player(t_main *s)
 	s->player.r_pos.y = (double)s->player.ori.y + ((double)s->player.p_ori.y / edi->space);
 	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 		draw_anchor(s, pos, BLUE);
-	printf("r_pos.x = %f\n",s->player.r_pos.x);
-	printf("r_pos.y = %f\n",s->player.r_pos.y);
+	// printf("r_pos.x = %f\n",s->player.r_pos.x);
+	// printf("r_pos.y = %f\n",s->player.r_pos.y);
 }
 
 int		keyboard_controls_edi(t_main *s, int key)
@@ -85,11 +85,11 @@ int		keyboard_controls_edi(t_main *s, int key)
 
 	if (key == SDLK_KP_PLUS)
 	{
-		s->editor->dply_floor += 10;
+		s->editor->dply_floor = ft_prev_next_floor(s, 1);
 	}
 	if (key == SDLK_KP_MINUS)
 	{
-		s->editor->dply_floor -= 10;
+		s->editor->dply_floor = ft_prev_next_floor(s, 2);
 	}
 	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == FLOOR)
 		change_mode(s, key);
@@ -105,15 +105,6 @@ int		keyboard_controls_edi(t_main *s, int key)
 	// 	draw_interface(s);
 	// }
 	return (1);
-}
-
-void	ft_reset_color_screen(Uint32 *str, int size)
-{
-	int i;
-
-	i = -1;
-	while (++i < size)
-		str[i] = 0x13131dFF; // #13131d
 }
 
 void	handle_editor_keys(t_main *s)
@@ -146,7 +137,7 @@ void	handle_editor_keys(t_main *s)
 		test.x = s->vertex->pos.x + 30;
 		test.y = s->vertex->pos.y + 20;
 		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
-		draw_sector(s, test.x, test.y, YELLOW);
+		// draw_sector(s, test.x, test.y, YELLOW);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
@@ -171,87 +162,6 @@ t_pos 	get_px_pos(t_main *s, t_pos ref)
 		correc = 0;
 	pos.y = (ref.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
 	return (pos);
-}
-
-
-int		ft_vertex_worst_sector(t_main *s, int id)
-{
-	t_sector	*sct;
-	t_int		*vtx;
-
-	sct = s->sector;
-	while (sct)
-	{
-		vtx = sct->vertex;
-		while (vtx)
-		{
-			if (vtx->value == id && sct->floor == s->editor->dply_floor)
-				return (1);
-			vtx = vtx->next;
-		}
-		sct = sct->next;
-	}
-	return (0);
-}
-
-void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
-{
-	if (s->editor->mode != m_floor)
-	{
-		if (temp->selected == 2)
-			draw_anchor(s, pos, PINK);
-		else if (temp->selected == 1)
-			draw_anchor(s, pos, BLUE);
-		else
-			draw_anchor(s, pos, GREEN);
-	}
-	else
-	{
-		if (ft_vertex_worst_sector(s, temp->id))
-			draw_anchor(s, pos, PINK);
-	}
-}
-
-void	display_map(t_main *s)
-{
-	t_vertex	*temp;
-	t_editor	*edi;
-	t_pos		pos;
-	int			correc = 0;
-
-	temp = NULL;
-	edi = s->editor;
-	if (s->vertex)
-		temp = s->vertex;
-	while (temp)
-	{
-		if (edi->decal_x <= 0)
-			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-			// correc = 0;
-		else
-			correc = 0;
-		if (edi->decal_x < 0)
-			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-		else
-			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-			// pos.x = (temp->x * edi->space - (edi->ref.x * edi->space + (edi->decal_x % edi->space)));
-		// printf("correc = %d | pos.x = %d\n", correc, pos.x);
-
-		if (edi->decal_y <= 0)
-			correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-		else
-			correc = 0;
-		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
-		temp->pos = pos;
-		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
-			ft_choose_draw_vertex(s, temp, pos);
-		temp = temp->next;
-	}
-	// printf("decalx = %d\n", s->editor->decal_x );
-
-	//player anchor
-		//draw_anchor(s, s->player.pos, BLUE);
-	set_player(s);
 }
 
 void	editor_handler(t_main *s)
