@@ -23,7 +23,9 @@ SRC_NAME =	main.c \
 			mode_deplacement.c \
 			ft_is_in_sector.c \
 			piles.c \
-			fill_sector.c
+			fill_sector.c \
+			display_map.c \
+			mode_floor.c 
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

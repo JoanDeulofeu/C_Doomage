@@ -19,6 +19,9 @@
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
 
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
+
 # define FILE_ERROR 1
 # define SIZE_ERROR 2
 # define SYNTAX_ERROR 3
@@ -246,7 +249,8 @@ void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
-void					move_player(t_main *s, int key);
+void				move_player(t_main *s, int key);
+int					ft_prev_next_floor(t_main *s, char prev_next);
 
 
 //MAP
@@ -285,4 +289,5 @@ t_pos				depiler(t_pile *pile);
 int					ft_is_in_sector(t_main *s, t_pos point_2);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
+void				ft_reset_color_screen(Uint32 *str, int size);
 #endif

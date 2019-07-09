@@ -30,6 +30,15 @@ t_pos	get_abs_pos(t_main *s, t_pos ori)
 	return (res);
 }
 
+void	ft_reset_color_screen(Uint32 *str, int size)
+{
+	int i;
+
+	i = -1;
+	while (++i < size)
+		str[i] = 0x13131dFF; // #13131d
+}
+
 Uint32	get_pixel_color(t_texture *text, int x, int y)
 {
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)

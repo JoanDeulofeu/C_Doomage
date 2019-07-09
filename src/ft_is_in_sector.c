@@ -2,9 +2,9 @@
 
 int		ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end)
 {
-	float	tmp;
+	double	tmp;
 
-	if (begin.x > end.x) //yohann elle est ou la fonction ft_swap_float batard???? #I HATE YOU
+	if (begin.x > end.x) //yohann elle est ou la fonction ft_swap_double batard???? #I HATE YOU
 	{
 		tmp = begin.x;
 		begin.x = end.x;
@@ -16,26 +16,31 @@ int		ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end)
 		begin.y = end.y;
 		end.y = tmp;
 	}
-	if (round(coord.x) < round(begin.x) || round(coord.x) > round(end.x))
+	// printf("COORD (%.0f , %.0f)     BEGIN_SEG (%.0f , %.0f)  END_SEG (%.0f , %.0f)\n", round(coord.x), round(coord.y), round(begin.x) , round(begin.y) , round(end.x), round(end.y));
+	if (round(coord.x) < round(begin.x) + 1 || round(coord.x) > round(end.x) - 1)
 		return (0);
-	if (round(coord.y) < round(begin.y) || round(coord.y) > round(end.y))
+	if (round(coord.y) < round(begin.y) + 1 || round(coord.y) > round(end.y) - 1)
 		return (0);
 	return (1);
 }
 
-float		ft_find_leading_coef(t_dpos begin, t_dpos end)
+double		ft_find_leading_coef(t_dpos begin, t_dpos end)
 {
-	float	a;
+	double	a;
+
 
 	if ((begin.x - end.x) == 0)
+	// {
+		// printf("\033[32m beginx = %f    endx = %f\033[0m\n", begin.x, end.x);
 		return (FLT_MAX);
+	// }
 	a = (begin.y - end.y) / (begin.x - end.x);
 	return (a);
 }
 
-float		ft_find_ordered_in_origin(t_dpos point, float a)
+double		ft_find_ordered_in_origin(t_dpos point, double a)
 {
-	float	b;
+	double	b;
 
 	b = point.y - (a * point.x);
 	return (b);
@@ -47,11 +52,13 @@ t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2)
 
 	if (l1.a == FLT_MAX)
 	{
+		// printf("lol\n");
 		coord.x = p_l1.x;
 		coord.y = p_l2.y;
 	}
 	else if (l2.a == FLT_MAX)
 	{
+		// printf("lol\n");
 		coord.x = p_l2.x;
 		coord.y = p_l1.y;
 	}
@@ -76,7 +83,7 @@ int		ft_find_intersection(t_dpos	begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpo
 	l2.b = ft_find_ordered_in_origin(begin_l2, l2.a);
 	coord = ft_find_coord(l1, l2, end_l1, end_l2);
 
-	// printf("begin_l1(%.0f, %.0f), end_l1(%.0f, %.0f), begin_l2(%.0f, %.0f), end_l2(%.0f, %.0f)\n",begin_l1.x, begin_l1.y, end_l1.x, end_l1.y, begin_l2.x, begin_l2.y, end_l2.x, end_l2.y);
+	// printf("\n\n\nbegin_l1(%.0f, %.0f), end_l1(%.0f, %.0f), begin_l2(%.0f, %.0f), end_l2(%.0f, %.0f)\n",begin_l1.x, begin_l1.y, end_l1.x, end_l1.y, begin_l2.x, begin_l2.y, end_l2.x, end_l2.y);
 	// printf("coord (%.0f, %.0f)\n\n", coord.x, coord.y);
 
 	if (coord.x > 2147483647 || coord.y > 2147483647)
@@ -130,6 +137,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 				vtx = vtx->next;
 			seg2.x = vtx->x * s->editor->space;
 			seg2.y = vtx->y * s->editor->space;
+			// printf("\033[32m seg1x=%f   mousex=%f\033[0m\n",seg1.x, point_2.x);
 			count += ft_find_intersection(seg1, seg2, point_1, point_2);
 			s_vtx = s_vtx->next;
 		}
@@ -149,7 +157,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 		seg2.x = vtx->x * s->editor->space;
 		seg2.y = vtx->y * s->editor->space;
 		count += ft_find_intersection(seg1, seg2, point_1, point_2);
-		// printf("count = %d\n\n\n", count);
+		// printf("count = %d\n=-=-=-=-=-=-=-=-=-=\n", count);
 		if (count % 2 == 1)
 			return (sct->id);
 		sct = sct->next;
