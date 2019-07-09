@@ -267,7 +267,7 @@ void				ft_reset_color_vertex(t_main *s);
 //SECTOR
 int					ft_parse_sector(t_main *s, char *line);
 int					ft_sector_mode(t_main *s, int x, int y);
-void				draw_sector(t_main *s, int x, int y);
+void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
 
 //UTILS
 int					arround(int space, int nb);

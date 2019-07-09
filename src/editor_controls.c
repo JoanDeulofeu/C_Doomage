@@ -146,7 +146,7 @@ void	handle_editor_keys(t_main *s)
 		test.x = s->vertex->pos.x + 30;
 		test.y = s->vertex->pos.y + 20;
 		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
-		draw_sector(s, test.x, test.y);
+		draw_sector(s, test.x, test.y, YELLOW);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
