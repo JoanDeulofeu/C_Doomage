@@ -13,11 +13,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
+# include <math.h>
 # define WIDTH 1000 //multiple de 20
 # define HEIGHT 800 //multiple de 20
 # define G_SPACE 30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
+# define ROTATE_SPEED 20.00
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
@@ -38,6 +40,8 @@
 # define RIGHT	SDL_SCANCODE_D
 # define UP		SDL_SCANCODE_W
 # define DOWN	SDL_SCANCODE_S
+# define RIGHT_NUM	SDL_SCANCODE_1
+# define LEFT_NUM	SDL_SCANCODE_2
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
@@ -151,6 +155,7 @@ typedef struct		s_player
 	t_pos 			p_ref;
 	int 			correc;
 	int 			init_space;
+	int 			angle;
 }					t_player;
 
 typedef struct		s_int {
@@ -296,9 +301,17 @@ int					ft_is_in_sector(t_main *s, t_pos point_2);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
+double  to_rad(double angle);
+
 
 //PLAYER
 void 	set_player(t_main *s);
 void	ft_move_player(t_main *s, const Uint8 *key);
+t_dpos	get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
+void	ft_ft_move_player(t_main *s, const Uint8 *keys, char sprint);
+void 	rotate_player(t_main *s , const Uint8 *keys);
+
+
+
 
 #endif

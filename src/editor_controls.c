@@ -65,8 +65,12 @@ void	handle_editor_keys(t_main *s)
 	keys = SDL_GetKeyboardState(NULL);
 	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 	{
-		ft_move_player(s, keys);
+		//ft_move_player(s, keys);
+		ft_ft_move_player(s, keys,1);
 	}
+	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
+		rotate_player(s, keys);
+
 	// 	keyboard_controls_edi(s, keys);
 	// if (keys[LEFT_AR] || keys[RIGHT_AR] || keys[UP_AR] || keys[DOWN_AR])
 	// 	turn_camera(s, keys, 0);
