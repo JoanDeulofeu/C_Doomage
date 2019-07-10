@@ -1,5 +1,10 @@
 #include "doom.h"
 
+double  to_rad(double angle)
+{
+    return (angle * M_PI / 180.0);
+}
+
 int		arround(int space, int nb)
 {
 	int res;

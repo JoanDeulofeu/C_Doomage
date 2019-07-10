@@ -66,7 +66,7 @@ void	handle_editor_keys(t_main *s)
 	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 	{
 		//ft_move_player(s, keys);
-		ft_ft_move_player(s, keys,1);
+		ft_move_player(s, keys,1);
 	}
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
