@@ -18,8 +18,9 @@ t_sector	*update_sector_walls(t_main *s, t_int *temp_vertex,
 	return(temp_sector);
 }
 
-t_int		*free_sector_struct(t_int *temp_vertex, t_sector *temp_sector)
+t_int		*free_sector_struct(t_sector *temp_sector)
 {
+	t_int		*temp_vertex;
 	t_int		*temp_vertex2;
 
 	temp_vertex = temp_sector->vertex;
@@ -80,7 +81,7 @@ void	remove_sector(t_main *s, int id, int del, int sct_id)
 		{
 			if (tmp_vtx->value == id)
 			{
-				tmp_vtx = free_sector_struct(tmp_vtx, tmp_sct);
+				tmp_vtx = free_sector_struct(tmp_sct);
 				tmp_sct = update_sector_list(s, tmp_sct);
 				tmp_sct = update_sector_walls(s, tmp_vtx, tmp_sct, sct_id);
 				del = 1;

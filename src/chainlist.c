@@ -10,6 +10,7 @@ int			ft_add_vertex(t_main *s, int x, int y)
 		if (!(s->vertex = (t_vertex*)malloc(sizeof(t_vertex))))
 			handle_error(s, MALLOC_ERROR);
 		s->vertex->prev = NULL;
+		s->vertex->next = NULL;
 		tmp = s->vertex;
 		tmp->id = 1;
 	}

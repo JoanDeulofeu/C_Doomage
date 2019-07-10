@@ -301,6 +301,7 @@ int					ft_parse_sector(t_main *s, char *line);
 int					ft_sector_mode(t_main *s, int x, int y);
 void				fill_sectors(t_main *s);
 void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
+t_int				*free_sector_struct(t_sector *temp_sector);
 
 //UTILS
 int					arround(int space, int nb);

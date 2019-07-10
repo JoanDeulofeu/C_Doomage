@@ -10,13 +10,39 @@ void	free_image(t_image *img)
 
 void	free_sectors(t_main *s)
 {
-	int id;
+	t_vertex *v_tmp;
+	t_sector *s_tmp;
 
-	id = 0;
+	v_tmp = s->vertex;
+
+
 	while (s->sector)
 	{
-		remove_sector(s, id, 0, 0);
+		s_tmp = s->sector;
+		s->sector = s_tmp->next;
+		free_sector_struct(s_tmp);
+		free(s_tmp);
 	}
+	while (s->vertex)
+	{
+		printf("vertex %d\n", s->vertex->id);
+		v_tmp = s->vertex;
+		s->vertex = s->vertex->next;
+		printf("vertex %p\n", s->vertex);
+		free(v_tmp);
+	}
+	// printf ("structure principale vertex = %p, sector = %p, grid = %p, sr_vtx = %p\n", s->vertex, s->sector, s->grid, s->str_vtx);
+		// t_sdl			*sdl;
+		// t_editor		*editor;
+		// t_dpos			p_pos;
+		// t_mouse			ft_mouse;
+		// t_line			line;
+		// t_player		player;
+		// t_vertex		*vertex;
+		// t_sector		*sector;
+		// t_point			**grid;
+		// char			*str_vtx;
+	// printf ("true\n");
 }
 
 void	free_images(t_main *s)
@@ -68,5 +94,6 @@ void	free_program(t_main *s)
 	free_texture(s->sdl->editor);
 	SDL_DestroyRenderer(s->sdl->prenderer);
 	ft_memdel((void **)&s->sdl);
+	ft_memdel((void **)&s->editor);
 	ft_memdel((void **)&s);
 }
