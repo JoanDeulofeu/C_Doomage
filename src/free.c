@@ -15,7 +15,6 @@ void	free_sectors(t_main *s)
 
 	v_tmp = s->vertex;
 
-
 	while (s->sector)
 	{
 		s_tmp = s->sector;
@@ -25,10 +24,8 @@ void	free_sectors(t_main *s)
 	}
 	while (s->vertex)
 	{
-		printf("vertex %d\n", s->vertex->id);
 		v_tmp = s->vertex;
 		s->vertex = s->vertex->next;
-		printf("vertex %p\n", s->vertex);
 		free(v_tmp);
 	}
 	// printf ("structure principale vertex = %p, sector = %p, grid = %p, sr_vtx = %p\n", s->vertex, s->sector, s->grid, s->str_vtx);
