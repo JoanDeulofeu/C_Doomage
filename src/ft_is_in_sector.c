@@ -17,8 +17,7 @@ int		ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end)
 		begin.y = end.y;
 		end.y = tmp;
 	}
-
-
+	// printf("COORD (%.0f , %.0f)     BEGIN_SEG (%.0f , %.0f)  END_SEG (%.0f , %.0f)\n", round(coord.x), round(coord.y), round(begin.x) , round(begin.y) , round(end.x), round(end.y));
 	if (round(coord.x) < round(begin.x) || round(coord.x) > round(end.x))
 		return (0);
 	if (round(coord.y) < round(begin.y) || round(coord.y) > round(end.y))

@@ -13,11 +13,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
+# include <math.h>
 # define WIDTH 1000 //multiple de 20
 # define HEIGHT 800 //multiple de 20
 # define G_SPACE 30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
+# define ROTATE_SPEED 30.00
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
@@ -34,10 +36,12 @@
 # define UP_AR		SDL_SCANCODE_UP
 # define DOWN_AR	SDL_SCANCODE_DOWN
 
-# define LEFT	SDLK_a
-# define RIGHT	SDLK_d
-# define UP		SDLK_w
-# define DOWN	SDLK_s
+# define LEFT	SDL_SCANCODE_A
+# define RIGHT	SDL_SCANCODE_D
+# define UP		SDL_SCANCODE_W
+# define DOWN	SDL_SCANCODE_S
+# define RIGHT_NUM	SDL_SCANCODE_1
+# define LEFT_NUM	SDL_SCANCODE_2
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
@@ -55,6 +59,18 @@
 # define GREEN 0x32CD32FF
 # define BLUE 0x57C7FFFF
 # define BLACK_SCREEN 0x13131dFF
+# define COLOR_WALL 0xff7062FF
+
+# define S_YELLOW 0xFFF73611
+# define S_PINK 0xFF36F7FF
+# define S_BLUE 0x57C7FFFF
+# define S_GREEN 0x32CD32FF
+# define S_PURPLE 0xBA3FB8FF
+# define S_BROWN 0xE19F3AFF
+# define S_RED 0xCD15157F
+# define S_ORANGE 0xED5F18FF
+# define S_DBLUE 0x081EDBFF
+# define S_DGREEN 0x288333FF
 
 typedef enum  	e_type {
 	ennemi,
@@ -110,6 +126,14 @@ typedef struct		s_point {
 	char			clicked;
 }					t_point;
 
+typedef struct		s_image {
+	int				bits_color;
+	int				bits_alpha;
+	Uint32			*tex;
+	int				w;
+	int				h;
+}					t_image;
+
 typedef struct		s_pos {
 	short			x;
 	short			y;
@@ -133,12 +157,15 @@ typedef struct		s_sprite {
 typedef struct		s_player
 {
 	t_dpos 			r_pos;
-	t_pos			pos;
+	t_dpos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
 	t_pos 			p_ref;
+	t_line 			line;
+	int 			set;
 	int 			correc;
 	int 			init_space;
+	int 			angle;
 }					t_player;
 
 typedef struct		s_int {
@@ -213,6 +240,7 @@ void				pre_initialize_sdl(t_main *s);
 void				initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture			*initialize_texture(t_sdl *sdl, int width, int height);
 t_main				*initialize_main(void);
+void				free_program(t_main *s);
 
 void				display_error(int error_nb);
 void				handle_error(t_main *s, int error_nb);
@@ -243,8 +271,8 @@ void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
-void				move_player(t_main *s, int key);
 int					ft_prev_next_floor(t_main *s, char prev_next);
+void				move_editor(t_main *s, const Uint8 *keys);
 
 
 //MAP
@@ -271,6 +299,7 @@ void				ft_reset_color_vertex(t_main *s);
 //SECTOR
 int					ft_parse_sector(t_main *s, char *line);
 int					ft_sector_mode(t_main *s, int x, int y);
+void				fill_sectors(t_main *s);
 void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
 
 //UTILS
@@ -283,4 +312,24 @@ int					ft_is_in_sector(t_main *s, t_pos point_2);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
+double  			to_rad(double angle);
+
+
+//PLAYER
+void 				set_player(t_main *s);
+//void				ft_move_player(t_main *s, const Uint8 *key);
+t_dpos				get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
+void				ft_move_player(t_main *s, const Uint8 *keys, char sprint);
+void 				rotate_player(t_main *s , const Uint8 *keys);
+void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
+void				ft_get_line(t_main *s, t_line line, Uint32 color);
+int					ft_trace_line(t_main *s, t_line line, Uint32 color);
+void 	trace_direction(t_main *s);
+
+
+
+
+
+
+
 #endif

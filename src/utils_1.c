@@ -1,5 +1,10 @@
 #include "doom.h"
 
+double  to_rad(double angle)
+{
+    return (angle * M_PI / 180.0);
+}
+
 int		arround(int space, int nb)
 {
 	int res;
@@ -9,6 +14,27 @@ int		arround(int space, int nb)
 	res2 = res + 1;
 	return (nb - (space * res) > space * res2
 	- nb ? space * res2 : space * res);
+}
+
+t_pos 	get_px_pos(t_main *s, t_pos ref)
+{
+	t_pos		pos;
+	t_editor 	*edi;
+	int 		correc;
+
+	correc = 0;
+	edi = s->editor;
+	if (edi->decal_x <= 0)
+		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
+	else
+		correc = 0;
+	pos.x = (ref.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
+	if (edi->decal_y <= 0)
+		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
+	else
+		correc = 0;
+	pos.y = (ref.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
+	return (pos);
 }
 
 t_pos	get_abs_pos(t_main *s, t_pos ori)

@@ -1,86 +1,37 @@
 #include "doom.h"
 
-void set_player(t_main *s)
-{
-	t_pos		pos;
-	t_editor 	*edi;
-	int 		correc;
-	t_dpos 		res;
-
-	correc = 0;
-	edi = s->editor;
-	s->player.ori.x = arround(s->editor->space, s->player.pos.x - (s->editor->decal_x % s->editor->space));
-	s->player.ori.y = arround(s->editor->space, s->player.pos.y - (s->editor->decal_y % s->editor->space));
-	s->player.p_ori.x = s->player.pos.x - s->player.ori.x;
-	s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
-	s->player.ori = get_abs_pos(s,s->player.ori);
-	s->player.init_space = s->editor->space;
-	s->player.p_ref = get_px_pos(s, s->editor->ref);
-	if (s->editor->decal_x <= 0)
-		s->player.correc = s->editor->decal_x % s->editor->space != 0 ? 1 : 0;
-	else
-		s->player.correc = 0;
-	s->player.ori.x += s->player.correc;
-	if (s->editor->decal_y <= 0)
-		s->player.correc = s->editor->decal_y % s->editor->space != 0 ? 1 : 0;
-	else
-		s->player.correc = 0;
-	s->player.ori.y += s->player.correc;
-
-	if (edi->decal_x <= 0)
-		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-	else
-		correc = 0;
-	//s->player.ori.x += correc;
-	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-	if (edi->decal_y <= 0)
-		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-	else
-		correc = 0;
-	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
-	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space) * edi->space;
-	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space) * edi->space;
-	pos.x += (int)res.x - s->player.p_ref.x;
-	pos.y += (int)res.y - s->player.p_ref.y;
-	s->player.r_pos.x = (double)s->player.ori.x + ((double)s->player.p_ori.x / edi->space);
-	s->player.r_pos.y = (double)s->player.ori.y + ((double)s->player.p_ori.y / edi->space);
-	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
-		draw_anchor(s, pos, BLUE);
-	// printf("r_pos.x = %f\n",s->player.r_pos.x);
-	// printf("r_pos.y = %f\n",s->player.r_pos.y);
-}
 
 int		keyboard_controls_edi(t_main *s, int key)
 {
 	(void)s;
 	if (key == SDLK_ESCAPE)
 		return (0);
-	if (key == SDLK_RIGHT)
-	{
-		s->editor->decal_x += 5;
-		s->player.pos.x += 5;
-	}
-	if (key == SDLK_LEFT)
-	{
-		s->player.pos.x -= 5;
-		s->editor->decal_x -= 5;
-	}
-	if (key == SDLK_UP)
-	{
-		s->player.pos.y -= 5;
-		s->editor->decal_y -= 5;
-	}
-	if (key == SDLK_DOWN)
-	{
-		s->player.pos.y += 5;
-		s->editor->decal_y += 5;
-	}
+	// if (key == SDLK_RIGHT)
+	// {
+	// 	s->editor->decal_x += 5;
+	// 	s->player.pos.x += 5;
+	// }
+	// if (key == SDLK_LEFT)
+	// {
+	// 	s->player.pos.x -= 5;
+	// 	s->editor->decal_x -= 5;
+	// }
+	// if (key == SDLK_UP)
+	// {
+	// 	s->player.pos.y -= 5;
+	// 	s->editor->decal_y -= 5;
+	// }
+	// if (key == SDLK_DOWN)
+	// {
+	// 	s->player.pos.y += 5;
+	// 	s->editor->decal_y += 5;
+	// }
 
-	if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+	/*if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
 	{
 		move_player(s,key);
 		set_player(s);
-	}
+	}*/
 	//if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
 
 	if (key == SDLK_KP_PLUS)
@@ -110,10 +61,18 @@ int		keyboard_controls_edi(t_main *s, int key)
 void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
-	t_pos test;
 
 	keys = SDL_GetKeyboardState(NULL);
-	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
+	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
+	{
+		//ft_move_player(s, keys);
+		ft_move_player(s, keys,1);
+	}
+	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
+		rotate_player(s, keys);
+	if (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR])
+		move_editor(s, keys);
+
 	// 	keyboard_controls_edi(s, keys);
 	// if (keys[LEFT_AR] || keys[RIGHT_AR] || keys[UP_AR] || keys[DOWN_AR])
 	// 	turn_camera(s, keys, 0);
@@ -132,36 +91,13 @@ void	handle_editor_keys(t_main *s)
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
 		ft_draw_all_wall(s);
-		// test.x = 12;
-		// test.y = 12;
-		test.x = s->vertex->pos.x + 30;
-		test.y = s->vertex->pos.y + 20;
 		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
 		// draw_sector(s, test.x, test.y, YELLOW);
+		if (s->editor->dply_floor != 0)
+			fill_sectors(s);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
-}
-
-t_pos 	get_px_pos(t_main *s, t_pos ref)
-{
-	t_pos		pos;
-	t_editor 	*edi;
-	int 		correc;
-
-	correc = 0;
-	edi = s->editor;
-	if (edi->decal_x <= 0)
-		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-	else
-		correc = 0;
-	pos.x = (ref.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-	if (edi->decal_y <= 0)
-		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-	else
-		correc = 0;
-	pos.y = (ref.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
-	return (pos);
 }
 
 void	editor_handler(t_main *s)
@@ -173,7 +109,7 @@ void	editor_handler(t_main *s)
 	int			id;
 	t_pos		mouse_save;
 	t_pos 		tmp;
-	// t_pos 		tmp2;
+	t_pos 		tmp2;
 	t_pos		diff;
 
 	// t_pos		dest;
@@ -279,9 +215,17 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == player)
 					{
-						s->player.correc = 0;
-						s->player.pos.x = s->sdl->event.button.x;
-						s->player.pos.y = s->sdl->event.button.y;
+						tmp2.x = s->sdl->event.button.x;
+						tmp2.y = s->sdl->event.button.y;
+
+						if (ft_is_in_sector(s, tmp2) != 0)
+						{
+							s->player.pos.y = tmp2.y;
+							s->player.pos.x = tmp2.x;
+							s->player.set = 1;
+							s->player.correc = 0;
+
+						}
 					}
 				}
 			}
