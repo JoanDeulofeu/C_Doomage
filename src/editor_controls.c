@@ -6,26 +6,26 @@ int		keyboard_controls_edi(t_main *s, int key)
 	(void)s;
 	if (key == SDLK_ESCAPE)
 		return (0);
-	if (key == SDLK_RIGHT)
-	{
-		s->editor->decal_x += 5;
-		s->player.pos.x += 5;
-	}
-	if (key == SDLK_LEFT)
-	{
-		s->player.pos.x -= 5;
-		s->editor->decal_x -= 5;
-	}
-	if (key == SDLK_UP)
-	{
-		s->player.pos.y -= 5;
-		s->editor->decal_y -= 5;
-	}
-	if (key == SDLK_DOWN)
-	{
-		s->player.pos.y += 5;
-		s->editor->decal_y += 5;
-	}
+	// if (key == SDLK_RIGHT)
+	// {
+	// 	s->editor->decal_x += 5;
+	// 	s->player.pos.x += 5;
+	// }
+	// if (key == SDLK_LEFT)
+	// {
+	// 	s->player.pos.x -= 5;
+	// 	s->editor->decal_x -= 5;
+	// }
+	// if (key == SDLK_UP)
+	// {
+	// 	s->player.pos.y -= 5;
+	// 	s->editor->decal_y -= 5;
+	// }
+	// if (key == SDLK_DOWN)
+	// {
+	// 	s->player.pos.y += 5;
+	// 	s->editor->decal_y += 5;
+	// }
 
 	/*if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
 	{
@@ -70,6 +70,8 @@ void	handle_editor_keys(t_main *s)
 	}
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
+	if (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR])
+		move_editor(s, keys);
 
 	// 	keyboard_controls_edi(s, keys);
 	// if (keys[LEFT_AR] || keys[RIGHT_AR] || keys[UP_AR] || keys[DOWN_AR])
