@@ -19,7 +19,7 @@
 # define G_SPACE 30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
-# define ROTATE_SPEED 20.00
+# define ROTATE_SPEED 50.00
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
@@ -153,6 +153,7 @@ typedef struct		s_player
 	t_pos 			ori;
 	t_pos 			p_ori;
 	t_pos 			p_ref;
+	t_line 			line;
 	int 			correc;
 	int 			init_space;
 	int 			angle;
@@ -260,7 +261,6 @@ void				editor_handler(t_main *s);
 void				event_handler(t_main *s);
 void				handle_keys(t_main *s);
 void				change_mode(t_main *s, int key);
-void				move_player(t_main *s, int key);
 int					ft_prev_next_floor(t_main *s, char prev_next);
 
 
@@ -301,15 +301,22 @@ int					ft_is_in_sector(t_main *s, t_pos point_2);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
-double  to_rad(double angle);
+double  			to_rad(double angle);
 
 
 //PLAYER
-void 	set_player(t_main *s);
-void	ft_move_player(t_main *s, const Uint8 *key);
-t_dpos	get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
-void	ft_ft_move_player(t_main *s, const Uint8 *keys, char sprint);
-void 	rotate_player(t_main *s , const Uint8 *keys);
+void 				set_player(t_main *s);
+//void				ft_move_player(t_main *s, const Uint8 *key);
+t_dpos				get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
+void				ft_move_player(t_main *s, const Uint8 *keys, char sprint);
+void 				rotate_player(t_main *s , const Uint8 *keys);
+void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
+void				ft_get_line(t_main *s, t_line line, Uint32 color);
+int					ft_trace_line(t_main *s, t_line line, Uint32 color);
+void 	trace_direction(t_main *s);
+
+
+
 
 
 
