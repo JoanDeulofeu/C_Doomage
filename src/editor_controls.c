@@ -212,9 +212,14 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == player)
 					{
-						s->player.correc = 0;
 						s->player.pos.x = s->sdl->event.button.x;
 						s->player.pos.y = s->sdl->event.button.y;
+						if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) != 0)
+						{
+							s->player.set = 1;
+							s->player.correc = 0;
+
+						}
 					}
 				}
 			}

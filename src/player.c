@@ -45,9 +45,11 @@ void set_player(t_main *s)
 	pos.y += (int)res.y - s->player.p_ref.y;
 	s->player.r_pos.x = (double)s->player.ori.x + ((double)s->player.p_ori.x / edi->space);
 	s->player.r_pos.y = (double)s->player.ori.y + ((double)s->player.p_ori.y / edi->space);
-	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
+	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT) && s->player.set == 1)
+	{
 		draw_anchor(s, pos, BLUE);
-	trace_direction(s);
+		trace_direction(s);
+	}
 }
 
 void 	rotate_player(t_main *s , const Uint8 *keys)
@@ -111,9 +113,14 @@ void	ft_move_player(t_main *s, const Uint8 *keys, char sprint)
 	target.x = s->player.pos.x;
 	target.y = s->player.pos.y;
 	target = get_direction(s, keys, speed, target);
-	s->player.pos.x = target.x;
-	s->player.pos.y = target.y;
+	//printf("sector = %d\n",ft_is_in_sector(s, ft_dpos_to_pos(target)));
+	if (ft_is_in_sector(s, ft_dpos_to_pos(target)) != 0)
+	{
+		s->player.pos.x = target.x;
+		s->player.pos.y = target.y;
+	}
 }
+
 void	ft_trace_vertical(t_main *s, t_line line, Uint32 color)
 {
 	int sens_x;
