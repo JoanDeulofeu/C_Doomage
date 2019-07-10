@@ -3,7 +3,7 @@
 
 int		keyboard_controls_edi(t_main *s, int key)
 {
-	(void)s;
+	// (void)s;
 	if (key == SDLK_ESCAPE)
 		return (0);
 	// if (key == SDLK_RIGHT)
@@ -42,7 +42,17 @@ int		keyboard_controls_edi(t_main *s, int key)
 	{
 		s->editor->dply_floor = ft_prev_next_floor(s, 2);
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == FLOOR)
+	if (key == FLOOR)
+	{
+		printf("lol\n");
+		if (s->editor->mode_floor == 1)
+			s->editor->mode_floor = 0;
+		else
+			s->editor->mode_floor = 1;
+		// s->editor->mode_floor = 1;
+		// ft_reset_color_vertex(s);
+	}
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -93,7 +103,8 @@ void	handle_editor_keys(t_main *s)
 		ft_draw_all_wall(s);
 		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
 		// draw_sector(s, test.x, test.y, YELLOW);
-		if (s->editor->mode == m_floor)
+		printf("mode_floor = %d\n",s->editor->mode_floor);
+		if (s->editor->mode_floor == 1)
 			fill_sectors(s);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
@@ -111,6 +122,7 @@ void	editor_handler(t_main *s)
 	t_pos 		tmp;
 	t_pos 		tmp2;
 	t_pos		diff;
+	int			yoan;
 
 	// t_pos		dest;
 
@@ -118,6 +130,7 @@ void	editor_handler(t_main *s)
 	selected = 0;
 	zoom = 0;
 	id = 0;
+	yoan = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -263,11 +276,10 @@ void	editor_handler(t_main *s)
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
-				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 0)
+				&& (yoan = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
-				&& keyboard_controls_edi(s, s->sdl->event.key.keysym.sym) == 2
-				&& selected == 1)
+				&& yoan == 2 && selected == 1)
 				{
 					remove_anchor(s, id);
 					id = 0;

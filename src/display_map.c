@@ -22,7 +22,7 @@ int		ft_vertex_worst_sector(t_main *s, int id)
 
 void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
 {
-	if (s->editor->mode != m_floor)
+	if (s->editor->mode_floor == 0)
 	{
 		if (temp->selected == 2)
 			draw_anchor(s, pos, PINK);

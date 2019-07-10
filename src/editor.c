@@ -24,11 +24,6 @@ void	change_mode(t_main *s, int key)
 		s->editor->mode = player;
 		ft_reset_color_vertex(s);
 	}
-	else if (key == FLOOR)
-	{
-		s->editor->mode = m_floor;
-		ft_reset_color_vertex(s);
-	}
 	else if (key == SUPP)
 	{
 		s->editor->mode = supp;

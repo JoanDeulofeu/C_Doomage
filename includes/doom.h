@@ -83,7 +83,6 @@ typedef enum  	e_mode {
 	sector,
 	vertex,
 	player,
-	m_floor,
 	supp
 }				t_mode;
 
@@ -217,6 +216,7 @@ typedef struct		s_editor {
 	t_mode			mode;
 	char			color_sector;
 	int				dply_floor;
+	char			mode_floor;
 }					t_editor;
 
 typedef struct		s_main {
