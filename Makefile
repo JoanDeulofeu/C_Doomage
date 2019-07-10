@@ -25,7 +25,8 @@ SRC_NAME =	main.c \
 			piles.c \
 			fill_sector.c \
 			display_map.c \
-			mode_floor.c 
+			player.c \
+			mode_floor.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

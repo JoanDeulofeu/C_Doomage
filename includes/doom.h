@@ -34,10 +34,10 @@
 # define UP_AR		SDL_SCANCODE_UP
 # define DOWN_AR	SDL_SCANCODE_DOWN
 
-# define LEFT	SDLK_a
-# define RIGHT	SDLK_d
-# define UP		SDLK_w
-# define DOWN	SDLK_s
+# define LEFT	SDL_SCANCODE_A
+# define RIGHT	SDL_SCANCODE_D
+# define UP		SDL_SCANCODE_W
+# define DOWN	SDL_SCANCODE_S
 # define MOVE	SDLK_v
 # define WALL	SDLK_m
 # define VERTEX	SDLK_b
@@ -296,4 +296,9 @@ int					ft_is_in_sector(t_main *s, t_pos point_2);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
+
+//PLAYER
+void 	set_player(t_main *s);
+void	ft_move_player(t_main *s, const Uint8 *key);
+
 #endif
