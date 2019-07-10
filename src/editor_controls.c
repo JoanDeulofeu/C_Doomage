@@ -207,7 +207,10 @@ void	editor_handler(t_main *s)
 						point_2.x = s->sdl->event.button.x;
 						point_2.y = s->sdl->event.button.y;
 						iii = ft_is_in_sector(s, point_2);
-						printf("SECTOR IS %d\n", iii);
+						if (iii == 0)
+							printf("SECTOR IS %d\n", iii);
+						else
+							printf("\033[31mSECTOR IS %d\033[0m\n", iii);
 						// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 					}
 					else if (s->editor->mode == player)
