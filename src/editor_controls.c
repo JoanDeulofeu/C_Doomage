@@ -109,7 +109,7 @@ void	editor_handler(t_main *s)
 	int			id;
 	t_pos		mouse_save;
 	t_pos 		tmp;
-	// t_pos 		tmp2;
+	t_pos 		tmp2;
 	t_pos		diff;
 
 	// t_pos		dest;
@@ -212,10 +212,13 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == player)
 					{
-						s->player.pos.x = s->sdl->event.button.x;
-						s->player.pos.y = s->sdl->event.button.y;
-						if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) != 0)
+						tmp2.x = s->sdl->event.button.x;
+						tmp2.y = s->sdl->event.button.y;
+
+						if (ft_is_in_sector(s, tmp2) != 0)
 						{
+							s->player.pos.y = tmp2.y;
+							s->player.pos.x = tmp2.x;
 							s->player.set = 1;
 							s->player.correc = 0;
 
