@@ -19,7 +19,7 @@
 # define G_SPACE 30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
-# define ROTATE_SPEED 50.00
+# define ROTATE_SPEED 30.00
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
@@ -157,7 +157,7 @@ typedef struct		s_sprite {
 typedef struct		s_player
 {
 	t_dpos 			r_pos;
-	t_pos			pos;
+	t_dpos			pos;
 	t_pos 			ori;
 	t_pos 			p_ori;
 	t_pos 			p_ref;

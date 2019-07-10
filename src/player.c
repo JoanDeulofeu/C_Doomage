@@ -56,7 +56,7 @@ void 	rotate_player(t_main *s , const Uint8 *keys)
 
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 	{
-		angle = s->player.angle + (keys[LEFT_NUM] - keys[RIGHT_NUM]) * ROTATE_SPEED / 10 + 360;
+		angle = s->player.angle + (keys[RIGHT_NUM] - keys[LEFT_NUM]) * ROTATE_SPEED / 10 + 360;
 		s->player.angle = (int)angle % 360;
 
 	}
@@ -104,7 +104,7 @@ void	ft_move_player(t_main *s, const Uint8 *keys, char sprint)
 	double	speed;
   	int     move_speed;
 
-  	move_speed = 3;
+  	move_speed = 1;
 	speed = move_speed + sprint * move_speed * 0.5;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
 		speed /= 2;
@@ -146,11 +146,8 @@ int		ft_trace_line(t_main *s, t_line line, Uint32 color)
 {
 	int sens_x;
 	int sens_y;
-	int px;
-	// int perct;
 	t_pos coord;
 
-	px = -1;
 	sens_x = line.x2 > line.x1 ? 1 : -1;
 	sens_y = line.y2 > line.y1 ? 1 : -1;
 	if (line.dx < line.dy)
@@ -159,7 +156,7 @@ int		ft_trace_line(t_main *s, t_line line, Uint32 color)
 		return (0);
 	}
 	line.pixel_o = line.x1;
-	while (line.x1 != line.x2 && ++px < 20)
+	while (line.x1 != line.x2)
 	{
 		coord.x = line.x1;
 		coord.y = line.y1;
