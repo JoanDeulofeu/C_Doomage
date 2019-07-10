@@ -44,7 +44,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 	}
 	if (key == FLOOR)
 	{
-		printf("lol\n");
+		// printf("lol\n");
 		if (s->editor->mode_floor == 1)
 			s->editor->mode_floor = 0;
 		else
@@ -103,7 +103,7 @@ void	handle_editor_keys(t_main *s)
 		ft_draw_all_wall(s);
 		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
 		// draw_sector(s, test.x, test.y, YELLOW);
-		printf("mode_floor = %d\n",s->editor->mode_floor);
+		// printf("mode_floor = %d\n",s->editor->mode_floor);
 		if (s->editor->mode_floor == 1)
 			fill_sectors(s);
 		update_image(s, s->sdl->editor);
