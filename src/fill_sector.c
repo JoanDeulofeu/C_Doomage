@@ -186,15 +186,12 @@ void	fill_sectors(t_main *s)
 	tmp_sct = s->sector;
 	while (tmp_sct)
 	{
-		// printf ("check sector[%d]\n", tmp_sct->id);
 		tmp_vtx = tmp_sct->vertex;
 		while (tmp_vtx)
 		{
-			// printf ("check vertex[%d]\n", tmp_vtx->value);
-			if (check_around_vtx(s, tmp_vtx, tmp_sct->id, pos))
+			if (tmp_sct->floor == s->editor->dply_floor
+				&& check_around_vtx(s, tmp_vtx, tmp_sct->id, pos))
 			{
-				// printf ("check vertex[%d]\n", tmp_vtx->value);
-				// printf("pos x[%d] et pos y[%d]\n", pos->x, pos->y);
 				draw_sector(s, pos->x, pos->y, get_color(tmp_sct->id));
 				break;
 			}
