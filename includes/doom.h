@@ -67,7 +67,7 @@
 # define S_GREEN 0x32CD32FF
 # define S_PURPLE 0xBA3FB8FF
 # define S_BROWN 0xE19F3AFF
-# define S_RED 0xCD1515FF
+# define S_RED 0xCD15157F
 # define S_ORANGE 0xED5F18FF
 # define S_DBLUE 0x081EDBFF
 # define S_DGREEN 0x288333FF
@@ -125,6 +125,14 @@ typedef struct		s_point {
 	char			anchor;
 	char			clicked;
 }					t_point;
+
+typedef struct		s_image {
+	int				bits_color;
+	int				bits_alpha;
+	Uint32			*tex;
+	int				w;
+	int				h;
+}					t_image;
 
 typedef struct		s_pos {
 	short			x;

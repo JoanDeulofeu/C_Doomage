@@ -91,7 +91,8 @@ void	handle_editor_keys(t_main *s)
 		ft_draw_all_wall(s);
 		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
 		// draw_sector(s, test.x, test.y, YELLOW);
-		fill_sectors(s);
+		if (s->editor->dply_floor != 0)
+			fill_sectors(s);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
