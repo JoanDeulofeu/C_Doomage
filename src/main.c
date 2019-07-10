@@ -24,5 +24,9 @@ int main (int argc, char **argv)
 	// get_grid_tab(s);
 	display_map(s);
 	editor_handler(s);
+	Mix_HaltMusic();
+	Mix_CloseAudio();
+	SDL_Quit();
+	free_program(s);
 	// event_handler(s);
 }

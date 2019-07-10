@@ -63,6 +63,8 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		else if (line[0] == 's')
 			ft_parse_sector(s, line);
+		ft_strdel(&line);
 	}
+	ft_strdel(&line);
 	return (0);
 }

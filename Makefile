@@ -26,7 +26,8 @@ SRC_NAME =	main.c \
 			fill_sector.c \
 			display_map.c \
 			player.c \
-			mode_floor.c
+			mode_floor.c \
+			free.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
@@ -35,7 +36,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -g #-Werror
+CFLAGS = -Wall -Wextra -g3 #-Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

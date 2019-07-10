@@ -96,6 +96,7 @@ void	draw_sector(t_main *s, int x, int y, Uint32 r_color)
 	empiler(s, pile, coord);
 	while (pile->first)
 		remplissage(s, pile, r_color);
+	free(pile);
 }
 
 int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)

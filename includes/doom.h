@@ -239,6 +239,7 @@ void				pre_initialize_sdl(t_main *s);
 void				initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture			*initialize_texture(t_sdl *sdl, int width, int height);
 t_main				*initialize_main(void);
+void				free_program(t_main *s);
 
 void				display_error(int error_nb);
 void				handle_error(t_main *s, int error_nb);

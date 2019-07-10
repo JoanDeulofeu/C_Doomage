@@ -24,7 +24,7 @@ void	handle_error(t_main *s, int error_nb)
 	Mix_HaltMusic();
 	Mix_CloseAudio();
 	SDL_Quit();
-	// free_program(s);
+	free_program(s);
 	exit(-1);
 }
 
