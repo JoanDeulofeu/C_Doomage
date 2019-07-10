@@ -82,6 +82,7 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	s->player.set = 0;
 	s->player.pos.x = 0;
 	s->player.pos.y = 0;
 	s->player.angle = 90;

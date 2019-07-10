@@ -162,6 +162,7 @@ typedef struct		s_player
 	t_pos 			p_ori;
 	t_pos 			p_ref;
 	t_line 			line;
+	int 			set;
 	int 			correc;
 	int 			init_space;
 	int 			angle;
