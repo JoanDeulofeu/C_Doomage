@@ -53,4 +53,6 @@ dkms.conf
 SDL2
 SDL2/*
 SDL2/build/build/.libs/*
+SDL2_mixer-2.0.4
+SDL2-2.0.9
 doom-nukem
