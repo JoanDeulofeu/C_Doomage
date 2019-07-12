@@ -4,7 +4,7 @@
 # include "editor.h"
 
 # define SHIFT_AMOUNT 16
-
+# define FOV 60
 /// Fixed-point Format: 16.16 (32-bit)
 typedef Uint32 fixed_float;
 
@@ -31,6 +31,7 @@ typedef struct		s_player
 	int 			correc;
 	int 			init_space;
 	int 			angle;
+	int				height;
 }					t_player;
 
 typedef struct		s_sdl {

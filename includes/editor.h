@@ -77,8 +77,7 @@ typedef enum  	e_mode {
 	move,
 	sector,
 	vertex,
-	player,
-	supp
+	player
 }				t_mode;
 
 typedef struct		s_abpos {
