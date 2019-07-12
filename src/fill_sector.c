@@ -115,7 +115,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	pos->y = temp_v->pos.y;
 	pos->y -= 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("haut : is in sector renvoie = %d\n", test);
@@ -123,7 +123,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->x += 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("haut-droite : is in sector renvoie = %d\n", test);
@@ -131,7 +131,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->y += 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("droite : is in sector renvoie = %d\n", test);
@@ -139,7 +139,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->y += 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("bas-droite : is in sector renvoie = %d\n", test);
@@ -147,7 +147,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->x -= 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("bas : is in sector renvoie = %d\n", test);
@@ -155,7 +155,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->x -= 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("bas-gauche : is in sector renvoie = %d\n", test);
@@ -163,7 +163,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->y -= 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("gauche : is in sector renvoie = %d\n", test);
@@ -171,7 +171,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	}
 	pos->y -= 8;
 	color_got = get_pixel_color(s->sdl->editor, pos->x, pos->y);
-	printf("TEST (%d, %d)\n", pos->x, pos->y);
+	// printf("TEST (%d, %d)\n", pos->x, pos->y);
 	if ((test = ft_is_in_sector(s, *pos)) == sct_id && color_got != COLOR_WALL)
 	{
 		// printf("haut-gauche : is in sector renvoie = %d\n", test);
@@ -185,7 +185,7 @@ void	fill_sectors(t_main *s)
 	t_sector	*tmp_sct;
 	t_int		*tmp_vtx;
 	t_pos		*pos;
-printf("-----entree\n");
+// printf("-----entree\n");
 	if (!(pos = (t_pos*)malloc(sizeof(t_pos))))
 		handle_error(s, MALLOC_ERROR);
 	pos->x = 0;
@@ -207,5 +207,5 @@ printf("-----entree\n");
 		tmp_sct = tmp_sct->next;
 	}
 	free (pos);
-	printf("-----sortie\n");
+	// printf("-----sortie\n");
 }

@@ -9,7 +9,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
-# include <math.h>
 # define WIDTH 1000 //multiple de 20
 # define HEIGHT 800 //multiple de 20
 # define G_SPACE 30

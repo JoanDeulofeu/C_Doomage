@@ -140,10 +140,24 @@ int		ft_sector_mode(t_main *s, int x, int y)
 	return (0);
 }
 
-void	ft_trump(t_main *s, t_sector *sct, t_vertex *vtx, t_int *first_vtx)
+Uint32	ft_color_trump(t_sector *sct, int wall)
 {
-	Uint32	color = 0xff7062FF; //#ff7062
+	t_int		*sct_wall;
 
+	sct_wall = sct->wall;
+	while (wall-- > 0)
+		sct_wall = sct_wall->next;
+	if (sct_wall->value != -1)
+		return (0xddd241ff); //#ddd241
+	return (0xff7062FF); //#ff7062
+}
+
+void	ft_trump(t_main *s, t_sector *sct, int wall, t_int *first_vtx)
+{
+	Uint32		color;
+	t_vertex	*vtx;
+
+	color = ft_color_trump(sct, wall);
 	vtx = s->vertex;
 	while (vtx && sct->vertex && sct->vertex->value != vtx->id && vtx->next)
 		vtx = vtx->next;
@@ -170,6 +184,7 @@ void	ft_draw_all_wall(t_main *s)
 	t_vertex	*vtx;
 	t_int		*first_vtx;
 	t_sector	*sct;
+	int			wall;
 
 	sct = s->sector;
 	vtx = NULL;
@@ -181,9 +196,10 @@ void	ft_draw_all_wall(t_main *s)
 			continue;
 		}
 		first_vtx = sct->vertex;
+		wall = 0;
 		while (sct->vertex)
 		{
-			ft_trump(s, sct, vtx, first_vtx);
+			ft_trump(s, sct, wall++, first_vtx);
 			sct->vertex = sct->vertex->next;
 		}
 		sct->vertex = first_vtx;
