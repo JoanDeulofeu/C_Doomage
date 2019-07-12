@@ -27,7 +27,8 @@ SRC_NAME =	main.c \
 			display_map.c \
 			player.c \
 			mode_floor.c \
-			free.c
+			free.c \
+			fixed_float.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

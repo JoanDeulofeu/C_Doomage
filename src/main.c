@@ -23,6 +23,7 @@ int main (int argc, char **argv)
 	ft_parsing(s, 0, 0, 0);
 	// get_grid_tab(s);
 	display_map(s);
+	// ft_test_float();
 	editor_handler(s);
 	Mix_HaltMusic();
 	Mix_CloseAudio();

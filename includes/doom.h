@@ -3,7 +3,7 @@
 
 # include "editor.h"
 
-# define FIXED_POINT_FRACTIONAL_BITS 16
+# define SHIFT_AMOUNT 16
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef Uint32 fixed_float;
@@ -171,6 +171,15 @@ void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
+
+/*
+****	Fonction des fixed float
+*/
+void				ft_test_float(void);
+t_dpos				ft_fixfloat_to_dpos(t_fix_pos fix);
+t_fix_pos			ft_dpos_to_fixfloat(t_dpos dpos);
+fixed_float			ft_float_to_fixed(double input);
+double				ft_fixed_to_float(fixed_float input);
 
 
 #endif
