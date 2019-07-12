@@ -93,6 +93,8 @@ void				set_pixel(t_texture *text, Uint32 color, t_pos coord);
 Uint32				get_pixel_color(t_texture *text, int x, int y);
 void				draw_player(t_main *s, t_dpos p_pos);
 void				draw_wall(t_main *s, t_pos ori);
+t_image				*load_tga(char *path, int i, int idx, int ret);
+void				draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y);
 
 /*
 ****	Fonction de creation de ligne
@@ -159,6 +161,7 @@ t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
 double  			to_rad(double angle);
+double				percent(double value, double total);
 
 /*
 ****	Fonction de gestion du joueur

@@ -1,5 +1,32 @@
 #include "doom.h"
 
+void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
+{
+	t_pos		coord;
+	t_pos		dest;
+	double		pery;
+	int			pix_tex;
+	t_image		*menu;
+
+	menu = s->editor->menu;
+	dest.x = WIDTH / 2 + (menu->w / 2) + 1;
+	dest.y = menu->h;
+	coord.x = orig_x;
+	while (coord.x < dest.x)
+	{
+		coord.y = orig_y;
+		perx = percent(coord.x - orig_x, dest.x - orig_x);
+		while (coord.y < dest.y)
+		{
+			coord.y++;
+			pery = percent(coord.y - orig_y, dest.y - orig_y);
+			pix_tex = (int)(pery * menu->h - 1) * menu->w + (int)(perx * menu->w);
+			set_pixel(s->sdl->editor, menu->tex[pix_tex], coord);
+		}
+		coord.x++;
+	}
+}
+
 void	change_mode(t_main *s, int key)
 {
 	if (key == MOVE)

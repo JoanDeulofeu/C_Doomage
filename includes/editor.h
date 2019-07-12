@@ -16,6 +16,7 @@
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
 # define ROTATE_SPEED 30.00
+# define PARSE_BUFF_SIZE 64
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
@@ -78,7 +79,8 @@ typedef enum  	e_mode {
 	move,
 	sector,
 	vertex,
-	player
+	player,
+	supp
 }				t_mode;
 
 typedef struct		s_abpos {
@@ -121,6 +123,11 @@ typedef struct		s_image {
 	int				w;
 	int				h;
 }					t_image;
+
+typedef struct		s_anim {
+	int				current;
+	t_image			*image[15];
+}					t_anim;
 
 typedef struct		s_pos {
 	short			x;
@@ -179,6 +186,7 @@ typedef struct		s_editor {
 	char			color_sector;
 	int				dply_floor;
 	char			mode_floor;
+	t_image			*menu;
 }					t_editor;
 
 

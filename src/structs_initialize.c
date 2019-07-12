@@ -56,6 +56,11 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	// 	s->interface->w = WIDTH;
 }
 
+void		load_images(t_main *s)
+{
+	s->editor->menu = load_tga("images/move.tga", 0, 0, 0);
+}
+
 t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
 {
 	t_texture	*text;
@@ -91,5 +96,6 @@ t_main		*initialize_main(void)
 	s->str_vtx = NULL;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
+	load_images(s);
 	return (s);
 }

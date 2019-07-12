@@ -106,6 +106,7 @@ void	handle_editor_keys(t_main *s)
 		// printf("mode_floor = %d\n",s->editor->mode_floor);
 		if (s->editor->mode_floor == 1)
 			fill_sectors(s);
+		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu->w / 2), -1);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }

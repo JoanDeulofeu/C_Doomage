@@ -16,6 +16,11 @@ int		arround(int space, int nb)
 	- nb ? space * res2 : space * res);
 }
 
+double	percent(double value, double total)
+{
+	return (value / total);
+}
+
 t_pos 	get_px_pos(t_main *s, t_pos ref)
 {
 	t_pos		pos;
