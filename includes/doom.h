@@ -3,6 +3,8 @@
 # define DOOM_H
 # include "editor.h"
 
+# define FOV 60
+
 typedef struct		s_texture {
 	Uint32			*content;
 	SDL_Texture		*texture;
@@ -21,6 +23,7 @@ typedef struct		s_player
 	int 			correc;
 	int 			init_space;
 	int 			angle;
+	int				height;
 }					t_player;
 
 typedef struct		s_sdl {
