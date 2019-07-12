@@ -146,6 +146,7 @@ int		ft_find_intersection(t_dpos	begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpo
 
 int		ft_is_in_sector(t_main *s, t_pos position)
 {
+	printf("entree\n");
 	t_sector	*sct;
 	t_vertex	*vtx;
 	t_int		*s_vtx;
@@ -176,15 +177,15 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 			id = s_vtx->value;
 			while (vtx->id != id && vtx->next)
 				vtx = vtx->next;
-			seg1.x = vtx->x * s->editor->space;
-			seg1.y = vtx->y * s->editor->space;
+			seg1.x = vtx->x * s->editor->space + s->editor->decal_x;
+			seg1.y = vtx->y * s->editor->space + s->editor->decal_y;
 
 			vtx = s->vertex;
 			id = s_vtx->next->value;
 			while (vtx->id != id && vtx->next)
 				vtx = vtx->next;
-			seg2.x = vtx->x * s->editor->space;
-			seg2.y = vtx->y * s->editor->space;
+			seg2.x = vtx->x * s->editor->space + s->editor->decal_x;
+			seg2.y = vtx->y * s->editor->space + s->editor->decal_y;
 			// printf("\033[32m seg1x=%f   mousex=%f\033[0m\n",seg1.x, point_2.x);
 			intersect = ft_find_intersection(seg1, seg2, point_1, point_2);
 			if (intersect == -1)
@@ -204,16 +205,16 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 		id = s_vtx->value;
 		while (vtx->id != id && vtx->next)
 			vtx = vtx->next;
-		seg1.x = vtx->x * s->editor->space;
-		seg1.y = vtx->y * s->editor->space;
+		seg1.x = vtx->x * s->editor->space + s->editor->decal_x;
+		seg1.y = vtx->y * s->editor->space + s->editor->decal_y;
 
 		s_vtx = sct->vertex;
 		vtx = s->vertex;
 		id = s_vtx->value;
 		while (vtx->id != id && vtx->next)
 			vtx = vtx->next;
-		seg2.x = vtx->x * s->editor->space;
-		seg2.y = vtx->y * s->editor->space;
+		seg2.x = vtx->x * s->editor->space + s->editor->decal_x;
+		seg2.y = vtx->y * s->editor->space + s->editor->decal_y;
 		count += ft_find_intersection(seg1, seg2, point_1, point_2);
 		// printf("count = %d\n=-=-=-=-=-=-=-=-=-=\n", count);
 		if (count % 2 == 1)
@@ -227,5 +228,6 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 			// sleep(1);
 		}
 	}
+	printf("sortie\n");
 	return (0);
 }
