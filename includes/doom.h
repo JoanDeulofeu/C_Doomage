@@ -30,7 +30,8 @@ typedef struct		s_player
 	int 			set;
 	int 			correc;
 	int 			init_space;
-	int 			angle;
+	int 			angle; //suppr?
+	double			axis; //axe du joueur(orientation)
 	int				height;
 }					t_player;
 
@@ -125,6 +126,7 @@ int					ft_parsing(t_main *s, int x, int y, int fd);
 ****	Fonction de gestion des listes chainés
 */
 int					ft_add_vertex(t_main *s, int x, int y);
+int					ft_check_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
 int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
 void				ft_test_chainlist(t_main *s);

@@ -45,16 +45,16 @@ void	move_anchor(t_main *s, int id)
 	temp = NULL;
 	if (s->vertex)
 		temp = s->vertex;
+	ori.x = arround(s->editor->space, s->ft_mouse.x
+		- (s->editor->decal_x % s->editor->space));
+	ori.y = arround(s->editor->space, s->ft_mouse.y
+		- (s->editor->decal_y % s->editor->space));
+	abs = get_abs_pos(s, ori);
 	while (temp)
 	{
-		if (temp->id == id)
+		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y))
 		{
-			ori.x = arround(s->editor->space, s->ft_mouse.x
-				- (s->editor->decal_x % s->editor->space));
-			ori.y = arround(s->editor->space, s->ft_mouse.y
-				- (s->editor->decal_y % s->editor->space));
 			temp->pos = ori;
-			abs = get_abs_pos(s, ori);
 			temp->x = abs.x;
 			temp->y = abs.y;
 			return ;

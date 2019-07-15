@@ -4,32 +4,33 @@ NAME = doom-nukem
 SRC_PATH = src
 
 SRC_NAME =	main.c \
-			controls.c \
-			actions.c \
-			images.c \
-			editor.c \
-			errors.c \
-			structs_initialize.c \
-			editor_controls.c \
-			lines.c \
-			mouse.c \
-			parsing.c \
-			chainlist.c \
-			utils_1.c \
-			anchors_general.c \
-			mode_vertex.c \
-			remove_sectors.c \
-			wall.c \
-			mode_deplacement.c \
-			ft_is_in_sector.c \
-			piles.c \
-			fill_sector.c \
-			display_map.c \
-			player.c \
-			mode_floor.c \
-			free.c \
-			fixed_float.c \
-			parser_tga.c
+			editor/controls.c \
+			editor/actions.c \
+			editor/images.c \
+			editor/editor.c \
+			editor/errors.c \
+			editor/structs_initialize.c \
+			editor/editor_controls.c \
+			editor/lines.c \
+			editor/mouse.c \
+			editor/parsing.c \
+			editor/chainlist.c \
+			editor/utils_1.c \
+			editor/anchors_general.c \
+			editor/mode_vertex.c \
+			editor/remove_sectors.c \
+			editor/wall.c \
+			editor/mode_deplacement.c \
+			editor/ft_is_in_sector.c \
+			editor/piles.c \
+			editor/fill_sector.c		\
+			editor/display_map.c		\
+			editor/player.c				\
+			editor/mode_floor.c			\
+			editor/free.c				\
+			editor/fixed_float.c		\
+			editor/parser_tga.c			\
+			game/visu.c					\
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
