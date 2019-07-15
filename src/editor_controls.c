@@ -1,6 +1,6 @@
 #include "doom.h"
 
-void	click_editor_menu(t_main *s, t_anim menu, int x, int y)
+void	click_editor_menu(t_main *s, t_anim menu, int x)
 {
 	int case_size;
 	int ori_x;
@@ -17,6 +17,12 @@ void	click_editor_menu(t_main *s, t_anim menu, int x, int y)
 		change_mode(s, PLAYER);
 	else if (x < ori_x + (case_size * 5) && x > ori_x + (case_size * 4))
 		change_mode(s, SAVE);
+	else if (x < ori_x + (case_size * 6) && x > ori_x + (case_size * 5)
+		&& s->editor->mode_floor == 0)
+		s->editor->mode_floor = 1;
+	else if (x < ori_x + (case_size * 6) && x > ori_x + (case_size * 5)
+		&& s->editor->mode_floor != 0)
+		s->editor->mode_floor = 0;
 }
 
 int		check_click_menu(t_main *s)
@@ -25,13 +31,14 @@ int		check_click_menu(t_main *s)
 	int y;
 	int ori_x;
 	int dest_x;
+	int case_size;
 
 	x = s->ft_mouse.x;
 	y = s->ft_mouse.y;
+	case_size = s->editor->menu.image[0]->w / 5;
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
 	dest_x = ori_x + s->editor->menu.image[s->editor->menu.current]->w;
-	//finir condition qui verifie si je suis sur le menu
-	if (x >= ori_x && y >= 0 && x < dest_x && y < s->editor->menu.image[s->editor->menu.current]->h)
+	if (x >= ori_x && y >= 0 && x < dest_x + case_size && y < s->editor->menu.image[s->editor->menu.current]->h)
 		return (1);
 	else
 		return (0);
@@ -141,8 +148,14 @@ void	handle_editor_keys(t_main *s)
 		// draw_sector(s, test.x, test.y, YELLOW);
 		// printf("mode_floor = %d\n",s->editor->mode_floor);
 		if (s->editor->mode_floor == 1)
+		{
+			s->editor->m_floor.current = 1;
 			fill_sectors(s);
+		}
+		else
+			s->editor->m_floor.current = 0;
 		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_space_menu(s);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
@@ -214,8 +227,8 @@ void	editor_handler(t_main *s)
 				{
 					if (check_click_menu(s))
 					{
-						click_editor_menu(s, s->editor->menu, s->ft_mouse.x, s->ft_mouse.y);
-						printf("mode = %u\n", s->editor->mode);
+						click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
+						// printf("mode = %u\n", s->editor->mode);
 					}
 
 					if (s->editor->mode == vertex && !check_click_menu(s))

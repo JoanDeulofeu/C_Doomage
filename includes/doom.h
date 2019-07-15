@@ -94,6 +94,8 @@ Uint32				get_pixel_color(t_texture *text, int x, int y);
 void				draw_player(t_main *s, t_dpos p_pos);
 void				draw_wall(t_main *s, t_pos ori);
 t_image				*load_tga(char *path, int i, int idx, int ret);
+void				draw_image(t_texture *texture, t_pos ori, t_pos dest, t_image *image);
+void				draw_space_menu(t_main *s);
 void				draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y);
 
 /*
