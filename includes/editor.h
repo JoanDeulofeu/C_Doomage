@@ -9,8 +9,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
-# define WIDTH 1000 //multiple de 20
-# define HEIGHT 800 //multiple de 20
+# define WIDTH 1000
+# define HEIGHT 800
 # define G_SPACE 30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
@@ -18,6 +18,7 @@
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define LONG_MAX 9223372036854775807
 
 # define FILE_ERROR 1
 # define SIZE_ERROR 2
@@ -77,6 +78,7 @@ typedef enum  	e_mode {
 	move,
 	sector,
 	vertex,
+	supp,
 	player
 }				t_mode;
 

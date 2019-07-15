@@ -87,14 +87,27 @@ int		ft_find_intersection(t_dpos	begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpo
 	coord = ft_find_coord(l1, l2, end_l1, end_l2, begin_l2);
 
 	if (coord.x > INT_MAX || coord.y > INT_MAX || coord.x < INT_MIN || coord.y < INT_MIN)
+	{
+		// printf("out 1\n");
 		return (0);
+	}
 	if (ft_go_through_point(begin_l1, end_l1, coord))
+	{
+		// printf("out 2\n");
 		return (-1);
+	}
 	if (!(ft_is_in_segment(coord, begin_l1, end_l1)))
+	{
+		// printf("out 3\n");
 		return (0);
+	}
 	if (!(ft_is_in_segment(coord, begin_l2, end_l2)))
+	{
+		// printf("out 4\n");
 		return (0);
-	return (1);
+	}
+	// printf("IN\n");
+	return (end_l2.x - coord.x);
 }
 
 int		ft_is_in_sector(t_main *s, t_pos position)
@@ -106,13 +119,18 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 	t_dpos		seg2;
 	int			id;
 	int			count;
-	int			intersect;
+	long		save_dist;
+	long		save_dist2;
 	int			next_test;
 	t_dpos		point_1;
 	t_dpos		point_2;
+	int			n_sector;
+	int			dist_sector;
 
 	sct = s->sector;
-	intersect = 0;
+	n_sector = 0;
+	dist_sector = 0;
+	save_dist = LONG_MAX;
 	next_test = 0;
 	point_2 = ft_pos_to_dpos(position);
 	point_1.x = point_2.x - 10000;
@@ -120,6 +138,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 	while (sct)
 	{
 		count = 0;
+		save_dist2 = 0;
 		point_1.y += next_test;
 		next_test = 0;
 		s_vtx = sct->vertex;
@@ -141,17 +160,21 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);
-			intersect = ft_find_intersection(seg1, seg2, point_1, point_2);
-			if (intersect == -1)
+			dist_sector = ft_find_intersection(seg1, seg2, point_1, point_2);
+			if (dist_sector == -1)
 			{
 				next_test += 10;
 				break;
 			}
-			count += intersect;
+			if (dist_sector > 0)
+			{
+				save_dist2 = dist_sector;
+				count++;
+			}
 			s_vtx = s_vtx->next;
 		}
 
-		if (intersect == -1)
+		if (dist_sector == -1)
 			continue;
 		vtx = s->vertex;
 		id = s_vtx->value;
@@ -170,13 +193,22 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 		if ((point_2.x == seg1.x && point_2.y == seg1.y)
 			|| (point_2.x == seg2.x && point_2.y == seg2.y))
 			return (0);
-		count += ft_find_intersection(seg1, seg2, point_1, point_2);
-		if (count % 2 == 1)
-			return (sct->id);
-		if (intersect != -1)
+		dist_sector = ft_find_intersection(seg1, seg2, point_1, point_2);
+		if (dist_sector > 0)
+			count++;
+		if (save_dist2 > 0 && dist_sector == 0)
+			dist_sector = save_dist2;
+		// printf("TEST sector n%d et de distance %d\n", sct->id, dist_sector);
+		if (count % 2 == 1 && save_dist > dist_sector && dist_sector > 0)
+		{
+			n_sector = sct->id;
+			save_dist = dist_sector;
+			// printf("SAVE sector n%d et de distance %ld\n",n_sector, save_dist);
+		}
+		if (dist_sector != -1)
 			sct = sct->next;
 		else
 			next_test += 10;
 	}
-	return (0);
+	return (n_sector);
 }
