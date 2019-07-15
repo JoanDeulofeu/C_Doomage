@@ -29,15 +29,9 @@ void	draw_space_menu(t_main *s)
 	t_pos dest;
 
 	ori.x = WIDTH / 2 + (s->editor->menu.image[0]->w / 2) + 1;
-<<<<<<< HEAD
 	ori.y = -1;
 	dest.x = ori.x + s->editor->m_floor.image[0]->w;
 	dest.y = ori.y + s->editor->m_floor.image[0]->h + 1;
-=======
-	ori.y = 0;
-	dest.x = ori.x + s->editor->m_floor.image[0]->w;
-	dest.y = ori.y + s->editor->m_floor.image[0]->h;
->>>>>>> 4977784f691ed7a28e5598ff3fd5d6aba149e36b
 	draw_image(s->sdl->editor, ori, dest, s->editor->m_floor.image[s->editor->m_floor.current]);
 }
 
