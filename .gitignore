@@ -51,7 +51,9 @@ Mkfile.old
 dkms.conf
 
 SDL2
-SDL2/*
+SDL2/
+SDL2_mixer-2.0.4/
+SDL2-2.0.9/
 SDL2/build/build/.libs/*
 SDL2/bin/sdl2-config
 SDL2/build/Makefile
