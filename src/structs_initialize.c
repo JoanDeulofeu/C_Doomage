@@ -66,9 +66,17 @@ void		load_images(t_main *s)
 	s->editor->menu.image[2] = load_tga("images/sector.tga", 0, 0, 0);
 	s->editor->menu.image[3] = load_tga("images/player.tga", 0, 0, 0);
 	s->editor->menu.image[4] = load_tga("images/save.tga", 0, 0, 0);
+	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
+	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
 	while (i < 15)
-		s->editor->menu.image[i++] = NULL;
+	{
+		s->editor->menu.image[i] = NULL;
+		s->editor->m_floor.image[i++] = NULL;
+	}
 	s->editor->menu.current = 0;
+	s->editor->m_floor.current = 0;
+
+
 }
 
 t_texture	*initialize_texture(t_sdl *sdl, int width, int height)

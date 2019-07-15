@@ -187,6 +187,7 @@ typedef struct		s_editor {
 	int				dply_floor;
 	char			mode_floor;
 	t_anim			menu;
+	t_anim			m_floor;
 }					t_editor;
 
 

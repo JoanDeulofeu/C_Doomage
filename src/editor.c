@@ -1,5 +1,40 @@
 #include "doom.h"
 
+void	draw_image(t_texture *texture, t_pos ori, t_pos dest, t_image *image)
+{
+	t_pos		coord;
+	double		pery;
+	double		perx;
+	int			pix_tex;
+
+	coord.x = ori.x;
+	while (coord.x < dest.x)
+	{
+		coord.y = ori.y;
+		perx = percent(coord.x - ori.x, dest.x - ori.x);
+		while (coord.y < dest.y)
+		{
+			coord.y++;
+			pery = percent(coord.y - ori.y, dest.y - ori.y);
+			pix_tex = (int)(pery * image->h - 1) * image->w + (int)(perx * image->w);
+			set_pixel(texture, image->tex[pix_tex], coord);
+		}
+		coord.x++;
+	}
+}
+
+void	draw_space_menu(t_main *s)
+{
+	t_pos ori;
+	t_pos dest;
+
+	ori.x = WIDTH / 2 + (s->editor->menu.image[0]->w / 2) + 1;
+	ori.y = -1;
+	dest.x = ori.x + s->editor->m_floor.image[0]->w;
+	dest.y = ori.y + s->editor->m_floor.image[0]->h + 1;
+	draw_image(s->sdl->editor, ori, dest, s->editor->m_floor.image[s->editor->m_floor.current]);
+}
+
 void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
 {
 	t_pos		coord;
