@@ -43,7 +43,7 @@
 # define VERTEX	SDLK_b
 # define PLAYER	SDLK_p
 # define FLOOR	SDLK_f
-# define SUPP	SDLK_s
+# define SAVE	SDLK_s
 # define DELETE	SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
@@ -79,7 +79,7 @@ typedef enum  	e_mode {
 	sector,
 	vertex,
 	player,
-	supp
+	save
 }				t_mode;
 
 typedef struct		s_abpos {
@@ -185,7 +185,7 @@ typedef struct		s_editor {
 	char			color_sector;
 	int				dply_floor;
 	char			mode_floor;
-	t_image			*menu;
+	t_anim			menu;
 }					t_editor;
 
 

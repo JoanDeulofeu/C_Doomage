@@ -58,7 +58,17 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 
 void		load_images(t_main *s)
 {
-	s->editor->menu = load_tga("images/move.tga", 0, 0, 0);
+	int i;
+
+	i = 5;
+	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
+	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
+	s->editor->menu.image[2] = load_tga("images/sector.tga", 0, 0, 0);
+	s->editor->menu.image[3] = load_tga("images/player.tga", 0, 0, 0);
+	s->editor->menu.image[4] = load_tga("images/save.tga", 0, 0, 0);
+	while (i < 15)
+		s->editor->menu.image[i++] = NULL;
+	s->editor->menu.current = 0;
 }
 
 t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
