@@ -1,5 +1,41 @@
 #include "doom.h"
 
+void	click_editor_menu(t_main *s, t_anim menu, int x, int y)
+{
+	int case_size;
+	int ori_x;
+
+	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
+	case_size = menu.image[0]->w / 5;
+	if (x < ori_x + case_size)
+		change_mode(s, MOVE);
+	else if (x < ori_x + (case_size * 2) && x > ori_x + case_size)
+		change_mode(s, VERTEX);
+	else if (x < ori_x + (case_size * 3) && x > ori_x + (case_size * 2))
+		change_mode(s, WALL);
+	else if (x < ori_x + (case_size * 4) && x > ori_x + (case_size * 3))
+		change_mode(s, PLAYER);
+	else if (x < ori_x + (case_size * 5) && x > ori_x + (case_size * 4))
+		change_mode(s, SAVE);
+}
+
+int		check_click_menu(t_main *s)
+{
+	int x;
+	int y;
+	int ori_x;
+	int dest_x;
+
+	x = s->ft_mouse.x;
+	y = s->ft_mouse.y;
+	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
+	dest_x = ori_x + s->editor->menu.image[s->editor->menu.current]->w;
+	//finir condition qui verifie si je suis sur le menu
+	if (x >= ori_x && y >= 0 && x < dest_x && y < s->editor->menu.image[s->editor->menu.current]->h)
+		return (1);
+	else
+		return (0);
+}
 
 int		keyboard_controls_edi(t_main *s, int key)
 {
@@ -106,6 +142,7 @@ void	handle_editor_keys(t_main *s)
 		// printf("mode_floor = %d\n",s->editor->mode_floor);
 		if (s->editor->mode_floor == 1)
 			fill_sectors(s);
+		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 		update_image(s, s->sdl->editor);
 		// printf("MDR\n");
 	// }
@@ -175,7 +212,13 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == vertex)
+					if (check_click_menu(s))
+					{
+						click_editor_menu(s, s->editor->menu, s->ft_mouse.x, s->ft_mouse.y);
+						printf("mode = %u\n", s->editor->mode);
+					}
+
+					if (s->editor->mode == vertex && !check_click_menu(s))
 					{
 						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
@@ -193,7 +236,7 @@ void	editor_handler(t_main *s)
 					}
 					// else if (s->editor->mode == supp && selected == 1)
 					// 	remove_anchor(s, id);
-					else if (s->editor->mode == move)
+					else if (s->editor->mode == move && !check_click_menu(s))
 					{
 						tmp.x = s->editor->decal_x;
 						tmp.y = s->editor->decal_y;
@@ -202,7 +245,7 @@ void	editor_handler(t_main *s)
 						selected = 1;
 
 					}
-					else if (s->editor->mode == sector)
+					else if (s->editor->mode == sector && !check_click_menu(s))
 					{
 						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
@@ -226,7 +269,7 @@ void	editor_handler(t_main *s)
 							printf("\033[31mSECTOR IS %d\033[0m\n", iii);
 						// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 					}
-					else if (s->editor->mode == player)
+					else if (s->editor->mode == player && !check_click_menu(s))
 					{
 						tmp2.x = s->sdl->event.button.x;
 						tmp2.y = s->sdl->event.button.y;
@@ -246,13 +289,14 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == move)
+					if (s->editor->mode == move && selected == 1)
 					{
 						s->editor->decal_x = tmp.x;
 						s->editor->decal_y = tmp.y;
 						diff.x = s->ft_mouse.x - mouse_save.x;
 						diff.y = s->ft_mouse.y - mouse_save.y;
 						mouse_grid(s, diff);
+						selected = 0;
 					}
 				}
 			}

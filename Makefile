@@ -28,7 +28,8 @@ SRC_NAME =	main.c \
 			player.c \
 			mode_floor.c \
 			free.c \
-			fixed_float.c
+			fixed_float.c \
+			parser_tga.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

@@ -1,15 +1,44 @@
 #include "doom.h"
 
+void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
+{
+	t_pos		coord;
+	t_pos		dest;
+	double		pery;
+	int			pix_tex;
+	t_image		*menu;
+
+	menu = s->editor->menu.image[s->editor->menu.current];
+	dest.x = WIDTH / 2 + (menu->w / 2) + 1;
+	dest.y = menu->h;
+	coord.x = orig_x;
+	while (coord.x < dest.x)
+	{
+		coord.y = orig_y;
+		perx = percent(coord.x - orig_x, dest.x - orig_x);
+		while (coord.y < dest.y)
+		{
+			coord.y++;
+			pery = percent(coord.y - orig_y, dest.y - orig_y);
+			pix_tex = (int)(pery * menu->h - 1) * menu->w + (int)(perx * menu->w);
+			set_pixel(s->sdl->editor, menu->tex[pix_tex], coord);
+		}
+		coord.x++;
+	}
+}
+
 void	change_mode(t_main *s, int key)
 {
 	if (key == MOVE)
 	{
 		s->editor->mode = move;
+		s->editor->menu.current = 0;
 		ft_reset_color_vertex(s);
 	}
 	else if (key == WALL)
 	{
 		s->editor->mode = sector;
+		s->editor->menu.current = 2;
 		s->editor->color_sector = 2;
 		ft_reset_color_vertex(s);
 		ft_memdel((void **)&s->str_vtx);
@@ -17,16 +46,19 @@ void	change_mode(t_main *s, int key)
 	else if (key == VERTEX)
 	{
 		s->editor->mode = vertex;
+		s->editor->menu.current = 1;
 		ft_reset_color_vertex(s);
 	}
 	else if (key == PLAYER)
 	{
 		s->editor->mode = player;
+		s->editor->menu.current = 3;
 		ft_reset_color_vertex(s);
 	}
-	else if (key == SUPP)
+	else if (key == SAVE)
 	{
-		s->editor->mode = supp;
+		s->editor->mode = save;
+		s->editor->menu.current = 4;
 		ft_reset_color_vertex(s);
 	}
 	// printf("mode = %d\n", s->editor->mode);
