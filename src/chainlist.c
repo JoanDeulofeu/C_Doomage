@@ -1,5 +1,20 @@
 #include "doom.h"
 
+int			ft_check_vertex(t_main *s, int x, int y)
+{
+	t_vertex	*tmp;
+
+	tmp = s->vertex;
+	while (tmp)
+	{
+		// printf("COMP) tmp.x(%d)  x(%d)    tmp.y(%d)  y(%d)\n",tmp->x, x, tmp->y, y);
+		if (tmp->x == x && tmp->y == y)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 int			ft_add_vertex(t_main *s, int x, int y)
 {
 	t_vertex	*tmp;
@@ -16,6 +31,8 @@ int			ft_add_vertex(t_main *s, int x, int y)
 	}
 	else
 	{
+		if (!(ft_check_vertex(s, x, y)))
+			return (-1);
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_vertex*)malloc(sizeof(t_vertex))))
