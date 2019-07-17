@@ -74,7 +74,7 @@ t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos b
 	return (coord);
 }
 
-int		ft_find_intersection(t_dpos	begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2)
+int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2)
 {
 	t_abpos	l1;
 	t_abpos	l2;
@@ -85,6 +85,9 @@ int		ft_find_intersection(t_dpos	begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpo
 	l1.b = ft_find_ordered_in_origin(begin_l1, l1.a);
 	l2.b = ft_find_ordered_in_origin(begin_l2, l2.a);
 	coord = ft_find_coord(l1, l2, end_l1, end_l2, begin_l2);
+	s->tmp_intersect.x = coord.x;
+	s->tmp_intersect.y = coord.y;
+	// printf("coord(%f,%f)\n",coord.x, coord.y);
 
 	if (coord.x > INT_MAX || coord.y > INT_MAX || coord.x < INT_MIN || coord.y < INT_MIN)
 	{
@@ -160,7 +163,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);
-			dist_sector = ft_find_intersection(seg1, seg2, point_1, point_2);
+			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2);
 			if (dist_sector == -1)
 			{
 				next_test += 10;
@@ -193,7 +196,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 		if ((point_2.x == seg1.x && point_2.y == seg1.y)
 			|| (point_2.x == seg2.x && point_2.y == seg2.y))
 			return (0);
-		dist_sector = ft_find_intersection(seg1, seg2, point_1, point_2);
+		dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2);
 		if (dist_sector > 0)
 			count++;
 		if (save_dist2 > 0 && dist_sector == 0)

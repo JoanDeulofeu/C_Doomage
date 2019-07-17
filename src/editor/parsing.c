@@ -65,7 +65,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 			ft_parse_sector(s, line);
 		ft_strdel(&line);
 	}
-	ft_test_chainlist(s);
+	// ft_test_chainlist(s);
 	ft_strdel(&line);
 	return (0);
 }

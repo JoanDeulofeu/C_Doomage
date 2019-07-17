@@ -45,6 +45,9 @@
 # define PLAYER	SDLK_p
 # define FLOOR	SDLK_f
 # define SAVE	SDLK_s
+# define VISU	SDLK_i
+# define ROTATE_LEFT	SDLK_q
+# define ROTATE_RIGHT	SDLK_e
 # define DELETE	SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT

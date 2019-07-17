@@ -109,7 +109,7 @@ void	ft_move_player(t_main *s, const Uint8 *keys, char sprint)
   	move_speed = 1;
 	speed = move_speed + sprint * move_speed * 0.5;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
-		speed /= 2;
+		speed /= 1.5;
 	target.x = s->player.pos.x;
 	target.y = s->player.pos.y;
 	target = get_direction(s, keys, speed, target);

@@ -85,6 +85,22 @@ int		keyboard_controls_edi(t_main *s, int key)
 	{
 		s->editor->dply_floor = ft_prev_next_floor(s, 2);
 	}
+	if (key == ROTATE_LEFT)
+	{
+		s->player.angle += 2;
+		if (s->player.angle > 360)
+			s->player.angle -= 360;
+	}
+	if (key == ROTATE_RIGHT)
+	{
+		s->player.angle -= 2;
+		if (s->player.angle < 0)
+			s->player.angle += 360;
+	}
+	// if (key == VISU)
+	// {
+	// 	ft_visu(s);
+	// }
 	if (key == FLOOR)
 	{
 		// printf("lol\n");
@@ -126,39 +142,27 @@ void	handle_editor_keys(t_main *s)
 	if (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR])
 		move_editor(s, keys);
 
-	// 	keyboard_controls_edi(s, keys);
-	// if (keys[LEFT_AR] || keys[RIGHT_AR] || keys[UP_AR] || keys[DOWN_AR])
-	// 	turn_camera(s, keys, 0);
-	// if (s->sdl->event.type == SDL_MOUSEMOTION)
-	// 	turn_camera(s, keys, 1);
-	// if (s->active_map && HEIGHT / SPACE <= s->height && WIDTH / SPACE
-	// 	<= s->width)
-	// 	draw_minimap(s, 0, 0);
-	// else
-	// {
-	// 	raycast_visualization(s);
-		// draw_player(s, s->p_pos);
-		// update_image(s, s->sdl->game);
-		// ft_bzero(s->sdl->editor->content, WIDTH * HEIGHT * 4);
-		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
-		ft_draw_editor(s->editor, s->sdl->editor);
-		display_map(s);
-		ft_draw_all_wall(s);
-		// printf("test .x = %d, test.y =%d\n", test.x, test.y);
-		// draw_sector(s, test.x, test.y, YELLOW);
-		// printf("mode_floor = %d\n",s->editor->mode_floor);
-		if (s->editor->mode_floor == 1)
-		{
-			s->editor->m_floor.current = 1;
-			fill_sectors(s);
-		}
-		else
-			s->editor->m_floor.current = 0;
-		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
-		draw_space_menu(s);
-		update_image(s, s->sdl->editor);
-		// printf("MDR\n");
-	// }
+	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
+	ft_draw_editor(s->editor, s->sdl->editor);
+	display_map(s);
+	ft_draw_all_wall(s);
+	if (s->editor->mode_floor == 1)
+	{
+		s->editor->m_floor.current = 1;
+		fill_sectors(s);
+	}
+	else
+		s->editor->m_floor.current = 0;
+	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+	draw_space_menu(s);
+	ft_visu(s);
+	update_image(s, s->sdl->editor);
+	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
+	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
+	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
+	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
+	// printf("player.r_pos (%f, %f)\n",s->player.r_pos.x, s->player.r_pos.y);
+
 }
 
 void	editor_handler(t_main *s)

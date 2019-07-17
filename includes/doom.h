@@ -3,10 +3,12 @@
 
 # include "editor.h"
 
-# define SHIFT_AMOUNT 16
+# define SHIFT_AMOUNT 8
 # define FOV 60
+# define WALL_HEIGHT 10
+
 /// Fixed-point Format: 16.16 (32-bit)
-typedef Uint32 fixed_float;
+typedef int32_t fixed_float;
 
 typedef struct		s_fix_pos {
 	Uint32			x;
@@ -22,7 +24,7 @@ typedef struct		s_texture {
 typedef struct		s_player
 {
 	t_dpos 			r_pos;
-	t_dpos			pos;
+	t_dpos			pos; // Position du joueur en pixel
 	t_pos 			ori;
 	t_pos 			p_ori;
 	t_pos 			p_ref;
@@ -30,8 +32,8 @@ typedef struct		s_player
 	int 			set;
 	int 			correc;
 	int 			init_space;
-	int 			angle; //suppr?
-	double			axis; //axe du joueur(orientation)
+	int				sector;
+	double			angle;
 	int				height;
 }					t_player;
 
@@ -55,11 +57,19 @@ typedef struct		s_main {
 	t_mouse			ft_mouse;
 	t_line			line;
 	t_player		player;
+	t_dpos			tmp_intersect;
+	t_dpos			intersect1;
+	t_dpos			intersect2;
 	t_vertex		*vertex;
 	t_sector		*sector;
 	t_point			**grid;
 	char			*str_vtx;
 }					t_main;
+
+/*
+****	Fonction du visualisateur
+*/
+void				ft_visu(t_main *s);
 
 /*
 ****	Fonction d'initialisation
@@ -161,6 +171,7 @@ t_pos 				get_px_pos(t_main *s, t_pos ref);
 void				empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos				depiler(t_pile *pile);
 int					ft_is_in_sector(t_main *s, t_pos point_2);
+int					ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
@@ -188,6 +199,9 @@ t_dpos				ft_fixfloat_to_dpos(t_fix_pos fix);
 t_fix_pos			ft_dpos_to_fixfloat(t_dpos dpos);
 fixed_float			ft_float_to_fixed(double input);
 double				ft_fixed_to_float(fixed_float input);
+fixed_float			ft_fixed_pow(fixed_float nb, int power);
+fixed_float			ft_fixed_sqrt(fixed_float nb);
+fixed_float			ft_fixed_mul(fixed_float a, fixed_float b);
 
 
 #endif
