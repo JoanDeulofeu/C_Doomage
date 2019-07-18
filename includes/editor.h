@@ -152,13 +152,6 @@ typedef struct		s_sprite {
 	t_type			type;
 }					t_sprite;
 
-typedef struct		s_int {
-	int				id;
-	int				value;
-	struct s_int	*next;
-	struct s_int	*prev;
-}					t_int;
-
 typedef struct		s_vertex {
 	int				id;
 	int				x;
@@ -168,6 +161,14 @@ typedef struct		s_vertex {
 	struct s_vertex	*next;
 	struct s_vertex	*prev;
 }					t_vertex;
+
+typedef struct		s_int {
+	int				id;
+	int				value;
+	t_vertex		*ptr;
+	struct s_int	*next;
+	struct s_int	*prev;
+}					t_int;
 
 typedef struct		s_sector {
 	int				id;

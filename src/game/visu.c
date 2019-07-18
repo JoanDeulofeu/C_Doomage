@@ -80,7 +80,6 @@ void	ft_visu_wall(t_main *s, int wall1, int wall2)
 	printf("NOUS     = %f\n\n\n", ft_fixed_to_float(nous));
 	// ft_test_float();
 
-
 }
 
 void	ft_visu(t_main *s)
