@@ -80,6 +80,22 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 	return (tmp);
 }
 
+t_vertex	*ft_find_vertex_ptr(t_main *s, int id)
+{
+	t_vertex	*res;
+
+	res = s->vertex;
+	while (res)
+	{
+		if (res->id == id)
+			return (res);
+		res = res->next;
+	}
+	printf("ft_find_vertex_ptr crash\n");
+	exit(0); //merde
+	return (NULL);
+}
+
 int			ft_add_intarray(t_main *s, t_sector *sector, int value, int what)
 {
 	t_int	*tmp;
@@ -106,6 +122,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value, int what)
 		tmp = tmp->next;
 		tmp->id = tmp->prev->id + 1;
 	}
+	tmp->ptr = what == 1 ? ft_find_vertex_ptr(s, value) : NULL;
 	tmp->next = NULL;
 	tmp->value = value;
 	return (0);

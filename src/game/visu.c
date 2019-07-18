@@ -69,7 +69,6 @@ void	ft_visu_wall(t_main *s, int wall1, int wall2)
 	// 	i++;
 	// }
 
-
 }
 
 void	ft_visu(t_main *s)

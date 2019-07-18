@@ -5,7 +5,11 @@
 
 # define SHIFT_AMOUNT 8
 # define FOV 60
+
 # define WALL_HEIGHT 10
+# define SPACEPLAN 10
+# define DIVPLAN 2.5
+# define WIDTHPLAN (WIDTH / DIVPLAN)
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
