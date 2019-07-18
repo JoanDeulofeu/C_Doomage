@@ -37,7 +37,7 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 		s->line.y1 = s->player.pos.y;
 		s->line.x2 = i_line.x;
 		s->line.y2 = i_line.y;
-		get_line(s, color);
+		// get_line(s, color);
 
 		if (ft_find_intersection(s, wall1, wall2, s->player.pos, i_line) > 0)
 			return (id_wall);
@@ -46,6 +46,7 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 	}
 	return (id_wall);
 }
+
 
 void	ft_visu_wall(t_main *s, int wall1, int wall2)
 {
@@ -71,6 +72,7 @@ void	ft_visu_wall(t_main *s, int wall1, int wall2)
 
 }
 
+
 void	ft_visu(t_main *s)
 {
 	int		mur1;
@@ -84,7 +86,12 @@ void	ft_visu(t_main *s)
 	mur2 = ft_find_wall(s, angle, color);
 	s->intersect2.x = s->tmp_intersect.x;
 	s->intersect2.y = s->tmp_intersect.y;
-	// printf("id mur1 = %d, angle = %d\n", mur1, angle);
+	printf("id mur1 = %d, angle = %d\n", mur2, angle);
+	s->line.x1 = s->player.pos.x;
+	s->line.y1 = s->player.pos.y;
+	s->line.x2 = s->intersect2.x;
+	s->line.y2 = s->intersect2.y;
+	get_line(s, color);
 
 	color = 0xdb00ffff;
 	angle = s->player.angle + (FOV / 2);
@@ -93,7 +100,12 @@ void	ft_visu(t_main *s)
 	mur1 = ft_find_wall(s, angle, color);
 	s->intersect1.x = s->tmp_intersect.x;
 	s->intersect1.y = s->tmp_intersect.y;
-	// printf("id mur2 = %d, angle = %d\n", mur2, angle);
+	printf("id mur2 = %d, angle = %d\n", mur1, angle);
+	s->line.x1 = s->player.pos.x;
+	s->line.y1 = s->player.pos.y;
+	s->line.x2 = s->intersect1.x;
+	s->line.y2 = s->intersect1.y;
+	get_line(s, color);
 
-	ft_visu_wall(s, mur1, mur2);
+	// ft_visu_wall(s, mur1, mur2);
 }

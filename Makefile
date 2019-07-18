@@ -32,6 +32,7 @@ SRC_NAME =	main.c \
 			editor/parser_tga.c			\
 			editor/list_utils.c			\
 			game/visu.c					\
+			game/visu_joan.c			\
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
