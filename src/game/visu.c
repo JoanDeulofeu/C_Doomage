@@ -49,36 +49,25 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 
 void	ft_visu_wall(t_main *s, int wall1, int wall2)
 {
-	(void)wall1;
-	(void)wall2;
-	// int		sight = (HEIGHT / 2); //vision
-	// int		hp;
-	// double	dist;
-	// double	dist2;
-	double	pasnous;
-	fixed_float	intersect;
-	fixed_float	player;
-	fixed_float	nous;
+	int			nb_walls = wall2 - wall1;
+	int			i = 0;
+	t_sector	*tmp_sct;
+	t_pos		beg_wall;
+	t_pos		end_wall;
 
-	// on cherche la distance entre le joueur et l'intersection.
-	// (xB−xA)2+(yB−yA)2
-	// printf("Pos player (%f, %f)\n",s->player.pos.x, s->player.pos.y);
-	// printf("Intersect1 (%f, %f)\n\n",s->intersect1.x, s->intersect1.y);
-	pasnous = powf(s->intersect1.x - s->player.pos.x, 2);
-	printf("angle (%f)\n", s->player.angle);
-	printf("PAS NOUS = %f\n", pasnous);
-
-	intersect = ft_float_to_fixed(s->intersect1.x);
-	// printf("test inters     = %f\n", ft_fixed_to_float(intersect));
-	player = ft_float_to_fixed(s->player.pos.x);
-	// printf("test palyer     = %f\n", ft_fixed_to_float(player));
-	intersect -= player;
-	// printf("test calcul     = %f\n", ft_fixed_to_float(intersect));
+	tmp_sct = get_sector_by_id(s, s->player.sector);
+	// printf("sector id - %d\n", tmp_sct->id);
 
 
-	nous = ft_fixed_mul(intersect, intersect);
-	printf("NOUS     = %f\n\n\n", ft_fixed_to_float(nous));
-	// ft_test_float();
+
+	// while (i < nb_walls)
+	// {
+	// 	beg_wall.x = tmp_sct->
+	// 	//je recupere le repere x du premier vertex.
+	// 	//je lui soustrais le repere ori et je le multiplie pa METER.
+	//
+	// 	i++;
+	// }
 
 
 }
@@ -107,5 +96,5 @@ void	ft_visu(t_main *s)
 	s->intersect1.y = s->tmp_intersect.y;
 	// printf("id mur2 = %d, angle = %d\n", mur2, angle);
 
-	// ft_visu_wall(s, mur1, mur2);
+	ft_visu_wall(s, mur1, mur2);
 }

@@ -12,6 +12,7 @@
 # define WIDTH 1000
 # define HEIGHT 800
 # define G_SPACE 30
+# define METRE	10
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
 # define ROTATE_SPEED 30.00

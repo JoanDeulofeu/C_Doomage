@@ -177,6 +177,9 @@ t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
 double  			to_rad(double angle);
 double				percent(double value, double total);
+t_sector			*get_sector_by_id(t_main *s, int id);
+t_vertex			*get_vertex_by_id(t_main *s, int id);
+t_int				*get_t_int_by_id(t_int *obj, int id);
 
 /*
 ****	Fonction de gestion du joueur
