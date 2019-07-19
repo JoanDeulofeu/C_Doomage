@@ -7,8 +7,8 @@
 # define FOV 60
 
 # define WALL_HEIGHT 10
-# define SPACEPLAN 10
-# define DIVPLAN 2.5
+# define SPACEPLAN 30
+# define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
 
 /// Fixed-point Format: 16.16 (32-bit)
@@ -58,6 +58,8 @@ typedef struct		s_main {
 	t_sdl			*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
+	t_dpos			left_plan;
+	t_dpos			right_plan;
 	t_mouse			ft_mouse;
 	t_line			line;
 	t_player		player;
@@ -74,6 +76,7 @@ typedef struct		s_main {
 ****	Fonction du visualisateur
 */
 void				ft_visu(t_main *s);
+void				ft_visu_joan(t_main *s);
 
 /*
 ****	Fonction d'initialisation

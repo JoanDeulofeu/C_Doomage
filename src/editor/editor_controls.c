@@ -156,6 +156,7 @@ void	handle_editor_keys(t_main *s)
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
 	ft_visu(s);
+	// ft_visu_joan(s);
 	update_image(s, s->sdl->editor);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
 	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
