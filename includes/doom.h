@@ -29,8 +29,8 @@ typedef struct		s_player
 {
 	t_dpos 			r_pos;
 	t_dpos			pos; // Position du joueur en pixel
-	t_pos 			ori;
-	t_pos 			p_ori;
+	t_pos 			ori; //position du joueur en case (avant correction)
+	t_pos 			p_ori; //valeur en pixel à rajouter pour avoir la position
 	t_pos 			p_ref;
 	t_line 			line;
 	int 			set;
