@@ -47,23 +47,52 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 	return (id_wall);
 }
 
-
-void	ft_visu_wall(t_main *s, int wall1, int wall2)
+void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 {
-	int			nb_walls = wall2 - wall1;
+	int			nb_walls = wall2_id - wall1_id;
 	int			i = 0;
 	t_sector	*tmp_sct;
+	// t_int		*vertex1_wall1;
+	// t_int		*vertex2_wall1;
 	t_pos		beg_wall;
 	t_pos		end_wall;
+	t_pos		player;
 
 	tmp_sct = get_sector_by_id(s, s->player.sector);
-	// printf("sector id - %d\n", tmp_sct->id);
+	// vertex1_wall1 = (get_t_int_by_id(tmp_sct->vertex, wall1_id))->ptr->x;
+	beg_wall.x = (get_t_int_by_id(tmp_sct->vertex, wall1_id)->ptr->x - s->editor->ref.x) * METRE;
+	beg_wall.y = (get_t_int_by_id(tmp_sct->vertex, wall1_id)->ptr->y - s->editor->ref.y) * METRE;
+	if (get_t_int_by_id(tmp_sct->vertex, wall1_id)->next)
+	{
+		end_wall.x = (get_t_int_by_id(tmp_sct->vertex, wall1_id)->next->ptr->x - s->editor->ref.x) * METRE;
+		end_wall.y = (get_t_int_by_id(tmp_sct->vertex, wall1_id)->next->ptr->y - s->editor->ref.y) * METRE;
+	}
+	else
+	{
+		end_wall.x = (tmp_sct->vertex->next->ptr->x - s->editor->ref.x) * METRE;
+		end_wall.y = (tmp_sct->vertex->next->ptr->y - s->editor->ref.y) * METRE;
+	}
+	if (s->player.p_ori.x < 0)
+		player.x = (s->player.ori.x - s->editor->ref.x) * METRE - (((double)ft_abs(s->player.p_ori.x) / (double)s->editor->space) * METRE);
+	else if(s->player.p_ori.x > 0)
+		player.x = (s->player.ori.x - s->editor->ref.x) * METRE + (((double)ft_abs(s->player.p_ori.x) / (double)s->editor->space) * METRE);
+	else
+		player.x = (s->player.ori.x - s->editor->ref.x) * METRE;
+	if (s->player.p_ori.y < 0)
+		player.y = (s->player.ori.y - s->editor->ref.y) * METRE - (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space) * METRE);
+	else if(s->player.p_ori.y > 0)
+		player.y = (s->player.ori.y - s->editor->ref.y) * METRE + (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space) * METRE);
+	else
+		player.y = (s->player.ori.y - s->editor->ref.y) * METRE;
 
-
+	// printf("player.x = %d, player.y = %d, reelx = %f\n", player.x, player.y, s->player.pos.x);
 
 	// while (i < nb_walls)
 	// {
-	// 	beg_wall.x = tmp_sct->
+	//
+	// 	beg_wall.x = wall1->ptr->x;
+	// 	beg_wall.y = wall1->ptr->y;
+	// 	printf("wall 1.x = %d, wall1.y = %d\n", beg_wall.x, beg_wall.y);
 	// 	//je recupere le repere x du premier vertex.
 	// 	//je lui soustrais le repere ori et je le multiplie pa METER.
 	//

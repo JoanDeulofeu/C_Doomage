@@ -158,15 +158,7 @@ void	handle_editor_keys(t_main *s)
 	// ft_visu(s);
 	ft_visu_joan(s);
 	update_image(s, s->sdl->editor);
-
-	// t_sector sct = s->sector;
-	// t_int
-	// while (sct)
-	// {
-	//
-	// 	sct = sct->next;
-	// }
-	// printf("lol = %d\n", s->sector->vertex->ptr->x);
+	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
 	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
 	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
 	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
