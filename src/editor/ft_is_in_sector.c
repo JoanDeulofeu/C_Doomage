@@ -27,8 +27,8 @@ int		ft_go_through_point(t_dpos begin, t_dpos end, t_dpos coord)
 {
 	if (round(coord.x) == begin.x && round(coord.y) == begin.y)
 		return (1);
-	if (round(coord.x) == end.x && round(coord.y) == end.y)
-		return (1);
+	// if (round(coord.x) == end.x && round(coord.y) == end.y)
+	// 	return (1);
 	return (0);
 }
 

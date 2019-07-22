@@ -39,7 +39,7 @@ int		ft_find_wall2(t_main *s, t_dpos point, Uint32 color)
 			s->line.x2 = point.x;
 			s->line.y2 = point.y;
 			get_line(s, color);
-			printf("play.y = %f | point.y = %f\n", s->player.pos.y, point.y);
+			// printf("play.y = %f | point.y = %f\n", s->player.pos.y, point.y);
 			return (id_wall);
 		}
 		id_wall++;
@@ -53,9 +53,6 @@ int		ft_find_wall2(t_main *s, t_dpos point, Uint32 color)
 	return (id_wall);
 }
 
-// calculer l'angle entre center, player et left; tracer une ligne imaginaire loin pour trouver lintersecion.
-//ca donnera les coord du point.
-
 double	ft_find_angle_plan(t_main *s, t_dpos plan_point)
 {
 	double a;
@@ -65,7 +62,7 @@ double	ft_find_angle_plan(t_main *s, t_dpos plan_point)
 	a = ft_dist_t_dpos(s->player.pos, plan_point);
 	b = METRE;
 	c = WIDTHPLAN / 2;
-	printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
+	// printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
 	return (to_degres(acos((powf(a, 2) + powf(b, 2) - powf(c, 2)) / (2 * a * b))));
 }
 
@@ -112,7 +109,7 @@ void	ft_visu_joan(t_main *s)
 	point.y = s->player.pos.y - sin(to_rad(angle_right)) * 2000;
 	mur2 = ft_find_wall2(s, point, 0x59ff00ff);
 
-	printf("mur gauche = %d\nmur droite = %d\n", mur1, mur2);
-	printf("angle gauche = %f\nangle droite = %f\n\n", angle_left, angle_right);
+	// printf("mur gauche = %d\nmur droite = %d\n", mur1, mur2);
+	// printf("angle gauche = %f\nangle droite = %f\n\n", angle_left, angle_right);
 
 }
