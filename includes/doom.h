@@ -9,7 +9,7 @@
 #define FOV 60
 
 # define WALL_HEIGHT 10
-# define SPACEPLAN 30
+// # define METRE 30
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
 # define EYESIGHT 10
@@ -187,10 +187,13 @@ t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
 double  			to_rad(double angle);
+double				to_degres(double rad);
 double				percent(double value, double total);
 t_sector			*get_sector_by_id(t_main *s, int id);
 t_vertex			*get_vertex_by_id(t_main *s, int id);
 t_int				*get_t_int_by_id(t_int *obj, int id);
+double				ft_dist_double(double x1, double y1, double x2, double y2);
+double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 int					clamp (int x, int min, int max);
 
 /*

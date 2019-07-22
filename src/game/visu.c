@@ -11,6 +11,8 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 	int			id = 0;
 	int			id_wall = 1;
 
+	(void)color;
+
 	sct = s->sector;
 	while (s->player.sector != sct->id)
 		sct = sct->next;

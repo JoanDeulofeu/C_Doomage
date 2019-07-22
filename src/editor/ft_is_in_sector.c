@@ -27,8 +27,8 @@ int		ft_go_through_point(t_dpos begin, t_dpos end, t_dpos coord)
 {
 	if (round(coord.x) == begin.x && round(coord.y) == begin.y)
 		return (1);
-	if (round(coord.x) == end.x && round(coord.y) == end.y)
-		return (1);
+	// if (round(coord.x) == end.x && round(coord.y) == end.y)
+	// 	return (1);
 	return (0);
 }
 
@@ -110,7 +110,7 @@ int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begi
 		return (0);
 	}
 	// printf("IN\n");
-	return (end_l2.x - coord.x);
+	return (sqrt(powf(end_l2.x - coord.x, 2) + powf(end_l2.y - coord.y, 2)));
 }
 
 int		ft_is_in_sector(t_main *s, t_pos position)

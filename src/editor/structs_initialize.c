@@ -106,7 +106,7 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
-	s->player.set = 0;
+	s->player.set = 1;
 	s->player.pos.x = 500;
 	s->player.pos.y = 300;
 	s->tmp_intersect.x = 0;
