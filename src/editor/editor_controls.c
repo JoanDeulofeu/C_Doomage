@@ -49,6 +49,11 @@ int		keyboard_controls_edi(t_main *s, int key)
 	// (void)s;
 	if (key == SDLK_ESCAPE)
 		return (0);
+	if (key == SDLK_RETURN)
+	{
+		s->player_view = s->player_view == 1 ? 0 : 1;
+	}
+
 	// if (key == SDLK_RIGHT)
 	// {
 	// 	s->editor->decal_x += 5;
@@ -157,7 +162,10 @@ void	handle_editor_keys(t_main *s)
 	draw_space_menu(s);
 	ft_visu(s);
 	// ft_visu_joan(s);
-	update_image(s, s->sdl->editor);
+	if (s->player_view)
+		update_image(s, s->sdl->game);
+	else
+		update_image(s, s->sdl->editor);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
 	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
 	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
