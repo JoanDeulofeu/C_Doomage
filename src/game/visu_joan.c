@@ -7,7 +7,7 @@ int		ft_find_wall2(t_main *s, t_dpos point, Uint32 color)
 	t_int		*s_vtx;
 	t_dpos		wall1;
 	t_dpos		wall2;
-	t_dpos		i_line; //ligne imaginaire
+	// t_dpos		i_line; //ligne imaginaire
 	int			id = 0;
 	int			id_wall = 1;
 

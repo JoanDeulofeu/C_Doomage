@@ -11,6 +11,8 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 	int			id = 0;
 	int			id_wall = 1;
 
+	(void)color;
+
 	sct = s->sector;
 	while (s->player.sector != sct->id)
 		sct = sct->next;
@@ -49,8 +51,9 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 
 void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 {
-	int			nb_walls = wall2_id - wall1_id;
-	int			i = 0;
+	// int			nb_walls = wall2_id - wall1_id;
+	(void)wall2_id;
+	// int			i = 0;
 	t_sector	*tmp_sct;
 	// t_int		*vertex1_wall1;
 	// t_int		*vertex2_wall1;
