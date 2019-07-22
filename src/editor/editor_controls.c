@@ -155,8 +155,8 @@ void	handle_editor_keys(t_main *s)
 		s->editor->m_floor.current = 0;
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
-	ft_visu(s);
-	// ft_visu_joan(s);
+	// ft_visu(s);
+	ft_visu_joan(s);
 	update_image(s, s->sdl->editor);
 
 	// t_sector sct = s->sector;

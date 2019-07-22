@@ -3,26 +3,27 @@ NAME = doom-nukem
 
 SRC_PATH = src
 
-SRC_NAME =	main.c \
-			editor/controls.c \
-			editor/actions.c \
-			editor/images.c \
-			editor/editor.c \
-			editor/errors.c \
-			editor/structs_initialize.c \
-			editor/editor_controls.c \
-			editor/lines.c \
-			editor/mouse.c \
-			editor/parsing.c \
-			editor/chainlist.c \
-			editor/utils_1.c \
-			editor/anchors_general.c \
-			editor/mode_vertex.c \
-			editor/remove_sectors.c \
-			editor/wall.c \
-			editor/mode_deplacement.c \
-			editor/ft_is_in_sector.c \
-			editor/piles.c \
+SRC_NAME =	main.c						\
+			editor/controls.c			\
+			editor/actions.c			\
+			editor/images.c				\
+			editor/editor.c				\
+			editor/errors.c				\
+			editor/structs_initialize.c	\
+			editor/editor_controls.c	\
+			editor/lines.c				\
+			editor/mouse.c				\
+			editor/parsing.c			\
+			editor/chainlist.c			\
+			editor/utils_1.c			\
+			editor/utils_2.c			\
+			editor/anchors_general.c	\
+			editor/mode_vertex.c		\
+			editor/remove_sectors.c		\
+			editor/wall.c				\
+			editor/mode_deplacement.c	\
+			editor/ft_is_in_sector.c	\
+			editor/piles.c				\
 			editor/fill_sector.c		\
 			editor/display_map.c		\
 			editor/player.c				\

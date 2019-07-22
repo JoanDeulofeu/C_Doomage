@@ -5,6 +5,11 @@ double  to_rad(double angle)
     return (angle * M_PI / 180.0);
 }
 
+double  to_degres(double rad)
+{
+    return (rad * 180.0 / M_PI);
+}
+
 int		arround(int space, int nb)
 {
 	int res;
