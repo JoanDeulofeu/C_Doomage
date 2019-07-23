@@ -11,3 +11,7 @@ vertex 21		6
 
 sector 0 20 | 1 2 3 4 5 | -1 -1 2 -1 -1
 sector 20 40 | 7 9 8 6 | -1 -1 -1 1
+
+* si mur 3, tu avance jusquau troisieme vertex du SECTOR
+* avec le pointeur *ptr, tu recupere x et y du vertex correspondant s->sector->vertex->ptr->x ou y
+* tu avance au vertex suivant, celui de la fin de ton mur, s->sector->vertex->next
