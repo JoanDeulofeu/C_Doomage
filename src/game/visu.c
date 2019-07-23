@@ -42,7 +42,10 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 		// get_line(s, color);
 
 		if (ft_find_intersection(s, wall1, wall2, s->player.pos, i_line) > 0)
+		{
 			return (id_wall);
+		}
+
 		id_wall++;
 		s_vtx = s_vtx->next;
 	}
@@ -99,18 +102,56 @@ t_pos	intersect(t_pos pos1, t_pos pos2, t_pos pos3, t_pos pos4)
 	return (new_pos);
 }
 
-void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
+int		check_vtx_nb(t_sector *tmp_sct)
 {
-	int			nb_walls = wall2_id - wall1_id + 1;
+	int		res;
+	t_int	*tmp_vertex;
+
+
+	tmp_vertex = tmp_sct->vertex;
+	res = 0;
+	while (tmp_vertex)
+	{
+		tmp_vertex = tmp_vertex->next;
+		res++;
+	}
+	return (res);
+}
+
+t_int	*get_wall_vertex(t_sector *tmp_sct, int wall_id)
+{
+	t_int		*temp;
+	int			i;
+
+	temp = tmp_sct->vertex;
+	i = 1;
+	while (i++ < wall_id)
+		temp = temp->next;
+	return (temp);
+}
+
+int 	get_vtx_wall_value(t_sector *tmp_sct, t_int *vtx)
+{
+	t_int	*wall;
+
+	wall = tmp_sct->wall;
+	while (vtx->id != wall->id)
+		wall = wall->next;
+	return (wall->value);
+}
+
+void	ft_visu_wall(t_main *s)
+{
+	int			nb_vtx;
 	int			i = 0;
 	t_sector	*tmp_sct;
 	// t_int		*vertex1_wall1;
 	// t_int		*vertex2_wall1;
 	t_pos		beg_wall1;
 	t_pos		end_wall1;
-	t_pos		beg_wall2;
-	t_pos		end_wall2;
-	t_pos		player;
+	// t_pos		beg_wall2;
+	// t_pos		end_wall2;
+	t_dpos		player;
 	float		vx1;
 	float		vx2;
 	float		vy1;
@@ -126,8 +167,15 @@ void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 	int j = 0;
 	int ytop[WIDTH] = {0};
 	int ybottom[WIDTH] = {0};
+	t_int *vtx;
 
+	// printf("angle du joueur = %f\n", s->player.angle);
+	// if (wall1_id > wall2_id)
 	tmp_sct = get_sector_by_id(s, s->player.sector);
+	nb_vtx = check_vtx_nb(tmp_sct);
+	//verifier que les vertex sont bien les bons avec la structure de mort de joan
+	vtx = tmp_sct->vertex;
+	// printf("nb walls = %d\n", nb_walls);
 	while (j < WIDTH)
 		ybottom[j++] = HEIGHT - 1;
 	// vertex1_wall1 = (get_t_int_by_id(tmp_sct->vertex, wall1_id))->ptr->x;
@@ -144,41 +192,42 @@ void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 		player.y = (s->player.ori.y - s->editor->ref.y) + (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space));
 	else
 		player.y = (s->player.ori.y - s->editor->ref.y);
+	// printf("player .x = %d")
 
-	while (i < nb_walls)
+	while (i < nb_vtx)
 	{
-		t_int *t_wall1;
-		t_int *t_wall2;
-		t_wall1 = get_t_int_by_id(tmp_sct->vertex, wall1_id);
-		t_wall2 = get_t_int_by_id(tmp_sct->vertex, wall2_id);
-		beg_wall1.x = (t_wall1->ptr->x - s->editor->ref.x);
-		beg_wall1.y = (t_wall1->ptr->y - s->editor->ref.y);
-		beg_wall2.x = (t_wall2->ptr->x - s->editor->ref.x);
-		beg_wall2.y = (t_wall2->ptr->y - s->editor->ref.y);
-		if (t_wall1->next)
+		// printf ("%d/%d\n", i, nb_vtx);
+
+		// t_int *t_wall2;
+		// t_wall2 = get_t_int_by_id(tmp_sct->vertex, wall2_id);
+		beg_wall1.x = (vtx->ptr->x - s->editor->ref.x);
+		beg_wall1.y = (vtx->ptr->y - s->editor->ref.y);
+		// beg_wall2.x = (t_wall2->ptr->x - s->editor->ref.x);
+		// beg_wall2.y = (t_wall2->ptr->y - s->editor->ref.y);
+		if (vtx->next)
 		{
-			end_wall1.x = (t_wall1->next->ptr->x - s->editor->ref.x);
-			end_wall1.y = (t_wall1->next->ptr->y - s->editor->ref.y);
+			end_wall1.x = (vtx->next->ptr->x - s->editor->ref.x);
+			end_wall1.y = (vtx->next->ptr->y - s->editor->ref.y);
 		}
 		else
 		{
-			end_wall1.x = (tmp_sct->vertex->next->ptr->x - s->editor->ref.x);
-			end_wall1.y = (tmp_sct->vertex->next->ptr->y - s->editor->ref.y);
+			end_wall1.x = (tmp_sct->vertex->ptr->x - s->editor->ref.x);
+			end_wall1.y = (tmp_sct->vertex->ptr->y - s->editor->ref.y);
 		}
-		if (t_wall2->next)
-		{
-			end_wall2.x = (t_wall2->next->ptr->x - s->editor->ref.x);
-			end_wall2.y = (t_wall2->next->ptr->y - s->editor->ref.y);
-		}
-		else
-		{
-			end_wall2.x = (tmp_sct->vertex->next->ptr->x - s->editor->ref.x);
-			end_wall2.y = (tmp_sct->vertex->next->ptr->y - s->editor->ref.y);
-		}
+		// if (t_wall2->next)
+		// {
+		// 	end_wall2.x = (t_wall2->next->ptr->x - s->editor->ref.x);
+		// 	end_wall2.y = (t_wall2->next->ptr->y - s->editor->ref.y);
+		// }
+		// else
+		// {
+		// 	end_wall2.x = (tmp_sct->vertex->next->ptr->x - s->editor->ref.x);
+		// 	end_wall2.y = (tmp_sct->vertex->next->ptr->y - s->editor->ref.y);
+		// }
 		vx1 = beg_wall1.x - player.x;
 		vy1 = beg_wall1.y - player.y;
-		vx2 = beg_wall2.x - player.x;
-		vy2 = beg_wall2.y - player.y;
+		vx2 = end_wall1.x - player.x;
+		vy2 = end_wall1.y - player.y;
 		pcos = cos(to_rad(s->player.angle));
 		psin = sin(to_rad(s->player.angle));
 		tx1 = vx1 * psin - vy1 * pcos;
@@ -186,8 +235,10 @@ void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 		tx2 = vx2 * psin - vy2 * pcos;
 		tz2 = vx2 * pcos + vy2 * psin;
 		if (tz1 <= 0 && tz2 <= 0)
+		{
+			i++;
 			continue;
-		// printf("tz1 = %f, tz2 = %f\n", tz1, tz2);
+		}
 		if (tz1 <= 0 || tz2 <= 0)
 		{
 			float nearz = 1e-4f;
@@ -246,12 +297,15 @@ void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 			int x1 = WIDTH / 2 - (int)(tx1 * xscale1);
 			int x2 = WIDTH / 2 - (int)(tx2 * xscale2);
 			if (x1 >= x2 || x2 < 0 || x1 > WIDTH - 1)
+			{
+				i++;
 				continue;
+			}
 			//a modifier pour mettre le floor du joueur
 			float yceil = tmp_sct->ceiling - (tmp_sct->floor + EYESIGHT);
 			float yfloor = tmp_sct->floor - (tmp_sct->floor + EYESIGHT);
 			//check the edge type. neighbor = -1 means wall
-			int neighbor = get_t_int_by_id(tmp_sct->wall, wall1_id)->value;
+			int neighbor = get_vtx_wall_value(tmp_sct, vtx);
 			//On projette les hauteurs du plafond et sol en coordonees de l'ecran
 			int y1a = HEIGHT / 2 - (int)(yceil * yscale1);
 			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1);
@@ -281,11 +335,11 @@ void	ft_visu_wall(t_main *s, int wall1_id, int wall2_id)
 				{
 					vline(s, x, cya, cyb, 0, x == x1 || x == x2 ? 0 : COLOR_WALL, 0);
 				}
-
 				x++;
 			}
-			wall1_id++;
-			wall2_id++;
+			vtx = vtx->next;
+
+
 		i++;
 	}
 
@@ -325,7 +379,7 @@ void	ft_visu(t_main *s)
 	s->line.x2 = s->intersect1.x;
 	s->line.y2 = s->intersect1.y;
 	get_line(s, color);
-	ft_visu_wall(s, mur1, mur2);
+	ft_visu_wall(s);
 
 	// ft_visu_wall(s, mur1, mur2);
 }
