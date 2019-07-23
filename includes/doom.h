@@ -70,19 +70,13 @@ typedef struct		s_main {
 	t_sdl			*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
-<<<<<<< HEAD
 	t_dpos			left_plan;
 	t_dpos			right_plan;
 	t_pos			ft_mouse;
-=======
-	t_mouse			ft_mouse;
->>>>>>> ab6d9d9e4a0a385e9e7a8248d0a539176d94aa47
 	t_line			line;
 	t_visu			visu;
 	t_player		player;
 	t_dpos			tmp_intersect;
-	t_dpos			left_plan;
-	t_dpos			right_plan;
 	t_dpos			intersect1;
 	t_dpos			intersect2;
 	t_vertex		*vertex;
