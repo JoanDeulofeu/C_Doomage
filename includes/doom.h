@@ -4,12 +4,15 @@
 # include "editor.h"
 
 # define SHIFT_AMOUNT 8
-# define FOV 60
+# define VFOV .2f * HEIGHT
+# define HFOV 0.90f * HEIGHT
+#define FOV 60
 
 # define WALL_HEIGHT 10
 // # define METRE 30
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
+# define EYESIGHT 10
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
@@ -80,6 +83,7 @@ typedef struct		s_main {
 	t_sector		*sector;
 	t_point			**grid;
 	char			*str_vtx;
+	char			player_view;
 }					t_main;
 
 /*
@@ -200,6 +204,7 @@ t_vertex			*get_vertex_by_id(t_main *s, int id);
 t_int				*get_t_int_by_id(t_int *obj, int id);
 double				ft_dist_double(double x1, double y1, double x2, double y2);
 double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
+int					clamp (int x, int min, int max);
 
 /*
 ****	Fonction de gestion du joueur
