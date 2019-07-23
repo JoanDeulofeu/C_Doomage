@@ -80,14 +80,14 @@ void	vline(t_main *s, int x, int y1, int y2, Uint32 top, Uint32 middle, Uint32 b
 	}
 }
 
-int		vxs(int x1, int y1, int x2, int y2)
+double		vxs(double x1, double y1, double x2, double y2)
 {
 	return ((x1 * y2) - (x2 * y1));
 }
 
-t_pos	intersect(t_pos pos1, t_pos pos2, t_pos pos3, t_pos pos4)
+t_dpos	intersect(t_dpos pos1, t_dpos pos2, t_dpos pos3, t_dpos pos4)
 {
-	t_pos new_pos;
+	t_dpos new_pos;
 	int calcul2;
 
 	calcul2 = vxs(pos1.x - pos2.x, pos1.y - pos2.y,
@@ -192,7 +192,7 @@ void	ft_visu_wall(t_main *s)
 		player.y = (s->player.ori.y - s->editor->ref.y) + (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space));
 	else
 		player.y = (s->player.ori.y - s->editor->ref.y);
-	// printf("player .x = %d")
+	// printf("player.x = %f, et pos_r = %f\n", player.x, s->player.pos_r.x);
 
 	while (i < nb_vtx)
 	{
@@ -237,6 +237,7 @@ void	ft_visu_wall(t_main *s)
 		if (tz1 <= 0 && tz2 <= 0)
 		{
 			i++;
+			vtx = vtx->next;
 			continue;
 		}
 		if (tz1 <= 0 || tz2 <= 0)
@@ -245,12 +246,12 @@ void	ft_visu_wall(t_main *s)
 			float farz = 5;
 			float nearside = 1e-5f;
 			float farside = 20.f;
-			t_pos inter1;
-			t_pos inter2;
-			t_pos inter3;
-			t_pos inter4;
-			t_pos i1;
-			t_pos i2;
+			t_dpos inter1;
+			t_dpos inter2;
+			t_dpos inter3;
+			t_dpos inter4;
+			t_dpos i1;
+			t_dpos i2;
 			inter1.x = tx1;
 			inter1.y = tz1;
 			inter2.x = tx2;
@@ -299,6 +300,7 @@ void	ft_visu_wall(t_main *s)
 			if (x1 >= x2 || x2 < 0 || x1 > WIDTH - 1)
 			{
 				i++;
+				vtx = vtx->next;
 				continue;
 			}
 			//a modifier pour mettre le floor du joueur
