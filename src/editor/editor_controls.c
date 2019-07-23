@@ -160,8 +160,8 @@ void	handle_editor_keys(t_main *s)
 		s->editor->m_floor.current = 0;
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
-	ft_visu(s);
-	// ft_visu_joan(s);
+	//ft_visu(s);
+	 ft_visu_joan(s);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else
@@ -332,16 +332,14 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
-					s->editor->space += 5;
-					s->player.pos.x = ((double)s->player.pos.x / (double)s->player.init_space) * s->editor->space;
-					s->player.pos.y = ((double)s->player.pos.y / (double)s->player.init_space) * s->editor->space;
+					ft_zoom(s,s->ft_mouse, 5);
+
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
-					s->editor->space -= 5;
-					s->player.pos.x = ((double)s->player.pos.x / (double)s->player.init_space) * s->editor->space;
-					s->player.pos.y = ((double)s->player.pos.y / (double)s->player.init_space) * s->editor->space;
+					ft_zoom(s,s->ft_mouse, -5);
+
 					zoom--;
 
 				}

@@ -30,11 +30,11 @@ typedef struct		s_texture {
 
 typedef struct		s_player
 {
-	t_dpos 			r_pos;
+	t_dpos 			r_pos; // position reel du joueur par rpport au repere
 	t_dpos			pos; // Position du joueur en pixel
 	t_pos 			ori; //position du joueur en case (avant correction)
 	t_pos 			p_ori; //valeur en pixel à rajouter pour avoir la position
-	t_pos 			p_ref;
+	t_pos 			p_ref; // decalage en pixel par rapport a la ref
 	t_line 			line;
 	int 			set;
 	int 			correc;
@@ -63,7 +63,7 @@ typedef struct		s_main {
 	t_dpos			p_pos;
 	t_dpos			left_plan;
 	t_dpos			right_plan;
-	t_mouse			ft_mouse;
+	t_pos			ft_mouse;
 	t_line			line;
 	t_player		player;
 	t_dpos			tmp_intersect;
@@ -195,6 +195,8 @@ t_int				*get_t_int_by_id(t_int *obj, int id);
 double				ft_dist_double(double x1, double y1, double x2, double y2);
 double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 int					clamp (int x, int min, int max);
+void  				ft_zoom(t_main *s, t_pos pos, int space);
+
 
 /*
 ****	Fonction de gestion du joueur
@@ -208,6 +210,7 @@ void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
+
 
 /*
 ****	Fonction des fixed float
