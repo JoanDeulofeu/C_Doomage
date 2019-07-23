@@ -68,48 +68,88 @@ double	ft_find_angle_plan(t_main *s, t_dpos plan_point)
 
 void	ft_place_view_plan(t_main *s, Uint32 color)
 {
-	t_pos	center_plan;
+	t_pos	ctr_p; //center plan
+	t_visu	*vs = &s->visu;
 
-	center_plan.x = s->player.pos.x + cos(to_rad(s->player.angle)) * METRE;
-	center_plan.y = s->player.pos.y - sin(to_rad(s->player.angle)) * METRE;
-	s->left_plan.x = center_plan.x + cos(to_rad(s->player.angle + 90)) * WIDTHPLAN / 2;
-	s->left_plan.y = center_plan.y - sin(to_rad(s->player.angle + 90)) * WIDTHPLAN / 2;
-	s->right_plan.x = center_plan.x + cos(to_rad(s->player.angle - 90)) * WIDTHPLAN / 2;
-	s->right_plan.y = center_plan.y - sin(to_rad(s->player.angle - 90)) * WIDTHPLAN / 2;
+	ctr_p.x = s->player.pos.x + cos(to_rad(s->player.angle)) * METRE;
+	ctr_p.y = s->player.pos.y - sin(to_rad(s->player.angle)) * METRE;
+	vs->left_plan.x = ctr_p.x + cos(to_rad(s->player.angle + 90)) * WIDTHPLAN / 2;
+	vs->left_plan.y = ctr_p.y - sin(to_rad(s->player.angle + 90)) * WIDTHPLAN / 2;
+	vs->right_plan.x = ctr_p.x + cos(to_rad(s->player.angle - 90)) * WIDTHPLAN / 2;
+	vs->right_plan.y = ctr_p.y - sin(to_rad(s->player.angle - 90)) * WIDTHPLAN / 2;
 
-	s->line.x1 = s->left_plan.x;
-	s->line.y1 = s->left_plan.y;
-	s->line.x2 = s->right_plan.x;
-	s->line.y2 = s->right_plan.y;
+	s->line.x1 = vs->left_plan.x;
+	s->line.y1 = vs->left_plan.y;
+	s->line.x2 = vs->right_plan.x;
+	s->line.y2 = vs->right_plan.y;
 	get_line(s, color);
+}
+
+void	ft_draw_visu(t_main *s, t_visu *vs)
+{
+	t_pos		end_first_wall;
+	t_sector	*sct;
+	t_int		*vtx;
+
+	sct = s->sector;
+	while (s->player.sector != sct->id)
+		sct = sct->next;
+	vtx = sct->vertex;
+	while (vtx->id != vs->begin_wall + 1) // trouver le deuxieme vertex du premier mur
+	{
+		vtx = vtx->next;
+		if (vtx == NULL)
+		{
+			vtx = sct->vertex;
+			break ;
+		}
+	}
+	end_first_wall.x = vtx->ptr->x;
+	end_first_wall.y = vtx->ptr->y;
+	printf("wall n%d et vertex du mur = %d\n", vs->begin_wall, vtx->id);
+	printf("coordonees du vertex (%d, %d)\n",end_first_wall.x, end_first_wall.y);
 }
 
 void	ft_visu_joan(t_main *s)
 {
-	int		mur1;
-	int		mur2;
 	double	angle_left;
 	double	angle_right;
 	t_dpos	point;
+	t_visu	*vs = &s->visu;
 
-	s->player.sector = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
-	if (s->player.sector == 0)
+	if ((s->player.sector = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 		return ;
 	ft_place_view_plan(s, 0x4bd9ffff);
-	angle_left = s->player.angle + ft_find_angle_plan(s, s->left_plan);
+	angle_left = s->player.angle + ft_find_angle_plan(s, vs->left_plan);
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-	angle_right = s->player.angle - ft_find_angle_plan(s, s->right_plan);
+	angle_right = s->player.angle - ft_find_angle_plan(s, vs->right_plan);
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 
 	point.x = s->player.pos.x + cos(to_rad(angle_left)) * 2000;
 	point.y = s->player.pos.y - sin(to_rad(angle_left)) * 2000;
-	mur1 = ft_find_wall2(s, point, 0xffed00ff);
+	vs->begin_wall = ft_find_wall2(s, point, 0xffed00ff);
+	vs->begin.x = s->tmp_intersect.x;
+	vs->begin.y = s->tmp_intersect.y;
 
 	point.x = s->player.pos.x + cos(to_rad(angle_right)) * 2000;
 	point.y = s->player.pos.y - sin(to_rad(angle_right)) * 2000;
-	mur2 = ft_find_wall2(s, point, 0x59ff00ff);
+	vs->end_wall = ft_find_wall2(s, point, 0x59ff00ff);
+	vs->end.x = s->tmp_intersect.x;
+	vs->end.y = s->tmp_intersect.y;
+	ft_draw_visu(s, vs);
 
 	// printf("mur gauche = %d\nmur droite = %d\n", mur1, mur2);
 	// printf("angle gauche = %f\nangle droite = %f\n\n", angle_left, angle_right);
 
 }
+
+
+
+
+
+
+
+
+
+
+//lol

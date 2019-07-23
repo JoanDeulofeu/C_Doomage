@@ -41,6 +41,15 @@ typedef struct		s_player
 	int				height;
 }					t_player;
 
+typedef struct		s_visu {
+	t_dpos			left_plan;
+	t_dpos			right_plan;
+	t_dpos			begin;
+	int				begin_wall;
+	t_dpos			end;
+	int				end_wall;
+}					t_visu;
+
 typedef struct		s_sdl {
 	SDL_Window		*pwindow;
 	SDL_Renderer	*prenderer;
@@ -58,12 +67,13 @@ typedef struct		s_main {
 	t_sdl			*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
-	t_dpos			left_plan;
-	t_dpos			right_plan;
 	t_mouse			ft_mouse;
 	t_line			line;
+	t_visu			visu;
 	t_player		player;
 	t_dpos			tmp_intersect;
+	t_dpos			left_plan;
+	t_dpos			right_plan;
 	t_dpos			intersect1;
 	t_dpos			intersect2;
 	t_vertex		*vertex;
