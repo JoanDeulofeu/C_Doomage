@@ -333,15 +333,12 @@ void	editor_handler(t_main *s)
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)
 				{
 					ft_zoom(s,s->ft_mouse, 5);
-
 					zoom++;
 				}
 				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
 				{
 					ft_zoom(s,s->ft_mouse, -5);
-
 					zoom--;
-
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
