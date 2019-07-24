@@ -192,7 +192,8 @@ void	ft_visu_wall(t_main *s)
 		player.y = (s->player.ori.y - s->editor->ref.y) + (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space));
 	else
 		player.y = (s->player.ori.y - s->editor->ref.y);
-	// printf("player.x = %f, et pos_r = %f\n", player.x, s->player.pos_r.x);
+	printf("player.x = %f   ", player.x);
+	printf("player.y = %f\n\n", player.y);
 
 	while (i < nb_vtx)
 	{
