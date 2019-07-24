@@ -5,7 +5,7 @@
 
 # define SHIFT_AMOUNT 8
 # define VFOV .2f * HEIGHT
-# define HFOV 0.90f * HEIGHT
+# define HFOV 0.73f * HEIGHT
 #define FOV 60
 
 # define WALL_HEIGHT 10
@@ -39,9 +39,10 @@ typedef struct		s_player
 	int 			set;
 	int 			correc;
 	int 			init_space;
-	int				sector;
+	int				sector_id;
 	double			angle;
 	int				height;
+	t_sector		*sector;
 }					t_player;
 
 typedef struct		s_visu {
@@ -206,6 +207,8 @@ double				ft_dist_double(double x1, double y1, double x2, double y2);
 double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 int					clamp (int x, int min, int max);
 void  				ft_zoom(t_main *s, t_pos pos, int space);
+int					max(int value1, int value2);
+int					min(int value1, int value2);
 
 
 /*

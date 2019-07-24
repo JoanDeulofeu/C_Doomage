@@ -14,7 +14,7 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 	(void)color;
 
 	sct = s->sector;
-	while (s->player.sector != sct->id)
+	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
 	while (s_vtx->next)
@@ -164,20 +164,20 @@ void	ft_visu_wall(t_main *s)
 	// float		ty2;
 	float		tz1;
 	float		tz2;
-	int j = 0;
 	int ytop[WIDTH] = {0};
 	int ybottom[WIDTH] = {0};
 	t_int *vtx;
 
 	// printf("angle du joueur = %f\n", s->player.angle);
 	// if (wall1_id > wall2_id)
-	tmp_sct = get_sector_by_id(s, s->player.sector);
+	tmp_sct = get_sector_by_id(s, s->player.sector_id);
 	nb_vtx = check_vtx_nb(tmp_sct);
 	//verifier que les vertex sont bien les bons avec la structure de mort de joan
 	vtx = tmp_sct->vertex;
 	// printf("nb walls = %d\n", nb_walls);
-	while (j < WIDTH)
-		ybottom[j++] = HEIGHT - 1;
+	while (i < WIDTH)
+		ybottom[i++] = HEIGHT - 1;
+	i = 0;
 	// vertex1_wall1 = (get_t_int_by_id(tmp_sct->vertex, wall1_id))->ptr->x;
 
 	if (s->player.p_ori.x < 0)
@@ -196,14 +196,8 @@ void	ft_visu_wall(t_main *s)
 
 	while (i < nb_vtx)
 	{
-		// printf ("%d/%d\n", i, nb_vtx);
-
-		// t_int *t_wall2;
-		// t_wall2 = get_t_int_by_id(tmp_sct->vertex, wall2_id);
 		beg_wall1.x = (vtx->ptr->x - s->editor->ref.x);
 		beg_wall1.y = (vtx->ptr->y - s->editor->ref.y);
-		// beg_wall2.x = (t_wall2->ptr->x - s->editor->ref.x);
-		// beg_wall2.y = (t_wall2->ptr->y - s->editor->ref.y);
 		if (vtx->next)
 		{
 			end_wall1.x = (vtx->next->ptr->x - s->editor->ref.x);
@@ -214,16 +208,6 @@ void	ft_visu_wall(t_main *s)
 			end_wall1.x = (tmp_sct->vertex->ptr->x - s->editor->ref.x);
 			end_wall1.y = (tmp_sct->vertex->ptr->y - s->editor->ref.y);
 		}
-		// if (t_wall2->next)
-		// {
-		// 	end_wall2.x = (t_wall2->next->ptr->x - s->editor->ref.x);
-		// 	end_wall2.y = (t_wall2->next->ptr->y - s->editor->ref.y);
-		// }
-		// else
-		// {
-		// 	end_wall2.x = (tmp_sct->vertex->next->ptr->x - s->editor->ref.x);
-		// 	end_wall2.y = (tmp_sct->vertex->next->ptr->y - s->editor->ref.y);
-		// }
 		vx1 = beg_wall1.x - player.x;
 		vy1 = beg_wall1.y - player.y;
 		vx2 = end_wall1.x - player.x;
@@ -291,6 +275,7 @@ void	ft_visu_wall(t_main *s)
 				}
 			}
 		}
+		//do perspective transformation
 			float xscale1 = HFOV / tz1;
 			float yscale1 = VFOV / tz1;
 			float xscale2 = HFOV / tz2;
@@ -303,16 +288,29 @@ void	ft_visu_wall(t_main *s)
 				vtx = vtx->next;
 				continue;
 			}
-			//a modifier pour mettre le floor du joueur
-			float yceil = tmp_sct->ceiling - (tmp_sct->floor + EYESIGHT);
-			float yfloor = tmp_sct->floor - (tmp_sct->floor + EYESIGHT);
+			float yceil = tmp_sct->ceiling - (s->player.sector->floor + EYESIGHT);
+			float yfloor = tmp_sct->floor - (s->player.sector->floor + EYESIGHT);
 			//check the edge type. neighbor = -1 means wall
 			int neighbor = get_vtx_wall_value(tmp_sct, vtx);
+			float nyceil = 0;
+			float nyfloor = 0;
+			if (neighbor >= 0)
+			{
+				t_sector *next;
+				next = get_sector_by_id(s, neighbor);
+				nyceil = next->ceiling - (s->player.sector->floor + EYESIGHT);
+				nyfloor = next->floor - (s->player.sector->floor + EYESIGHT);
+			}
 			//On projette les hauteurs du plafond et sol en coordonees de l'ecran
 			int y1a = HEIGHT / 2 - (int)(yceil * yscale1);
 			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1);
 			int y2a = HEIGHT / 2 - (int)(yceil * yscale2);
 			int y2b = HEIGHT / 2 - (int)(yfloor * yscale2);
+
+			int ny1a = HEIGHT / 2 - (int)(nyceil * yscale1);
+			int ny1b = HEIGHT / 2 - (int)(nyfloor * yscale1);
+			int ny2a = HEIGHT / 2 - (int)(nyceil * yscale2);
+			int ny2b = HEIGHT / 2 - (int)(nyfloor * yscale2);
 
 			int beginx = x1 > 0 ? x1 : 0;
 			int endx = x2 < WIDTH - 1 ? x2 : WIDTH - 1;
@@ -331,7 +329,19 @@ void	ft_visu_wall(t_main *s)
 
 				if (neighbor >= 0)
 				{
-					vline(s, x, cya, cyb, 0x00AA00FF, 0x00AA00FF, 0x00AA00FF);
+					//Same for their floor and ceiling
+					int nya = (x - x1) * (ny2a - ny1a) / (x2 - x1) + ny1a;
+					int nyb = (x - x1) * (ny2b - ny1b) / (x2 - x1) + ny1b;
+					int cnya = clamp(nya, ytop[x], ybottom[x]);
+					int cnyb = clamp(nyb, ytop[x], ybottom[x]);
+					//if our ceiling is higher than their ceiling, render upper wall
+					vline(s, x, cya, cnya - 1, 0, x == x1 || x == x2 ? 0 : 0xAAAAAAFF, 0);
+					ytop[x] = clamp(max(cya, cnya), ytop[x], HEIGHT - 1); // On rapetisse la fenetre en dessous des plafonds
+
+					// Si le sol est plus petit que le sol suivant, on l'affiche
+					vline(s, x, cnyb + 1, cyb, 0, x == x1 || x == x2 ? 0 : 0x7C00D9FF, 0);
+					ybottom[x] = clamp(min(cyb, cnyb), 0, ybottom[x]);
+					vline(s, x, ytop[x], ybottom[x], 0x00AA00FF, 0x00AA00FF, 0x00AA00FF);
 				}
 				else
 				{
@@ -355,10 +365,12 @@ void	ft_visu(t_main *s)
 	int		angle;
 	Uint32	color = 0x25f902ff; //#25f902
 
-	s->player.sector = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
-	angle = s->player.angle - (FOV / 2) < 0 ? 360
-	- fabs(s->player.angle - (FOV / 2)) : (s->player.angle - (FOV / 2));
+	s->player.sector_id= ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
+	s->player.sector= get_sector_by_id(s, s->player.sector_id);
+	angle = s->player.angle - (HFOV / 2) < 0 ? 360
+	- fabs(s->player.angle - (HFOV / 2)) : (s->player.angle - (HFOV / 2));
 	mur2 = ft_find_wall(s, angle, color);
+	// printf("angle = %d\n", angle);
 	s->intersect2.x = s->tmp_intersect.x;
 	s->intersect2.y = s->tmp_intersect.y;
 	// printf("id mur1 = %d, angle = %d\n", mur2, angle);
@@ -369,9 +381,10 @@ void	ft_visu(t_main *s)
 	get_line(s, color);
 
 	color = 0xdb00ffff;
-	angle = s->player.angle + (FOV / 2);
+	angle = s->player.angle + (HFOV / 2);
 	if (angle > 360)
 		angle -= 360;
+	// printf("angle = %d\n", angle);
 	mur1 = ft_find_wall(s, angle, color);
 	s->intersect1.x = s->tmp_intersect.x;
 	s->intersect1.y = s->tmp_intersect.y;
