@@ -6,7 +6,8 @@
 # define SHIFT_AMOUNT 8
 # define VFOV .2f * HEIGHT
 # define HFOV 0.73f * HEIGHT
-#define FOV 60
+# define FOV 60
+# define MAX_QUEUE 30
 
 # define WALL_HEIGHT 10
 // # define METRE 30
@@ -27,6 +28,13 @@ typedef struct		s_texture {
 	SDL_Texture		*texture;
 	Uint32			color_tmp;
 }					t_texture;
+
+typedef struct		s_visu_sct
+{
+	int				sector_id;
+	int				sx1;
+	int				sx2;
+}					t_visu_sct;
 
 typedef struct		s_player
 {
