@@ -5,8 +5,9 @@
 
 # define SHIFT_AMOUNT 8
 # define VFOV .2f * HEIGHT
-# define HFOV 0.90f * HEIGHT
-#define FOV 60
+# define HFOV 0.73f * HEIGHT
+# define FOV 60
+# define MAX_QUEUE 30
 
 # define WALL_HEIGHT 10
 // # define METRE 30
@@ -28,8 +29,18 @@ typedef struct		s_texture {
 	Uint32			color_tmp;
 }					t_texture;
 
+typedef struct		s_visu_sct
+{
+	int				sector_id;
+	int				sx1;
+	int				sx2;
+}					t_visu_sct;
+
 typedef struct		s_player
 {
+	long			fin_time;
+	long			tmp_time;
+	int 			i;
 	t_dpos 			r_pos; // position reel du joueur par rpport au repere
 	t_dpos			pos; // Position du joueur en pixel
 	t_pos 			ori; //position du joueur en case (avant correction)
@@ -39,9 +50,11 @@ typedef struct		s_player
 	int 			set;
 	int 			correc;
 	int 			init_space;
-	int				sector;
+	int				sector_id;
+	int 			eyesight;
 	double			angle;
 	int				height;
+	t_sector		*sector;
 }					t_player;
 
 typedef struct		s_visu {
@@ -208,6 +221,8 @@ double				ft_dist_double(double x1, double y1, double x2, double y2);
 double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 int					clamp (int x, int min, int max);
 void  				ft_zoom(t_main *s, t_pos pos, int space);
+int					max(int value1, int value2);
+int					min(int value1, int value2);
 
 
 /*
@@ -222,6 +237,11 @@ void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
+void  				rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save);
+void 				jump(t_main *s);
+void 				crouch(t_main *s, int press);
+
+
 
 
 /*
