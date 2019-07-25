@@ -109,6 +109,7 @@ t_main		*initialize_main(void)
 	s->player.set = 1;
 	s->player.pos.x = 500;
 	s->player.pos.y = 300;
+	s->player.eyesight = EYESIGHT;
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;
 	s->intersect1.x = 0;

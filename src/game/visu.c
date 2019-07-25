@@ -192,8 +192,8 @@ void	ft_visu_wall(t_main *s)
 		player.y = (s->player.ori.y - s->editor->ref.y) + (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space));
 	else
 		player.y = (s->player.ori.y - s->editor->ref.y);
-	printf("player.x = %f   ", player.x);
-	printf("player.y = %f\n\n", player.y);
+	//printf("player.x = %f   ", player.x);
+	//printf("player.y = %f\n\n", player.y);
 
 	while (i < nb_vtx)
 	{
@@ -289,8 +289,8 @@ void	ft_visu_wall(t_main *s)
 				vtx = vtx->next;
 				continue;
 			}
-			float yceil = tmp_sct->ceiling - (s->player.sector->floor + EYESIGHT);
-			float yfloor = tmp_sct->floor - (s->player.sector->floor + EYESIGHT);
+			float yceil = tmp_sct->ceiling - (s->player.sector->floor + s->player.eyesight);
+			float yfloor = tmp_sct->floor - (s->player.sector->floor + s->player.eyesight);
 			//check the edge type. neighbor = -1 means wall
 			int neighbor = get_vtx_wall_value(tmp_sct, vtx);
 			float nyceil = 0;
@@ -299,8 +299,8 @@ void	ft_visu_wall(t_main *s)
 			{
 				t_sector *next;
 				next = get_sector_by_id(s, neighbor);
-				nyceil = next->ceiling - (s->player.sector->floor + EYESIGHT);
-				nyfloor = next->floor - (s->player.sector->floor + EYESIGHT);
+				nyceil = next->ceiling - (s->player.sector->floor + s->player.eyesight);
+				nyfloor = next->floor - (s->player.sector->floor +  s->player.eyesight);
 			}
 			//On projette les hauteurs du plafond et sol en coordonees de l'ecran
 			int y1a = HEIGHT / 2 - (int)(yceil * yscale1);

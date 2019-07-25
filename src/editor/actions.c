@@ -31,16 +31,40 @@ void  	ft_zoom(t_main *s, t_pos mouse, int space)
 	s->player.pos.y += s->editor->decal_y;
 }
 
-void  	rotate_mouse(t_main *s, t_pos mouse, int x)
+void 	crouch(t_main *s, int press)
+{
+	if (s->player.eyesight == EYESIGHT && press == 1)
+		s->player.eyesight -=5;
+	if (s->player.eyesight != EYESIGHT && press == -1)
+		s->player.eyesight +=5;
+}
+
+void 	jump(t_main *s)
+{
+	//s->player.eyesight +=1;
+
+
+}
+
+
+void  	rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save)
 {
 	double angle;
 	int dir;
 
-	if (mouse.x >= x && mouse.x != 0)
+	if (mouse.x >= mouse_save.x && mouse.x != 0)
 		dir = 1;
 	else
 		dir = -1;
 	angle = s->player.angle + dir * ROTATE_SPEED / 10 + 360;
 	s->player.angle = (int)angle % 360;
+	if (mouse.y >= mouse_save.y && mouse.y != 0)
+		dir = 1;
+	else
+		dir = -1;
+	//s->player.eyesight += 1;
+
+
+
 
 }

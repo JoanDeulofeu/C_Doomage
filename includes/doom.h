@@ -48,6 +48,7 @@ typedef struct		s_player
 	int 			correc;
 	int 			init_space;
 	int				sector_id;
+	int 			eyesight;
 	double			angle;
 	int				height;
 	t_sector		*sector;
@@ -231,7 +232,10 @@ void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
-void  	rotate_mouse(t_main *s, t_pos mouse, int x);
+void  				rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save);
+void 				jump(t_main *s);
+void 				crouch(t_main *s, int press);
+
 
 
 
