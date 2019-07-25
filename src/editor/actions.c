@@ -30,3 +30,17 @@ void  	ft_zoom(t_main *s, t_pos mouse, int space)
 	s->player.pos.x += s->editor->decal_x;
 	s->player.pos.y += s->editor->decal_y;
 }
+
+void  	rotate_mouse(t_main *s, t_pos mouse, int x)
+{
+	double angle;
+	int dir;
+
+	if (mouse.x >= x && mouse.x != 0)
+		dir = 1;
+	else
+		dir = -1;
+	angle = s->player.angle + dir * ROTATE_SPEED / 10 + 360;
+	s->player.angle = (int)angle % 360;
+
+}
