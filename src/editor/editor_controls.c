@@ -148,6 +148,7 @@ void	handle_editor_keys(t_main *s)
 		move_editor(s, keys);
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
+	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 	ft_draw_editor(s->editor, s->sdl->editor);
 	display_map(s);
 	ft_draw_all_wall(s);

@@ -38,8 +38,10 @@ double		ft_find_leading_coef(t_dpos begin, t_dpos end)
 	double	a;
 
 	if ((begin.x - end.x) == 0)
-		return (-999935168.0);
-	a = (begin.y - end.y) / (begin.x - end.x);
+		// return (-999935168.0);
+		a = (begin.y - end.y) / 0.1;
+	else
+		a = (begin.y - end.y) / (begin.x - end.x);
 	return (a);
 }
 
@@ -53,25 +55,28 @@ double		ft_find_ordered_in_origin(t_dpos point, double a)
 
 t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos begin_l2)
 {
+	(void)begin_l2;
+	(void)p_l1;
+	(void)p_l2;
 	t_dpos	coord;
-	float	mid;
+	// float	mid;
 
-	if (l1.a == -999935168.0)
-	{
-		coord.x = p_l1.x;
-		mid = fabs(begin_l2.y - p_l2.y) / 2;
-		coord.y = begin_l2.y < p_l2.y ? begin_l2.y + mid : p_l2.y + mid;
-	}
-	else if (l2.a == -999935168.0)
-	{
-		coord.x = p_l2.x;
-		coord.y = p_l1.y;
-	}
-	else
-	{
+	// if (l1.a == -999935168.0)
+	// {
+	// 	coord.x = p_l1.x;
+	// 	mid = fabs(begin_l2.y - p_l2.y) / 2;
+	// 	coord.y = begin_l2.y < p_l2.y ? begin_l2.y + mid : p_l2.y + mid;
+	// }
+	// else if (l2.a == -999935168.0)
+	// {
+	// 	coord.x = p_l2.x;
+	// 	coord.y = p_l1.y;
+	// }
+	// else
+	// {
 		coord.x = (l2.b - l1.b) / (l1.a - l2.a);
 		coord.y = l1.a * coord.x + l1.b;
-	}
+	// }
 	return (coord);
 }
 

@@ -45,6 +45,7 @@ typedef struct		s_player
 }					t_player;
 
 typedef struct		s_visu {
+	t_dpos			tmp_wall;
 	t_dpos			left_plan;
 	t_dpos			right_plan;
 	t_dpos			begin;
@@ -91,6 +92,7 @@ typedef struct		s_main {
 */
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s);
+void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
 
 /*
 ****	Fonction d'initialisation
