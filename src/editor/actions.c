@@ -33,10 +33,31 @@ void  	ft_zoom(t_main *s, t_pos mouse, int space)
 
 void 	crouch(t_main *s, int press)
 {
-	if (s->player.eyesight == EYESIGHT && press == 1)
-		s->player.eyesight -=5;
+	int i;
+	struct timeval tv;
+    long            curr_time;
+	char            v0id[32];
+
+	gettimeofday(&tv, (void *)v0id);
+	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
+	//printf("curr tine =%ld\n",curr_time);
+	if (press == 1 && s->player.fin_time < curr_time)
+	{
+		s->player.fin_time = curr_time + 500000;
+		s->player.tmp_time = curr_time;
+	}
+	if (s->player.fin_time > curr_time && s->player.tmp_time != curr_time && ((press == 1) && (s->player.i != 5)))
+	{
+		s->player.eyesight -=1;
+		s->player.tmp_time++;
+		s->player.i++;
+	}
 	if (s->player.eyesight != EYESIGHT && press == -1)
-		s->player.eyesight +=5;
+	{
+		s->player.eyesight +=1;
+		s->player.tmp_time++;
+		s->player.i--;
+	}
 }
 
 void 	jump(t_main *s)

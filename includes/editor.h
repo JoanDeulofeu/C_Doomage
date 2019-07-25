@@ -9,6 +9,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
+# include <sys/time.h>
 # define WIDTH 1000
 # define HEIGHT 800
 # define G_SPACE 30

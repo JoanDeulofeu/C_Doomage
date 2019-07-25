@@ -38,6 +38,9 @@ typedef struct		s_visu_sct
 
 typedef struct		s_player
 {
+	long			fin_time;
+	long			tmp_time;
+	int 			i;
 	t_dpos 			r_pos; // position reel du joueur par rpport au repere
 	t_dpos			pos; // Position du joueur en pixel
 	t_pos 			ori; //position du joueur en case (avant correction)

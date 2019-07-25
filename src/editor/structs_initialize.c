@@ -107,9 +107,14 @@ t_main		*initialize_main(void)
 	s->sector = NULL;
 	s->grid = NULL;
 	s->player.set = 1;
+	s->player.i = 0;
 	s->player.pos.x = 500;
 	s->player.pos.y = 300;
 	s->player.eyesight = EYESIGHT;
+
+	s->player.fin_time = 0;
+	s->player.tmp_time = 0;
+
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;
 	s->intersect1.x = 0;
