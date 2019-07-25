@@ -201,12 +201,24 @@ void	editor_handler(t_main *s)
 	{
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
+			mouse_save.x = s->ft_mouse.x;
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
 				if (selected && s->editor->mode == vertex)
 					move_anchor(s, id);
+				if(s->player_view)
+				{
+					SDL_SetRelativeMouseMode(SDL_TRUE);
+					rotate_mouse(s,s->ft_mouse, mouse_save.x);
+					
+					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
+					//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
+				}
+				else
+					SDL_SetRelativeMouseMode(SDL_FALSE);
+
 				if (s->editor->mode == move && selected == 1)
 				{
 
