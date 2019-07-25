@@ -12,7 +12,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	int			id_wall = 1;
 
 	sct = s->sector;
-	while (s->player.sector != sct->id)
+	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
 	while (s_vtx->next)
@@ -93,7 +93,7 @@ void	ft_visu_joan(t_main *s)
 	t_visu	*vs = &s->visu;
 	t_dpos	player;
 
-	if ((s->player.sector = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
+	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 		return ;
 	player.x = s->player.r_pos.x * METRE;
 	player.y = s->player.r_pos.y * METRE;

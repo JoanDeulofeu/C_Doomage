@@ -131,7 +131,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	t_int		*vtx;
 
 	sct = s->sector;
-	while (s->player.sector != sct->id)
+	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	vtx = sct->vertex;
 	while (vtx->id != vs->begin_wall + 1) // trouver le deuxieme vertex du premier mur
