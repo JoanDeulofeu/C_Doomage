@@ -35,3 +35,10 @@ void	ft_error_sdl(char *str)
 	ft_putstr(SDL_GetError());
 	exit(-1);
 }
+
+void	ft_error_ttf(char *str)
+{
+	ft_putstr(str);
+	ft_putstr(TTF_GetError());
+	exit(-1);
+}

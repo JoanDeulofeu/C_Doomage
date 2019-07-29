@@ -4,6 +4,7 @@ NAME = doom-nukem
 SRC_PATH = src
 
 SRC_NAME =	main.c						\
+			ttf.c						\
 			editor/controls.c			\
 			editor/actions.c			\
 			editor/images.c				\
@@ -34,6 +35,7 @@ SRC_NAME =	main.c						\
 			editor/list_utils.c			\
 			game/visu.c					\
 			game/visu_joan.c			\
+			game/visu_joan_drawing.c	\
 			game/utils_2.c
 
 
@@ -57,7 +59,7 @@ SDLINCL = $(shell $(ABSOLUTE_DIR)/SDL2/bin/sdl2-config --cflags)
 SDLFLAGS =  $(SDLINCL) $(shell $(ABSOLUTE_DIR)/SDL2/bin/sdl2-config --libs)
 
 MIXINCL = -I ./SDL2/include/SDL2/
-MIXFLAGS = $(MIXINCL) -L./SDL2/lib -lSDL2_MIXER
+MIXFLAGS = $(MIXINCL) -L./SDL2/lib -lSDL2_MIXER -lSDL2_ttf
 
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -67,6 +69,7 @@ HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 ABSOLUTE_DIR = $(shell pwd)
 SDL2_SRC = $(ABSOLUTE_DIR)/SDL2-2.0.9
 SDL2_MIX_SRC = $(ABSOLUTE_DIR)/SDL2_mixer-2.0.4
+SDL2_TTF_SRC = $(ABSOLUTE_DIR)/SDL2_ttf-2.0.15
 
 OK = echo "[32m OK ✓ [0m"
 
@@ -96,6 +99,19 @@ sdl :
 		$(SDL2_MIX_SRC)/configure --prefix $(ABSOLUTE_DIR)/SDL2; \
 		@make -j6; \
 		make install;
+	cd $(ABSOLUTE_DIR)
+	if test ! -f SDL2_ttf-2.0.15.tar.gz; \
+	then curl https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o SDL2_ttf-2.0.15.tar.gz; \
+	fi
+	if test ! -d SDL2_ttf-2.0.15; \
+	then tar xvf SDL2_ttf-2.0.15.tar.gz; \
+	fi
+	cd SDL2/build; \
+		$(SDL2_TTF_SRC)/configure --prefix $(ABSOLUTE_DIR)/SDL2; \
+		@make -j6; \
+		make install;
+
+https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
 
 $(NAME): $(OBJ)
 	@make -C libft/

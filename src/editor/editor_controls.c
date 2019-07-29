@@ -138,16 +138,24 @@ void	handle_editor_keys(t_main *s)
 
 	keys = SDL_GetKeyboardState(NULL);
 	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
-	{
-		//ft_move_player(s, keys);
 		ft_move_player(s, keys,1);
-	}
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
 	if (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR])
 		move_editor(s, keys);
+	if (keys[LCTRL])
+		crouch(s,1);
+	else if (keys[SPACE])
+		jump(s,1);
+	else
+	{
+		crouch(s,-1);
+		jump(s,-1);
+	}
+
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
+	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 	ft_draw_editor(s->editor, s->sdl->editor);
 	display_map(s);
 	ft_draw_all_wall(s);
@@ -172,7 +180,8 @@ void	handle_editor_keys(t_main *s)
 	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
 	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
 	// printf("player.r_pos (%f, %f)\n",s->player.r_pos.x, s->player.r_pos.y);
-
+	ft_draw_ttf(s);
+	SDL_RenderPresent(s->sdl->prenderer);
 }
 
 void	editor_handler(t_main *s)
@@ -183,6 +192,7 @@ void	editor_handler(t_main *s)
 	t_pos		ori;
 	int			id;
 	t_pos		mouse_save;
+	t_pos		mouse_save2;
 	t_pos 		tmp;
 	t_pos 		tmp2;
 	t_pos		diff;
@@ -201,7 +211,9 @@ void	editor_handler(t_main *s)
 	{
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
-			mouse_save.x = s->ft_mouse.x;
+			mouse_save2.x = s->ft_mouse.x;
+			mouse_save2.y = s->ft_mouse.y;
+
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
 				s->ft_mouse.x = s->sdl->event.motion.x;
@@ -211,8 +223,9 @@ void	editor_handler(t_main *s)
 				if(s->player_view)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
-					rotate_mouse(s,s->ft_mouse, mouse_save.x);
-					
+					rotate_mouse(s,s->ft_mouse, mouse_save2);
+
+
 					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
 					//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
 				}

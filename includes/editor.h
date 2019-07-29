@@ -9,13 +9,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
+# include <sys/time.h>
 # define WIDTH 1000
 # define HEIGHT 800
 # define G_SPACE 30
 # define METRE	30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
-# define ROTATE_SPEED 30.00
+# define ROTATE_SPEED 20.00
 # define PARSE_BUFF_SIZE 64
 
 # define INT_MAX 2147483647
@@ -33,6 +34,9 @@
 # define RIGHT_AR	SDL_SCANCODE_RIGHT
 # define UP_AR		SDL_SCANCODE_UP
 # define DOWN_AR	SDL_SCANCODE_DOWN
+
+# define SPACE	SDL_SCANCODE_SPACE
+# define LCTRL	SDL_SCANCODE_LCTRL
 
 # define LEFT	SDL_SCANCODE_A
 # define RIGHT	SDL_SCANCODE_D

@@ -327,9 +327,8 @@ void	ft_visu_wall(t_main *s)
 				vtx = vtx->next;
 				continue;
 			}
-			// on recupere la hauteur de sol et du plafond relativement a la vision du joeuur
-			float yceil = tmp_sct->ceiling - (s->player.sector->floor + EYESIGHT);
-			float yfloor = tmp_sct->floor - (s->player.sector->floor + EYESIGHT);
+			float yceil = tmp_sct->ceiling - (s->player.sector->floor + s->player.eyesight);
+			float yfloor = tmp_sct->floor - (s->player.sector->floor + s->player.eyesight);
 			//check the edge type. neighbor = -1 means wall
 			int neighbor = get_vtx_wall_value(tmp_sct, vtx);
 			float nyceil = 0;
@@ -338,22 +337,22 @@ void	ft_visu_wall(t_main *s)
 			{
 				t_sector *next;
 				next = get_sector_by_id(s, neighbor);
-				nyceil = next->ceiling - (s->player.sector->floor + EYESIGHT);
-				nyfloor = next->floor - (s->player.sector->floor + EYESIGHT);
+				nyceil = next->ceiling - (s->player.sector->floor + s->player.eyesight);
+				nyfloor = next->floor - (s->player.sector->floor +  s->player.eyesight);
 			}
 			//On projette les hauteurs du plafond et sol en coordonees de l'ecran
-			int y1a = HEIGHT / 2 - (int)(yceil * yscale1);
-			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1);
-			int y2a = HEIGHT / 2 - (int)(yceil * yscale2);
-			int y2b = HEIGHT / 2 - (int)(yfloor * yscale2);
-			//idem pour les secteurs voisins
-			int ny1a = HEIGHT / 2 - (int)(nyceil * yscale1);
-			int ny1b = HEIGHT / 2 - (int)(nyfloor * yscale1);
-			int ny2a = HEIGHT / 2 - (int)(nyceil * yscale2);
-			int ny2b = HEIGHT / 2 - (int)(nyfloor * yscale2);
-			//render the wall
-			int beginx = max(x1, now.sx1);
-			int endx = max(x2, now.sx2);
+			int y1a = HEIGHT / 2 - (int)(yceil * yscale1)+ s->player.y_eye;
+			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1)+ s->player.y_eye;
+			int y2a = HEIGHT / 2 - (int)(yceil * yscale2)+ s->player.y_eye;
+			int y2b = HEIGHT / 2 - (int)(yfloor * yscale2)+ s->player.y_eye;
+
+			int ny1a = HEIGHT / 2 - (int)(nyceil * yscale1)+ s->player.y_eye;
+			int ny1b = HEIGHT / 2 - (int)(nyfloor * yscale1)+ s->player.y_eye;
+			int ny2a = HEIGHT / 2 - (int)(nyceil * yscale2)+ s->player.y_eye;
+			int ny2b = HEIGHT / 2 - (int)(nyfloor * yscale2)+ s->player.y_eye;
+
+			int beginx = x1 > 0 ? x1 : 0;
+			int endx = x2 < WIDTH - 1 ? x2 : WIDTH - 1;
 			int x = beginx;
 			while (x < endx)
 			{

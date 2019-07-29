@@ -31,6 +31,8 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	(void)s;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		ft_error_sdl("Échec de l'initialisation de la SDL");
+	if(TTF_Init() == -1)
+		ft_error_ttf("Erreur initialisation TTF_Init: ");
 	if (!(sdl->pwindow = SDL_CreateWindow("Doom Nukem", 100,
 		100, WIDTH, HEIGHT, SDL_WINDOW_SHOWN)))
 		ft_error_sdl("Échec de creation de la fenetre");
@@ -54,6 +56,7 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	// 	s->interface->h = HEIGHT * 0.3;
 	// if (s->interface->h > WIDTH)
 	// 	s->interface->w = WIDTH;
+	s->font = ft_init_font();
 }
 
 void		load_images(t_main *s)
@@ -107,8 +110,16 @@ t_main		*initialize_main(void)
 	s->sector = NULL;
 	s->grid = NULL;
 	s->player.set = 1;
+	s->player.i = 0;
 	s->player.pos.x = 500;
 	s->player.pos.y = 300;
+	s->player.eyesight = EYESIGHT;
+	s->player.y_eye = 0;
+	s->player.set_jump = 0;
+
+	s->player.fin_time = 0;
+	s->player.tmp_time = 0;
+
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;
 	s->intersect1.x = 0;

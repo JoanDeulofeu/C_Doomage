@@ -2,6 +2,7 @@
 # define DOOM_H
 
 # include "editor.h"
+# include <SDL_ttf.h>
 
 # define SHIFT_AMOUNT 8
 # define VFOV .2f * HEIGHT
@@ -23,6 +24,14 @@ typedef struct		s_fix_pos {
 	Uint32			y;
 }					t_fix_pos;
 
+typedef struct		s_ttf {
+	SDL_Rect		pos;
+	char			*str;
+	int				r;
+	int				g;
+	int				b;
+}					t_ttf;
+
 typedef struct		s_texture {
 	Uint32			*content;
 	SDL_Texture		*texture;
@@ -38,6 +47,11 @@ typedef struct		s_visu_sct
 
 typedef struct		s_player
 {
+	long			j_fin_time;
+	long			fin_time;
+	long			tmp_time;
+	int 			set_jump;
+	int 			i;
 	t_dpos 			r_pos; // position reel du joueur par rpport au repere
 	t_dpos			pos; // Position du joueur en pixel
 	t_pos 			ori; //position du joueur en case (avant correction)
@@ -48,12 +62,16 @@ typedef struct		s_player
 	int 			correc;
 	int 			init_space;
 	int				sector_id;
+	int 			eyesight;
+	int 			y_eye;
+
 	double			angle;
 	int				height;
 	t_sector		*sector;
 }					t_player;
 
 typedef struct		s_visu {
+	t_dpos			tmp_wall;
 	t_dpos			left_plan;
 	t_dpos			right_plan;
 	t_dpos			begin;
@@ -76,6 +94,7 @@ typedef struct		s_sdl {
 }					t_sdl;
 
 typedef struct		s_main {
+	TTF_Font		*font;
 	t_sdl			*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
@@ -100,6 +119,7 @@ typedef struct		s_main {
 */
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s);
+void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
 
 /*
 ****	Fonction d'initialisation
@@ -116,6 +136,7 @@ void				free_program(t_main *s);
 void				display_error(int error_nb);
 void				handle_error(t_main *s, int error_nb);
 void				ft_error_sdl(char *str);
+void				ft_error_ttf(char *str);
 
 /*
 ****	Fonction de l'editeur
@@ -218,7 +239,6 @@ void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
 int					min(int value1, int value2);
 
-
 /*
 ****	Fonction de gestion du joueur
 */
@@ -231,9 +251,9 @@ void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
-void  	rotate_mouse(t_main *s, t_pos mouse, int x);
-
-
+void  				rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save);
+void 				jump(t_main *s, int press);
+void 				crouch(t_main *s, int press);
 
 /*
 ****	Fonction des fixed float
@@ -247,5 +267,11 @@ fixed_float			ft_fixed_pow(fixed_float nb, int power);
 fixed_float			ft_fixed_sqrt(fixed_float nb);
 fixed_float			ft_fixed_mul(fixed_float a, fixed_float b);
 
+/*
+****	Fonction des ttf
+*/
+void				ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
+TTF_Font			*ft_init_font(void);
+void				ft_draw_ttf(t_main *s);
 
 #endif
