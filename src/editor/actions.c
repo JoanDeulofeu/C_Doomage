@@ -51,7 +51,7 @@ void 	crouch(t_main *s, int press)
 		s->player.tmp_time++;
 		s->player.i++;
 	}
-	if (s->player.eyesight != EYESIGHT && press == -1)
+	if (s->player.eyesight < EYESIGHT && press == -1)
 	{
 		s->player.eyesight +=1;
 		s->player.tmp_time++;
@@ -59,13 +59,29 @@ void 	crouch(t_main *s, int press)
 	}
 }
 
-void 	jump(t_main *s)
+void 	jump(t_main *s, int press)
 {
-	(void)s;
-	//s->player.eyesight +=1;
+	struct timeval tv;
+    long            curr_time;
+	char            v0id[32];
 
+
+	gettimeofday(&tv, (void *)v0id);
+	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
+	if (press == 1 && s->player.set_jump == 0)
+	{
+		s->player.j_fin_time = curr_time + 150000;
+		s->player.set_jump = 1;
+	}
+	if (s->player.j_fin_time > curr_time && s->player.set_jump == 1)
+		s->player.eyesight += 1;
+	else if (s->player.eyesight > EYESIGHT && s->player.set_jump == 1)
+		s->player.eyesight -= 1;
+	if (s->player.eyesight == EYESIGHT)
+		s->player.set_jump = 0;
 
 }
+
 
 
 void  	rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save)
@@ -80,12 +96,7 @@ void  	rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save)
 	angle = s->player.angle + dir * ROTATE_SPEED / 10 + 360;
 	s->player.angle = (int)angle % 360;
 	if (mouse.y >= mouse_save.y && mouse.y != 0)
-		dir = 1;
+		s->player.y_eye -= 10;
 	else
-		dir = -1;
-	//s->player.eyesight += 1;
-
-
-
-
+		s->player.y_eye += 10;
 }

@@ -303,15 +303,15 @@ void	ft_visu_wall(t_main *s)
 				nyfloor = next->floor - (s->player.sector->floor +  s->player.eyesight);
 			}
 			//On projette les hauteurs du plafond et sol en coordonees de l'ecran
-			int y1a = HEIGHT / 2 - (int)(yceil * yscale1);
-			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1);
-			int y2a = HEIGHT / 2 - (int)(yceil * yscale2);
-			int y2b = HEIGHT / 2 - (int)(yfloor * yscale2);
+			int y1a = HEIGHT / 2 - (int)(yceil * yscale1)+ s->player.y_eye;
+			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1)+ s->player.y_eye;
+			int y2a = HEIGHT / 2 - (int)(yceil * yscale2)+ s->player.y_eye;
+			int y2b = HEIGHT / 2 - (int)(yfloor * yscale2)+ s->player.y_eye;
 
-			int ny1a = HEIGHT / 2 - (int)(nyceil * yscale1);
-			int ny1b = HEIGHT / 2 - (int)(nyfloor * yscale1);
-			int ny2a = HEIGHT / 2 - (int)(nyceil * yscale2);
-			int ny2b = HEIGHT / 2 - (int)(nyfloor * yscale2);
+			int ny1a = HEIGHT / 2 - (int)(nyceil * yscale1)+ s->player.y_eye;
+			int ny1b = HEIGHT / 2 - (int)(nyfloor * yscale1)+ s->player.y_eye;
+			int ny2a = HEIGHT / 2 - (int)(nyceil * yscale2)+ s->player.y_eye;
+			int ny2b = HEIGHT / 2 - (int)(nyfloor * yscale2)+ s->player.y_eye;
 
 			int beginx = x1 > 0 ? x1 : 0;
 			int endx = x2 < WIDTH - 1 ? x2 : WIDTH - 1;

@@ -16,7 +16,7 @@
 # define METRE	30
 # define GRID_SIDE_MARGIN 20
 # define GRID_TOP_MARGIN 20
-# define ROTATE_SPEED 30.00
+# define ROTATE_SPEED 20.00
 # define PARSE_BUFF_SIZE 64
 
 # define INT_MAX 2147483647

@@ -47,8 +47,10 @@ typedef struct		s_visu_sct
 
 typedef struct		s_player
 {
+	long			j_fin_time;
 	long			fin_time;
 	long			tmp_time;
+	int 			set_jump;
 	int 			i;
 	t_dpos 			r_pos; // position reel du joueur par rpport au repere
 	t_dpos			pos; // Position du joueur en pixel
@@ -61,6 +63,8 @@ typedef struct		s_player
 	int 			init_space;
 	int				sector_id;
 	int 			eyesight;
+	int 			y_eye;
+
 	double			angle;
 	int				height;
 	t_sector		*sector;
@@ -248,7 +252,7 @@ void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
 void  				rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save);
-void 				jump(t_main *s);
+void 				jump(t_main *s, int press);
 void 				crouch(t_main *s, int press);
 
 /*

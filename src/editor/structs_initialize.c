@@ -114,6 +114,8 @@ t_main		*initialize_main(void)
 	s->player.pos.x = 500;
 	s->player.pos.y = 300;
 	s->player.eyesight = EYESIGHT;
+	s->player.y_eye = 0;
+	s->player.set_jump = 0;
 
 	s->player.fin_time = 0;
 	s->player.tmp_time = 0;
