@@ -140,6 +140,28 @@ int 	get_vtx_wall_value(t_sector *tmp_sct, t_int *vtx)
 	return (wall->value);
 }
 
+void	print_queue(t_visu_sct *queue)
+{
+	int i = 0;
+
+	while(i < MAX_QUEUE)
+	{
+		printf("queue[%d].sector_id = %d\n",i, queue[i].sector_id);
+		i++;
+	}
+}
+
+void	fill_queue(t_visu_sct *queue)
+{
+	int i = 0;
+
+	while(i < MAX_QUEUE)
+	{
+		queue[i].sector_id = i + 10;
+		i++;
+	}
+}
+
 void	ft_visu_wall(t_main *s)
 {
 	int			nb_vtx;
@@ -166,117 +188,133 @@ void	ft_visu_wall(t_main *s)
 	float		tz2;
 	int ytop[WIDTH] = {0};
 	int ybottom[WIDTH] = {0};
-	t_int *vtx;
+	t_int		*vtx;
+	t_visu_sct	now;
+	t_visu_sct	queue[MAX_QUEUE];
+	t_visu_sct	*head;
+	t_visu_sct	*tail;
+	t_visu_sct	temp;
 
-	// printf("angle du joueur = %f\n", s->player.angle);
-	// if (wall1_id > wall2_id)
-	tmp_sct = get_sector_by_id(s, s->player.sector_id);
-	nb_vtx = check_vtx_nb(tmp_sct);
-	//verifier que les vertex sont bien les bons avec la structure de mort de joan
-	vtx = tmp_sct->vertex;
-	// printf("nb walls = %d\n", nb_walls);
+	// now.sector_id = s->player.sector_id;
+	// now.sx1 = 0;
+	// now.sx2 = WIDTH - 1;
+	fill_queue(queue);
+	head = queue;
+	tail = queue;
+	temp.sector_id = s->player.sector_id;
+	temp.sx1 = 0;
+	temp.sx2 = WIDTH - 1;
 	while (i < WIDTH)
 		ybottom[i++] = HEIGHT - 1;
-	i = 0;
-	// vertex1_wall1 = (get_t_int_by_id(tmp_sct->vertex, wall1_id))->ptr->x;
-
-	if (s->player.p_ori.x < 0)
-		player.x = (s->player.ori.x - s->editor->ref.x) - (((double)ft_abs(s->player.p_ori.x) / (double)s->editor->space));
-	else if(s->player.p_ori.x > 0)
-		player.x = (s->player.ori.x - s->editor->ref.x) + (((double)ft_abs(s->player.p_ori.x) / (double)s->editor->space));
-	else
-		player.x = (s->player.ori.x - s->editor->ref.x);
-	if (s->player.p_ori.y < 0)
-		player.y = (s->player.ori.y - s->editor->ref.y) - (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space));
-	else if(s->player.p_ori.y > 0)
-		player.y = (s->player.ori.y - s->editor->ref.y) + (((double)ft_abs(s->player.p_ori.y) / (double)s->editor->space));
-	else
-		player.y = (s->player.ori.y - s->editor->ref.y);
-	printf("player.x = %f   ", player.x);
-	printf("player.y = %f\n\n", player.y);
-
-	while (i < nb_vtx)
+	//On commence le rendu de l'ecran à partir de la position du joueur.
+	*head = temp;
+	if (++head == queue + MAX_QUEUE)
+		head = queue;
+	// *tail = temp;
+	do
 	{
-		beg_wall1.x = (vtx->ptr->x - s->editor->ref.x);
-		beg_wall1.y = (vtx->ptr->y - s->editor->ref.y);
-		if (vtx->next)
+		// printf("angle du joueur = %f\n", s->player.angle);
+		// if (wall1_id > wall2_id)
+		i = 0;
+		now = *tail;
+		if (++tail == queue + MAX_QUEUE)
 		{
-			end_wall1.x = (vtx->next->ptr->x - s->editor->ref.x);
-			end_wall1.y = (vtx->next->ptr->y - s->editor->ref.y);
+			tail = queue;
 		}
-		else
+		tmp_sct = get_sector_by_id(s, now.sector_id);
+		nb_vtx = check_vtx_nb(tmp_sct);
+		vtx = tmp_sct->vertex;
+
+		player.x = s->player.r_pos.x;
+		player.y = s->player.r_pos.y;
+
+		while (i < nb_vtx)
 		{
-			end_wall1.x = (tmp_sct->vertex->ptr->x - s->editor->ref.x);
-			end_wall1.y = (tmp_sct->vertex->ptr->y - s->editor->ref.y);
-		}
-		vx1 = beg_wall1.x - player.x;
-		vy1 = beg_wall1.y - player.y;
-		vx2 = end_wall1.x - player.x;
-		vy2 = end_wall1.y - player.y;
-		pcos = cos(to_rad(s->player.angle));
-		psin = sin(to_rad(s->player.angle));
-		tx1 = vx1 * psin - vy1 * pcos;
-		tz1 = vx1 * pcos + vy1 * psin;
-		tx2 = vx2 * psin - vy2 * pcos;
-		tz2 = vx2 * pcos + vy2 * psin;
-		if (tz1 <= 0 && tz2 <= 0)
-		{
-			i++;
-			vtx = vtx->next;
-			continue;
-		}
-		if (tz1 <= 0 || tz2 <= 0)
-		{
-			float nearz = 1e-4f;
-			float farz = 5;
-			float nearside = 1e-5f;
-			float farside = 20.f;
-			t_dpos inter1;
-			t_dpos inter2;
-			t_dpos inter3;
-			t_dpos inter4;
-			t_dpos i1;
-			t_dpos i2;
-			inter1.x = tx1;
-			inter1.y = tz1;
-			inter2.x = tx2;
-			inter2.y = tz2;
-			inter3.x = -nearside;
-			inter3.y = nearz;
-			inter4.x = -farside;
-			inter4.y = farz;
-			i1 = intersect(inter1, inter2, inter3, inter4);
-			inter3.x = nearside;
-			inter4.x = farside;
-			i2 = intersect(inter1, inter2, inter3, inter4);
-			if (tz1 < nearz)
+			beg_wall1.x = (vtx->ptr->x - s->editor->ref.x);
+			beg_wall1.y = (vtx->ptr->y - s->editor->ref.y);
+			if (vtx->next)
 			{
-				if (i1.y > 0)
+				end_wall1.x = (vtx->next->ptr->x - s->editor->ref.x);
+				end_wall1.y = (vtx->next->ptr->y - s->editor->ref.y);
+			}
+			else
+			{
+				end_wall1.x = (tmp_sct->vertex->ptr->x - s->editor->ref.x);
+				end_wall1.y = (tmp_sct->vertex->ptr->y - s->editor->ref.y);
+			}
+			//On recupere les cordoonees des vertex de ce mur
+			vx1 = beg_wall1.x - player.x;
+			vy1 = beg_wall1.y - player.y;
+			vx2 = end_wall1.x - player.x;
+			vy2 = end_wall1.y - player.y;
+			//on les tourne par rapport a la vision du joueur
+			pcos = cos(to_rad(s->player.angle));
+			psin = sin(to_rad(s->player.angle));
+			tx1 = vx1 * psin - vy1 * pcos;
+			tz1 = vx1 * pcos + vy1 * psin;
+			tx2 = vx2 * psin - vy2 * pcos;
+			tz2 = vx2 * pcos + vy2 * psin;
+			// est-ce que le mur est au moins un peu visible par le joueur ?
+			if (tz1 <= 0 && tz2 <= 0)
+			{
+				i++;
+				vtx = vtx->next;
+				continue;
+			}
+			//si c'est au moins un peu derriee le joueur, on le clip
+			if (tz1 <= 0 || tz2 <= 0)
+			{
+				float nearz = 1e-4f;
+				float farz = 5;
+				float nearside = 1e-5f;
+				float farside = 20.f;
+				t_dpos inter1;
+				t_dpos inter2;
+				t_dpos inter3;
+				t_dpos inter4;
+				t_dpos i1;
+				t_dpos i2;
+				inter1.x = tx1;
+				inter1.y = tz1;
+				inter2.x = tx2;
+				inter2.y = tz2;
+				inter3.x = -nearside;
+				inter3.y = nearz;
+				inter4.x = -farside;
+				inter4.y = farz;
+				//on calcule l'intersection ene la vue du joueur et le mur
+				i1 = intersect(inter1, inter2, inter3, inter4);
+				inter3.x = nearside;
+				inter4.x = farside;
+				i2 = intersect(inter1, inter2, inter3, inter4);
+				if (tz1 < nearz)
 				{
-					tx1 = i1.x;
-					tz1 = i1.y;
+					if (i1.y > 0)
+					{
+						tx1 = i1.x;
+						tz1 = i1.y;
+					}
+					else
+					{
+						tx1 = i2.x;
+						tz1 = i2.y;
+					}
 				}
-				else
+				if (tz2 < nearz)
 				{
-					tx1 = i2.x;
-					tz1 = i2.y;
+					if (i1.y > 0)
+					{
+						tx2 = i1.x;
+						tz2 = i1.y;
+					}
+					else
+					{
+						tx2 = i2.x;
+						tz2 = i2.y;
+					}
 				}
 			}
-			if (tz2 < nearz)
-			{
-				if (i1.y > 0)
-				{
-					tx2 = i1.x;
-					tz2 = i1.y;
-				}
-				else
-				{
-					tx2 = i2.x;
-					tz2 = i2.y;
-				}
-			}
-		}
-		//do perspective transformation
+			//do perspective transformation
 			float xscale1 = HFOV / tz1;
 			float yscale1 = VFOV / tz1;
 			float xscale2 = HFOV / tz2;
@@ -289,6 +327,7 @@ void	ft_visu_wall(t_main *s)
 				vtx = vtx->next;
 				continue;
 			}
+			// on recupere la hauteur de sol et du plafond relativement a la vision du joeuur
 			float yceil = tmp_sct->ceiling - (s->player.sector->floor + EYESIGHT);
 			float yfloor = tmp_sct->floor - (s->player.sector->floor + EYESIGHT);
 			//check the edge type. neighbor = -1 means wall
@@ -307,14 +346,14 @@ void	ft_visu_wall(t_main *s)
 			int y1b = HEIGHT / 2 - (int)(yfloor * yscale1);
 			int y2a = HEIGHT / 2 - (int)(yceil * yscale2);
 			int y2b = HEIGHT / 2 - (int)(yfloor * yscale2);
-
+			//idem pour les secteurs voisins
 			int ny1a = HEIGHT / 2 - (int)(nyceil * yscale1);
 			int ny1b = HEIGHT / 2 - (int)(nyfloor * yscale1);
 			int ny2a = HEIGHT / 2 - (int)(nyceil * yscale2);
 			int ny2b = HEIGHT / 2 - (int)(nyfloor * yscale2);
-
-			int beginx = x1 > 0 ? x1 : 0;
-			int endx = x2 < WIDTH - 1 ? x2 : WIDTH - 1;
+			//render the wall
+			int beginx = max(x1, now.sx1);
+			int endx = max(x2, now.sx2);
 			int x = beginx;
 			while (x < endx)
 			{
@@ -328,9 +367,10 @@ void	ft_visu_wall(t_main *s)
 				//render floor
 				vline(s, x, cyb + 1, ybottom[x], 0x0000FFFF, 0X0000AAFF, 0x0000FFFF);
 
+				//Est-ce que c'est un portail ?
 				if (neighbor >= 0)
 				{
-					//Same for their floor and ceiling
+					//On calcule le plafond et le sol de l'autre secteur
 					int nya = (x - x1) * (ny2a - ny1a) / (x2 - x1) + ny1a;
 					int nyb = (x - x1) * (ny2b - ny1b) / (x2 - x1) + ny1b;
 					int cnya = clamp(nya, ytop[x], ybottom[x]);
@@ -342,7 +382,7 @@ void	ft_visu_wall(t_main *s)
 					// Si le sol est plus petit que le sol suivant, on l'affiche
 					vline(s, x, cnyb + 1, cyb, 0, x == x1 || x == x2 ? 0 : 0x7C00D9FF, 0);
 					ybottom[x] = clamp(min(cyb, cnyb), 0, ybottom[x]);
-					vline(s, x, ytop[x], ybottom[x], 0x00AA00FF, 0x00AA00FF, 0x00AA00FF);
+					// vline(s, x, ytop[x], ybottom[x], 0x00AA00FF, 0x00AA00FF, 0x00AA00FF);
 				}
 				else
 				{
@@ -350,51 +390,65 @@ void	ft_visu_wall(t_main *s)
 				}
 				x++;
 			}
-			vtx = vtx->next;
-
-
+			if (neighbor >= 0 && endx >= beginx && (head + MAX_QUEUE + 1 - tail) % MAX_QUEUE)
+			{
+				temp.sector_id = neighbor;
+				temp.sx1 = beginx;
+				temp.sx2 = endx;
+				*head = temp;
+				print_queue(head);
+				print_queue(tail);
+				if (++head == queue + MAX_QUEUE)
+					head = queue;
+				// print_queue(queue);
+			}
+		vtx = vtx->next;
 		i++;
-	}
+		}
+		// update_image(s, s->sdl->game);
+	}while (head != tail);
+
+
 
 }
 
 
 void	ft_visu(t_main *s)
 {
-	int		mur1;
-	int		mur2;
-	int		angle;
-	Uint32	color = 0x25f902ff; //#25f902
-
+	// int		mur1;
+	// int		mur2;
+	// int		angle;
+	// Uint32	color = 0x25f902ff; //#25f902
+	//
 	s->player.sector_id= ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	s->player.sector= get_sector_by_id(s, s->player.sector_id);
-	angle = s->player.angle - (HFOV / 2) < 0 ? 360
-	- fabs(s->player.angle - (HFOV / 2)) : (s->player.angle - (HFOV / 2));
-	mur2 = ft_find_wall(s, angle, color);
-	// printf("angle = %d\n", angle);
-	s->intersect2.x = s->tmp_intersect.x;
-	s->intersect2.y = s->tmp_intersect.y;
-	// printf("id mur1 = %d, angle = %d\n", mur2, angle);
-	s->line.x1 = s->player.pos.x;
-	s->line.y1 = s->player.pos.y;
-	s->line.x2 = s->intersect2.x;
-	s->line.y2 = s->intersect2.y;
-	get_line(s, color);
-
-	color = 0xdb00ffff;
-	angle = s->player.angle + (HFOV / 2);
-	if (angle > 360)
-		angle -= 360;
-	// printf("angle = %d\n", angle);
-	mur1 = ft_find_wall(s, angle, color);
-	s->intersect1.x = s->tmp_intersect.x;
-	s->intersect1.y = s->tmp_intersect.y;
-	// printf("id mur2 = %d, angle = %d\n", mur1, angle);
-	s->line.x1 = s->player.pos.x;
-	s->line.y1 = s->player.pos.y;
-	s->line.x2 = s->intersect1.x;
-	s->line.y2 = s->intersect1.y;
-	get_line(s, color);
+	// angle = s->player.angle - (HFOV / 2) < 0 ? 360
+	// - fabs(s->player.angle - (HFOV / 2)) : (s->player.angle - (HFOV / 2));
+	// mur2 = ft_find_wall(s, angle, color);
+	// // printf("angle = %d\n", angle);
+	// s->intersect2.x = s->tmp_intersect.x;
+	// s->intersect2.y = s->tmp_intersect.y;
+	// // printf("id mur1 = %d, angle = %d\n", mur2, angle);
+	// s->line.x1 = s->player.pos.x;
+	// s->line.y1 = s->player.pos.y;
+	// s->line.x2 = s->intersect2.x;
+	// s->line.y2 = s->intersect2.y;
+	// get_line(s, color);
+	//
+	// color = 0xdb00ffff;
+	// angle = s->player.angle + (HFOV / 2);
+	// if (angle > 360)
+	// 	angle -= 360;
+	// // printf("angle = %d\n", angle);
+	// mur1 = ft_find_wall(s, angle, color);
+	// s->intersect1.x = s->tmp_intersect.x;
+	// s->intersect1.y = s->tmp_intersect.y;
+	// // printf("id mur2 = %d, angle = %d\n", mur1, angle);
+	// s->line.x1 = s->player.pos.x;
+	// s->line.y1 = s->player.pos.y;
+	// s->line.x2 = s->intersect1.x;
+	// s->line.y2 = s->intersect1.y;
+	// get_line(s, color);
 	ft_visu_wall(s);
 
 	// ft_visu_wall(s, mur1, mur2);

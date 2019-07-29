@@ -7,7 +7,7 @@
 # define VFOV .2f * HEIGHT
 # define HFOV 0.73f * HEIGHT
 # define FOV 60
-# define MAX_QUEUE 30
+# define MAX_QUEUE 32
 
 # define WALL_HEIGHT 10
 // # define METRE 30
