@@ -2,6 +2,7 @@
 # define DOOM_H
 
 # include "editor.h"
+# include <SDL_ttf.h>
 
 # define SHIFT_AMOUNT 8
 # define VFOV .2f * HEIGHT
@@ -22,6 +23,14 @@ typedef struct		s_fix_pos {
 	Uint32			x;
 	Uint32			y;
 }					t_fix_pos;
+
+typedef struct		s_ttf {
+	SDL_Rect		pos;
+	char			*str;
+	int				r;
+	int				g;
+	int				b;
+}					t_ttf;
 
 typedef struct		s_texture {
 	Uint32			*content;
@@ -81,6 +90,7 @@ typedef struct		s_sdl {
 }					t_sdl;
 
 typedef struct		s_main {
+	TTF_Font		*font;
 	t_sdl			*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
@@ -122,6 +132,7 @@ void				free_program(t_main *s);
 void				display_error(int error_nb);
 void				handle_error(t_main *s, int error_nb);
 void				ft_error_sdl(char *str);
+void				ft_error_ttf(char *str);
 
 /*
 ****	Fonction de l'editeur
@@ -224,7 +235,6 @@ void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
 int					min(int value1, int value2);
 
-
 /*
 ****	Fonction de gestion du joueur
 */
@@ -241,9 +251,6 @@ void  				rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save);
 void 				jump(t_main *s);
 void 				crouch(t_main *s, int press);
 
-
-
-
 /*
 ****	Fonction des fixed float
 */
@@ -256,5 +263,11 @@ fixed_float			ft_fixed_pow(fixed_float nb, int power);
 fixed_float			ft_fixed_sqrt(fixed_float nb);
 fixed_float			ft_fixed_mul(fixed_float a, fixed_float b);
 
+/*
+****	Fonction des ttf
+*/
+void				ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
+TTF_Font			*ft_init_font(void);
+void				ft_draw_ttf(t_main *s);
 
 #endif

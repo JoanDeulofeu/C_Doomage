@@ -33,7 +33,6 @@ void  	ft_zoom(t_main *s, t_pos mouse, int space)
 
 void 	crouch(t_main *s, int press)
 {
-	int i;
 	struct timeval tv;
     long            curr_time;
 	char            v0id[32];
@@ -62,6 +61,7 @@ void 	crouch(t_main *s, int press)
 
 void 	jump(t_main *s)
 {
+	(void)s;
 	//s->player.eyesight +=1;
 
 
