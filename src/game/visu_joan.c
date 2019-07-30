@@ -106,18 +106,18 @@ void	ft_visu_joan(t_main *s)
 
 	point.x = player.x + cos(to_rad(angle_left)) * 2000;
 	point.y = player.y - sin(to_rad(angle_left)) * 2000;
-	vs->begin_wall = ft_find_wall2(s, player, point, 0xffed00ff);
+	vs->begin_wall_id = ft_find_wall2(s, player, point, 0xffed00ff);
 	vs->begin.x = s->tmp_intersect.x;
 	vs->begin.y = s->tmp_intersect.y;
 
 	point.x = player.x + cos(to_rad(angle_right)) * 2000;
 	point.y = player.y - sin(to_rad(angle_right)) * 2000;
-	vs->end_wall = ft_find_wall2(s, player, point, 0x59ff00ff);
+	vs->end_wall_id = ft_find_wall2(s, player, point, 0x59ff00ff);
 	vs->end.x = s->tmp_intersect.x;
 	vs->end.y = s->tmp_intersect.y;
 	ft_draw_visu(s, player, vs);
 
-	// printf("mur gauche = %d\nmur droite = %d\n", vs->begin_wall, vs->end_wall);
+	printf("mur gauche = %d\nmur droite = %d\n", vs->begin_wall_id, vs->end_wall_id);
 	// printf("angle gauche = %.2f\nangle droite = %.2f\n\n", angle_left, angle_right);
 
 }

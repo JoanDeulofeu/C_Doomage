@@ -217,6 +217,7 @@ void	ft_visu_wall(t_main *s)
 		// if (wall1_id > wall2_id)
 		i = 0;
 		now = *tail;
+		printf("============================================\n\n");
 		printf("je regarde le secteur %d\n", now.sector_id);
 		if (++tail == queue + MAX_QUEUE)
 		{
@@ -251,7 +252,7 @@ void	ft_visu_wall(t_main *s)
 			vy2 = end_wall1.y - player.y;
 			//on les tourne par rapport a la vision du joueur
 			pcos = cos(to_rad(s->player.angle));
-			psin = sin(to_rad(-s->player.angle));
+			psin = sin(to_rad(s->player.angle));
 			tx1 = vx1 * psin - vy1 * pcos;
 			tz1 = vx1 * pcos + vy1 * psin;
 			tx2 = vx2 * psin - vy2 * pcos;
@@ -339,7 +340,7 @@ void	ft_visu_wall(t_main *s)
 			float nyfloor = 0;
 			if (neighbor >= 0)
 			{
-				printf("le mur %d est un portail\n", vtx->id);
+				printf("le mur %d d secteur %d est un portail\n", vtx->id, tmp_sct->id);
 				t_sector *next;
 				next = get_sector_by_id(s, neighbor);
 				nyceil = next->ceiling - (s->player.sector->floor + s->player.eyesight);
