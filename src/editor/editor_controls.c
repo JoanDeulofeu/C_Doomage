@@ -137,8 +137,8 @@ void	handle_editor_keys(t_main *s)
 	const Uint8 *keys;
 
 	keys = SDL_GetKeyboardState(NULL);
-	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
-		ft_move_player(s, keys,1);
+	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
+		ft_move_player(s, keys);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
 	if (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR])

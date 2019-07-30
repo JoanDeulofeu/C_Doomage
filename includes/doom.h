@@ -244,7 +244,7 @@ int					min(int value1, int value2);
 void 				set_player(t_main *s);
 //void				ft_move_player(t_main *s, const Uint8 *key);
 t_dpos				get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
-void				ft_move_player(t_main *s, const Uint8 *keys, char sprint);
+void				ft_move_player(t_main *s, const Uint8 *keys);
 void 				rotate_player(t_main *s , const Uint8 *keys);
 void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);

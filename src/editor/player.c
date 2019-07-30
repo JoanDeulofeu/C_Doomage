@@ -102,16 +102,18 @@ t_dpos	get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target)
 	return (target);
 }
 
-void	ft_move_player(t_main *s, const Uint8 *keys, char sprint)
+void	ft_move_player(t_main *s, const Uint8 *keys)
 {
 	t_dpos	target;
 	double	speed;
   	int     move_speed;
 
-  	move_speed = 1;
-	speed = move_speed + sprint * move_speed * 0.5;
+  	move_speed = 2;
+	speed = move_speed * move_speed * 0.5;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
 		speed /= 1.5;
+	if (keys[SPRINT] && keys[UP])
+		speed *= 3;
 	target.x = s->player.pos.x;
 	target.y = s->player.pos.y;
 	target = get_direction(s, keys, speed, target);
