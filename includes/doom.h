@@ -251,7 +251,7 @@ void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
 void 				trace_direction(t_main *s);
-void  				rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save);
+void  				rotate_mouse(t_main *s);
 void 				jump(t_main *s, int press);
 void 				crouch(t_main *s, int press);
 

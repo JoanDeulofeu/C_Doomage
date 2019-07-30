@@ -82,21 +82,11 @@ void 	jump(t_main *s, int press)
 
 }
 
-
-
-void  	rotate_mouse(t_main *s, t_pos mouse, t_pos mouse_save)
+void  	rotate_mouse(t_main *s)
 {
 	double angle;
-	int dir;
 
-	if (mouse.x >= mouse_save.x && mouse.x != 0)
-		dir = 1;
-	else
-		dir = -1;
-	angle = s->player.angle + dir * ROTATE_SPEED / 10 + 360;
+	angle = s->player.angle + (s->sdl->event.motion.xrel) * ROTATE_SPEED / 20 + 360;
 	s->player.angle = (int)angle % 360;
-	if (mouse.y >= mouse_save.y && mouse.y != 0)
-		s->player.y_eye -= 10;
-	else
-		s->player.y_eye += 10;
+	s->player.y_eye = (s->player.y_eye + (-s->sdl->event.motion.yrel) * ROTATE_SPEED / 3);
 }
