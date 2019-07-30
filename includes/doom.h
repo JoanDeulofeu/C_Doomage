@@ -64,7 +64,6 @@ typedef struct		s_player
 	int				sector_id;
 	int 			eyesight;
 	int 			y_eye;
-
 	double			angle;
 	int				height;
 	t_sector		*sector;

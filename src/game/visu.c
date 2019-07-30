@@ -140,13 +140,13 @@ int 	get_vtx_wall_value(t_sector *tmp_sct, t_int *vtx)
 	return (wall->value);
 }
 
-void	print_queue(t_visu_sct *queue)
+void	print_queue(char *str, t_visu_sct *queue)
 {
 	int i = 0;
 
 	while(i < MAX_QUEUE)
 	{
-		printf("queue[%d].sector_id = %d\n",i, queue[i].sector_id);
+		printf("%s[%d].sector_id = %d\n",str, i, queue[i].sector_id);
 		i++;
 	}
 }
@@ -217,6 +217,7 @@ void	ft_visu_wall(t_main *s)
 		// if (wall1_id > wall2_id)
 		i = 0;
 		now = *tail;
+		printf("je regarde le secteur %d\n", now.sector_id);
 		if (++tail == queue + MAX_QUEUE)
 		{
 			tail = queue;
@@ -230,6 +231,7 @@ void	ft_visu_wall(t_main *s)
 
 		while (i < nb_vtx)
 		{
+			printf("je regarde le vertex %d\n", vtx->id);
 			beg_wall1.x = (vtx->ptr->x - s->editor->ref.x);
 			beg_wall1.y = (vtx->ptr->y - s->editor->ref.y);
 			if (vtx->next)
@@ -249,7 +251,7 @@ void	ft_visu_wall(t_main *s)
 			vy2 = end_wall1.y - player.y;
 			//on les tourne par rapport a la vision du joueur
 			pcos = cos(to_rad(s->player.angle));
-			psin = sin(to_rad(s->player.angle));
+			psin = sin(to_rad(-s->player.angle));
 			tx1 = vx1 * psin - vy1 * pcos;
 			tz1 = vx1 * pcos + vy1 * psin;
 			tx2 = vx2 * psin - vy2 * pcos;
@@ -257,6 +259,7 @@ void	ft_visu_wall(t_main *s)
 			// est-ce que le mur est au moins un peu visible par le joueur ?
 			if (tz1 <= 0 && tz2 <= 0)
 			{
+				printf("le mur %d du secteur %d n'est pas visible\n", vtx->id, tmp_sct->id);
 				i++;
 				vtx = vtx->next;
 				continue;
@@ -264,6 +267,7 @@ void	ft_visu_wall(t_main *s)
 			//si c'est au moins un peu derriee le joueur, on le clip
 			if (tz1 <= 0 || tz2 <= 0)
 			{
+				printf("le mur %d du secteur %d est partiellement visible\n", vtx->id, tmp_sct->id);
 				float nearz = 1e-4f;
 				float farz = 5;
 				float nearside = 1e-5f;
@@ -335,6 +339,7 @@ void	ft_visu_wall(t_main *s)
 			float nyfloor = 0;
 			if (neighbor >= 0)
 			{
+				printf("le mur %d est un portail\n", vtx->id);
 				t_sector *next;
 				next = get_sector_by_id(s, neighbor);
 				nyceil = next->ceiling - (s->player.sector->floor + s->player.eyesight);
@@ -389,25 +394,33 @@ void	ft_visu_wall(t_main *s)
 				}
 				x++;
 			}
+			//On planifie le rendu du secteur voisin dans la fenetre allouée
 			if (neighbor >= 0 && endx >= beginx && (head + MAX_QUEUE + 1 - tail) % MAX_QUEUE)
 			{
 				temp.sector_id = neighbor;
 				temp.sx1 = beginx;
 				temp.sx2 = endx;
 				*head = temp;
-				print_queue(head);
-				print_queue(tail);
 				if (++head == queue + MAX_QUEUE)
 					head = queue;
+					// printf("%p\n", head);
+					// printf("%p\n", tail);
+					// printf("%p\n", queue);
 				// print_queue(queue);
 			}
 		vtx = vtx->next;
 		i++;
 		}
 		// update_image(s, s->sdl->game);
+			// print_queue("head", head);
+			// print_queue("tail", tail);
+			// print_queue("queue", queue);
+			// if (head == tail)
+			// 	printf("true\n");
+			// printf("%p\n", head);
+			// printf("%p\n", tail);
+			// printf("%p\n", queue);
 	}while (head != tail);
-
-
 
 }
 
@@ -448,7 +461,8 @@ void	ft_visu(t_main *s)
 	// s->line.x2 = s->intersect1.x;
 	// s->line.y2 = s->intersect1.y;
 	// get_line(s, color);
-	ft_visu_wall(s);
+	// if (s->player_view)
+		ft_visu_wall(s);
 
 	// ft_visu_wall(s, mur1, mur2);
 }
