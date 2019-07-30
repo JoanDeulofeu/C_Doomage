@@ -192,7 +192,6 @@ void	editor_handler(t_main *s)
 	t_pos		ori;
 	int			id;
 	t_pos		mouse_save;
-	t_pos		mouse_save2;
 	t_pos 		tmp;
 	t_pos 		tmp2;
 	t_pos		diff;
@@ -211,8 +210,6 @@ void	editor_handler(t_main *s)
 	{
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
-			mouse_save2.x = s->ft_mouse.x;
-			mouse_save2.y = s->ft_mouse.y;
 
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
@@ -223,7 +220,7 @@ void	editor_handler(t_main *s)
 				if(s->player_view)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
-					rotate_mouse(s,s->ft_mouse, mouse_save2);
+					rotate_mouse(s);
 
 
 					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
