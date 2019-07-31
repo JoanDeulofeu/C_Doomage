@@ -169,7 +169,7 @@ void	handle_editor_keys(t_main *s)
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
 	//ft_visu(s);
-	 // ft_visu_joan(s);
+	 ft_visu_joan(s);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else
@@ -262,6 +262,17 @@ void	editor_handler(t_main *s)
 				}
 				else
 					SDL_SetRelativeMouseMode(SDL_FALSE);
+				// if(s->player_view)
+				// {
+				// 	SDL_SetRelativeMouseMode(SDL_TRUE);
+				// 	rotate_mouse(s);
+				//
+				//
+				// 	//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
+				// 	//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
+				// }
+				// else
+					// SDL_SetRelativeMouseMode(SDL_FALSE);
 
 				if (s->editor->mode == move && selected == 1)
 				{

@@ -74,9 +74,9 @@ typedef struct		s_visu {
 	t_dpos			left_plan;
 	t_dpos			right_plan;
 	t_dpos			begin;
-	int				begin_wall;
+	int				begin_wall_id;
 	t_dpos			end;
-	int				end_wall;
+	int				end_wall_id;
 }					t_visu;
 
 typedef struct		s_sdl {
