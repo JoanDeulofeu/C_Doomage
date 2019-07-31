@@ -133,7 +133,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 		s->visu.tmp_wall.y = vs->end.y;
 	}
 
-	ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan);
+	ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan, 1);
 	plan_right.x = s->tmp_intersect.x;
 	plan_right.y = s->tmp_intersect.y;
 	x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, s->visu.left_plan, plan_right);
@@ -160,7 +160,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 
 		plan_left.x = plan_right.x;
 		plan_left.y = plan_right.y;
-		ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan);
+		ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan, 1);
 		plan_right.x = s->tmp_intersect.x;
 		plan_right.y = s->tmp_intersect.y;
 
@@ -182,7 +182,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 
 	plan_left.x = plan_right.x;
 	plan_left.y = plan_right.y;
-	ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan);
+	ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan, 1);
 	plan_right.x = s->tmp_intersect.x;
 	plan_right.y = s->tmp_intersect.y;
 

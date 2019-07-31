@@ -29,7 +29,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 			wall2.y = sct->vertex->ptr->y * METRE;
 		}
 
-		if (ft_find_intersection(s, wall1, wall2, player, point) > 0)
+		if (ft_find_intersection(s, wall1, wall2, player, point, 1) > 0)
 		{
 			s->line.x1 = player.x + s->editor->decal_x;
 			s->line.y1 = player.y + s->editor->decal_y;
@@ -98,19 +98,20 @@ void	ft_visu_joan(t_main *s)
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
 	angle_right = s->player.angle - chevre;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
-
+// printf("------MUR GAUCHE------\n");
 	point.x = player.x + cos(to_rad(angle_left)) * 2000;
 	point.y = player.y - sin(to_rad(angle_left)) * 2000;
 	vs->begin_wall_id = ft_find_wall2(s, player, point, 0xffed00ff);
 	vs->begin.x = s->tmp_intersect.x;
 	vs->begin.y = s->tmp_intersect.y;
-
+// printf("------MUR DROITE------\n");
 	point.x = player.x + cos(to_rad(angle_right)) * 2000;
 	point.y = player.y - sin(to_rad(angle_right)) * 2000;
 	vs->end_wall_id = ft_find_wall2(s, player, point, 0x59ff00ff);
 	vs->end.x = s->tmp_intersect.x;
 	vs->end.y = s->tmp_intersect.y;
 	ft_draw_visu(s, player, vs);
+// printf("------  SORTIE  ------\n");
 
 	// printf("mur gauche = %d\nmur droite = %d\n", vs->begin_wall_id, vs->end_wall_id);
 	// printf("angle gauche = %.2f\nangle droite = %.2f\n\n", angle_left, angle_right);

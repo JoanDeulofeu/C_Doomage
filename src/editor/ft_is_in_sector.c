@@ -80,7 +80,7 @@ t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos b
 	return (coord);
 }
 
-int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2)
+int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu)
 {
 	t_abpos	l1;
 	t_abpos	l2;
@@ -100,7 +100,7 @@ int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begi
 		// printf("out 1\n");
 		return (0);
 	}
-	if (ft_go_through_point(begin_l1, end_l1, coord))
+	if (visu == 0 && ft_go_through_point(begin_l1, end_l1, coord))
 	{
 		// printf("out 2\n");
 		return (-1);
@@ -169,7 +169,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);
-			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2);
+			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
 			if (dist_sector == -1)
 			{
 				next_test += 10;
@@ -202,7 +202,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 		if ((point_2.x == seg1.x && point_2.y == seg1.y)
 			|| (point_2.x == seg2.x && point_2.y == seg2.y))
 			return (0);
-		dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2);
+		dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
 		if (dist_sector > 0)
 			count++;
 		if (save_dist2 > 0 && dist_sector == 0)

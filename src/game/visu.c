@@ -41,7 +41,7 @@ int		ft_find_wall(t_main *s, double angle, Uint32 color)
 		s->line.y2 = i_line.y;
 		// get_line(s, color);
 
-		if (ft_find_intersection(s, wall1, wall2, s->player.pos, i_line) > 0)
+		if (ft_find_intersection(s, wall1, wall2, s->player.pos, i_line, 1) > 0)
 		{
 			return (id_wall);
 		}

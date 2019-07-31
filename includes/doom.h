@@ -221,7 +221,7 @@ t_pos 				get_px_pos(t_main *s, t_pos ref);
 void				empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos				depiler(t_pile *pile);
 int					ft_is_in_sector(t_main *s, t_pos point_2);
-int					ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2);
+int					ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu);
 t_pos				ft_dpos_to_pos(t_dpos dpos);
 t_dpos				ft_pos_to_dpos(t_pos pos);
 void				ft_reset_color_screen(Uint32 *str, int size);
