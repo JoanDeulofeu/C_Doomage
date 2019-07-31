@@ -238,6 +238,12 @@ void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
 int					min(int value1, int value2);
 
+void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
+int		ft_trace_line_select(t_main *s, t_line line, Uint32 color);
+void	ft_get_line_select(t_main *s, t_line line, Uint32 color);
+void 	trace_select(t_main *s);
+
+
 /*
 ****	Fonction de gestion du joueur
 */

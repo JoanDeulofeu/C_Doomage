@@ -38,6 +38,7 @@ void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
 	}
 }
 
+
 void	display_map(t_main *s)
 {
 	t_vertex	*temp;
@@ -78,4 +79,10 @@ void	display_map(t_main *s)
 	//player anchor
 		//draw_anchor(s, s->player.pos, BLUE);
 	set_player(s);
+	if (s->editor->selected ==1)
+	{
+		trace_select(s);
+
+	}
+
 }

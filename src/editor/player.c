@@ -52,6 +52,7 @@ void set_player(t_main *s)
 		draw_anchor(s, pos, BLUE);
 		trace_direction(s);
 	}
+	
 }
 
 void 	rotate_player(t_main *s , const Uint8 *keys)
@@ -73,6 +74,8 @@ void 	trace_direction(t_main *s)
 	s->player.line.y1 = s->player.pos.y;
 	s->player.line.x2 = s->player.line.x1 + cos(to_rad(s->player.angle)) * 20;
 	s->player.line.y2 = s->player.line.y1 - sin(to_rad(s->player.angle)) * 20;
+	//s->player.line.x2 = s->ft_mouse.x;
+	//s->player.line.y2 = s->ft_mouse.y;
 	ft_get_line(s, s->player.line, BLUE);
 
 }

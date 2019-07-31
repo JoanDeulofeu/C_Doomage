@@ -109,6 +109,8 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	s->editor->selected = 0;
+
 	s->player.set = 1;
 	s->player.i = 0;
 	s->player.pos.x = 500;

@@ -7,6 +7,7 @@ SRC_NAME =	main.c						\
 			ttf.c						\
 			editor/controls.c			\
 			editor/actions.c			\
+			editor/selected.c			\
 			editor/images.c				\
 			editor/editor.c				\
 			editor/errors.c				\

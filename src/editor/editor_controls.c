@@ -168,7 +168,7 @@ void	handle_editor_keys(t_main *s)
 		s->editor->m_floor.current = 0;
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
-	ft_visu(s);
+	//ft_visu(s);
 	 // ft_visu_joan(s);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
@@ -194,8 +194,11 @@ void	editor_handler(t_main *s)
 	t_pos		mouse_save;
 	t_pos 		tmp;
 	t_pos 		tmp2;
+	t_pos		tmp_move;
 	t_pos		diff;
 	int			yoan;
+	t_vertex    *v;
+
 
 	// t_pos		dest;
 
@@ -204,19 +207,50 @@ void	editor_handler(t_main *s)
 	zoom = 0;
 	id = 0;
 	yoan = 0;
+	tmp_move.x = 0;
+	tmp_move.y = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
 	{
+		v= s->vertex;
+
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
+				if (s->editor->mode == vertex)
+				{
+					s->editor->line.x2 = s->ft_mouse.x;
+					s->editor->line.y2 = s->ft_mouse.y;
+				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
 				if (selected && s->editor->mode == vertex)
+				{
 					move_anchor(s, id);
+
+
+					  tmp_move.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
+					  tmp_move.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+					// //
+					  tmp_move.x -= ori.x;
+					  tmp_move.y -= ori.y;
+					  tmp_move.x /= s->editor->space;
+					  tmp_move.y /= s->editor->space;
+					while (v)
+					{
+						if (v->selec == 1 && v->id != id)
+						{
+							v->x = v->old.x + tmp_move.x;
+							v->y = v->old.y + tmp_move.y;
+						}
+						if (v)
+							v = v->next;
+					}
+
+				}
 				if(s->player_view)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -246,16 +280,81 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
+					if (s->editor->mode == move && selected == 1)
+					{
+						s->editor->decal_x = tmp.x;
+						s->editor->decal_y = tmp.y;
+						diff.x = s->ft_mouse.x - mouse_save.x;
+						diff.y = s->ft_mouse.y - mouse_save.y;
+						mouse_grid(s, diff);
+						selected = 0;
+					}
 					if (s->editor->mode == vertex)
 					{
+						//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
+						//printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
+						if (!id && s->editor->mode == vertex && (s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y))
+						{
+
+							create_anchor(s, ori); //creation ancre
+
+						}
 						selected = 0;
 						set_selected(s, ori, 0);
+						if (s->editor->selected == 0)
+						{
+							while (v)
+							{
+							 	v->selec = 0;
+								set_selected(s, v->pos, 0);
+								if (v)
+									v = v->next;
+							}
+						}
+						if (s->editor->selected == 1)
+						{
+							while (v)
+							{
+								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2)
+								 && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)))
+								 {
+									 v->selec = 1;
+									 v->old.x = v->x;
+									 v->old.y = v->y;
+									set_selected(s, v->pos, 1);
+								 }
+								 if (v)
+ 									v = v->next;
+							}
+							while (v)
+							{
+								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2)
+								 && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)))
+								 {
+									 printf("vertex(%d,%d)\n",v->pos.x,v->pos.y);
+									 v->selec = 1;
+									 v->old.x = v->x;
+									 v->old.y = v->y;
+			 						set_selected(s, v->pos, 1);
+								 }
+								 if (v)
+ 									v = v->next;
+							}
+							s->editor->selected = 0;
+
+						}
+						 	// printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
+						 	// printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
+
+
 					}
 					else if (s->editor->mode == move)
 					{
 						selected = 0;
 					}
+
 				}
+
 			}
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
 			{
@@ -266,22 +365,46 @@ void	editor_handler(t_main *s)
 						click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
 						// printf("mode = %u\n", s->editor->mode);
 					}
-
 					if (s->editor->mode == vertex && !check_click_menu(s))
 					{
+						// if (selected == 1)
+						// {
+						// 	while (v->next)
+						// 	{
+						// 		if ((id = anchor_exists(s, v->pos)) != 0 )
+						// 		{
+						// 			printf("ok\n");
+						// 			//selected = 1;
+						// 			//s->editor->selected = 0;
+						// 			set_selected(s, v->pos, 1);
+						// 			v->x +=10;
+						// 		}
+						// 		v = v->next;
+						// 	}
+						// }
+						s->editor->selected =1;
+						mouse_save.x = s->sdl->event.button.x;
+						mouse_save.y = s->sdl->event.button.y;
+						s->editor->line.x1 = mouse_save.x;
+						s->editor->line.y1 = mouse_save.y;
 						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
-						if (ori.x >= 0 && ori.x <= WIDTH
-							&& ori.y >= 0 && ori.y <= HEIGHT)
+						if (ori.x >= 0 && ori.x <= WIDTH && ori.y >= 0 && ori.y <= HEIGHT)
+						{
+
+							if ((id = anchor_exists(s, ori)) != 0)
 							{
-								if ((id = anchor_exists(s, ori)) != 0)
-								{
-									selected = 1;
-									set_selected(s, ori, 1);
-								}
-								else if (!id && s->editor->mode == vertex)
-									create_anchor(s, ori);
+								//tmp_move = ori;
+								//printf("ok\n");
+								selected = 1;
+								s->editor->selected = 0;
+								set_selected(s, ori, 1);
 							}
+
+
+
+						}
+
 					}
 					// else if (s->editor->mode == supp && selected == 1)
 					// 	remove_anchor(s, id);
@@ -334,22 +457,6 @@ void	editor_handler(t_main *s)
 					}
 				}
 			}
-			if (s->sdl->event.type == SDL_MOUSEBUTTONUP)
-			{
-				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
-				{
-					if (s->editor->mode == move && selected == 1)
-					{
-						s->editor->decal_x = tmp.x;
-						s->editor->decal_y = tmp.y;
-						diff.x = s->ft_mouse.x - mouse_save.x;
-						diff.y = s->ft_mouse.y - mouse_save.y;
-						mouse_grid(s, diff);
-						selected = 0;
-					}
-				}
-			}
-
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
 				if (s->sdl->event.wheel.y > 0 && zoom < 15)

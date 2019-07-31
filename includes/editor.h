@@ -164,6 +164,8 @@ typedef struct		s_vertex {
 	int				x;
 	int				y;
 	t_pos			pos;
+	t_pos			old;
+	int				selec;
 	char			selected;
 	struct s_vertex	*next;
 	struct s_vertex	*prev;
@@ -188,6 +190,8 @@ typedef struct		s_sector {
 }					t_sector;
 
 typedef struct		s_editor {
+	t_line			line;
+	int 			selected;
 	int				space;
 	int				anchor_size;
 	int				decal_x;
