@@ -169,7 +169,7 @@ void	handle_editor_keys(t_main *s)
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
 	//ft_visu(s);
-	 ft_visu_joan(s);
+	 //ft_visu_joan(s);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else
@@ -326,8 +326,17 @@ void	editor_handler(t_main *s)
 						{
 							while (v)
 							{
-								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2)
-								 && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)))
+							 	v->selec = 0;
+								//set_selected(s, v->pos, 0);
+								if (v)
+									v = v->next;
+							}
+							v= s->vertex;
+
+							while (v)
+							{
+								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
+							((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
 								 {
 									 v->selec = 1;
 									 v->old.x = v->x;
