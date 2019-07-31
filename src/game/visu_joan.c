@@ -15,22 +15,22 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
-	while (s_vtx->next)
+	while (s_vtx)
 	{
-		id = s_vtx->value;
-		vtx = s->vertex;
-		while (vtx->id != id && vtx->next)
-			vtx = vtx->next;
-		wall1.x = vtx->x * METRE;
-		wall1.y = vtx->y * METRE;
+		wall1.x = s_vtx->ptr->x * METRE;
+		wall1.y = s_vtx->ptr->y * METRE;
 
-		id = s_vtx->next->value;
-		vtx = s->vertex;
-		while (vtx->id != id && vtx->next)
-			vtx = vtx->next;
-		wall2.x = vtx->x * METRE;
-		wall2.y = vtx->y * METRE;
-
+		printf("wall1.x = %f\n", wall1.x);
+		if (s_vtx->next != NULL)
+		{
+			wall2.x = s_vtx->next->ptr->x * METRE;
+			wall2.y = s_vtx->next->ptr->y * METRE;
+		}
+		else
+		{
+			wall2.x = sct->vertex->ptr->x * METRE;
+			wall2.y = sct->vertex->ptr->y * METRE;
+		}
 
 		if (ft_find_intersection(s, wall1, wall2, player, point) > 0)
 		{
@@ -45,11 +45,6 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 		id_wall++;
 		s_vtx = s_vtx->next;
 	}
-	s->line.x1 = player.x + s->editor->decal_x;
-	s->line.y1 = player.y + s->editor->decal_y;
-	s->line.x2 = point.x + s->editor->decal_x;
-	s->line.y2 = point.y + s->editor->decal_y;
-	get_line(s, color);
 	return (id_wall);
 }
 
