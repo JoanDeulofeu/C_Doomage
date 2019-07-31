@@ -336,7 +336,9 @@ void	editor_handler(t_main *s)
 							while (v)
 							{
 								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-							((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
+							((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
+						((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
+					((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
 								 {
 									 v->selec = 1;
 									 v->old.x = v->x;
