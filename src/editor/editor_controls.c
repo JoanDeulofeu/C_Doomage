@@ -141,7 +141,7 @@ void	handle_editor_keys(t_main *s)
 		ft_move_player(s, keys);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
-	if (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR])
+	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
 	if (keys[LCTRL])
 		crouch(s,1);
