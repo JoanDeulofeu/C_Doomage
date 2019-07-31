@@ -3,12 +3,9 @@
 int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 {
 	t_sector	*sct;
-	t_vertex	*vtx;
 	t_int		*s_vtx;
 	t_dpos		wall1;
 	t_dpos		wall2;
-	// t_dpos		i_line; //ligne imaginaire
-	int			id = 0;
 	int			id_wall = 1;
 
 	sct = s->sector;
@@ -20,7 +17,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 		wall1.x = s_vtx->ptr->x * METRE;
 		wall1.y = s_vtx->ptr->y * METRE;
 
-		printf("wall1.x = %f\n", wall1.x);
+		// printf("wall1.x = %f\n", wall1.x);
 		if (s_vtx->next != NULL)
 		{
 			wall2.x = s_vtx->next->ptr->x * METRE;
@@ -58,12 +55,12 @@ double	ft_find_angle_plan(t_dpos player, t_dpos plan_point)
 	b = METRE;
 	c = WIDTHPLAN / 2;
 	// printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
-	return (to_degres(acos((powf(a, 2) + powf(b, 2) - powf(c, 2)) / (2 * a * b))));
+	return (to_degres(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b))));
 }
 
 void	ft_place_view_plan(t_main *s, t_dpos player, Uint32 color)
 {
-	t_pos	ctr_p; //center plan
+	t_dpos	ctr_p; //center plan
 	t_visu	*vs = &s->visu;
 
 	ctr_p.x = player.x + cos(to_rad(s->player.angle)) * METRE;
@@ -84,6 +81,7 @@ void	ft_visu_joan(t_main *s)
 {
 	double	angle_left;
 	double	angle_right;
+	double	chevre;
 	t_dpos	point;
 	t_visu	*vs = &s->visu;
 	t_dpos	player;
@@ -94,9 +92,11 @@ void	ft_visu_joan(t_main *s)
 	player.y = s->player.r_pos.y * METRE;
 	ft_place_view_plan(s, player, 0x4bd9ffff);
 
-	angle_left = s->player.angle + ft_find_angle_plan(player, vs->left_plan);
+	chevre = ft_find_angle_plan(player, vs->left_plan);
+	// printf("chevre = %f\n",chevre);
+	angle_left = s->player.angle + chevre;
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-	angle_right = s->player.angle - ft_find_angle_plan(player, vs->right_plan);
+	angle_right = s->player.angle - chevre;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 
 	point.x = player.x + cos(to_rad(angle_left)) * 2000;

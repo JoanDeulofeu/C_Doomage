@@ -1,40 +1,31 @@
 #include "doom.h"
 
-void	ft_find_tmp_point(t_dpos *tmp, int avcm, t_dpos point1, t_dpos point2, double div)
+void	ft_draw_column(t_main *s, t_pos coord, int end)
 {
-	double	avc_pct;
-	t_dpos dist;
+	int i;
+	int begin;
 
-	avc_pct = (avcm * 100) / div;
-	dist.x = fabs(point1.x - point2.x);
-	dist.y = fabs(point1.y - point2.y);
-	tmp->x = point2.x > point1.x ?
-	point1.x + ((dist.x * avc_pct) / 100) : point1.x - ((dist.x * avc_pct) / 100);
-	tmp->y = point2.y > point1.y ?
-	point1.y + ((dist.y * avc_pct) / 100) : point1.y - ((dist.y * avc_pct) / 100);
+	i = 0;
+	begin = coord.y;
+	coord.y = 0;
+	while (i++ < begin)
+	{
+		set_pixel(s->sdl->game, 0x504850ff, coord);
+		coord.y++;
+	}
+	while (coord.y++ < end)
+		set_pixel(s->sdl->game, 0xb0842fff, coord);
+	while (end++ < HEIGHT)
+	{
+		set_pixel(s->sdl->game, 0xa8b08eff, coord);
+		coord.y++;
+	}
 }
 
-
-double	ft_find_tmp_pct(int avcm, double l_big_dist, double r_big_dist, double width_wall)
-{
-	double	big_dist;
-	double	smallest_dist;
-	double	biggest_dist;
-	double	avc_pct;
-
-	avc_pct = (avcm * 100) / width_wall;
-	smallest_dist = l_big_dist > r_big_dist ? r_big_dist : l_big_dist;
-	biggest_dist = l_big_dist > r_big_dist ? l_big_dist : r_big_dist;
-	big_dist = ((avc_pct * (biggest_dist - smallest_dist)) / 100) + smallest_dist;
-
-	// printf(", big dist = %.3f       ", big_dist);
-	return ((big_dist * 100.0));
-}
-
-int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, int width_wall)
+int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double width_wall)
 {
 	int		diff_wall;
-	int		i;
+	double		i;
 	int		height_wall;
 	t_pos	coord;
 	int		bottom;
@@ -42,19 +33,15 @@ int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, int wi
 
 	i = 0;
 	diff_wall = abs(l_height_wall - r_height_wall); //calcule de la diff de hauteur entre les deux murs div par deux (pour haut et bas)
-	printf("diff = %d\n",diff_wall);
+	// printf("diff = %d\n",diff_wall);
 	height_wall = l_height_wall;
 	coord.x = x;
-	while (++i < width_wall)
+	// printf("Largeur du mur = %f\n", width_wall);
+	while (i++ < width_wall)
 	{
 		coord.y = (HEIGHT / 2) - height_wall / 2; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2; //bas du mur
-		while (coord.y < bottom)
-		{
-			// printf("coord(%d, %d)\n",coord.x, coord.y);
-			set_pixel(s->sdl->game, 0xffa800ff, coord);
-			coord.y++;
-		}
+		ft_draw_column(s, coord, bottom);
 		coord.x++;
 		pct_avcm = (100 * i) / width_wall;
 
@@ -79,7 +66,7 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 	int		l_height_wall;
 	int		r_height_wall;
 	double	pct_plan;
-	int		width_wall;
+	double		width_wall;
 
 	l_big_dist = ft_dist_t_dpos(player, lwall);
 	r_big_dist = ft_dist_t_dpos(player, rwall);
@@ -96,8 +83,8 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 	width_wall = (WIDTH * pct_plan) / 100;
 
 	x = ft_draw_wall(s, x, l_height_wall, r_height_wall, width_wall);
-	printf("Hauteur du mur Gauche (%d)\n",l_height_wall);
-	printf("Hauteur du mur Droit  (%d)\n\n\n",r_height_wall);
+	// printf("Hauteur du mur Gauche (%d)\n",l_height_wall);
+	// printf("Hauteur du mur Droit  (%d)\n\n\n",r_height_wall);
 
 	return(x);
 }
@@ -153,8 +140,8 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 
 	if (vs->begin_wall_id == vs->end_wall_id)
 		return ;
-	printf("point gauche x = %f, y = %f\n",s->visu.begin.x, s->visu.begin.y);
-	printf("vertex %d, x = %f, y = %f\n", vtx->id, s->visu.tmp_wall.x, s->visu.tmp_wall.y);
+	// printf("point gauche x = %f, y = %f\n",s->visu.begin.x, s->visu.begin.y);
+	// printf("vertex %d, x = %f, y = %f\n", vtx->id, s->visu.tmp_wall.x, s->visu.tmp_wall.y);
 	{s->line.x1 = s->visu.tmp_wall.x + s->editor->decal_x;
 	s->line.y1 = s->visu.tmp_wall.y + s->editor->decal_y;
 	s->line.x2 = plan_right.x + s->editor->decal_x;
@@ -184,19 +171,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 		get_line(s, 0xea7cfcff);}
 
 		x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
-
-		// if (vtx->prev != NULL)
-			id_vtx = vtx->id;
-		// else
-		// {
-		// 	printf("else\n");
-		// 	while (vtx->next)
-		// 		vtx = vtx->next;
-		// 	id_vtx = vtx->id;
-		// 	vtx = sct->vertex;
-		// }
-		// printf("id_vtx    = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs->end_wall_id);
-		// exit(0);
+		id_vtx = vtx->id;
 	}
 
 	s->visu.begin.x = s->visu.tmp_wall.x;
@@ -222,6 +197,6 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	// s->line.x2 = plan_right.x + s->editor->decal_x;
 	// s->line.y2 = plan_right.y + s->editor->decal_y;
 	// get_line(s, 0xea7cfcff);
-	printf("---------------------------------------------\n\n\n\n");
+	// printf("---------------------------------------------\n\n\n\n");
 
 }
