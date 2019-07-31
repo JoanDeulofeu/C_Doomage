@@ -33,97 +33,116 @@ double	ft_find_tmp_pct(int avcm, double l_big_dist, double r_big_dist, double wi
 
 int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan)
 {
-	(void)s;
-	double	dist_plan;
-	double	pct_plan;
-
-	double	tmp_pct;
-	double	tmp_small_dist;
-	double	tmp_big_dist;
-
-	double	l_big_dist;
-	double	r_big_dist;
-	double	l_small_dist;
-	double	r_small_dist;
-
-	double	width_wall;
-
-	double	l_pct;
-	double	r_pct;
-
-	double i = 0;
-	double block = 0;
-
-	t_pos coord;
-
-	t_dpos tmp_plan;
-	t_dpos tmp_wall;
-
-	int stop = 0;
-	double avcm = ((double)WIDTHPLAN * (100.0 / WIDTH)) / 100;
-	double iter_avcm = avcm;
-
-	double height_wall = 0;
-
-	dist_plan = ft_dist_t_dpos(lplan, rplan);
-	pct_plan = (dist_plan * 100.0) / WIDTHPLAN;
-	// printf("pourcentage plan = %.3f\n",pct_plan);
-
 	l_big_dist = ft_dist_t_dpos(player, lwall);
 	r_big_dist = ft_dist_t_dpos(player, rwall);
 	l_small_dist = ft_dist_t_dpos(player, lplan);
 	r_small_dist = ft_dist_t_dpos(player, rplan);
-	l_pct = (l_big_dist * 100.0) / l_small_dist;
+
+	l_pct = (l_big_dist * 100.0) / l_small_dist; //calcule des ratios mur gauche et droit
 	r_pct = (r_big_dist * 100.0) / r_small_dist;
-	// printf("pourcentage wall (left/right) = (%.3f, %.3f)\n\n",l_pct, r_pct);
 
-	width_wall = ft_dist_t_dpos(lwall, rwall);
-	printf("test ww = %.3f    wp = %.3f\n",width_wall, (double)WIDTHPLAN);
-	double avcm_wall = (width_wall * (100.0 / WIDTH)) / 100;
-	double iter_avcm_wall = avcm_wall;
+	l_height_wall = HEIGHT / ((l_pct * 0.001)*4); //calcule des hauteur des murs gauche et droit
+	r_height_wall = HEIGHT / ((r_pct * 0.001)*4);
 
+	dist_plan = ft_dist_t_dpos(lplan, rplan);	//calcule de la largeur du mur dans la fenetre
+	pct_plan = (dist_plan * 100.0) / WIDTHPLAN;
+	width_wall = (WIDTH * pct_plan) / 100;
 
-	block = (WIDTH * pct_plan) / 100;
-	coord.x = x;
-	tmp_big_dist = l_big_dist;
-	tmp_small_dist = l_small_dist;
-	tmp_pct = (tmp_big_dist * 100.0) / tmp_small_dist;
-	// printf("pct dist = %.3f\n", tmp_pct);
-	printf("dist plan y = %.3f et avcmnt = %.3f\n", fabs(lplan.y - rplan.y), avcm);
-	printf("------ FIRST coord plan (%.3f, %.3f)\n",lplan.x, lplan.y);
-	printf("------ FIRST coord wall (%.3f, %.3f)\n",lwall.x, lwall.y);
-	while (i++ < block)
-	{
-		height_wall = HEIGHT / ((tmp_pct * 0.001)*4);
-		// height_wall = (HEIGHT * tmp_pct) * 0.01;
-		printf("high_wall %.3f   ", height_wall);
-		coord.y = (HEIGHT / 2) - height_wall / 2;
-		stop = (HEIGHT / 2) + height_wall / 2;
-		// printf("y = %d,  stop = %d\n", coord.y, stop);
-		while (coord.y < stop)
-		{
-			set_pixel(s->sdl->game, 0xffa800ff, coord);
-			coord.y++;
-		}
-		coord.x++;
-		avcm += iter_avcm;
-		avcm_wall += iter_avcm_wall;
-		ft_find_tmp_point(&tmp_plan, avcm, lplan, rplan, WIDTHPLAN); // find point plan
-		printf("PLAN (%.3f, %.3f)     ",tmp_plan.x, tmp_plan.y);
-		ft_find_tmp_point(&tmp_wall, avcm_wall, lwall, rwall, width_wall); // find point wall
-		printf("WALL (%.3f, %.3f)       avcm(%.3f)  avcmwall(%.3f)    ",tmp_wall.x, tmp_wall.y, avcm, avcm_wall);
-
-		tmp_small_dist = ft_dist_t_dpos(player, tmp_plan); //calc dist plan player
-		// tmp_big_dist = ft_dist_t_dpos(player, tmp_wall); //merde
-		// tmp_pct = (tmp_big_dist * 100.0) / tmp_small_dist; //merde
-		tmp_pct = (ft_find_tmp_pct(avcm, l_big_dist, r_big_dist, width_wall) / tmp_small_dist) *10; // calc pct dist
-		printf("pct = %.3f\n", tmp_pct);
-	}
-	printf("------ END coord plan (%.3f, %.3f)\n",rplan.x, rplan.y);
-	printf("------ END coord wall (%.3f, %.3f)\n",rwall.x, rwall.y);
-	printf("\n\n");
-	return (coord.x);
 }
+
+// int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan)
+// {
+// 	(void)s;
+// 	double	dist_plan;
+// 	double	pct_plan;
+//
+// 	double	tmp_pct;
+// 	double	tmp_small_dist;
+// 	double	tmp_big_dist;
+//
+// 	double	l_big_dist;
+// 	double	r_big_dist;
+// 	double	l_small_dist;
+// 	double	r_small_dist;
+//
+// 	double	width_wall;
+//
+// 	double	l_pct;
+// 	double	r_pct;
+//
+// 	double i = 0;
+// 	double block = 0;
+//
+// 	t_pos coord;
+//
+// 	t_dpos tmp_plan;
+// 	t_dpos tmp_wall;
+//
+// 	int stop = 0;
+// 	double avcm = ((double)WIDTHPLAN * (100.0 / WIDTH)) / 100;
+// 	double iter_avcm = avcm;
+//
+// 	double height_wall = 0;
+//
+// 	dist_plan = ft_dist_t_dpos(lplan, rplan);
+// 	pct_plan = (dist_plan * 100.0) / WIDTHPLAN;
+// 	// printf("pourcentage plan = %.3f\n",pct_plan);
+//
+// 	l_big_dist = ft_dist_t_dpos(player, lwall);
+// 	r_big_dist = ft_dist_t_dpos(player, rwall);
+// 	l_small_dist = ft_dist_t_dpos(player, lplan);
+// 	r_small_dist = ft_dist_t_dpos(player, rplan);
+// 	l_pct = (l_big_dist * 100.0) / l_small_dist;
+// 	r_pct = (r_big_dist * 100.0) / r_small_dist;
+// 	// printf("pourcentage wall (left/right) = (%.3f, %.3f)\n\n",l_pct, r_pct);
+//
+// 	width_wall = ft_dist_t_dpos(lwall, rwall);
+// 	// printf("test ww = %.3f    wp = %.3f\n",width_wall, (double)WIDTHPLAN);
+// 	double avcm_wall = (width_wall * (100.0 / WIDTH)) / 100;
+// 	double iter_avcm_wall = avcm_wall;
+//
+//
+// 	block = (WIDTH * pct_plan) / 100;
+// 	coord.x = x;
+// 	tmp_big_dist = l_big_dist;
+// 	tmp_small_dist = l_small_dist;
+// 	tmp_pct = (tmp_big_dist * 100.0) / tmp_small_dist;
+// 	// printf("pct dist = %.3f\n", tmp_pct);
+// 	// printf("dist plan y = %.3f et avcmnt = %.3f\n", fabs(lplan.y - rplan.y), avcm);
+// 	// printf("------ FIRST coord plan (%.3f, %.3f)\n",lplan.x, lplan.y);
+// 	// printf("------ FIRST coord wall (%.3f, %.3f)\n",lwall.x, lwall.y);
+// 	while (i++ < block)
+// 	{
+// 		height_wall = HEIGHT / ((tmp_pct * 0.001)*4);
+// 		// height_wall = (HEIGHT * tmp_pct) * 0.01;
+// 		// printf("high_wall %.3f   ", height_wall);
+// 		coord.y = (HEIGHT / 2) - height_wall / 2;
+// 		stop = (HEIGHT / 2) + height_wall / 2;
+// 		// printf("y = %d,  stop = %d\n", coord.y, stop);
+// 		while (coord.y < stop)
+// 		{
+// 			set_pixel(s->sdl->game, 0xffa800ff, coord);
+// 			coord.y++;
+// 		}
+// 		coord.x++;
+// 		avcm += iter_avcm;
+// 		avcm_wall += iter_avcm_wall;
+// 		ft_find_tmp_point(&tmp_plan, avcm, lplan, rplan, WIDTHPLAN); // find point plan
+// 		// printf("PLAN (%.3f, %.3f)     ",tmp_plan.x, tmp_plan.y);
+// 		ft_find_tmp_point(&tmp_wall, avcm_wall, lwall, rwall, width_wall); // find point wall
+// 		// printf("WALL (%.3f, %.3f)       avcm(%.3f)  avcmwall(%.3f)    ",tmp_wall.x, tmp_wall.y, avcm, avcm_wall);
+//
+// 		tmp_small_dist = ft_dist_t_dpos(player, tmp_plan); //calc dist plan player
+// 		tmp_big_dist = ft_dist_t_dpos(player, tmp_wall); //merde
+// 		tmp_pct = (tmp_big_dist * 100.0) / tmp_small_dist; //merde
+// 		// tmp_pct = (ft_find_tmp_pct(avcm, l_big_dist, r_big_dist, width_wall) / tmp_small_dist) *10; // calc pct dist
+// 		// printf("pct = %.3f\n", tmp_pct);
+// 	}
+// 	// printf("------ END coord plan (%.3f, %.3f)\n",rplan.x, rplan.y);
+// 	// printf("------ END coord wall (%.3f, %.3f)\n",rwall.x, rwall.y);
+// 	printf("\n\n");
+// 	return (coord.x);
+// }
 
 t_int	*ft_next_vtx(t_int *vtx, t_sector *sct)
 {
@@ -183,7 +202,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	s->line.y2 = plan_right.y + s->editor->decal_y;
 	get_line(s, 0xea7cfcff);}
 
-	printf("ENTREE   id_vtx = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs->end_wall_id);
+	// printf("ENTREE   id_vtx = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs->end_wall_id);
 	while (id_vtx != vs->end_wall_id)
 	{
 		s->visu.begin.x = s->visu.tmp_wall.x;
@@ -216,7 +235,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 		// 	id_vtx = vtx->id;
 		// 	vtx = sct->vertex;
 		// }
-		printf("id_vtx    = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs->end_wall_id);
+		// printf("id_vtx    = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs->end_wall_id);
 		// exit(0);
 	}
 

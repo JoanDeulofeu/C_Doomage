@@ -117,7 +117,7 @@ void	ft_visu_joan(t_main *s)
 	vs->end.y = s->tmp_intersect.y;
 	ft_draw_visu(s, player, vs);
 
-	printf("mur gauche = %d\nmur droite = %d\n", vs->begin_wall_id, vs->end_wall_id);
+	// printf("mur gauche = %d\nmur droite = %d\n", vs->begin_wall_id, vs->end_wall_id);
 	// printf("angle gauche = %.2f\nangle droite = %.2f\n\n", angle_left, angle_right);
 
 }
