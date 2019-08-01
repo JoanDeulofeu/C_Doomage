@@ -25,7 +25,7 @@ t_int	*get_t_int_by_id(t_int *obj, int id)
 	t_int	*tmp;
 
 	tmp = obj;
-	while (obj->id != id)
-		obj = obj->next;
-	return(obj);
+	while (tmp->id != id)
+		tmp = tmp->next;
+	return(tmp);
 }

@@ -45,19 +45,6 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	return (id_wall);
 }
 
-double	ft_find_angle_plan(t_dpos player, t_dpos plan_point)
-{
-	double a;
-	double b;
-	double c;
-
-	a = ft_dist_t_dpos(player, plan_point);
-	b = METRE;
-	c = WIDTHPLAN / 2;
-	// printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
-	return (to_degres(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b))));
-}
-
 void	ft_place_view_plan(t_main *s, t_dpos player, Uint32 color)
 {
 	t_dpos	ctr_p; //center plan
@@ -92,7 +79,7 @@ void	ft_visu_joan(t_main *s)
 	player.y = s->player.r_pos.y * METRE;
 	ft_place_view_plan(s, player, 0x4bd9ffff);
 
-	chevre = ft_find_angle_plan(player, vs->left_plan);
+	chevre = ft_find_angle_plan(ft_dist_t_dpos(player, vs->left_plan), METRE, WIDTHPLAN / 2);
 	// printf("chevre = %f\n",chevre);
 	angle_left = s->player.angle + chevre;
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
