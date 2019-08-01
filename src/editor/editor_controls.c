@@ -185,6 +185,7 @@ void	handle_editor_keys(t_main *s)
 void	editor_handler(t_main *s)
 {
 	int			zoom;
+	int 		remove;
 	int			editor;
 	int			selected;
 	t_pos		ori;
@@ -207,6 +208,7 @@ void	editor_handler(t_main *s)
 	yoan = 0;
 	tmp_move.x = 0;
 	tmp_move.y = 0;
+	remove = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (editor)
@@ -302,7 +304,7 @@ void	editor_handler(t_main *s)
 					{
 						//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
 						//printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
-						if (!id && s->editor->mode == vertex && (s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y))
+						if (!id && s->editor->mode == vertex && (s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y) && remove == 0)
 						{
 
 							create_anchor(s, ori); //creation ancre
@@ -372,7 +374,7 @@ void	editor_handler(t_main *s)
 					{
 						selected = 0;
 					}
-
+					remove = 0;
 				}
 
 			}
@@ -497,6 +499,7 @@ void	editor_handler(t_main *s)
 				&& yoan == 2 && selected == 1)
 				{
 					remove_anchor(s, id);
+					remove = 1;
 					id = 0;
 				}
 
