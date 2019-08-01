@@ -22,6 +22,9 @@ int main (int argc, char **argv)
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0, 0, 0);
 	// get_grid_tab(s);
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)
+		== -1)
+		ft_putstr(Mix_GetError());
 	if (!handle_menu(s))
 		handle_error(s, 0);
 	display_map(s);
