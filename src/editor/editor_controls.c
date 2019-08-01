@@ -132,6 +132,20 @@ int		keyboard_controls_edi(t_main *s, int key)
 	return (1);
 }
 
+void remove_selected_anchor(t_main *s)
+{
+	t_vertex    *v;
+
+	v= s->vertex;
+	while (v)
+	{
+		if (v->selected == 1)
+			remove_anchor(s, v->id);
+		if (v)
+			v = v->next;
+	}
+}
+
 void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
@@ -152,6 +166,8 @@ void	handle_editor_keys(t_main *s)
 		crouch(s,-1);
 		jump(s,-1);
 	}
+	if (s->editor->mode == vertex && (keys[DEL]))
+		remove_selected_anchor(s);
 
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
@@ -501,6 +517,14 @@ void	editor_handler(t_main *s)
 					remove_anchor(s, id);
 					remove = 1;
 					id = 0;
+					// while (v)
+					// {
+					// 	if (v->selected == 1)
+					// 		remove_anchor(s, v->id);
+					// 	//set_selected(s, v->pos, 0);
+					// 	if (v)
+					// 		v = v->next;
+					// }
 				}
 
 		}
