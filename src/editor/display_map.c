@@ -81,5 +81,7 @@ void	display_map(t_main *s)
 	set_player(s);
 	if (s->editor->selected ==1)
 		trace_select(s);
+	//draw_weapon(s, 0, WIDTH / 2, HEIGHT / 2);
+
 
 }

@@ -1,5 +1,38 @@
 #include "doom.h"
 
+void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
+{
+	t_pos	coord;
+	t_pos	dest;
+	double		pery;
+	int			pix_tex;
+	t_image		*wp;
+
+	//printf("ok\n");
+	wp = s->player.weapon.image[s->player.weapon.current];
+	dest.x = WIDTH / 2 + (wp->w / 2);
+	dest.y = HEIGHT - s->player.weapon.image[s->player.weapon.current]->h;
+	coord.x = orig_x;
+	while (coord.x < dest.x)
+	{
+		coord.y = orig_y;
+		perx = percent(coord.x - orig_x, dest.x - orig_x);
+		while (coord.y < dest.y)
+		{
+			coord.y++;
+			pery = percent(coord.y - orig_y, dest.y - orig_y);
+			pix_tex = (int)(pery * wp->h) * wp->w + (int)(perx * wp->w);
+
+			// printf("%d  ", pix_tex);
+			//printf("%d  ", wp->tex[pix_tex]);
+			if (pix_tex <= wp->h * wp->w && wp->tex[pix_tex] != 10676224)
+				set_pixel(s->sdl->game, wp->tex[pix_tex], coord);
+		}
+		coord.x++;
+	}
+	// update_image(s, s->sdl->game);
+
+}
 
 void set_player(t_main *s)
 {
@@ -52,7 +85,7 @@ void set_player(t_main *s)
 		draw_anchor(s, pos, BLUE);
 		trace_direction(s);
 	}
-	
+
 }
 
 void 	rotate_player(t_main *s , const Uint8 *keys)

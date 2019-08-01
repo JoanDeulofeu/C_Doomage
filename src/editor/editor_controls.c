@@ -173,6 +173,8 @@ void	handle_editor_keys(t_main *s)
 	draw_space_menu(s);
 	//ft_visu(s);
 	 ft_visu_joan(s);
+	// draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
+	// draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2),HEIGHT - s->player.weapon.image[s->player.weapon.current]->h);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else
@@ -263,17 +265,17 @@ void	editor_handler(t_main *s)
 					}
 
 				}
-				// if(s->player_view)
-				// {
-				// 	SDL_SetRelativeMouseMode(SDL_TRUE);
-				// 	rotate_mouse(s);
-				//
-				//
-				// 	//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
-				// 	//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
-				// }
-				// else
-				// 	SDL_SetRelativeMouseMode(SDL_FALSE);
+				if(s->player_view)
+				{
+					//SDL_SetRelativeMouseMode(SDL_TRUE);
+					//rotate_mouse(s);
+
+
+					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
+					//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
+				}
+				else
+					SDL_SetRelativeMouseMode(SDL_FALSE);
 				// if(s->player_view)
 				// {
 				// 	SDL_SetRelativeMouseMode(SDL_TRUE);

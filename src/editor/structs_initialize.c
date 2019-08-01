@@ -71,12 +71,17 @@ void		load_images(t_main *s)
 	s->editor->menu.image[4] = load_tga("images/save.tga", 0, 0, 0);
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
+
 	while (i < 15)
 	{
 		s->editor->menu.image[i] = NULL;
 		s->editor->m_floor.image[i++] = NULL;
 	}
 	s->menu = load_tga("images/menu.tga", 0, 0, 0);
+	s->player.weapon.image[0] = load_tga("images/weapon_1_1.tga", 0, 0, 0);
+	s->player.weapon.image[1] = load_tga("images/weapon_1_2.tga", 0, 0, 0);
+	s->player.weapon.current = 0;
+
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
 
