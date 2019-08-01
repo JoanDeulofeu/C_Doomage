@@ -247,6 +247,8 @@ void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
 int		ft_trace_line_select(t_main *s, t_line line, Uint32 color);
 void	ft_get_line_select(t_main *s, t_line line, Uint32 color);
 void 	trace_select(t_main *s);
+void remove_selected_anchor(t_main *s);
+
 
 
 /*

@@ -132,19 +132,6 @@ int		keyboard_controls_edi(t_main *s, int key)
 	return (1);
 }
 
-void remove_selected_anchor(t_main *s)
-{
-	t_vertex    *v;
-
-	v= s->vertex;
-	while (v)
-	{
-		if (v->selected == 1)
-			remove_anchor(s, v->id);
-		if (v)
-			v = v->next;
-	}
-}
 
 void	handle_editor_keys(t_main *s)
 {
@@ -229,7 +216,16 @@ void	editor_handler(t_main *s)
 	// draw_interface(s);
 	while (editor)
 	{
+		// v= s->vertex;
+		// while (v)
+		// {
+		// 	 if (v->selec == 1)
+		// 		set_selected(s, v->pos, 1);
+		// 	if (v)
+		// 		v = v->next;
+		// }
 		v= s->vertex;
+
 
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
@@ -342,42 +338,22 @@ void	editor_handler(t_main *s)
 						{
 							while (v)
 							{
-							 	v->selec = 0;
-								//set_selected(s, v->pos, 0);
-								if (v)
-									v = v->next;
-							}
-							v= s->vertex;
-
-							while (v)
-							{
 								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-							((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
-						((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-					((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
-								 {
-									 v->selec = 1;
-									 v->old.x = v->x;
-									 v->old.y = v->y;
-									set_selected(s, v->pos, 1);
-								 }
-								 if (v)
+									((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
+										((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
+											((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
+								 			{
+									 			v->selec = 1;
+									 			v->old.x = v->x;
+									 			v->old.y = v->y;
+												v->selected = 1;
+												//set_selected(s, v->pos, 1);
+								 			}
+								if (v)
  									v = v->next;
 							}
-							while (v)
-							{
-								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2)
-								 && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)))
-								 {
-									 printf("vertex(%d,%d)\n",v->pos.x,v->pos.y);
-									 v->selec = 1;
-									 v->old.x = v->x;
-									 v->old.y = v->y;
-			 						set_selected(s, v->pos, 1);
-								 }
-								 if (v)
- 									v = v->next;
-							}
+
+
 							s->editor->selected = 0;
 
 						}
