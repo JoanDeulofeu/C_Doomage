@@ -120,6 +120,8 @@ typedef struct		s_main {
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s);
 void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
+int					ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall,
+					t_dpos lplan, t_dpos rplan, int id_portal, int id_sector);
 
 /*
 ****	Fonction d'initialisation
@@ -242,11 +244,12 @@ int					clamp (int x, int min, int max);
 void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
 int					min(int value1, int value2);
+double				ft_find_angle_plan(double a, double b, double c);
 
-void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
-int		ft_trace_line_select(t_main *s, t_line line, Uint32 color);
-void	ft_get_line_select(t_main *s, t_line line, Uint32 color);
-void 	trace_select(t_main *s);
+void				ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
+int					ft_trace_line_select(t_main *s, t_line line, Uint32 color);
+void				ft_get_line_select(t_main *s, t_line line, Uint32 color);
+void 				trace_select(t_main *s);
 
 
 /*

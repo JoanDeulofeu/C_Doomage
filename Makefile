@@ -36,6 +36,7 @@ SRC_NAME =	main.c						\
 			editor/list_utils.c			\
 			game/visu.c					\
 			game/visu_joan.c			\
+			game/visu_portal.c			\
 			game/visu_joan_drawing.c	\
 			game/utils_2.c				\
 			menu.c

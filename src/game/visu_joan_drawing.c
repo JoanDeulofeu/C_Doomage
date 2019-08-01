@@ -70,7 +70,7 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 	int		l_height_wall;
 	int		r_height_wall;
 	double	pct_plan;
-	double		width_wall;
+	double	width_wall;
 
 	l_big_dist = ft_dist_t_dpos(player, lwall);
 	r_big_dist = ft_dist_t_dpos(player, rwall);
@@ -108,6 +108,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	int			x;
 	t_sector	*sct;
 	t_int		*vtx;
+	t_int		*wall;
 	int			id_vtx; //vertex de repere actuel
 
 	x = 0;
@@ -115,6 +116,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	vtx = sct->vertex;
+	wall = sct->wall;
 	while (vtx->id != vs->begin_wall_id + 1) // trouver le deuxieme vertex du premier mur
 	{
 		vtx = vtx->next;
@@ -174,7 +176,13 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 		s->line.y2 = plan_right.y + s->editor->decal_y;
 		get_line(s, 0xea7cfcff);}
 
-		x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		while (wall->id != id_vtx)
+			wall = wall->next;
+
+		if (wall->value == -1)
+			x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		else
+			x = ft_print_portal(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right, wall->value, s->player.sector_id);
 		id_vtx = vtx->id;
 	}
 
