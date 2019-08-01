@@ -246,10 +246,12 @@ int					max(int value1, int value2);
 int					min(int value1, int value2);
 double				ft_find_angle_plan(double a, double b, double c);
 
-void				ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
-int					ft_trace_line_select(t_main *s, t_line line, Uint32 color);
-void				ft_get_line_select(t_main *s, t_line line, Uint32 color);
-void 				trace_select(t_main *s);
+void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
+int		ft_trace_line_select(t_main *s, t_line line, Uint32 color);
+void	ft_get_line_select(t_main *s, t_line line, Uint32 color);
+void 	trace_select(t_main *s);
+void remove_selected_anchor(t_main *s);
+
 
 
 /*

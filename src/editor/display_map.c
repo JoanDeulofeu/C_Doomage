@@ -80,9 +80,6 @@ void	display_map(t_main *s)
 		//draw_anchor(s, s->player.pos, BLUE);
 	set_player(s);
 	if (s->editor->selected ==1)
-	{
 		trace_select(s);
-
-	}
 
 }

@@ -18,6 +18,7 @@ void	update_anchor_list(t_main *s, t_vertex *temp)
 		s->vertex = NULL;
 }
 
+
 void	remove_anchor(t_main *s, int id)
 {
 	t_vertex	*temp;
@@ -33,6 +34,20 @@ void	remove_anchor(t_main *s, int id)
 			return ;
 		}
 		temp = temp->next;
+	}
+}
+
+void remove_selected_anchor(t_main *s)
+{
+	t_vertex    *v;
+
+	v= s->vertex;
+	while (v)
+	{
+		if (v->selected == 1)
+			remove_anchor(s, v->id);
+		if (v)
+			v = v->next;
 	}
 }
 
