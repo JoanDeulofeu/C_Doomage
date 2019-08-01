@@ -5,7 +5,7 @@ void	display_menu(t_main *s, int i, int j)
 {
 	double		perx;
 	double		pery;
-	t_pos	coord;
+	t_pos		coord;
 	int			px;
 
 	coord.x = 0;
@@ -61,6 +61,7 @@ int		handle_menu(t_main *s)
 	{
 		Mix_HaltMusic();
 		Mix_FreeMusic(s->sdl->musique);
+		s->sdl->musique = NULL;
 	}
 	return (1);
 }

@@ -7,6 +7,8 @@ void	update_image(t_main *s, t_texture *texture)
 		* sizeof(Uint32));
 	SDL_SetRenderTarget(s->sdl->prenderer, NULL);
 	SDL_RenderCopy(s->sdl->prenderer, texture->texture, NULL, NULL);
+	ft_draw_ttf(s);
+	SDL_RenderPresent(s->sdl->prenderer);
 }
 
 void	set_pixel(t_texture *text, Uint32 color, t_pos coord)
