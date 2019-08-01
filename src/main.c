@@ -22,6 +22,8 @@ int main (int argc, char **argv)
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0, 0, 0);
 	// get_grid_tab(s);
+	if (!handle_menu(s))
+		handle_error(s, 0);
 	display_map(s);
 	// ft_test_float();
 	editor_handler(s);

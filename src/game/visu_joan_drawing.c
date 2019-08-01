@@ -22,6 +22,28 @@ void	ft_draw_column(t_main *s, t_pos coord, int end)
 	}
 }
 
+void	ft_draw_black_column(t_main *s, t_pos coord, int end)
+{
+	int i;
+	int begin;
+
+	i = 0;
+	begin = coord.y;
+	coord.y = 0;
+	while (i++ < begin)
+	{
+		set_pixel(s->sdl->game, 0x504850ff, coord);
+		coord.y++;
+	}
+	while (coord.y++ < end)
+		set_pixel(s->sdl->game, 0x000000FF, coord);
+	while (end++ < HEIGHT)
+	{
+		set_pixel(s->sdl->game, 0xa8b08eff, coord);
+		coord.y++;
+	}
+}
+
 int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double width_wall)
 {
 	int		diff_wall;
@@ -41,7 +63,11 @@ int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double
 	{
 		coord.y = (HEIGHT / 2) - height_wall / 2; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2; //bas du mur
-		ft_draw_column(s, coord, bottom);
+		if (i == 1 || i == width_wall - 1)
+			ft_draw_black_column(s, coord, bottom);
+
+		else
+			ft_draw_column(s, coord, bottom);
 		coord.x++;
 		pct_avcm = (100 * i) / width_wall;
 

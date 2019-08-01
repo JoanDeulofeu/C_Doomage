@@ -76,6 +76,7 @@ void		load_images(t_main *s)
 		s->editor->menu.image[i] = NULL;
 		s->editor->m_floor.image[i++] = NULL;
 	}
+	s->menu = load_tga("images/menu.tga", 0, 0, 0);
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
 

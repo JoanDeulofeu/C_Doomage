@@ -111,6 +111,7 @@ typedef struct		s_main {
 	t_point			**grid;
 	char			*str_vtx;
 	char			player_view;
+	t_image			*menu;
 }					t_main;
 
 /*
@@ -137,6 +138,10 @@ void				handle_error(t_main *s, int error_nb);
 void				ft_error_sdl(char *str);
 void				ft_error_ttf(char *str);
 
+/*
+****	Fonction du menu principal
+*/
+int					handle_menu(t_main *s);
 /*
 ****	Fonction de l'editeur
 */

@@ -37,7 +37,8 @@ SRC_NAME =	main.c						\
 			game/visu.c					\
 			game/visu_joan.c			\
 			game/visu_joan_drawing.c	\
-			game/utils_2.c
+			game/utils_2.c				\
+			menu.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
