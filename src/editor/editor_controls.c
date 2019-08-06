@@ -116,7 +116,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 		// s->editor->mode_floor = 1;
 		// ft_reset_color_vertex(s);
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL)
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -265,6 +265,8 @@ void	editor_handler(t_main *s)
 					}
 
 				}
+				if (s->editor->mode == portal)
+					change_over_wall(s);
 				if(s->player_view)
 				{
 					//SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -380,6 +382,10 @@ void	editor_handler(t_main *s)
 					{
 						click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
 						// printf("mode = %u\n", s->editor->mode);
+					}
+					if (s->editor->mode == portal && !check_click_menu(s))
+					{
+						edit_portal(s);
 					}
 					if (s->editor->mode == vertex && !check_click_menu(s))
 					{

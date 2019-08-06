@@ -1,5 +1,14 @@
 #include "doom.h"
 
+int		check_walls_lenght(t_dpos beg_wall1, t_dpos end_wall1, t_dpos beg_wall2, t_dpos end_wall2)
+{
+	printf("%f et %f\n", ft_dist_t_dpos(beg_wall1, end_wall1), ft_dist_t_dpos(beg_wall2, end_wall2));
+	if (ft_dist_t_dpos(beg_wall1, end_wall1) == ft_dist_t_dpos(beg_wall2, end_wall2))
+		return (1);
+	else
+		return (0);
+}
+
 int		ft_get_other_sector_portal(t_main *s, int id_portal, int sector_id, int *id_portal_out)
 {
 	t_sector	*sct;
@@ -61,6 +70,12 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
 	id_sector_out = ft_get_other_sector_portal(s, id_portal, id_sector, &id_portal_out);
 	ft_get_coord_portal(s, id_sector_out, id_portal_out, &left_portal, &right_portal);
+	left_portal.x *= SPACE;
+	left_portal.y *= SPACE;
+	right_portal.x *= SPACE;
+	right_portal.y *= SPACE;
+	if (check_walls_lenght(lwall, rwall, left_portal, right_portal))
+		printf("true\n");
 
 	// printf("id du secteur de destination (%d)\n", id_sector_out);
 	// printf("coord du vertex du portail destinataire left(%.3f, %.3f) et right(%.3f, %.3f)\n",left_portal.x, left_portal.y, right_portal.x, right_portal.y);

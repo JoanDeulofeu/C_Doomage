@@ -123,7 +123,7 @@ void				ft_visu_joan(t_main *s);
 void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
 int					ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall,
 					t_dpos lplan, t_dpos rplan, int id_portal, int id_sector);
-
+int					check_walls_lenght(t_dpos beg_wall1, t_dpos end_wall1, t_dpos beg_wall2, t_dpos end_wall2);
 /*
 ****	Fonction d'initialisation
 */
@@ -222,6 +222,11 @@ void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int				*free_sector_struct(t_sector *temp_sector);
 
 /*
+****	Fonction de gestion des portails
+*/
+void				change_over_wall(t_main *s);
+
+/*
 ****	Fonction utilitaire
 */
 int					arround(int space, int nb);
@@ -246,6 +251,8 @@ void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
 int					min(int value1, int value2);
 double				ft_find_angle_plan(double a, double b, double c);
+t_int				*ft_next_vtx(t_int *vtx, t_sector *sct);
+double				vxs(double x1, double y1, double x2, double y2);
 
 void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
 int		ft_trace_line_select(t_main *s, t_line line, Uint32 color);

@@ -44,7 +44,7 @@ void	free_sectors(t_main *s)
 
 void	free_images(t_main *s)
 {
-	(void)s;
+	// (void)s;
 	// free_areas(s);
 	// free_image(s->skybox);
 	// free_image(s->weapon.image[0]);
@@ -53,7 +53,7 @@ void	free_images(t_main *s)
 	// free_image(s->door);
 	// free_image(s->interface);
 	// free_image(s->win);
-	// free_image(s->menu);
+	free_image(s->menu);
 	// free_image(s->coupe);
 }
 

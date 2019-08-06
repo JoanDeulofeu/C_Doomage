@@ -53,6 +53,7 @@
 # define FLOOR	SDLK_f
 # define SAVE	SDLK_s
 # define VISU	SDLK_i
+# define PORTAL	SDLK_l
 # define ROTATE_LEFT	SDLK_q
 # define ROTATE_RIGHT	SDLK_e
 # define DEL SDL_SCANCODE_DELETE
@@ -91,7 +92,8 @@ typedef enum  	e_mode {
 	sector,
 	vertex,
 	player,
-	save
+	save,
+	portal
 }				t_mode;
 
 typedef struct		s_abpos {
@@ -176,6 +178,7 @@ typedef struct		s_int {
 	int				id;
 	int				value;
 	t_vertex		*ptr;
+	char			selected;
 	struct s_int	*next;
 	struct s_int	*prev;
 }					t_int;
@@ -204,6 +207,8 @@ typedef struct		s_editor {
 	char			mode_floor;
 	t_anim			menu;
 	t_anim			m_floor;
+	t_int			wall;
+	char			portal_temp;
 }					t_editor;
 
 

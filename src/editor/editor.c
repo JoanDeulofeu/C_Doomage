@@ -96,6 +96,10 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 4;
 		ft_reset_color_vertex(s);
 	}
+	else if(key == PORTAL)
+	{
+		s->editor->mode = portal;
+	}
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);
 }

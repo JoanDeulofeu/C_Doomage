@@ -33,6 +33,7 @@ SRC_NAME =	main.c						\
 			editor/free.c				\
 			editor/fixed_float.c		\
 			editor/parser_tga.c			\
+			editor/edit_portals.c		\
 			editor/list_utils.c			\
 			game/visu.c					\
 			game/visu_joan.c			\
