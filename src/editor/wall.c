@@ -149,7 +149,11 @@ Uint32	ft_color_trump(t_sector *sct, int wall)
 		sct_wall = sct_wall->next;
 	if (sct_wall->value != -1)
 		return (0xddd241ff); //#ddd241
-	return (0xff7062FF); //#ff7062
+	// printf("wall.selected = %d\n", sct_wall->selected);
+	if (get_t_int_by_id(sct->vertex, sct_wall->id)->selected == 2)
+		return (0xddd241ff); //#ff7062
+	else
+		return (0xff7062FF); //#ff7062
 }
 
 void	ft_trump(t_main *s, t_sector *sct, int wall, t_int *first_vtx)

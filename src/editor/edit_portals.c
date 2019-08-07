@@ -1,33 +1,39 @@
 #include "doom.h"
 
-int		is_point_on_seg(t_pos point, t_pos beg, t_pos end)
+int	check_pos(t_main *s, int x, int y, t_pos *new_pos)
 {
-	int cross;
-	int dotproduct;
-	int powlen;
+	int		id;
+	t_pos	pos;
 
-	cross = (point.y - beg.y) * (end.x - beg.x) - (point.x - beg.x) * (end.y - beg.y);
-	if (abs(cross) != 0)
-	{
-		printf("1, point.y(%d) - beg.y(%d) = %d\ncross = %d\n", point.y, beg.y, point.y - beg.y, abs(cross));
+	pos.x = x;
+	pos.y = y;
+	if (pos.x < 0 || pos.x > WIDTH || pos.y < 0 || pos.y > HEIGHT)
 		return (0);
-	}
+	*new_pos = pos;
+	id = ft_is_in_sector(s, pos);
+	return (id);
+}
 
-	dotproduct = (point.x - beg.x) * (end.x - beg.x) + (point.y - beg.y) * (end.y - beg.y);
-	if (dotproduct < 0)
-	{
-		printf("2\n");
-		return (0);
-	}
+int	get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos)
+{
+		int i;
+		int id;
 
-	powlen = pow(end.x - beg.x, 2) - pow(end.x - beg.x, 2);
-	if (dotproduct > powlen)
-	{
-		printf("3\n");
-		return (0);
-	}
-	return (1);
-
+		i = 0;
+		id = 0;
+		while (i < 10)
+		{
+			if ((id = check_pos(s, pos.x + i, pos.y, new_pos)) != 0)
+				return (id);
+			if ((id = check_pos(s, pos.x - i, pos.y, new_pos)) != 0)
+				return (id);
+			if ((id = check_pos(s, pos.x, pos.y + i, new_pos)) != 0)
+				return (id);
+			if ((id = check_pos(s, pos.x, pos.y - i, new_pos)) != 0)
+				return (id);
+			i++;
+		}
+		return (id);
 }
 
 void	change_over_wall(t_main *s)
@@ -37,36 +43,53 @@ void	change_over_wall(t_main *s)
 	t_int		*wall;
 	t_pos		beg;
 	t_pos		end;
+	t_pos		new_pos;
 
-	id = ft_is_in_sector(s, s->ft_mouse);
-	if (id != 0)
-	{
+	new_pos.x = 0;
+	new_pos.y = 0;
+
+	// id = ft_is_in_sector(s, s->ft_mouse);
+		// printf ("color wall = %d, color = %d\n", COLOR_WALL, get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y));
+		// if (COLOR_WALL == get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y))
+		// 	printf("%d\n", id);
+
 		if (get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
 		{
-			sector = get_sector_by_id(s, id);
+			// printf("id %d\n", id);
+			id = get_nearest_sector(s, s->ft_mouse, &new_pos);
+			if (id == 0)
+				return ;
+			sector  = get_sector_by_id(s, id);
+			printf("sector id = %d\n", sector->id);
 			wall = sector->vertex;
 			beg = wall->ptr->pos;
 			end = wall->ptr->next->pos;
-			while (!is_point_on_seg(s->ft_mouse, beg, end))
-			{
-				wall = ft_next_vtx(wall, sector);
-				// printf("wall %d\n", wall->id);
-				if (wall->id == sector->vertex->id)
-					return ;
-				if (wall->ptr->next == NULL)
+			printf("wall %d\n", wall->id);
+			printf("%d\n", new_pos.x);
+			while (!ft_is_in_segment(ft_pos_to_dpos(new_pos), ft_pos_to_dpos(beg), ft_pos_to_dpos(end)))
 				{
-					end = sector->vertex->ptr->pos;
-				}
-				else
-				{
-					end = wall->ptr->next->pos;
-				}
+					wall = ft_next_vtx(wall, sector);
+					beg = wall->ptr->pos;
+					printf("wall %d\n", wall->id);
+					if (wall->id == sector->vertex->id)
+					{
+						printf("test\n");
+						return ;
+					}
+
+					if (wall->ptr->next == NULL)
+					{
+						end = sector->vertex->ptr->pos;
+					}
+					else
+					{
+						end = wall->ptr->next->pos;
+					}
 
 			}
-			printf("find one \n");
+			printf("selected wall = %d\n", wall->id);
+			wall->selected = 2;
 		}
-	}
-
 }
 
 void	edit_portal(t_main *s)

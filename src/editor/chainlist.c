@@ -125,6 +125,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value, int what)
 	tmp->ptr = what == 1 ? ft_find_vertex_ptr(s, value) : NULL;
 	tmp->next = NULL;
 	tmp->value = value;
+	tmp->selected = 0;
 	return (0);
 }
 
