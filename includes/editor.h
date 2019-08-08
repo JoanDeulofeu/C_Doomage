@@ -209,6 +209,8 @@ typedef struct		s_editor {
 	t_anim			m_floor;
 	t_int			wall;
 	char			portal_temp;
+	int				over_portal;
+	int				over_sector;			
 }					t_editor;
 
 

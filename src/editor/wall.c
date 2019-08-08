@@ -140,7 +140,7 @@ int		ft_sector_mode(t_main *s, int x, int y)
 	return (0);
 }
 
-Uint32	ft_color_trump(t_sector *sct, int wall)
+Uint32	ft_color_trump(t_main *s, t_sector *sct, int wall)
 {
 	t_int		*sct_wall;
 
@@ -151,7 +151,14 @@ Uint32	ft_color_trump(t_sector *sct, int wall)
 		return (0xddd241ff); //#ddd241
 	// printf("wall.selected = %d\n", sct_wall->selected);
 	if (get_t_int_by_id(sct->vertex, sct_wall->id)->selected == 2)
+	{
 		return (0xddd241ff); //#ff7062
+	}
+	if (sct->id == s->editor->over_sector && sct_wall->id == s->editor->over_portal)
+	{
+		return (0xddd241ff); //#ff7062
+	}
+
 	else
 		return (0xff7062FF); //#ff7062
 }
@@ -161,7 +168,7 @@ void	ft_trump(t_main *s, t_sector *sct, int wall, t_int *first_vtx)
 	Uint32		color;
 	t_vertex	*vtx;
 
-	color = ft_color_trump(sct, wall);
+	color = ft_color_trump(s, sct, wall);
 	vtx = s->vertex;
 	while (vtx && sct->vertex && sct->vertex->value != vtx->id && vtx->next)
 		vtx = vtx->next;

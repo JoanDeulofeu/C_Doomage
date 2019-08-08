@@ -25,6 +25,9 @@ void	initialize_editor(t_editor *edi)
 	edi->dply_floor = 0;
 	edi->mode_floor = 0;
 	edi->portal_temp = 0;
+	edi->selected = 0;
+	edi->over_portal = 0;
+	edi->over_sector = 0;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
@@ -116,7 +119,6 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
-	s->editor->selected = 0;
 
 	s->player.set = 1;
 	s->player.i = 0;
