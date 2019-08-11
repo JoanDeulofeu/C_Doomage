@@ -1,12 +1,30 @@
 #include "doom.h"
 
-int		check_walls_lenght(t_dpos beg_wall1, t_dpos end_wall1, t_dpos beg_wall2, t_dpos end_wall2)
+int		check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2)
 {
-	printf("%f et %f\n", ft_dist_t_dpos(beg_wall1, end_wall1), ft_dist_t_dpos(beg_wall2, end_wall2));
-	if (ft_dist_t_dpos(beg_wall1, end_wall1) == ft_dist_t_dpos(beg_wall2, end_wall2))
+	t_dpos beg1;
+	t_dpos beg2;
+	t_dpos end1;
+	t_dpos end2;
+
+	if (wall1->next == NULL)
+		end1 = ft_pos_to_dpos(get_sector_by_id(s, s->editor->over_sector)->vertex->ptr->pos);
+	else
+		end1 = ft_pos_to_dpos(wall1->next->ptr->pos);
+	if (wall2->next == NULL)
+		end2 = ft_pos_to_dpos(get_sector_by_id(s, s->editor->over_sector2)->vertex->ptr->pos);
+	else
+		end2 = ft_pos_to_dpos(wall2->next->ptr->pos);
+	// end1 = ft_pos_to_dpos(end1);
+	// end2 = ft_pos_to_dpos(end2);
+	beg1 = ft_pos_to_dpos(wall1->ptr->pos);
+	beg2 = ft_pos_to_dpos(wall2->ptr->pos);
+	printf("%f et %f\n", ft_dist_t_dpos(beg1, end1), ft_dist_t_dpos(beg2, end2));
+	if (ft_dist_t_dpos(beg1, end1) == ft_dist_t_dpos(beg2, end2))
 		return (1);
 	else
 		return (0);
+	//je suis en train de checker la taille des murs pour afficher en vert
 }
 
 int		ft_get_other_sector_portal(t_main *s, int id_portal, int sector_id, int *id_portal_out)
@@ -74,8 +92,8 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 	left_portal.y *= SPACE;
 	right_portal.x *= SPACE;
 	right_portal.y *= SPACE;
-	if (check_walls_lenght(lwall, rwall, left_portal, right_portal))
-		printf("true\n");
+	// if (check_walls_lenght(s, ))
+	// 	printf("true\n");
 
 	// printf("id du secteur de destination (%d)\n", id_sector_out);
 	// printf("coord du vertex du portail destinataire left(%.3f, %.3f) et right(%.3f, %.3f)\n",left_portal.x, left_portal.y, right_portal.x, right_portal.y);

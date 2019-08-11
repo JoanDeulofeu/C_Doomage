@@ -207,10 +207,12 @@ typedef struct		s_editor {
 	char			mode_floor;
 	t_anim			menu;
 	t_anim			m_floor;
-	t_int			wall;
+	t_int			*wall;
+	t_int			*wall2;
 	char			portal_temp;
 	int				over_portal;
-	int				over_sector;			
+	int				over_sector;
+	int				over_sector2;
 }					t_editor;
 
 

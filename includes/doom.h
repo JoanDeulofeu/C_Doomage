@@ -123,7 +123,8 @@ void				ft_visu_joan(t_main *s);
 void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
 int					ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall,
 					t_dpos lplan, t_dpos rplan, int id_portal, int id_sector);
-int					check_walls_lenght(t_dpos beg_wall1, t_dpos end_wall1, t_dpos beg_wall2, t_dpos end_wall2);
+int		check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2);
+
 /*
 ****	Fonction d'initialisation
 */

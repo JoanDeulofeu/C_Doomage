@@ -154,9 +154,13 @@ Uint32	ft_color_trump(t_main *s, t_sector *sct, int wall)
 	{
 		return (0xddd241ff); //#ff7062
 	}
-	if (sct->id == s->editor->over_sector && sct_wall->id == s->editor->over_portal)
+	if (s->editor->wall2 == NULL && sct->id == s->editor->over_sector && sct_wall->id == s->editor->over_portal)
 	{
 		return (0xddd241ff); //#ff7062
+	}
+	if (s->editor->wall2 && s->editor->wall2->selected == 3 && sct->id == s->editor->over_sector && sct_wall->id == s->editor->over_portal)
+	{
+		return (GREEN); //#ff7062
 	}
 
 	else

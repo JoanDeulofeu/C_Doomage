@@ -43,11 +43,17 @@ void reset_temp_portals(t_main *s)
 	t_sector *tmp_sct;
 
 	tmp_sct = s->sector;
-	while (tmp_sct != NULL)
-	{
-
-		tmp_sct = tmp_sct->next;
-	}
+	// while (tmp_sct != NULL)
+	// {
+		s->editor->over_portal= 0;
+		s->editor->over_portal= 0;
+		s->editor->over_sector = 0;
+		s->editor->over_sector2 = 0;
+		s->editor->portal_temp = 0;
+		s->editor->wall = NULL;
+		s->editor->wall2 = NULL;
+		// tmp_sct = tmp_sct->next;
+	// }
 }
 
 int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
@@ -78,11 +84,13 @@ void	change_over_wall(t_main *s)
 	int diff1;
 	int diff2;
 	t_pos mouse;
+	Uint32 color;
 
 	new_pos.x = 0;
 	new_pos.y = 0;
+	color = get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y);
 
-		if (get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
+		if (color == COLOR_WALL)
 		{
 			// printf("id %d\n", id);
 			mouse.x = s->ft_mouse.x;
@@ -118,7 +126,20 @@ void	change_over_wall(t_main *s)
 					// printf("prochain mur = %d\n", wall->id);
 			}
 			s->editor->over_portal = wall_save->id;
-			s->editor->over_sector = sector->id;
+			if (s->editor->wall == NULL)
+			{
+				s->editor->wall = wall_save;
+				s->editor->over_sector = sector->id;
+			}
+			else
+			{
+				s->editor->wall2 = wall_save;
+				s->editor->over_sector2 = sector->id;
+			}
+			if (s->editor->wall2 && check_walls_lenght(s, s->editor->wall, wall_save))
+			{
+				wall_save->selected = 3;
+			}
 		}
 }
 
@@ -133,5 +154,15 @@ void	edit_portal(t_main *s)
 		sct = get_sector_by_id(s, s->editor->over_sector);
 		wall = get_t_int_by_id(sct->vertex, s->editor->over_portal);
 		wall->selected = 2;
+		s->editor->portal_temp = 1;
+		s->editor->wall = wall;
+	}
+	else
+	{
+		if (s->editor->wall != NULL)
+			{
+				s->editor->wall->selected = 0;
+				s->editor->wall = NULL;
+			}
 	}
 }

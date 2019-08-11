@@ -28,6 +28,9 @@ void	initialize_editor(t_editor *edi)
 	edi->selected = 0;
 	edi->over_portal = 0;
 	edi->over_sector = 0;
+	edi->over_sector2 = 0;
+	edi->wall = NULL;
+	edi->wall2 = NULL;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
