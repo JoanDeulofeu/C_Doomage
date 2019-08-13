@@ -6,7 +6,7 @@ void	click_editor_menu(t_main *s, t_anim menu, int x)
 	int ori_x;
 
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
-	case_size = menu.image[0]->w / 5;
+	case_size = menu.image[0]->w / 6;
 	if (x < ori_x + case_size)
 		change_mode(s, MOVE);
 	else if (x < ori_x + (case_size * 2) && x > ori_x + case_size)
@@ -16,11 +16,13 @@ void	click_editor_menu(t_main *s, t_anim menu, int x)
 	else if (x < ori_x + (case_size * 4) && x > ori_x + (case_size * 3))
 		change_mode(s, PLAYER);
 	else if (x < ori_x + (case_size * 5) && x > ori_x + (case_size * 4))
+		change_mode(s, PORTAL);
+	else if (x < ori_x + (case_size * 6) && x > ori_x + (case_size * 5))
 		change_mode(s, SAVE);
-	else if (x < ori_x + (case_size * 6) && x > ori_x + (case_size * 5)
+	else if (x < ori_x + (case_size * 7) && x > ori_x + (case_size * 6)
 		&& s->editor->mode_floor == 0)
 		s->editor->mode_floor = 1;
-	else if (x < ori_x + (case_size * 6) && x > ori_x + (case_size * 5)
+	else if (x < ori_x + (case_size * 7) && x > ori_x + (case_size * 6)
 		&& s->editor->mode_floor != 0)
 		s->editor->mode_floor = 0;
 }
@@ -35,7 +37,7 @@ int		check_click_menu(t_main *s)
 
 	x = s->ft_mouse.x;
 	y = s->ft_mouse.y;
-	case_size = s->editor->menu.image[0]->w / 5;
+	case_size = s->editor->menu.image[0]->w / 6;
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
 	dest_x = ori_x + s->editor->menu.image[s->editor->menu.current]->w;
 	if (x >= ori_x && y >= 0 && x < dest_x + case_size && y < s->editor->menu.image[s->editor->menu.current]->h)
@@ -291,10 +293,26 @@ void	editor_handler(t_main *s)
 				// else
 					// SDL_SetRelativeMouseMode(SDL_FALSE);
 					if (s->editor->mode == portal &&
-					get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) != COLOR_WALL)
+					get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == BLACK_SCREEN)
 						{
 							s->editor->over_portal = 0;
-							s->editor->over_sector = 0;
+							s->editor->over_sector2 = 0;
+							if (s->editor->portal_temp == 1)
+							{
+								if (s->editor->wall2)
+									s->editor->wall2->selected = 0;
+								s->editor->wall2 = NULL;
+							}
+							else if (s->editor->portal_temp == 0)
+							{
+								if (s->editor->wall && !s->editor->wall2)
+								{
+									s->editor->wall->selected = 0;
+									s->editor->wall = NULL;
+								}
+								else
+									s->editor->over_sector = 0;
+							}
 						}
 				if (s->editor->mode == move && selected == 1)
 				{

@@ -30,7 +30,7 @@ void	initialize_editor(t_editor *edi)
 	edi->over_sector = 0;
 	edi->over_sector2 = 0;
 	edi->wall = NULL;
-	edi->wall2 = NULL;
+	edi->wall2 = NULL ;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
@@ -70,12 +70,13 @@ void		load_images(t_main *s)
 {
 	int i;
 
-	i = 5;
+	i = 6;
 	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
 	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
 	s->editor->menu.image[2] = load_tga("images/sector.tga", 0, 0, 0);
 	s->editor->menu.image[3] = load_tga("images/player.tga", 0, 0, 0);
-	s->editor->menu.image[4] = load_tga("images/save.tga", 0, 0, 0);
+	s->editor->menu.image[4] = load_tga("images/portal.tga", 0, 0, 0);
+	s->editor->menu.image[5] = load_tga("images/save.tga", 0, 0, 0);
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
 
