@@ -90,15 +90,17 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 3;
 		ft_reset_color_vertex(s);
 	}
-	else if (key == SAVE)
-	{
-		s->editor->mode = save;
-		s->editor->menu.current = 4;
-		ft_reset_color_vertex(s);
-	}
 	else if(key == PORTAL)
 	{
 		s->editor->mode = portal;
+		s->editor->menu.current = 4;
+		ft_reset_color_vertex(s);
+	}
+	else if (key == SAVE)
+	{
+		s->editor->mode = save;
+		s->editor->menu.current = 5;
+		ft_reset_color_vertex(s);
 	}
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);

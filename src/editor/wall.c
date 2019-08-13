@@ -143,24 +143,32 @@ int		ft_sector_mode(t_main *s, int x, int y)
 Uint32	ft_color_trump(t_main *s, t_sector *sct, int wall)
 {
 	t_int		*sct_wall;
+	t_int		*sct_vtx;
 
 	sct_wall = sct->wall;
 	while (wall-- > 0)
 		sct_wall = sct_wall->next;
+	sct_vtx = get_t_int_by_id(sct->vertex, sct_wall->id);
 	if (sct_wall->value != -1)
 		return (0xddd241ff); //#ddd241
 	// printf("wall.selected = %d\n", sct_wall->selected);
-	if (get_t_int_by_id(sct->vertex, sct_wall->id)->selected == 2)
+	if (sct_vtx->selected == 2)
 	{
 		return (0xddd241ff); //#ff7062
 	}
-	if (s->editor->wall2 == NULL && sct->id == s->editor->over_sector && sct_wall->id == s->editor->over_portal)
+	// if (s->editor->wall == sct_vtx)
+	// 	printf("%p et %p\n", s->editor->wall, sct_vtx);
+	if (s->editor->wall2 == NULL && s->editor->wall && sct_vtx == s->editor->wall)
 	{
 		return (0xddd241ff); //#ff7062
 	}
-	if (s->editor->wall2 && s->editor->wall2->selected == 3 && sct->id == s->editor->over_sector && sct_wall->id == s->editor->over_portal)
+	else if (s->editor->wall2 && s->editor->wall2->selected == 3 && sct_vtx == s->editor->wall2)
 	{
 		return (GREEN); //#ff7062
+	}
+	else if (s->editor->wall2 && s->editor->wall2->selected == 4 && sct_vtx == s->editor->wall2)
+	{
+		return (S_RED); //#ff7062
 	}
 
 	else

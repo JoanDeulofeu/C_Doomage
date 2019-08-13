@@ -7,6 +7,12 @@ int		check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2)
 	t_dpos end1;
 	t_dpos end2;
 
+	if (s->editor->over_sector == 0 || s->editor->over_sector2 == 0)
+	{
+		printf("%d et %d\n", s->editor->over_sector, s->editor->over_sector2);
+		return (0);
+	}
+
 	if (wall1->next == NULL)
 		end1 = ft_pos_to_dpos(get_sector_by_id(s, s->editor->over_sector)->vertex->ptr->pos);
 	else

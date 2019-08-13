@@ -1,5 +1,24 @@
 #include "doom.h"
 
+void create_struct_portals(t_main *s)
+{
+		t_int *wall1;
+		t_int *wall2;
+		t_sector *sct1;
+		t_sector *sct2;
+
+		sct1 = get_sector_by_id(s, s->editor->over_sector);
+		sct2 = get_sector_by_id(s, s->editor->over_sector2);
+
+		wall1 = get_t_int_by_id(sct1->wall, s->editor->wall->id);
+		wall2 = get_t_int_by_id(sct2->wall, s->editor->wall2->id);
+
+		wall1->value = s->editor->wall2->ptr->id;
+		ft_test_chainlist(s);
+		// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
+		//modifier structure pour in et out
+}
+
 int	check_pos(t_main *s, int x, int y, t_pos *new_pos)
 {
 	int		id;
@@ -50,7 +69,11 @@ void reset_temp_portals(t_main *s)
 		s->editor->over_sector = 0;
 		s->editor->over_sector2 = 0;
 		s->editor->portal_temp = 0;
+		if (s->editor->wall)
+			s->editor->wall->selected = 0;
 		s->editor->wall = NULL;
+		if (s->editor->wall2)
+			s->editor->wall2->selected = 0;
 		s->editor->wall2 = NULL;
 		// tmp_sct = tmp_sct->next;
 	// }
@@ -128,18 +151,22 @@ void	change_over_wall(t_main *s)
 			s->editor->over_portal = wall_save->id;
 			if (s->editor->wall == NULL)
 			{
+				// printf ("true\n");
 				s->editor->wall = wall_save;
 				s->editor->over_sector = sector->id;
 			}
-			else
+			else if (s->editor->wall != wall_save)
 			{
+				// printf ("s->editor->wall != wall_save\n");
 				s->editor->wall2 = wall_save;
 				s->editor->over_sector2 = sector->id;
 			}
-			if (s->editor->wall2 && check_walls_lenght(s, s->editor->wall, wall_save))
+			if (s->editor->wall2 != NULL && check_walls_lenght(s, s->editor->wall, wall_save))
 			{
 				wall_save->selected = 3;
 			}
+			else if (s->editor->wall2 != NULL)
+				wall_save->selected = 4;
 		}
 }
 
@@ -149,20 +176,26 @@ void	edit_portal(t_main *s)
 	t_int			*wall;
 
 
-	if (s->editor->over_portal != 0)
+	// printf("")
+	if (s->editor->portal_temp == 0)
 	{
+		if (s->editor->over_sector == 0 || s->editor->over_portal == 0)
+			return ;
 		sct = get_sector_by_id(s, s->editor->over_sector);
 		wall = get_t_int_by_id(sct->vertex, s->editor->over_portal);
 		wall->selected = 2;
 		s->editor->portal_temp = 1;
 		s->editor->wall = wall;
 	}
-	else
+	else if (s->editor->portal_temp == 1 && s->editor->wall && s->editor->wall2)
 	{
-		if (s->editor->wall != NULL)
+		if (s->editor->wall2->selected == 3)
 			{
-				s->editor->wall->selected = 0;
-				s->editor->wall = NULL;
+				//fonction pour modifier les portails dans structures
+				create_struct_portals(s);
+				// printf("murs modifies\n");
 			}
 	}
+	else
+		reset_temp_portals(s);
 }
