@@ -1,5 +1,27 @@
 #include "doom.h"
 
+void reset_temp_portals(t_main *s)
+{
+	t_sector *tmp_sct;
+
+	tmp_sct = s->sector;
+	// while (tmp_sct != NULL)
+	// {
+		s->editor->over_portal= 0;
+		s->editor->over_portal= 0;
+		s->editor->over_sector = 0;
+		s->editor->over_sector2 = 0;
+		s->editor->portal_temp = 0;
+		if (s->editor->wall)
+			s->editor->wall->selected = 0;
+		s->editor->wall = NULL;
+		if (s->editor->wall2)
+			s->editor->wall2->selected = 0;
+		s->editor->wall2 = NULL;
+		// tmp_sct = tmp_sct->next;
+	// }
+}
+
 void create_struct_portals(t_main *s)
 {
 		t_int *wall1;
@@ -14,7 +36,9 @@ void create_struct_portals(t_main *s)
 		wall2 = get_t_int_by_id(sct2->wall, s->editor->wall2->id);
 
 		wall1->value = s->editor->wall2->ptr->id;
-		ft_test_chainlist(s);
+		wall2->value = s->editor->wall->ptr->id;
+		reset_temp_portals(s);
+		// ft_test_chainlist(s);
 		// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
 		//modifier structure pour in et out
 }
@@ -55,28 +79,6 @@ int	get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos)
 			i++;
 		}
 		return (id);
-}
-
-void reset_temp_portals(t_main *s)
-{
-	t_sector *tmp_sct;
-
-	tmp_sct = s->sector;
-	// while (tmp_sct != NULL)
-	// {
-		s->editor->over_portal= 0;
-		s->editor->over_portal= 0;
-		s->editor->over_sector = 0;
-		s->editor->over_sector2 = 0;
-		s->editor->portal_temp = 0;
-		if (s->editor->wall)
-			s->editor->wall->selected = 0;
-		s->editor->wall = NULL;
-		if (s->editor->wall2)
-			s->editor->wall2->selected = 0;
-		s->editor->wall2 = NULL;
-		// tmp_sct = tmp_sct->next;
-	// }
 }
 
 int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
