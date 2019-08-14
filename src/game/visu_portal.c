@@ -30,7 +30,6 @@ int		check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2)
 		return (1);
 	else
 		return (0);
-	//je suis en train de checker la taille des murs pour afficher en vert
 }
 
 int		ft_get_other_sector_portal(t_main *s, int id_portal, int sector_id, int *id_portal_out)
@@ -43,7 +42,7 @@ int		ft_get_other_sector_portal(t_main *s, int id_portal, int sector_id, int *id
 	{
 		if (sct->id == sector_id)
 			sct = sct->next;
-		wall = sct->wall;
+		wall = sct->vertex;
 		while (wall)
 		{
 			if (wall->value == id_portal)

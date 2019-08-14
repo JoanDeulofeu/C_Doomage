@@ -5,7 +5,7 @@ t_sector	*update_sector_walls(t_main *s, t_int *temp_vertex,
 {
 	while (temp_sector)
 	{
-		temp_vertex = temp_sector->wall;
+		temp_vertex = temp_sector->vertex;
 		while (temp_vertex)
 		{
 			if (temp_vertex->value == sector_id)
@@ -25,13 +25,6 @@ t_int		*free_sector_struct(t_sector *temp_sector)
 
 	temp_vertex = temp_sector->vertex;
 	temp_vertex2 = NULL;
-	while (temp_vertex)
-	{
-		temp_vertex2 = temp_vertex;
-		temp_vertex = temp_vertex->next;
-		free(temp_vertex2);
-	}
-	temp_vertex = temp_sector->wall;
 	while (temp_vertex)
 	{
 		temp_vertex2 = temp_vertex;

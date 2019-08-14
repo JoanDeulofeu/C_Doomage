@@ -5,8 +5,6 @@ void reset_temp_portals(t_main *s)
 	t_sector *tmp_sct;
 
 	tmp_sct = s->sector;
-	// while (tmp_sct != NULL)
-	// {
 		s->editor->over_portal= 0;
 		s->editor->over_portal= 0;
 		s->editor->over_sector = 0;
@@ -18,8 +16,6 @@ void reset_temp_portals(t_main *s)
 		if (s->editor->wall2)
 			s->editor->wall2->selected = 0;
 		s->editor->wall2 = NULL;
-		// tmp_sct = tmp_sct->next;
-	// }
 }
 
 void create_struct_portals(t_main *s)
@@ -32,11 +28,15 @@ void create_struct_portals(t_main *s)
 		sct1 = get_sector_by_id(s, s->editor->over_sector);
 		sct2 = get_sector_by_id(s, s->editor->over_sector2);
 
-		wall1 = get_t_int_by_id(sct1->wall, s->editor->wall->id);
-		wall2 = get_t_int_by_id(sct2->wall, s->editor->wall2->id);
+		wall1 = get_t_int_by_id(sct1->vertex, s->editor->wall->id);
+		wall2 = get_t_int_by_id(sct2->vertex, s->editor->wall2->id);
 
 		wall1->value = s->editor->wall2->ptr->id;
 		wall2->value = s->editor->wall->ptr->id;
+		wall1->sct_dest = sct2->id;
+		wall2->sct_dest = sct1->id;
+		wall1->ptr = s->editor->wall2->ptr;
+		wall2->ptr = s->editor->wall->ptr;
 		reset_temp_portals(s);
 		// ft_test_chainlist(s);
 		// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
@@ -192,11 +192,7 @@ void	edit_portal(t_main *s)
 	else if (s->editor->portal_temp == 1 && s->editor->wall && s->editor->wall2)
 	{
 		if (s->editor->wall2->selected == 3)
-			{
-				//fonction pour modifier les portails dans structures
 				create_struct_portals(s);
-				// printf("murs modifies\n");
-			}
 	}
 	else
 		reset_temp_portals(s);

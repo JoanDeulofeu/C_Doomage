@@ -145,7 +145,7 @@ Uint32	ft_color_trump(t_main *s, t_sector *sct, int wall)
 	t_int		*sct_wall;
 	t_int		*sct_vtx;
 
-	sct_wall = sct->wall;
+	sct_wall = sct->vertex;
 	while (wall-- > 0)
 		sct_wall = sct_wall->next;
 	sct_vtx = get_t_int_by_id(sct->vertex, sct_wall->id);
