@@ -117,28 +117,34 @@ void		put_wall_value(t_sector *sector, char *line, int i)
 int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 {
 	t_int	*tmp;
+	t_int	*tmp2;
 
 	tmp = sector->vertex;
 	if (tmp == NULL)
 	{
-		if (!(tmp = (t_int*)malloc(sizeof(t_int))))
+		if (!(sector->vertex = (t_int*)malloc(sizeof(t_int))))
 			handle_error(s, MALLOC_ERROR);
-		sector->vertex = tmp;
-		tmp->id = 1;
-		tmp->prev = NULL;
+		sector->vertex->id = 1;
+		sector->vertex->prev = sector->vertex;
+		sector->vertex->next = sector->vertex;
+		tmp = sector->vertex;
 	}
 	else
 	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		if (!(tmp->next = (t_int*)malloc(sizeof(t_int))))
+		if (!(tmp = (t_int*)malloc(sizeof(t_int))))
 			handle_error(s, MALLOC_ERROR);
-		tmp->next->prev = tmp;
-		tmp = tmp->next;
-		tmp->id = tmp->prev->id + 1;
+		tmp2 = sector->vertex;
+		tmp2->prev = tmp;
+		while(tmp2->next->id != 1)
+			tmp2 = tmp2->next;
+
+		tmp2->next = tmp;
+		tmp2->next->id = tmp2->id + 1;
+		tmp2->next->prev = tmp2;
+		tmp->next = sector->vertex;
+		tmp = tmp2->next;
 	}
 	tmp->ptr = ft_find_vertex_ptr(s, value);
-	tmp->next = NULL;
 	tmp->value = value;
 	tmp->selected = 0;
 	tmp->sct_dest = 0;
@@ -151,7 +157,9 @@ void	ft_test_chainlist(t_main *s)
 	t_vertex	*v_tmp;
 	t_sector	*s_tmp;
 	t_int		*i_tmp;
+	int			i;
 
+	i = 0;
 	printf("------VERTEX------\n");
 	v_tmp = s->vertex;
 	s_tmp = s->sector;
@@ -171,16 +179,19 @@ void	ft_test_chainlist(t_main *s)
 		while (s_tmp->next != NULL)
 		{
 			printf("Sector[%d] =  sol %d  |  plafond %d\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
+			printf("sector->vertex = %p\n", s_tmp->vertex);
 			if (s_tmp->vertex != NULL)
 			{
+				printf("chocloat\n");
 				i_tmp = s_tmp->vertex;
-				while (i_tmp->next != NULL)
+				while (i < s_tmp->vertex->prev->id)
 				{
 					printf("--vertex[%d] =", i_tmp->id);
 					printf(" %d\n", i_tmp->value);
 					printf("--wall[%d] =", i_tmp->id);
 					printf(" %d\n", i_tmp->wall_value);
 					i_tmp = i_tmp->next;
+					i++;
 				}
 				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
@@ -192,14 +203,16 @@ void	ft_test_chainlist(t_main *s)
 		printf("Sector[%d] =  sol %d  |  plafond %d\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
 		if (s_tmp->vertex != NULL)
 		{
+			i = 0;
 			i_tmp = s_tmp->vertex;
-			while (i_tmp->next != NULL)
+			while (i < s_tmp->vertex->prev->id)
 			{
 				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
 				printf("--wall[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->wall_value);
 				i_tmp = i_tmp->next;
+				i++;
 			}
 			printf("--vertex[%d] =", i_tmp->id);
 			printf(" %d\n", i_tmp->value);

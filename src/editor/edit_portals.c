@@ -114,9 +114,11 @@ void	change_over_wall(t_main *s)
 	int diff2;
 	t_pos mouse;
 	Uint32 color;
+	int			i;
 
 	new_pos.x = 0;
 	new_pos.y = 0;
+	i = 0;
 	color = get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y);
 
 		if (color == COLOR_WALL)
@@ -135,16 +137,9 @@ void	change_over_wall(t_main *s)
 
 			wall_save = wall;
 			diff1 = get_smallest_diff(mouse, wall->ptr->pos, wall->next->ptr->pos);
-			while (wall != NULL)
+			while (i++ < sector->vertex->prev->id)
 			{
-					if (wall->next == NULL)
-					{
-						end = sector->vertex->ptr->pos;
-					}
-					else
-					{
-						end = wall->next->ptr->pos;
-					}
+					end = wall->next->ptr->pos;
 					diff2 = get_smallest_diff(mouse, wall->ptr->pos, end);
 					if (diff2 < diff1)
 					{
@@ -178,11 +173,9 @@ void	change_over_wall(t_main *s)
 
 void	edit_portal(t_main *s)
 {
-	t_sector *sct;
-	t_int			*wall;
+	t_sector	*sct;
+	t_int		*wall;
 
-
-	// printf("")
 	if (s->editor->portal_temp == 0)
 	{
 		if (s->editor->over_sector == 0 || s->editor->over_portal == 0)

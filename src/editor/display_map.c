@@ -4,12 +4,14 @@ int		ft_vertex_worst_sector(t_main *s, int id)
 {
 	t_sector	*sct;
 	t_int		*vtx;
+	int			i;
 
 	sct = s->sector;
 	while (sct)
 	{
+		i = 0;
 		vtx = sct->vertex;
-		while (vtx)
+		while (i++ < sct->vertex->prev->id)
 		{
 			if (vtx->value == id && sct->floor == s->editor->dply_floor)
 				return (1);
