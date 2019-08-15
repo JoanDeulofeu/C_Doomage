@@ -281,14 +281,9 @@ void 				trace_direction(t_main *s);
 void  				rotate_mouse(t_main *s);
 void 				jump(t_main *s, int press);
 void 				crouch(t_main *s, int press);
-<<<<<<< HEAD
 void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
-=======
 void 				draw_hud(t_main *s);
-
-void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void				display_hud(t_main *s, int i, int j);
->>>>>>> bd2127c3e630819d20bd42803a4e374f5e041551
 
 
 /*
