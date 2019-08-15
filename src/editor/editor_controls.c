@@ -178,6 +178,7 @@ void	handle_editor_keys(t_main *s)
 	draw_space_menu(s);
 	//ft_visu(s);
 	 ft_visu_joan(s);
+	 draw_hud(s);
 	// draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
 	// draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2),HEIGHT - s->player.weapon.image[s->player.weapon.current]->h);
 	if (s->player_view)
