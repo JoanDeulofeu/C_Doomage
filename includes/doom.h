@@ -123,7 +123,7 @@ void				ft_visu_joan(t_main *s);
 void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
 int					ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall,
 					t_dpos lplan, t_dpos rplan, int id_portal, int id_sector);
-int		check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2);
+int					check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2);
 
 /*
 ****	Fonction d'initialisation
@@ -256,11 +256,11 @@ t_int				*ft_next_vtx(t_int *vtx, t_sector *sct);
 double				vxs(double x1, double y1, double x2, double y2);
 int					ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end);
 
-void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
-int		ft_trace_line_select(t_main *s, t_line line, Uint32 color);
-void	ft_get_line_select(t_main *s, t_line line, Uint32 color);
-void 	trace_select(t_main *s);
-void remove_selected_anchor(t_main *s);
+void				ft_trace_vertical_select(t_main *s, t_line line, Uint32 color);
+int					ft_trace_line_select(t_main *s, t_line line, Uint32 color);
+void				ft_get_line_select(t_main *s, t_line line, Uint32 color);
+void 				trace_select(t_main *s);
+void				remove_selected_anchor(t_main *s);
 
 
 
@@ -279,7 +279,7 @@ void 				trace_direction(t_main *s);
 void  				rotate_mouse(t_main *s);
 void 				jump(t_main *s, int press);
 void 				crouch(t_main *s, int press);
-void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
+void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 
 
 /*
