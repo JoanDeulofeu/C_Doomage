@@ -179,8 +179,6 @@ void	handle_editor_keys(t_main *s)
 	//ft_visu(s);
 	 ft_visu_joan(s);
 	 draw_hud(s);
-	// draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
-	// draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2),HEIGHT - s->player.weapon.image[s->player.weapon.current]->h);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else
@@ -208,6 +206,7 @@ void	editor_handler(t_main *s)
 	t_pos		diff;
 	int			yoan;
 	t_vertex    *v;
+	t_mode			tmp_mode;
 
 
 	// t_pos		dest;
@@ -224,6 +223,8 @@ void	editor_handler(t_main *s)
 	// draw_interface(s);
 	while (editor)
 	{
+		tmp_mode = s->editor->mode;
+
 		// v= s->vertex;
 		// while (v)
 		// {
@@ -526,18 +527,23 @@ void	editor_handler(t_main *s)
 					remove_anchor(s, id);
 					remove = 1;
 					id = 0;
-					// while (v)
-					// {
-					// 	if (v->selected == 1)
-					// 		remove_anchor(s, v->id);
-					// 	//set_selected(s, v->pos, 0);
-					// 	if (v)
-					// 		v = v->next;
-					// }
+
 				}
 
 		}
 		handle_editor_keys(s);
+		//printf("mode = %d,%d\n",tmp_mode,s->editor->mode);
+		if (tmp_mode != s->editor->mode)
+		{
+			v = s->vertex;
+			while (v)
+			{
+				v->selec = 0;
+				set_selected(s, v->pos, 0);
+				if (v)
+					v = v->next;
+			}
+		}
 		// printf("decalx = %d\n", s->editor->decal_x );
 		// ft_test_chainlist(s);
 	}
