@@ -40,6 +40,7 @@ SRC_NAME =	main.c						\
 			game/visu_portal.c			\
 			game/visu_joan_drawing.c	\
 			game/utils_2.c				\
+			game/hud.c				\
 			menu.c
 
 

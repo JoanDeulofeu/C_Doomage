@@ -67,6 +67,7 @@ typedef struct		s_player
 	double			angle;
 	int				height;
 	t_anim			weapon;
+	t_image			*hud;
 	t_sector		*sector;
 }					t_player;
 
@@ -280,7 +281,10 @@ void 				trace_direction(t_main *s);
 void  				rotate_mouse(t_main *s);
 void 				jump(t_main *s, int press);
 void 				crouch(t_main *s, int press);
-void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
+void 				draw_hud(t_main *s);
+
+void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
+void				display_hud(t_main *s, int i, int j);
 
 
 /*
