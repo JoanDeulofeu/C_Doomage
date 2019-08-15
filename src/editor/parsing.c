@@ -10,16 +10,11 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *tmp, int i)
 	while (line[i] != '|') //fill des vecteurs dans le secteur
 	{
 		value = ft_atoi(&line[i]);
-		ft_add_intarray(s, tmp, value, 1);
+		ft_add_intarray(s, tmp, value);
 		i += ft_longlen(value) + 1;
 	}
 	i += 2;
-	while (i < size_line) //fill des wall et portal dans le secteur
-	{
-		value = ft_atoi(&line[i]);
-		ft_add_intarray(s, tmp, value, 2);
-		i += ft_longlen(value) + 1;
-	}
+	put_wall_value(tmp, line, i);
 }
 
 int			ft_parse_sector(t_main *s, char *line)
@@ -65,7 +60,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 			ft_parse_sector(s, line);
 		ft_strdel(&line);
 	}
-	// ft_test_chainlist(s);
+	ft_test_chainlist(s);
 	ft_strdel(&line);
 	return (0);
 }

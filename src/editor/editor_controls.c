@@ -538,6 +538,6 @@ void	editor_handler(t_main *s)
 		}
 		handle_editor_keys(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
-		// ft_test_chainlist(s);
+		ft_test_chainlist(s);
 	}
 }

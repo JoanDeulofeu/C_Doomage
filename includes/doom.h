@@ -197,7 +197,8 @@ int					ft_parsing(t_main *s, int x, int y, int fd);
 int					ft_add_vertex(t_main *s, int x, int y);
 int					ft_check_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
-int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
+int					ft_add_intarray(t_main *s, t_sector *array, int value);
+void				put_wall_value(t_sector *sector, char *line, int i);
 void				ft_test_chainlist(t_main *s);
 
 /*
