@@ -7,28 +7,19 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	t_dpos		wall1;
 	t_dpos		wall2;
 	int			id_wall = 1;
+	int				i;
 
 	sct = s->sector;
 	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
-	while (s_vtx)
+	i = 0;
+	while (i++ < sct->vertex->prev->id)
 	{
 		wall1.x = s_vtx->ptr->x * METRE;
 		wall1.y = s_vtx->ptr->y * METRE;
-
-		// printf("wall1.x = %f\n", wall1.x);
-		if (s_vtx->next != NULL)
-		{
-			wall2.x = s_vtx->next->ptr->x * METRE;
-			wall2.y = s_vtx->next->ptr->y * METRE;
-		}
-		else
-		{
-			wall2.x = sct->vertex->ptr->x * METRE;
-			wall2.y = sct->vertex->ptr->y * METRE;
-		}
-
+		wall2.x = s_vtx->next->ptr->x * METRE;
+		wall2.y = s_vtx->next->ptr->y * METRE;
 		if (ft_find_intersection(s, wall1, wall2, player, point, 1) > 0)
 		{
 			s->line.x1 = player.x + s->editor->decal_x;
@@ -114,4 +105,4 @@ void	ft_visu_joan(t_main *s)
 
 
 
-//lol
+//lol <== hey... è.é

@@ -15,17 +15,22 @@ t_vertex	*get_vertex_by_id(t_main *s, int id)
 	t_vertex	*vtx;
 
 	vtx = s->vertex;
-	while (vtx->id != id)
+	while (vtx && vtx->id != id)
 		vtx = vtx->next;
 	return(vtx);
 }
 
-t_int	*get_t_int_by_id(t_int *obj, int id)
+t_int	*get_t_int_by_id(t_int *vtx, int id)
 {
 	t_int	*tmp;
+	int		i;
 
-	tmp = obj;
-	while (tmp->id != id)
+	i = 0;
+	tmp = vtx;
+	while (i++ < vtx->prev->id && tmp->id != id)
 		tmp = tmp->next;
-	return(tmp);
+	if (tmp->id == id)
+		return(tmp);
+	else
+		return(NULL);
 }

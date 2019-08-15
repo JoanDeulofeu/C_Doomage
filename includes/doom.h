@@ -254,7 +254,6 @@ void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
 int					min(int value1, int value2);
 double				ft_find_angle_plan(double a, double b, double c);
-t_int				*ft_next_vtx(t_int *vtx, t_sector *sct);
 double				vxs(double x1, double y1, double x2, double y2);
 int					ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end);
 

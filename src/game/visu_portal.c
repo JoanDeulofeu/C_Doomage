@@ -37,18 +37,20 @@ int		ft_get_other_sector_portal(t_main *s, int id_portal, int sector_id, int *id
 {
 	t_sector	*sct;
 	t_int		*wall;
+	int			i;
 
 	sct = s->sector;
 	while (sct)
 	{
+		i = 0;
 		if (sct->id == sector_id)
 			sct = sct->next;
 		wall = sct->vertex;
-		while (wall)
+		while (i++ < sct->vertex->prev->id)
 		{
-			if (wall->value == id_portal)
+			if (wall->wall_value == id_portal)
 			{
-				*id_portal_out = wall->id;
+				*id_portal_out = wall->ptr->id;
 				return (sct->id);
 			}
 			else
@@ -62,22 +64,17 @@ void	ft_get_coord_portal(t_main *s, int id_sector_out, int id_portal_out, t_dpos
 {
 	t_sector	*sct;
 	t_int		*vtx;
+	int			i;
 
+	i = 0;
 	sct = get_sector_by_id(s, id_sector_out);
 	vtx = get_t_int_by_id(sct->vertex, id_portal_out);
 
 	left_portal->x = vtx->ptr->x;
 	left_portal->y = vtx->ptr->y;
-	if (vtx->next)
-	{
-		right_portal->x = vtx->next->ptr->x;
-		right_portal->y = vtx->next->ptr->y;
-	}
-	else
-	{
-		right_portal->x = sct->vertex->ptr->x;
-		right_portal->y = sct->vertex->ptr->y;
-	}
+	right_portal->x = vtx->next->ptr->x;
+	right_portal->y = vtx->next->ptr->y;
+
 }
 
 int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan, int id_portal, int id_sector)

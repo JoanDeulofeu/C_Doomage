@@ -210,12 +210,14 @@ void	ft_draw_all_wall(t_main *s)
 	t_int		*vtx;
 	t_int		*first_vtx;
 	t_sector	*sct;
-	int			wall;
+	int				wall;
+	int				i;
 
 	sct = s->sector;
 	vtx = NULL;
 	while (sct)
 	{
+		i = 0;
 		if (s->editor->mode_floor == 1 && sct->floor != s->editor->dply_floor)
 		{
 			sct = sct->next;
@@ -224,7 +226,7 @@ void	ft_draw_all_wall(t_main *s)
 		first_vtx = sct->vertex;
 		wall = 0;
 		vtx = sct->vertex;
-		while (vtx)
+		while (i++ < sct->vertex->prev->id)
 		{
 			ft_trump(s, vtx, wall++, first_vtx);
 			vtx = vtx->next;

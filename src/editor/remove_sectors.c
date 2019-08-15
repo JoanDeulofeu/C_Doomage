@@ -3,15 +3,17 @@
 t_sector	*update_sector_walls(t_main *s, t_int *temp_vertex,
 			t_sector *temp_sector, int sector_id)
 {
+	int i;
 	while (temp_sector)
 	{
+		i = 0;
 		temp_vertex = temp_sector->vertex;
-		while (temp_vertex)
+		while (i++ < temp_sector->vertex->prev->id)
 		{
 			if (temp_vertex->sct_dest == sector_id)
 			{
 				temp_vertex->sct_dest = 0;
-				temp_vertex->value = -1;
+				temp_vertex->wall_value = -1;
 			}
 			temp_vertex = temp_vertex->next;
 		}
@@ -25,10 +27,14 @@ t_int		*free_sector_struct(t_sector *temp_sector)
 {
 	t_int		*temp_vertex;
 	t_int		*temp_vertex2;
+	int			i;
+	int			dest;
 
+	i = 0;
+	dest = temp_sector->vertex->prev->id;
 	temp_vertex = temp_sector->vertex;
 	temp_vertex2 = NULL;
-	while (temp_vertex)
+	while (i++ < dest)
 	{
 		temp_vertex2 = temp_vertex;
 		temp_vertex = temp_vertex->next;
@@ -65,17 +71,19 @@ t_sector		*update_sector_list(t_main *s, t_sector *temp_sector)
 void	remove_sector(t_main *s, int id, int del, int sct_id)
 {
 	t_sector	*tmp_sct;
-	t_int		*tmp_vtx;
+	t_int			*tmp_vtx;
+	int				i;
 
 	tmp_sct = s->sector;
 	while (tmp_sct)
 	{
+		i = 0;
 		sct_id = tmp_sct->id;
 		tmp_vtx = tmp_sct->vertex;
 		del = 0;
-		while (tmp_vtx)
+		while (i++ < tmp_sct->vertex->prev->id)
 		{
-			if (tmp_vtx->value == id)
+			if (tmp_vtx->ptr->id == id)
 			{
 				tmp_vtx = free_sector_struct(tmp_sct);
 				tmp_sct = update_sector_list(s, tmp_sct);

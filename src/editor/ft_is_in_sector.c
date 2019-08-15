@@ -135,6 +135,7 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 	t_dpos		point_2;
 	int			n_sector;
 	int			dist_sector;
+	int			i;
 
 	sct = s->sector;
 	n_sector = 0;
@@ -146,12 +147,13 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 	point_1.y = point_2.y;
 	while (sct)
 	{
+		i = 0;
 		count = 0;
 		save_dist2 = 0;
 		point_1.y += next_test;
 		next_test = 0;
 		s_vtx = sct->vertex;
-		while (s_vtx->next)
+		while (i++ < sct->vertex->prev->id)
 		{
 			vtx = s->vertex;
 			id = s_vtx->value;

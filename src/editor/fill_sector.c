@@ -185,6 +185,7 @@ void	fill_sectors(t_main *s)
 	t_sector	*tmp_sct;
 	t_int		*tmp_vtx;
 	t_pos		*pos;
+	int			i;
 // printf("-----entree\n");
 	if (!(pos = (t_pos*)malloc(sizeof(t_pos))))
 		handle_error(s, MALLOC_ERROR);
@@ -193,8 +194,9 @@ void	fill_sectors(t_main *s)
 	tmp_sct = s->sector;
 	while (tmp_sct)
 	{
+		i = 0;
 		tmp_vtx = tmp_sct->vertex;
-		while (tmp_vtx)
+		while (i++ < tmp_sct->vertex->prev->id)
 		{
 			if (tmp_sct->floor == s->editor->dply_floor
 				&& check_around_vtx(s, tmp_vtx, tmp_sct->id, pos))
