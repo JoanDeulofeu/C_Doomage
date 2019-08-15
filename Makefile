@@ -35,7 +35,6 @@ SRC_NAME =	main.c						\
 			editor/parser_tga.c			\
 			editor/edit_portals.c		\
 			editor/list_utils.c			\
-			game/visu.c					\
 			game/visu_joan.c			\
 			game/visu_portal.c			\
 			game/visu_joan_drawing.c	\

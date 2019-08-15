@@ -191,7 +191,7 @@ typedef struct		s_sector {
 	int				floor;
 	int				ceiling;
 	t_int			*vertex;
-	t_int			*wall;
+	// t_int			*wall;
 	struct s_sector	*next;
 	struct s_sector	*prev;
 }					t_sector;

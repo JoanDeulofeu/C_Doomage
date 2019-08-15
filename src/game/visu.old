@@ -134,7 +134,7 @@ int 	get_vtx_wall_value(t_sector *tmp_sct, t_int *vtx)
 {
 	t_int	*wall;
 
-	wall = tmp_sct->wall;
+	wall = tmp_sct->vertex;
 	while (vtx->id != wall->id)
 		wall = wall->next;
 	return (wall->value);
