@@ -102,6 +102,7 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 5;
 		ft_reset_color_vertex(s);
 	}
+	
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);
 }

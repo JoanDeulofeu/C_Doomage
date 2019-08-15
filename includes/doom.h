@@ -67,6 +67,7 @@ typedef struct		s_player
 	double			angle;
 	int				height;
 	t_anim			weapon;
+	t_image			*hud;
 	t_sector		*sector;
 }					t_player;
 
@@ -197,7 +198,8 @@ int					ft_parsing(t_main *s, int x, int y, int fd);
 int					ft_add_vertex(t_main *s, int x, int y);
 int					ft_check_vertex(t_main *s, int x, int y);
 t_sector			*ft_add_sector(t_main *s, int floor, int ceiling);
-int					ft_add_intarray(t_main *s, t_sector *array, int value, int what);
+int					ft_add_intarray(t_main *s, t_sector *array, int value);
+void				put_wall_value(t_sector *sector, char *line, int i);
 void				ft_test_chainlist(t_main *s);
 
 /*
@@ -279,7 +281,14 @@ void 				trace_direction(t_main *s);
 void  				rotate_mouse(t_main *s);
 void 				jump(t_main *s, int press);
 void 				crouch(t_main *s, int press);
+<<<<<<< HEAD
 void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
+=======
+void 				draw_hud(t_main *s);
+
+void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
+void				display_hud(t_main *s, int i, int j);
+>>>>>>> bd2127c3e630819d20bd42803a4e374f5e041551
 
 
 /*

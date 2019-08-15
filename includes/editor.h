@@ -179,6 +179,9 @@ typedef struct		s_int {
 	int				value;
 	t_vertex		*ptr;
 	char			selected;
+	int				sct_dest;
+	int				wall_value;
+	struct s_int	*vtx_dest;
 	struct s_int	*next;
 	struct s_int	*prev;
 }					t_int;

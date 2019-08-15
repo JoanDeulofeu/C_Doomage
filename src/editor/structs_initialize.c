@@ -89,6 +89,8 @@ void		load_images(t_main *s)
 	s->player.weapon.image[0] = load_tga("images/weapon_1_1.tga", 0, 0, 0);
 	s->player.weapon.image[1] = load_tga("images/weapon_1_2.tga", 0, 0, 0);
 	s->player.weapon.current = 0;
+	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
+
 
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;

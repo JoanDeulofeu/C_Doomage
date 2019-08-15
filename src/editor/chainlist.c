@@ -74,7 +74,6 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 	}
 	tmp->next = NULL;
 	tmp->vertex = NULL;
-	tmp->wall = NULL;
 	tmp->floor = floor;
 	tmp->ceiling = ceiling;
 	return (tmp);
@@ -96,19 +95,35 @@ t_vertex	*ft_find_vertex_ptr(t_main *s, int id)
 	return (NULL);
 }
 
-int			ft_add_intarray(t_main *s, t_sector *sector, int value, int what)
+void		put_wall_value(t_sector *sector, char *line, int i)
+{
+	t_int	*tmp;
+	int		size_line;
+
+	size_line = ft_strlen(line);
+	tmp = sector->vertex;
+
+	if (tmp == NULL)
+		return ;
+	while (i < size_line) //fill des wall et portal dans le secteur
+	{
+		tmp->wall_value = ft_atoi(&line[i]);
+		i += ft_longlen(tmp->wall_value) + 1;
+		tmp = tmp->next;
+	}
+
+}
+
+int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 {
 	t_int	*tmp;
 
-	tmp = (what == 1 ? sector->vertex : sector->wall);
-	if ((what == 1 ? sector->vertex : sector->wall) == NULL)
+	tmp = sector->vertex;
+	if (tmp == NULL)
 	{
 		if (!(tmp = (t_int*)malloc(sizeof(t_int))))
 			handle_error(s, MALLOC_ERROR);
-		if (what == 1)
-			sector->vertex = tmp;
-		else
-			sector->wall = tmp;
+		sector->vertex = tmp;
 		tmp->id = 1;
 		tmp->prev = NULL;
 	}
@@ -122,10 +137,12 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value, int what)
 		tmp = tmp->next;
 		tmp->id = tmp->prev->id + 1;
 	}
-	tmp->ptr = what == 1 ? ft_find_vertex_ptr(s, value) : NULL;
+	tmp->ptr = ft_find_vertex_ptr(s, value);
 	tmp->next = NULL;
 	tmp->value = value;
 	tmp->selected = 0;
+	tmp->sct_dest = 0;
+	tmp->vtx_dest = NULL;
 	return (0);
 }
 
@@ -161,22 +178,14 @@ void	ft_test_chainlist(t_main *s)
 				{
 					printf("--vertex[%d] =", i_tmp->id);
 					printf(" %d\n", i_tmp->value);
+					printf("--wall[%d] =", i_tmp->id);
+					printf(" %d\n", i_tmp->wall_value);
 					i_tmp = i_tmp->next;
 				}
 				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
-			}
-			if (s_tmp->wall != NULL)
-			{
-				i_tmp = s_tmp->wall;
-				while (i_tmp->next != NULL)
-				{
-					printf("--wall[%d] =", i_tmp->id);
-					printf(" %d\n", i_tmp->value);
-					i_tmp = i_tmp->next;
-				}
 				printf("--wall[%d] =", i_tmp->id);
-				printf(" %d\n\n", i_tmp->value);
+				printf(" %d\n", i_tmp->wall_value);
 			}
 			s_tmp = s_tmp->next;
 		}
@@ -188,22 +197,14 @@ void	ft_test_chainlist(t_main *s)
 			{
 				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
+				printf("--wall[%d] =", i_tmp->id);
+				printf(" %d\n", i_tmp->wall_value);
 				i_tmp = i_tmp->next;
 			}
 			printf("--vertex[%d] =", i_tmp->id);
 			printf(" %d\n", i_tmp->value);
-		}
-		if (s_tmp->wall != NULL)
-		{
-			i_tmp = s_tmp->wall;
-			while (i_tmp->next != NULL)
-			{
-				printf("--wall[%d] =", i_tmp->id);
-				printf(" %d\n", i_tmp->value);
-				i_tmp = i_tmp->next;
-			}
 			printf("--wall[%d] =", i_tmp->id);
-			printf(" %d\n\n", i_tmp->value);
+			printf(" %d\n", i_tmp->wall_value);
 		}
 	}
 }

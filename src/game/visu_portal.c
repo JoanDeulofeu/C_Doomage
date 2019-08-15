@@ -43,7 +43,7 @@ int		ft_get_other_sector_portal(t_main *s, int id_portal, int sector_id, int *id
 	{
 		if (sct->id == sector_id)
 			sct = sct->next;
-		wall = sct->wall;
+		wall = sct->vertex;
 		while (wall)
 		{
 			if (wall->value == id_portal)

@@ -140,56 +140,59 @@ int		ft_sector_mode(t_main *s, int x, int y)
 	return (0);
 }
 
-Uint32	ft_color_trump(t_main *s, t_sector *sct, int wall)
+Uint32	ft_color_trump(t_main *s, t_int *s_vtx, int wall)
 {
 	t_int		*sct_wall;
-	t_int		*sct_vtx;
 
-	sct_wall = sct->wall;
-	while (wall-- > 0)
-		sct_wall = sct_wall->next;
-	sct_vtx = get_t_int_by_id(sct->vertex, sct_wall->id);
-	if (sct_wall->value != -1)
-		return (0xddd241ff); //#ddd241
+	sct_wall = s_vtx;
+	// printf("/*/*///*/*/*wall%d\n", wall);
+	// while (wall-- > 0)
+	// {
+	// 	printf("test lol\n");
+	// 	printf("next = %p\n", sct_wall->next);
+	// 	sct_wall = sct_wall->next;
+	// }
+	// printf("out\n\n");
+	if (sct_wall->wall_value != -1)
+		return (0xddd241ff);
 	// printf("wall.selected = %d\n", sct_wall->selected);
-	if (sct_vtx->selected == 2)
+	if (sct_wall->selected == 2)
 	{
-		return (0xddd241ff); //#ff7062
+		return (0xddd241ff);
 	}
-	// if (s->editor->wall == sct_vtx)
-	// 	printf("%p et %p\n", s->editor->wall, sct_vtx);
-	if (s->editor->wall2 == NULL && s->editor->wall && sct_vtx == s->editor->wall)
+	// if (s->editor->wall == sct_wall)
+	// 	printf("%p et %p\n", s->editor->wall, sct_wall);
+	if (s->editor->wall2 == NULL && s->editor->wall && sct_wall == s->editor->wall)
 	{
-		return (0xddd241ff); //#ff7062
+		return (0xddd241ff);
 	}
-	else if (s->editor->wall2 && s->editor->wall2->selected == 3 && sct_vtx == s->editor->wall2)
+	else if (s->editor->wall2 && s->editor->wall2->selected == 3 && sct_wall == s->editor->wall2)
 	{
-		return (GREEN); //#ff7062
+		return (GREEN);
 	}
-	else if (s->editor->wall2 && s->editor->wall2->selected == 4 && sct_vtx == s->editor->wall2)
+	else if (s->editor->wall2 && s->editor->wall2->selected == 4 && sct_wall == s->editor->wall2)
 	{
-		return (S_RED); //#ff7062
+		return (S_RED);
 	}
-
 	else
-		return (0xff7062FF); //#ff7062
+		return (0xff7062FF);
 }
 
-void	ft_trump(t_main *s, t_sector *sct, int wall, t_int *first_vtx)
+void	ft_trump(t_main *s, t_int *s_vtx, int wall, t_int *first_vtx)
 {
 	Uint32		color;
 	t_vertex	*vtx;
 
-	color = ft_color_trump(s, sct, wall);
+	color = ft_color_trump(s, s_vtx, wall);
 	vtx = s->vertex;
-	while (vtx && sct->vertex && sct->vertex->value != vtx->id && vtx->next)
+	while (vtx && s_vtx && s_vtx->value != vtx->id && vtx->next)
 		vtx = vtx->next;
 		s->line.x1 = vtx->pos.x;
 		s->line.y1 = vtx->pos.y;
 	vtx = s->vertex;
-	if (sct->vertex->next != NULL)
+	if (s_vtx->next != NULL)
 	{
-		while (vtx && sct->vertex->next && sct->vertex->next->value != vtx->id)
+		while (vtx && s_vtx->next && s_vtx->next->value != vtx->id)
 			vtx = vtx->next;
 	}
 	else
@@ -204,7 +207,7 @@ void	ft_trump(t_main *s, t_sector *sct, int wall, t_int *first_vtx)
 
 void	ft_draw_all_wall(t_main *s)
 {
-	t_vertex	*vtx;
+	t_int		*vtx;
 	t_int		*first_vtx;
 	t_sector	*sct;
 	int			wall;
@@ -220,10 +223,11 @@ void	ft_draw_all_wall(t_main *s)
 		}
 		first_vtx = sct->vertex;
 		wall = 0;
-		while (sct->vertex)
+		vtx = sct->vertex;
+		while (vtx)
 		{
-			ft_trump(s, sct, wall++, first_vtx);
-			sct->vertex = sct->vertex->next;
+			ft_trump(s, vtx, wall++, first_vtx);
+			vtx = vtx->next;
 		}
 		sct->vertex = first_vtx;
 		sct = sct->next;
