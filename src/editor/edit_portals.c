@@ -35,8 +35,8 @@ void create_struct_portals(t_main *s)
 		wall1 = get_t_int_by_id(sct1->vertex, s->editor->wall->id);
 		wall2 = get_t_int_by_id(sct2->vertex, s->editor->wall2->id);
 
-		wall1->value = s->editor->wall2->ptr->id;
-		wall2->value = s->editor->wall->ptr->id;
+		wall1->wall_value = s->editor->wall2->ptr->id;
+		wall2->wall_value = s->editor->wall->ptr->id;
 		wall1->sct_dest = sct2->id;
 		wall2->sct_dest = sct1->id;
 		wall1->ptr = s->editor->wall2->ptr;
