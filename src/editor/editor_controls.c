@@ -404,6 +404,11 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
+					if (s->player_view)
+					{
+						//t_time 			t;
+						shoot(s,1);
+					}
 					if (check_click_menu(s))
 					{
 						click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
