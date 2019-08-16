@@ -79,6 +79,8 @@ typedef struct		s_visu {
 	int				begin_wall_id;
 	t_dpos			end;
 	int				end_wall_id;
+	t_pos			pixel;
+	Uint32			color;
 }					t_visu;
 
 typedef struct		s_sdl {
@@ -113,7 +115,10 @@ typedef struct		s_main {
 	t_point			**grid;
 	char			*str_vtx;
 	char			player_view;
+	int				viewline;
 	t_image			*menu;
+	t_image			*interface;
+	t_image			*skybox;
 }					t_main;
 
 /*
@@ -304,4 +309,8 @@ void				ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
 TTF_Font			*ft_init_font(void);
 void				ft_draw_ttf(t_main *s);
 
+/*
+****	Fonction des textures
+*/
+void				draw_skybox(t_main *s, t_ray ray, t_slice sl);
 #endif

@@ -64,6 +64,10 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	// if (s->interface->h > WIDTH)
 	// 	s->interface->w = WIDTH;
 	s->font = ft_init_font();
+	if (s->interface->h > HEIGHT * 0.3)
+		s->interface->h = HEIGHT * 0.3;
+	if (s->interface->h > WIDTH)
+		s->interface->w = WIDTH;
 }
 
 void		load_images(t_main *s)
@@ -125,6 +129,7 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	s->viewline = HEIGHT / 2;
 
 	s->player.set = 1;
 	s->player.i = 0;
