@@ -45,6 +45,16 @@ typedef struct		s_visu_sct
 	int				sx2;
 }					t_visu_sct;
 
+typedef struct		s_time
+{
+	int      		   action;
+	t_pos 			recoil;
+	long            fin_time;
+	long            tmp_time;
+	char            v0id[32];
+}					t_time;
+
+
 typedef struct		s_player
 {
 	long			j_fin_time;
@@ -67,6 +77,7 @@ typedef struct		s_player
 	double			angle;
 	int				height;
 	t_anim			weapon;
+	t_time 			t;
 	t_image			*hud;
 	t_sector		*sector;
 }					t_player;
@@ -288,6 +299,8 @@ void 				crouch(t_main *s, int press);
 void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void 				draw_hud(t_main *s);
 void				display_hud(t_main *s, int i, int j);
+void 	shoot(t_main *s, int press);
+
 
 
 /*

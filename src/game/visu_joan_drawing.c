@@ -6,8 +6,8 @@ void	ft_draw_column(t_main *s, t_pos coord, int end, Uint32 color)
 	int begin;
 
 	i = 0;
-	begin = coord.y;
-	coord.y = 0;
+	begin = coord.y ;
+	coord.y = 0 ;
 	while (i++ < begin)
 	{
 		set_pixel(s->sdl->game, 0x485050ff, coord);
@@ -40,8 +40,8 @@ int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double
 	// printf("Largeur du mur = %f\n", width_wall);
 	while (i++ < width_wall)
 	{
-		coord.y = (HEIGHT / 2) - height_wall / 2; //haut du mur
-		bottom = (HEIGHT / 2) + height_wall / 2; //bas du mur
+		coord.y = (HEIGHT / 2) - height_wall / 2 +s->player.y_eye +  s->player.eyesight; //haut du mur
+		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
 		if (i == 1 || i == width_wall)
 			ft_draw_column(s, coord, bottom, 0x000000FF);
 		else

@@ -47,13 +47,13 @@ void 	crouch(t_main *s, int press)
 	}
 	if (s->player.fin_time > curr_time && s->player.tmp_time != curr_time && ((press == 1) && (s->player.i != 5)))
 	{
-		s->player.eyesight -=1;
+		s->player.eyesight -=10;
 		s->player.tmp_time++;
 		s->player.i++;
 	}
 	if (s->player.eyesight < EYESIGHT && press == -1)
 	{
-		s->player.eyesight +=1;
+		s->player.eyesight +=10;
 		s->player.tmp_time++;
 		s->player.i--;
 	}
@@ -74,9 +74,9 @@ void 	jump(t_main *s, int press)
 		s->player.set_jump = 1;
 	}
 	if (s->player.j_fin_time > curr_time && s->player.set_jump == 1)
-		s->player.eyesight += 1;
+		s->player.eyesight += 10;
 	else if (s->player.eyesight > EYESIGHT && s->player.set_jump == 1)
-		s->player.eyesight -= 1;
+		s->player.eyesight -= 10;
 	if (s->player.eyesight == EYESIGHT)
 		s->player.set_jump = 0;
 

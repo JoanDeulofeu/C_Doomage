@@ -32,7 +32,7 @@ void	draw_space_menu(t_main *s)
 	ori.y = -1;
 	dest.x = ori.x + s->editor->m_floor.image[0]->w;
 	dest.y = ori.y + s->editor->m_floor.image[0]->h + 1;
-	draw_image(s->sdl->editor, ori, dest, s->editor->m_floor.image[s->editor->m_floor.current]);
+	//draw_image(s->sdl->editor, ori, dest, s->editor->m_floor.image[s->editor->m_floor.current]);
 }
 
 void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
@@ -102,7 +102,7 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 5;
 		ft_reset_color_vertex(s);
 	}
-	
+
 	// printf("mode = %d\n", s->editor->mode);
 	// printf("mode = %d\n", s->editor->mode);
 }

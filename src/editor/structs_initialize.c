@@ -90,8 +90,13 @@ void		load_images(t_main *s)
 		s->editor->m_floor.image[i++] = NULL;
 	}
 	s->menu = load_tga("images/menu.tga", 0, 0, 0);
-	s->player.weapon.image[0] = load_tga("images/weapon_1_1.tga", 0, 0, 0);
-	s->player.weapon.image[1] = load_tga("images/weapon_1_2.tga", 0, 0, 0);
+	s->player.weapon.image[1] = load_tga("images/shotgun1.tga", 0, 0, 0);
+	s->player.weapon.image[0] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
+	//s->player.weapon.image[2] = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
+	s->player.weapon.image[2] = load_tga("images/shotgun2.tga", 0, 0, 0);
+	s->player.weapon.image[3] = load_tga("images/shotgun3.tga", 0, 0, 0);
+	s->player.weapon.image[4] = load_tga("images/shotgun4.tga", 0, 0, 0);
+	s->player.weapon.image[5] = load_tga("images/shotgun5.tga", 0, 0, 0);
 	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
 
