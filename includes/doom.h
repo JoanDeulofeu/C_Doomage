@@ -325,5 +325,5 @@ void				ft_draw_ttf(t_main *s);
 /*
 ****	Fonction des textures
 */
-void				draw_skybox(t_main *s, t_ray ray, t_slice sl);
+//void				draw_skybox(t_main *s, ? , t_visu vs);
 #endif
