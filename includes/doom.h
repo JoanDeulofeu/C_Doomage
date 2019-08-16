@@ -78,7 +78,6 @@ typedef struct		s_player
 	int				height;
 	t_anim			weapon;
 	t_time 			t;
-
 	t_image			*hud;
 	t_sector		*sector;
 }					t_player;
