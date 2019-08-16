@@ -189,14 +189,14 @@ void	ft_test_chainlist(t_main *s)
 					printf("--vertex[%d] =", i_tmp->id);
 					printf(" %d\n", i_tmp->value);
 					printf("--wall[%d] =", i_tmp->id);
-					printf(" %d\n", i_tmp->wall_value);
+					printf(" %d du secteur %d\n", i_tmp->wall_value, i_tmp->sct_dest);
 					i_tmp = i_tmp->next;
 					i++;
 				}
 				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
 				printf("--wall[%d] =", i_tmp->id);
-				printf(" %d\n", i_tmp->wall_value);
+				printf(" %d du secteur %d\n", i_tmp->wall_value, i_tmp->sct_dest);
 			}
 			s_tmp = s_tmp->next;
 		}
@@ -210,7 +210,7 @@ void	ft_test_chainlist(t_main *s)
 				printf("--vertex[%d] =", i_tmp->id);
 				printf(" %d\n", i_tmp->value);
 				printf("--wall[%d] =", i_tmp->id);
-				printf(" %d\n", i_tmp->wall_value);
+				printf(" %d du secteur %d\n", i_tmp->wall_value, i_tmp->sct_dest);
 				i_tmp = i_tmp->next;
 				i++;
 			}

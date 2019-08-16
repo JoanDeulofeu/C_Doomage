@@ -41,7 +41,7 @@ void remove_selected_anchor(t_main *s)
 {
 	t_vertex    *v;
 
-	v= s->vertex;
+	v = s->vertex;
 	while (v)
 	{
 		if (v->selected == 1)

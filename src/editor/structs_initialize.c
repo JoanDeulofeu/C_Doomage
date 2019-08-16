@@ -64,10 +64,10 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	// if (s->interface->h > WIDTH)
 	// 	s->interface->w = WIDTH;
 	s->font = ft_init_font();
-	if (s->interface->h > HEIGHT * 0.3)
-		s->interface->h = HEIGHT * 0.3;
-	if (s->interface->h > WIDTH)
-		s->interface->w = WIDTH;
+	// if (s->interface->h > HEIGHT * 0.3)
+	// 	s->interface->h = HEIGHT * 0.3;
+	// if (s->interface->h > WIDTH)
+	// 	s->interface->w = WIDTH;
 }
 
 void		load_images(t_main *s)

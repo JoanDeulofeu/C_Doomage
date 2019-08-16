@@ -39,10 +39,10 @@ void create_struct_portals(t_main *s)
 		wall2->wall_value = s->editor->wall->ptr->id;
 		wall1->sct_dest = sct2->id;
 		wall2->sct_dest = sct1->id;
-		wall1->ptr = s->editor->wall2->ptr;
-		wall2->ptr = s->editor->wall->ptr;
+		// wall1->ptr = s->editor->wall2->ptr;
+		// wall2->ptr = s->editor->wall->ptr;
 		reset_temp_portals(s);
-		// ft_test_chainlist(s);
+		ft_test_chainlist(s);
 		// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
 		//modifier structure pour in et out
 }
