@@ -77,10 +77,10 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
 	id_sector_out = ft_get_other_sector_portal(s, id_portal, id_sector, &id_portal_out);
 	ft_get_coord_portal(s, id_sector_out, id_portal_out, &left_portal, &right_portal);
-	left_portal.x *= SPACE;
-	left_portal.y *= SPACE;
-	right_portal.x *= SPACE;
-	right_portal.y *= SPACE;
+	// left_portal.x *= SPACE;
+	// left_portal.y *= SPACE;
+	// right_portal.x *= SPACE;
+	// right_portal.y *= SPACE;
 	// if (check_walls_lenght(s, ))
 	// 	printf("true\n");
 

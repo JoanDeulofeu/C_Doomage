@@ -159,7 +159,7 @@ void	ft_test_chainlist(t_main *s)
 	t_int		*i_tmp;
 	int			i;
 
-	i = 0;
+
 	printf("------VERTEX------\n");
 	v_tmp = s->vertex;
 	s_tmp = s->sector;
@@ -178,46 +178,52 @@ void	ft_test_chainlist(t_main *s)
 	{
 		while (s_tmp->next != NULL)
 		{
-			printf("Sector[%d] =  sol %d  |  plafond %d\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
-			printf("sector->vertex = %p\n", s_tmp->vertex);
+			printf("Sector[%d] =  sol %d  |  plafond %d\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
 			if (s_tmp->vertex != NULL)
 			{
-				printf("chocloat\n");
+				i = 0;
 				i_tmp = s_tmp->vertex;
 				while (i < s_tmp->vertex->prev->id)
 				{
-					printf("--vertex[%d] =", i_tmp->id);
-					printf(" %d\n", i_tmp->value);
-					printf("--wall[%d] =", i_tmp->id);
-					printf(" %d du secteur %d\n", i_tmp->wall_value, i_tmp->sct_dest);
+					printf("--   vertex[%d] = %d\n", i_tmp->id, i_tmp->value);
+					printf("--  ptr vertex = %p\n",i_tmp->ptr);
+					printf("--  vertex x y = x(%d) y(%d)\n",i_tmp->ptr->x, i_tmp->ptr->y);
+					if (i_tmp->wall_value != -1)
+						printf("\033[33m--     wall[%d] =", i_tmp->id);
+					else
+						printf("--     wall[%d] =", i_tmp->id);
+					printf(" %d \033[0m \n", i_tmp->wall_value);
+					if (i_tmp->sct_dest != 0)
+						printf("-- sector_dest = %d\n",i_tmp->sct_dest);
 					i_tmp = i_tmp->next;
 					i++;
+					printf("-------------\n");
 				}
-				printf("--vertex[%d] =", i_tmp->id);
-				printf(" %d\n", i_tmp->value);
-				printf("--wall[%d] =", i_tmp->id);
-				printf(" %d du secteur %d\n", i_tmp->wall_value, i_tmp->sct_dest);
 			}
 			s_tmp = s_tmp->next;
+			printf("\n");
 		}
-		printf("Sector[%d] =  sol %d  |  plafond %d\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
+		printf("Sector[%d] =  sol %d  |  plafond %d\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
 		if (s_tmp->vertex != NULL)
 		{
 			i = 0;
 			i_tmp = s_tmp->vertex;
 			while (i < s_tmp->vertex->prev->id)
 			{
-				printf("--vertex[%d] =", i_tmp->id);
-				printf(" %d\n", i_tmp->value);
-				printf("--wall[%d] =", i_tmp->id);
-				printf(" %d du secteur %d\n", i_tmp->wall_value, i_tmp->sct_dest);
+				printf("--   vertex[%d] = %d\n", i_tmp->id, i_tmp->value);
+				printf("--  ptr vertex = %p\n",i_tmp->ptr);
+				printf("--  vertex x y = x(%d) y(%d)\n",i_tmp->ptr->x, i_tmp->ptr->y);
+				if (i_tmp->wall_value != -1)
+					printf("\033[33m--     wall[%d] =", i_tmp->id);
+				else
+					printf("--     wall[%d] =", i_tmp->id);
+				printf(" %d \033[0m \n", i_tmp->wall_value);
+				if (i_tmp->sct_dest != 0)
+					printf("-- sector_dest = %d\n",i_tmp->sct_dest);
 				i_tmp = i_tmp->next;
 				i++;
+				printf("-------------\n");
 			}
-			printf("--vertex[%d] =", i_tmp->id);
-			printf(" %d\n", i_tmp->value);
-			printf("--wall[%d] =", i_tmp->id);
-			printf(" %d\n", i_tmp->wall_value);
 		}
 	}
 }

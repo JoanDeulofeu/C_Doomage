@@ -26,7 +26,7 @@ void	ft_draw_column(t_main *s, t_pos coord, int end, Uint32 color)
 int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double width_wall)
 {
 	int		diff_wall;
-	double		i;
+	double	i;
 	int		height_wall;
 	t_pos	coord;
 	int		bottom;
@@ -70,7 +70,7 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 	int		l_height_wall;
 	int		r_height_wall;
 	double	pct_plan;
-	double		width_wall;
+	double	width_wall;
 
 	l_big_dist = ft_dist_t_dpos(player, lwall);
 	r_big_dist = ft_dist_t_dpos(player, rwall);
@@ -165,8 +165,17 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 		get_line(s, 0xea7cfcff);}
 
 		x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		// ft_test_chainlist(s);
+		// printf("on est dans le secteur[%d]\nvertex designé[%d]  wall value [%d]\n",sct->id, vtx->id, vtx->wall_value);
+		//
+		// if (vtx->prev->wall_value == -1)
+		// 	x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		// else
+		// 	x = ft_print_portal(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right, vtx->wall_value, s->player.sector_id);
+
 		id_vtx = vtx->id;
 	}
+	// printf("\n");
 
 	s->visu.begin.x = s->visu.tmp_wall.x;
 	s->visu.begin.y = s->visu.tmp_wall.y;
@@ -192,5 +201,4 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	// s->line.y2 = plan_right.y + s->editor->decal_y;
 	// get_line(s, 0xea7cfcff);
 	// printf("---------------------------------------------\n\n\n\n");
-
 }
