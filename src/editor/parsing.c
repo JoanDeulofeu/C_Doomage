@@ -1,5 +1,58 @@
 #include "doom.h"
 
+// void	add_portal_ptr(t_main *s)
+// {
+// 	t_sector	*sct;
+// 	t_int		*wall;
+// 	int			i;
+//
+// 	sct = s->sector;
+// 	wall = sct->vertex;
+// 	while (sct != NULL)
+// 	{
+// 		i = 0;
+// 		while (i++ < sct->vertex->prev->id)
+// 		{
+// 			if (wall->sct_dest != 0)
+// 				if (!check_walls_lenght(s, wall->vtx_dest, wall))
+// 				{
+// 					wall->vtx_dest = get_t_int_by_id(get_sector_by_id(s, wall->sct_dest)->vertex);
+// 				}
+// 			wall = wall->next;
+// 		}
+// 		sct = sct->next;
+// 	}
+// }
+
+void	check_map_portals(t_main *s)
+{
+	t_sector	*sct;
+	t_int		*wall;
+	int			i;
+
+	sct = s->sector;
+	wall = sct->vertex;
+	while (sct != NULL)
+	{
+		i = 0;
+		while (i++ < sct->vertex->prev->id)
+		{
+			if (wall->vtx_dest != NULL)
+				if (!check_walls_lenght(s, wall->vtx_dest, wall))
+				{
+					wall->vtx_dest->vtx_dest = NULL;
+					wall->vtx_dest->sct_dest = 0;
+					wall->vtx_dest->wall_value = -1;
+					wall->vtx_dest = NULL;
+					wall->sct_dest = 0;
+					wall->wall_value = -1;
+				}
+			wall = wall->next;
+		}
+		sct = sct->next;
+	}
+}
+
 void	ft_norm_parse_sector(t_main *s, char *line, t_sector *tmp, int i)
 {
 	int		size_line;
@@ -60,7 +113,8 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 			ft_parse_sector(s, line);
 		ft_strdel(&line);
 	}
-	ft_test_chainlist(s);
+	// ft_test_chainlist(s);
 	ft_strdel(&line);
+	check_map_portals(s);
 	return (0);
 }
