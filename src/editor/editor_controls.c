@@ -183,7 +183,7 @@ void	handle_editor_keys(t_main *s)
 		update_image(s, s->sdl->game);
 	else
 		update_image(s, s->sdl->editor);
-	// ft_test_chainlist(s);
+	ft_test_chainlist(s);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
 	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
 	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);

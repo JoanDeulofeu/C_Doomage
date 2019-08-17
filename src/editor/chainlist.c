@@ -160,7 +160,7 @@ void	ft_test_chainlist(t_main *s)
 	int			i;
 
 
-	printf("------VERTEX------\n");
+	printf("\n\n\n\033[32m------VERTEX------\033[0m\n");
 	v_tmp = s->vertex;
 	s_tmp = s->sector;
 	if (s->vertex != NULL)
@@ -173,12 +173,12 @@ void	ft_test_chainlist(t_main *s)
 		printf("Vertex[%d] =   X %d   |   Y %d\n\n", v_tmp->id, v_tmp->x, v_tmp->y);
 	}
 
-	printf("------SECTOR------\n");
+	printf("\033[32m------SECTOR------\033[0m\n");
 	if (s->sector != NULL)
 	{
 		while (s_tmp->next != NULL)
 		{
-			printf("Sector[%d] =  sol %d  |  plafond %d\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
+			printf("\033[36mSector[%d] =  sol %d  |  plafond %d\033[0m\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
 			if (s_tmp->vertex != NULL)
 			{
 				i = 0;
@@ -203,7 +203,7 @@ void	ft_test_chainlist(t_main *s)
 			s_tmp = s_tmp->next;
 			printf("\n");
 		}
-		printf("Sector[%d] =  sol %d  |  plafond %d\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
+		printf("\033[36mSector[%d] =  sol %d  |  plafond %d\033[0m\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
 		if (s_tmp->vertex != NULL)
 		{
 			i = 0;
