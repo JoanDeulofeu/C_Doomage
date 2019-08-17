@@ -7,8 +7,6 @@ int		check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2)
 	t_dpos end1;
 	t_dpos end2;
 
-	if (s->editor->over_sector == 0 || s->editor->over_sector2 == 0)
-		return (0);
 	end1 = ft_pos_to_dpos(wall1->next->ptr->pos);
 	end2 = ft_pos_to_dpos(wall2->next->ptr->pos);
 	beg1 = ft_pos_to_dpos(wall1->ptr->pos);

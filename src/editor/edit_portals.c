@@ -162,7 +162,8 @@ void	change_over_wall(t_main *s)
 				s->editor->wall2 = wall_save;
 				s->editor->over_sector2 = sector->id;
 			}
-			if (s->editor->wall2 != NULL && check_walls_lenght(s, s->editor->wall, wall_save))
+			if (s->editor->wall2 != NULL && s->editor->over_sector != 0
+				&& s->editor->over_sector2 != 0 && check_walls_lenght(s, s->editor->wall, wall_save))
 			{
 				wall_save->selected = 3;
 			}
