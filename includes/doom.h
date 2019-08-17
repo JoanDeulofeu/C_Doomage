@@ -244,6 +244,7 @@ t_int				*free_sector_struct(t_sector *temp_sector);
 ****	Fonction de gestion des portails
 */
 void				change_over_wall(t_main *s);
+void				edit_portal(t_main *s);
 
 /*
 ****	Fonction utilitaire

@@ -1,28 +1,56 @@
 #include "doom.h"
 
-// void	add_portal_ptr(t_main *s)
-// {
-// 	t_sector	*sct;
-// 	t_int		*wall;
-// 	int			i;
-//
-// 	sct = s->sector;
-// 	wall = sct->vertex;
-// 	while (sct != NULL)
-// 	{
-// 		i = 0;
-// 		while (i++ < sct->vertex->prev->id)
-// 		{
-// 			if (wall->sct_dest != 0)
-// 				if (!check_walls_lenght(s, wall->vtx_dest, wall))
-// 				{
-// 					wall->vtx_dest = get_t_int_by_id(get_sector_by_id(s, wall->sct_dest)->vertex);
-// 				}
-// 			wall = wall->next;
-// 		}
-// 		sct = sct->next;
-// 	}
-// }
+t_int	*get_t_int_from_vertex(t_main *s, int vtx_id)
+{
+	t_sector	*sct;
+	t_int		*wall;
+	int			i;
+
+	sct = s->sector;
+	wall = sct->vertex;
+	while (sct)
+	{
+		i = 0;
+		while (i++ < sct->vertex->prev->id)
+		{
+			if (wall->ptr->id == vtx_id)
+				return (wall);
+			wall = wall->next;
+		}
+		sct = sct->next;
+	}
+	return (NULL);
+}
+
+void	add_portal_ptr(t_main *s)
+{
+	t_sector	*sct;
+	t_int		*wall;
+	int			i;
+
+	sct = s->sector;
+	wall = sct->vertex;
+	while (sct != NULL)
+	{
+		i = 0;
+		while (i++ < sct->vertex->prev->id)
+		{
+			wall->sct = sct->id;
+			if (wall->wall_value != -1 && wall->vtx_dest == NULL)
+			{
+				wall->vtx_dest = get_t_int_from_vertex(s, wall->wall_value);
+				if (wall->vtx_dest != NULL)
+				{
+					wall->vtx_dest->vtx_dest = wall;
+					wall->vtx_dest->sct_dest = wall->sct;
+					wall->vtx_dest->wall_value = wall->ptr->id; //securité
+				}
+			}
+			wall = wall->next;
+		}
+		sct = sct->next;
+	}
+}
 
 void	check_map_portals(t_main *s)
 {
@@ -113,8 +141,10 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 			ft_parse_sector(s, line);
 		ft_strdel(&line);
 	}
-	// ft_test_chainlist(s);
+
 	ft_strdel(&line);
+	add_portal_ptr(s);
 	check_map_portals(s);
+	// ft_test_chainlist(s);
 	return (0);
 }
