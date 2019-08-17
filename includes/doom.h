@@ -304,6 +304,8 @@ void 				draw_hud(t_main *s);
 void				display_hud(t_main *s, int i, int j);
 void 				shoot(t_main *s, int press);
 void display_crosshair(t_main *s, int i, int j);
+void draw_weapon2(t_main *s, int i, int j);
+
 
 
 
