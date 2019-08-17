@@ -148,6 +148,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	tmp->value = value;
 	tmp->selected = 0;
 	tmp->sct_dest = 0;
+	tmp->sct = 0;
 	tmp->vtx_dest = NULL;
 	return (0);
 }
@@ -193,8 +194,9 @@ void	ft_test_chainlist(t_main *s)
 					else
 						printf("--     wall[%d] =", i_tmp->id);
 					printf(" %d \033[0m \n", i_tmp->wall_value);
+					printf("--  sct actuel = %d\n",i_tmp->sct);
 					if (i_tmp->sct_dest != 0)
-						printf("-- sector_dest = %d\n",i_tmp->sct_dest);
+						printf("--  sector_dest = %d\n",i_tmp->sct_dest);
 					i_tmp = i_tmp->next;
 					i++;
 					printf("-------------\n");
@@ -218,6 +220,7 @@ void	ft_test_chainlist(t_main *s)
 				else
 					printf("--     wall[%d] =", i_tmp->id);
 				printf(" %d \033[0m \n", i_tmp->wall_value);
+				printf("--  sct actuel = %d\n",i_tmp->sct);
 				if (i_tmp->sct_dest != 0)
 					printf("-- sector_dest = %d\n",i_tmp->sct_dest);
 				i_tmp = i_tmp->next;

@@ -225,5 +225,4 @@ typedef struct		s_editor {
 
 
 
-
 #endif
