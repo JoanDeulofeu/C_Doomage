@@ -36,7 +36,6 @@ void	add_portal_ptr(t_main *s)
 		while (i++ < sct->vertex->prev->id)
 		{
 			wall->sct = sct->id;
-			printf("sct->id = %d\n", sct->id);
 			if (wall->wall_value != -1 && wall->vtx_dest == NULL)
 			{
 				wall->vtx_dest = get_t_int_from_vertex(s, wall->wall_value);
@@ -68,6 +67,7 @@ void	check_map_portals(t_main *s)
 		{
 			if (wall->vtx_dest != NULL)
 			{
+				printf("ptdr\n");
 				if (!check_walls_lenght(s, wall->vtx_dest, wall))
 				{
 					wall->vtx_dest->vtx_dest = NULL;
@@ -149,6 +149,6 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 	ft_strdel(&line);
 	add_portal_ptr(s);
 	check_map_portals(s);
-	ft_test_chainlist(s);
+	// ft_test_chainlist(s);
 	return (0);
 }
