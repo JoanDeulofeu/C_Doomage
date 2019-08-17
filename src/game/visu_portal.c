@@ -18,13 +18,13 @@ int		check_walls_lenght(t_int *wall1, t_int *wall2)
 }
 
 //fonction qui revoie l'angle du point needed, 1 pour left, 2 pour right, 3 pour third
-int		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed)
+double		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed)
 {
 	//third est le troisieme point pour trouver l'angle si besoin;
-	int angle = 0;
-	int left_right_dist;
-	int right_third_dist;
-	int left_third_dist;
+	double	angle = 0;
+	double	left_right_dist;
+	double	right_third_dist;
+	double	left_third_dist;
 	t_dpos	tmp_third;
 
 	if (third == NULL)
@@ -33,11 +33,9 @@ int		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed
 		third->x = left->x + 100;
 		third->y = left->y;
 	}
-
 	left_third_dist = ft_dist_t_dpos(*third, *left);
 	right_third_dist = ft_dist_t_dpos(*third, *right);
 	left_right_dist = ft_dist_t_dpos(*left, *right);
-	//ft_find_angle_plan peut etre un probleme de precision car int et pas float en entrée...
 	if (needed == 1)
 		angle = ft_find_angle_plan(left_third_dist, left_right_dist, right_third_dist);
 	else if (needed == 2)
@@ -50,12 +48,12 @@ int		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed
 int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan, t_int *vtx)
 {
 	(void)s;
-	int		id_sector_out;
-	int		angle_player;
-	int		angle_portal_in;
-	int		angle_portal_out;
-	t_dpos	l_portal;
-	t_dpos	r_portal;
+	int			id_sector_out;
+	double		angle_player;
+	double		angle_portal_in;
+	double		angle_portal_out;
+	t_dpos		l_portal;
+	t_dpos		r_portal;
 
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
 	id_sector_out = vtx->sct_dest;
@@ -70,15 +68,15 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 	//trouver langle du portail d'entree
 	angle_portal_in = ft_find_angle_portal(&lwall, &rwall, NULL, 1);
 	if (rwall.y > lwall.y)
-		angle_portal_in += 180;
+		angle_portal_in = 180 + (180 - angle_portal_in);
 
 	//trouver langle du portail de sortie
 	angle_portal_out = ft_find_angle_portal(&l_portal, &r_portal, NULL, 1);
 	if (r_portal.y > l_portal.y)
-		angle_portal_out += 180;
+		angle_portal_out = 180 + (180 - angle_portal_out);
 
-	printf("angle IN  (%d)\n",angle_portal_in);
-	printf("angle OUT (%d)\n\n",angle_portal_out);
+	printf("angle IN  (%f)\n",angle_portal_in);
+	printf("angle OUT (%f)\n\n",angle_portal_out);
 
 	double	pct_plan; // temporaire
 	double	width_wall; // temporaire
