@@ -67,7 +67,6 @@ void	check_map_portals(t_main *s)
 		{
 			if (wall->vtx_dest != NULL)
 			{
-				printf("ptdr\n");
 				if (!check_walls_lenght(s, wall->vtx_dest, wall))
 				{
 					wall->vtx_dest->vtx_dest = NULL;
