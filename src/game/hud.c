@@ -1,5 +1,41 @@
 #include "doom.h"
 
+void display_crosshair(t_main *s, int i, int j)
+{
+	double		perx;
+	double		pery;
+	t_pos		coord;
+	int			px;
+	t_image		*wp;
+
+
+	coord.x = 0;
+	coord.y = 0;
+	wp = s->player.crosshair;
+	//wp = s->player.weapon.image[s->player.weapon.current];
+	//coord.x = WIDTH / 2 - (wp->w / 2);
+
+	while (i < wp->w)
+	{
+		j = 0;//dont touch
+		coord.x = i ;
+
+		perx = (double)coord.x / (double)wp->w;
+		coord.x += WIDTH/2;
+
+		while (j < wp->h)
+		{
+			coord.y = j++;
+			pery = (double)coord.y / (double)wp->h;
+			coord.y += HEIGHT/2;
+			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
+			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
+				set_pixel(s->sdl->game, wp->tex[px], coord);
+		}
+		i++;
+	}
+}
+
 void 	shoot(t_main *s, int press)
 {
 	struct timeval 	tv;
@@ -53,6 +89,7 @@ void 	draw_hud(t_main *s)
 	shoot(s,-1);
 	draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2 ), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
 	//draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
+	display_crosshair(s, 0, 0);
 
 	display_hud(s, 0, 0);
 }
