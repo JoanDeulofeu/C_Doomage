@@ -79,6 +79,7 @@ typedef struct		s_player
 	t_anim			weapon;
 	t_time 			t;
 	t_image			*hud;
+	t_image			*crosshair;
 	t_sector		*sector;
 }					t_player;
 
@@ -302,6 +303,10 @@ void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void 				draw_hud(t_main *s);
 void				display_hud(t_main *s, int i, int j);
 void 				shoot(t_main *s, int press);
+void display_crosshair(t_main *s, int i, int j);
+void draw_weapon2(t_main *s, int i, int j);
+
+
 
 
 

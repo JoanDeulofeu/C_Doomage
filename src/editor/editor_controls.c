@@ -500,7 +500,7 @@ void	editor_handler(t_main *s)
 			while (v)
 			{
 				v->selec = 0;
-				set_selected(s, v->pos, 0);
+				//set_selected(s, v->pos, 0);
 				if (v)
 					v = v->next;
 			}

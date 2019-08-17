@@ -99,6 +99,8 @@ void		load_images(t_main *s)
 	s->player.weapon.image[5] = load_tga("images/shotgun5.tga", 0, 0, 0);
 	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
+	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
+
 
 
 	s->editor->menu.current = 0;
@@ -146,7 +148,8 @@ t_main		*initialize_main(void)
 
 	s->player.fin_time = 0;
 	s->player.tmp_time = 0;
-
+	s->player.t.recoil.x = 0;
+	s->player.t.recoil.y = 0;
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;
 	s->intersect1.x = 0;
