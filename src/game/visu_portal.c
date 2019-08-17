@@ -47,20 +47,22 @@ double		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int nee
 
 int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan, t_int *vtx)
 {
-	(void)s;
+	// (void)s;
 	int			id_sector_out;
 	double		angle_player;
 	double		angle_portal_in;
 	double		angle_portal_out;
 	t_dpos		l_portal;
 	t_dpos		r_portal;
+	t_pos		fake_player;
+	double		dist_player;
 
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
 	id_sector_out = vtx->sct_dest;
-	l_portal.x = vtx->vtx_dest->ptr->x;
-	l_portal.y = vtx->vtx_dest->ptr->y;
-	r_portal.x = vtx->vtx_dest->next->ptr->x;
-	r_portal.y = vtx->vtx_dest->next->ptr->y;
+	l_portal.x = vtx->vtx_dest->ptr->x * METRE;
+	l_portal.y = vtx->vtx_dest->ptr->y * METRE;
+	r_portal.x = vtx->vtx_dest->next->ptr->x * METRE;
+	r_portal.y = vtx->vtx_dest->next->ptr->y * METRE;
 
 	//placer et orienter le fake joueur (modif player)
 	angle_player = ft_find_angle_portal(&lwall, &rwall, &player, 1);
@@ -75,8 +77,44 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 	if (r_portal.y > l_portal.y)
 		angle_portal_out = 180 + (180 - angle_portal_out);
 
-	printf("angle IN  (%f)\n",angle_portal_in);
-	printf("angle OUT (%f)\n\n",angle_portal_out);
+	// printf("angle PLAYER  (%f)\n",angle_player);
+	// printf("angle IN      (%f)\n",angle_portal_in);
+	// printf("angle OUT     (%f)\n\n",angle_portal_out);
+
+	//application de la difference d'angle des deux portail sur angle player
+	angle_player = angle_portal_in - angle_player - fabs(angle_portal_in - angle_portal_out);
+
+	// printf("New Angle Player (%f)\n\n",angle_player);
+
+	//trouver la distance entre joueur et le point gauche du portail initial
+	dist_player = ft_dist_t_dpos(player, lwall);
+
+	//Tentative de placement du fake player
+	fake_player.x = r_portal.x + cos(to_rad(angle_player)) * dist_player + s->editor->decal_x;
+	fake_player.y = r_portal.y - sin(to_rad(angle_player)) * dist_player + s->editor->decal_y;
+	//ATTENTION !!!! jai ajouter le decal_x pour que le point saffiche a lecran pour mes tests.
+
+	// printf("coord r_portal (%.1f,%.1f)\n\n",r_portal.x, r_portal.y);
+	// printf("coord player (%d,%d)\n\n",fake_player.x, fake_player.y);
+	draw_anchor(s, fake_player, 0xfa00ffff); //juste pour tester la pos du fake_player
+
+	/*
+	biensur il faut retirer le decal_x pour faire les calculs suivants.
+	sinon la position du joueur DEVRAIT etre bonne. Faut test si ca marche
+	toujours avec des angles differents.
+
+	jai laissé mes printfs si jamais tu veux comprendre ce que je fais mais tu
+	peux les supprimer sil te gene.
+	*/
+
+
+
+
+
+
+
+
+
 
 	double	pct_plan; // temporaire
 	double	width_wall; // temporaire

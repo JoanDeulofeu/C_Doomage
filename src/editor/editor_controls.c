@@ -48,42 +48,12 @@ int		check_click_menu(t_main *s)
 
 int		keyboard_controls_edi(t_main *s, int key)
 {
-	// (void)s;
 	if (key == SDLK_ESCAPE)
 		return (0);
 	if (key == SDLK_RETURN)
 	{
 		s->player_view = s->player_view == 1 ? 0 : 1;
 	}
-
-	// if (key == SDLK_RIGHT)
-	// {
-	// 	s->editor->decal_x += 5;
-	// 	s->player.pos.x += 5;
-	// }
-	// if (key == SDLK_LEFT)
-	// {
-	// 	s->player.pos.x -= 5;
-	// 	s->editor->decal_x -= 5;
-	// }
-	// if (key == SDLK_UP)
-	// {
-	// 	s->player.pos.y -= 5;
-	// 	s->editor->decal_y -= 5;
-	// }
-	// if (key == SDLK_DOWN)
-	// {
-	// 	s->player.pos.y += 5;
-	// 	s->editor->decal_y += 5;
-	// }
-
-	/*if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
-	{
-		move_player(s,key);
-		set_player(s);
-	}*/
-	//if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER)
-
 	if (key == SDLK_KP_PLUS)
 	{
 		s->editor->dply_floor = ft_prev_next_floor(s, 1);
@@ -94,23 +64,18 @@ int		keyboard_controls_edi(t_main *s, int key)
 	}
 	if (key == ROTATE_LEFT)
 	{
-		s->player.angle += 2;
+		s->player.angle += 20;
 		if (s->player.angle > 360)
 			s->player.angle -= 360;
 	}
 	if (key == ROTATE_RIGHT)
 	{
-		s->player.angle -= 2;
+		s->player.angle -= 20;
 		if (s->player.angle < 0)
 			s->player.angle += 360;
 	}
-	// if (key == VISU)
-	// {
-	// 	ft_visu(s);
-	// }
 	if (key == FLOOR)
 	{
-		// printf("lol\n");
 		if (s->editor->mode_floor == 1)
 			s->editor->mode_floor = 0;
 		else
@@ -122,15 +87,6 @@ int		keyboard_controls_edi(t_main *s, int key)
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
-	//f (key == UP)
-	// else if (key == SDLK_e)
-	// 	open_door(s);
-	// else if (key == SDLK_m && HEIGHT / SPACE <= s->height && WIDTH / SPACE
-	// 	<= s->width)
-	// {
-	// 	s->active_map = !s->active_map;
-	// 	draw_interface(s);
-	// }
 	return (1);
 }
 
@@ -176,7 +132,6 @@ void	handle_editor_keys(t_main *s)
 			change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
-	//ft_visu(s);
 	ft_visu_joan(s);
 	draw_hud(s);
 	if (s->player_view)
