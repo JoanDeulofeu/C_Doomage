@@ -177,8 +177,8 @@ void	handle_editor_keys(t_main *s)
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
 	//ft_visu(s);
-	 ft_visu_joan(s);
-	 draw_hud(s);
+	ft_visu_joan(s);
+	draw_hud(s);
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else

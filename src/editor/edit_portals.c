@@ -109,7 +109,6 @@ void	change_over_wall(t_main *s)
 	t_pos		end;
 	t_pos		new_pos;
 	t_int		*wall_save;
-	t_pos		save;
 	int diff1;
 	int diff2;
 	t_pos mouse;
@@ -163,7 +162,7 @@ void	change_over_wall(t_main *s)
 				s->editor->over_sector2 = sector->id;
 			}
 			if (s->editor->wall2 != NULL && s->editor->over_sector != 0
-				&& s->editor->over_sector2 != 0 && check_walls_lenght(s, s->editor->wall, wall_save))
+				&& s->editor->over_sector2 != 0 && check_walls_lenght(s->editor->wall, wall_save))
 			{
 				wall_save->selected = 3;
 			}

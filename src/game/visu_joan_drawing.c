@@ -164,14 +164,14 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 		s->line.y2 = plan_right.y + s->editor->decal_y;
 		get_line(s, 0xea7cfcff);}
 
-		x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		// x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
 		// ft_test_chainlist(s);
 		// printf("on est dans le secteur[%d]\nvertex designé[%d]  wall value [%d]\n",sct->id, vtx->id, vtx->wall_value);
-		//
-		// if (vtx->prev->wall_value == -1)
-		// 	x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
-		// else
-		// 	x = ft_print_portal(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right, vtx->wall_value, s->player.sector_id);
+
+		if (vtx->prev->wall_value == -1)
+			x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		else
+			x = ft_print_portal(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right, vtx->prev);
 
 		id_vtx = vtx->id;
 	}

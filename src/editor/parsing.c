@@ -67,7 +67,7 @@ void	check_map_portals(t_main *s)
 		{
 			if (wall->vtx_dest != NULL)
 			{
-				if (!check_walls_lenght(s, wall->vtx_dest, wall))
+				if (!check_walls_lenght(wall->vtx_dest, wall))
 				{
 					wall->vtx_dest->vtx_dest = NULL;
 					wall->vtx_dest->sct_dest = 0;
@@ -77,7 +77,6 @@ void	check_map_portals(t_main *s)
 					wall->wall_value = -1;
 				}
 			}
-
 			wall = wall->next;
 		}
 		sct = sct->next;

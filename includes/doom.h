@@ -138,9 +138,10 @@ typedef struct		s_main {
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s);
 void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
-int					ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall,
-					t_dpos lplan, t_dpos rplan, int id_portal, int id_sector);
-int					check_walls_lenght(t_main *s, t_int *wall1, t_int *wall2);
+int					ft_print_portal(t_main *s, int x, t_dpos player,
+					t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan,
+					t_int *vtx);
+int					check_walls_lenght(t_int *wall1, t_int *wall2);
 
 /*
 ****	Fonction d'initialisation
@@ -300,7 +301,7 @@ void 				crouch(t_main *s, int press);
 void				draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void 				draw_hud(t_main *s);
 void				display_hud(t_main *s, int i, int j);
-void 	shoot(t_main *s, int press);
+void 				shoot(t_main *s, int press);
 
 
 
