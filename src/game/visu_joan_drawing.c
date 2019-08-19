@@ -80,8 +80,8 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 	l_pct = (l_big_dist * 100.0) / l_small_dist; //calcule des ratios mur gauche et droit
 	r_pct = (r_big_dist * 100.0) / r_small_dist;
 
-	l_height_wall = HEIGHT / ((l_pct * 0.001)*4); //calcule des hauteur des murs gauche et droit
-	r_height_wall = HEIGHT / ((r_pct * 0.001)*4);
+	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4); //calcule des hauteur des murs gauche et droit
+	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4);
 
 	pct_plan = (ft_dist_t_dpos(lplan, rplan) * 100.0) / WIDTHPLAN; //calcule de la largeur du mur dans la fenetre
 	width_wall = (WIDTH * pct_plan) / 100;
@@ -109,11 +109,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 	while (s->player.sector_id != sct->id)
 		sct = sct->next;
 	vtx = sct->vertex;
-	while (i++ < sct->vertex->prev->id && vtx->id != vs->begin_wall_id + 1) // trouver le deuxieme vertex du premier mur
-	{
-		// printf("%d\n", vtx->ptr->id);
-		vtx = vtx->next;
-	}
+	vtx = get_t_int_by_id(vtx, vs->begin_wall_id)->next;// trouver le deuxieme vertex du premier mur
 	id_vtx = vtx->id;
 
 	if (vs->begin_wall_id != vs->end_wall_id)
@@ -185,9 +181,8 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_visu *vs)
 
 	plan_left.x = plan_right.x;
 	plan_left.y = plan_right.y;
-	ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan, 1);
-	plan_right.x = s->tmp_intersect.x;
-	plan_right.y = s->tmp_intersect.y;
+	plan_right.x = s->visu.right_plan.x;
+	plan_right.y = s->visu.right_plan.y;
 
 	x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
 
