@@ -134,6 +134,8 @@ void	handle_editor_keys(t_main *s)
 	draw_space_menu(s);
 	ft_visu_joan(s);
 	draw_hud(s);
+	//draw_sprite(s);
+
 	if (s->player_view)
 		update_image(s, s->sdl->game);
 	else
