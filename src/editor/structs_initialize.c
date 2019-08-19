@@ -100,6 +100,7 @@ void		load_images(t_main *s)
 	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
+	s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 
 
 
