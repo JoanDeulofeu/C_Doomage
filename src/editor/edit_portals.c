@@ -109,8 +109,6 @@ void	change_over_wall(t_main *s)
 	t_pos		end;
 	t_pos		new_pos;
 	t_int		*wall_save;
-	int diff1;
-	int diff2;
 	t_pos mouse;
 	Uint32 color;
 	int			i;
@@ -122,11 +120,9 @@ void	change_over_wall(t_main *s)
 
 		if (color == COLOR_WALL)
 		{
-			// printf("id %d\n", id);
 			mouse.x = s->ft_mouse.x;
 			mouse.y = s->ft_mouse.y;
 			id = get_nearest_sector(s, s->ft_mouse, &new_pos);
-			// id = ft_is_in_sector(s, s->ft_mouse);
 			if (id == 0)
 				return ;
 			sector  = get_sector_by_id(s, id);
@@ -135,18 +131,16 @@ void	change_over_wall(t_main *s)
 			end = wall->ptr->next->pos;
 
 			wall_save = wall;
-			diff1 = get_smallest_diff(mouse, wall->ptr->pos, wall->next->ptr->pos);
 			while (i++ < sector->vertex->prev->id)
 			{
 					end = wall->next->ptr->pos;
-					diff2 = get_smallest_diff(mouse, wall->ptr->pos, end);
-					if (diff2 < diff1)
+					if (mouse.x >= wall->ptr->pos.x && mouse.x <= end.x
+					&& mouse.y >= wall->ptr->pos.y && mouse.y <= end.y)
 					{
 						wall_save = wall;
-						diff1 = diff2;
+						break;
 					}
 					wall = wall->next;
-					// printf("prochain mur = %d\n", wall->id);
 			}
 			s->editor->over_portal = wall_save->id;
 			if (s->editor->wall == NULL)
