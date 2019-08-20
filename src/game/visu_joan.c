@@ -61,7 +61,7 @@ t_visu get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angl
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 2000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 2000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff);
-	printf("wall_id = %d\n", vs.begin_wall_id);
+	// printf("wall_id = %d\n", vs.begin_wall_id);
 	vs.begin.x = s->tmp_intersect.x;
 	vs.begin.y = s->tmp_intersect.y;
 // printf("------MUR DROITE------\n");
@@ -77,7 +77,7 @@ void	ft_visu_joan(t_main *s)
 {
 	double	angle_left;
 	double	angle_right;
-	double	chevre;
+	double	demi_fov;
 	t_dpos	point;
 	t_visu	vs;
 	// t_visu	*vsu = &s->visu;
@@ -90,11 +90,11 @@ void	ft_visu_joan(t_main *s)
 	player.y = s->player.r_pos.y * METRE;
 	vs = ft_place_view_plan(s, player, 0x4bd9ffff);
 
-	chevre = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
-	printf("chevre = %f\n",chevre);
-	angle_left = s->player.angle + chevre;
+	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
+	// printf("demi_fov = %f\n",demi_fov);
+	angle_left = s->player.angle + demi_fov;
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-	angle_right = s->player.angle - chevre;
+	angle_right = s->player.angle - demi_fov;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
 

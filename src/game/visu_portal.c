@@ -77,14 +77,14 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 	if (r_portal.y > l_portal.y)
 		angle_portal_out = 180 + (180 - angle_portal_out);
 
-	printf("angle PLAYER  (%f)\n",angle_fake_player);
-	printf("angle IN      (%f)\n",angle_portal_in);
-	printf("angle OUT     (%f)\n\n",angle_portal_out);
+	// printf("angle PLAYER  (%f)\n",angle_fake_player);
+	// printf("angle IN      (%f)\n",angle_portal_in);
+	// printf("angle OUT     (%f)\n\n",angle_portal_out);
 
 	//application de la difference d'angle des deux portail sur angle player
 	angle_fake_player = angle_portal_in - angle_fake_player - fabs(angle_portal_in - angle_portal_out);
 
-	printf("New Angle Player (%f)\n\n",angle_fake_player);
+	// printf("New Angle Player (%f)\n\n",angle_fake_player);
 
 	//trouver la distance entre joueur et le point gauche du portail initial
 	dist_player = ft_dist_t_dpos(player, lwall);

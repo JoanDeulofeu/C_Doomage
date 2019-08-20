@@ -100,9 +100,19 @@ typedef struct		s_visu {
 	int				end_wall_id;
 	t_pos			pixel;
 	Uint32			color;
-	t_dpos		left_point;
-	t_dpos		right_point;
+	t_dpos			left_point;
+	t_dpos			right_point;
 }					t_visu;
+
+typedef struct		s_wall_order {
+	double			distance;
+	int				x;
+	t_dpos			player;
+	t_dpos			left;
+	t_dpos			right;
+	t_dpos			l_plan;
+	t_dpos			r_plan;
+}					t_wall_order;
 
 typedef struct		s_sdl {
 	SDL_Window		*pwindow;

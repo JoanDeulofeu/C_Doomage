@@ -132,6 +132,12 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	get_line(s, 0xea7cfcff);}
 
 	// printf("ENTREE   id_vtx = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs.end_wall_id);
+
+
+
+
+
+	
 	while (id_vtx != vs.end_wall_id)
 	{
 		vs.begin.x = vs.tmp_wall.x;
