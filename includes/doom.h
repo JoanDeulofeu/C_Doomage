@@ -100,6 +100,8 @@ typedef struct		s_visu {
 	int				end_wall_id;
 	t_pos			pixel;
 	Uint32			color;
+	t_dpos		left_point;
+	t_dpos		right_point;
 }					t_visu;
 
 typedef struct		s_sdl {
@@ -146,7 +148,7 @@ typedef struct		s_main {
 */
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s);
-void				ft_draw_visu(t_main *s, t_dpos player, t_visu *vs);
+void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
 int					ft_print_portal(t_main *s, int x, t_dpos player,
 					t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan,
 					t_int *vtx);
