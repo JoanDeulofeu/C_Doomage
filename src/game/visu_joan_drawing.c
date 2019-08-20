@@ -108,25 +108,25 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 	if (vs.begin_wall_id != vs.end_wall_id)
 	{
-		s->visu.tmp_wall.x = vtx->ptr->x * METRE;
-		s->visu.tmp_wall.y = vtx->ptr->y * METRE;
+		vs.tmp_wall.x = vtx->ptr->x * METRE;
+		vs.tmp_wall.y = vtx->ptr->y * METRE;
 	}
 	else
 	{
-		s->visu.tmp_wall.x = vs.end.x;
-		s->visu.tmp_wall.y = vs.end.y;
+		vs.tmp_wall.x = vs.end.x;
+		vs.tmp_wall.y = vs.end.y;
 	}
-	ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan, 1);
+	ft_find_intersection(s, vs.tmp_wall, player, vs.left_plan, vs.right_plan, 1);
 	plan_right.x = s->tmp_intersect.x;
 	plan_right.y = s->tmp_intersect.y;
-	x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, s->visu.left_plan, plan_right);
+	x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, vs.left_plan, plan_right);
 
 	if (vs.begin_wall_id == vs.end_wall_id)
 		return ;
-	// printf("point gauche x = %f, y = %f\n",s->visu.begin.x, s->visu.begin.y);
-	// printf("vertex %d, x = %f, y = %f\n", vtx->id, s->visu.tmp_wall.x, s->visu.tmp_wall.y);
-	{s->line.x1 = s->visu.tmp_wall.x + s->editor->decal_x;
-	s->line.y1 = s->visu.tmp_wall.y + s->editor->decal_y;
+	// printf("point gauche x = %f, y = %f\n",vs.begin.x, vs.begin.y);
+	// printf("vertex %d, x = %f, y = %f\n", vtx->id, vs.tmp_wall.x, vs.tmp_wall.y);
+	{s->line.x1 = vs.tmp_wall.x + s->editor->decal_x;
+	s->line.y1 = vs.tmp_wall.y + s->editor->decal_y;
 	s->line.x2 = plan_right.x + s->editor->decal_x;
 	s->line.y2 = plan_right.y + s->editor->decal_y;
 	get_line(s, 0xea7cfcff);}
@@ -134,50 +134,50 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// printf("ENTREE   id_vtx = %d\nvtx_id = %d\nend_wall_id = %d\n\n",id_vtx, vtx->id, vs.end_wall_id);
 	while (id_vtx != vs.end_wall_id)
 	{
-		s->visu.begin.x = s->visu.tmp_wall.x;
-		s->visu.begin.y = s->visu.tmp_wall.y;
+		vs.begin.x = vs.tmp_wall.x;
+		vs.begin.y = vs.tmp_wall.y;
 		vtx = vtx->next;
-		s->visu.tmp_wall.x = vtx->ptr->x * METRE;
-		s->visu.tmp_wall.y = vtx->ptr->y * METRE;
+		vs.tmp_wall.x = vtx->ptr->x * METRE;
+		vs.tmp_wall.y = vtx->ptr->y * METRE;
 
 
 		plan_left.x = plan_right.x;
 		plan_left.y = plan_right.y;
-		ft_find_intersection(s, s->visu.tmp_wall, player, s->visu.left_plan, s->visu.right_plan, 1);
+		ft_find_intersection(s, vs.tmp_wall, player, vs.left_plan, vs.right_plan, 1);
 		plan_right.x = s->tmp_intersect.x;
 		plan_right.y = s->tmp_intersect.y;
 
-		{s->line.x1 = s->visu.tmp_wall.x + s->editor->decal_x;
-		s->line.y1 = s->visu.tmp_wall.y + s->editor->decal_y;
+		{s->line.x1 = vs.tmp_wall.x + s->editor->decal_x;
+		s->line.y1 = vs.tmp_wall.y + s->editor->decal_y;
 		s->line.x2 = plan_right.x + s->editor->decal_x;
 		s->line.y2 = plan_right.y + s->editor->decal_y;
 		get_line(s, 0xea7cfcff);}
 
-		// x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+		// x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right);
 		// ft_test_chainlist(s);
 		// printf("on est dans le secteur[%d]\nvertex designé[%d]  wall value [%d]\n",sct->id, vtx->id, vtx->wall_value);
 
 		if (vtx->prev->wall_value == -1)
-			x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+			x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right);
 		else
-			x = ft_print_portal(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right, vtx->prev);
+			x = ft_print_portal(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right, vtx->prev);
 
 		id_vtx = vtx->id;
 	}
 	// printf("\n");
 
-	s->visu.begin.x = s->visu.tmp_wall.x;
-	s->visu.begin.y = s->visu.tmp_wall.y;
+	vs.begin.x = vs.tmp_wall.x;
+	vs.begin.y = vs.tmp_wall.y;
 	vtx = vtx->next;
-	s->visu.tmp_wall.x = s->visu.end.x;
-	s->visu.tmp_wall.y = s->visu.end.y;
+	vs.tmp_wall.x = vs.end.x;
+	vs.tmp_wall.y = vs.end.y;
 
 	plan_left.x = plan_right.x;
 	plan_left.y = plan_right.y;
-	plan_right.x = s->visu.right_plan.x;
-	plan_right.y = s->visu.right_plan.y;
+	plan_right.x = vs.right_plan.x;
+	plan_right.y = vs.right_plan.y;
 
-	x = ft_print_wall(s, x, player, s->visu.begin, s->visu.tmp_wall, plan_left, plan_right);
+	x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right);
 
 	// printf("wall n%d et vertex du mur = %d\n", vs.begin_wall_id, vtx->id);
 	// printf("coordonees du vertex (%.2f, %.2f)\n",s->visu.tmp_wall.x, s->visu.tmp_wall.y);
