@@ -1,44 +1,61 @@
 #include "doom.h"
 
+int		in_field(t_main *s, t_dpos player, int dist)
+{
+	t_dpos	ctr_l;
+	int  angle;
+	t_pos ret;
+
+	angle = -40;
+	ctr_l.x = player.x + cos(to_rad(s->player.angle + angle)) * dist;
+	ctr_l.y = player.y - sin(to_rad(s->player.angle + angle)) * dist;
+	//draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
+	 while ( angle <=  40)
+	 {
+		 ctr_l.x = player.x + cos(to_rad(s->player.angle+ angle)) * dist;
+	 	 ctr_l.y = player.y - sin(to_rad(s->player.angle+ angle)) * dist;
+		 ret = ft_dpos_to_pos(ctr_l);
+		// set_pixel(s->sdl->editor, BLUE, ret);
+		  if ((ret.x >= (s->sprites.pos.x -10) && ret.x <= (s->sprites.pos.x +10))
+		  	&& (ret.y >= (s->sprites.pos.y -10) && ret.y <= (s->sprites.pos.y +10)))
+		  {
+			//printf("ret= (%d,%d)\n",ret.x,ret.y);
+			draw_anchor(s, ft_dpos_to_pos(s->sprites.pos), PINK);
+			//set le sprite a 1
+		 	return(1);
+		 }
+		 angle++;
+	 }
+
+	//printf("ret= (%d,%d)\n",ret.x,ret.y);
+	return (0);
+}
+
+
 void 	draw_sprite(t_main *s)
 {
 	t_dpos distance;
-	t_dpos target;
 	double dist;
 
 	s->sprites.pos.x = 300;
 	s->sprites.pos.y = 300;
 
-	target.x = s->player.pos.x;
-	target.y = s->player.pos.y;
-	draw_anchor(s, ft_dpos_to_pos(s->sprites.pos), BLUE);
+	draw_anchor(s, ft_dpos_to_pos(s->sprites.pos), GREEN);
 
 	distance.x =  s->sprites.pos.x - s->player.pos.x;
 	distance.y =  s->sprites.pos.y - s->player.pos.y;
-	//distance.x = 100;
 	dist = (distance.x * distance.x) + (distance.y * distance.y);
-	printf("\ndist = (%f)\n",dist);
-
 	dist = sqrt(dist);
-	printf("distance = (%f,%f)\n",distance.x,distance.y);
-	printf("dist = (%f)\n",dist);
-
-
-
-	target.x = cos(to_rad(s->player.angle));// speed;
-	target.y = sin(to_rad(s->player.angle));// * speed;
-	printf("target = (%f,%f)\n",target.x,target.y);
-
-	display_sprite(s,0,0,dist);
+	//printf("distance = (%f,%f)\n",distance.x,distance.y);
+	//printf("\ndist = (%f)\n",dist);
+	if (!(s->player.pos.x == s->sprites.pos.x && s->player.pos.y == s->sprites.pos.y)
+		&& in_field(s,s->player.pos, dist) == 1)
+		display_sprite(s,0,0,dist);
 
 }
 
-void in_field(t_main *s)
-{
 
-}
-
-void display_sprite(t_main *s, int i, int j, int dist)
+void display_sprite(t_main *s,int cor, int j, int dist)
 {
 	double		perx;
 	double		pery;
@@ -46,22 +63,22 @@ void display_sprite(t_main *s, int i, int j, int dist)
 	int			px;
 	t_image		*wp;
 	int value;
+	int 		i;
 
 
-	value = 1000;
+
+	i = 0;
+	value = 5000;//valuer pour grossir sprite
 	coord.x = 0;
 	coord.y = 0;
 	wp = s->sprites.img;
 	//coord.x = WIDTH / 2 - (wp->w / 2);
-
 	while (i < (wp->w / dist) + value/ dist )
 	{
 		j = 0;//dont touch
 		coord.x = i ;
-
 		perx = (double)coord.x / (((double)wp->w / dist) + value/ dist);
-		coord.x += WIDTH/2;
-
+		coord.x += (WIDTH /2) + (-cor);
 		while (j < (wp->h / dist) + value/ dist)
 		{
 			coord.y = j++;
