@@ -356,6 +356,10 @@ TTF_Font			*ft_init_font(void);
 void				ft_draw_ttf(t_main *s);
 
 /*
+****	Fonction de debug
+*/
+void 				print_wall_list(t_main *s);
+/*
 ****	Fonction des textures
 */
 //void				draw_skybox(t_main *s, ? , t_visu vs);

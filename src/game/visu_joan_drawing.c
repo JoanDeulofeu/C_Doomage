@@ -59,29 +59,57 @@ int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double
 	return (coord.x);
 }
 
+void clear_wall_list(t_main *s)
+{
+	t_walls *tmp;
+
+	tmp = s->walls;
+	while (s->walls)
+	{
+		tmp = s->walls;
+		s->walls = s->walls->next;
+		free(tmp);
+	}
+	s->walls = NULL;
+}
+
 void	add_wall_to_list(t_main *s, t_walls *new)
 {
 	t_walls *tmp;
 
 	tmp = s->walls;
-	if (!tmp)
-		s->walls = new;
-	return ;
-	while (tmp->next && new->distance < tmp->distance)
-		tmp = tmp->next;
-	if (tmp->next && tmp->next->distance > new->distance)
+	// printf("new->distqnce = %f\n", new->distance);
+	if (tmp == NULL) //S'il n'y a aucun mur dans la liste
 	{
-		tmp->next->next = new;
-		new->prev = tmp->next;
+		s->walls = new;
+		// printf("pas de mur\n");
+		return ;
+	}
+
+	while (tmp->next && new->distance < tmp->distance) //On avance tant que la distance du nouveau mur est plus petite que le mur actuek
+		tmp = tmp->next;
+	if (tmp->next) //Si le mur actuel n'est pas le dernier
+	{
+		new->next = tmp;
+		if (tmp->prev)
+		{
+			// printf("il y a un mur precedent\n");
+			new->prev = tmp->prev;
+			tmp->prev->next = new;
+				tmp->prev = new;
+		}
+		else
+		{
+			// printf("il n'y a pas de mur precedent\n");
+			s->walls = new;
+		}
 	}
 	else
 	{
-		new->next = tmp;
-		new->prev = tmp->prev;
-		tmp->prev->next = new;
-		tmp->prev = new;
+		// printf("se place en dernier\n");
+		tmp->next = new;
+		new->prev = tmp;
 	}
-
 }
 
 int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan)
@@ -164,13 +192,19 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 
 	//on stock tous les murs visibles dans la liste chainee.
+	// printf("id_vtx = %d, endwall = %d\n", id_vtx, vs.end_wall_id);
+
 	while (id_vtx != vs.end_wall_id)
 	{
 		if (!(new_wall = (t_walls*)malloc(sizeof(t_walls))))
 			handle_error(s, MALLOC_ERROR);
 		new_wall->next = NULL;
+		new_wall->prev = NULL;
 		new_wall->player = player;
-		new_wall->left = vs.tmp_wall;
+		new_wall->left.x = vtx->ptr->x * METRE;
+		new_wall->left.y = vtx->ptr->y * METRE;
+		new_wall->right.x = vtx->next->ptr->x * METRE;
+		new_wall->right.y = vtx->next->ptr->y * METRE;
 		vs.begin.x = vs.tmp_wall.x;
 		vs.begin.y = vs.tmp_wall.y;
 		vtx = vtx->next;
@@ -178,31 +212,43 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		vs.tmp_wall.x = vtx->ptr->x * METRE;
 		vs.tmp_wall.y = vtx->ptr->y * METRE;
 
-
-		plan_left.x = plan_right.x;
-		plan_left.y = plan_right.y;
-		ft_find_intersection(s, vs.tmp_wall, player, vs.left_plan, vs.right_plan, 1);
-		plan_right.x = s->tmp_intersect.x;
-		plan_right.y = s->tmp_intersect.y;
-
-		{s->line.x1 = vs.tmp_wall.x + s->editor->decal_x;
-		s->line.y1 = vs.tmp_wall.y + s->editor->decal_y;
-		s->line.x2 = plan_right.x + s->editor->decal_x;
-		s->line.y2 = plan_right.y + s->editor->decal_y;
+		//newwall.left
+		//x = 30% du vieplan
+		ft_find_intersection(s, new_wall->left, player, vs.left_plan, vs.right_plan, 1);
+		new_wall->l_plan = s->tmp_intersect;
+		ft_find_intersection(s, new_wall->right, player, vs.left_plan, vs.right_plan, 1);
+		new_wall->r_plan = s->tmp_intersect;
+		new_wall->x = (new_wall->l_plan.x / WIDTHPLAN) * WIDTH;
+		new_wall->distance = max(new_wall->left.x, player.x) - min(new_wall->left.x, player.x)
+		+ max(new_wall->left.y, player.y) - min(new_wall->left.y, player.y)
+		+ max(new_wall->right.x, player.x) - min(new_wall->right.x, player.x)
+		+ max(new_wall->right.y, player.y) - min(new_wall->right.y, player.y);
+		add_wall_to_list(s, new_wall);
+		{s->line.x1 = new_wall->l_plan.x + s->editor->decal_x;
+		s->line.y1 = new_wall->l_plan.y + s->editor->decal_y;
+		s->line.x2 = new_wall->left.x + s->editor->decal_x;
+		s->line.y2 = new_wall->left.y + s->editor->decal_y;
+		get_line(s, 0xea7cfcff);}
+		{s->line.x1 = new_wall->r_plan.x + s->editor->decal_x;
+		s->line.y1 = new_wall->r_plan.y + s->editor->decal_y;
+		s->line.x2 = new_wall->right.x + s->editor->decal_x;
+		s->line.y2 = new_wall->right.y + s->editor->decal_y;
 		get_line(s, 0xea7cfcff);}
 
 		// x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right);
 		// ft_test_chainlist(s);
 		// printf("on est dans le secteur[%d]\nvertex designé[%d]  wall value [%d]\n",sct->id, vtx->id, vtx->wall_value);
 
-		if (vtx->prev->wall_value == -1)
-			x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right);
-		else
-			x = ft_print_portal(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right, vtx->prev);
-
+		// if (vtx->prev->wall_value == -1)
+		// 	x = ft_print_wall(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right);
+		// else
+		// 	x = ft_print_portal(s, x, player, vs.begin, vs.tmp_wall, plan_left, plan_right, vtx->prev);
 		id_vtx = vtx->id;
+		// printf("%d\n", id_vtx);
 	}
-	// printf("\n");
+	// print_wall_list(s);
+	// exit(-1);
+	clear_wall_list(s);
 
 	vs.begin.x = vs.tmp_wall.x;
 	vs.begin.y = vs.tmp_wall.y;

@@ -42,7 +42,8 @@ SRC_NAME =	main.c						\
 			game/hud.c					\
 			game/sprite.c					\
 			game/skybox.c				\
-			menu.c
+			menu.c							\
+			debug.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
