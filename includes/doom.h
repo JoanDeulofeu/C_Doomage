@@ -104,7 +104,7 @@ typedef struct		s_visu {
 	t_dpos			right_point;
 }					t_visu;
 
-typedef struct		s_wall_order {
+typedef struct		s_walls {
 	double			distance;
 	int				x;
 	t_dpos			player;
@@ -112,7 +112,9 @@ typedef struct		s_wall_order {
 	t_dpos			right;
 	t_dpos			l_plan;
 	t_dpos			r_plan;
-}					t_wall_order;
+	struct s_walls	*prev;
+	struct s_walls	*next;
+}					t_walls;
 
 typedef struct		s_sdl {
 	SDL_Window		*pwindow;
@@ -151,6 +153,7 @@ typedef struct		s_main {
 	t_image			*interface;
 	t_image			*skybox;
 	t_sprites		sprites;
+	t_walls			*walls;
 }					t_main;
 
 /*

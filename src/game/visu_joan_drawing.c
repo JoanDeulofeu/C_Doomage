@@ -59,6 +59,31 @@ int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double
 	return (coord.x);
 }
 
+void	add_wall_to_list(t_main *s, t_walls *new)
+{
+	t_walls *tmp;
+
+	tmp = s->walls;
+	if (!tmp)
+		s->walls = new;
+	return ;
+	while (tmp->next && new->distance < tmp->distance)
+		tmp = tmp->next;
+	if (tmp->next && tmp->next->distance > new->distance)
+	{
+		tmp->next->next = new;
+		new->prev = tmp->next;
+	}
+	else
+	{
+		new->next = tmp;
+		new->prev = tmp->prev;
+		tmp->prev->next = new;
+		tmp->prev = new;
+	}
+
+}
+
 int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan)
 {
 	double	l_big_dist;
@@ -100,6 +125,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	int			x;
 	t_int		*vtx;
 	int			id_vtx; //vertex de repere actuel
+	t_walls		*new_wall;
 
 	x = 0;
 	vtx = sct->vertex;
@@ -137,12 +163,18 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 
 
-	
+	//on stock tous les murs visibles dans la liste chainee.
 	while (id_vtx != vs.end_wall_id)
 	{
+		if (!(new_wall = (t_walls*)malloc(sizeof(t_walls))))
+			handle_error(s, MALLOC_ERROR);
+		new_wall->next = NULL;
+		new_wall->player = player;
+		new_wall->left = vs.tmp_wall;
 		vs.begin.x = vs.tmp_wall.x;
 		vs.begin.y = vs.tmp_wall.y;
 		vtx = vtx->next;
+		// new_wall->right =s
 		vs.tmp_wall.x = vtx->ptr->x * METRE;
 		vs.tmp_wall.y = vtx->ptr->y * METRE;
 
