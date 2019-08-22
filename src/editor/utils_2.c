@@ -15,3 +15,8 @@ double	ft_find_angle_plan(double a, double b, double c)
 	// printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
 	return (to_degres(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b))));
 }
+
+char	isLeft(t_dpos a, t_dpos b, t_dpos c)
+{
+	return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+}
