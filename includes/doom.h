@@ -102,6 +102,7 @@ typedef struct		s_visu {
 	Uint32			color;
 	t_dpos			left_point;
 	t_dpos			right_point;
+	t_dpos			player;
 }					t_visu;
 
 typedef struct		s_walls {

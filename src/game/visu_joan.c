@@ -36,17 +36,17 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	return (id_wall);
 }
 
-t_visu	ft_place_view_plan(t_main *s, t_dpos player, Uint32 color)
+t_visu	ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 {
 	t_dpos	ctr_p; //center plan
-	t_visu	vs = s->visu;
+	t_visu	vs;
 
-	ctr_p.x = player.x + cos(to_rad(s->player.angle)) * METRE;
-	ctr_p.y = player.y - sin(to_rad(s->player.angle)) * METRE;
-	vs.left_plan.x = ctr_p.x + cos(to_rad(s->player.angle + 90)) * WIDTHPLAN / 2;
-	vs.left_plan.y = ctr_p.y - sin(to_rad(s->player.angle + 90)) * WIDTHPLAN / 2;
-	vs.right_plan.x = ctr_p.x + cos(to_rad(s->player.angle - 90)) * WIDTHPLAN / 2;
-	vs.right_plan.y = ctr_p.y - sin(to_rad(s->player.angle - 90)) * WIDTHPLAN / 2;
+	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;
+	ctr_p.y = player.y - sin(to_rad(angle)) * METRE;
+	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
+	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
+	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
+	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
 
 	s->line.x1 = vs.left_plan.x + s->editor->decal_x;
 	s->line.y1 = vs.left_plan.y + s->editor->decal_y;
@@ -70,6 +70,7 @@ t_visu get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angl
 	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff);
 	vs.end.x = s->tmp_intersect.x;
 	vs.end.y = s->tmp_intersect.y;
+	vs.player = player;
 	return(vs);
 }
 
@@ -85,10 +86,10 @@ void	ft_visu_joan(t_main *s)
 
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 		return ;
-	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	player.x = s->player.r_pos.x * METRE;
 	player.y = s->player.r_pos.y * METRE;
-	vs = ft_place_view_plan(s, player, 0x4bd9ffff);
+	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
+	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
 
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
 	// printf("demi_fov = %f\n",demi_fov);
