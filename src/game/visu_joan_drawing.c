@@ -91,7 +91,7 @@ void	put_wall_before(t_main *s, t_walls *new, t_walls *current)
 
 }
 
-void	put_wall_after(t_main *s, t_walls *new, t_walls *current)
+void	put_wall_after(t_walls *new, t_walls *current)
 {
 	if (current->next == NULL)
 	{
@@ -126,7 +126,7 @@ void	add_wall_to_list(t_main *s, t_walls *new)
 		if (new->distance > tmp->distance)
 			put_wall_before(s, new, tmp);
 		else
-			put_wall_after(s, new, tmp);
+			put_wall_after(new, tmp);
 }
 
 int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan)
@@ -165,7 +165,54 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 	return(x);
 }
 
-int		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs, int x)
+void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
+{
+	t_walls		*wall;
+	int			dist;
+	t_dpos		left;
+	t_dpos		right;
+
+	if (!(wall = (t_walls*)malloc(sizeof(t_walls))))
+		handle_error(s, MALLOC_ERROR);
+	wall->next = NULL;
+	wall->prev = NULL;
+	wall->player = vs->player;
+	left.x = vtx->ptr->x * METRE;
+	left.y = vtx->ptr->y * METRE;
+	right.x = vtx->next->ptr->x * METRE;
+	right.y = vtx->next->ptr->y * METRE;
+
+	dist = ft_find_intersection(s, vs->left_point, vs->player, vs->left_plan, vs->right_plan, 1);
+	if (dist > 0)
+		wall->left = s->tmp_intersect;
+	else
+		wall->left = left;
+	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
+	wall->l_plan = s->tmp_intersect;
+	if (dist > 0)
+		wall->x = 0;
+	else
+		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
+
+	dist = ft_find_intersection(s, vs->right_point, vs->player, vs->left_plan, vs->right_plan, 1);
+	if (dist > 0)
+		wall->right = s->tmp_intersect;
+	else
+		wall->right = right;
+	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
+	wall->r_plan = s->tmp_intersect;
+
+
+	wall->distance = fabs(vs->player.x - wall->left.x)
+		+ fabs(vs->player.y - wall->left.y)
+		+ fabs(vs->player.x - wall->right.x)
+		+ fabs(vs->player.y - wall->right.y);
+	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
+	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
+		add_wall_to_list(s, wall);
+}
+
+void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 {
 	if (vs->begin_wall_id != vs->end_wall_id)
 	{
@@ -178,57 +225,30 @@ int		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs, int x)
 		vs->tmp_wall.y = vs->end.y;
 	}
 	ft_find_intersection(s, vs->tmp_wall, vs->player, vs->left_plan, vs->right_plan, 1);
-	x = ft_print_wall(s, x, vs->player, vs->begin, vs->tmp_wall, vs->left_plan, s->tmp_intersect);
-	return(x);
+	ft_create_new_wall(s, vtx, vs);
 }
 
-t_int *draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
+t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 {
-	t_walls		*wall;
-
-while (vtx->id != vs->end_wall_id)
-{
-	if (!(wall = (t_walls*)malloc(sizeof(t_walls))))
-		handle_error(s, MALLOC_ERROR);
-	wall->next = NULL;
-	wall->prev = NULL;
-	wall->player = vs->player;
-	wall->left.x = vtx->ptr->x * METRE;
-	wall->left.y = vtx->ptr->y * METRE;
-	wall->right.x = vtx->next->ptr->x * METRE;
-	wall->right.y = vtx->next->ptr->y * METRE;
-	vs->begin = vs->tmp_wall;
-	vtx = vtx->next;
-	vs->tmp_wall.x = vtx->ptr->x * METRE;
-	vs->tmp_wall.y = vtx->ptr->y * METRE;
-	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
-	wall->l_plan = s->tmp_intersect;
-	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
-	wall->r_plan = s->tmp_intersect;
-	wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
-	wall->distance = max(wall->left.x, vs->player.x) - min(wall->left.x, vs->player.x)
-	+ max(wall->left.y, vs->player.y) - min(wall->left.y, vs->player.y)
-	+ max(wall->right.x, vs->player.x) - min(wall->right.x, vs->player.x)
-	+ max(wall->right.y, vs->player.y) - min(wall->right.y, vs->player.y);
-	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
-	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
-		add_wall_to_list(s, wall);
-
-		{s->line.x1 = wall->l_plan.x + s->editor->decal_x;
-		s->line.y1 = wall->l_plan.y + s->editor->decal_y;
-		s->line.x2 = wall->left.x + s->editor->decal_x;
-		s->line.y2 = wall->left.y + s->editor->decal_y;
-		get_line(s, 0xea7cfcff);}
-		{s->line.x1 = wall->r_plan.x + s->editor->decal_x;
-		s->line.y1 = wall->r_plan.y + s->editor->decal_y;
-		s->line.x2 = wall->right.x + s->editor->decal_x;
-		s->line.y2 = wall->right.y + s->editor->decal_y;
-		get_line(s, 0xea7cfcff);}
-}
+	while (vtx->id != vs->end_wall_id)
+	{
+		ft_create_new_wall(s, vtx, vs);
+		vtx = vtx->next;
+		// {s->line.x1 = wall->l_plan.x + s->editor->decal_x;
+		// 	s->line.y1 = wall->l_plan.y + s->editor->decal_y;
+		// 	s->line.x2 = wall->left.x + s->editor->decal_x;
+		// 	s->line.y2 = wall->left.y + s->editor->decal_y;
+		// 	get_line(s, 0xea7cfcff);
+		// s->line.x1 = wall->r_plan.x + s->editor->decal_x;
+		// s->line.y1 = wall->r_plan.y + s->editor->decal_y;
+		// s->line.x2 = wall->right.x + s->editor->decal_x;
+		// s->line.y2 = wall->right.y + s->editor->decal_y;
+		// get_line(s, 0xea7cfcff);}
+	}
 	return(vtx);
 }
 
-void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
+void draw_last_wall(t_int *vtx, t_visu *vs)
 {
 	vs->begin.x = vtx->ptr->x * METRE;
 	vs->begin.y = vtx->ptr->y * METRE;
@@ -238,29 +258,31 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 
 void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 {
-	t_walls *tmp;
+	t_walls		*tmp;
 	t_dpos		plan_left;
 	int			x;
 	t_int		*vtx;
-	int				new_x;
+	int			new_x;
 
 	x = 0;
 	new_x = 0;
-	vtx = get_t_int_by_id(sct->vertex, vs.begin_wall_id)->next;// trouver le deuxieme vertex du premier mur
-	x = draw_first_wall(s, vtx, &vs, x);
+	vtx = get_t_int_by_id(sct->vertex, vs.begin_wall_id)->next;
+
+	draw_first_wall(s, vtx, &vs);
+
 	plan_left = s->tmp_intersect;
 	if (vs.begin_wall_id == vs.end_wall_id)
 		return ;
-	// printf("point gauche x = %f, y = %f\n",vs.begin.x, vs.begin.y);
-	// printf("vertex %d, x = %f, y = %f\n", vtx->id, vs.tmp_wall.x, vs.tmp_wall.y);
-	// {s->line.x1 = vs.tmp_wall.x + s->editor->decal_x;
-	// s->line.y1 = vs.tmp_wall.y + s->editor->decal_y;
-	// s->line.x2 = plan_right.x + s->editor->decal_x;
-	// s->line.y2 = plan_right.y + s->editor->decal_y;
-	// get_line(s, 0xea7cfcff);}
-	// plan_left = plan_right;
+	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
-	// ft_test_chainlist(s);
+
+	draw_last_wall(vtx, &vs);
+	ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
+	// plan_left = s->tmp_intersect;
+	// x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
+	ft_create_new_wall(s, vtx, &vs);
+
+	print_wall_list(s);
 	tmp = s->walls;
 	if ((tmp = s->walls) != NULL)
 		x = tmp->x;
@@ -275,13 +297,6 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	}
 	// print_wall_list(s);
 	clear_wall_list(s);
-	draw_last_wall(s, vtx, &vs);
-	ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
-	plan_left = s->tmp_intersect;
-	x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
-	ft_print_wall(s, x, player, vs.begin, vs.end, plan_left, vs.right_plan);
-
-
 	// s->line.x1 = s->visu.tmp_wall.x + s->editor->decal_x;
 	// s->line.y1 = s->visu.tmp_wall.y + s->editor->decal_y;
 	// s->line.x2 = plan_right.x + s->editor->decal_x;
