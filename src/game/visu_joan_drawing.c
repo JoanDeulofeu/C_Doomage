@@ -155,8 +155,10 @@ int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, 
 
 	pct_plan = (ft_dist_t_dpos(lplan, rplan) * 100.0) / WIDTHPLAN; //calcule de la largeur du mur dans la fenetre
 	width_wall = (WIDTH * pct_plan) / 100;
-
+	// printf("Mur vtx gauche(%.2f, %.2f)      vtx droit(%.2f, %.2f)    ",lwall.x / METRE, lwall.y / METRE, rwall.x / METRE, rwall.y / METRE);
+	// printf("\nx entree = %d", x);
 	x = ft_draw_wall(s, x, l_height_wall, r_height_wall, width_wall);
+	// printf("      x sortie= %d\n", x);
 	// printf("Hauteur du mur Gauche (%d)\n",l_height_wall);
 	// printf("Hauteur du mur Droit  (%d)\n\n\n",r_height_wall);
 
@@ -271,8 +273,12 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		}
 		tmp = tmp->next;
 	}
+	// print_wall_list(s);
 	clear_wall_list(s);
 	draw_last_wall(s, vtx, &vs);
+	ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
+	plan_left = s->tmp_intersect;
+	x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
 	ft_print_wall(s, x, player, vs.begin, vs.end, plan_left, vs.right_plan);
 
 
@@ -281,5 +287,5 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// s->line.x2 = plan_right.x + s->editor->decal_x;
 	// s->line.y2 = plan_right.y + s->editor->decal_y;
 	// get_line(s, 0xea7cfcff);
-	// printf("---------------------------------------------\n\n\n\n");
+	// printf("---------------------------------------------\n");
 }
