@@ -288,7 +288,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	if (vs.begin_wall_id == vs.end_wall_id)
 	{
 		tmp = s->walls;
-		// ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+		ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
 		clear_wall_list(s);
 		return ;
 	}
