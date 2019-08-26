@@ -214,8 +214,10 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
 	{
+
 		add_wall_to_list(s, wall);
 		printf("Mur[%d] ajouté\n", vtx->ptr->id);
+		printf("%f et %f\n", ft_dist_t_dpos(wall->l_plan, vs->left_plan), ft_dist_t_dpos(wall->r_plan, vs->left_plan));
 	}
 	else
 	{
@@ -241,7 +243,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 
 t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 {
-	while (vtx->id != vs->end_wall_id)
+	while (vtx->ptr->id != vs->end_wall_id)
 	{
 		ft_create_new_wall(s, vtx, vs);
 		vtx = vtx->next;
@@ -286,7 +288,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	if (vs.begin_wall_id == vs.end_wall_id)
 	{
 		tmp = s->walls;
-		ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+		// ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
 		clear_wall_list(s);
 		return ;
 	}

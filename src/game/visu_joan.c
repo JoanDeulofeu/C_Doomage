@@ -8,7 +8,11 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	t_dpos		wall2;
 	int			id_wall = 1;
 	int				i;
+	int			dist;
+	int			new_dist;
 
+	dist = 100000;
+	new_dist = 0;
 	sct = s->sector;
 	while (s->player.sector_id != sct->id)
 		sct = sct->next;
@@ -20,7 +24,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 		wall1.y = s_vtx->ptr->y * METRE;
 		wall2.x = s_vtx->next->ptr->x * METRE;
 		wall2.y = s_vtx->next->ptr->y * METRE;
-		if (ft_find_intersection(s, wall1, wall2, player, point, 1) > 0)
+		if ((new_dist = ft_find_intersection(s, point, player, wall1, wall2, 1)) > 0)
 		{
 			s->line.x1 = player.x + s->editor->decal_x;
 			s->line.y1 = player.y + s->editor->decal_y;
@@ -29,11 +33,18 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 			get_line(s, color);
 			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
 			// return (id_wall);
-			id_wall = s_vtx->ptr->id;
+			if (new_dist < dist && new_dist != 0)
+			{
+				printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
+				id_wall = s_vtx->ptr->id;
+				dist = new_dist;
+			}
+
 		}
 		// id_wall++;
 		s_vtx = s_vtx->next;
 	}
+	printf("id_wall =  %d\n", id_wall);
 	return (id_wall);
 }
 
