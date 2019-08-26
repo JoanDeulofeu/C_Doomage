@@ -34,3 +34,18 @@ t_int	*get_t_int_by_id(t_int *vtx, int id)
 	else
 		return(NULL);
 }
+
+t_int	*get_t_int_by_vertex_id(t_int *vtx, int ptr_id)
+{
+	t_int	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = vtx;
+	while (i++ < vtx->prev->id && tmp->ptr->id != ptr_id)
+		tmp = tmp->next;
+	if (tmp->ptr->id == ptr_id)
+		return(tmp);
+	else
+		return(NULL);
+}

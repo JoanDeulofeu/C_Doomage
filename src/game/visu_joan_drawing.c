@@ -182,7 +182,8 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	right.x = vtx->next->ptr->x * METRE;
 	right.y = vtx->next->ptr->y * METRE;
 
-	dist = ft_find_intersection(s, vs->left_point, vs->player, vs->left_plan, vs->right_plan, 1);
+	// printf("vs->left_point.x = %f, vs->left_point.y = %f\n", vs->left_point.x, vs->left_point.y);
+	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
 	if (dist > 0)
 		wall->left = s->tmp_intersect;
 	else
@@ -194,14 +195,17 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	else
 		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
 
-	dist = ft_find_intersection(s, vs->right_point, vs->player, vs->left_plan, vs->right_plan, 1);
+	dist = ft_find_intersection(s, vs->right_point, vs->player, left, right, 1);
 	if (dist > 0)
+	{
 		wall->right = s->tmp_intersect;
+		printf("true\n");
+	}
+
 	else
 		wall->right = right;
 	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->r_plan = s->tmp_intersect;
-
 
 	wall->distance = fabs(vs->player.x - wall->left.x)
 		+ fabs(vs->player.y - wall->left.y)
@@ -209,22 +213,29 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 		+ fabs(vs->player.y - wall->right.y);
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
+	{
 		add_wall_to_list(s, wall);
+		printf("Mur[%d] ajouté\n", vtx->ptr->id);
+	}
+	else
+	{
+		printf("Mur[%d] caché\n", vtx->ptr->id);
+	}
 }
 
 void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 {
-	if (vs->begin_wall_id != vs->end_wall_id)
-	{
-		vs->tmp_wall.x = vtx->ptr->x * METRE;
-		vs->tmp_wall.y = vtx->ptr->y * METRE;
-	}
-	else
-	{
-		vs->tmp_wall.x = vs->end.x;
-		vs->tmp_wall.y = vs->end.y;
-	}
-	ft_find_intersection(s, vs->tmp_wall, vs->player, vs->left_plan, vs->right_plan, 1);
+	// if (vs->begin_wall_id != vs->end_wall_id)
+	// {
+	// 	vs->tmp_wall.x = vtx->ptr->x * METRE;
+	// 	vs->tmp_wall.y = vtx->ptr->y * METRE;
+	// }
+	// else
+	// {
+	// 	vs->tmp_wall.x = vs->end.x;
+	// 	vs->tmp_wall.y = vs->end.y;
+	// }
+	// ft_find_intersection(s, vs->tmp_wall, vs->player, vs->left_plan, vs->right_plan, 1);
 	ft_create_new_wall(s, vtx, vs);
 }
 
@@ -266,13 +277,20 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 	x = 0;
 	new_x = 0;
-	vtx = get_t_int_by_id(sct->vertex, vs.begin_wall_id)->next;
-
+	// printf("sct->vertex")
+	vtx = sct->vertex;
+	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	draw_first_wall(s, vtx, &vs);
 
 	plan_left = s->tmp_intersect;
 	if (vs.begin_wall_id == vs.end_wall_id)
+	{
+		tmp = s->walls;
+		ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+		clear_wall_list(s);
 		return ;
+	}
+
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
 

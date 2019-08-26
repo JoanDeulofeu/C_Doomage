@@ -46,6 +46,7 @@ int			ft_add_vertex(t_main *s, int x, int y)
 	tmp->pos.y = 0;
 	tmp->x = x;
 	tmp->y = y;
+	tmp->selec = 0;
 	return (0);
 }
 

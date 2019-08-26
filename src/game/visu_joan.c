@@ -28,9 +28,10 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 			s->line.y2 = point.y + s->editor->decal_y;
 			get_line(s, color);
 			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
-			return (id_wall);
+			// return (id_wall);
+			id_wall = s_vtx->ptr->id;
 		}
-		id_wall++;
+		// id_wall++;
 		s_vtx = s_vtx->next;
 	}
 	return (id_wall);
