@@ -11,6 +11,7 @@ void	*ft_memalloc(size_t size)
 	return (ptr);
 }
 
+
 t_lsprite 				*load_lsprite(t_main *s, t_lsprite *start)
 {
 	t_lsprite *cur;
@@ -52,6 +53,22 @@ t_lsprite 		*create_lsprite(t_main *s, int size)
 		}
 		start = load_lsprite(s,start);
 		return (start);
+}
+
+
+void             init_sprite(t_main *s)
+{
+  t_sprite   *tmp;
+  t_dpos      pos;
+
+  pos.x = 300;
+  pos.y = 200;
+  s->sprite = create_sprite_elem(s,0,0,pos);
+  pos.x = 400;
+  pos.y = 300;
+  add_sprite(s,pos,1);
+
+
 }
 
 

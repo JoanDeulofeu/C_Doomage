@@ -347,7 +347,8 @@ void 				draw_weapon2(t_main *s, int i, int j);
 
 // fonction affichage sprite
 void 				draw_sprite(t_main *s);
-void 				display_sprite(t_main *s, int i, int j, int dist);
+void display_sprite(t_main *s,int angle, int dist, t_sprite *cur);
+
 
 
 
@@ -386,6 +387,8 @@ t_lsprite 		*create_lsprite_elem(t_main *s, int id);
 t_lsprite 		*create_lsprite(t_main *s, int size);
 t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
 void	add_sprite(t_main *s, t_dpos pos, int idimg);
+void             init_sprite(t_main *s);
+
 
 
 
