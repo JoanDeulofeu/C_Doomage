@@ -238,14 +238,29 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	// 	vs->tmp_wall.y = vs->end.y;
 	// }
 	// ft_find_intersection(s, vs->tmp_wall, vs->player, vs->left_plan, vs->right_plan, 1);
-	ft_create_new_wall(s, vtx, vs);
+	// if (vtx->wall_value != -1)
+	// 	ft_print_portal(s, 0, vs->player, vs->begin, vs->tmp_wall, vs->left_plan, vs->right_plan, vtx);
+	// else
+		ft_create_new_wall(s, vtx, vs);
 }
 
 t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 {
+	t_visu	fake_vs;
+	t_dpos	fake_player;
+	double	fake_angle;
+
 	while (vtx->ptr->id != vs->end_wall_id)
 	{
-		ft_create_new_wall(s, vtx, vs);
+		if (vtx->wall_value != -1)
+		{
+			fake_angle = ft_get_fake_angle(s, vs->player, vtx);
+			fake_player = ft_get_fake_player(s, vs->player, fake_angle, vtx);
+			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
+		}
+
+		else
+			ft_create_new_wall(s, vtx, vs);
 		vtx = vtx->next;
 		// {s->line.x1 = wall->l_plan.x + s->editor->decal_x;
 		// 	s->line.y1 = wall->l_plan.y + s->editor->decal_y;
@@ -285,7 +300,8 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	draw_first_wall(s, vtx, &vs);
 
 	plan_left = s->tmp_intersect;
-	if (vs.begin_wall_id == vs.end_wall_id)
+	printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
+	if (vs.begin_wall_id == vs.end_wall_id) // cas 1 seul mur
 	{
 		tmp = s->walls;
 		ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
@@ -302,7 +318,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
 	ft_create_new_wall(s, vtx, &vs);
 
-	print_wall_list(s);
+	// print_wall_list(s);
 	tmp = s->walls;
 	if ((tmp = s->walls) != NULL)
 		x = tmp->x;

@@ -16,7 +16,7 @@ double		in_field(t_main *s, t_dpos player, int dist)
 		 ctr_l.x = player.x + cos(to_rad(s->player.angle+ angle)) * dist;
 	 	 ctr_l.y = player.y - sin(to_rad(s->player.angle+ angle)) * dist;
 		 ret = ft_dpos_to_pos(ctr_l);
-		// set_pixel(s->sdl->editor, BLUE, ret);
+		 set_pixel(s->sdl->editor, BLUE, ret);
 		  if ((ret.x >= (s->sprites.pos.x -HITBOX) && ret.x <= (s->sprites.pos.x +HITBOX)) //DEFINIR HITBOX
 		  	&& (ret.y >= (s->sprites.pos.y -HITBOX) && ret.y <= (s->sprites.pos.y +HITBOX)))
 		  {
@@ -27,7 +27,7 @@ double		in_field(t_main *s, t_dpos player, int dist)
 			//set le sprite a 1
 		 	return(-angle);
 		 }
-		 angle+=0.1;
+		 angle+=1;
 	 }
 
 	//printf("ret= (%d,%d)\n",ret.x,ret.y);

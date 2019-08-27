@@ -45,20 +45,30 @@ double		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int nee
 	return (angle);
 }
 
-int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan, t_int *vtx)
+t_visu		ft_get_fake_vs(t_main *s, t_dpos fake_player, double fake_angle)
 {
-	// (void)s;
-	int			id_sector_out;
+	t_visu	fake_vs;
+
+	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
+}
+
+double		ft_get_fake_angle(t_main *s, t_dpos player, t_int *vtx)
+{
+	(void)s;
 	double		angle_fake_player;
 	double		angle_portal_in;
 	double		angle_portal_out;
 	t_dpos		l_portal;
 	t_dpos		r_portal;
-	t_pos		fake_player;
-	double		dist_player;
+	t_dpos		lwall;
+	t_dpos		rwall;
+
+	lwall.x = vtx->ptr->x * METRE;
+	lwall.y = vtx->ptr->y * METRE;
+	rwall.x = vtx->next->ptr->x * METRE;
+	rwall.y = vtx->next->ptr->y * METRE;
 
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
-	id_sector_out = vtx->sct_dest;
 	l_portal.x = vtx->vtx_dest->ptr->x * METRE;
 	l_portal.y = vtx->vtx_dest->ptr->y * METRE;
 	r_portal.x = vtx->vtx_dest->next->ptr->x * METRE;
@@ -83,27 +93,47 @@ int		ft_print_portal(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall
 
 	//application de la difference d'angle des deux portail sur angle player
 	angle_fake_player = angle_portal_in - angle_fake_player - fabs(angle_portal_in - angle_portal_out);
+	return (angle_fake_player);
+	// modifier angle et fake player
+}
 
-	// printf("New Angle Player (%f)\n\n",angle_fake_player);
+t_dpos		ft_get_fake_player(t_main *s, t_dpos player, double angle_fake_player, t_int *vtx)
+{
+	(void)s;
+	t_dpos		l_portal;
+	t_dpos		r_portal;
+	t_dpos		fake_player;
+	t_pos		fake_player2; //juste pour affichage du faek player
+	double		dist_player;
+	t_dpos		lwall;
+	t_dpos		rwall;
+
+	lwall.x = vtx->ptr->x * METRE;
+	lwall.y = vtx->ptr->y * METRE;
+	rwall.x = vtx->next->ptr->x * METRE;
+	rwall.y = vtx->next->ptr->y * METRE;
+
+	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
+	l_portal.x = vtx->vtx_dest->ptr->x * METRE;
+	l_portal.y = vtx->vtx_dest->ptr->y * METRE;
+	r_portal.x = vtx->vtx_dest->next->ptr->x * METRE;
+	r_portal.y = vtx->vtx_dest->next->ptr->y * METRE;
 
 	//trouver la distance entre joueur et le point gauche du portail initial
 	dist_player = ft_dist_t_dpos(player, lwall);
 
 	//Tentative de placement du fake player
-	fake_player.x = r_portal.x + cos(to_rad(angle_fake_player)) * dist_player + s->editor->decal_x;
-	fake_player.y = r_portal.y - sin(to_rad(angle_fake_player)) * dist_player + s->editor->decal_y;
+	fake_player.x = r_portal.x + cos(to_rad(angle_fake_player)) * dist_player;
+	fake_player.y = r_portal.y - sin(to_rad(angle_fake_player)) * dist_player;
+	printf("\n\nPOSITION DU FAKE PLAYER (%.1f, %.1f)\n", fake_player.x, fake_player.y);
+
 	//ATTENTION !!!! jai ajouter le decal_x pour que le point saffiche a lecran pour mes tests.
 
 	// printf("coord r_portal (%.1f,%.1f)\n\n",r_portal.x, r_portal.y);
 	// printf("coord player (%d,%d)\n\n",fake_player.x, fake_player.y);
-	draw_anchor(s, fake_player, 0xfa00ffff); //juste pour tester la pos du fake_player
+	fake_player2.x = fake_player.x + s->editor->decal_x;
+	fake_player2.y = fake_player.y + s->editor->decal_y;
+	draw_anchor(s, fake_player2, 0xfa00ffff); //juste pour tester la pos du fake_player
 
-
-
-
-	double	pct_plan; // temporaire
-	double	width_wall; // temporaire
-	pct_plan = (ft_dist_t_dpos(lplan, rplan) * 100.0) / WIDTHPLAN; // temporaire
-	width_wall = (WIDTH * pct_plan) / 100; // temporaire
-	return ((int)width_wall + x);
+	return (fake_player);
 }

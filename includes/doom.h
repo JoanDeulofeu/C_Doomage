@@ -47,7 +47,7 @@ typedef struct		s_visu_sct
 
 typedef struct		s_time
 {
-	int      		   action;
+	int				action;
 	t_pos 			recoil;
 	long            fin_time;
 	long            tmp_time;
@@ -163,10 +163,8 @@ typedef struct		s_main {
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s);
 void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
-int					ft_print_portal(t_main *s, int x, t_dpos player,
-					t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan,
-					t_int *vtx);
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
+t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color);
 
 /*
 ****	Fonction d'initialisation
@@ -272,6 +270,8 @@ t_int				*free_sector_struct(t_sector *temp_sector);
 */
 void				change_over_wall(t_main *s);
 void				edit_portal(t_main *s);
+t_dpos				ft_get_fake_player(t_main *s, t_dpos player, double angle_fake_player, t_int *vtx);
+double				ft_get_fake_angle(t_main *s, t_dpos player, t_int *vtx);
 
 /*
 ****	Fonction utilitaire

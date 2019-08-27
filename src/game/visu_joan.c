@@ -7,7 +7,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	t_dpos		wall1;
 	t_dpos		wall2;
 	int			id_wall = 1;
-	int				i;
+	int			i;
 	int			dist;
 	int			new_dist;
 
@@ -24,18 +24,20 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 		wall1.y = s_vtx->ptr->y * METRE;
 		wall2.x = s_vtx->next->ptr->x * METRE;
 		wall2.y = s_vtx->next->ptr->y * METRE;
-		if ((new_dist = ft_find_intersection(s, point, player, wall1, wall2, 1)) > 0)
+		if ((new_dist = ft_find_intersection(s, wall1, wall2, point, player, 1)) > 0)
 		{
 			s->line.x1 = player.x + s->editor->decal_x;
 			s->line.y1 = player.y + s->editor->decal_y;
 			s->line.x2 = point.x + s->editor->decal_x;
 			s->line.y2 = point.y + s->editor->decal_y;
 			get_line(s, color);
+			// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
+			// printf("point(%.1f, %.1f), player(%.1f, %.1f), wall1(%.1f, %.1f), wall2(%.1f, %.1f)\n", point.x, point.y, player.x, player.y, wall1.x / METRE, wall1.y / METRE, wall2.x / METRE, wall2.y / METRE);
 			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
 			// return (id_wall);
 			if (new_dist < dist && new_dist != 0)
 			{
-				printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
+				// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
 				id_wall = s_vtx->ptr->id;
 				dist = new_dist;
 			}
@@ -44,7 +46,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 		// id_wall++;
 		s_vtx = s_vtx->next;
 	}
-	printf("id_wall =  %d\n", id_wall);
+	// printf("wall =  %d\n", get_t_int_by_vertex_id(sct->vertex, id_wall)->id);
 	return (id_wall);
 }
 
@@ -91,7 +93,7 @@ void	ft_visu_joan(t_main *s)
 	double	angle_left;
 	double	angle_right;
 	double	demi_fov;
-	t_dpos	point;
+	// t_dpos	point;
 	t_visu	vs;
 	// t_visu	*vsu = &s->visu;
 	t_dpos	player;
