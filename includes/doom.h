@@ -54,12 +54,24 @@ typedef struct		s_time
 	char            v0id[32];
 }					t_time;
 
-typedef struct		s_sprites
+typedef struct		s_lsprite
 {
-	t_dpos			pos;
-	t_image			*img;
+	int							id;
+	t_image 				*img;
+	t_anim 					*anim;
+	struct s_lsprite *next;
+}									t_lsprite;
 
-}					t_sprites;
+typedef struct		s_sprite
+{
+	int							id;
+	t_dpos					pos;
+	t_type					type;
+	t_image 				*img;
+	t_anim 					*anim;
+	struct s_sprite *next;
+}									t_sprite;
+
 
 typedef struct		s_player
 {
@@ -153,7 +165,8 @@ typedef struct		s_main {
 	t_image			*menu;
 	t_image			*interface;
 	t_image			*skybox;
-	t_sprites		sprites;
+	t_sprite		*sprite;
+	t_lsprite		*lsprite;
 	t_walls			*walls;
 }					t_main;
 
@@ -365,4 +378,16 @@ void 				print_wall_list(t_main *s);
 ****	Fonction des textures
 */
 //void				draw_skybox(t_main *s, ? , t_visu vs);
+
+/*FCT SPRITE CHAINLIST*/
+void	*ft_memalloc(size_t size);
+t_lsprite 				*load_lsprite(t_main *s, t_lsprite *start);
+t_lsprite 		*create_lsprite_elem(t_main *s, int id);
+t_lsprite 		*create_lsprite(t_main *s, int size);
+t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
+void	add_sprite(t_main *s, t_dpos pos, int idimg);
+
+
+
+
 #endif

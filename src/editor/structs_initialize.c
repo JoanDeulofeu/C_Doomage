@@ -84,11 +84,7 @@ void		load_images(t_main *s)
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
 
-	while (i < 15)
-	{
-		s->editor->menu.image[i] = NULL;
-		s->editor->m_floor.image[i++] = NULL;
-	}
+
 	s->menu = load_tga("images/menu.tga", 0, 0, 0);
 	s->player.weapon.image[1] = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->player.weapon.image[0] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
@@ -100,12 +96,23 @@ void		load_images(t_main *s)
 	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
-	s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
+	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 
 
 
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
+
+
+	while (i < 15)
+	{
+	  s->editor->menu.image[i] = NULL;
+	  s->player.weapon.image[i] = NULL;
+	  s->editor->m_floor.image[i++] = NULL;
+	}
+
+	s->lsprite =create_lsprite(s,2);
+
 
 
 }

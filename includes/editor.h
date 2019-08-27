@@ -156,12 +156,6 @@ typedef struct		s_pile {
 	t_element			*first;
 }					t_pile;
 
-typedef struct		s_sprite {
-	int				id;
-	t_pos			pos;
-	t_type			type;
-}					t_sprite;
-
 typedef struct		s_vertex {
 	int				id;
 	int				x;

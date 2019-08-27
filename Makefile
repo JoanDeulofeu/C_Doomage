@@ -41,6 +41,7 @@ SRC_NAME =	main.c						\
 			game/utils_2.c				\
 			game/hud.c					\
 			game/sprite.c					\
+			game/sprite_chainlist.c\
 			game/skybox.c				\
 			menu.c							\
 			debug.c
