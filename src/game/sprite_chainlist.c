@@ -21,6 +21,9 @@ void             init_sprite(t_main *s)
   r_pos.x = 7.5;
   r_pos.y = 4.2;
   add_sprite(s,r_pos,1);
+  r_pos.x = 14.8;
+  r_pos.y = 10.2;
+  add_sprite(s,r_pos,2);
 
 }
 
@@ -61,6 +64,8 @@ t_lsprite 				*load_lsprite(t_lsprite *start)
 	cur->img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	cur = cur->next;
 	cur->img = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
+  cur = cur->next;
+  cur->img = load_tga("images/shotgun5.tga", 0, 0, 0);
 	return (start);
 }
 
