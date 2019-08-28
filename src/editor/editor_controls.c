@@ -239,8 +239,8 @@ void	editor_handler(t_main *s)
 				}
 				if(s->player_view)
 				{
-					// SDL_SetRelativeMouseMode(SDL_TRUE);
-					// rotate_mouse(s);
+					SDL_SetRelativeMouseMode(SDL_TRUE);
+					rotate_mouse(s);
 
 
 					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
