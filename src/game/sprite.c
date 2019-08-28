@@ -101,7 +101,7 @@ void 	draw_sprite(t_main *s)
 	cur = s->sprite;
 	while(cur != NULL)
 	{
-		if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0))
+		if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0) && cur->dist < MAX_SPRITE_DIST)
 		{
 			cur->set = 1;
 			cur->angle = angle + 40;
@@ -120,30 +120,34 @@ void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 	t_pos		coord;
 	int			px;
 	t_image		*wp;
-	int value;
+	double value;
 	int 		i;
 	int j;
 
 
 	i = 0;
-	value =9000;//valuer pour grossir sprite
+	value =200/(cur->dist /2 );//valuer pour grossir sprite
 	coord.x = 0;
 	coord.y = 0;
 
 	wp = cur->img;
-	while (i < (wp->w / dist) + value/ dist )
+	// printf("value = %f\n",value);
+	// printf("cur->dist = %f\n",cur->dist);
+	// printf("dist = %d\n",dist);
+	while (i < (wp->w) * value)
 	{
 		j = 0;
 		coord.x = i ;
-		perx = (double)coord.x / (((double)wp->w / dist) + value/ dist);
+		perx = (double)coord.x / (((double)wp->w) * value);// / dist));// + value/ dist);
 		coord.x += angle * (WIDTH/80);
-		while (j < (wp->h / dist) + value/ dist)
+		while (j < (wp->h)* value)// / dist))
 		{
 			coord.y = j++;
-			pery = (double)coord.y / (((double)wp->h / dist) + value/ dist);
+			pery = (double)coord.y / (((double)wp->h) * value);// / dist));// + value/ dist);
 			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight;
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
-			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
+			//printf("tx = %d\n",wp->tex[px]);
+			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 		}
 		i++;

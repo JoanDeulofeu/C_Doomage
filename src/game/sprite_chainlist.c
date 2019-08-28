@@ -61,11 +61,11 @@ t_lsprite 				*load_lsprite(t_lsprite *start)
 	t_lsprite *cur;
 
 	cur = start;
-	cur->img = load_tga("images/shotgun1.tga", 0, 0, 0);
+	cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
 	cur = cur->next;
-	cur->img = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
+	cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
   cur = cur->next;
-  cur->img = load_tga("images/shotgun5.tga", 0, 0, 0);
+  cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
 	return (start);
 }
 

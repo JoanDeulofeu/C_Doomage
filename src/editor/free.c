@@ -8,13 +8,13 @@ void	free_image(t_image *img)
 	ft_memdel((void **)&img);
 }
 
-void 	free_anim(t_anim *anim)
+void 	free_anim(t_anim *anim) // A TESTER
 {
 	int i;
 
 	i = -1;
 	while (anim->image[++i] != NULL)
-	 free_image(anim->image[i]);
+		free_image(anim->image[i]);
 }
 
 void 	free_lsprite(t_main *s)

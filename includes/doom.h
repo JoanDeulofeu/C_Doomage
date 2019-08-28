@@ -15,6 +15,7 @@
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
 # define EYESIGHT 10
+# define MAX_SPRITE_DIST 800
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
