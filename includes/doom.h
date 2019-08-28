@@ -399,6 +399,8 @@ void 	display_by_id(t_main *s, int id);
 int 	found_farther(t_main *s);
 void  found_sprite(t_main *s);
 
+void display_menu_sprite(t_main *s);
+
 
 void 	free_sprite(t_main *s);
 void 	free_lsprite(t_main *s);

@@ -83,7 +83,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 		// s->editor->mode_floor = 1;
 		// ft_reset_color_vertex(s);
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL)
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE )
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -132,6 +132,12 @@ void	handle_editor_keys(t_main *s)
 			change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
+
+	if (s->editor->mode == sprite)
+		display_menu_sprite(s);
+	//printf("mode = %d\n", s->editor->mode);
+
+
 	ft_visu_joan(s);
 	draw_sprite(s);
 

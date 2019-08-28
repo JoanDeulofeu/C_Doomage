@@ -21,7 +21,7 @@ void             init_sprite(t_main *s)
   r_pos.x = 7.5;
   r_pos.y = 4.2;
   add_sprite(s,r_pos,1);
-  r_pos.x = 14.8;
+  r_pos.x = 13.8;
   r_pos.y = 10.2;
   add_sprite(s,r_pos,2);
 
