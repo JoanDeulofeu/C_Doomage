@@ -10,7 +10,7 @@ double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 	angle = -40;
 	ctr_l.x = player.x + cos(to_rad(s->player.angle + angle)) * dist;
 	ctr_l.y = player.y - sin(to_rad(s->player.angle + angle)) * dist;
-	draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
+	//draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
 	 while ( angle <=  40)
 	 {
 		 ctr_l.x = player.x + cos(to_rad(s->player.angle+ angle)) * dist;
@@ -23,7 +23,7 @@ double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 			//printf("ret= (%d,%d)\n",ret.x,ret.y);
 			//printf("angle = %f\n",angle);
 
-				draw_anchor(s, ft_dpos_to_pos(cur->pos), PINK);
+				draw_anchor(s,cur->pos, PINK);
 			//set le sprite a 1
 		 		return(-angle);
 		 	}
@@ -43,8 +43,11 @@ void 	draw_sprite(t_main *s)
 	double angle;
 
 	cur = s->sprite;
-	draw_anchor(s, ft_dpos_to_pos(s->sprite->pos), GREEN);
-	draw_anchor(s, ft_dpos_to_pos(s->sprite->next->pos), GREEN);
+	draw_anchor(s,s->sprite->pos, GREEN);
+	draw_anchor(s, s->sprite->next->pos, GREEN);
+
+	//draw_anchor(s, ft_dpos_to_pos(s->sprite->pos), GREEN);
+//	draw_anchor(s, ft_dpos_to_pos(s->sprite->next->pos), GREEN);
 	while(cur != NULL)
 	{
 	//	printf("cur.pos = (%f,%f)\n",cur->pos.x,cur->pos.y);
@@ -99,7 +102,7 @@ void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (((double)wp->h / dist) + value/ dist);
-			coord.y += HEIGHT/2;
+			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight;
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
 				set_pixel(s->sdl->game, wp->tex[px], coord);

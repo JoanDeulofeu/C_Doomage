@@ -11,6 +11,18 @@ void	*ft_memalloc(size_t size)
 	return (ptr);
 }
 
+void        refresh_sprite_pos(t_main *s)
+{
+  t_sprite *cur;
+
+  cur = s->sprite;
+  while (cur != NULL)
+  {
+    cur->pos = get_px_r_pos(s,cur->r_pos);
+    cur = cur->next;
+  }
+}
+
 
 t_lsprite 				*load_lsprite(t_main *s, t_lsprite *start)
 {
@@ -59,14 +71,14 @@ t_lsprite 		*create_lsprite(t_main *s, int size)
 void             init_sprite(t_main *s)
 {
   t_sprite   *tmp;
-  t_dpos      pos;
+  t_dpos      r_pos;
 
-  pos.x = 300;
-  pos.y = 200;
-  s->sprite = create_sprite_elem(s,0,0,pos);
-  pos.x = 400;
-  pos.y = 300;
-  add_sprite(s,pos,1);
+  r_pos.x = 12.5;
+  r_pos.y = 6.5;
+  s->sprite = create_sprite_elem(s,0,0,r_pos);
+  r_pos.x = 7.5;
+  r_pos.y = 4.2;
+  add_sprite(s,r_pos,1);
 
 
 }
@@ -83,7 +95,8 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
 	data = NULL;
 	if (!(data = ft_memalloc(sizeof(t_sprite))))
 		handle_error(s, MALLOC_ERROR);
-	data->pos = pos;
+	data->r_pos = pos;
+  data->pos = get_px_r_pos(s,pos);
 	data->id  = id;
 	data->img = NULL;
 	data->anim = NULL;

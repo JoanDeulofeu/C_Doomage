@@ -41,6 +41,7 @@ void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
 }
 
 
+
 void	display_map(t_main *s)
 {
 	t_vertex	*temp;
@@ -83,6 +84,7 @@ void	display_map(t_main *s)
 	set_player(s);
 	if (s->editor->selected ==1)
 		trace_select(s);
+	refresh_sprite_pos(s);
 	//draw_weapon(s, 0, WIDTH / 2, HEIGHT / 2);
 
 
