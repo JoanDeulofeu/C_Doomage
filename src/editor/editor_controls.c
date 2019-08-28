@@ -239,8 +239,8 @@ void	editor_handler(t_main *s)
 				}
 				if(s->player_view)
 				{
-					SDL_SetRelativeMouseMode(SDL_TRUE);
-					rotate_mouse(s);
+					// SDL_SetRelativeMouseMode(SDL_TRUE);
+					 rotate_mouse(s);
 
 
 					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
@@ -367,6 +367,10 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
+					if (s->editor->mode == sprite)
+					{
+						add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+					}
 					if (s->player_view)
 					{
 						//t_time 			t;

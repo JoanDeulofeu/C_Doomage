@@ -104,7 +104,7 @@ void draw_weapon2(t_main *s, int i, int j)
 	t_image		*wp;
 	int			value;
 
-	value = 100;// + s->player.t.recoil.x;
+	value =150;// + s->player.t.recoil.x;
 
 
 	coord.x = 0;
@@ -120,7 +120,7 @@ void draw_weapon2(t_main *s, int i, int j)
 		coord.x = i ;
 
 		perx = (double)coord.x / ((double)wp->w+ value);
-		coord.x += WIDTH/2 + 50 + s->player.t.recoil.x;
+		coord.x += WIDTH/2 + 30 + s->player.t.recoil.x;
 
 		while (j < wp->h+value)
 		{

@@ -15,7 +15,7 @@
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
 # define EYESIGHT 10
-# define MAX_SPRITE_DIST 800
+# define MAX_SPRITE_DIST 1500
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
@@ -406,6 +406,10 @@ void display_menu_sprite(t_main *s);
 void 	free_sprite(t_main *s);
 void 	free_lsprite(t_main *s);
 void 	free_anim(t_anim *anim);
+
+
+t_dpos	get_abs_r_pos(t_main *s, t_pos ori);
+
 
 
 

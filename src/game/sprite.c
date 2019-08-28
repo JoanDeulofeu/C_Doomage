@@ -126,7 +126,7 @@ void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 
 
 	i = 0;
-	value =300/(cur->dist /2 );//valuer pour grossir sprite
+	value =500/(cur->dist );//valuer pour grossir sprite
 	coord.x = 0;
 	coord.y = 0;
 
@@ -144,7 +144,7 @@ void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (((double)wp->h) * value);// / dist));// + value/ dist);
-			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight + (cur->dist/10) - 50;
+			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight ;
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
 			//printf("tx = %d\n",wp->tex[px]);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
