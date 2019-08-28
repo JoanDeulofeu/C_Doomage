@@ -312,13 +312,13 @@ void	editor_handler(t_main *s)
 
 						}
 						selected = 0;
-						set_selected(s, ori, 0);
 						if (s->editor->selected == 0)
 						{
 							while (v)
 							{
-							 	v->selec = 0;
-								set_selected(s, v->pos, 0);
+								v->selec = 0;
+							 	v->selected = 0;
+								//set_selected(s, v->pos, 0);
 								if (v)
 									v = v->next;
 							}
@@ -341,8 +341,6 @@ void	editor_handler(t_main *s)
 								if (v)
  									v = v->next;
 							}
-
-
 							s->editor->selected = 0;
 
 						}
@@ -410,7 +408,7 @@ void	editor_handler(t_main *s)
 								//printf("ok\n");
 								selected = 1;
 								s->editor->selected = 0;
-								set_selected(s, ori, 1);
+							//	set_selected(s, ori, 1);
 							}
 
 
