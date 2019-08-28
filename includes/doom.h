@@ -400,6 +400,13 @@ int 	found_farther(t_main *s);
 void  found_sprite(t_main *s);
 
 
+void 	free_sprite(t_main *s);
+void 	free_lsprite(t_main *s);
+void 	free_anim(t_anim *anim);
+
+
+
+
 
 
 

@@ -8,6 +8,48 @@ void	free_image(t_image *img)
 	ft_memdel((void **)&img);
 }
 
+void 	free_anim(t_anim *anim)
+{
+	int i;
+
+	i = -1;
+	while (anim->image[++i] != NULL)
+	 free_image(anim->image[i]);
+}
+
+void 	free_lsprite(t_main *s)
+{
+	t_lsprite *lst;
+	t_lsprite *tmp;
+
+	lst = s->lsprite;
+	while (lst != NULL)
+	{
+		tmp = lst;
+		lst = lst->next;
+		if (tmp->img != NULL)
+			free_image(tmp->img);
+		if (tmp->anim != NULL)
+			free_anim(tmp->anim);
+		free(tmp);
+	}
+}
+
+void 	free_sprite(t_main *s)
+{
+	t_sprite *sprite;
+	t_sprite *tmp;
+
+	sprite = s->sprite;
+	while (sprite != NULL)
+	{
+		tmp = sprite;
+		sprite = sprite->next;
+		free(tmp);
+	}
+	free_lsprite(s);
+}
+
 void	free_sectors(t_main *s)
 {
 	t_vertex *v_tmp;
@@ -87,6 +129,7 @@ void	free_program(t_main *s)
 	}
 	free_images(s);
 	free_sectors(s);
+	free_sprite(s);
 	free_texture(s->sdl->map);
 	free_texture(s->sdl->game);
 	free_texture(s->sdl->editor);
