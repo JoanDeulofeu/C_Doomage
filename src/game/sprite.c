@@ -20,56 +20,98 @@ double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 		  if ((ret.x >= (cur->pos.x -HITBOX) && ret.x <= (cur->pos.x +HITBOX)) //DEFINIR HITBOX
 		  	&& (ret.y >= (cur->pos.y -HITBOX) && ret.y <= (cur->pos.y +HITBOX)))
 		  {
-			//printf("ret= (%d,%d)\n",ret.x,ret.y);
-			//printf("angle = %f\n",angle);
-
 				draw_anchor(s,cur->pos, PINK);
-			//set le sprite a 1
 		 		return(-angle);
 		 	}
 		 angle+=0.1;
 	 }
-
-	//printf("ret= (%d,%d)\n",ret.x,ret.y);
 	return (0);
 }
 
+void 	display_by_id(t_main *s, int id)
+{
+	t_sprite *cur;
+
+	cur = s->sprite;
+	while (cur->id != id && cur->next != NULL)
+		cur = cur->next;
+	cur->set = 0;
+	display_sprite(s,cur->angle,cur->dist,cur);
+}
+
+int 	found_farther(t_main *s)
+{
+	t_sprite *cur;
+	int id;
+	int dist;
+
+	cur = s->sprite;
+	id = -1;
+	dist = 0;
+	while (cur != NULL)
+	{
+		if (cur->dist > dist && cur->set == 1)
+		{
+			dist = cur->dist;
+			id = cur->id;
+		}
+		cur = cur->next;
+	}
+	return (id);
+}
+
+void  found_sprite(t_main *s)
+{
+	t_sprite *cur;
+	int 			id;
+	int 			dist;
+	int 			i;
+
+	id = -1;
+	dist = 0;
+	i = 0;
+	cur = s->sprite;
+	while (cur != NULL)
+	{
+		if (cur->set == 1)
+			i++;
+		cur = cur->next;
+	}
+	cur = s->sprite;
+	while (i != 0 && cur != NULL)
+	{
+		if ((id = found_farther(s)) != -1)
+		{
+			display_by_id(s,id);
+			i--;
+		}
+		cur = cur->next;
+	}
+}
 
 void 	draw_sprite(t_main *s)
 {
-	t_dpos distance;
 	t_sprite *cur;
 	double dist;
 	double angle;
+	//int id;
 
+	//id = -1;
+	dist = 0;
 	cur = s->sprite;
-	draw_anchor(s,s->sprite->pos, GREEN);
-	draw_anchor(s, s->sprite->next->pos, GREEN);
-
-	//draw_anchor(s, ft_dpos_to_pos(s->sprite->pos), GREEN);
-//	draw_anchor(s, ft_dpos_to_pos(s->sprite->next->pos), GREEN);
 	while(cur != NULL)
 	{
-	//	printf("cur.pos = (%f,%f)\n",cur->pos.x,cur->pos.y);
-
-		distance.x =  cur->pos.x - s->player.pos.x;
-		distance.y =  cur->pos.y - s->player.pos.y;
-		dist = (distance.x * distance.x) + (distance.y * distance.y);
-		dist = sqrt(dist);
-	//printf("distance = (%f,%f)\n",distance.x,distance.y);
-	//printf("\ndist = (%f)\n",dist);
-
-		if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, dist, cur)) != 0))
+		if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0))
 		{
-			angle += 40;
-		//ßm	printf("angle = %f\n", angle);
-			display_sprite(s,angle,dist,cur);
+			cur->set = 1;
+			cur->angle = angle + 40;
+			// display_sprite(s,angle,cur->dist,cur);
 		}
 		cur = cur->next;
 	}
 
+	found_sprite(s);
 }
-
 
 void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 {
@@ -89,9 +131,6 @@ void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 	coord.y = 0;
 
 	wp = cur->img;
-	// printf("\n\n\nok\n\n");
-
-	//coord.x = WIDTH / 2 - (wp->w / 2);
 	while (i < (wp->w / dist) + value/ dist )
 	{
 		j = 0;
