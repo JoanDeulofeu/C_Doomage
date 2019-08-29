@@ -1,5 +1,58 @@
 #include "doom.h"
 
+
+int set_selected_sprite(t_main *s, t_pos *mouse_save)
+{
+	int selected;
+
+	selected= 0;
+	s->editor->selected =1;
+	mouse_save->x = s->sdl->event.button.x;
+	mouse_save->y = s->sdl->event.button.y;
+	s->editor->line.x1 = mouse_save->x;
+	s->editor->line.y1 = mouse_save->y;
+//	select_sprite(s);
+	return (selected);
+}
+
+void 	deselect_sprite(t_main *s)
+{
+	t_sprite *v;
+
+	v = s->sprite;
+	while (v != NULL)
+	{
+		v->select = 0;
+		v = v->next;
+	}
+}
+
+void select_sprite(t_main *s)
+{
+	t_sprite *v;
+
+	v = s->sprite;
+	while (v != NULL)
+	{
+		if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
+			((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
+				((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
+					((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
+					{
+						//printf("ok\n\n");
+					//	draw_anchor(s,v->pos, YELLOW);
+
+						v->select = 1;
+					}
+		v = v->next;
+	}
+	s->editor->selected = 0;
+
+}
+
+
+
+
 int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 {
 	int selected;
@@ -150,11 +203,14 @@ void	ft_get_line_select(t_main *s, t_line line, Uint32 color)
 		ft_trace_line_select(s, line, color);
 }
 
+
 void 	trace_select(t_main *s)
 {
 	t_editor *edi;
 	t_line line;
 
+	if (s->editor->selected == 0)
+		return ;
 	edi = s->editor;
 	line.x1 = edi->line.x1;
 	line.y1 = edi->line.y1;

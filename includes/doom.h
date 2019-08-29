@@ -420,6 +420,7 @@ void 	free_lsprite(t_main *s);
 void 	free_anim(t_anim *anim);
 
 void 				remove_sprite_by_id(t_main *s, int id);
+void 				remove_sprite_by_select(t_main *s);
 void 				remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,t_sprite *prev);
 
 
@@ -432,6 +433,18 @@ void select_vertex(t_main *s);
 void 	deselect_vertex(t_main *s);
 void move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id);
 int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori);
+void 				reset_id(t_main *s);
+int 				found_id_sprite(t_main *s, t_pos start, t_pos end);
+
+void 	deselect_sprite(t_main *s);
+void select_sprite(t_main *s);
+int set_selected_sprite(t_main *s, t_pos *mouse_save);
+
+
+void 	display_chainlist(t_main *s);
+
+
+
 
 
 
