@@ -42,7 +42,7 @@ void display_img(t_main *s, int x, int y, t_image *img)
 }
 
 
-void draw_menu_img(t_main *s)
+void draw_sprite_menu(t_main *s)
 {
   t_lsprite *cur;
   int x;
@@ -92,31 +92,31 @@ int 	check_sprite_menu_click(t_main *s, t_pos pos)
 	}
 	return (-1);
 }
-
-void display_menu_sprite(t_main *s)
-{
-  t_pos start;
-  t_pos end;
-  t_pos cur;
-
-  start.x = WIDTH - WIDTH_SPRITE;
-  start.y = 0;
-  end.x = WIDTH;
-  end.y = HEIGHT;
-  cur.x = start.x;
-  while (cur.x != end.x)
-  {
-    cur.y = start.y;
-    while (cur.y != end.y)
-    {
-      set_pixel(s->sdl->editor, BLACK, cur);
-      cur.y++;
-    }
-    cur.x++;
-  }
-  draw_menu_img(s);
-	// if (s->choice_sprite != NULL)
-	//
-
-		//printf("id = %d\n",s->choice_sprite->id);
-}
+//
+// void display_menu_sprite(t_main *s)
+// {
+//   t_pos start;
+//   t_pos end;
+//   t_pos cur;
+//
+//   start.x = WIDTH - WIDTH_SPRITE;
+//   start.y = 0;
+//   end.x = WIDTH;
+//   end.y = HEIGHT;
+//   cur.x = start.x;
+//   while (cur.x != end.x)
+//   {
+//     cur.y = start.y;
+//     while (cur.y != end.y)
+//     {
+//       set_pixel(s->sdl->editor, BLACK, cur);
+//       cur.y++;
+//     }
+//     cur.x++;
+//   }
+//   draw_menu_img(s);
+// 	// if (s->choice_sprite != NULL)
+// 	//
+//
+// 		//printf("id = %d\n",s->choice_sprite->id);
+// }

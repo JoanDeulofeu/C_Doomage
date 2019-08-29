@@ -135,7 +135,9 @@ void	handle_editor_keys(t_main *s)
 	draw_space_menu(s);
 
 	if (s->editor->mode == sprite)
-		display_menu_sprite(s);
+		draw_sprite_menu(s);
+
+		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
 
 
