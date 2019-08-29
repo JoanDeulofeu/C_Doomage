@@ -30,7 +30,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 			s->line.y1 = player.y + s->editor->decal_y;
 			s->line.x2 = point.x + s->editor->decal_x;
 			s->line.y2 = point.y + s->editor->decal_y;
-			get_line(s, color);
+			get_line(s, color, 1);
 		}
 		if ((new_dist = ft_find_intersection(s, wall1, wall2, point, player, 1)) > 0)
 		{
@@ -38,7 +38,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 			s->line.y1 = player.y + s->editor->decal_y;
 			s->line.x2 = point.x + s->editor->decal_x;
 			s->line.y2 = point.y + s->editor->decal_y;
-			get_line(s, color);
+			get_line(s, color, 1);
 			// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
 			// printf("point(%.1f, %.1f), player(%.1f, %.1f), wall1(%.1f, %.1f), wall2(%.1f, %.1f)\n", point.x, point.y, player.x, player.y, wall1.x / METRE, wall1.y / METRE, wall2.x / METRE, wall2.y / METRE);
 			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
@@ -74,7 +74,7 @@ t_visu	ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	s->line.y1 = vs.left_plan.y + s->editor->decal_y;
 	s->line.x2 = vs.right_plan.x + s->editor->decal_x;
 	s->line.y2 = vs.right_plan.y + s->editor->decal_y;
-	get_line(s, color);
+	get_line(s, color, 1);
 	return(vs);
 }
 
