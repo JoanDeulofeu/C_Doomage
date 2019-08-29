@@ -149,7 +149,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	tmp->value = value;
 	tmp->selected = 0;
 	tmp->sct_dest = 0;
-	tmp->sct = 0;
+	tmp->sct = sector->id;
 	tmp->vtx_dest = NULL;
 	return (0);
 }
