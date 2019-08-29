@@ -71,9 +71,8 @@ t_pos 	get_px_pos(t_main *s, t_pos ref)
 t_dpos	get_abs_r_pos(t_main *s, t_pos ori)
 {
 	t_dpos	res;
-	int		correc_x;
-	int		correc_y;
-  t_dpos p_ori;
+	int	   	correc_x;
+	int	   	correc_y;
 
 	res.x = 0;
 	res.y = 0;

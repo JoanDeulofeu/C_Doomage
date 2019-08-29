@@ -1,5 +1,4 @@
 #include "doom.h"
-#define HITBOX 2
 
 double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 {
@@ -7,16 +6,16 @@ double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 	double  angle;
 	t_pos ret;
 
-	angle = -40;
+	angle = -50;
 	ctr_l.x = player.x + cos(to_rad(s->player.angle + angle)) * dist;
 	ctr_l.y = player.y - sin(to_rad(s->player.angle + angle)) * dist;
-	//draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
-	 while ( angle <=  40)
+//	draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
+	 while ( angle <= 50)
 	 {
 		 ctr_l.x = player.x + cos(to_rad(s->player.angle+ angle)) * dist;
 	 	 ctr_l.y = player.y - sin(to_rad(s->player.angle+ angle)) * dist;
 		 ret = ft_dpos_to_pos(ctr_l);
-		 set_pixel(s->sdl->editor, BLUE, ret);
+	//	 set_pixel(s->sdl->editor, BLUE, ret);
 		  if ((ret.x >= (cur->pos.x -HITBOX) && ret.x <= (cur->pos.x +HITBOX)) //DEFINIR HITBOX
 		  	&& (ret.y >= (cur->pos.y -HITBOX) && ret.y <= (cur->pos.y +HITBOX)))
 		  {
@@ -36,7 +35,7 @@ void 	display_by_id(t_main *s, int id)
 	while (cur->id != id && cur->next != NULL)
 		cur = cur->next;
 	cur->set = 0;
-	display_sprite(s,cur->angle,cur->dist,cur);
+	display_sprite(s,cur->angle,cur);
 }
 
 int 	found_farther(t_main *s)
@@ -94,9 +93,7 @@ void 	draw_sprite(t_main *s)
 	t_sprite *cur;
 	double dist;
 	double angle;
-	//int id;
 
-	//id = -1;
 	dist = 0;
 	cur = s->sprite;
 	while(cur != NULL)
@@ -104,8 +101,7 @@ void 	draw_sprite(t_main *s)
 		if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0) && cur->dist < MAX_SPRITE_DIST)
 		{
 			cur->set = 1;
-			cur->angle = angle + 40;
-			// display_sprite(s,angle,cur->dist,cur);
+			cur->angle = angle+40;
 		}
 		cur = cur->next;
 	}
@@ -113,7 +109,7 @@ void 	draw_sprite(t_main *s)
 	found_sprite(s);
 }
 
-void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
+void display_sprite(t_main *s,double angle, t_sprite *cur)
 {
 	double		perx;
 	double		pery;
@@ -124,29 +120,28 @@ void display_sprite(t_main *s,int angle, int dist, t_sprite *cur)
 	int 		i;
 	int j;
 
+	wp = cur->img;
 
 	i = 0;
-	value =500/(cur->dist );//valuer pour grossir sprite
+	value = HEIGHT / (cur->dist);
 	coord.x = 0;
 	coord.y = 0;
-
-	wp = cur->img;
-	 //printf("value = %f\n",value);
+	// printf("value = %f\n",value);
+	 // printf("angle = %f\n",angle);
 	// printf("cur->dist = %f\n",cur->dist);
 	// printf("dist = %d\n",dist);
 	while (i < (wp->w) * value)
 	{
 		j = 0;
-		coord.x = i ;
-		perx = (double)coord.x / (((double)wp->w) * value);// / dist));// + value/ dist);
-		coord.x += angle * (WIDTH/80);
-		while (j < (wp->h)* value)// / dist))
+		coord.x = i;
+		perx = (double)i/ (((double)wp->w) * value);
+		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value)/2);
+		while (j < (wp->h) * value)
 		{
 			coord.y = j++;
-			pery = (double)coord.y / (((double)wp->h) * value);// / dist));// + value/ dist);
-			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight ;
+			pery = (double)j / (((double)wp->h) * value);
+			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value)/5));
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
-			//printf("tx = %d\n",wp->tex[px]);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 		}

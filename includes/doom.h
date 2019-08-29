@@ -17,6 +17,9 @@
 # define EYESIGHT 10
 # define MAX_SPRITE_DIST 1500
 
+#define HITBOX 2
+
+
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
 
@@ -351,8 +354,6 @@ void 				draw_weapon2(t_main *s, int i, int j);
 
 
 // fonction affichage sprite
-void 				draw_sprite(t_main *s);
-void display_sprite(t_main *s,int angle, int dist, t_sprite *cur);
 
 
 
@@ -401,6 +402,8 @@ int 	found_farther(t_main *s);
 void  found_sprite(t_main *s);
 
 void display_menu_sprite(t_main *s);
+void 				draw_sprite(t_main *s);
+void display_sprite(t_main *s,double angle, t_sprite *cur);
 
 
 void 	free_sprite(t_main *s);

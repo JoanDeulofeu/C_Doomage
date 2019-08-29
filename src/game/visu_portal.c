@@ -125,7 +125,7 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, double angle_fake_player, t
 	//Tentative de placement du fake player
 	fake_player.x = r_portal.x + cos(to_rad(angle_fake_player)) * dist_player;
 	fake_player.y = r_portal.y - sin(to_rad(angle_fake_player)) * dist_player;
-	printf("\n\nPOSITION DU FAKE PLAYER (%.1f, %.1f)\n", fake_player.x, fake_player.y);
+//	printf("\n\nPOSITION DU FAKE PLAYER (%.1f, %.1f)\n", fake_player.x, fake_player.y);
 
 	//ATTENTION !!!! jai ajouter le decal_x pour que le point saffiche a lecran pour mes tests.
 

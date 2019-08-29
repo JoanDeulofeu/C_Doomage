@@ -78,15 +78,13 @@ void display_crosshair(t_main *s, int i, int j)
 	{
 		j = 0;//dont touch
 		coord.x = i ;
-
 		perx = (double)coord.x / (double)wp->w;
-		coord.x += WIDTH/2;
-
+		coord.x += WIDTH/2 - (wp->w/2);
 		while (j < wp->h)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (double)wp->h;
-			coord.y += HEIGHT/2;
+			coord.y += HEIGHT/2 - (wp->h/2);
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
 				set_pixel(s->sdl->game, wp->tex[px], coord);

@@ -373,7 +373,6 @@ void	editor_handler(t_main *s)
 					}
 					if (s->player_view)
 					{
-						//t_time 			t;
 						shoot(s,1);
 					}
 					if (check_click_menu(s))
