@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
+int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id)
 {
 	t_sector	*sct;
 	t_int		*s_vtx;
@@ -14,7 +14,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 	dist = 100000;
 	new_dist = 0;
 	sct = s->sector;
-	while (s->player.sector_id != sct->id)
+	while (sct_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
 	i = 0;
@@ -24,6 +24,14 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color)
 		wall1.y = s_vtx->ptr->y * METRE;
 		wall2.x = s_vtx->next->ptr->x * METRE;
 		wall2.y = s_vtx->next->ptr->y * METRE;
+		if (sct_id == 2)
+		{
+			s->line.x1 = player.x + s->editor->decal_x;
+			s->line.y1 = player.y + s->editor->decal_y;
+			s->line.x2 = point.x + s->editor->decal_x;
+			s->line.y2 = point.y + s->editor->decal_y;
+			get_line(s, color);
+		}
 		if ((new_dist = ft_find_intersection(s, wall1, wall2, point, player, 1)) > 0)
 		{
 			s->line.x1 = player.x + s->editor->decal_x;
@@ -74,14 +82,14 @@ t_visu get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angl
 {
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 2000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 2000;
-	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff);
+	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
 	// printf("wall_id = %d\n", vs.begin_wall_id);
 	vs.begin.x = s->tmp_intersect.x;
 	vs.begin.y = s->tmp_intersect.y;
 // printf("------MUR DROITE------\n");
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 2000;
-	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff);
+	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff, vs.sct_id);
 	vs.end.x = s->tmp_intersect.x;
 	vs.end.y = s->tmp_intersect.y;
 	vs.player = player;
@@ -104,6 +112,7 @@ void	ft_visu_joan(t_main *s)
 	player.y = s->player.r_pos.y * METRE;
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
+	vs.sct_id = s->player.sector_id;
 
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
 	// printf("demi_fov = %f\n",demi_fov);
