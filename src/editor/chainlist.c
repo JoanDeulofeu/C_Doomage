@@ -26,6 +26,8 @@ int			ft_add_vertex(t_main *s, int x, int y)
 			handle_error(s, MALLOC_ERROR);
 		s->vertex->prev = NULL;
 		s->vertex->next = NULL;
+		s->vertex->selec = 0;
+		s->vertex->selected = 0;
 		tmp = s->vertex;
 		tmp->id = 1;
 	}
@@ -47,6 +49,8 @@ int			ft_add_vertex(t_main *s, int x, int y)
 	tmp->x = x;
 	tmp->y = y;
 	tmp->selec = 0;
+	tmp->selected = 0;
+
 	return (0);
 }
 

@@ -83,7 +83,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 		// s->editor->mode_floor = 1;
 		// ft_reset_color_vertex(s);
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL)
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE )
 		change_mode(s, key);
 	if (key == DELETE)
 		return(2);
@@ -132,6 +132,12 @@ void	handle_editor_keys(t_main *s)
 			change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
+
+	if (s->editor->mode == sprite)
+		display_menu_sprite(s);
+	//printf("mode = %d\n", s->editor->mode);
+
+
 	ft_visu_joan(s);
 	draw_sprite(s);
 
@@ -234,7 +240,7 @@ void	editor_handler(t_main *s)
 				if(s->player_view)
 				{
 					// SDL_SetRelativeMouseMode(SDL_TRUE);
-					// rotate_mouse(s);
+					 rotate_mouse(s);
 
 
 					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
@@ -312,13 +318,13 @@ void	editor_handler(t_main *s)
 
 						}
 						selected = 0;
-						set_selected(s, ori, 0);
 						if (s->editor->selected == 0)
 						{
 							while (v)
 							{
-							 	v->selec = 0;
-								set_selected(s, v->pos, 0);
+								v->selec = 0;
+							 	v->selected = 0;
+								//set_selected(s, v->pos, 0);
 								if (v)
 									v = v->next;
 							}
@@ -341,8 +347,6 @@ void	editor_handler(t_main *s)
 								if (v)
  									v = v->next;
 							}
-
-
 							s->editor->selected = 0;
 
 						}
@@ -363,9 +367,12 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
+					if (s->editor->mode == sprite)
+					{
+						add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+					}
 					if (s->player_view)
 					{
-						//t_time 			t;
 						shoot(s,1);
 					}
 					if (check_click_menu(s))
@@ -410,7 +417,7 @@ void	editor_handler(t_main *s)
 								//printf("ok\n");
 								selected = 1;
 								s->editor->selected = 0;
-								set_selected(s, ori, 1);
+							//	set_selected(s, ori, 1);
 							}
 
 
@@ -503,7 +510,7 @@ void	editor_handler(t_main *s)
 			while (v)
 			{
 				v->selec = 0;
-				//set_selected(s, v->pos, 0);
+				v->selected = 0;
 				if (v)
 					v = v->next;
 			}

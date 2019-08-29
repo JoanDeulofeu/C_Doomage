@@ -11,15 +11,61 @@ void	*ft_memalloc(size_t size)
 	return (ptr);
 }
 
+void             init_sprite(t_main *s)
+{
+  t_dpos      r_pos;
 
-t_lsprite 				*load_lsprite(t_main *s, t_lsprite *start)
+  r_pos.x = 12.5;
+  r_pos.y = 6.5;
+  s->sprite = create_sprite_elem(s,0,0,r_pos);
+  r_pos.x = 7.5;
+  r_pos.y = 4.2;
+  add_sprite(s,r_pos,1);
+  r_pos.x = 13;
+  r_pos.y = 10;
+  add_sprite(s,r_pos,2);
+
+}
+
+double      calc_sprite_dist(t_main *s, t_pos pos)
+{
+  t_dpos distance;
+  double dist;
+
+  distance.x =  pos.x - s->player.pos.x;
+  distance.y =  pos.y - s->player.pos.y;
+  dist = (distance.x * distance.x) + (distance.y * distance.y);
+  dist = sqrt(dist);
+  return (dist);
+}
+
+void        refresh_sprite_pos(t_main *s)
+{
+  t_sprite *cur;
+
+  cur = s->sprite;
+  while (cur != NULL)
+  {
+    cur->pos = get_px_r_pos(s,cur->r_pos);
+    cur->dist = calc_sprite_dist(s,cur->pos);
+    cur->set = 0;
+    cur->angle = 0;
+    draw_anchor(s,cur->pos, YELLOW);
+    cur = cur->next;
+  }
+}
+
+
+t_lsprite 				*load_lsprite(t_lsprite *start)
 {
 	t_lsprite *cur;
 
 	cur = start;
-	cur->img = load_tga("images/shotgun1.tga", 0, 0, 0);
+	cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
 	cur = cur->next;
-	cur->img = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
+	cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
+  cur = cur->next;
+  cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
 	return (start);
 }
 
@@ -51,25 +97,12 @@ t_lsprite 		*create_lsprite(t_main *s, int size)
 			new->next = create_lsprite_elem(s,i);
 			new = new->next;
 		}
-		start = load_lsprite(s,start);
+		start = load_lsprite(start);
 		return (start);
 }
 
 
-void             init_sprite(t_main *s)
-{
-  t_sprite   *tmp;
-  t_dpos      pos;
 
-  pos.x = 300;
-  pos.y = 200;
-  s->sprite = create_sprite_elem(s,0,0,pos);
-  pos.x = 400;
-  pos.y = 300;
-  add_sprite(s,pos,1);
-
-
-}
 
 
 t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
@@ -83,8 +116,12 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
 	data = NULL;
 	if (!(data = ft_memalloc(sizeof(t_sprite))))
 		handle_error(s, MALLOC_ERROR);
-	data->pos = pos;
-	data->id  = id;
+	data->r_pos = pos;
+  data->pos = get_px_r_pos(s,pos);
+  data->id = id;
+  data->set = 0;
+  data->angle = 0;
+	data->dist  = calc_sprite_dist(s,data->pos);
 	data->img = NULL;
 	data->anim = NULL;
 	data->next = NULL;

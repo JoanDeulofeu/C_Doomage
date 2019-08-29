@@ -15,6 +15,10 @@
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
 # define EYESIGHT 10
+# define MAX_SPRITE_DIST 1500
+
+#define HITBOX 2
+
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
@@ -65,7 +69,11 @@ typedef struct		s_lsprite
 typedef struct		s_sprite
 {
 	int							id;
-	t_dpos					pos;
+	int 						set;
+	double 					angle;
+	double 					dist;
+	t_dpos					r_pos;
+	t_pos						pos;
 	t_type					type;
 	t_image 				*img;
 	t_anim 					*anim;
@@ -354,8 +362,6 @@ void 				draw_weapon2(t_main *s, int i, int j);
 
 
 // fonction affichage sprite
-void 				draw_sprite(t_main *s);
-void display_sprite(t_main *s,int angle, int dist, t_sprite *cur);
 
 
 
@@ -389,13 +395,35 @@ void 				print_wall_list(t_main *s);
 //void				draw_skybox(t_main *s, ? , t_visu vs);
 
 /*FCT SPRITE CHAINLIST*/
+t_pos 	get_px_r_pos(t_main *s, t_dpos ref);
 void	*ft_memalloc(size_t size);
-t_lsprite 				*load_lsprite(t_main *s, t_lsprite *start);
+t_lsprite 				*load_lsprite(t_lsprite *start);
 t_lsprite 		*create_lsprite_elem(t_main *s, int id);
 t_lsprite 		*create_lsprite(t_main *s, int size);
 t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
 void	add_sprite(t_main *s, t_dpos pos, int idimg);
 void             init_sprite(t_main *s);
+void        refresh_sprite_pos(t_main *s);
+double      calc_sprite_dist(t_main *s, t_pos pos);
+void 	display_by_id(t_main *s, int id);
+int 	found_farther(t_main *s);
+void  found_sprite(t_main *s);
+
+void display_menu_sprite(t_main *s);
+void 				draw_sprite(t_main *s);
+void display_sprite(t_main *s,double angle, t_sprite *cur);
+
+
+void 	free_sprite(t_main *s);
+void 	free_lsprite(t_main *s);
+void 	free_anim(t_anim *anim);
+
+
+t_dpos	get_abs_r_pos(t_main *s, t_pos ori);
+
+
+
+
 
 
 

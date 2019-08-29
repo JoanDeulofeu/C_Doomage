@@ -52,6 +52,7 @@
 # define PLAYER	SDLK_p
 # define FLOOR	SDLK_f
 # define SAVE	SDLK_s
+# define SPRITE	SDLK_o
 # define VISU	SDLK_i
 # define PORTAL	SDLK_l
 # define ROTATE_LEFT	SDLK_q
@@ -93,7 +94,8 @@ typedef enum  	e_mode {
 	vertex,
 	player,
 	save,
-	portal
+	portal,
+	sprite
 }				t_mode;
 
 typedef struct		s_abpos {

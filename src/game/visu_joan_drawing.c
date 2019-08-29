@@ -199,7 +199,7 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	if (dist > 0)
 	{
 		wall->right = s->tmp_intersect;
-		printf("true\n");
+	//	printf("true\n");
 	}
 
 	else
@@ -216,12 +216,12 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	{
 
 		add_wall_to_list(s, wall);
-		printf("Mur[%d] ajouté\n", vtx->ptr->id);
-		printf("%f et %f\n", ft_dist_t_dpos(wall->l_plan, vs->left_plan), ft_dist_t_dpos(wall->r_plan, vs->left_plan));
+//		printf("Mur[%d] ajouté\n", vtx->ptr->id);
+	//	printf("%f et %f\n", ft_dist_t_dpos(wall->l_plan, vs->left_plan), ft_dist_t_dpos(wall->r_plan, vs->left_plan));
 	}
 	else
 	{
-		printf("Mur[%d] caché\n", vtx->ptr->id);
+	//	printf("Mur[%d] caché\n", vtx->ptr->id);
 	}
 }
 
@@ -322,7 +322,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	draw_first_wall(s, vtx, &vs);
 
 	plan_left = s->tmp_intersect;
-	printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
+//	printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
 	if (vs.begin_wall_id == vs.end_wall_id) // cas 1 seul mur
 	{
 		tmp = s->walls;

@@ -102,8 +102,12 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 5;
 		ft_reset_color_vertex(s);
 	}
-
-	// printf("mode = %d\n", s->editor->mode);
+	else if (key == SPRITE)
+	{
+		s->editor->mode = sprite;
+		s->editor->menu.current = 4; //TODO CHANGE FOR SPRITE IMG
+		ft_reset_color_vertex(s);
+	}
 	// printf("mode = %d\n", s->editor->mode);
 }
 
