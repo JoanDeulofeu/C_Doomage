@@ -70,6 +70,7 @@ typedef struct		s_sprite
 {
 	int							id;
 	int 						set;
+	int   					select;
 	double 					angle;
 	double 					dist;
 	t_dpos					r_pos;
@@ -410,8 +411,21 @@ void 	free_sprite(t_main *s);
 void 	free_lsprite(t_main *s);
 void 	free_anim(t_anim *anim);
 
+void 				remove_sprite_by_id(t_main *s, int id);
+void 				remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,t_sprite *prev);
+
+
 
 t_dpos	get_abs_r_pos(t_main *s, t_pos ori);
+
+//mode selection
+
+void select_vertex(t_main *s);
+void 	deselect_vertex(t_main *s);
+void move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id);
+int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori);
+
+
 
 
 
