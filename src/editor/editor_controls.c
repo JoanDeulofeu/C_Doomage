@@ -113,7 +113,8 @@ void	handle_editor_keys(t_main *s)
 	}
 	if (s->editor->mode == vertex && (keys[DEL]))
 		remove_selected_anchor(s);
-
+	if (s->editor->mode == sprite && (keys[DEL]))
+		remove_sprite_by_select(s);
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
@@ -147,6 +148,9 @@ void	handle_editor_keys(t_main *s)
 		update_image(s, s->sdl->game);
 	else
 		update_image(s, s->sdl->editor);
+
+	//	display_chainlist(s);
+
 	// ft_test_chainlist(s);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
 	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
@@ -206,10 +210,10 @@ void	editor_handler(t_main *s)
 
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
-				if (s->editor->mode == vertex)
+				if (s->editor->mode == vertex || s->editor->mode == sprite)
 				{
-					s->editor->line.x2 = s->ft_mouse.x;
-					s->editor->line.y2 = s->ft_mouse.y;
+						s->editor->line.x2 = s->sdl->event.motion.x;
+						s->editor->line.y2 = s->sdl->event.motion.y;
 				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
@@ -294,8 +298,27 @@ void	editor_handler(t_main *s)
 						{
 							select_vertex(s);
 						}
+
 						 	// printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
 						 	// printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
+					}
+					else if (s->editor->mode == sprite)
+					{
+						if ((s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y) && remove == 0)
+						{
+							add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+							//deselect_sprite(s);
+							s->editor->selected = 0;
+						}
+						if (s->editor->selected == 0)
+						{
+							deselect_sprite(s);
+						}
+						if (s->editor->selected == 1)
+						{
+							select_sprite(s);
+
+						}
 					}
 					else if (s->editor->mode == move)
 					{
@@ -309,9 +332,11 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == sprite)
+					if (s->editor->mode == sprite && !check_click_menu(s))
 					{
-						add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+						deselect_sprite(s);
+						selected = set_selected_sprite(s,&mouse_save);
+						//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
 					}
 					if (s->player_view)
 					{
@@ -328,6 +353,7 @@ void	editor_handler(t_main *s)
 					}
 					if (s->editor->mode == vertex && !check_click_menu(s))
 					{
+						deselect_vertex(s);
 						selected = exist_vertex(s,&mouse_save,&id,&ori);
 					}
 					else if (s->editor->mode == move && !check_click_menu(s))
