@@ -1,4 +1,8 @@
 #include "doom.h"
+#define WIDTH_SPRITE 35
+#define HEIGHT_SPRITE 70
+
+
 
 void display_img(t_main *s, int x, int y, t_image *img)
 {
@@ -13,24 +17,25 @@ void display_img(t_main *s, int x, int y, t_image *img)
 	coord.x = 0;
 	coord.y = 0;
 	wp = img;
-	//coord.x = WIDTH / 2 - (wp->w / 2);
   i = 0;
 	while (i < wp->w)
 	{
-		j = 0;//dont touch
+		j = 0;
 		coord.x = i ;
 
 		perx = (double)coord.x / (double)wp->w;
 		coord.x += x;
-    // printf("h = %d\n", wp->h);
 		while (j < wp->h)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (double)wp->h;
 			coord.y += y;
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
-			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
+			if (px >= 0 && px < wp->w * wp->h)// && wp->tex[px] != 10676224)
+			{
 				set_pixel(s->sdl->editor, wp->tex[px], coord);
+
+			}
 		}
 		i++;
 	}
@@ -45,21 +50,47 @@ void draw_menu_img(t_main *s)
 
 
   cur = s->lsprite;
-  x= 800;
+  x= WIDTH - WIDTH_SPRITE;
   y = 0;
   while (cur != NULL)
   {
-    if (x > 900 )
-    {
-      x = 800;
-      y += 100;
-    }
+		// printf("w,h(%d,%d)\n",cur->img->w,cur->img->h);
     display_img(s,x,y,cur->img);
 
     cur = cur->next;
-    x +=100;
+    y += HEIGHT_SPRITE +1;
   }
-  // display_img(s,900,0);
+}
+
+int 	check_sprite_menu_click(t_main *s, t_pos pos)
+{
+	t_lsprite *lst;
+	int end;
+	int max;
+
+	max = 0;
+	lst = s->lsprite;
+	while (lst != NULL)
+	{
+		max++;
+		lst = lst->next;
+	}
+	end = HEIGHT_SPRITE* max + max;
+	if ((pos.x < (WIDTH - WIDTH_SPRITE)) || (pos.y > end))
+		return (-1);
+	end = end /max;
+	lst = s->lsprite;
+	while (lst != NULL)
+	{
+		if (pos.y < end)
+		{
+			s->choice_sprite = lst;
+			return (s->choice_sprite->id);
+		}
+		end += end;
+		lst = lst->next;
+	}
+	return (-1);
 }
 
 void display_menu_sprite(t_main *s)
@@ -68,10 +99,10 @@ void display_menu_sprite(t_main *s)
   t_pos end;
   t_pos cur;
 
-  start.x = 800;
+  start.x = WIDTH - WIDTH_SPRITE;
   start.y = 0;
-  end.x = 1000;
-  end.y = 400;
+  end.x = WIDTH;
+  end.y = HEIGHT;
   cur.x = start.x;
   while (cur.x != end.x)
   {
@@ -84,4 +115,8 @@ void display_menu_sprite(t_main *s)
     cur.x++;
   }
   draw_menu_img(s);
+	// if (s->choice_sprite != NULL)
+	//
+
+		//printf("id = %d\n",s->choice_sprite->id);
 }

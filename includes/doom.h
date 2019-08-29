@@ -178,6 +178,7 @@ typedef struct		s_main {
 	t_image			*skybox;
 	t_sprite		*sprite;
 	t_lsprite		*lsprite;
+	t_lsprite		*choice_sprite;
 	t_walls			*walls;
 }					t_main;
 
@@ -413,6 +414,8 @@ void  found_sprite(t_main *s);
 void display_menu_sprite(t_main *s);
 void 				draw_sprite(t_main *s);
 void display_sprite(t_main *s,double angle, t_sprite *cur);
+int 	check_sprite_menu_click(t_main *s, t_pos pos);
+
 
 
 void 	free_sprite(t_main *s);

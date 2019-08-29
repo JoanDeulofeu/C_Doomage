@@ -306,7 +306,9 @@ void	editor_handler(t_main *s)
 					{
 						if ((s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y) && remove == 0)
 						{
-							add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+							add_sprite(s,get_abs_r_pos(s,s->ft_mouse),s->choice_sprite->id);
+
+							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
 							//deselect_sprite(s);
 							s->editor->selected = 0;
 						}
@@ -332,8 +334,10 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == sprite && !check_click_menu(s))
+					if (s->editor->mode == sprite && !check_click_menu(s) && (check_sprite_menu_click(s,s->ft_mouse) == -1))
 					{
+					//	check_sprite_menu_click(s,s->ft_mouse);
+
 						deselect_sprite(s);
 						selected = set_selected_sprite(s,&mouse_save);
 						//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
