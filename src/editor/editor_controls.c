@@ -216,25 +216,7 @@ void	editor_handler(t_main *s)
 				if (selected && s->editor->mode == vertex)
 				{
 					move_anchor(s, id);
-
-
-					  tmp_move.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
-					  tmp_move.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
-					// //
-					  tmp_move.x -= ori.x;
-					  tmp_move.y -= ori.y;
-					  tmp_move.x /= s->editor->space;
-					  tmp_move.y /= s->editor->space;
-					while (v)
-					{
-						if (v->selec == 1 && v->id != id)
-						{
-							v->x = v->old.x + tmp_move.x;
-							v->y = v->old.y + tmp_move.y;
-						}
-						if (v)
-							v = v->next;
-					}
+					move_vertex(s, tmp_move, ori, id);
 
 				}
 				if(s->player_view)
@@ -242,24 +224,10 @@ void	editor_handler(t_main *s)
 					// SDL_SetRelativeMouseMode(SDL_TRUE);
 					 rotate_mouse(s);
 
-
-					//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
-					//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
 				}
 				else
 					SDL_SetRelativeMouseMode(SDL_FALSE);
-				// if(s->player_view)
-				// {
-				// 	SDL_SetRelativeMouseMode(SDL_TRUE);
-				// 	rotate_mouse(s);
-				//
-				//
-				// 	//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
-				// 	//printf("event_motion (%d, %d)\n",mouse_save.x, mouse_save.y);
-				// }
-				// else
-					// SDL_SetRelativeMouseMode(SDL_FALSE);
-					if (s->editor->mode == portal &&
+				if (s->editor->mode == portal &&
 					get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == BLACK_SCREEN)
 						{
 							s->editor->over_portal = 0;
@@ -320,40 +288,14 @@ void	editor_handler(t_main *s)
 						selected = 0;
 						if (s->editor->selected == 0)
 						{
-							while (v)
-							{
-								v->selec = 0;
-							 	v->selected = 0;
-								//set_selected(s, v->pos, 0);
-								if (v)
-									v = v->next;
-							}
+							deselect_vertex(s);
 						}
 						if (s->editor->selected == 1)
 						{
-							while (v)
-							{
-								if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-									((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
-										((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-											((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
-								 			{
-									 			v->selec = 1;
-									 			v->old.x = v->x;
-									 			v->old.y = v->y;
-												v->selected = 1;
-												//set_selected(s, v->pos, 1);
-								 			}
-								if (v)
- 									v = v->next;
-							}
-							s->editor->selected = 0;
-
+							select_vertex(s);
 						}
 						 	// printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
 						 	// printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
-
-
 					}
 					else if (s->editor->mode == move)
 					{
@@ -386,47 +328,8 @@ void	editor_handler(t_main *s)
 					}
 					if (s->editor->mode == vertex && !check_click_menu(s))
 					{
-						// if (selected == 1)
-						// {
-						// 	while (v->next)
-						// 	{
-						// 		if ((id = anchor_exists(s, v->pos)) != 0 )
-						// 		{
-						// 			printf("ok\n");
-						// 			//selected = 1;
-						// 			//s->editor->selected = 0;
-						// 			set_selected(s, v->pos, 1);
-						// 			v->x +=10;
-						// 		}
-						// 		v = v->next;
-						// 	}
-						// }
-						s->editor->selected =1;
-						mouse_save.x = s->sdl->event.button.x;
-						mouse_save.y = s->sdl->event.button.y;
-						s->editor->line.x1 = mouse_save.x;
-						s->editor->line.y1 = mouse_save.y;
-						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
-						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
-						if (ori.x >= 0 && ori.x <= WIDTH && ori.y >= 0 && ori.y <= HEIGHT)
-						{
-
-							if ((id = anchor_exists(s, ori)) != 0)
-							{
-								//tmp_move = ori;
-								//printf("ok\n");
-								selected = 1;
-								s->editor->selected = 0;
-							//	set_selected(s, ori, 1);
-							}
-
-
-
-						}
-
+						selected = exist_vertex(s,&mouse_save,&id,&ori);
 					}
-					// else if (s->editor->mode == supp && selected == 1)
-					// 	remove_anchor(s, id);
 					else if (s->editor->mode == move && !check_click_menu(s))
 					{
 						tmp.x = s->editor->decal_x;
@@ -505,16 +408,7 @@ void	editor_handler(t_main *s)
 		handle_editor_keys(s);
 		//printf("mode = %d,%d\n",tmp_mode,s->editor->mode);
 		if (tmp_mode != s->editor->mode)
-		{
-			v = s->vertex;
-			while (v)
-			{
-				v->selec = 0;
-				v->selected = 0;
-				if (v)
-					v = v->next;
-			}
-		}
+			deselect_vertex(s);
 		// printf("decalx = %d\n", s->editor->decal_x );
 		// ft_test_chainlist(s);
 	}

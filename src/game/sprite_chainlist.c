@@ -27,6 +27,46 @@ void             init_sprite(t_main *s)
 
 }
 
+void 				remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,t_sprite *prev)
+{
+	t_sprite *tmp;
+
+	tmp = NULL;
+	if (prev != NULL )
+	{
+
+		tmp = prev;
+		tmp->next = next;
+		free(cur);
+	}
+	else if (prev == NULL)
+	{
+		tmp = next;
+		s->sprite = tmp;
+		free(cur);
+	}
+}
+//remove_sprite_by_id(s,3);
+
+void 				remove_sprite_by_id(t_main *s, int id)
+{
+	t_sprite *cur;
+	t_sprite *prev;
+
+  cur = s->sprite;
+	prev = NULL;
+	while (cur != NULL)
+	{
+		if (cur->id == id)
+		{
+			//printf("id = %d\n",cur->id);
+			remove_sprite(s,cur,cur->next,prev);
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+}
+
 double      calc_sprite_dist(t_main *s, t_pos pos)
 {
   t_dpos distance;
@@ -119,7 +159,8 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
 	data->r_pos = pos;
   data->pos = get_px_r_pos(s,pos);
   data->id = id;
-  data->set = 0;
+	data->set = 0;
+  data->select = 0;
   data->angle = 0;
 	data->dist  = calc_sprite_dist(s,data->pos);
 	data->img = NULL;
