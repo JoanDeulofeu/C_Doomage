@@ -345,7 +345,6 @@ void	editor_handler(t_main *s)
 					if (s->editor->mode == sprite && !check_click_menu(s) && (check_sprite_menu_click(s,s->ft_mouse) == -1))
 					{
 					//	check_sprite_menu_click(s,s->ft_mouse);
-
 						deselect_sprite(s);
 						selected = set_selected_sprite(s,&mouse_save);
 						//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
@@ -365,7 +364,7 @@ void	editor_handler(t_main *s)
 					}
 					if (s->editor->mode == vertex && !check_click_menu(s))
 					{
-						deselect_vertex(s);
+						//deselect_vertex(s);
 						selected = exist_vertex(s,&mouse_save,&id,&ori);
 					}
 					else if (s->editor->mode == move && !check_click_menu(s))
