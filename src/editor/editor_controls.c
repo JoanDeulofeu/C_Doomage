@@ -133,8 +133,7 @@ void	handle_editor_keys(t_main *s)
 	}
 	else
 		s->editor->m_floor.current = 0;
-		if (s->editor->mode == portal &&
-		get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
+		if (s->editor->mode == portal)// && get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
 			change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
