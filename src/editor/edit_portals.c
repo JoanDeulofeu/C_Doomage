@@ -114,18 +114,20 @@ void	change_over_wall(t_main *s)
 	int			i;
 	int box;
 
-	box = -4;
+	box = -5;
 	new_pos.x = 0;
 	new_pos.y = 0;
 	i = 0;
 	mouse.x = s->ft_mouse.x +box;
-	while (mouse.x != (s->ft_mouse.x -box))
+	while (mouse.x <= (s->ft_mouse.x -box))
 	{
 		mouse.y = s->ft_mouse.y +box;
 
-		while (mouse.y != (s->ft_mouse.y -box))
+		while (mouse.y <= (s->ft_mouse.y -box))
 		{
 			color = get_pixel_color(s->sdl->editor, mouse.x, mouse.y);
+			//set_pixel(s->sdl->editor, BLUE, mouse);
+
 			if (color == COLOR_WALL)
 			{
 				id = get_nearest_sector(s, s->ft_mouse, &new_pos);
@@ -168,6 +170,7 @@ void	change_over_wall(t_main *s)
 				}
 				else if (s->editor->wall2 != NULL)
 					wall_save->selected = 4;
+
 				return  ;
 			}
 			mouse.y+=1;
