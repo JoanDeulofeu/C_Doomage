@@ -39,7 +39,7 @@ void             init_sprite(t_main *s)
   add_sprite(s,r_pos,1);
   r_pos.x = 13;
   r_pos.y = 10;
-  add_sprite(s,r_pos,2);
+  add_sprite(s,r_pos,0);
 }
 
 int 				get_sprite_id(t_main *s)

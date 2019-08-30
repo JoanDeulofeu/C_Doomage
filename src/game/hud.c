@@ -10,12 +10,13 @@ void 	shoot(t_main *s, int press)
 	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
 	if (press == 1 && s->player.t.fin_time < curr_time)
 	{
-
+		fire(s);
 		t.fin_time = curr_time + 1100000;
 		t.tmp_time = curr_time;
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
 		s->player.t = t;
+
 
 	}
 	if (s->player.t.tmp_time + 150000 > curr_time )

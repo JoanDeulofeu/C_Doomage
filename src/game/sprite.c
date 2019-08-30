@@ -122,7 +122,6 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 	int j;
 
 	wp = cur->img;
-
 	i = 0;
 	value = HEIGHT / (cur->dist);
 	coord.x = 0;

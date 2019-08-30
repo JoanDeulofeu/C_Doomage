@@ -18,6 +18,7 @@
 # define MAX_SPRITE_DIST 1500
 
 #define HITBOX 2
+#define SPRITE_HITBOX 10
 
 
 /// Fixed-point Format: 16.16 (32-bit)
@@ -450,6 +451,7 @@ void 	display_chainlist(t_main *s);
 
 
 
+void	fire(t_main *s);
 
 
 

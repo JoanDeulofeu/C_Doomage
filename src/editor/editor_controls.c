@@ -105,7 +105,10 @@ void	handle_editor_keys(t_main *s)
 	if (keys[LCTRL])
 		crouch(s,1);
 	else if (keys[SPACE])
-		jump(s,1);
+	{
+		 jump(s,1);
+
+	}
 	else
 	{
 		crouch(s,-1);
@@ -133,6 +136,9 @@ void	handle_editor_keys(t_main *s)
 			change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
+
+	// if (keys[SPACE])
+	// 	fire(s);
 
 	if (s->editor->mode == sprite)
 		draw_sprite_menu(s);
