@@ -20,3 +20,14 @@ char	isLeft(t_dpos a, t_dpos b, t_dpos c)
 {
 	return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
 }
+
+void	*ft_memalloc(size_t size)
+{
+	void *ptr;
+
+	ptr = (void *)malloc(sizeof(void *) * size);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, 0, size);
+	return (ptr);
+}

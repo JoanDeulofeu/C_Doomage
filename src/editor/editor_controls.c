@@ -106,7 +106,7 @@ void	handle_editor_keys(t_main *s)
 		crouch(s,1);
 	else if (keys[SPACE])
 	{
-		 jump(s,1);
+//		 jump(s,1);
 
 	}
 	else
@@ -119,6 +119,8 @@ void	handle_editor_keys(t_main *s)
 	if (s->editor->mode == sprite && (keys[DEL]))
 		remove_sprite_by_select(s);
 
+	if (keys[SPACE])
+	 sprite_move(s);
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 	ft_draw_editor(s->editor, s->sdl->editor);
@@ -137,7 +139,7 @@ void	handle_editor_keys(t_main *s)
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
 
-	// if (keys[SPACE])
+
 	// 	fire(s);
 
 	if (s->editor->mode == sprite)

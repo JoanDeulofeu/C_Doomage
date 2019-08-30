@@ -16,15 +16,23 @@ void 	display_chainlist(t_main *s)
 	}
 }
 
-void	*ft_memalloc(size_t size)
+void        refresh_sprite_pos(t_main *s)
 {
-	void *ptr;
+  t_sprite *cur;
 
-	ptr = (void *)malloc(sizeof(void *) * size);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, size);
-	return (ptr);
+  cur = s->sprite;
+  while (cur != NULL)
+  {
+    cur->pos = get_px_r_pos(s,cur->r_pos);
+    cur->dist = calc_sprite_dist(s,cur->pos);
+    cur->set = 0;
+    //cur->angle = 0;
+		if (cur->select == 1)
+			draw_anchor(s,cur->pos, BLUE);
+		else
+			draw_anchor(s,cur->pos, YELLOW);
+    cur = cur->next;
+  }
 }
 
 void             init_sprite(t_main *s)
@@ -175,24 +183,7 @@ double      calc_sprite_dist(t_main *s, t_pos pos)
   return (dist);
 }
 
-void        refresh_sprite_pos(t_main *s)
-{
-  t_sprite *cur;
 
-  cur = s->sprite;
-  while (cur != NULL)
-  {
-    cur->pos = get_px_r_pos(s,cur->r_pos);
-    cur->dist = calc_sprite_dist(s,cur->pos);
-    cur->set = 0;
-    cur->angle = 0;
-		if (cur->select == 1)
-			draw_anchor(s,cur->pos, BLUE);
-		else
-			draw_anchor(s,cur->pos, YELLOW);
-    cur = cur->next;
-  }
-}
 
 
 t_lsprite 				*load_lsprite(t_lsprite *start)

@@ -452,6 +452,8 @@ void 	display_chainlist(t_main *s);
 
 
 void	fire(t_main *s);
+void    sprite_move(t_main *s);
+
 
 
 
