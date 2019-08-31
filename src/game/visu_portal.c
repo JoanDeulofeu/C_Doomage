@@ -110,11 +110,12 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	new_x = 0;
 	// printf("sct->vertex")
 	vtx = sct->vertex;
-	angle_left =
+	angle_left = ft_find_angle_portal(player, vs.begin_wall_id, NULL, 1);
 	printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	printf("vs.end_wall_id = %d\n", vs.end_wall_id);
 
 	//On recuper el'angle entre le joueur et le point de gauche, ca donne le mur de gauche.
+
 	//On recuper el'angle entre le joueur et le point de droite, ca donne le mur de droite.
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	draw_first_wall(s, vtx, &vs);
