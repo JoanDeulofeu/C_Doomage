@@ -43,7 +43,9 @@ SRC_NAME =	main.c						\
 			game/sprite.c					\
 			game/sprite_menu.c	\
 			game/sprite_chainlist.c\
+			game/fire_mode.c\
 			game/skybox.c				\
+			game/ia.c				\
 			menu.c							\
 			debug.c
 

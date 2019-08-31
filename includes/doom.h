@@ -18,6 +18,7 @@
 # define MAX_SPRITE_DIST 1500
 
 #define HITBOX 2
+#define SPRITE_HITBOX 10
 
 
 /// Fixed-point Format: 16.16 (32-bit)
@@ -72,6 +73,7 @@ typedef struct		s_sprite
 	int 						set;
 	int   					select;
 	double 					angle;
+	double 					s_angle;
 	double 					dist;
 	t_dpos					r_pos;
 	t_pos						pos;
@@ -124,6 +126,8 @@ typedef struct		s_visu {
 	t_dpos			left_point;
 	t_dpos			right_point;
 	t_dpos			player;
+	double			angle;
+	int				sct_id;
 }					t_visu;
 
 typedef struct		s_walls {
@@ -176,6 +180,7 @@ typedef struct		s_main {
 	t_image			*skybox;
 	t_sprite		*sprite;
 	t_lsprite		*lsprite;
+	t_lsprite		*choice_sprite;
 	t_walls			*walls;
 }					t_main;
 
@@ -187,6 +192,11 @@ void				ft_visu_joan(t_main *s);
 void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color);
+void 				ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs);
+void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
+t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
+void 				draw_last_wall(t_int *vtx, t_visu *vs);
+int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
 
 /*
 ****	Fonction d'initialisation
@@ -234,9 +244,9 @@ void				draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y);
 /*
 ****	Fonction de creation de ligne
 */
-int					trace_line(t_main *s, Uint32 color);
-void				trace_vertical(t_main *s, Uint32 color);
-void				get_line(t_main *s, Uint32 color);
+int					trace_line(t_main *s, Uint32 color, int w);
+void				trace_vertical(t_main *s, Uint32 color, int w);
+void				get_line(t_main *s, Uint32 color, int w);
 void				ft_draw_all_wall(t_main *s);
 
 /*
@@ -292,8 +302,9 @@ t_int				*free_sector_struct(t_sector *temp_sector);
 */
 void				change_over_wall(t_main *s);
 void				edit_portal(t_main *s);
-t_dpos				ft_get_fake_player(t_main *s, t_dpos player, double angle_fake_player, t_int *vtx);
-double				ft_get_fake_angle(t_main *s, t_dpos player, t_int *vtx);
+t_dpos				ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_portal_out);
+t_visu				get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angle, t_visu vs);
+void				add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
 
 /*
 ****	Fonction utilitaire
@@ -402,9 +413,13 @@ void 	display_by_id(t_main *s, int id);
 int 	found_farther(t_main *s);
 void  found_sprite(t_main *s);
 
-void display_menu_sprite(t_main *s);
 void 				draw_sprite(t_main *s);
 void display_sprite(t_main *s,double angle, t_sprite *cur);
+int 	check_sprite_menu_click(t_main *s, t_pos pos);
+void draw_sprite_menu(t_main *s);
+
+
+
 
 
 void 	free_sprite(t_main *s);
@@ -412,6 +427,7 @@ void 	free_lsprite(t_main *s);
 void 	free_anim(t_anim *anim);
 
 void 				remove_sprite_by_id(t_main *s, int id);
+void 				remove_sprite_by_select(t_main *s);
 void 				remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,t_sprite *prev);
 
 
@@ -424,6 +440,21 @@ void select_vertex(t_main *s);
 void 	deselect_vertex(t_main *s);
 void move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id);
 int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori);
+void 				reset_id(t_main *s);
+int 				found_id_sprite(t_main *s, t_pos start, t_pos end);
+
+void 	deselect_sprite(t_main *s);
+void select_sprite(t_main *s);
+int set_selected_sprite(t_main *s, t_pos *mouse_save);
+
+
+void 	display_chainlist(t_main *s);
+
+
+
+void	fire(t_main *s);
+void    sprite_move(t_main *s);
+
 
 
 

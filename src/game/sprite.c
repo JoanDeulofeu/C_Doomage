@@ -19,7 +19,7 @@ double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 		  if ((ret.x >= (cur->pos.x -HITBOX) && ret.x <= (cur->pos.x +HITBOX)) //DEFINIR HITBOX
 		  	&& (ret.y >= (cur->pos.y -HITBOX) && ret.y <= (cur->pos.y +HITBOX)))
 		  {
-				draw_anchor(s,cur->pos, PINK);
+				//draw_anchor(s,cur->pos, PINK);
 		 		return(-angle);
 		 	}
 		 angle+=0.1;
@@ -95,6 +95,8 @@ void 	draw_sprite(t_main *s)
 	double angle;
 
 	dist = 0;
+	if (s->sprite == NULL)
+		return ;
 	cur = s->sprite;
 	while(cur != NULL)
 	{
@@ -105,7 +107,6 @@ void 	draw_sprite(t_main *s)
 		}
 		cur = cur->next;
 	}
-
 	found_sprite(s);
 }
 
@@ -121,7 +122,6 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 	int j;
 
 	wp = cur->img;
-
 	i = 0;
 	value = HEIGHT / (cur->dist);
 	coord.x = 0;

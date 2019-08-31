@@ -112,57 +112,71 @@ void	change_over_wall(t_main *s)
 	t_pos mouse;
 	Uint32 color;
 	int			i;
+	int box;
 
+	box = -5;
 	new_pos.x = 0;
 	new_pos.y = 0;
 	i = 0;
-	color = get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y);
+	mouse.x = s->ft_mouse.x +box;
+	while (mouse.x <= (s->ft_mouse.x -box))
+	{
+		mouse.y = s->ft_mouse.y +box;
 
-		if (color == COLOR_WALL)
+		while (mouse.y <= (s->ft_mouse.y -box))
 		{
-			mouse.x = s->ft_mouse.x;
-			mouse.y = s->ft_mouse.y;
-			id = get_nearest_sector(s, s->ft_mouse, &new_pos);
-			if (id == 0)
-				return ;
-			sector  = get_sector_by_id(s, id);
-			wall = sector->vertex;
-			beg = wall->ptr->pos;
-			end = wall->ptr->next->pos;
+			color = get_pixel_color(s->sdl->editor, mouse.x, mouse.y);
+			//set_pixel(s->sdl->editor, BLUE, mouse);
 
-			wall_save = wall;
-			while (i++ < sector->vertex->prev->id)
+			if (color == COLOR_WALL)
 			{
-					end = wall->next->ptr->pos;
-					if (mouse.x >= wall->ptr->pos.x && mouse.x <= end.x
-					&& mouse.y >= wall->ptr->pos.y && mouse.y <= end.y)
-					{
-						wall_save = wall;
-						break;
-					}
-					wall = wall->next;
+				id = get_nearest_sector(s, s->ft_mouse, &new_pos);
+				if (id == 0)
+					return ;
+				sector  = get_sector_by_id(s, id);
+				wall = sector->vertex;
+				beg = wall->ptr->pos;
+				end = wall->ptr->next->pos;
+
+				wall_save = wall;
+				while (i++ < sector->vertex->prev->id)
+				{
+						end = wall->next->ptr->pos;
+						if (mouse.x >= wall->ptr->pos.x && mouse.x <= end.x
+						&& mouse.y >= wall->ptr->pos.y && mouse.y <= end.y)
+						{
+							wall_save = wall;
+							break;
+						}
+						wall = wall->next;
+				}
+				s->editor->over_portal = wall_save->id;
+				if (s->editor->wall == NULL)
+				{
+					// printf ("true\n");
+					s->editor->wall = wall_save;
+					s->editor->over_sector = sector->id;
+				}
+				else if (s->editor->wall != wall_save)
+				{
+					// printf ("s->editor->wall != wall_save\n");
+					s->editor->wall2 = wall_save;
+					s->editor->over_sector2 = sector->id;
+				}
+				if (s->editor->wall2 != NULL && s->editor->over_sector != 0
+					&& s->editor->over_sector2 != 0 && check_walls_lenght(s->editor->wall, wall_save))
+				{
+					wall_save->selected = 3;
+				}
+				else if (s->editor->wall2 != NULL)
+					wall_save->selected = 4;
+
+				return  ;
 			}
-			s->editor->over_portal = wall_save->id;
-			if (s->editor->wall == NULL)
-			{
-				// printf ("true\n");
-				s->editor->wall = wall_save;
-				s->editor->over_sector = sector->id;
-			}
-			else if (s->editor->wall != wall_save)
-			{
-				// printf ("s->editor->wall != wall_save\n");
-				s->editor->wall2 = wall_save;
-				s->editor->over_sector2 = sector->id;
-			}
-			if (s->editor->wall2 != NULL && s->editor->over_sector != 0
-				&& s->editor->over_sector2 != 0 && check_walls_lenght(s->editor->wall, wall_save))
-			{
-				wall_save->selected = 3;
-			}
-			else if (s->editor->wall2 != NULL)
-				wall_save->selected = 4;
+			mouse.y+=1;
 		}
+		mouse.x +=1;
+	}
 }
 
 void	edit_portal(t_main *s)

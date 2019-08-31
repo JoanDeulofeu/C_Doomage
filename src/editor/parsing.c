@@ -43,6 +43,7 @@ void	add_portal_ptr(t_main *s)
 				{
 					wall->vtx_dest->vtx_dest = wall;
 					wall->vtx_dest->sct_dest = wall->sct;
+					wall->sct_dest = wall->vtx_dest->sct;
 					wall->vtx_dest->wall_value = wall->ptr->id; //securité
 				}
 			}

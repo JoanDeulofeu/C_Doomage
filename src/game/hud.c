@@ -10,12 +10,13 @@ void 	shoot(t_main *s, int press)
 	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
 	if (press == 1 && s->player.t.fin_time < curr_time)
 	{
-
+		fire(s);
 		t.fin_time = curr_time + 1100000;
 		t.tmp_time = curr_time;
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
 		s->player.t = t;
+
 
 	}
 	if (s->player.t.tmp_time + 150000 > curr_time )
@@ -26,12 +27,17 @@ void 	shoot(t_main *s, int press)
 	}
 	else if (s->player.t.tmp_time + 200000 > curr_time )
 	{
-		s->player.weapon.current = 0;
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
+		s->player.weapon.current = 0;
+
 	}
 	else if (s->player.t.tmp_time + 300000  > curr_time)
+	{
+		s->player.t.recoil.y = 0;
+		s->player.t.recoil.x = 0;
 		s->player.weapon.current = 1;
+	}
 	else if (s->player.t.tmp_time + 450000  > curr_time)
 		s->player.weapon.current = 2;
 	else if (s->player.t.tmp_time + 500000  > curr_time)
@@ -45,7 +51,11 @@ void 	shoot(t_main *s, int press)
 	else if (s->player.t.tmp_time + 1080000  > curr_time)
 		s->player.weapon.current = 3;
 	else
+	{
+		s->player.t.recoil.y = 0;
+		s->player.t.recoil.x = 0;
 		s->player.weapon.current = 1;
+	}
 }
 
 void 	draw_hud(t_main *s)
