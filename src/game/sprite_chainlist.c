@@ -252,7 +252,8 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
   data->id = id;
 	data->set = 0;
   data->select = 0;
-  data->angle = 0;
+	data->angle = 0;
+  data->s_angle = 0;
 	data->dist  = calc_sprite_dist(s,data->pos);
 	data->img = NULL;
 	data->anim = NULL;

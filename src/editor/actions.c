@@ -86,9 +86,9 @@ void  	rotate_mouse(t_main *s)
 {
 	double angle;
 
-	angle = s->player.angle + (-s->sdl->event.motion.xrel) * ROTATE_SPEED / 20 + 360;
+	angle = s->player.angle + (-s->sdl->event.motion.xrel) * ROTATE_SPEED / 50 + 360;
 	s->player.angle = (int)angle % 360;
-	s->player.y_eye = (s->player.y_eye + (-s->sdl->event.motion.yrel) * ROTATE_SPEED / 3);
+	s->player.y_eye = (s->player.y_eye + (-s->sdl->event.motion.yrel) * ROTATE_SPEED / 10);
 	if (s->player.y_eye > 1000)
 		s->player.y_eye = 1000;
 	else if (s->player.y_eye < -1000)

@@ -139,7 +139,6 @@ void	handle_editor_keys(t_main *s)
 	draw_space_menu(s);
 
 
-	// 	fire(s);
 
 	if (s->editor->mode == sprite)
 		draw_sprite_menu(s);
@@ -149,6 +148,9 @@ void	handle_editor_keys(t_main *s)
 
 
 	ft_visu_joan(s);
+
+	//sprite_move(s);
+
 	draw_sprite(s);
 
 	draw_hud(s);

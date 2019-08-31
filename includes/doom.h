@@ -73,6 +73,7 @@ typedef struct		s_sprite
 	int 						set;
 	int   					select;
 	double 					angle;
+	double 					s_angle;
 	double 					dist;
 	t_dpos					r_pos;
 	t_pos						pos;
