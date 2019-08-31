@@ -169,8 +169,6 @@ void	change_over_wall(t_main *s)
 				{
 						if (check_between_wall(wall, mouse))
 						{
-							printf("mouse.y = %d et end.y = %d\n", mouse.y, end.y);
-							// printf("=====\nbegin (x %d /y %d), mouse (%d/%d) et end(%d/%d)\n=====\n",wall->ptr->pos.x, wall->ptr->pos.y, mouse.x, mouse.y, end.x, end.y);
 							wall_save = wall;
 							break;
 						}
