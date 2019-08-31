@@ -100,6 +100,32 @@ int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
 	return (diffx1 + diffx2 + diffy1 + diffy2);
 }
 
+int		check_between_wall(t_int *wall, t_pos mouse)
+{
+	t_pos		begin;
+	t_pos		end;
+	char		bool_x;
+	char		bool_y;
+
+	begin = wall->ptr->pos;
+	end = wall->next->ptr->pos;
+	bool_x = 0;
+	bool_y = 0;
+	if (begin.x > end.x && mouse.x <= begin.x && mouse.x >= end.x)
+		bool_x = 1;
+	else if (begin.x < end.x && mouse.x >= begin.x && mouse.x <= end.x)
+		bool_x = 1;
+	if (begin.y > end.y && mouse.y <= begin.y && mouse.y >= end.y)
+		bool_y = 1;
+	else if (begin.y < end.y && mouse.y >= begin.y && mouse.y <= end.y)
+		bool_y = 1;
+	if (bool_x && bool_y)
+		return (1);
+	else
+		return (0);
+
+}
+
 void	change_over_wall(t_main *s)
 {
 	t_sector	*sector;
@@ -109,10 +135,10 @@ void	change_over_wall(t_main *s)
 	t_pos		end;
 	t_pos		new_pos;
 	t_int		*wall_save;
-	t_pos mouse;
-	Uint32 color;
+	t_pos		mouse;
+	Uint32		color;
 	int			i;
-	int box;
+	int			box;
 
 	box = -5;
 	new_pos.x = 0;
@@ -141,10 +167,10 @@ void	change_over_wall(t_main *s)
 				wall_save = wall;
 				while (i++ < sector->vertex->prev->id)
 				{
-						end = wall->next->ptr->pos;
-						if (mouse.x >= wall->ptr->pos.x && mouse.x <= end.x
-						&& mouse.y >= wall->ptr->pos.y && mouse.y <= end.y)
+						if (check_between_wall(wall, mouse))
 						{
+							printf("mouse.y = %d et end.y = %d\n", mouse.y, end.y);
+							// printf("=====\nbegin (x %d /y %d), mouse (%d/%d) et end(%d/%d)\n=====\n",wall->ptr->pos.x, wall->ptr->pos.y, mouse.x, mouse.y, end.x, end.y);
 							wall_save = wall;
 							break;
 						}
