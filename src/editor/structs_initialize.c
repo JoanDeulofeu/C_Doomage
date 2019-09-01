@@ -164,7 +164,7 @@ t_main		*initialize_main(void)
 	s->intersect1.y = 0;
 	s->intersect2.x = 0;
 	s->intersect2.y = 0;
-	s->player.angle = 180;
+	s->player.angle = 120;
 	s->player.sector_id = 0;
 	s->player.sector = NULL;
 	s->player_view = 0;

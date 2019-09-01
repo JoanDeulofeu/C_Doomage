@@ -133,7 +133,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	if (vs.end_wall_id == 0)
 		vs.end_wall_id = vs.begin_wall->prev->ptr->id;
 	else
-		vs.end = s->tmp_intersect;
+		vs.end = s->tmp_intersect;2
 
 
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
