@@ -6,7 +6,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 	t_int		*s_vtx;
 	t_dpos		wall1;
 	t_dpos		wall2;
-	int			id_wall = 1;
+	int			id_wall = 0;
 	int			i;
 	int			dist;
 	int			new_dist;
@@ -43,7 +43,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 			// printf("point(%.1f, %.1f), player(%.1f, %.1f), wall1(%.1f, %.1f), wall2(%.1f, %.1f)\n", point.x, point.y, player.x, player.y, wall1.x / METRE, wall1.y / METRE, wall2.x / METRE, wall2.y / METRE);
 			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
 			// return (id_wall);
-			if (new_dist < dist && new_dist != 0)
+			if (new_dist < dist && new_dist != 0 && new_dist != -1)
 			{
 				// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
 				id_wall = s_vtx->ptr->id;

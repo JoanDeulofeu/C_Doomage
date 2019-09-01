@@ -171,6 +171,7 @@ t_main		*initialize_main(void)
 	s->player.init_space = s->editor->space;
 	s->str_vtx = NULL;
 	s->walls = NULL;
+	s->portal_nb = 0;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);

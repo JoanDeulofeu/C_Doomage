@@ -17,8 +17,10 @@
 # define EYESIGHT 10
 # define MAX_SPRITE_DIST 1500
 
-#define HITBOX 2
-#define SPRITE_HITBOX 10
+# define HITBOX 2
+# define SPRITE_HITBOX 10
+
+# define PORTAL_LIMIT 10
 
 
 /// Fixed-point Format: 16.16 (32-bit)
@@ -67,21 +69,21 @@ typedef struct		s_lsprite
 	struct s_lsprite *next;
 }									t_lsprite;
 
-typedef struct		s_sprite
+typedef struct				s_sprite
 {
-	int							id;
-	int 						set;
-	int   					select;
+	int						id;
+	int						set;
+	int						select;
 	double 					angle;
 	double 					s_angle;
 	double 					dist;
 	t_dpos					r_pos;
-	t_pos						pos;
+	t_pos					pos;
 	t_type					type;
 	t_image 				*img;
 	t_anim 					*anim;
-	struct s_sprite *next;
-}									t_sprite;
+	struct s_sprite			*next;
+}							t_sprite;
 
 
 typedef struct		s_player
@@ -119,6 +121,7 @@ typedef struct		s_visu {
 	t_dpos			right_plan;
 	t_dpos			begin;
 	int				begin_wall_id;
+	t_int			*begin_wall;
 	t_dpos			end;
 	int				end_wall_id;
 	t_pos			pixel;
@@ -182,6 +185,7 @@ typedef struct		s_main {
 	t_lsprite		*lsprite;
 	t_lsprite		*choice_sprite;
 	t_walls			*walls;
+	int				portal_nb;
 }					t_main;
 
 /*
@@ -196,6 +200,7 @@ void 				ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
 t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
 void 				draw_last_wall(t_int *vtx, t_visu *vs);
+int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id);
 int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
 
 /*
