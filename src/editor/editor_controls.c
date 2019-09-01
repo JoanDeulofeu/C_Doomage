@@ -120,11 +120,11 @@ void	handle_editor_keys(t_main *s)
 	if (s->editor->mode == sprite && (keys[DEL]))
 		remove_sprite_by_select(s);
 
-	if (keys[SPACE])
-	 sprite_move(s);
+
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 	ft_draw_editor(s->editor, s->sdl->editor);
+
 	display_map(s);
 	ft_draw_all_wall(s);
 	if (s->editor->mode_floor == 1)
@@ -138,6 +138,7 @@ void	handle_editor_keys(t_main *s)
 			change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
+
 
 
 
@@ -238,6 +239,7 @@ void	editor_handler(t_main *s)
 				{
 					// SDL_SetRelativeMouseMode(SDL_TRUE);
 					 rotate_mouse(s);
+					 s->editor->mode = move;
 
 				}
 				else

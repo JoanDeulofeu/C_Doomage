@@ -126,9 +126,9 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 	value = HEIGHT / (cur->dist);
 	coord.x = 0;
 	coord.y = 0;
-	// printf("value = %f\n",value);
+	 // printf("value = %f\n",value);
 	 // printf("angle = %f\n",angle);
-	// printf("cur->dist = %f\n",cur->dist);
+	 // printf("cur->dist = %f\n",cur->dist);
 	// printf("dist = %d\n",dist);
 	while (i < (wp->w) * value)
 	{
@@ -136,6 +136,8 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 		coord.x = i;
 		perx = (double)i/ (((double)wp->w) * value);
 		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value)/2);
+		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
+
 		while (j < (wp->h) * value)
 		{
 			coord.y = j++;

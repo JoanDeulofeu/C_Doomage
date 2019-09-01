@@ -12,6 +12,8 @@ void 	display_chainlist(t_main *s)
 
 		printf("id = %d\n",cur->id);
 		printf("slect = %d\n",cur->select);
+		printf("dist= %f\n",cur->dist);
+
 		cur = cur->next;
 	}
 }

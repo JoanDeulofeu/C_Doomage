@@ -4,25 +4,32 @@
 int   check_exist_sprite(t_main *s, t_pos pos)
 {
   t_sprite *cur;
-//  double value;
+  double value;
+  double ret;
+  int i;
+  i = 0;
   cur = s->sprite;
 
   while (cur != NULL)
   {
-  //  value = (HEIGHT / (cur->dist)) * (cur->img->w/2);
-
-    // if ((pos.x >= (cur->pos.x -value) && pos.x <= (cur->pos.x +value)) && (pos.y >= (cur->pos.y -value) && pos.y <= (cur->pos.y +value)))
-
-    if ((pos.x >= (cur->pos.x -SPRITE_HITBOX) && pos.x <= (cur->pos.x +SPRITE_HITBOX)) && (pos.y >= (cur->pos.y -SPRITE_HITBOX) && pos.y <= (cur->pos.y +SPRITE_HITBOX)))
+    value = HEIGHT / (cur->dist);
+    i = 0;
+    while (i < (cur->img->w) * value)
     {
-      //printf("value =%d\n",value);
-      return (cur->id);
+      ret = i;
+      ret += cur->angle * (double)(WIDTH/80) - ((cur->img->w *value)/2);
+      // printf("ret =%d\n",(int)ret);
+      // printf("save =%d\n",(int)save);
+      if ((int)ret == (WIDTH/2))
+      {
+        return (cur->id);
+      }
+      i++;
     }
     cur = cur->next;
   }
   return (-1);
 }
-// (HEIGHT / (cur->dist)) * cur->img->w;
 
 
 void	fire(t_main *s)
@@ -49,6 +56,7 @@ void	fire(t_main *s)
     if ((id= check_exist_sprite(s,trace)) != -1)
     {
        remove_sprite_by_id(s,id);
+       // printf("ok\n");
        break ;
     }
 	}
