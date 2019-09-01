@@ -1,0 +1,39 @@
+model "models/Star Destroyer.md3" {
+scale INSERT HERE
+skin { pal 0 surface 0 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 1 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 2 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 3 file "models/ISDSIDE.JPG" }
+skin { pal 0 surface 4 file "models/ISDSIDE.JPG" }
+skin { pal 0 surface 5 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 6 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 7 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 8 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 9 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 10 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 11 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 12 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 13 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 14 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 15 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 16 file "models/BLUELT2.JPG" }
+skin { pal 0 surface 17 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 18 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 19 file "models/BLUELT2.JPG" }
+skin { pal 0 surface 20 file "models/BLUELT2.JPG" }
+skin { pal 0 surface 21 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 22 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 23 file "models/ISDSIDE.JPG" }
+skin { pal 0 surface 24 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 25 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 26 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 27 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 28 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 29 file "models/ALUMINM4.JPG" }
+skin { pal 0 surface 30 file "models/BLUELT2.JPG" }
+skin { pal 0 surface 31 file "models/BLUELT2.JPG" }
+skin { pal 0 surface 32 file "models/BLUELT2.JPG" }
+skin { pal 0 surface 33 file "models/BLUELT2.JPG" }
+
+frame { name "From 3DS" tile INSERT HERE }
+}

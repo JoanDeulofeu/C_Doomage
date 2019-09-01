@@ -1,0 +1,25 @@
+WEAPONS:
+
+1: fists, lightsaber
+2: blaster pistol
+3: blaster rifle
+4: repeater
+5: mortar gun
+6: thermal detonator
+7: concussion rifle
+8: assault cannon
+9: proximity mines
+10: currently cryobow, may change
+
+Altfire modes:
+
+1: primary attack, secondary guard
+2: laser bolt
+3: primary rapid fire, secondary uses scope
+4: hitscan??
+5: primary grenades
+6: primary contact, secondary timed detonation
+7: primary concussion blast
+8: primary shotgun, secondary heat-seeking missiles
+9: primary proximity, secondary timed
+10: ??

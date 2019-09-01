@@ -1,0 +1,37 @@
+goobgun.zip
+
+by Patrick Haslow
+pod15@owc.net
+
+*************************************************
+
+The Background of the Mark IV Goobgun
+
+The Mark IV Goobgun was originally created for the Empire by Moff Rebus. The Emperor
+had decided to arm his troops at the Imperial garrison on Tatooine with a new crowd
+control weapon designed to quell uprisings by an increasingly insurgent populace.
+Rebus designed a weapon that could be used against multiple targets at once while at
+the same time utilizing an inexpensive form of ammunition in the form of ultra-high
+energy plasma.
+
+After completing the construction of a Mark III prototype, Rebus was informed by the
+Emperor's advisors that the project was to be terminated, owing to a reduction of 
+funding to the Tatooine garrison. Bitter and with little resources remaining to 
+continue working on his pet project, he turned to an old business partner with 
+the Kell's Fang, an Outer Rim gang of smugglers and arms dealers. While headquartered
+on Tatooine, Moff Rebus completed the final prototype of the Mark IV Goobgun, and
+made plans to sell the weapon on the profitable black market.
+
+*************************************************
+
+Enclosed in this Zip archive is a new weapon patch to be use in Dark Forces as a
+replacement for the fusion cutter. All the necessary files are here to make 
+the Mark IV Goobgun work, including and FME, BMs, WAXes and VOCs. They are all
+the original creations of Patrick Haslow, and may be used without permission 
+as long as necessary credit is given.
+
+Thanks!
+
+Patrick Haslow
+
+December 1, 1999
