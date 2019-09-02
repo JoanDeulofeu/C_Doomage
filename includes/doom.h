@@ -132,6 +132,8 @@ typedef struct		s_visu {
 	t_dpos			player;
 	double			angle;
 	int				sct_id;
+	t_int			*vtx_gauche;
+	t_int			*vtx_droite;
 }					t_visu;
 
 typedef struct		s_walls {

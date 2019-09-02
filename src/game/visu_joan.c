@@ -47,6 +47,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 			{
 				// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
 				id_wall = s_vtx->ptr->id;
+				// printf("vertex = %d\n", id_wall);
 				dist = new_dist;
 			}
 
@@ -84,14 +85,12 @@ t_visu get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angl
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 2000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
 	// printf("wall_id = %d\n", vs.begin_wall_id);
-	vs.begin.x = s->tmp_intersect.x;
-	vs.begin.y = s->tmp_intersect.y;
+	vs.begin = s->tmp_intersect;
 // printf("------MUR DROITE------\n");
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff, vs.sct_id);
-	vs.end.x = s->tmp_intersect.x;
-	vs.end.y = s->tmp_intersect.y;
+	vs.end = s->tmp_intersect;
 	vs.player = player;
 	return(vs);
 }

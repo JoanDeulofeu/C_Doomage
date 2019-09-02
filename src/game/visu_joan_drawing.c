@@ -234,6 +234,9 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	double	angle_left;
 	double	demi_fov;
 	int 	i;
+	t_dpos	wall1;
+	t_dpos	wall2;
+	t_dpos tmp;
 	// if (vs->begin_wall_id != vs->end_wall_id)
 	// {
 	// 	vs->tmp_wall.x = vtx->ptr->x * METRE;
@@ -255,6 +258,9 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
 		fake_vs.sct_id = vtx->sct_dest;
+		fake_vs.vtx_droite = vtx->vtx_dest;
+		fake_vs.vtx_gauche = vtx->vtx_dest->next;
+		printf("vtx_gauche = %d, vtx_droite = %d\n", fake_vs.vtx_gauche->ptr->id, fake_vs.vtx_droite->ptr->id);
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.left_plan), METRE, WIDTHPLAN / 2);
 		// printf("demi_fov = %f\n",demi_fov);
 		angle_left = fake_angle + demi_fov;
@@ -263,14 +269,28 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 		fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
 		fake_vs.begin_wall_id = vtx->vtx_dest->next->ptr->id;
+		wall1.x = vtx->vtx_dest->next->ptr->x * METRE;
+		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
+		wall2.x = vtx->vtx_dest->ptr->x * METRE;
+		wall2.y = vtx->vtx_dest->ptr->y * METRE;
+		ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
+		// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
+		fake_vs.begin = s->tmp_intersect;
+		fake_vs.begin_wall_id = ft_find_wall2(s, fake_vs.begin, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
+		tmp = s->tmp_intersect;
+		tmp.x += s->editor->decal_x;
+		tmp.y += s->editor->decal_y;
 		fake_vs.end_wall_id = vtx->vtx_dest->ptr->id;
-		fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
 		fake_vs.end = ft_pos_to_dpos(vtx->vtx_dest->ptr->pos);
+		fake_vs.end.x += s->editor->decal_x;
+		fake_vs.end.y += s->editor->decal_y;
+		fake_vs.end.x -= s->editor->decal_x;
+		fake_vs.end.y -= s->editor->decal_y;
+		// printf("begin  %d, end = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
+		// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
 		fake_vs.begin_wall = get_t_int_by_vertex_id(get_sector_by_id(s, fake_vs.sct_id)->vertex, fake_vs.begin_wall_id);
-		// printf("begin wall ID PORTAAAAL = %d\n",fake_vs.begin_wall->ptr->id );
 		if (s->portal_nb < PORTAL_LIMIT)
 			add_portal_to_list(s, fake_player, get_sector_by_id(s, vtx->sct_dest), fake_vs);
-		// vtx = vtx_ori->next;
 	}
 	else
 		ft_create_new_wall(s, vtx, vs);
@@ -296,6 +316,8 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
 			fake_vs.sct_id = vtx->sct_dest;
+			fake_vs.vtx_droite = vtx->vtx_dest;
+			fake_vs.vtx_gauche = vtx->vtx_dest->next;
 			demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.left_plan), METRE, WIDTHPLAN / 2);
 			// printf("demi_fov = %f\n",demi_fov);
 			angle_left = fake_angle + demi_fov;

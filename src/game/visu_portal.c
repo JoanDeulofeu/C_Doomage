@@ -118,22 +118,32 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 	vs.left_point.x = player.x + cos(to_rad(angle_left)) * 2000;
 	vs.left_point.y = player.y - sin(to_rad(angle_left)) * 2000;
+	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, 0x37f3ffff, vs.sct_id);
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	if (vs.begin_wall_id == 0)
+	{
 		vs.begin_wall_id = vs.begin_wall->ptr->id;
+		// printf("true\n");
+	}
 	else
 		vs.begin = s->tmp_intersect;
 	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
+	draw_anchor(s, ft_dpos_to_pos(vs.begin), 0xfa0011ff);
+	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 
 
 	vs.right_point.x = player.x + cos(to_rad(angle_right)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(angle_right)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, 0x8e7eacff, vs.sct_id);
+	// printf("vtx->ptr= %d\n", vtx->ptr->id);
+	// printf("beginwall = %d\n", vs.begin_wall->ptr->id);
 	if (vs.end_wall_id == 0)
-		vs.end_wall_id = vs.begin_wall->prev->ptr->id;
+		vs.end_wall_id = vs.vtx_droite->prev->ptr->id;
 	else
 		vs.end = s->tmp_intersect;
+	draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
+	// printf("vs.end wall id = %d\n", vs.end_wall_id);
 
 
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
@@ -157,6 +167,8 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
+	printf("vtx = %d\n", vtx->ptr->id);
+	// return ;
 
 	draw_last_wall(vtx, &vs);
 	ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
