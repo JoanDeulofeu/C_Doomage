@@ -71,19 +71,15 @@ t_pos 	get_px_pos(t_main *s, t_pos ref)
 t_dpos	get_abs_r_pos(t_main *s, t_pos ori)
 {
 	t_dpos	res;
-	int	   	correc_x;
-	int	   	correc_y;
+  t_editor *edi;
 
+  edi = s->editor;
 	res.x = 0;
 	res.y = 0;
-	correc_x = 0;
-	correc_y = 0;
-	if (s->editor->decal_x % s->editor->space != 0 && s->editor->decal_x < 0)
-		correc_x = -1;
-	if (s->editor->decal_y % s->editor->space != 0 && s->editor->decal_y < 0)
-		correc_y = -1;
-	res.x = s->editor->ref.x + (double)((double)ori.x / (double)s->editor->space) + correc_x;
-	res.y = s->editor->ref.y + (double)((double)ori.y / (double)s->editor->space) + correc_y;
+  res.x = ori.x - edi->decal_x;
+  res.x = (res.x / edi->space);
+  res.y = ori.y - edi->decal_y;
+	res.y = (res.y / edi->space);
 	return (res);
 }
 
