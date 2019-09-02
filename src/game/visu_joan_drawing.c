@@ -237,20 +237,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	t_dpos	wall1;
 	t_dpos	wall2;
 	t_dpos tmp;
-	// if (vs->begin_wall_id != vs->end_wall_id)
-	// {
-	// 	vs->tmp_wall.x = vtx->ptr->x * METRE;
-	// 	vs->tmp_wall.y = vtx->ptr->y * METRE;
-	// }
-	// else
-	// {
-	// 	vs->tmp_wall.x = vs->end.x;
-	// 	vs->tmp_wall.y = vs->end.y;
-	// }
-	// ft_find_intersection(s, vs->tmp_wall, vs->player, vs->left_plan, vs->right_plan, 1);
-	// if (vtx->wall_value != -1)
-	// 	ft_print_portal(s, 0, vs->player, vs->begin, vs->tmp_wall, vs->left_plan, vs->right_plan, vtx);
-	// else
+
 	if (vtx->wall_value != -1)
 	{
 		fake_angle = 0;
@@ -276,15 +263,11 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 		fake_vs.begin = s->tmp_intersect;
 		fake_vs.begin_wall_id = ft_find_wall2(s, fake_vs.begin, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
-		tmp = s->tmp_intersect;
-		tmp.x += s->editor->decal_x;
-		tmp.y += s->editor->decal_y;
+		// tmp = s->tmp_intersect;
+		// tmp.x += s->editor->decal_x;
+		// tmp.y += s->editor->decal_y;
 		fake_vs.end_wall_id = vtx->vtx_dest->ptr->id;
 		fake_vs.end = ft_pos_to_dpos(vtx->vtx_dest->ptr->pos);
-		fake_vs.end.x += s->editor->decal_x;
-		fake_vs.end.y += s->editor->decal_y;
-		fake_vs.end.x -= s->editor->decal_x;
-		fake_vs.end.y -= s->editor->decal_y;
 		// printf("begin  %d, end = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
 		// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
 		fake_vs.begin_wall = get_t_int_by_vertex_id(get_sector_by_id(s, fake_vs.sct_id)->vertex, fake_vs.begin_wall_id);
@@ -351,12 +334,67 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 	return(vtx);
 }
 
-void draw_last_wall(t_int *vtx, t_visu *vs)
+void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 {
-	vs->begin.x = vtx->ptr->x * METRE;
-	vs->begin.y = vtx->ptr->y * METRE;
-	vs->tmp_wall.x = vtx->next->ptr->x * METRE;
-	vs->tmp_wall.y = vtx->next->ptr->y * METRE;
+		t_visu	fake_vs;
+		t_dpos	fake_player;
+		double	fake_angle;
+		double	angle_right;
+		double	angle_left;
+		double	demi_fov;
+		int 	i;
+		t_dpos	wall1;
+		t_dpos	wall2;
+		t_dpos tmp;
+
+		if (vtx->wall_value != -1)
+		{
+			fake_angle = 0;
+			fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
+			// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
+			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
+			fake_vs.sct_id = vtx->sct_dest;
+			fake_vs.vtx_droite = vtx->vtx_dest;
+			fake_vs.vtx_gauche = vtx->vtx_dest->next;
+			demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.right_plan), METRE, WIDTHPLAN / 2);
+			// printf("demi_fov = %f\n",demi_fov);
+			angle_left = fake_angle + demi_fov;
+			angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
+			angle_right = fake_angle - demi_fov;
+			angle_right = angle_right < 0 ? angle_right + 360: angle_right;
+			fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
+			fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
+			wall1.x = vtx->vtx_dest->next->ptr->x * METRE;
+			wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
+			wall2.x = vtx->vtx_dest->ptr->x * METRE;
+			wall2.y = vtx->vtx_dest->ptr->y * METRE;
+			ft_find_intersection(s, wall1, wall2, fake_vs.right_point, fake_player, 1);
+			// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
+			fake_vs.end = s->tmp_intersect;
+			fake_vs.end_wall_id = ft_find_wall2(s, fake_vs.end, fake_vs.right_point, 0x37f3ffff, fake_vs.sct_id);
+			fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
+			// tmp = s->tmp_intersect;
+			// tmp.x += s->editor->decal_x;
+			// tmp.y += s->editor->decal_y;
+			// fake_vs.end_wall_id = vtx->vtx_dest->ptr->id;
+			fake_vs.begin = ft_pos_to_dpos(fake_vs.vtx_gauche->ptr->pos);
+			// printf("begin  %d, end = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
+			// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
+			fake_vs.begin_wall = fake_vs.vtx_gauche;
+			if (s->portal_nb < PORTAL_LIMIT)
+				add_portal_to_list(s, fake_player, get_sector_by_id(s, vtx->sct_dest), fake_vs);
+		}
+		else
+		{
+			vs->begin.x = vtx->ptr->x * METRE;
+			vs->begin.y = vtx->ptr->y * METRE;
+			vs->tmp_wall.x = vtx->next->ptr->x * METRE;
+			vs->tmp_wall.y = vtx->next->ptr->y * METRE;
+			ft_find_intersection(s, vs->begin, vs->player, vs->left_plan, vs->right_plan, 1);
+			ft_create_new_wall(s, vtx, vs);
+		}
+
+
 }
 
 void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
@@ -387,11 +425,11 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
 
-	draw_last_wall(vtx, &vs);
-	ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
+	draw_last_wall(s, vtx, &vs);
+
 	// plan_left = s->tmp_intersect;
 	// x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
-	ft_create_new_wall(s, vtx, &vs);
+
 
 	// print_wall_list(s);
 	tmp = s->walls;

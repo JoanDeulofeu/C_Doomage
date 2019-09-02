@@ -170,7 +170,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	printf("vtx = %d\n", vtx->ptr->id);
 	// return ;
 
-	draw_last_wall(vtx, &vs);
+	draw_last_wall(s, vtx, &vs);
 	ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
 	// plan_left = s->tmp_intersect;
 	// x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;

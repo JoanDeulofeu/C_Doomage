@@ -202,7 +202,7 @@ t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 colo
 void 				ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
 t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
-void 				draw_last_wall(t_int *vtx, t_visu *vs);
+void				draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
 int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id);
 int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
 
