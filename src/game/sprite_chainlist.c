@@ -13,6 +13,8 @@ void 	display_chainlist(t_main *s)
 		printf("id = %d\n",cur->id);
 		printf("slect = %d\n",cur->select);
 		printf("dist= %f\n",cur->dist);
+		printf("pos (%d,%d)\n",cur->pos.x,cur->pos.y);
+		printf("player.pos (%fm,%f)\n",s->player.pos.x,s->player.pos.y);
 
 		cur = cur->next;
 	}
@@ -26,8 +28,14 @@ void        refresh_sprite_pos(t_main *s)
   while (cur != NULL)
   {
     cur->pos = get_px_r_pos(s,cur->r_pos);
-    cur->dist = calc_sprite_dist(s,cur->pos);
-    cur->set = 0;
+		cur->dist = calc_sprite_dist(s,cur->pos);
+//		printf("space= %d\n",s->editor->space);
+	//	printf("old_dist= %f\n",cur->dist);
+
+    cur->r_dist = calc_sprite_r_dist(s,cur->r_pos);
+		 //printf("r_dist= %f\n\n",cur->r_dist);
+		//cur->dist *=s->editor->space;
+		cur->set = 0;
     //cur->angle = 0;
 		if (cur->select == 1)
 			draw_anchor(s,cur->pos, BLUE);
@@ -35,6 +43,7 @@ void        refresh_sprite_pos(t_main *s)
 			draw_anchor(s,cur->pos, YELLOW);
     cur = cur->next;
   }
+	// display_chainlist(s);
 }
 
 void             init_sprite(t_main *s)
@@ -171,7 +180,17 @@ void 				remove_sprite_by_select(t_main *s)
 	}
 
 }
+double      calc_sprite_r_dist(t_main *s, t_dpos pos)
+{
+  t_dpos distance;
+  double dist;
 
+  distance.x =  pos.x - s->player.r_pos.x;
+  distance.y =  pos.y - s->player.r_pos.y;
+  dist = (distance.x * distance.x) + (distance.y * distance.y);
+  dist = sqrt(dist);
+  return (dist);
+}
 
 double      calc_sprite_dist(t_main *s, t_pos pos)
 {
@@ -256,7 +275,9 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
   data->select = 0;
 	data->angle = 0;
   data->s_angle = 0;
-	data->dist  = calc_sprite_dist(s,data->pos);
+	// data->dist = calc_sprite_r_dist(s,data->r_pos);
+
+	// data->dist  = calc_sprite_dist(s,data->pos);
 	data->img = NULL;
 	data->anim = NULL;
 	data->next = NULL;

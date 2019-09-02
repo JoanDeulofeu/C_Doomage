@@ -77,6 +77,7 @@ typedef struct				s_sprite
 	double 					angle;
 	double 					s_angle;
 	double 					dist;
+	double 					r_dist;
 	t_dpos					r_pos;
 	t_pos					pos;
 	t_type					type;
@@ -414,6 +415,8 @@ void	add_sprite(t_main *s, t_dpos pos, int idimg);
 void             init_sprite(t_main *s);
 void        refresh_sprite_pos(t_main *s);
 double      calc_sprite_dist(t_main *s, t_pos pos);
+double      calc_sprite_r_dist(t_main *s, t_dpos pos);
+
 void 	display_by_id(t_main *s, int id);
 int 	found_farther(t_main *s);
 void  found_sprite(t_main *s);

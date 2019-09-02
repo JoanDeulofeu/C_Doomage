@@ -7,12 +7,14 @@ int   check_exist_sprite(t_main *s, t_pos pos)
   double value;
   double ret;
   int i;
+
   i = 0;
   cur = s->sprite;
-
   while (cur != NULL)
   {
-    value = HEIGHT / (cur->dist);
+    // value = HEIGHT / (cur->dist);
+    value = (HEIGHT / (cur->r_dist)) / 30;
+
     i = 0;
     while (i < (cur->img->w) * value)
     {
