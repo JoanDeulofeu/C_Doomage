@@ -260,7 +260,6 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		fake_vs.vtx_gauche = vtx->vtx_dest->next;
-		printf("vtx_gauche = %d, vtx_droite = %d\n", fake_vs.vtx_gauche->ptr->id, fake_vs.vtx_droite->ptr->id);
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.left_plan), METRE, WIDTHPLAN / 2);
 		// printf("demi_fov = %f\n",demi_fov);
 		angle_left = fake_angle + demi_fov;
