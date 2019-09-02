@@ -462,7 +462,7 @@ int set_selected_sprite(t_main *s, t_pos *mouse_save);
 void 	display_chainlist(t_main *s);
 
 
-
+int   check_exist(t_main *s,t_dpos target, int id);
 void	fire(t_main *s);
 void    sprite_move(t_main *s);
 

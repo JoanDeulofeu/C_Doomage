@@ -1,5 +1,27 @@
 #include "doom.h"
 
+int   check_exist(t_main *s,t_dpos target, int id)
+{
+  t_sprite *cur;
+  int hitbox;
+
+
+  hitbox = 20;
+  cur = s->sprite;
+  while (cur != NULL)
+  {
+    // value = HEIGHT / (cur->dist);
+    if ((target.x >= (cur->pos.x -hitbox) && target.x <= (cur->pos.x + hitbox)) && (target.y >= (cur->pos.y -hitbox) && target.y <= (cur->pos.y + hitbox)) && cur->id != id)
+    {
+      return (cur->id);
+    }
+    cur = cur->next;
+  }
+  return (-1);
+}
+
+
+
 double  found_player(t_main *s,t_sprite *cur)
 {
   t_dpos	ctr_l;
@@ -18,10 +40,12 @@ double  found_player(t_main *s,t_sprite *cur)
 		  if ((ret.x >= (s->player.pos.x -HITBOX) && ret.x <= (s->player.pos.x +HITBOX)) //DEFINIR HITBOX
 		  	&& (ret.y >= (s->player.pos.y -HITBOX) && ret.y <= (s->player.pos.y +HITBOX)))
 		  {
-        return (angle);
+        break ;
 		 	}
 		 angle+=0.1;
 	 }
+   return (angle);
+
 }
 
 void    sprite_move(t_main *s)
@@ -43,7 +67,7 @@ void    sprite_move(t_main *s)
     // printf("angle =%f\n",angle);
     // printf("cur->pos (%d,%d)\n",cur->pos.x,cur->pos.y);
     // printf("target (%f,%f)\n\n",target.x,target.y);
-    if (ft_is_in_sector(s, ft_dpos_to_pos(target)) != 0 && cur->dist > 100)
+    if (ft_is_in_sector(s, ft_dpos_to_pos(target)) != 0 && cur->dist > 100 && check_exist(s,target,cur->id) == -1)
   	{
         cur->r_pos = get_abs_r_pos(s,ft_dpos_to_pos(target));
     }

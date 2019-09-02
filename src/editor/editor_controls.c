@@ -149,8 +149,8 @@ void	handle_editor_keys(t_main *s)
 	//printf("mode = %d\n", s->editor->mode);
 
 	ft_visu_joan(s);
-
-	//sprite_move(s);
+	if (keys[SPACE])
+		sprite_move(s);
 
 	draw_sprite(s);
 
@@ -170,25 +170,6 @@ void	handle_editor_keys(t_main *s)
 	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
 	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
 	// printf("player.r_pos (%f, %f)\n",s->player.r_pos.x, s->player.r_pos.y);
-}
-
-void reset_zoom(t_main *s)
-{
-	t_pos pos;
-	int space;
-
-	space = s->editor->space;
-	pos.x = HEIGHT/2;
-	pos.y = WIDTH/2;
-	while (space != 30)
-	{
-		if (space < 30)
-			space++;
-		if (space > 30)
-			space--;
-	}
-	printf("%d\n",space);
-	ft_zoom(s,pos, space);
 }
 
 void	editor_handler(t_main *s)
@@ -224,22 +205,10 @@ void	editor_handler(t_main *s)
 	while (editor)
 	{
 		tmp_mode = s->editor->mode;
-
-		// v= s->vertex;
-		// while (v)
-		// {
-		// 	 if (v->selec == 1)
-		// 		set_selected(s, v->pos, 1);
-		// 	if (v)
-		// 		v = v->next;
-		// }
 		v= s->vertex;
 
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
-			// if (s->player_view && s->editor->space !=30)
-			// 	reset_zoom(s);
-
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
 			{
 				if (s->editor->mode == vertex || s->editor->mode == sprite)
