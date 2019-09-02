@@ -6,10 +6,14 @@ int   check_exist_sprite(t_main *s, t_pos pos)
   t_sprite *cur;
   double value;
   double ret;
+  double dist;
   int i;
+  int id;
 
   i = 0;
+  id = -1;
   cur = s->sprite;
+  dist = -1;
   while (cur != NULL)
   {
     // value = HEIGHT / (cur->dist);
@@ -22,15 +26,20 @@ int   check_exist_sprite(t_main *s, t_pos pos)
       ret += cur->angle * (double)(WIDTH/80) - ((cur->img->w *value)/2);
       // printf("ret =%d\n",(int)ret);
       // printf("save =%d\n",(int)save);
-      if ((int)ret == (WIDTH/2))
+      if ((int)ret == (WIDTH/2) )
       {
-        return (cur->id);
+		  if (cur->r_dist < dist || dist == -1)
+		  {
+			  dist = cur->r_dist;
+			  id = cur->id;
+		  }
+        // return (cur->id);
       }
       i++;
     }
     cur = cur->next;
   }
-  return (-1);
+  return (id);
 }
 
 
@@ -52,8 +61,8 @@ void	fire(t_main *s)
 	{
     target.x += cos(to_rad(s->player.angle));// * speed;
     target.y -= sin(to_rad(s->player.angle));// * speed;
-		trace.x = target.x;
-		trace.y = target.y;
+	trace.x = target.x;
+	trace.y = target.y;
     set_pixel(s->sdl->editor, BLUE, trace);
     if ((id= check_exist_sprite(s,trace)) != -1)
     {

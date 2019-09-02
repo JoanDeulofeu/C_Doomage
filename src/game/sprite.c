@@ -19,13 +19,12 @@ double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 		  if ((ret.x >= (cur->pos.x -HITBOX) && ret.x <= (cur->pos.x +HITBOX)) //DEFINIR HITBOX
 		  	&& (ret.y >= (cur->pos.y -HITBOX) && ret.y <= (cur->pos.y +HITBOX)))
 		  {
-				break ;
 				//draw_anchor(s,cur->pos, PINK);
-		 		// return(-angle);
+		 		 return(-angle);
 		 	}
 		 angle+=0.1;
 	 }
-	return (-angle);
+	return (0);
 }
 
 void 	display_by_id(t_main *s, int id)
