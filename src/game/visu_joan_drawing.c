@@ -269,11 +269,11 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// tmp.x += s->editor->decal_x;
 		// tmp.y += s->editor->decal_y;
 		fake_vs.end_wall_id = vtx->vtx_dest->ptr->id;
-		fake_vs.end.x = vtx->vtx_dest->ptr->x;
-		fake_vs.end.y = vtx->vtx_dest->ptr->y;
+		fake_vs.end.x = vtx->vtx_dest->ptr->x * METRE;
+		fake_vs.end.y = vtx->vtx_dest->ptr->y * METRE;
 		// fake_vs.end.x -= s->editor->decal_x;
 		// fake_vs.end.y -= s->editor->decal_y;
-		printf("end.x = %f end.y = %f, ptr id = %d\n", fake_vs.end.x, fake_vs.end.y, fake_vs.end_wall_id);
+		// printf("end.x = %f end.y = %f, ptr id = %d\n", fake_vs.end.x, fake_vs.end.y, fake_vs.end_wall_id);
 		// printf("begin  %d, end = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
 		// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
 		fake_vs.begin_wall = get_t_int_by_vertex_id(get_sector_by_id(s, fake_vs.sct_id)->vertex, fake_vs.begin_wall_id);
@@ -319,10 +319,10 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
 			fake_vs.begin_wall_id = vtx->vtx_dest->next->ptr->id;
 			fake_vs.end_wall_id = vtx->vtx_dest->ptr->id;
-			fake_vs.begin.x = vtx->vtx_dest->next->ptr->x;
-			fake_vs.begin.y = vtx->vtx_dest->next->ptr->y;
-			fake_vs.end.x = vtx->vtx_dest->ptr->x;
-			fake_vs.end.y = vtx->vtx_dest->ptr->y;
+			fake_vs.begin.x = vtx->vtx_dest->next->ptr->x * METRE;
+			fake_vs.begin.y = vtx->vtx_dest->next->ptr->y * METRE;
+			fake_vs.end.x = vtx->vtx_dest->ptr->x * METRE;
+			fake_vs.end.y = vtx->vtx_dest->ptr->y * METRE;
 			fake_vs.begin_wall = get_t_int_by_vertex_id(get_sector_by_id(s, fake_vs.sct_id)->vertex, fake_vs.begin_wall_id);
 			if (fake_vs.begin_wall== NULL)
 				handle_error(s, POINTER_ERROR);
@@ -392,8 +392,8 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			// tmp.x += s->editor->decal_x;
 			// tmp.y += s->editor->decal_y;
 			// fake_vs.end_wall_id = vtx->vtx_dest->ptr->id;
-			fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x;
-			fake_vs.begin.y = fake_vs.vtx_gauche->ptr->y;
+			fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
+			fake_vs.begin.y = fake_vs.vtx_gauche->ptr->y * METRE;
 			// printf("begin  %d, end = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
 			// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
 			fake_vs.begin_wall = fake_vs.vtx_gauche;
