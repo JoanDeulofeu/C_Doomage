@@ -128,7 +128,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	else
 		vs.begin = s->tmp_intersect;
 	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
-	draw_anchor(s, ft_dpos_to_pos(vs.begin), 0xfa0011ff);
+	// draw_anchor(s, ft_dpos_to_pos(vs.begin), 0xfa0011ff);
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 
 	vs.right_point.x = player.x + cos(to_rad(angle_right)) * 2000;
@@ -140,7 +140,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		vs.end_wall_id = vs.vtx_droite->prev->ptr->id;
 	else
 		vs.end = s->tmp_intersect;
-	draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
+	// draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
 	// printf("vs.end wall id = %d\n", vs.end_wall_id);
 
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
@@ -178,6 +178,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_fake)
 {
+	printf("ENTREE\n");
 	(void)s;
 	t_dpos		l_portal;
 	t_dpos		r_portal;
@@ -204,7 +205,11 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	//trouver la distance entre joueur et le point gauche du portail initial
 	dist_player = ft_dist_t_dpos(player, lwall);
 
-	fake_angle = ft_find_angle_portal(&lwall, &rwall, &player, 1);
+	fake_angle = ft_find_angle_portal(&lwall, &player, NULL, 1);
+	if (player.y > lwall.y)
+		fake_angle = 180 + (180 - fake_angle);
+	//  OU
+	// fake_angle = ft_find_angle_portal(&lwall, &rwall, &player, 1);
 
 	//trouver langle du portail d'entree
 	angle_portal_in = ft_find_angle_portal(&lwall, &rwall, NULL, 1);
@@ -216,18 +221,24 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	if (r_portal.y > l_portal.y)
 		angle_portal_out = 180 + (180 - angle_portal_out);
 
-
-	// printf("angle PLAYER  (%f)\n",angle_fake_player);
-	// printf("angle IN      (%f)\n",angle_portal_in);
-	// printf("angle OUT     (%f)\n\n",angle_portal_out);
 	*angle_fake = s->player.angle + (angle_portal_in - angle_portal_out);
+	if (*angle_fake > 360)
+		*angle_fake -= 360;
+	if (*angle_fake < 0)
+		*angle_fake += 360;
+	printf("angle PLAYER  (%.2f)\n", s->player.angle);
+	printf("angle FAKE_P  (%.2f)\n", *angle_fake);
+	printf("angle IN      (%f)\n", angle_portal_in);
+	printf("angle OUT     (%f)\n", angle_portal_out);
 
 	//application de la difference d'angle des deux portail sur angle player
-	fake_angle = angle_portal_in - fake_angle - fabs(angle_portal_in - angle_portal_out);
+	// fake_angle = angle_portal_in - fake_angle - fabs(angle_portal_in - angle_portal_out);
+	//  OU
+	fake_angle = fake_angle + (angle_portal_in - angle_portal_out);
 	//Tentative de placement du fake player
 	fake_player.x = r_portal.x + cos(to_rad(fake_angle)) * dist_player;
 	fake_player.y = r_portal.y - sin(to_rad(fake_angle)) * dist_player;
-	// printf("\n\n--POSITION DU FAKE PLAYER (%.1f, %.1f)\n", fake_player.x, fake_player.y);
+	printf("POSITION DU FAKE PLAYER (%.1f, %.1f)\n\n\n", fake_player.x, fake_player.y);
 
 	//ATTENTION !!!! jai ajouter le decal_x pour que le point saffiche a lecran pour mes tests.
 
