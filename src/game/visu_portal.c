@@ -112,7 +112,6 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	s->portal_nb++;
 	vtx = sct->vertex;
-	printf("end.x = %f end.y = %f\n", vs.end.x, vs.end.y);
 	angle_right = ft_find_angle_portal(&player, &vs.end, NULL, 1);
 	angle_left = ft_find_angle_portal(&player, &vs.begin, NULL, 1);
 

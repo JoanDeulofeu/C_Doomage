@@ -429,7 +429,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	draw_first_wall(s, vtx, &vs);
 
 	plan_left = s->tmp_intersect;
-//	printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
+	// printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
 	if (vs.begin_wall_id == vs.end_wall_id) // cas 1 seul mur
 	{
 		tmp = s->walls;
