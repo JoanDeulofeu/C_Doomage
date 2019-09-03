@@ -113,9 +113,9 @@ int		check_between_wall(t_int *wall, t_pos mouse)
 	end = wall->next->ptr->pos;
 	bool_x = 0;
 	bool_y = 0;
-	printf("Wall %d et %d\n", wall->id, wall->next->id);
-	printf("begin.x = %d, end.x = %d, mouse.x = %d\n", begin.x, end.x, mouse.x);
-	printf("begin.y = %d, end.y = %d, mouse.y = %d\n", begin.y, end.y, mouse.y);
+	// printf("Wall %d et %d\n", wall->id, wall->next->id);
+	// printf("begin.x = %d, end.x = %d, mouse.x = %d\n", begin.x, end.x, mouse.x);
+	// printf("begin.y = %d, end.y = %d, mouse.y = %d\n", begin.y, end.y, mouse.y);
 	if (begin.x >= end.x && mouse.x <= begin.x && mouse.x >= end.x)
 		bool_x = 1;
 	else if (begin.x <= end.x && mouse.x >= begin.x && mouse.x <= end.x)
