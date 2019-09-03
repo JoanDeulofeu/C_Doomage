@@ -2,7 +2,7 @@
 
 int 			calc_angle(double angle, int range)
 {
-	double ret;
+	int ret;
 
 	ret = (angle + range);
 	if (ret > 360)
@@ -88,6 +88,7 @@ void 	display_by_id(t_main *s, int id)
 		cur = cur->next;
 	cur->set = 0;
 	display_sprite(s,cur->angle,cur);
+	// display_sprite_inverse(s,cur->angle,cur);
 }
 
 int 	found_closer(t_main *s)
@@ -231,6 +232,51 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
+		}
+		i++;
+	}
+}
+
+
+void display_sprite_inverse(t_main *s,double angle, t_sprite *cur)
+{
+	double		perx;
+	double		pery;
+	t_pos		coord;
+	int			px;
+	t_image		*wp;
+	double value;
+	int 		i;
+	int j;
+
+	wp = cur->img;
+	i = 0;
+
+	value = (HEIGHT / (cur->r_dist)) / 30;
+
+	coord.x = 0;
+	coord.y = 0;
+	  // printf("value = %f\n",value);
+	 // printf("angle = %f\n",angle);
+	 // printf("cur->dist = %f\n",cur->dist);
+	// printf("dist = %d\n",dist);
+	while (i < (wp->w) * value)
+	{
+		j = 0;
+		coord.x = i;
+		perx = (double)i/ (((double)wp->w) * value);
+		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value)/2);
+		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
+
+		while (j < (wp->h) * value)
+		{
+			coord.y = j;
+			pery = (double)j / (((double)wp->h) * value);
+			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value)/5));
+			px = (int)(pery * (double)wp->h) * wp->w - (int)(perx * (double)wp->w);
+			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
+				set_pixel(s->sdl->game, wp->tex[px], coord);
+			j++;
 		}
 		i++;
 	}

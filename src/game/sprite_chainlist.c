@@ -14,7 +14,7 @@ void 	display_chainlist(t_main *s)
 		printf("slect = %d\n",cur->select);
 		printf("dist= %f\n",cur->dist);
 		printf("pos (%d,%d)\n",cur->pos.x,cur->pos.y);
-		printf("player.pos (%fm,%f)\n",s->player.pos.x,s->player.pos.y);
+		printf("player.pos (%f,%f)\n",s->player.pos.x,s->player.pos.y);
 
 		cur = cur->next;
 	}
