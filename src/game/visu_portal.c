@@ -112,6 +112,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	s->portal_nb++;
 	vtx = sct->vertex;
+	printf("end.x = %f end.y = %f\n", vs.end.x, vs.end.y);
 	angle_right = ft_find_angle_portal(&player, &vs.end, NULL, 1);
 	angle_left = ft_find_angle_portal(&player, &vs.begin, NULL, 1);
 
@@ -139,7 +140,10 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	if (vs.end_wall_id == 0)
 		vs.end_wall_id = vs.vtx_droite->prev->ptr->id;
 	else
+	{
 		vs.end = s->tmp_intersect;
+	}
+
 	draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
 	// printf("vs.end wall id = %d\n", vs.end_wall_id);
 
@@ -232,7 +236,7 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	//ATTENTION !!!! jai ajouter le decal_x pour que le point saffiche a lecran pour mes tests.
 
 	// printf("coord r_portal (%.1f,%.1f)\n\n",r_portal.x, r_portal.y);
-	// printf("coord player (%d,%d)\n\n",fake_player.x, fake_player.y);
+	// printf("coord player (%f,%f)\n\n",fake_player.x, fake_player.y);
 	fake_player2.x = fake_player.x + s->editor->decal_x;
 	fake_player2.y = fake_player.y + s->editor->decal_y;
 	draw_anchor(s, fake_player2, 0xfa00ffff); //juste pour tester la pos du fake_player
