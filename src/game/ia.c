@@ -110,7 +110,7 @@ void    sprite_move_on_player(t_main *s, t_sprite *cur)
   if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && cur->dist > 50 && check_exist(s,target,cur->id) == -1)
   {
       cur->r_pos = target;//sget_abs_r_pos(s,ft_dpos_to_pos(target));
-      //cur->s_angle = angle;
+      cur->s_angle = angle;
   }
 }
 
