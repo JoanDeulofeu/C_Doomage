@@ -38,6 +38,27 @@ void 	display_by_id(t_main *s, int id)
 	display_sprite(s,cur->angle,cur);
 }
 
+int 	found_closer(t_main *s)
+{
+	t_sprite *cur;
+	int id;
+	int dist;
+
+	cur = s->sprite;
+	id = -1;
+	dist = MAX_SPRITE_DIST;
+	while (cur != NULL)
+	{
+		if (cur->dist < dist)// && cur->set == 1)
+		{
+			dist = cur->dist;
+			id = cur->id;
+		}
+		cur = cur->next;
+	}
+	return (id);
+}
+
 int 	found_farther(t_main *s)
 {
 	t_sprite *cur;

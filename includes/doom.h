@@ -422,6 +422,8 @@ double      calc_sprite_r_dist(t_main *s, t_dpos pos);
 
 void 	display_by_id(t_main *s, int id);
 int 	found_farther(t_main *s);
+int 	found_closer(t_main *s);
+
 void  found_sprite(t_main *s);
 
 void 				draw_sprite(t_main *s);
@@ -464,7 +466,13 @@ void 	display_chainlist(t_main *s);
 
 int   check_exist(t_main *s,t_dpos target, int id);
 void	fire(t_main *s);
-void    sprite_move(t_main *s);
+// void    sprite_move(t_main *s);
+void    sprite_move_on_player(t_main *s,t_sprite *cur);
+void  ia(t_main*s);
+
+
+void  rand_move(t_main *s,t_sprite *cur);
+
 
 
 

@@ -149,8 +149,9 @@ void	handle_editor_keys(t_main *s)
 	//printf("mode = %d\n", s->editor->mode);
 
 	ft_visu_joan(s);
-	if (keys[SPACE])
-		sprite_move(s);
+	// if (keys[SPACE])
+	ia(s);
+	//	sprite_move(s);
 
 	draw_sprite(s);
 

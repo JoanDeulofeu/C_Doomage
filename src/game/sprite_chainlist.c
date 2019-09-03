@@ -294,6 +294,7 @@ void	add_sprite(t_main *s, t_dpos pos, int idimg)
 {
 	t_sprite *tmp;
 
+//printf("pos(%f,%f)\n",pos.x,pos.y);
 	if (s->sprite == NULL)
 	{
 		s->sprite = create_sprite_elem(s,0,idimg,pos);
