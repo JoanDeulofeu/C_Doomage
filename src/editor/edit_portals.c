@@ -39,6 +39,8 @@ void create_struct_portals(t_main *s)
 		wall2->wall_value = s->editor->wall->ptr->id;
 		wall1->sct_dest = sct2->id;
 		wall2->sct_dest = sct1->id;
+		wall1->vtx_dest = wall2;
+		wall2->vtx_dest = wall1;
 		// wall1->ptr = s->editor->wall2->ptr;
 		// wall2->ptr = s->editor->wall->ptr;
 		reset_temp_portals(s);

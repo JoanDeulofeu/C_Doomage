@@ -14,6 +14,8 @@ void	display_error(int error_nb)
 		ft_putstr("Error : One player position needed.\n");
 	else if (error_nb == WALL_ERROR)
 		ft_putstr("Error : Map must be limited by walls !\n");
+	else if (error_nb == POINTER_ERROR)
+		ft_putstr("Error : Pointer should not be NULL !\n");
 }
 
 void	handle_error(t_main *s, int error_nb)
