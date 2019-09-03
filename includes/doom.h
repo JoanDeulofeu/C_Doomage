@@ -433,6 +433,8 @@ void 				draw_sprite(t_main *s);
 void display_sprite(t_main *s,double angle, t_sprite *cur);
 int 	check_sprite_menu_click(t_main *s, t_pos pos);
 void draw_sprite_menu(t_main *s);
+void 			sprite_orientation(t_main *s);
+
 
 
 

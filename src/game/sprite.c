@@ -1,5 +1,57 @@
 #include "doom.h"
 
+int 			calc_angle(double angle, int range)
+{
+	double ret;
+
+	ret = (angle + range);
+	if (ret > 360)
+		ret = ret - 360;
+	if (ret < 0)
+		ret = 360 + ret;
+
+	return (ret);
+}
+
+void 			set_orientation(t_main *s, t_sprite *cur)
+{
+	int i;
+	int angle;
+
+	i = -1;
+	while (++i != 360)
+	{
+		angle = calc_angle(cur->s_angle,i);
+		if (angle == (int)s->player.angle)
+			break ;
+	}
+	printf("i= %d\n",i);
+	if ( (i >= 0 && i <= 45) || (i >= 316 && i <= 360))
+	 	printf("dos\n");
+	if (i >= 46 && i <= 135)// || (i >= 315 && i <= 360))
+	 	printf("coter1\n");
+	if (i >= 136 && i <= 225)// || (i >= 315 && i <= 360))
+	 	printf("devant\n");
+	if (i >= 226 && i <= 315)// || (i >= 315 && i <= 360))
+		printf("coter2\n");
+	printf("\n");
+
+
+
+}
+
+void 			sprite_orientation(t_main *s)
+{
+		t_sprite *cur;
+
+		cur = s->sprite;
+		while (cur != NULL)
+		{
+			set_orientation(s,cur);
+			cur = cur->next;
+		}
+}
+
 double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 {
 	t_dpos	ctr_l;
