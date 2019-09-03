@@ -108,6 +108,7 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 4; //TODO CHANGE FOR SPRITE IMG
 		ft_reset_color_vertex(s);
 	}
+	reset_temp_portals(s);
 	// printf("mode = %d\n", s->editor->mode);
 }
 
