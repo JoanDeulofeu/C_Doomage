@@ -114,7 +114,7 @@ void	ft_visu_joan(t_main *s)
 	player.x = s->player.r_pos.x * METRE;
 	player.y = s->player.r_pos.y * METRE;
 	// printf("player.x = %f, player.y = %f\n", player.x, player.y);
-	printf("player.angle = %f\n", s->player.angle);
+	// printf("player.angle = %f\n", s->player.angle);
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
 	vs.sct_id = s->player.sector_id;
