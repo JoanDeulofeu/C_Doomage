@@ -233,10 +233,8 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	double	angle_right;
 	double	angle_left;
 	double	demi_fov;
-	int 	i;
 	t_dpos	wall1;
 	t_dpos	wall2;
-	t_dpos tmp;
 
 	if (vtx->wall_value != -1)
 	{
@@ -352,10 +350,8 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 		double	angle_right;
 		double	angle_left;
 		double	demi_fov;
-		int 	i;
 		t_dpos	wall1;
 		t_dpos	wall2;
-		t_dpos tmp;
 
 		if (vtx->wall_value != -1)
 		{

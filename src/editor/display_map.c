@@ -72,7 +72,8 @@ void	display_map(t_main *s)
 		else
 			correc = 0;
 		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
-		temp->pos = pos;
+		temp->pos.x = temp->x * edi->space;
+		temp->pos.y = temp->y * edi->space;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			ft_choose_draw_vertex(s, temp, pos);
 		temp = temp->next;

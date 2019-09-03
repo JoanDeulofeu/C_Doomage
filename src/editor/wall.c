@@ -175,11 +175,11 @@ void	ft_trump(t_main *s, t_int *s_vtx)
 	color = ft_color_trump(s, s_vtx);
 	vtx = s_vtx->ptr;
 	// printf("s_vtx->ptr id1 = %d\n", vtx->id );
-	s->line.x1 = vtx->pos.x;
-	s->line.y1 = vtx->pos.y;
+	s->line.x1 = vtx->pos.x + s->editor->decal_x;
+	s->line.y1 = vtx->pos.y + s->editor->decal_y;
 	vtx = s_vtx->next->ptr;
-	s->line.x2 = vtx->pos.x;
-	s->line.y2 = vtx->pos.y;
+	s->line.x2 = vtx->pos.x + s->editor->decal_x;
+	s->line.y2 = vtx->pos.y + s->editor->decal_y;
 	// printf("s_vtx->ptr id2 = %d\n------------\n", vtx->id );
 	get_line(s, color, 1);
 }

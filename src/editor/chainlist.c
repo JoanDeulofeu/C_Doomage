@@ -194,6 +194,7 @@ void	ft_test_chainlist(t_main *s)
 					printf("--   vertex[%d] = %d\n", i_tmp->id, i_tmp->value);
 					printf("--  ptr vertex = %p\n",i_tmp->ptr);
 					printf("--  vertex x y = x(%d) y(%d)\n",i_tmp->ptr->x, i_tmp->ptr->y);
+					printf("--  vertex pos = x(%d) y(%d)\n",i_tmp->ptr->pos.x, i_tmp->ptr->pos.y);
 					if (i_tmp->wall_value != -1)
 						printf("\033[33m--     wall[%d] =", i_tmp->id);
 					else
@@ -220,6 +221,7 @@ void	ft_test_chainlist(t_main *s)
 				printf("--   vertex[%d] = %d\n", i_tmp->id, i_tmp->value);
 				printf("--  ptr vertex = %p\n",i_tmp->ptr);
 				printf("--  vertex x y = x(%d) y(%d)\n",i_tmp->ptr->x, i_tmp->ptr->y);
+				printf("--  vertex pos = x(%d) y(%d)\n",i_tmp->ptr->pos.x, i_tmp->ptr->pos.y);
 				if (i_tmp->wall_value != -1)
 					printf("\033[33m--     wall[%d] =", i_tmp->id);
 				else

@@ -115,7 +115,6 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	angle_right = ft_find_angle_portal(&player, &vs.end, NULL, 1);
 	angle_left = ft_find_angle_portal(&player, &vs.begin, NULL, 1);
 
-
 	vs.left_point.x = player.x + cos(to_rad(angle_left)) * 2000;
 	vs.left_point.y = player.y - sin(to_rad(angle_left)) * 2000;
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
@@ -132,7 +131,6 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	draw_anchor(s, ft_dpos_to_pos(vs.begin), 0xfa0011ff);
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 
-
 	vs.right_point.x = player.x + cos(to_rad(angle_right)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(angle_right)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, 0x8e7eacff, vs.sct_id);
@@ -145,13 +143,12 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
 	// printf("vs.end wall id = %d\n", vs.end_wall_id);
 
-
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);
-// exit(0);
+	// exit(0);
 	//On recuper l'angle entre le joueur et le point de gauche, ca donne le mur de gauche.
 
-	//On recuper el'angle entre le joueur et le point de droite, ca donne le mur de droite.
+	//On recupere l'angle entre le joueur et le point de droite, ca donne le mur de droite.
 	vtx = vs.begin_wall;
 	// printf("vtx ptr = %d\n", vtx->ptr->id);
 	draw_first_wall(s, vtx, &vs);
