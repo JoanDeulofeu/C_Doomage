@@ -1,25 +1,26 @@
 #include "doom.h"
 #define ANGLE_MAX 360
+#define SPRITE_DETECTION 5
+#define SPRITE_SHOT_DIST 100
+#define SPRITE_MOVE_SPEED 0.1
 
 void  rand_move(t_main *s, t_sprite *cur)
 {
   t_dpos	target;
-  double	speed;
   double angle;
 
    // printf("rand\n\n");
-  speed = 0.1;
     // printf("cur->angle =%f\n\n",cur->angle);
   target.x = cur->r_pos.x;
   target.y = cur->r_pos.y;
   //  angle = found_player(s,cur);
-  target.x += cos(to_rad(cur->s_angle)) * speed;
-  target.y -= sin(to_rad(cur->s_angle)) * speed;
+  target.x += cos(to_rad(cur->s_angle)) * SPRITE_MOVE_SPEED;
+  target.y -= sin(to_rad(cur->s_angle)) * SPRITE_MOVE_SPEED;
     //target = get_px_r_pos(s,target);
 
   //   printf("cur->pos (%d,%d)\n",cur->pos.x,cur->pos.y);
     // printf("target (%f,%f)\n\n",target.x,target.y);
-  if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && check_exist(s,target,cur->id) == -1)
+  if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && check_exist(s,target,cur->id) == -1 && cur->dist > SPRITE_SHOT_DIST)
   {
       cur->r_pos = target;
   }
@@ -28,8 +29,6 @@ void  rand_move(t_main *s, t_sprite *cur)
     angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX-1));
       //printf("angle =%f\n",angle);
     cur->s_angle = angle;
-      // if (cur->angle > 360)
-      //     cur->angle -= 360;
   }
 }
 
@@ -50,7 +49,7 @@ int   check_exist(t_main *s,t_dpos target, int id)
     // value = HEIGHT / (cur->dist);
 
     if (((target.x >= (cur->r_pos.x -hitbox) && target.x <= (cur->r_pos.x + hitbox)) && (target.y >= (cur->r_pos.y -hitbox))
-     && target.y <= (cur->r_pos.y + hitbox)) && cur->id != id)
+     && target.y <= (cur->r_pos.y + hitbox)) && cur->id != id )
     {
       return (cur->id);
     }
@@ -91,15 +90,13 @@ double  found_player(t_main *s,t_sprite *cur)
 void    sprite_move_on_player(t_main *s, t_sprite *cur)
 {
   t_dpos	target;
-	double	speed;
   double angle;
 
-	speed = 0.1;
   target.x = cur->r_pos.x;
   target.y = cur->r_pos.y;
   angle = found_player(s,cur);
-  target.x += cos(to_rad(angle)) * speed;
-  target.y -= sin(to_rad(angle)) * speed;
+  target.x += cos(to_rad(angle)) * SPRITE_MOVE_SPEED;
+  target.y -= sin(to_rad(angle)) * SPRITE_MOVE_SPEED;
     //target = get_px_r_pos(s,target);
 
   //  printf("angle =%f\n",angle);
@@ -107,7 +104,7 @@ void    sprite_move_on_player(t_main *s, t_sprite *cur)
     //
     //  printf("cur->pos (%d,%d)\n",cur->pos.x,cur->pos.y);
     // printf("target (%f,%f)\n\n",target.x,target.y);
-  if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && cur->dist > 50 && check_exist(s,target,cur->id) == -1)
+  if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && cur->dist > SPRITE_SHOT_DIST && check_exist(s,target,cur->id) == -1)
   {
       cur->r_pos = target;//sget_abs_r_pos(s,ft_dpos_to_pos(target));
       cur->s_angle = angle;
@@ -121,9 +118,9 @@ void  ia(t_main*s)
   cur = s->sprite;
   while (cur != NULL)
   {
-    // printf("cur->id =%d\n",cur->id);
-//    printf("cur->r_dist =%f\n",cur->r_dist);
-    if (cur->r_dist <= 5)
+   //  printf("cur->id =%d\n",cur->id);
+   // printf("cur->r_dist =%f\n",cur->r_dist);
+    if (cur->r_dist <= SPRITE_DETECTION)
     {
     //   printf("ok\n\n");
       sprite_move_on_player(s,cur);

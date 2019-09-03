@@ -419,6 +419,9 @@ void             init_sprite(t_main *s);
 void        refresh_sprite_pos(t_main *s);
 double      calc_sprite_dist(t_main *s, t_pos pos);
 double      calc_sprite_r_dist(t_main *s, t_dpos pos);
+int 	check_is_on_sector(t_main *s, t_sprite *cur);
+
+
 
 void 	display_by_id(t_main *s, int id);
 int 	found_farther(t_main *s);

@@ -80,6 +80,13 @@ int 	found_farther(t_main *s)
 	return (id);
 }
 
+int 	check_is_on_sector(t_main *s,t_sprite *cur)
+{
+		if (ft_is_in_sector(s, get_px_r_pos(s,cur->r_pos)))
+		 	return (1);
+		return (-1);
+}
+
 void  found_sprite(t_main *s)
 {
 	t_sprite *cur;
@@ -121,10 +128,13 @@ void 	draw_sprite(t_main *s)
 	cur = s->sprite;
 	while(cur != NULL)
 	{
-		if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0) && cur->dist < MAX_SPRITE_DIST)
+		if (check_is_on_sector(s,cur) == 1)
 		{
-			cur->set = 1;
-			cur->angle = angle+40;
+			if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0) && cur->dist < MAX_SPRITE_DIST)
+			{
+				cur->set = 1;
+				cur->angle = angle+40;
+			}
 		}
 		cur = cur->next;
 	}
