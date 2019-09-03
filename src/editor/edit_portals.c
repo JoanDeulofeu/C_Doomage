@@ -102,7 +102,7 @@ int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
 	return (diffx1 + diffx2 + diffy1 + diffy2);
 }
 
-int		check_between_wall(t_int *wall, t_pos mouse)
+int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 {
 	t_pos		begin;
 	t_pos		end;
@@ -111,6 +111,10 @@ int		check_between_wall(t_int *wall, t_pos mouse)
 
 	begin = wall->ptr->pos;
 	end = wall->next->ptr->pos;
+	begin.x += s->editor->decal_x;
+	begin.y += s->editor->decal_y;
+	end.x += s->editor->decal_x;
+	end.y += s->editor->decal_y;
 	bool_x = 0;
 	bool_y = 0;
 	// printf("Wall %d et %d\n", wall->id, wall->next->id);
@@ -174,7 +178,7 @@ void	change_over_wall(t_main *s)
 				while (i++ < sector->vertex->prev->id)
 				{
 					// printf("sector[%d] Wall[%d]\n", sector->id, wall->id);
-						if (check_between_wall(wall, mouse))
+						if (check_between_wall(s, wall, mouse))
 						{
 							wall_save = wall;
 							break;
