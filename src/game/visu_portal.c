@@ -167,7 +167,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
-	printf("vtx = %d\n", vtx->ptr->id);
+	// printf("vtx = %d\n", vtx->ptr->id);
 	// return ;
 
 	draw_last_wall(s, vtx, &vs);

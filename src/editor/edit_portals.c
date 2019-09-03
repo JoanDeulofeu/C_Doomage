@@ -113,14 +113,18 @@ int		check_between_wall(t_int *wall, t_pos mouse)
 	end = wall->next->ptr->pos;
 	bool_x = 0;
 	bool_y = 0;
-	if (begin.x > end.x && mouse.x <= begin.x && mouse.x >= end.x)
+	// printf("Wall %d et %d\n", wall->id, wall->next->id);
+	// printf("begin.x = %d, end.x = %d, mouse.x = %d\n", begin.x, end.x, mouse.x);
+	// printf("begin.y = %d, end.y = %d, mouse.y = %d\n", begin.y, end.y, mouse.y);
+	if (begin.x >= end.x && mouse.x <= begin.x && mouse.x >= end.x)
 		bool_x = 1;
-	else if (begin.x < end.x && mouse.x >= begin.x && mouse.x <= end.x)
+	else if (begin.x <= end.x && mouse.x >= begin.x && mouse.x <= end.x)
 		bool_x = 1;
-	if (begin.y > end.y && mouse.y <= begin.y && mouse.y >= end.y)
+	if (begin.y >= end.y && mouse.y <= begin.y && mouse.y >= end.y)
 		bool_y = 1;
-	else if (begin.y < end.y && mouse.y >= begin.y && mouse.y <= end.y)
+	else if (begin.y <= end.y && mouse.y >= begin.y && mouse.y <= end.y)
 		bool_y = 1;
+		// printf("bool_x = %d, bool_y = %d\n", bool_x, bool_y);
 	if (bool_x && bool_y)
 		return (1);
 	else
@@ -169,6 +173,7 @@ void	change_over_wall(t_main *s)
 				wall_save = wall;
 				while (i++ < sector->vertex->prev->id)
 				{
+					// printf("sector[%d] Wall[%d]\n", sector->id, wall->id);
 						if (check_between_wall(wall, mouse))
 						{
 							wall_save = wall;
