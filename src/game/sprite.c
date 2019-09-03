@@ -12,7 +12,6 @@ int 			calc_angle(double angle, int range)
 
 	return (ret);
 }
-
 void 			set_orientation(t_main *s, t_sprite *cur)
 {
 	int i;
@@ -39,6 +38,38 @@ void 			set_orientation(t_main *s, t_sprite *cur)
 
 
 }
+//
+// void 			set_huit_orientation(t_main *s, t_sprite *cur)
+// {
+// 	int i;
+// 	int angle;
+//
+// 	i = -1;
+// 	while (++i != 360)
+// 	{
+// 		angle = calc_angle(cur->s_angle,i);
+// 		if (angle == (int)s->player.angle)
+// 			break ;
+// 	}
+// 	printf("i= %d\n",i);
+// 	if ( (i >= 0 && i <= 22) || (i >= 337 && i <= 360))
+// 	 	printf("dos\n");
+// 	if (i >= 23 && i <= 67)
+// 	 	printf("coter1\n");
+// 	if (i >= 68 && i <= 112)
+// 	 	printf("devant\n");
+// 	if (i >= 113 && i <= 157)
+// 		printf("coter2\n");
+// 	if (i >= 158 && i <= 202)
+// 	if (i >= 203 && i <= 247)
+// 	if (i >= 248 && i <= 292)
+// 	if (i >= 293 && i <= 337)
+//
+// 	printf("\n");
+//
+//
+//
+// }
 
 void 			sprite_orientation(t_main *s)
 {
@@ -47,7 +78,8 @@ void 			sprite_orientation(t_main *s)
 		cur = s->sprite;
 		while (cur != NULL)
 		{
-			set_orientation(s,cur);
+			// if (cur->anim != NULL)
+				set_orientation(s,cur);
 			cur = cur->next;
 		}
 }
