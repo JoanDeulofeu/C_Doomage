@@ -160,7 +160,6 @@ int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
 	diffx2 = mouse.x > pos2.x ? mouse.x - pos2.x : pos2.x - mouse.x;
 	diffy1 = mouse.y > pos1.y ? mouse.y - pos1.y : pos1.y - mouse.y;
 	diffy2 = mouse.y > pos2.y ? mouse.y - pos2.y : pos2.y - mouse.y;
-	// return (min(min(diffx1, diffx2), min(diffy1, diffy2)));
 	return (diffx1 + diffx2 + diffy1 + diffy2);
 }
 
