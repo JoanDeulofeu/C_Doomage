@@ -428,13 +428,19 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	draw_first_wall(s, vtx, &vs);
 
+
 	plan_left = s->tmp_intersect;
 	// printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
 	if (vs.begin_wall_id == vs.end_wall_id) // cas 1 seul mur
 	{
 		tmp = s->walls;
-		ft_print_wall(s, tmp->x, player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+		while (tmp)
+		{
+			ft_print_wall(s, tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+			tmp = tmp->next;
+		}
 		clear_wall_list(s);
+		s->portal_nb = 0;
 		return ;
 	}
 
@@ -449,15 +455,9 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 
 	// print_wall_list(s);
 	tmp = s->walls;
-	if ((tmp = s->walls) != NULL)
-		x = tmp->x;
 	while(tmp)
 	{
-		if ((new_x = ft_print_wall(s, tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan)) > x)
-		{
-			x = new_x;
-			plan_left = tmp->r_plan;
-		}
+		ft_print_wall(s, tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
 		tmp = tmp->next;
 	}
 	// print_wall_list(s);
