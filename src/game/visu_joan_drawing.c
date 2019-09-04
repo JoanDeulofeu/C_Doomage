@@ -244,7 +244,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-		printf("sct dest = %d\n", vtx->sct_dest);
+		// printf("sct dest = %d\n", vtx->sct_dest);
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		if (fake_vs.vtx_droite == NULL)
 			handle_error(s, POINTER_ERROR);
