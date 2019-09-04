@@ -5,6 +5,8 @@ t_sector	*get_sector_by_id(t_main *s, int id)
 	t_sector	*tmp_sct;
 
 	tmp_sct = s->sector;
+	if(id == 0)
+		handle_error(s, SECTOR_ERROR);
 	while (tmp_sct->id != id)
 		tmp_sct = tmp_sct->next;
 	return(tmp_sct);

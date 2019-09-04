@@ -243,6 +243,8 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
 		fake_vs.sct_id = vtx->sct_dest;
+		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
+		printf("sct dest = %d\n", vtx->sct_dest);
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		if (fake_vs.vtx_droite == NULL)
 			handle_error(s, POINTER_ERROR);
@@ -276,11 +278,11 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// printf("end.x = %f end.y = %f, ptr id = %d\n", fake_vs.end.x, fake_vs.end.y, fake_vs.end_wall_id);
 		// printf("begin  %d, end = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
 		// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
-		fake_vs.begin_wall = get_t_int_by_vertex_id(get_sector_by_id(s, fake_vs.sct_id)->vertex, fake_vs.begin_wall_id);
+		fake_vs.begin_wall = get_t_int_by_vertex_id(fake_vs.sct->vertex, fake_vs.begin_wall_id);
 		if (fake_vs.begin_wall== NULL)
 			handle_error(s, POINTER_ERROR);
 		if (s->portal_nb < PORTAL_LIMIT)
-			add_portal_to_list(s, fake_player, get_sector_by_id(s, vtx->sct_dest), fake_vs);
+			add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
 	}
 	else
 		ft_create_new_wall(s, vtx, vs);
@@ -306,6 +308,7 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
 			fake_vs.sct_id = vtx->sct_dest;
+			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 			fake_vs.vtx_droite = vtx->vtx_dest;
 			if (fake_vs.vtx_droite == NULL)
 				handle_error(s, POINTER_ERROR);
@@ -328,7 +331,7 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 				handle_error(s, POINTER_ERROR);
 			// printf("begin wall ID PORTAAAAL = %d\n",fake_vs.begin_wall->ptr->id );
 			if (s->portal_nb < PORTAL_LIMIT)
-				add_portal_to_list(s, fake_player, get_sector_by_id(s, vtx->sct_dest), fake_vs);
+				add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
 			// vtx = vtx_ori->next;
 		}
 		else
@@ -366,6 +369,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
 			fake_vs.sct_id = vtx->sct_dest;
+			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 			fake_vs.vtx_droite = vtx->vtx_dest;
 			if (fake_vs.vtx_droite == NULL)
 				handle_error(s, POINTER_ERROR);
@@ -398,7 +402,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			// fake_vs.begin = ft_pos_to_dpos(vtx->vtx_dest->next->ptr->pos);
 			fake_vs.begin_wall = fake_vs.vtx_gauche;
 			if (s->portal_nb < PORTAL_LIMIT)
-				add_portal_to_list(s, fake_player, get_sector_by_id(s, vtx->sct_dest), fake_vs);
+				add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
 		}
 		else
 		{

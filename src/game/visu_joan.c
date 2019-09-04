@@ -14,6 +14,8 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 	dist = 100000;
 	new_dist = 0;
 	sct = s->sector;
+	if (sct_id == 0)
+		handle_error(s, SECTOR_ERROR);
 	while (sct_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
@@ -118,6 +120,7 @@ void	ft_visu_joan(t_main *s)
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
 	vs.sct_id = s->player.sector_id;
+	vs.sct = get_sector_by_id(s, s->player.sector_id);
 
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
 	// printf("demi_fov = %f\n",demi_fov);
