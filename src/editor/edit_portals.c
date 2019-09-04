@@ -125,27 +125,25 @@ int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 void	remove_portal(t_main *s)
 {
 	t_int		*wall;
-	t_pos		new_pos;
+	t_pos		p;
 	t_sector	*sector;
 	int			i;
 
 	i = 0;
-	if ((sector = get_sector_by_id(s, get_nearest_sector
-		(s, s->ft_mouse, &new_pos))) == NULL)
+	if (!(sector = get_sector_by_id(s, get_nearest_sector(s, s->ft_mouse, &p))))
 				return ;
 	wall = sector->vertex;
 	while (i++ < sector->vertex->prev->id)
 	{
-		// printf("sector[%d] Wall[%d]\n", sector->id, wall->id);
-		if (check_between_wall(s, wall, s->ft_mouse))
+		if (check_between_wall(s, wall, s->ft_mouse) && wall->vtx_dest)
 		{
-			wall->vtx_dest->vtx_dest = NULL;
-			wall->vtx_dest->sct_dest = 0;
-			wall->vtx_dest->wall_value = -1;
-			wall->vtx_dest = NULL;
-			wall->sct_dest = 0;
-			wall->wall_value = -1;
-			break;
+				wall->vtx_dest->vtx_dest = NULL;
+				wall->vtx_dest->sct_dest = 0;
+				wall->vtx_dest->wall_value = -1;
+				wall->vtx_dest = NULL;
+				wall->sct_dest = 0;
+				wall->wall_value = -1;
+				break;
 		}
 		wall = wall->next;
 	}
