@@ -332,6 +332,11 @@ void	editor_handler(t_main *s)
 					}
 					remove = 0;
 				}
+				else if(s->sdl->event.button.button == SDL_BUTTON_RIGHT)
+				{
+					if (s->editor->mode == portal)
+						remove_portal(s);
+				}
 
 			}
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)

@@ -87,20 +87,6 @@ int	get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos)
 		return (id);
 }
 
-int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
-{
-	int diffx1;
-	int diffx2;
-	int diffy1;
-	int diffy2;
-
-	diffx1 = mouse.x > pos1.x ? mouse.x - pos1.x : pos1.x - mouse.x;
-	diffx2 = mouse.x > pos2.x ? mouse.x - pos2.x : pos2.x - mouse.x;
-	diffy1 = mouse.y > pos1.y ? mouse.y - pos1.y : pos1.y - mouse.y;
-	diffy2 = mouse.y > pos2.y ? mouse.y - pos2.y : pos2.y - mouse.y;
-	// return (min(min(diffx1, diffx2), min(diffy1, diffy2)));
-	return (diffx1 + diffx2 + diffy1 + diffy2);
-}
 
 int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 {
@@ -135,6 +121,51 @@ int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 		return (0);
 
 }
+
+void	remove_portal(t_main *s)
+{
+	t_int		*wall;
+	t_pos		new_pos;
+	t_sector	*sector;
+	int			i;
+
+	i = 0;
+	if ((sector = get_sector_by_id(s, get_nearest_sector
+		(s, s->ft_mouse, &new_pos))) == NULL)
+				return ;
+	wall = sector->vertex;
+	while (i++ < sector->vertex->prev->id)
+	{
+		// printf("sector[%d] Wall[%d]\n", sector->id, wall->id);
+		if (check_between_wall(s, wall, s->ft_mouse))
+		{
+			wall->vtx_dest->vtx_dest = NULL;
+			wall->vtx_dest->sct_dest = 0;
+			wall->vtx_dest->wall_value = -1;
+			wall->vtx_dest = NULL;
+			wall->sct_dest = 0;
+			wall->wall_value = -1;
+			break;
+		}
+		wall = wall->next;
+	}
+}
+
+int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
+{
+	int diffx1;
+	int diffx2;
+	int diffy1;
+	int diffy2;
+
+	diffx1 = mouse.x > pos1.x ? mouse.x - pos1.x : pos1.x - mouse.x;
+	diffx2 = mouse.x > pos2.x ? mouse.x - pos2.x : pos2.x - mouse.x;
+	diffy1 = mouse.y > pos1.y ? mouse.y - pos1.y : pos1.y - mouse.y;
+	diffy2 = mouse.y > pos2.y ? mouse.y - pos2.y : pos2.y - mouse.y;
+	// return (min(min(diffx1, diffx2), min(diffy1, diffy2)));
+	return (diffx1 + diffx2 + diffy1 + diffy2);
+}
+
 
 void	change_over_wall(t_main *s)
 {

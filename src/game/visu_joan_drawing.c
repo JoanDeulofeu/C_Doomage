@@ -416,21 +416,11 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 {
 	t_walls		*tmp;
-	t_dpos		plan_left;
-	int			x;
 	t_int		*vtx;
-	int			new_x;
 
-	x = 0;
-	new_x = 0;
-	// printf("sct->vertex")
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	draw_first_wall(s, vtx, &vs);
-
-
-	plan_left = s->tmp_intersect;
-	// printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
 	if (vs.begin_wall_id == vs.end_wall_id) // cas 1 seul mur
 	{
 		tmp = s->walls;
@@ -443,16 +433,9 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		s->portal_nb = 0;
 		return ;
 	}
-
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
-
 	draw_last_wall(s, vtx, &vs);
-
-	// plan_left = s->tmp_intersect;
-	// x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
-
-
 	// print_wall_list(s);
 	tmp = s->walls;
 	while(tmp)
@@ -461,7 +444,6 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		tmp = tmp->next;
 	}
 	// print_wall_list(s);
-	// exit(0);
 	clear_wall_list(s);
 	s->portal_nb = 0;
 	// s->line.x1 = s->visu.tmp_wall.x + s->editor->decal_x;
