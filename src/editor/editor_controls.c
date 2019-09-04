@@ -144,16 +144,16 @@ void	handle_editor_keys(t_main *s)
 
 
 
-	if (s->editor->mode == sprite)
-		draw_sprite_menu(s);
+	// if (s->editor->mode == sprite)
+	// 	draw_sprite_menu(s);
 
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
 
 	ft_visu_joan(s);
 	// if (keys[SPACE])
+
 	ia(s);
-	//sprite_orientation(s);
 	//	sprite_move(s);
 
 	draw_sprite(s);

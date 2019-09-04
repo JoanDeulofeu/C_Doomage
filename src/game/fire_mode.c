@@ -17,7 +17,7 @@ int   check_exist_sprite(t_main *s)
   dist = -1;
   while (cur != NULL)
   {
-    value = (HEIGHT / (cur->r_dist)) / 30;
+    value = (WIDTH / (cur->r_dist)) / 60;
     i = 0;
     while (i < (cur->img->w) * value)
     {
@@ -27,7 +27,7 @@ int   check_exist_sprite(t_main *s)
       while (j < (cur->img->h) * value)
   		{
         ret.y = j++;
-  			ret.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((cur->img->h *value)/5));
+  			ret.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((cur->img->h *value)/3.5));
         if ((int)ret.x == (WIDTH/2) && (int)ret.y == (HEIGHT/2))
         {
   		      if (cur->r_dist < dist || dist == -1)

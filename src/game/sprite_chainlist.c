@@ -1,6 +1,36 @@
 #include "doom.h"
 
 
+void 		load_lanim(t_lanim *data, int idanim)
+{
+	if (idanim == 1)
+		load_anim1(data);
+	if (idanim == 2)
+		load_anim2(data);
+	if (idanim == 3)
+		load_anim3(data);
+	if (idanim == 4)
+		load_anim4(data);
+	if (idanim == 5)
+		load_anim5(data);
+}
+
+
+t_lanim 		*create_lanim_elem(int id, int idanim)
+{
+	t_lanim	*data;
+
+	data = NULL;
+	if (!(data = ft_memalloc(sizeof(t_lanim))))
+		return (NULL);
+	data->id  = id;
+	data->current = 0;
+	load_lanim(data,idanim);
+	return (data);
+}
+
+
+
 void 	display_chainlist(t_main *s)
 {
 	t_sprite *cur;
@@ -19,6 +49,21 @@ void 	display_chainlist(t_main *s)
 		cur = cur->next;
 	}
 }
+//
+// void                     load_anim(t_lsprite *cur)
+// {
+//     cur->anim.image[0] = load_tga(“images/ressources/trooper/face/standing_face.tga”, 0, 0, 0);
+//     //printf(“ok\n”);
+//     cur->anim.image[1] = load_tga(“images/ressources/trooper/face/walking1.tga”, 0, 0, 0);
+//     cur->anim.image[2] = load_tga(“images/ressources/trooper/face/walking2.tga”, 0, 0, 0);
+//     cur->anim.image[3] = load_tga(“images/ressources/trooper/face/walking3.tga”, 0, 0, 0);
+//     cur->anim.image[4] = load_tga(“images/ressources/trooper/face/walking4.tga”, 0, 0, 0);
+//     cur->anim.image[5] = load_tga(“images/ressources/trooper/face/walking5.tga”, 0, 0, 0);
+//     cur->anim.image[6] = load_tga(“images/ressources/trooper/face/walking6.tga”, 0, 0, 0);
+//     cur->anim.current = 0;
+//     cur->img = cur->anim.image[cur->anim.current];
+// }
+
 
 void        refresh_sprite_pos(t_main *s)
 {
@@ -55,7 +100,7 @@ void             init_sprite(t_main *s)
   s->sprite = create_sprite_elem(s,0,0,r_pos);
   r_pos.x = 7.5;
   r_pos.y = 4.2;
-  add_sprite(s,r_pos,1);
+  add_sprite(s,r_pos,0);
   r_pos.x = 13;
   r_pos.y = 10;
   add_sprite(s,r_pos,0);
@@ -212,11 +257,16 @@ t_lsprite 				*load_lsprite(t_lsprite *start)
 	t_lsprite *cur;
 
 	cur = start;
-	cur->img = load_tga("images/trooper_face01.tga", 0, 0, 0);
+	cur->anim = create_lanim_elem(0,1);
 	cur = cur->next;
-	cur->img = load_tga("images/trooper_face02.tga", 0, 0, 0);
-  cur = cur->next;
-  cur->img = load_tga("images/shotgun1.tga", 0, 0, 0);
+	cur->anim = create_lanim_elem(1,2);
+	cur = cur->next;
+	cur->anim = create_lanim_elem(2,3);
+	cur = cur->next;
+	cur->anim = create_lanim_elem(3,4);
+	cur = cur->next;
+	cur->anim = create_lanim_elem(4,5);
+
 	return (start);
 }
 
@@ -272,7 +322,8 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
   data->pos = get_px_r_pos(s,pos);
   data->id = id;
 	data->set = 0;
-  data->select = 0;
+	data->select = 0;
+  data->orientation = 0;
 	data->angle = 0;
   data->s_angle = 0;
 	// data->dist = calc_sprite_r_dist(s,data->r_pos);
@@ -283,8 +334,14 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
 	data->next = NULL;
 	while (++i != idimg)
 		lst = lst->next;
-	if (lst->img == NULL)
+//	printf("id = %d\n",lst->id);
+	// printf("current = %d\n",lst->anim->current);
+
+	if (lst->anim != NULL)
+	{
 		data->anim = lst->anim;
+		data->img = data->anim->image[data->anim->current];
+	}
 	else
 		data->img = lst->img;
 	return (data);

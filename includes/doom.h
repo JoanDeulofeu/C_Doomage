@@ -61,11 +61,19 @@ typedef struct		s_time
 	char            v0id[32];
 }					t_time;
 
+typedef struct		s_lanim
+{
+	int									id;
+	int									current;
+	t_image							*image[15];
+}					t_lanim;
+
+
 typedef struct		s_lsprite
 {
 	int							id;
 	t_image 				*img;
-	t_anim 					*anim;
+	t_lanim 					*anim;
 	struct s_lsprite *next;
 }									t_lsprite;
 
@@ -73,6 +81,7 @@ typedef struct				s_sprite
 {
 	int						id;
 	int						set;
+	int						orientation;
 	int						select;
 	double 					angle;
 	double 					s_angle;
@@ -82,7 +91,7 @@ typedef struct				s_sprite
 	t_pos					pos;
 	t_type					type;
 	t_image 				*img;
-	t_anim 					*anim;
+	t_lanim 					*anim;
 	struct s_sprite			*next;
 }							t_sprite;
 
@@ -446,7 +455,7 @@ void display_sprite_inverse(t_main *s,double angle, t_sprite *cur);
 
 void 	free_sprite(t_main *s);
 void 	free_lsprite(t_main *s);
-void 	free_anim(t_anim *anim);
+void 	free_anim(t_lanim *anim);
 
 void 				remove_sprite_by_id(t_main *s, int id);
 void 				remove_sprite_by_select(t_main *s);
@@ -486,6 +495,12 @@ void  rand_move(t_main *s,t_sprite *cur);
 
 
 
+//load anim
+void 				load_anim1(t_lanim *data);
+void 				load_anim2(t_lanim *data);
+void 				load_anim3(t_lanim *data);
+void 				load_anim4(t_lanim *data);
+void 				load_anim5(t_lanim *data);
 
 
 

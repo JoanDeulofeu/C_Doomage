@@ -1,7 +1,7 @@
 #include "doom.h"
 #define ANGLE_MAX 360
 #define SPRITE_DETECTION 5
-#define SPRITE_SHOT_DIST 100
+#define SPRITE_SHOT_DIST 2
 #define SPRITE_MOVE_SPEED 0.1
 
 void  rand_move(t_main *s, t_sprite *cur)
@@ -20,7 +20,7 @@ void  rand_move(t_main *s, t_sprite *cur)
 
   //   printf("cur->pos (%d,%d)\n",cur->pos.x,cur->pos.y);
     // printf("target (%f,%f)\n\n",target.x,target.y);
-  if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && check_exist(s,target,cur->id) == -1 && cur->dist > SPRITE_SHOT_DIST)
+  if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && check_exist(s,target,cur->id) == -1 && cur->r_dist > SPRITE_SHOT_DIST)
   {
       cur->r_pos = target;
   }
@@ -104,6 +104,7 @@ void    sprite_move_on_player(t_main *s, t_sprite *cur)
     //
     //  printf("cur->pos (%d,%d)\n",cur->pos.x,cur->pos.y);
     // printf("target (%f,%f)\n\n",target.x,target.y);
+
   if (ft_is_in_sector(s, get_px_r_pos(s,target)) != 0 && cur->dist > SPRITE_SHOT_DIST && check_exist(s,target,cur->id) == -1)
   {
       cur->r_pos = target;//sget_abs_r_pos(s,ft_dpos_to_pos(target));
@@ -111,22 +112,53 @@ void    sprite_move_on_player(t_main *s, t_sprite *cur)
   }
 }
 
+void   sprite_shooting(t_main *s,t_sprite *cur)
+{
+  if (cur->anim != NULL)
+  {
+    cur->s_angle = s->player.angle +180;
+    cur->anim->current = 0;
+    cur->img = cur->anim->image[cur->anim->current];
+  }
+}
+
+void  change_img(t_sprite *cur)
+{
+  if (cur->anim != NULL)
+  {
+    if (cur->anim->current == 6)
+      cur->anim->current = 1;
+    cur->anim->current +=1;
+    cur->img = cur->anim->image[cur->anim->current];
+  }
+}
+
 void  ia(t_main*s)
 {
   t_sprite *cur;
 
+
   cur = s->sprite;
+
   while (cur != NULL)
   {
    //  printf("cur->id =%d\n",cur->id);
    // printf("cur->r_dist =%f\n",cur->r_dist);
-    if (cur->r_dist <= SPRITE_DETECTION)
-    {
-    //   printf("ok\n\n");
-      sprite_move_on_player(s,cur);
-    }
+  // printf("ok\n");
+    if (cur->r_dist <= SPRITE_SHOT_DIST)
+      sprite_shooting(s,cur);
     else
+    {
       rand_move(s,cur);
+      sprite_orientation(s);
+      change_img(cur);
+    }
+    // if (cur->r_dist <= SPRITE_DETECTION)
+    // {
+    // //   printf("ok\n\n");
+    //   sprite_move_on_player(s,cur);
+    // }
+    // else
     cur = cur->next;
   }
 
