@@ -222,7 +222,7 @@ void	editor_handler(t_main *s)
 				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
-				if (selected && s->editor->mode == vertex)
+				if (selected && s->editor->mode == vertex && !s->player_view)
 				{
 					move_anchor(s, id);
 					move_vertex(s, tmp_move, ori, id);
@@ -421,12 +421,12 @@ void	editor_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
-				if (s->sdl->event.wheel.y > 0 && zoom < 15)
+				if (s->sdl->event.wheel.y > 0 && zoom < 15 && !s->player_view)
 				{
 					ft_zoom(s,s->ft_mouse, 5);
 					zoom++;
 				}
-				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
+				else if (s->sdl->event.wheel.y < 0 && zoom > -3 && !s->player_view)
 				{
 					ft_zoom(s,s->ft_mouse, -5);
 					zoom--;
@@ -436,7 +436,7 @@ void	editor_handler(t_main *s)
 				&& (yoan = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
-				&& yoan == 2 && selected == 1)
+				&& yoan == 2 && selected == 1 && !s->player_view)
 				{
 					remove_anchor(s, id);
 					remove = 1;
