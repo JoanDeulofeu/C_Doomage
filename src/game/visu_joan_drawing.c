@@ -265,7 +265,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
 		// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 		fake_vs.begin = s->tmp_intersect;
-		printf("begin = x:%f y:%f\n", fake_vs.begin.x, fake_vs.begin.y);
+		// printf("begin = x:%f y:%f\n", fake_vs.begin.x, fake_vs.begin.y);
 		fake_vs.begin_wall_id = ft_find_wall2(s, fake_vs.begin, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 		// printf("begin wall id = %d\n", fake_vs.begin_wall_id);
 		if (fake_vs.begin_wall_id == 0)

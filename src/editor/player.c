@@ -122,8 +122,8 @@ void	ft_move_player(t_main *s, const Uint8 *keys)
 	target.y = s->player.pos.y;
 	target = get_direction(s, keys, speed, target);
 	s->col_pos = get_direction(s, keys, speed + 10, s->player.pos);
-	printf("player.x = %f, player.y = %f\n", s->player.pos.x, s->player.pos.y);
-	printf("col.x = %f, col.y = %f\n", s->col_pos.x, s->col_pos.y);
+	// printf("player.x = %f, player.y = %f\n", s->player.pos.x, s->player.pos.y);
+	// printf("col.x = %f, col.y = %f\n", s->col_pos.x, s->col_pos.y);
 	// draw_anchor(s, ft_dpos_to_pos(s->col_pos), BLUE);
 	// update_image(s, s->sdl->editor);
 	//printf("sector = %d\n",ft_is_in_sector(s, ft_dpos_to_pos(target)));
