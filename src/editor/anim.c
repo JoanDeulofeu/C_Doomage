@@ -9,6 +9,7 @@ void 				load_anim1(t_lanim *data)
 	data->image[4] = load_tga("images/ressources/trooper/face/walking4.tga", 0, 0, 0);
 	data->image[5] = load_tga("images/ressources/trooper/face/walking5.tga", 0, 0, 0);
 	data->image[6] = load_tga("images/ressources/trooper/face/walking6.tga", 0, 0, 0);
+	data->max_current = 6;
 }
 
 void 				load_anim2(t_lanim *data)
@@ -20,6 +21,7 @@ void 				load_anim2(t_lanim *data)
 	data->image[4] = load_tga("images/ressources/trooper/back/walking4.tga", 0, 0, 0);
 	data->image[5] = load_tga("images/ressources/trooper/back/walking5.tga", 0, 0, 0);
 	data->image[6] = load_tga("images/ressources/trooper/back/walking6.tga", 0, 0, 0);
+	data->max_current = 6;
 }
 
 void 				load_anim3(t_lanim *data)
@@ -31,6 +33,7 @@ void 				load_anim3(t_lanim *data)
 	data->image[4] = load_tga("images/ressources/trooper/prof/walking4.tga", 0, 0, 0);
 	data->image[5] = load_tga("images/ressources/trooper/prof/walking5.tga", 0, 0, 0);
 	data->image[6] = load_tga("images/ressources/trooper/prof/walking6.tga", 0, 0, 0);
+	data->max_current = 6;
 }
 
 void 				load_anim4(t_lanim *data)
@@ -42,6 +45,7 @@ void 				load_anim4(t_lanim *data)
 	data->image[4] = load_tga("images/ressources/trooper/prof_back/walking4.tga", 0, 0, 0);
 	data->image[5] = load_tga("images/ressources/trooper/prof_back/walking5.tga", 0, 0, 0);
 	data->image[6] = load_tga("images/ressources/trooper/prof_back/walking6.tga", 0, 0, 0);
+	data->max_current = 6;
 }
 
 void 				load_anim5(t_lanim *data)
@@ -53,4 +57,25 @@ void 				load_anim5(t_lanim *data)
 	data->image[4] = load_tga("images/ressources/trooper/prof_face/walking4.tga", 0, 0, 0);
 	data->image[5] = load_tga("images/ressources/trooper/prof_face/walking5.tga", 0, 0, 0);
 	data->image[6] = load_tga("images/ressources/trooper/prof_face/walking6.tga", 0, 0, 0);
+	data->max_current = 6;
+}
+
+void 				load_anim6(t_lanim *data)
+{
+	data->image[0] = load_tga("images/ressources/trooper/dying/dying1.tga", 0, 0, 0);
+	data->image[1] = load_tga("images/ressources/trooper/dying/dying2.tga", 0, 0, 0);
+	data->image[2] = load_tga("images/ressources/trooper/dying/dying3.tga", 0, 0, 0);
+	data->image[3] = load_tga("images/ressources/trooper/dying/dying4.tga", 0, 0, 0);
+	data->image[4] = load_tga("images/ressources/trooper/dying/dying5.tga", 0, 0, 0);
+	data->image[5] = load_tga("images/ressources/trooper/dying/dying6.tga", 0, 0, 0);
+  data->image[6] = load_tga("images/ressources/trooper/dying/dying7.tga", 0, 0, 0);
+	data->image[7] = load_tga("images/ressources/trooper/dying/dying8.tga", 0, 0, 0);
+	data->max_current = 4;
+}
+
+void 				load_anim7(t_lanim *data)
+{
+	data->image[0] = load_tga("images/ressources/trooper/shooting/shoot1.tga", 0, 0, 0);
+	data->image[1] = load_tga("images/ressources/trooper/shooting/shoot2.tga", 0, 0, 0);
+	data->max_current = 1;
 }

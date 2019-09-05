@@ -1,36 +1,6 @@
 #include "doom.h"
 
 
-void 		load_lanim(t_lanim *data, int idanim)
-{
-	if (idanim == 1)
-		load_anim1(data);
-	if (idanim == 2)
-		load_anim2(data);
-	if (idanim == 3)
-		load_anim3(data);
-	if (idanim == 4)
-		load_anim4(data);
-	if (idanim == 5)
-		load_anim5(data);
-}
-
-
-t_lanim 		*create_lanim_elem(int id, int idanim)
-{
-	t_lanim	*data;
-
-	data = NULL;
-	if (!(data = ft_memalloc(sizeof(t_lanim))))
-		return (NULL);
-	data->id  = id;
-	data->current = 0;
-	load_lanim(data,idanim);
-	return (data);
-}
-
-
-
 void 	display_chainlist(t_main *s)
 {
 	t_sprite *cur;
@@ -41,34 +11,38 @@ void 	display_chainlist(t_main *s)
 		printf("\n=====SPRITE=====\n");
 
 		printf("id = %d\n",cur->id);
+		printf("id_anim = %d\n",cur->anim->id);
+		printf("destroy = %d\n",cur->destroy);
 		printf("slect = %d\n",cur->select);
 		printf("dist= %f\n",cur->dist);
 		printf("pos (%d,%d)\n",cur->pos.x,cur->pos.y);
-		printf("player.pos (%f,%f)\n",s->player.pos.x,s->player.pos.y);
+		//printf("player.pos (%f,%f)\n",s->player.pos.x,s->player.pos.y);
 
 		cur = cur->next;
 	}
 }
-//
-// void                     load_anim(t_lsprite *cur)
-// {
-//     cur->anim.image[0] = load_tga(“images/ressources/trooper/face/standing_face.tga”, 0, 0, 0);
-//     //printf(“ok\n”);
-//     cur->anim.image[1] = load_tga(“images/ressources/trooper/face/walking1.tga”, 0, 0, 0);
-//     cur->anim.image[2] = load_tga(“images/ressources/trooper/face/walking2.tga”, 0, 0, 0);
-//     cur->anim.image[3] = load_tga(“images/ressources/trooper/face/walking3.tga”, 0, 0, 0);
-//     cur->anim.image[4] = load_tga(“images/ressources/trooper/face/walking4.tga”, 0, 0, 0);
-//     cur->anim.image[5] = load_tga(“images/ressources/trooper/face/walking5.tga”, 0, 0, 0);
-//     cur->anim.image[6] = load_tga(“images/ressources/trooper/face/walking6.tga”, 0, 0, 0);
-//     cur->anim.current = 0;
-//     cur->img = cur->anim.image[cur->anim.current];
-// }
 
+int 				check_destroy(t_main *s)
+{
+		t_sprite *cur;
+
+		cur = s->sprite;
+		while (cur != NULL)
+		{
+			if (cur->destroy == 1)
+				return (cur->id);
+			cur = cur->next;
+		}
+		return (-1);
+}
 
 void        refresh_sprite_pos(t_main *s)
 {
   t_sprite *cur;
+	int id;
 
+	while ((id = check_destroy(s)) != -1 )
+		remove_sprite_by_id(s,id);
   cur = s->sprite;
   while (cur != NULL)
   {
@@ -76,7 +50,6 @@ void        refresh_sprite_pos(t_main *s)
 		cur->dist = calc_sprite_dist(s,cur->pos);
 //		printf("space= %d\n",s->editor->space);
 	//	printf("old_dist= %f\n",cur->dist);
-
     cur->r_dist = calc_sprite_r_dist(s,cur->r_pos);
 		 //printf("r_dist= %f\n\n",cur->r_dist);
 		//cur->dist *=s->editor->space;
@@ -88,7 +61,7 @@ void        refresh_sprite_pos(t_main *s)
 			draw_anchor(s,cur->pos, YELLOW);
     cur = cur->next;
   }
-	// display_chainlist(s);
+	 // display_chainlist(s);
 }
 
 void             init_sprite(t_main *s)
@@ -127,7 +100,6 @@ int 				found_id_sprite(t_main *s, t_pos start, t_pos end)
 
 	id = -1;
 	cur = s->sprite;
-
 	while (cur != NULL)
 	{
 		if (cur->pos.x <= start.x && cur->pos.y <= start.y && cur->pos.x >= end.x && cur->pos.y >= end.y)
@@ -156,7 +128,7 @@ void 				remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,t_sprite *prev)
 		free(cur);
 	}
 }
-//remove_sprite_by_id(s,3);
+
 void 				reset_id(t_main *s)
 {
 	t_sprite *cur;
@@ -183,7 +155,6 @@ void 				remove_sprite_by_id(t_main *s, int id)
 	{
 		if (cur->id == id)
 		{
-			//printf("id = %d\n",cur->id);
 			remove_sprite(s,cur,cur->next,prev);
 		}
 		prev = cur;
@@ -192,7 +163,6 @@ void 				remove_sprite_by_id(t_main *s, int id)
 	if (s->sprite != NULL)
 	{
 			reset_id(s);
-			//deselect_sprite(s);
 	}
 }
 
@@ -207,8 +177,6 @@ void 				remove_sprite_by_select(t_main *s)
 	{
 		if (cur->select == 1)
 		{
-
-			//printf("id = %d\n",cur->id);
 			remove_sprite(s,cur,cur->next,prev);
 			cur = s->sprite;
 			prev = NULL;
@@ -220,91 +188,9 @@ void 				remove_sprite_by_select(t_main *s)
 	if (s->sprite != NULL)
 	{
 		reset_id(s);
-	//	deselect_sprite(s);
-
 	}
 
 }
-double      calc_sprite_r_dist(t_main *s, t_dpos pos)
-{
-  t_dpos distance;
-  double dist;
-
-  distance.x =  pos.x - s->player.r_pos.x;
-  distance.y =  pos.y - s->player.r_pos.y;
-  dist = (distance.x * distance.x) + (distance.y * distance.y);
-  dist = sqrt(dist);
-  return (dist);
-}
-
-double      calc_sprite_dist(t_main *s, t_pos pos)
-{
-  t_dpos distance;
-  double dist;
-
-  distance.x =  pos.x - s->player.pos.x;
-  distance.y =  pos.y - s->player.pos.y;
-  dist = (distance.x * distance.x) + (distance.y * distance.y);
-  dist = sqrt(dist);
-  return (dist);
-}
-
-
-
-
-t_lsprite 				*load_lsprite(t_lsprite *start)
-{
-	t_lsprite *cur;
-
-	cur = start;
-	cur->anim = create_lanim_elem(0,1);
-	cur = cur->next;
-	cur->anim = create_lanim_elem(1,2);
-	cur = cur->next;
-	cur->anim = create_lanim_elem(2,3);
-	cur = cur->next;
-	cur->anim = create_lanim_elem(3,4);
-	cur = cur->next;
-	cur->anim = create_lanim_elem(4,5);
-
-	return (start);
-}
-
-t_lsprite 		*create_lsprite_elem(t_main *s, int id)
-{
-	t_lsprite	*data;
-
-	data = NULL;
-	if (!(data = ft_memalloc(sizeof(t_lsprite))))
-		handle_error(s, MALLOC_ERROR);
-	data->id  = id;
-	data->img = NULL;
-	data->anim = NULL;
-	data->next = NULL;
-	return (data);
-}
-
-
-t_lsprite 		*create_lsprite(t_main *s, int size)
-{
-		t_lsprite *new;
-		t_lsprite *start;
-		int 			i;
-
-		i = 0;
-		new = create_lsprite_elem(s,i);
-		start = new;
-		while (++i < size)
-		{
-			new->next = create_lsprite_elem(s,i);
-			new = new->next;
-		}
-		start = load_lsprite(start);
-		return (start);
-}
-
-
-
 
 
 t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
@@ -322,25 +208,24 @@ t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
   data->pos = get_px_r_pos(s,pos);
   data->id = id;
 	data->set = 0;
+	data->life = 100;
+	data->current = 0;
 	data->select = 0;
+	data->destroy = 0;
   data->orientation = 0;
 	data->angle = 0;
   data->s_angle = 0;
-	// data->dist = calc_sprite_r_dist(s,data->r_pos);
-
-	// data->dist  = calc_sprite_dist(s,data->pos);
+	data->dist = calc_sprite_r_dist(s,data->r_pos);
+	data->dist  = calc_sprite_dist(s,data->pos);
 	data->img = NULL;
 	data->anim = NULL;
 	data->next = NULL;
 	while (++i != idimg)
 		lst = lst->next;
-//	printf("id = %d\n",lst->id);
-	// printf("current = %d\n",lst->anim->current);
-
 	if (lst->anim != NULL)
 	{
 		data->anim = lst->anim;
-		data->img = data->anim->image[data->anim->current];
+		data->img = data->anim->image[data->current];
 	}
 	else
 		data->img = lst->img;
@@ -351,7 +236,6 @@ void	add_sprite(t_main *s, t_dpos pos, int idimg)
 {
 	t_sprite *tmp;
 
-//printf("pos(%f,%f)\n",pos.x,pos.y);
 	if (s->sprite == NULL)
 	{
 		s->sprite = create_sprite_elem(s,0,idimg,pos);

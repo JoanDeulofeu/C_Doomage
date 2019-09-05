@@ -44,7 +44,23 @@ int   check_exist_sprite(t_main *s)
   return (id);
 }
 
+void give_damage(t_main *s, int id)
+{
+  t_sprite *cur;
 
+  cur = s->sprite;
+  while (cur != NULL)
+  {
+    if (cur->id == id && cur->life != 0)
+    {
+      cur->life = 0;
+      cur->current = 0;
+      set_img(s,cur,5,0);
+      break ;
+    }
+    cur = cur->next;
+  }
+}
 
 void	fire(t_main *s)
 {
@@ -55,26 +71,12 @@ void	fire(t_main *s)
   i = -1;
 
   id = -1;
-  if ((id= check_exist_sprite(s)) != -1)
+  if ((id = check_exist_sprite(s)) != -1)
   {
-     remove_sprite_by_id(s,id);
+    // printf("id =%d\n",id);
+      give_damage(s,id);
+    //  remove_sprite_by_id(s,id);
   }
-	// target.x = s->player.pos.x;
-	// target.y = s->player.pos.y;
-	// //printf("sector = %d\n",ft_is_in_sector(s, ft_dpos_to_pos(target)));
-	// while ( ++i != 1000 &&ft_is_in_sector(s, ft_dpos_to_pos(target)) != 0)
-	// {
-  // //   target.x += cos(to_rad(s->player.angle));// * speed;
-  // //   target.y -= sin(to_rad(s->player.angle));// * speed;
-	// // trace.x = target.x;
-	// // trace.y = target.y;
-  //   //set_pixel(s->sdl->editor, BLUE, trace);
-  //   if ((id= check_exist_sprite(s)) != -1)
-  //   {
-  //      remove_sprite_by_id(s,id);
-  //      // printf("ok\n");
-  //      break ;
-  //   }
 
 }
 

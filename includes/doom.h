@@ -23,6 +23,12 @@
 # define PORTAL_LIMIT 10
 
 
+//sprite
+#define ANGLE_MAX 360
+#define SPRITE_DETECTION 5
+#define SPRITE_SHOT_DIST 3
+#define SPRITE_MOVE_SPEED 0.1
+
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
 
@@ -64,7 +70,7 @@ typedef struct		s_time
 typedef struct		s_lanim
 {
 	int									id;
-	int									current;
+	int									max_current;
 	t_image							*image[15];
 }					t_lanim;
 
@@ -83,6 +89,9 @@ typedef struct				s_sprite
 	int						set;
 	int						orientation;
 	int						select;
+	int						life;
+	int						current;
+	int						destroy;
 	double 					angle;
 	double 					s_angle;
 	double 					dist;
@@ -421,7 +430,8 @@ void 				print_wall_list(t_main *s);
 /*FCT SPRITE CHAINLIST*/
 t_pos 	get_px_r_pos(t_main *s, t_dpos ref);
 void	*ft_memalloc(size_t size);
-t_lsprite 				*load_lsprite(t_lsprite *start);
+t_lsprite 				*load_lsprite(t_main *s,t_lsprite *start, int size);
+
 t_lsprite 		*create_lsprite_elem(t_main *s, int id);
 t_lsprite 		*create_lsprite(t_main *s, int size);
 t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
@@ -444,7 +454,6 @@ void 				draw_sprite(t_main *s);
 void display_sprite(t_main *s,double angle, t_sprite *cur);
 int 	check_sprite_menu_click(t_main *s, t_pos pos);
 void draw_sprite_menu(t_main *s);
-void 			sprite_orientation(t_main *s);
 void display_sprite_inverse(t_main *s,double angle, t_sprite *cur);
 
 
@@ -486,7 +495,7 @@ int   check_exist(t_main *s,t_dpos target, int id);
 void	fire(t_main *s);
 // void    sprite_move(t_main *s);
 void    sprite_move_on_player(t_main *s,t_sprite *cur);
-void  ia(t_main*s);
+void  ia(t_main*s,t_sprite *cur);
 
 
 void  rand_move(t_main *s,t_sprite *cur);
@@ -501,6 +510,22 @@ void 				load_anim2(t_lanim *data);
 void 				load_anim3(t_lanim *data);
 void 				load_anim4(t_lanim *data);
 void 				load_anim5(t_lanim *data);
+void 				load_anim6(t_lanim *data);
+void 				load_anim7(t_lanim *data);
+
+//animation
+void 				kill(t_sprite *cur);
+
+void        play_anim(t_main *s);
+
+void   sprite_shooting(t_main *s,t_sprite *cur);
+void  sprite_walk(t_sprite *cur);
+void  dying(t_main *s,t_sprite *cur);
+void 			set_img(t_main *s,t_sprite *cur, int id, int orientation);
+void 			set_orientation(t_main *s, t_sprite *cur);
+
+t_lanim        *get_anim_by_id(t_main *s, int id);
+
 
 
 

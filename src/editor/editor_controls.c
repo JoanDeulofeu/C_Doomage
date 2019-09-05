@@ -153,7 +153,7 @@ void	handle_editor_keys(t_main *s)
 	ft_visu_joan(s);
 	// if (keys[SPACE])
 
-	ia(s);
+	play_anim(s);
 	//	sprite_move(s);
 
 	draw_sprite(s);
