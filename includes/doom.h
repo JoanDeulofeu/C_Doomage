@@ -208,6 +208,9 @@ typedef struct		s_main {
 	t_lsprite		*choice_sprite;
 	t_walls			*walls;
 	int				portal_nb;
+	t_dpos			col_pos;
+	t_dpos			fplayer_pos;
+	double			fplayer_angle;
 }					t_main;
 
 /*
@@ -392,6 +395,7 @@ void				display_hud(t_main *s, int i, int j);
 void 				shoot(t_main *s, int press);
 void 				display_crosshair(t_main *s, int i, int j);
 void 				draw_weapon2(t_main *s, int i, int j);
+int					is_colliding(t_main *s);
 
 
 // fonction affichage sprite

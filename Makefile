@@ -41,15 +41,16 @@ SRC_NAME =	main.c						\
 			game/visu_joan_drawing.c	\
 			game/utils_2.c				\
 			game/hud.c					\
-			game/animation.c					\
-			game/sprite.c					\
-			game/sprite_menu.c	\
-			game/sprite_chainlist.c\
-			game/lsprite_chainlist.c\
-			game/fire_mode.c\
+			game/animation.c			\
+			game/sprite.c				\
+			game/sprite_menu.c			\
+			game/sprite_chainlist.c		\
+			game/lsprite_chainlist.c	\
+			game/fire_mode.c			\
 			game/skybox.c				\
-			game/ia.c				\
-			menu.c							\
+			game/ia.c					\
+			game/collisions.c			\
+			menu.c						\
 			debug.c
 
 
