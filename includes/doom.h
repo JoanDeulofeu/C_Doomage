@@ -209,14 +209,10 @@ typedef struct		s_main {
 	t_lsprite		*lsprite;
 	t_lsprite		*choice_sprite;
 	t_walls			*walls;
-<<<<<<< HEAD
 	int					portal_nb;
-=======
-	int				portal_nb;
 	t_dpos			col_pos;
 	t_dpos			fplayer_pos;
 	double			fplayer_angle;
->>>>>>> c5022f962c4b7b66b018f9dcc62416ede24b2315
 }					t_main;
 
 /*
