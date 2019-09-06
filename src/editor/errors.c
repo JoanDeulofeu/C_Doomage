@@ -16,6 +16,8 @@ void	display_error(int error_nb)
 		ft_putstr("Error : Map must be limited by walls !\n");
 	else if (error_nb == POINTER_ERROR)
 		ft_putstr("Error : Pointer should not be NULL !\n");
+	else if (error_nb == SECTOR_ERROR)
+		ft_putstr("Error : Looking for sector 0\n");
 }
 
 void	handle_error(t_main *s, int error_nb)

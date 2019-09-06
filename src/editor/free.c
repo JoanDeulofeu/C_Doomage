@@ -8,7 +8,7 @@ void	free_image(t_image *img)
 	ft_memdel((void **)&img);
 }
 
-void 	free_anim(t_anim *anim) // A TESTER
+void 	free_anim(t_lanim *anim) // A TESTER
 {
 	int i;
 

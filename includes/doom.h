@@ -23,6 +23,12 @@
 # define PORTAL_LIMIT 10
 
 
+//sprite
+#define ANGLE_MAX 360
+#define SPRITE_DETECTION 5
+#define SPRITE_SHOT_DIST 3
+#define SPRITE_MOVE_SPEED 0.1
+
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
 
@@ -61,11 +67,19 @@ typedef struct		s_time
 	char            v0id[32];
 }					t_time;
 
+typedef struct		s_lanim
+{
+	int									id;
+	int									max_current;
+	t_image							*image[15];
+}					t_lanim;
+
+
 typedef struct		s_lsprite
 {
 	int							id;
 	t_image 				*img;
-	t_anim 					*anim;
+	t_lanim 					*anim;
 	struct s_lsprite *next;
 }									t_lsprite;
 
@@ -73,7 +87,11 @@ typedef struct				s_sprite
 {
 	int						id;
 	int						set;
+	int						orientation;
 	int						select;
+	int						life;
+	int						current;
+	int						destroy;
 	double 					angle;
 	double 					s_angle;
 	double 					dist;
@@ -82,7 +100,7 @@ typedef struct				s_sprite
 	t_pos					pos;
 	t_type					type;
 	t_image 				*img;
-	t_anim 					*anim;
+	t_lanim 					*anim;
 	struct s_sprite			*next;
 }							t_sprite;
 
@@ -132,6 +150,7 @@ typedef struct		s_visu {
 	t_dpos			player;
 	double			angle;
 	int				sct_id;
+	t_sector		*sct;
 	t_int			*vtx_gauche;
 	t_int			*vtx_droite;
 }					t_visu;
@@ -190,7 +209,14 @@ typedef struct		s_main {
 	t_lsprite		*lsprite;
 	t_lsprite		*choice_sprite;
 	t_walls			*walls;
+<<<<<<< HEAD
 	int					portal_nb;
+=======
+	int				portal_nb;
+	t_dpos			col_pos;
+	t_dpos			fplayer_pos;
+	double			fplayer_angle;
+>>>>>>> c5022f962c4b7b66b018f9dcc62416ede24b2315
 }					t_main;
 
 /*
@@ -375,6 +401,7 @@ void				display_hud(t_main *s, int i, int j);
 void 				shoot(t_main *s, int press);
 void 				display_crosshair(t_main *s, int i, int j);
 void 				draw_weapon2(t_main *s, int i, int j);
+int					is_colliding(t_main *s);
 
 
 // fonction affichage sprite
@@ -413,7 +440,8 @@ void				draw_skybox(t_main *s, t_visu vs);
 /*FCT SPRITE CHAINLIST*/
 t_pos 	get_px_r_pos(t_main *s, t_dpos ref);
 void	*ft_memalloc(size_t size);
-t_lsprite 				*load_lsprite(t_lsprite *start);
+t_lsprite 				*load_lsprite(t_main *s,t_lsprite *start, int size);
+
 t_lsprite 		*create_lsprite_elem(t_main *s, int id);
 t_lsprite 		*create_lsprite(t_main *s, int size);
 t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
@@ -436,7 +464,6 @@ void 				draw_sprite(t_main *s);
 void display_sprite(t_main *s,double angle, t_sprite *cur);
 int 	check_sprite_menu_click(t_main *s, t_pos pos);
 void draw_sprite_menu(t_main *s);
-void 			sprite_orientation(t_main *s);
 void display_sprite_inverse(t_main *s,double angle, t_sprite *cur);
 
 
@@ -447,7 +474,7 @@ void display_sprite_inverse(t_main *s,double angle, t_sprite *cur);
 
 void 	free_sprite(t_main *s);
 void 	free_lsprite(t_main *s);
-void 	free_anim(t_anim *anim);
+void 	free_anim(t_lanim *anim);
 
 void 				remove_sprite_by_id(t_main *s, int id);
 void 				remove_sprite_by_select(t_main *s);
@@ -478,7 +505,7 @@ int   check_exist(t_main *s,t_dpos target, int id);
 void	fire(t_main *s);
 // void    sprite_move(t_main *s);
 void    sprite_move_on_player(t_main *s,t_sprite *cur);
-void  ia(t_main*s);
+void  ia(t_main*s,t_sprite *cur);
 
 
 void  rand_move(t_main *s,t_sprite *cur);
@@ -486,6 +513,28 @@ void  rand_move(t_main *s,t_sprite *cur);
 
 
 
+
+//load anim
+void 				load_anim1(t_lanim *data);
+void 				load_anim2(t_lanim *data);
+void 				load_anim3(t_lanim *data);
+void 				load_anim4(t_lanim *data);
+void 				load_anim5(t_lanim *data);
+void 				load_anim6(t_lanim *data);
+void 				load_anim7(t_lanim *data);
+
+//animation
+void 				kill(t_sprite *cur);
+
+void        play_anim(t_main *s);
+
+void   sprite_shooting(t_main *s,t_sprite *cur);
+void  sprite_walk(t_sprite *cur);
+void  dying(t_main *s,t_sprite *cur);
+void 			set_img(t_main *s,t_sprite *cur, int id, int orientation);
+void 			set_orientation(t_main *s, t_sprite *cur);
+
+t_lanim        *get_anim_by_id(t_main *s, int id);
 
 
 

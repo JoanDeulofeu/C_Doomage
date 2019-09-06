@@ -112,7 +112,7 @@ void		load_images(t_main *s)
 	  s->editor->m_floor.image[i++] = NULL;
 	}
 
-	s->lsprite =create_lsprite(s,3);
+	s->lsprite =create_lsprite(s,7);
 
 
 

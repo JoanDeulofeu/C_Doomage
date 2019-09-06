@@ -1,89 +1,5 @@
 #include "doom.h"
 
-int 			calc_angle(double angle, int range)
-{
-	int ret;
-
-	ret = (angle + range);
-	if (ret > 360)
-		ret = ret - 360;
-	if (ret < 0)
-		ret = 360 + ret;
-
-	return (ret);
-}
-void 			set_orientation(t_main *s, t_sprite *cur)
-{
-	int i;
-	int angle;
-
-	i = -1;
-	while (++i != 360)
-	{
-		angle = calc_angle(cur->s_angle,i);
-		if (angle == (int)s->player.angle)
-			break ;
-	}
-	printf("i= %d\n",i);
-	if ( (i >= 0 && i <= 45) || (i >= 316 && i <= 360))
-	 	printf("dos\n");
-	if (i >= 46 && i <= 135)// || (i >= 315 && i <= 360))
-	 	printf("coter1\n");
-	if (i >= 136 && i <= 225)// || (i >= 315 && i <= 360))
-	 	printf("devant\n");
-	if (i >= 226 && i <= 315)// || (i >= 315 && i <= 360))
-		printf("coter2\n");
-	printf("\n");
-
-
-
-}
-//
-// void 			set_huit_orientation(t_main *s, t_sprite *cur)
-// {
-// 	int i;
-// 	int angle;
-//
-// 	i = -1;
-// 	while (++i != 360)
-// 	{
-// 		angle = calc_angle(cur->s_angle,i);
-// 		if (angle == (int)s->player.angle)
-// 			break ;
-// 	}
-// 	printf("i= %d\n",i);
-// 	if ( (i >= 0 && i <= 22) || (i >= 337 && i <= 360))
-// 	 	printf("dos\n");
-// 	if (i >= 23 && i <= 67)
-// 	 	printf("coter1\n");
-// 	if (i >= 68 && i <= 112)
-// 	 	printf("devant\n");
-// 	if (i >= 113 && i <= 157)
-// 		printf("coter2\n");
-// 	if (i >= 158 && i <= 202)
-// 	if (i >= 203 && i <= 247)
-// 	if (i >= 248 && i <= 292)
-// 	if (i >= 293 && i <= 337)
-//
-// 	printf("\n");
-//
-//
-//
-// }
-
-void 			sprite_orientation(t_main *s)
-{
-		t_sprite *cur;
-
-		cur = s->sprite;
-		while (cur != NULL)
-		{
-			// if (cur->anim != NULL)
-				set_orientation(s,cur);
-			cur = cur->next;
-		}
-}
-
 double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 {
 	t_dpos	ctr_l;
@@ -119,8 +35,10 @@ void 	display_by_id(t_main *s, int id)
 	while (cur->id != id && cur->next != NULL)
 		cur = cur->next;
 	cur->set = 0;
-	display_sprite(s,cur->angle,cur);
-	// display_sprite_inverse(s,cur->angle,cur);
+	if (cur->orientation == 0)
+		display_sprite(s,cur->angle,cur);
+	else
+		display_sprite_inverse(s,cur->angle,cur);
 }
 
 int 	found_closer(t_main *s)
@@ -240,27 +158,29 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 	wp = cur->img;
 	i = 0;
 
-	value = (HEIGHT / (cur->r_dist)) / 30;
+	value = ( HEIGHT / (cur->r_dist)) /60;
 
 	coord.x = 0;
 	coord.y = 0;
-	  // printf("value = %f\n",value);
-	 // printf("angle = %f\n",angle);
-	 // printf("cur->dist = %f\n",cur->dist);
+	// printf("w = %d\n",wp->w);
+	// printf("h = %d\n",wp->h);
+	// printf("value = %f\n",value);
+	//  printf("angle = %f\n",angle);
+	// printf("cur->dist = %f\n",cur->r_dist);
 	// printf("dist = %d\n",dist);
 	while (i < (wp->w) * value)
 	{
 		j = 0;
 		coord.x = i;
 		perx = (double)i/ (((double)wp->w) * value);
-		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value)/2);
+		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value) /2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
 
 		while (j < (wp->h) * value)
 		{
 			coord.y = j++;
 			pery = (double)j / (((double)wp->h) * value);
-			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value)/5));
+			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value))/3.5);
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
@@ -284,7 +204,7 @@ void display_sprite_inverse(t_main *s,double angle, t_sprite *cur)
 	wp = cur->img;
 	i = 0;
 
-	value = (HEIGHT / (cur->r_dist)) / 30;
+	value = ( HEIGHT / (cur->r_dist)) /60;
 
 	coord.x = 0;
 	coord.y = 0;
@@ -304,7 +224,7 @@ void display_sprite_inverse(t_main *s,double angle, t_sprite *cur)
 		{
 			coord.y = j;
 			pery = (double)j / (((double)wp->h) * value);
-			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value)/5));
+			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value)/3.5));
 			px = (int)(pery * (double)wp->h) * wp->w - (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);

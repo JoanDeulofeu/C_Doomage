@@ -14,6 +14,8 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 	dist = 100000;
 	new_dist = 0;
 	sct = s->sector;
+	if (sct_id == 0)
+		handle_error(s, SECTOR_ERROR);
 	while (sct_id != sct->id)
 		sct = sct->next;
 	s_vtx = sct->vertex;
@@ -86,12 +88,15 @@ t_visu get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angl
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 2000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 2000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
-	// printf("wall_id = %d\n", vs.begin_wall_id);
+	// if(vs.begin_wall_id == 0)
+	// 	exit(0);
 	vs.begin = s->tmp_intersect;
 // printf("------MUR DROITE------\n");
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff, vs.sct_id);
+	// if(vs.end_wall_id == 0)
+	// 	exit(0);
 	vs.end = s->tmp_intersect;
 	// printf("TEST vs.end (%.1f, %.1f)\n", vs.end.x, vs.end.y);
 	vs.player = player;
@@ -110,7 +115,12 @@ void	ft_visu_joan(t_main *s)
 	t_dpos	player;
 
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
-		return ;
+	{
+		s->player.r_pos = s->fplayer_pos;
+		s->player.angle = s->fplayer_angle;
+		s->player.sector_id = 2;
+	}
+		// return ;
 	player.x = s->player.r_pos.x * METRE;
 	player.y = s->player.r_pos.y * METRE;
 	// printf("player.x = %f, player.y = %f\n", player.x, player.y);
@@ -118,6 +128,7 @@ void	ft_visu_joan(t_main *s)
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
 	vs.sct_id = s->player.sector_id;
+	vs.sct = get_sector_by_id(s, s->player.sector_id);
 
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
 	// printf("demi_fov = %f\n",demi_fov);

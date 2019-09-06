@@ -7,6 +7,8 @@ void	click_editor_menu(t_main *s, t_anim menu, int x)
 
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
 	case_size = menu.image[0]->w / 6;
+	if (s->player_view)
+		return ;
 	if (x < ori_x + case_size)
 		change_mode(s, MOVE);
 	else if (x < ori_x + (case_size * 2) && x > ori_x + case_size)
@@ -54,11 +56,11 @@ int		keyboard_controls_edi(t_main *s, int key)
 	{
 		s->player_view = s->player_view == 1 ? 0 : 1;
 	}
-	if (key == SDLK_KP_PLUS)
+	if (key == SDLK_KP_PLUS && !s->player_view)
 	{
 		s->editor->dply_floor = ft_prev_next_floor(s, 1);
 	}
-	if (key == SDLK_KP_MINUS)
+	if (key == SDLK_KP_MINUS && !s->player_view)
 	{
 		s->editor->dply_floor = ft_prev_next_floor(s, 2);
 	}
@@ -74,7 +76,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 		if (s->player.angle < 0)
 			s->player.angle += 360;
 	}
-	if (key == FLOOR)
+	if (key == FLOOR && !s->player_view)
 	{
 		if (s->editor->mode_floor == 1)
 			s->editor->mode_floor = 0;
@@ -141,15 +143,15 @@ void	handle_editor_keys(t_main *s)
 
 
 
-	if (s->editor->mode == sprite)
-		draw_sprite_menu(s);
+	// if (s->editor->mode == sprite)
+	// 	draw_sprite_menu(s);
 
 		//display_menu_sprite(s);
 	// printf("mode = %d\n", s->editor->mode);
 	ft_visu_joan(s);
 	// if (keys[SPACE])
-	ia(s);
-	//sprite_orientation(s);
+
+	play_anim(s);
 	//	sprite_move(s);
 
 	draw_sprite(s);
@@ -218,7 +220,7 @@ void	editor_handler(t_main *s)
 				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
-				if (selected && s->editor->mode == vertex)
+				if (selected && s->editor->mode == vertex && !s->player_view)
 				{
 					move_anchor(s, id);
 					move_vertex(s, tmp_move, ori, id);
@@ -226,7 +228,7 @@ void	editor_handler(t_main *s)
 				}
 				if(s->player_view)
 				{
-					// SDL_SetRelativeMouseMode(SDL_TRUE);
+					SDL_SetRelativeMouseMode(SDL_TRUE);
 					 rotate_mouse(s);
 					 s->editor->mode = move;
 
@@ -417,12 +419,12 @@ void	editor_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
-				if (s->sdl->event.wheel.y > 0 && zoom < 15)
+				if (s->sdl->event.wheel.y > 0 && zoom < 15 && !s->player_view)
 				{
 					ft_zoom(s,s->ft_mouse, 5);
 					zoom++;
 				}
-				else if (s->sdl->event.wheel.y < 0 && zoom > -3)
+				else if (s->sdl->event.wheel.y < 0 && zoom > -3 && !s->player_view)
 				{
 					ft_zoom(s,s->ft_mouse, -5);
 					zoom--;
@@ -432,7 +434,7 @@ void	editor_handler(t_main *s)
 				&& (yoan = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
-				&& yoan == 2 && selected == 1)
+				&& yoan == 2 && selected == 1 && !s->player_view)
 				{
 					remove_anchor(s, id);
 					remove = 1;

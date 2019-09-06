@@ -155,7 +155,8 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	vtx = vs.begin_wall;
 	// printf("vtx ptr = %d\n", vtx->ptr->id);
 	draw_first_wall(s, vtx, &vs);
-
+	if (vs.begin_wall_id == vs.end_wall_id)
+		return ;
 	plan_left = s->tmp_intersect;
 	// printf("end wall id = %d\n", get_t_int_by_vertex_id(sct->vertex, vs.end_wall_id)->id);
 	// if (vs.begin_wall_id == vs.end_wall_id) // cas 1 seul mur

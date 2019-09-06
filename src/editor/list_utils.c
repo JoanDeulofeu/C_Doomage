@@ -5,6 +5,8 @@ t_sector	*get_sector_by_id(t_main *s, int id)
 	t_sector	*tmp_sct;
 
 	tmp_sct = s->sector;
+	if(id == 0)
+		handle_error(s, SECTOR_ERROR);
 	while (tmp_sct->id != id)
 		tmp_sct = tmp_sct->next;
 	return(tmp_sct);
@@ -41,10 +43,12 @@ t_int	*get_t_int_by_vertex_id(t_int *vtx, int ptr_id)
 	int		i;
 
 	i = 0;
+	if (!vtx)
+		return (NULL);
 	tmp = vtx;
 	while (i++ < vtx->prev->id && tmp->ptr->id != ptr_id)
 		tmp = tmp->next;
-	if (tmp->ptr->id == ptr_id)
+	if (tmp && tmp->ptr->id == ptr_id)
 		return(tmp);
 	else
 		return(NULL);
