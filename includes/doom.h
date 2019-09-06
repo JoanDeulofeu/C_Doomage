@@ -163,12 +163,12 @@ typedef struct		s_sdl {
 
 typedef struct		s_main {
 	TTF_Font		*font;
-	t_sdl			*sdl;
+	t_sdl				*sdl;
 	t_editor		*editor;
 	t_dpos			p_pos;
 	t_dpos			left_plan;
 	t_dpos			right_plan;
-	t_pos			ft_mouse;
+	t_pos				ft_mouse;
 	t_line			line;
 	t_visu			visu;
 	t_player		player;
@@ -178,17 +178,19 @@ typedef struct		s_main {
 	t_vertex		*vertex;
 	t_sector		*sector;
 	t_point			**grid;
-	char			*str_vtx;
-	char			player_view;
-	int				viewline;
+	char				*str_vtx;
+	char				player_view;
+	int					viewline;
+	int					proj_distance;
 	t_image			*menu;
 	t_image			*interface;
 	t_image			*skybox;
+	short				fov;
 	t_sprite		*sprite;
 	t_lsprite		*lsprite;
 	t_lsprite		*choice_sprite;
 	t_walls			*walls;
-	int				portal_nb;
+	int					portal_nb;
 }					t_main;
 
 /*
@@ -406,7 +408,7 @@ void 				print_wall_list(t_main *s);
 /*
 ****	Fonction des textures
 */
-//void				draw_skybox(t_main *s, ? , t_visu vs);
+void				draw_skybox(t_main *s, t_visu vs);
 
 /*FCT SPRITE CHAINLIST*/
 t_pos 	get_px_r_pos(t_main *s, t_dpos ref);
