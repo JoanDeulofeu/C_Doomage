@@ -309,9 +309,9 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			fake_angle = 0;
 			fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
 			s->fplayer_pos = fake_player;
-			// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
-			s->fplayer_angle = fake_vs.angle;
+			printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
+			s->fplayer_angle = fake_angle;
 			fake_vs.sct_id = vtx->sct_dest;
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 			fake_vs.vtx_droite = vtx->vtx_dest;

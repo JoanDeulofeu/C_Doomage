@@ -116,13 +116,20 @@ void	ft_visu_joan(t_main *s)
 
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 	{
-		s->player.r_pos = s->fplayer_pos;
+		printf("player.y = %f, fplqyer.y = %f\n", s->player.r_pos.y, s->fplayer_pos.y);
+		// s->player.r_pos.x = s->fplayer_pos.x * METRE;
+		// s->player.r_pos.y = s->fplayer_pos.y * METRE;
+		player.x = s->fplayer_pos.x;
+		player.y =s->fplayer_pos.y;
 		s->player.angle = s->fplayer_angle;
 		s->player.sector_id = 2;
 	}
-		// return ;
-	player.x = s->player.r_pos.x * METRE;
-	player.y = s->player.r_pos.y * METRE;
+	else
+	{
+		player.x = s->player.r_pos.x * METRE;
+		player.y = s->player.r_pos.y * METRE;
+	}
+
 	// printf("player.x = %f, player.y = %f\n", player.x, player.y);
 	// printf("player.angle = %f\n", s->player.angle);
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
