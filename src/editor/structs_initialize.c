@@ -96,6 +96,7 @@ void		load_images(t_main *s)
 	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
+	s->skybox = load_tga("images/skybox_stars.tga", 0, 0, 0);
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 
 
@@ -144,7 +145,6 @@ t_main		*initialize_main(void)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
-	s->viewline = HEIGHT / 2;
 
 	s->player.set = 1;
 	s->player.i = 0;
@@ -172,6 +172,12 @@ t_main		*initialize_main(void)
 	s->str_vtx = NULL;
 	s->walls = NULL;
 	s->portal_nb = 0;
+	s->interface = NULL;
+	s->skybox = NULL;
+	s->viewline = HEIGHT / 2;
+	s->fov = FOV;
+	s->proj_distance = (WIDTH / 2) / tan((double)(s->fov / 2)
+	* M_PI / 180.0);
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);

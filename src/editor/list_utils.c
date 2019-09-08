@@ -43,10 +43,12 @@ t_int	*get_t_int_by_vertex_id(t_int *vtx, int ptr_id)
 	int		i;
 
 	i = 0;
+	if (!vtx)
+		return (NULL);
 	tmp = vtx;
 	while (i++ < vtx->prev->id && tmp->ptr->id != ptr_id)
 		tmp = tmp->next;
-	if (tmp->ptr->id == ptr_id)
+	if (tmp && tmp->ptr->id == ptr_id)
 		return(tmp);
 	else
 		return(NULL);
