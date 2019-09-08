@@ -242,7 +242,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
 		s->fplayer_pos = fake_player;
 		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
-		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
+		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 		s->fplayer_angle = fake_vs.angle;
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
@@ -266,7 +266,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 		fake_vs.begin = s->tmp_intersect;
 		// printf("begin = x:%f y:%f\n", fake_vs.begin.x, fake_vs.begin.y);
-		fake_vs.begin_wall_id = ft_find_wall2(s, fake_vs.begin, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
+		fake_vs.begin_wall_id = ft_find_wall2(s, fake_vs.begin, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id); // #37f3ff
 		// printf("begin wall id = %d\n", fake_vs.begin_wall_id);
 		if (fake_vs.begin_wall_id == 0)
 			fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
@@ -373,7 +373,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
 			s->fplayer_pos = fake_player;
 			// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
-			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
+			fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 			s->fplayer_angle = fake_vs.angle;
 			fake_vs.sct_id = vtx->sct_dest;
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
@@ -397,7 +397,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 			fake_vs.end = s->tmp_intersect;
 			// printf("end.x = %f, end.y = %f\n", fake_vs.end.x, fake_vs.end.y);
-			fake_vs.end_wall_id = ft_find_wall2(s, fake_vs.end, fake_vs.right_point, 0x37f3ffff, fake_vs.sct_id);
+			fake_vs.end_wall_id = ft_find_wall2(s, fake_vs.end, fake_vs.right_point, 0x37f3ffff, fake_vs.sct_id); // #37f3ff
 			fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
 			// tmp = s->tmp_intersect;
 			// tmp.x += s->editor->decal_x;
