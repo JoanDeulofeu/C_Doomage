@@ -64,6 +64,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 
 t_visu	ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 {
+	// printf("chocolat\n");
 	t_dpos	ctr_p; //center plan
 	t_visu	vs;
 

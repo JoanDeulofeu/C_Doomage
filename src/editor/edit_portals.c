@@ -200,7 +200,7 @@ void	change_over_wall(t_main *s)
 				sector  = get_sector_by_id(s, id);
 				wall = sector->vertex;
 				beg = wall->ptr->pos;
-				end = wall->ptr->next->pos;
+				end = wall->next->ptr->pos;
 
 				wall_save = wall;
 				while (i++ < sector->vertex->prev->id)
