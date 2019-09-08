@@ -213,6 +213,7 @@ typedef struct		s_main {
 	t_dpos			col_pos;
 	t_dpos			fplayer_pos;
 	double			fplayer_angle;
+	int				fplayer_sct;
 }					t_main;
 
 /*

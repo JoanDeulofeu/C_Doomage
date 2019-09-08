@@ -122,24 +122,37 @@ void	ft_visu_joan(t_main *s)
 		// s->player.r_pos.y = s->fplayer_pos.y * METRE;
 		// printf("=======\nplayer.angle = %f\n", s->player.angle);
 		// printf("fake player.angle = %f\n=======\n", s->fplayer_angle);
-		s->player.angle = s->fplayer_angle;
-		s->player.pos.x = s->fplayer_pos.x;
-		s->player.pos.y = s->fplayer_pos.y;
+		s->player.angle = (long)s->fplayer_angle % 360;
+		// s->player.pos.x = s->fplayer_pos.x;
+		// s->player.pos.y = s->fplayer_pos.y;
 		if (s->fplayer_angle > 0 && s->fplayer_angle < 180)
-			s->player.pos.y -= 10;
-		else if (s->fplayer_angle > 180 && s->fplayer_angle < 360)
-			s->player.pos.y += 10;
-		if (s->fplayer_angle > 90 && s->fplayer_angle < 270)
-			s->player.pos.x -= 10;
-		else if (s->fplayer_angle < 90 && s->fplayer_angle > 270)
-			s->player.pos.x += 10;
-		// printf("true\n");
+		{
+			printf("1\n");
+			s->player.pos.y = s->fplayer_pos.y - 2;
+		}
+		else if (s->fplayer_angle >= 180 && s->fplayer_angle < 360)
+		{
+			printf("2\n");
+			s->player.pos.y = s->fplayer_pos.y + 2;
+		}
+		if (s->fplayer_angle > 90 && s->fplayer_angle <= 270)
+		{
+			printf("3\n");
+			s->player.pos.x = s->fplayer_pos.x + 2;
+		}
+		else if (s->fplayer_angle <= 90 || s->fplayer_angle > 270)
+		{
+			printf("3\n");
+			s->player.pos.x = s->fplayer_pos.x - 2;
+		}
+		// printf("fplayer angle = %f\n", s->fplayer_angle);
 		// s->player.pos.x = s->fplayer_pos.x;
 		// s->player.pos.y = s->fplayer_pos.y;
 
 		player.x = s->player.pos.x;
-		player.y =s->player.pos.y;
-		s->player.sector_id = 2;
+		player.y = s->player.pos.y;
+		//changer secteur en fonction de la teleportation
+		s->player.sector_id = s->fplayer_sct;
 		s->portal_nb = 0;
 	}
 	else
@@ -152,6 +165,7 @@ void	ft_visu_joan(t_main *s)
 	// printf("player.angle = %f\n", s->player.angle);
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
+	printf("sct id = %d\n", s->player.sector_id);
 	vs.sct_id = s->player.sector_id;
 	vs.sct = get_sector_by_id(s, s->player.sector_id);
 

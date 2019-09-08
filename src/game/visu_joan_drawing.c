@@ -247,6 +247,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		{
 			s->fplayer_pos = fake_player;
 			s->fplayer_angle = fake_angle;
+			s->fplayer_sct = vtx->sct_dest;
 			// printf("fplayer_pos.y = %f\n", s->fplayer_pos.y);
 		}
 		fake_vs.sct_id = vtx->sct_dest;
@@ -338,6 +339,7 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			{
 				s->fplayer_pos = fake_player;
 				s->fplayer_angle = fake_angle;
+				s->fplayer_sct = vtx->sct_dest;
 				// printf("fplayer_pos.y = %f\n", s->fplayer_pos.y);
 			}
 			fake_vs.sct_id = vtx->sct_dest;
@@ -417,6 +419,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			{
 				s->fplayer_pos = fake_player;
 				s->fplayer_angle = fake_angle;
+				s->fplayer_sct = vtx->sct_dest;
 				// printf("fplayer_pos.y = %f\n", s->fplayer_pos.y);
 			}
 			fake_vs.sct_id = vtx->sct_dest;
