@@ -215,6 +215,8 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 
 	// fake_angle = ft_find_angle_portal(&lwall, &rwall, &player, 1);
 	player_angle = ft_find_angle_portal(&lwall, &player, NULL, 1);
+	if (lwall.y < player.y)
+		player_angle = 180 + (180 - player_angle);
 
 	//trouver langle du portail d'entree
 	angle_portal_in = ft_find_angle_portal(&lwall, &rwall, NULL, 1);

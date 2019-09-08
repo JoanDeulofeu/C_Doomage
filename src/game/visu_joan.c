@@ -64,6 +64,7 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 
 t_visu	ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 {
+	// printf("chocolat\n");
 	t_dpos	ctr_p; //center plan
 	t_visu	vs;
 
@@ -116,7 +117,7 @@ void	ft_visu_joan(t_main *s)
 
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 	{
-		printf("player.y = %f, fplqyer.y = %f\n", s->player.r_pos.y, s->fplayer_pos.y);
+		// printf("player.y = %f, fplqyer.y = %f\n", s->player.r_pos.y, s->fplayer_pos.y);
 		// s->player.r_pos.x = s->fplayer_pos.x * METRE;
 		// s->player.r_pos.y = s->fplayer_pos.y * METRE;
 		player.x = s->fplayer_pos.x;

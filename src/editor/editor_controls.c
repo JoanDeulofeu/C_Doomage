@@ -149,6 +149,7 @@ void	handle_editor_keys(t_main *s)
 		//display_menu_sprite(s);
 	// printf("mode = %d\n", s->editor->mode);
 	ft_visu_joan(s);
+	// printf("\n");
 	// if (keys[SPACE])
 
 	play_anim(s);
