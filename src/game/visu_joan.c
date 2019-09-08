@@ -116,13 +116,18 @@ void	ft_visu_joan(t_main *s)
 
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 	{
-		printf("player.y = %f, fplqyer.y = %f\n", s->player.r_pos.y, s->fplayer_pos.y);
+		// printf("player.y = %f, fplqyer.y = %f\n", s->player.pos.y, s->fplayer_pos.y);
 		// s->player.r_pos.x = s->fplayer_pos.x * METRE;
 		// s->player.r_pos.y = s->fplayer_pos.y * METRE;
+		// printf("=======\nplayer.angle = %f\n", s->player.angle);
+		// printf("fake player.angle = %f\n=======\n", s->fplayer_angle);
+		s->player.pos.x = s->fplayer_pos.x;
+		s->player.pos.y = s->fplayer_pos.y;
+		s->player.angle = s->fplayer_angle;
 		player.x = s->fplayer_pos.x;
 		player.y =s->fplayer_pos.y;
-		s->player.angle = s->fplayer_angle;
 		s->player.sector_id = 2;
+		s->portal_nb = 0;
 	}
 	else
 	{
@@ -144,7 +149,6 @@ void	ft_visu_joan(t_main *s)
 	angle_right = s->player.angle - demi_fov;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
-
 	// draw_skybox(s, vs);
 	ft_draw_visu(s, player, get_sector_by_id(s, s->player.sector_id), vs);
 // printf("------  SORTIE  ------\n");
