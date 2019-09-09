@@ -108,6 +108,7 @@ void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
 
+
 	keys = SDL_GetKeyboardState(NULL);
 	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
 		ft_move_player(s, keys);
@@ -157,7 +158,8 @@ void	handle_editor_keys(t_main *s)
 	// 	draw_sprite_menu(s);
 
 		//display_menu_sprite(s);
-	// printf("mode = %d\n", s->editor->mode);
+	//printf("mode = %d\n", s->editor->mode);
+
 	ft_visu_joan(s);
 	if (s->display_mode == 1)
 	{
