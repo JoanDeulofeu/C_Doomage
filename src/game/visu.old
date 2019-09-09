@@ -462,7 +462,7 @@ void	ft_visu(t_main *s)
 	// s->line.x2 = s->intersect1.x;
 	// s->line.y2 = s->intersect1.y;
 	// get_line(s, color);
-	// if (s->player_view)
+	// if (s->display_mode)
 		ft_visu_wall(s);
 
 	// ft_visu_wall(s, mur1, mur2);

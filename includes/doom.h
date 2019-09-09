@@ -20,7 +20,7 @@
 # define HITBOX 2
 # define SPRITE_HITBOX 10
 
-# define PORTAL_LIMIT 10
+# define PORTAL_LIMIT 20
 
 
 //sprite
@@ -32,56 +32,56 @@
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
 
-typedef struct		s_fix_pos {
-	Uint32			x;
-	Uint32			y;
-}					t_fix_pos;
+typedef struct				s_fix_pos {
+	Uint32					x;
+	Uint32					y;
+}							t_fix_pos;
 
-typedef struct		s_ttf {
-	SDL_Rect		pos;
-	char			*str;
-	int				r;
-	int				g;
-	int				b;
-}					t_ttf;
+typedef struct				s_ttf {
+	SDL_Rect				pos;
+	char					*str;
+	int						r;
+	int						g;
+	int						b;
+}							t_ttf;
 
-typedef struct		s_texture {
-	Uint32			*content;
-	SDL_Texture		*texture;
-	Uint32			color_tmp;
-}					t_texture;
+typedef struct				s_texture {
+	Uint32					*content;
+	SDL_Texture				*texture;
+	Uint32					color_tmp;
+}							t_texture;
 
-typedef struct		s_visu_sct
+typedef struct				s_visu_sct
 {
-	int				sector_id;
-	int				sx1;
-	int				sx2;
-}					t_visu_sct;
+	int						sector_id;
+	int						sx1;
+	int						sx2;
+}							t_visu_sct;
 
-typedef struct		s_time
+typedef struct				s_time
 {
-	int				action;
-	t_pos 			recoil;
-	long            fin_time;
-	long            tmp_time;
-	char            v0id[32];
-}					t_time;
+	int						action;
+	t_pos 					recoil;
+	long					fin_time;
+	long					tmp_time;
+	char					v0id[32];
+}							t_time;
 
-typedef struct		s_lanim
+typedef struct				s_lanim
 {
-	int									id;
-	int									max_current;
-	t_image							*image[15];
-}					t_lanim;
+	int						id;
+	int						max_current;
+	t_image					*image[15];
+}							t_lanim;
 
 
-typedef struct		s_lsprite
+typedef struct				s_lsprite
 {
-	int							id;
+	int						id;
 	t_image 				*img;
-	t_lanim 					*anim;
-	struct s_lsprite *next;
-}									t_lsprite;
+	t_lanim 				*anim;
+	struct s_lsprite		*next;
+}							t_lsprite;
 
 typedef struct				s_sprite
 {
@@ -100,120 +100,133 @@ typedef struct				s_sprite
 	t_pos					pos;
 	t_type					type;
 	t_image 				*img;
-	t_lanim 					*anim;
+	t_lanim 				*anim;
 	struct s_sprite			*next;
 }							t_sprite;
 
 
-typedef struct		s_player
+typedef struct				s_player
 {
-	long			j_fin_time;
-	long			fin_time;
-	long			tmp_time;
-	int 			set_jump;
-	int 			i;
-	t_dpos 			r_pos; // position reel du joueur par rpport au repere
-	t_dpos			pos; // Position du joueur en pixel
-	t_pos 			ori; //position du joueur en case (avant correction)
-	t_pos 			p_ori; //valeur en pixel à rajouter pour avoir la position
-	t_pos 			p_ref; // decalage en pixel par rapport a la ref
-	t_line 			line;
-	int 			set;
-	int 			correc;
-	int 			init_space;
-	int				sector_id;
-	int 			eyesight;
-	int 			y_eye;
-	double			angle;
-	int				height;
-	t_anim			weapon;
-	t_time 			t;
-	t_image			*hud;
-	t_image			*crosshair;
+	long					j_fin_time;
+	long					fin_time;
+	long					tmp_time;
+	int 					set_jump;
+	int 					i;
+	t_dpos 					r_pos; // position reel du joueur par rpport au repere
+	t_dpos					pos; // Position du joueur en pixel
+	t_pos 					ori; //position du joueur en case (avant correction)
+	t_pos 					p_ori; //valeur en pixel à rajouter pour avoir la position
+	t_pos 					p_ref; // decalage en pixel par rapport a la ref
+	t_line 					line;
+	int 					set;
+	int 					correc;
+	int 					init_space;
+	int						sector_id;
+	int 					eyesight;
+	int 					y_eye;
+	double					angle;
+	int						height;
+	t_anim					weapon;
+	t_time 					t;
+	t_image					*hud;
+	t_image					*crosshair;
+	t_sector				*sector;
+}							t_player;
 
-	t_sector		*sector;
-}					t_player;
+typedef struct				s_visu {
+	t_dpos					tmp_wall;
+	t_dpos					left_plan;
+	t_dpos					right_plan;
+	t_dpos					begin;
+	int						begin_wall_id;
+	t_int					*begin_wall;
+	t_dpos					end;
+	int						end_wall_id;
+	t_pos					pixel;
+	Uint32					color;
+	t_dpos					left_point;
+	t_dpos					right_point;
+	t_dpos					player;
+	double					angle;
+	int						sct_id;
+	t_sector				*sct;
+	t_int					*vtx_gauche;
+	t_int					*vtx_droite;
+}							t_visu;
 
-typedef struct		s_visu {
-	t_dpos			tmp_wall;
-	t_dpos			left_plan;
-	t_dpos			right_plan;
-	t_dpos			begin;
-	int				begin_wall_id;
-	t_int			*begin_wall;
-	t_dpos			end;
-	int				end_wall_id;
-	t_pos			pixel;
-	Uint32			color;
-	t_dpos			left_point;
-	t_dpos			right_point;
-	t_dpos			player;
-	double			angle;
-	int				sct_id;
-	t_sector		*sct;
-	t_int			*vtx_gauche;
-	t_int			*vtx_droite;
-}					t_visu;
+typedef struct				s_walls {
+	double					distance;
+	int						x;
+	t_dpos					player;
+	t_dpos					left;
+	t_dpos					right;
+	t_dpos					l_plan;
+	t_dpos					r_plan;
+	struct s_walls			*prev;
+	struct s_walls			*next;
+}							t_walls;
 
-typedef struct		s_walls {
-	double			distance;
-	int				x;
-	t_dpos			player;
-	t_dpos			left;
-	t_dpos			right;
-	t_dpos			l_plan;
-	t_dpos			r_plan;
-	struct s_walls	*prev;
-	struct s_walls	*next;
-}					t_walls;
+typedef struct				s_savemap {
+	t_image					*croix_rouge;
+}							t_savemap;
 
-typedef struct		s_sdl {
-	SDL_Window		*pwindow;
-	SDL_Renderer	*prenderer;
-	SDL_Event		event;
-	t_texture		*map;
-	t_texture		*game;
-	t_texture		*editor;
-	int				x_o;
-	int				y_o;
-	// t_sounds		sounds;
-	Mix_Music		*musique;
-}					t_sdl;
+typedef struct				s_sdl {
+	SDL_Window				*pwindow;
+	SDL_Renderer			*prenderer;
+	SDL_Event				event;
+	t_texture				*map;
+	t_texture				*game;
+	t_texture				*editor;
+	t_texture				*save; //ecran de sauvegarde
+	int						x_o;
+	int						y_o;
+	// t_sounds				sounds;
+	Mix_Music				*musique;
+}							t_sdl;
 
-typedef struct		s_main {
-	TTF_Font		*font;
-	t_sdl				*sdl;
-	t_editor		*editor;
-	t_dpos			p_pos;
-	t_dpos			left_plan;
-	t_dpos			right_plan;
-	t_pos				ft_mouse;
-	t_line			line;
-	t_visu			visu;
-	t_player		player;
-	t_dpos			tmp_intersect;
-	t_dpos			intersect1;
-	t_dpos			intersect2;
-	t_vertex		*vertex;
-	t_sector		*sector;
-	t_point			**grid;
-	char				*str_vtx;
-	char				player_view;
-	int					viewline;
-	int					proj_distance;
-	t_image			*menu;
-	t_image			*interface;
-	t_image			*skybox;
-	short				fov;
-	t_sprite		*sprite;
-	t_lsprite		*lsprite;
-	t_lsprite		*choice_sprite;
-	t_walls			*walls;
-	int					portal_nb;
-	t_dpos			col_pos;
-	t_dpos			fplayer_pos;
-	double			fplayer_angle;
-}					t_main;
+typedef struct				s_font {
+	TTF_Font				*press_start;
+	TTF_Font				*open;
+	TTF_Font				*roboto;
+	TTF_Font				*stylish;
+	TTF_Font				*stylish100;
+}							t_font;
+
+typedef struct				s_main {
+	t_font					*font;
+	t_sdl					*sdl;
+	t_editor				*editor;
+	t_savemap				*savemap;
+	t_dpos					p_pos;
+	t_dpos					left_plan;
+	t_dpos					right_plan;
+	t_pos					ft_mouse;
+	t_line					line;
+	t_visu					visu;
+	t_player				player;
+	t_dpos					tmp_intersect;
+	t_dpos					intersect1;
+	t_dpos					intersect2;
+	t_vertex				*vertex;
+	t_sector				*sector;
+	t_point					**grid;
+	char		 			*str_vtx;
+	char					display_mode; // 0=game, 1=editeur, 2=save
+	int						viewline;
+	int						proj_distance;
+	t_image					*menu;
+	t_image					*interface;
+	t_image					*skybox;
+	short					fov;
+	t_sprite				*sprite;
+	t_lsprite				*lsprite;
+	t_lsprite				*choice_sprite;
+	t_walls					*walls;
+	int						portal_nb;
+	t_dpos					col_pos;
+	t_dpos					fplayer_pos;
+	double					fplayer_angle;
+}							t_main;
 
 /*
 ****	Fonction du visualisateur
@@ -399,10 +412,10 @@ void 				display_crosshair(t_main *s, int i, int j);
 void 				draw_weapon2(t_main *s, int i, int j);
 int					is_colliding(t_main *s);
 
-
-// fonction affichage sprite
-
-
+/*
+****	Fonction de sauvegarde
+*/
+void				ft_save_map(t_main *s);
 
 
 /*
@@ -421,13 +434,14 @@ fixed_float			ft_fixed_mul(fixed_float a, fixed_float b);
 ****	Fonction des ttf
 */
 void				ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
-TTF_Font			*ft_init_font(void);
+void				ft_init_font(t_main *s);
 void				ft_draw_ttf(t_main *s);
 
 /*
 ****	Fonction de debug
 */
 void 				print_wall_list(t_main *s);
+
 /*
 ****	Fonction des textures
 */

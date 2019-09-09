@@ -1,19 +1,28 @@
 #include "doom.h"
 
-TTF_Font	*ft_init_font(void)
+void	ft_all_ttf_to_null(t_main *s)
 {
-	TTF_Font	*font;
+	s->font->press_start = NULL;
+	s->font->open = NULL;
+	s->font->roboto = NULL;
+	s->font->stylish = NULL;
+	s->font->stylish100 = NULL;
+}
 
-	if ((font = TTF_OpenFont("sdl_font/press-start.ttf", 10)) != NULL)
-		return (font);
-	if ((font = TTF_OpenFont("sdl_font/Open.ttf", 10)) != NULL)
-		return (font);
-	if ((font = TTF_OpenFont("sdl_font/Roboto.ttf", 10)) != NULL)
-		return (font);
-	if ((font = TTF_OpenFont("sdl_font/Stylish.ttf", 10)) != NULL)
-		return (font);
-	ft_error_ttf("Erreur initialisation ft_init_font: ");
-	return (font);
+void	ft_init_font(t_main *s)
+{
+	ft_all_ttf_to_null(s);
+	while ((s->font->press_start = TTF_OpenFont("sdl_font/press-start.ttf", 10)) == NULL)
+		;
+	while ((s->font->open = TTF_OpenFont("sdl_font/Open.ttf", 10)) == NULL)
+		;
+	while ((s->font->roboto = TTF_OpenFont("sdl_font/Roboto.ttf", 10)) == NULL)
+		;
+	while ((s->font->stylish = TTF_OpenFont("sdl_font/Stylish.ttf", 10)) == NULL)
+		;
+	while ((s->font->stylish100 = TTF_OpenFont("sdl_font/Stylish.ttf", 100)) == NULL)
+		;
+	// ft_error_ttf("Erreur initialisation ft_init_font: ");
 }
 
 void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
@@ -35,7 +44,7 @@ void	ft_draw_ttf(t_main *s)
 {
 	t_ttf		ttf;
 
-	if (s->editor->mode_floor == 1)
+	if (s->editor->mode_floor == 1 && s->display_mode == 0)
 	{
 		ttf.r = 255;
 		ttf.g = 255;
@@ -43,6 +52,23 @@ void	ft_draw_ttf(t_main *s)
 		ttf.pos.x = 658;
 		ttf.pos.y = 35;
 		ttf.str = ft_strdup("1");
-		ft_create_ttf(ttf, s, s->font);
+		ft_create_ttf(ttf, s, s->font->press_start);
+	}
+	if (s->display_mode == 2)
+	{
+		ttf.r = 255;
+		ttf.g = 0;
+		ttf.b = 0;
+		ttf.pos.x = 200;
+		ttf.pos.y = 200;
+		ttf.str = ft_strdup("SAUVEGARDE");
+		ft_create_ttf(ttf, s, s->font->stylish100);
+		ttf.r = 255;
+		ttf.g = 255;
+		ttf.b = 255;
+		ttf.pos.x = 240;
+		ttf.pos.y = 400;
+		ttf.str = ft_strdup("Veuillez entrer le nom de la map a sauvegarder :");
+		ft_create_ttf(ttf, s, s->font->press_start);
 	}
 }

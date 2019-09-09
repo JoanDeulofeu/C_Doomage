@@ -428,6 +428,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 {
 	t_walls		*tmp;
 	t_int		*vtx;
+	(void)player;
 
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);

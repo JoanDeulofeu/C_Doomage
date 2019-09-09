@@ -5,6 +5,9 @@ SRC_PATH = src
 
 SRC_NAME =	main.c						\
 			ttf.c						\
+			menu.c						\
+			debug.c						\
+			save_map.c					\
 			editor/controls.c			\
 			editor/actions.c			\
 			editor/selected.c			\
@@ -49,9 +52,7 @@ SRC_NAME =	main.c						\
 			game/fire_mode.c			\
 			game/skybox.c				\
 			game/ia.c					\
-			game/collisions.c			\
-			menu.c						\
-			debug.c
+			game/collisions.c			
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

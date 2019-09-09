@@ -32,35 +32,34 @@
 # define POINTER_ERROR 7
 # define SECTOR_ERROR 8
 
-# define LEFT_AR	SDL_SCANCODE_LEFT
-# define RIGHT_AR	SDL_SCANCODE_RIGHT
-# define UP_AR		SDL_SCANCODE_UP
-# define DOWN_AR	SDL_SCANCODE_DOWN
+# define LEFT_AR		SDL_SCANCODE_LEFT
+# define RIGHT_AR		SDL_SCANCODE_RIGHT
+# define UP_AR			SDL_SCANCODE_UP
+# define DOWN_AR		SDL_SCANCODE_DOWN
 
-# define SPACE	SDL_SCANCODE_SPACE
-# define LCTRL	SDL_SCANCODE_LCTRL
-# define SPRINT	SDL_SCANCODE_LSHIFT
+# define SPACE			SDL_SCANCODE_SPACE
+# define LCTRL			SDL_SCANCODE_LCTRL
+# define SPRINT			SDL_SCANCODE_LSHIFT
 
-
-# define LEFT	SDL_SCANCODE_A
-# define RIGHT	SDL_SCANCODE_D
-# define UP		SDL_SCANCODE_W
-# define DOWN	SDL_SCANCODE_S
-# define RIGHT_NUM	SDL_SCANCODE_1
-# define LEFT_NUM	SDL_SCANCODE_2
-# define MOVE	SDLK_v
-# define WALL	SDLK_m
-# define VERTEX	SDLK_b
-# define PLAYER	SDLK_p
-# define FLOOR	SDLK_f
-# define SAVE	SDLK_s
-# define SPRITE	SDLK_o
-# define VISU	SDLK_i
-# define PORTAL	SDLK_l
+# define LEFT			SDL_SCANCODE_A
+# define RIGHT			SDL_SCANCODE_D
+# define UP				SDL_SCANCODE_W
+# define DOWN			SDL_SCANCODE_S
+# define RIGHT_NUM		SDL_SCANCODE_1
+# define LEFT_NUM		SDL_SCANCODE_2
+# define MOVE			SDLK_v
+# define WALL			SDLK_m
+# define VERTEX			SDLK_b
+# define PLAYER			SDLK_p
+# define FLOOR			SDLK_f
+# define SAVE			SDLK_u
+# define SPRITE			SDLK_o
+# define VISU			SDLK_i
+# define PORTAL			SDLK_l
 # define ROTATE_LEFT	SDLK_q
 # define ROTATE_RIGHT	SDLK_e
-# define DEL SDL_SCANCODE_DELETE
-# define DELETE	SDLK_DELETE
+# define DEL 			SDL_SCANCODE_DELETE
+# define DELETE			SDLK_DELETE
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
@@ -84,13 +83,13 @@
 # define S_DBLUE 0x081EDBFF
 # define S_DGREEN 0x288333FF
 
-typedef enum  	e_type {
+typedef enum  		e_type {
 	ennemi,
 	boss,
 	autre
-}				t_type;
+}					t_type;
 
-typedef enum  	e_mode {
+typedef enum  		e_mode {
 	move,
 	sector,
 	vertex,
@@ -98,7 +97,7 @@ typedef enum  	e_mode {
 	save,
 	portal,
 	sprite
-}				t_mode;
+}					t_mode;
 
 typedef struct		s_abpos {
 	float			a;

@@ -55,6 +55,8 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 		exit(-1);
 	if (!(sdl->editor = initialize_texture(sdl, WIDTH, HEIGHT)))
 		exit(-1);
+	if (!(sdl->save = initialize_texture(sdl, WIDTH, HEIGHT)))
+		exit(-1);
 	// sdl->x_o = WIDTH / 2 - ((SPACE * s->width) / 2);
 	// sdl->y_o = HEIGHT / 2 - ((SPACE * s->height) / 2);
 	sdl->musique = NULL;
@@ -63,7 +65,7 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	// 	s->interface->h = HEIGHT * 0.3;
 	// if (s->interface->h > WIDTH)
 	// 	s->interface->w = WIDTH;
-	s->font = ft_init_font();
+	ft_init_font(s);
 	// if (s->interface->h > HEIGHT * 0.3)
 	// 	s->interface->h = HEIGHT * 0.3;
 	// if (s->interface->h > WIDTH)
@@ -86,6 +88,7 @@ void		load_images(t_main *s)
 
 
 	s->menu = load_tga("images/menu.tga", 0, 0, 0);
+	s->savemap->croix_rouge = load_tga("images/croix_rouge.tga", 0, 0, 0);
 	s->player.weapon.image[1] = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->player.weapon.image[0] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
 	//s->player.weapon.image[2] = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
@@ -141,6 +144,10 @@ t_main		*initialize_main(void)
 		exit(-1);
 	if (!(s->editor = (t_editor*)malloc(sizeof(t_editor))))
 		exit(-1);
+	if (!(s->font = (t_font*)malloc(sizeof(t_font))))
+		exit(-1);
+	if (!(s->savemap = (t_savemap*)malloc(sizeof(t_savemap))))
+		exit(-1);
 	initialize_editor(s->editor);
 	s->vertex = NULL;
 	s->sector = NULL;
@@ -167,7 +174,7 @@ t_main		*initialize_main(void)
 	s->player.angle = 180;
 	s->player.sector_id = 0;
 	s->player.sector = NULL;
-	s->player_view = 0;
+	s->display_mode = 0;
 	s->player.init_space = s->editor->space;
 	s->str_vtx = NULL;
 	s->walls = NULL;

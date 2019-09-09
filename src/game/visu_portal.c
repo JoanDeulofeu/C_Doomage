@@ -99,7 +99,6 @@ double		ft_get_fake_angle(t_main *s, t_dpos player, t_int *vtx)
 
 void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 {
-	t_walls		*tmp;
 	t_dpos		plan_left;
 	int			x;
 	t_int		*vtx;

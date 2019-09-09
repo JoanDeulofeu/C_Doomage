@@ -101,6 +101,7 @@ void	change_mode(t_main *s, int key)
 		s->editor->mode = save;
 		s->editor->menu.current = 5;
 		ft_reset_color_vertex(s);
+		s->display_mode = 2;
 	}
 	else if (key == SPRITE)
 	{

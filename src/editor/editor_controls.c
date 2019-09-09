@@ -7,7 +7,7 @@ void	click_editor_menu(t_main *s, t_anim menu, int x)
 
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
 	case_size = menu.image[0]->w / 6;
-	if (s->player_view)
+	if (s->display_mode)
 		return ;
 	if (x < ori_x + case_size)
 		change_mode(s, MOVE);
@@ -50,45 +50,56 @@ int		check_click_menu(t_main *s)
 
 int		keyboard_controls_edi(t_main *s, int key)
 {
-	if (key == SDLK_ESCAPE)
+	if (s->display_mode != 2 && key == SDLK_ESCAPE)
 		return (0);
-	if (key == SDLK_RETURN)
+	if (s->display_mode == 2 && key == SDLK_ESCAPE)
 	{
-		s->player_view = s->player_view == 1 ? 0 : 1;
+		s->display_mode = 0;
+		s->editor->mode = move;
 	}
-	if (key == SDLK_KP_PLUS && !s->player_view)
-	{
-		s->editor->dply_floor = ft_prev_next_floor(s, 1);
+	// if (s->display_mode == 2 && key >= SDLK_a && key <= SDLK_z)
+	// {
+	// 	ft_add_letter_to_savemap(s, key);
+	// }
+	if (s->display_mode < 2)
+		if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
+		{
+			s->display_mode = s->display_mode == 1 ? 0 : 1;
+		}
+		if (key == SDLK_KP_PLUS && !s->display_mode)
+		{
+			s->editor->dply_floor = ft_prev_next_floor(s, 1);
+		}
+		if (key == SDLK_KP_MINUS && !s->display_mode)
+		{
+			s->editor->dply_floor = ft_prev_next_floor(s, 2);
+		}
+		if (key == ROTATE_LEFT)
+		{
+			s->player.angle += 20;
+			if (s->player.angle > 360)
+				s->player.angle -= 360;
+		}
+		if (key == ROTATE_RIGHT)
+		{
+			s->player.angle -= 20;
+			if (s->player.angle < 0)
+				s->player.angle += 360;
+		}
+		if (key == FLOOR && !s->display_mode)
+		{
+			if (s->editor->mode_floor == 1)
+				s->editor->mode_floor = 0;
+			else
+				s->editor->mode_floor = 1;
+			// s->editor->mode_floor = 1;
+			// ft_reset_color_vertex(s);
+		}
+		if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE )
+			change_mode(s, key);
+		if (key == DELETE)
+			return(2);
 	}
-	if (key == SDLK_KP_MINUS && !s->player_view)
-	{
-		s->editor->dply_floor = ft_prev_next_floor(s, 2);
-	}
-	if (key == ROTATE_LEFT)
-	{
-		s->player.angle += 20;
-		if (s->player.angle > 360)
-			s->player.angle -= 360;
-	}
-	if (key == ROTATE_RIGHT)
-	{
-		s->player.angle -= 20;
-		if (s->player.angle < 0)
-			s->player.angle += 360;
-	}
-	if (key == FLOOR && !s->player_view)
-	{
-		if (s->editor->mode_floor == 1)
-			s->editor->mode_floor = 0;
-		else
-			s->editor->mode_floor = 1;
-		// s->editor->mode_floor = 1;
-		// ft_reset_color_vertex(s);
-	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE )
-		change_mode(s, key);
-	if (key == DELETE)
-		return(2);
 	return (1);
 }
 
@@ -109,23 +120,25 @@ void	handle_editor_keys(t_main *s)
 	else if (keys[SPACE])
 	{
 //		 jump(s,1);
-
 	}
 	else
 	{
 		crouch(s,-1);
 		jump(s,-1);
 	}
-	if (s->editor->mode == vertex && (keys[DEL]))
-		remove_selected_anchor(s);
-	if (s->editor->mode == sprite && (keys[DEL]))
-		remove_sprite_by_select(s);
 
+	if (s->display_mode == 0)
+	{
+		if (s->editor->mode == vertex && (keys[DEL]))
+			remove_selected_anchor(s);
+		if (s->editor->mode == sprite && (keys[DEL]))
+			remove_sprite_by_select(s);
+	}
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+	// ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
 	ft_draw_editor(s->editor, s->sdl->editor);
-
 	display_map(s);
 	ft_draw_all_wall(s);
 	if (s->editor->mode_floor == 1)
@@ -135,13 +148,10 @@ void	handle_editor_keys(t_main *s)
 	}
 	else
 		s->editor->m_floor.current = 0;
-		if (s->editor->mode == portal)// && get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
-			change_over_wall(s);
+	if (s->editor->mode == portal)// && get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
+		change_over_wall(s);
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
-
-
-
 
 	// if (s->editor->mode == sprite)
 	// 	draw_sprite_menu(s);
@@ -149,20 +159,24 @@ void	handle_editor_keys(t_main *s)
 		//display_menu_sprite(s);
 	// printf("mode = %d\n", s->editor->mode);
 	ft_visu_joan(s);
-	// printf("\n");
-	// if (keys[SPACE])
+	if (s->display_mode == 1)
+	{
+		play_anim(s);
+		//	sprite_move(s);
+		draw_sprite(s);
+		draw_hud(s);
+	}
+	if (s->display_mode == 2)
+	{
+		ft_save_map(s);
+	}
 
-	play_anim(s);
-	//	sprite_move(s);
-
-	draw_sprite(s);
-
-	draw_hud(s);
-
-	if (s->player_view)
-		update_image(s, s->sdl->game);
-	else
+	if (s->display_mode == 0)
 		update_image(s, s->sdl->editor);
+	else if (s->display_mode == 1)
+		update_image(s, s->sdl->game);
+	else if (s->display_mode == 2)
+		update_image(s, s->sdl->save);
 
 	//	display_chainlist(s);
 
@@ -188,7 +202,7 @@ void	editor_handler(t_main *s)
 	t_pos 		tmp2;
 	t_pos		tmp_move;
 	t_pos		diff;
-	int			yoan;
+	int			remove_anchor;
 	t_vertex    *v;
 	t_mode			tmp_mode;
 
@@ -199,7 +213,7 @@ void	editor_handler(t_main *s)
 	selected = 0;
 	zoom = 0;
 	id = 0;
-	yoan = 0;
+	remove_anchor = 0;
 	tmp_move.x = 0;
 	tmp_move.y = 0;
 	remove = 0;
@@ -221,13 +235,13 @@ void	editor_handler(t_main *s)
 				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
-				if (selected && s->editor->mode == vertex && !s->player_view)
+				if (selected && s->editor->mode == vertex && !s->display_mode)
 				{
 					move_anchor(s, id);
 					move_vertex(s, tmp_move, ori, id);
 
 				}
-				if(s->player_view)
+				if(s->display_mode)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
 					 rotate_mouse(s);
@@ -351,7 +365,7 @@ void	editor_handler(t_main *s)
 						selected = set_selected_sprite(s,&mouse_save);
 						//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
 					}
-					if (s->player_view)
+					if (s->display_mode)
 					{
 						shoot(s,1);
 					}
@@ -420,22 +434,22 @@ void	editor_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
-				if (s->sdl->event.wheel.y > 0 && zoom < 15 && !s->player_view)
+				if (s->sdl->event.wheel.y > 0 && zoom < 15 && !s->display_mode)
 				{
 					ft_zoom(s,s->ft_mouse, 5);
 					zoom++;
 				}
-				else if (s->sdl->event.wheel.y < 0 && zoom > -3 && !s->player_view)
+				else if (s->sdl->event.wheel.y < 0 && zoom > -3 && !s->display_mode)
 				{
 					ft_zoom(s,s->ft_mouse, -5);
 					zoom--;
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
-				&& (yoan = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
+				&& (remove_anchor = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
-				&& yoan == 2 && selected == 1 && !s->player_view)
+				&& remove_anchor == 2 && selected == 1 && !s->display_mode)
 				{
 					remove_anchor(s, id);
 					remove = 1;

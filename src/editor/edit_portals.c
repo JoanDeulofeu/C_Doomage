@@ -95,12 +95,10 @@ int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 	char		bool_x;
 	char		bool_y;
 
-	begin = wall->ptr->pos;
-	end = wall->next->ptr->pos;
-	begin.x += s->editor->decal_x;
-	begin.y += s->editor->decal_y;
-	end.x += s->editor->decal_x;
-	end.y += s->editor->decal_y;
+	begin.x = wall->ptr->pos.x + s->editor->decal_x;
+	begin.y = wall->ptr->pos.y + s->editor->decal_y;
+	end.x = wall->next->ptr->pos.x + s->editor->decal_x;
+	end.y = wall->next->ptr->pos.y + s->editor->decal_y;
 	bool_x = 0;
 	bool_y = 0;
 	// printf("Wall %d et %d\n", wall->id, wall->next->id);
@@ -234,11 +232,11 @@ void	change_over_wall(t_main *s)
 				else if (s->editor->wall2 != NULL)
 					wall_save->selected = 4;
 
-				return  ;
+				return;
 			}
-			mouse.y+=1;
+			mouse.y+= 1;
 		}
-		mouse.x +=1;
+		mouse.x += 1;
 	}
 }
 

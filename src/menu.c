@@ -1,4 +1,3 @@
-
 #include "doom.h"
 
 void	display_menu(t_main *s, int i, int j)
@@ -49,7 +48,8 @@ int		handle_menu(t_main *s)
 			return (0);
 		else if (s->sdl->event.type == SDL_KEYDOWN)
 		{
-			if (s->sdl->event.key.keysym.sym == SDLK_RETURN)
+			if (s->sdl->event.key.keysym.sym == SDLK_RETURN
+				|| s->sdl->event.key.keysym.sym == SDLK_KP_ENTER)
 				break ;
 			else if (s->sdl->event.key.keysym.sym == SDLK_ESCAPE)
 				return (0);

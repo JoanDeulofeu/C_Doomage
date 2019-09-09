@@ -71,12 +71,12 @@ void             init_sprite(t_main *s)
   r_pos.x = 12.5;
   r_pos.y = 6.5;
   s->sprite = create_sprite_elem(s,0,0,r_pos);
-  r_pos.x = 7.5;
-  r_pos.y = 4.2;
-  add_sprite(s,r_pos,0);
-  r_pos.x = 13;
-  r_pos.y = 10;
-  add_sprite(s,r_pos,0);
+  // r_pos.x = 7.5;
+  // r_pos.y = 4.2;
+  // add_sprite(s,r_pos,0);
+  // r_pos.x = 13;
+  // r_pos.y = 10;
+  // add_sprite(s,r_pos,0);
 }
 
 int 				get_sprite_id(t_main *s)

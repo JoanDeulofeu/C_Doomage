@@ -2,7 +2,7 @@
 
 void	draw_skybox(t_main *s, t_visu vs)
 {
-	double	angle;
+	double	angle = 0.0;
 	double	pery;
 	int		px_tex;
 
