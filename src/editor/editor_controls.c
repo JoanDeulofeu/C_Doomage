@@ -62,6 +62,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 	// 	ft_add_letter_to_savemap(s, key);
 	// }
 	if (s->display_mode < 2)
+	{
 		if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
 		{
 			s->display_mode = s->display_mode == 1 ? 0 : 1;
@@ -95,7 +96,7 @@ int		keyboard_controls_edi(t_main *s, int key)
 			// s->editor->mode_floor = 1;
 			// ft_reset_color_vertex(s);
 		}
-		if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE )
+		if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE)
 			change_mode(s, key);
 		if (key == DELETE)
 			return(2);
@@ -204,7 +205,7 @@ void	editor_handler(t_main *s)
 	t_pos 		tmp2;
 	t_pos		tmp_move;
 	t_pos		diff;
-	int			remove_anchor;
+	int			remove_achr;
 	t_vertex    *v;
 	t_mode			tmp_mode;
 
@@ -215,7 +216,7 @@ void	editor_handler(t_main *s)
 	selected = 0;
 	zoom = 0;
 	id = 0;
-	remove_anchor = 0;
+	remove_achr = 0;
 	tmp_move.x = 0;
 	tmp_move.y = 0;
 	remove = 0;
@@ -448,10 +449,10 @@ void	editor_handler(t_main *s)
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN
-				&& (remove_anchor = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
+				&& (remove_achr = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
 				editor = 0;
 			else if (s->sdl->event.type == SDL_KEYDOWN
-				&& remove_anchor == 2 && selected == 1 && !s->display_mode)
+				&& remove_achr == 2 && selected == 1 && !s->display_mode)
 				{
 					remove_anchor(s, id);
 					remove = 1;
