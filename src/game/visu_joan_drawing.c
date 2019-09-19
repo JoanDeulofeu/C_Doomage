@@ -442,7 +442,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			wall2.y = vtx->vtx_dest->ptr->y * METRE;
 					ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
 					// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
-					if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
+					// if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
 					if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
 					{
 						fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
