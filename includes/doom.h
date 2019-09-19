@@ -32,6 +32,12 @@
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
 
+typedef enum  				e_display_mode {
+	editor,
+	game,
+	save,
+}							t_display_mode;
+
 typedef struct				s_fix_pos {
 	Uint32					x;
 	Uint32					y;
@@ -168,6 +174,7 @@ typedef struct				s_walls {
 
 typedef struct				s_savemap {
 	t_image					*croix_rouge;
+	char					str[41];
 }							t_savemap;
 
 typedef struct				s_sdl {
@@ -211,7 +218,7 @@ typedef struct				s_main {
 	t_sector				*sector;
 	t_point					**grid;
 	char		 			*str_vtx;
-	char					display_mode; // 0=game, 1=editeur, 2=save
+	t_display_mode			display_mode;
 	int						viewline;
 	int						proj_distance;
 	t_image					*menu;
@@ -418,6 +425,9 @@ int					is_colliding(t_main *s);
 ****	Fonction de sauvegarde
 */
 void				ft_save_map(t_main *s);
+void				ft_click_save(t_main *s);
+void				ft_add_letter_to_savemap(t_main *s, int key);
+void				ft_del_letter_to_savemap(t_main *s);
 
 
 /*

@@ -27,7 +27,17 @@ void	display_croix_rouge(t_main *s, int i, int j)
 		}
 		i++;
 	}
-	update_image(s, s->sdl->save);
+	// update_image(s, s->sdl->save);
+}
+
+void	ft_click_save(t_main *s)
+{
+	if ((s->ft_mouse.x > 0 && s->ft_mouse.x < s->savemap->croix_rouge->w)
+	&& (s->ft_mouse.y > 0 && s->ft_mouse.y < s->savemap->croix_rouge->h))
+	{
+		s->display_mode = 0;
+		change_mode(s, MOVE);
+	}
 }
 
 void	ft_draw_rect_text(t_main *s)
@@ -57,18 +67,68 @@ void	ft_draw_rect_text(t_main *s)
 
 }
 
-// void	ft_add_letter_to_savemap(t_main *s, int key)
-// {
-//
-// }
+void	ft_add_letter_to_savemap(t_main *s, int key)
+{
+	int i = 0;
+
+	while (s->savemap->str[i] != '\0')
+	{
+		i++;
+		if (i == 41)
+			return ;
+	}
+	s->savemap->str[i] = (key == MINUS || key == 32) ? '_' : key;
+	// printf("str = %s\n", s->savemap->str);
+}
+
+void	ft_del_letter_to_savemap(t_main *s)
+{
+	int i = 0;
+
+	if (s->savemap->str[0] == '\0')
+		return ;
+	while (s->savemap->str[i] != '\0')
+		i++;
+	s->savemap->str[i - 1] = '\0';
+	// printf("str = %s\n", s->savemap->str);
+}
+
+void	ft_draw_write_bar(t_main *s)
+{
+	int		lg;
+	t_pos	coord;
+	int		x_end;
+	int		y_end;
+
+	lg = ft_strlen(s->savemap->str);
+	coord.x = 240 + (lg * 10);
+	x_end = coord.x + 3;
+	coord.y = 457;
+	y_end = coord.y + 25;
+
+	while (coord.x++ < x_end)
+	{
+		while (coord.y++ < y_end)
+		{
+			set_pixel(s->sdl->save, 0x45d6daff, coord); //#45d6da
+		}
+		coord.y = 457;
+	}
+}
 
 void	ft_save_map(t_main *s)
 {
+	struct timeval	tv;
+	double 			mill;
+	long			sec;
+
+	gettimeofday(&tv, NULL);
+
+	mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+	sec = mill;
+	// printf("millisec = %f\nsec = %ld\n", time_in_mill, sec);
 	display_croix_rouge(s, 20, 20);
 	ft_draw_rect_text(s);
+	if (sec % 800 < 400)
+		ft_draw_write_bar(s);
 }
-
-
-//NOTE A SOI MEME :
-//J'ai retirer le ft_reset_color_screen de la texture pour eviter
-//que le rectangle clignote, es ce un probleme?

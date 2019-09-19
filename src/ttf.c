@@ -70,5 +70,15 @@ void	ft_draw_ttf(t_main *s)
 		ttf.pos.y = 400;
 		ttf.str = ft_strdup("Veuillez entrer le nom de la map a sauvegarder :");
 		ft_create_ttf(ttf, s, s->font->press_start);
+		if (s->savemap->str[0] != '\0')
+		{
+			ttf.r = 255;
+			ttf.g = 255;
+			ttf.b = 255;
+			ttf.pos.x = 240;
+			ttf.pos.y = 465;
+			ttf.str = ft_strdup(s->savemap->str);
+			ft_create_ttf(ttf, s, s->font->press_start);
+		}
 	}
 }
