@@ -165,7 +165,7 @@ void	ft_visu_joan(t_main *s)
 	// printf("player.angle = %f\n", s->player.angle);
 	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
-	printf("sct id = %d\n", s->player.sector_id);
+	// printf("sct id = %d\n", s->player.sector_id);
 	vs.sct_id = s->player.sector_id;
 	vs.sct = get_sector_by_id(s, s->player.sector_id);
 

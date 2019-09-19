@@ -98,7 +98,7 @@ void	change_mode(t_main *s, int key)
 	}
 	else if (key == SAVE)
 	{
-		s->editor->mode = save;
+		s->editor->mode = save_edi;
 		s->editor->menu.current = 5;
 		ft_reset_color_vertex(s);
 		s->display_mode = 2;

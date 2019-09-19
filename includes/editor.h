@@ -94,7 +94,7 @@ typedef enum  		e_mode {
 	sector,
 	vertex,
 	player,
-	save,
+	save_edi,
 	portal,
 	sprite
 }					t_mode;

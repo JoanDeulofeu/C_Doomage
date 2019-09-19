@@ -27,7 +27,17 @@ void	display_croix_rouge(t_main *s, int i, int j)
 		}
 		i++;
 	}
-	update_image(s, s->sdl->save);
+	// update_image(s, s->sdl->save);
+}
+
+void	ft_click_save(t_main *s)
+{
+	if ((s->ft_mouse.x > 0 && s->ft_mouse.x < s->savemap->croix_rouge->w)
+	&& (s->ft_mouse.y > 0 && s->ft_mouse.y < s->savemap->croix_rouge->h))
+	{
+		s->display_mode = 0;
+		change_mode(s, MOVE);
+	}
 }
 
 void	ft_draw_rect_text(t_main *s)
@@ -57,18 +67,21 @@ void	ft_draw_rect_text(t_main *s)
 
 }
 
-// void	ft_add_letter_to_savemap(t_main *s, int key)
-// {
-//
-// }
+void	ft_add_letter_to_savemap(t_main *s, int key)
+{
+	int i = 0;
+
+	while (s->savemap->str[i] != '\0')
+	{
+		i++;
+		if (i == 21)
+			return ;
+	}
+	s->savemap->str[i] = key;
+}
 
 void	ft_save_map(t_main *s)
 {
 	display_croix_rouge(s, 20, 20);
 	ft_draw_rect_text(s);
 }
-
-
-//NOTE A SOI MEME :
-//J'ai retirer le ft_reset_color_screen de la texture pour eviter
-//que le rectangle clignote, es ce un probleme?
