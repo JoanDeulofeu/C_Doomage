@@ -142,13 +142,13 @@ void	ft_visu_joan(t_main *s)
 			ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
 		}
 		wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
-		printf("sct_id = %d, wall id = %d\n", sct_id, ptr_id);
+		// printf("sct_id = %d, wall id = %d\n", sct_id, ptr_id);
 		dist = ft_dist_t_dpos(ft_pos_to_dpos(wall->ptr->pos), ft_pos_to_dpos(wall->next->ptr->pos));
 		prct = (ft_dist_t_dpos(ft_pos_to_dpos(wall->ptr->pos), s->player.pos)) * 100 / dist;
 		wall = wall->vtx_dest;
 		s->player.pos.x = wall->ptr->pos.x + (prct * dist) / 100;
 		s->player.pos.y = wall->ptr->pos.y + (prct * dist) / 100;
-		printf("pourcentage = %d, sct_id = %d, wall id = %d\n", prct, sct_id, ptr_id);
+		// printf("pourcentage = %d, sct_id = %d, wall id = %d\n", prct, sct_id, ptr_id);
 		// printf("player.y = %f, fplqyer.y = %f\n", s->player.pos.y, s->fplayer_pos.y);
 		// s->player.r_pos.x = s->fplayer_pos.x * METRE;
 		// s->player.r_pos.y = s->fplayer_pos.y * METRE;
@@ -177,7 +177,7 @@ void	ft_visu_joan(t_main *s)
 		// 	printf("4\n");
 		// 	s->player.pos.x = s->fplayer_pos.x - 5;
 		// }
-		printf("player angle = %f\n", s->player.angle);
+		// printf("player angle = %f\n", s->player.angle);
 		// s->player.pos.x = s->fplayer_pos.x;
 		// s->player.pos.y = s->fplayer_pos.y;
 
@@ -209,7 +209,7 @@ void	ft_visu_joan(t_main *s)
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
 	// draw_skybox(s, vs);
-	printf("s->player->angle = %f, vs.angle = %f, vs.sct = %d, player.x = %f, player.y = %f\n", s->player.angle, vs.angle, vs.sct->id, player.x, player.y);
+	// printf("s->player->angle = %f, vs.angle = %f, vs.sct = %d, player.x = %f, player.y = %f\n", s->player.angle, vs.angle, vs.sct->id, player.x, player.y);
 	ft_draw_visu(s, player, get_sector_by_id(s, s->player.sector_id), vs);
 // printf("------  SORTIE  ------\n");
 
