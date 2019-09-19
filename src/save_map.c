@@ -93,9 +93,42 @@ void	ft_del_letter_to_savemap(t_main *s)
 	// printf("str = %s\n", s->savemap->str);
 }
 
+void	ft_draw_write_bar(t_main *s)
+{
+	int		lg;
+	t_pos	coord;
+	int		x_end;
+	int		y_end;
+
+	lg = ft_strlen(s->savemap->str);
+	coord.x = 240 + (lg * 10);
+	x_end = coord.x + 3;
+	coord.y = 457;
+	y_end = coord.y + 25;
+
+	while (coord.x++ < x_end)
+	{
+		while (coord.y++ < y_end)
+		{
+			set_pixel(s->sdl->save, 0x45d6daff, coord); //#45d6da
+		}
+		coord.y = 457;
+	}
+}
+
 void	ft_save_map(t_main *s)
 {
+	struct timeval	tv;
+	double 			mill;
+	long			sec;
+
+	gettimeofday(&tv, NULL);
+
+	mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+	sec = mill;
+	// printf("millisec = %f\nsec = %ld\n", time_in_mill, sec);
 	display_croix_rouge(s, 20, 20);
 	ft_draw_rect_text(s);
-
+	if (sec % 800 < 400)
+		ft_draw_write_bar(s);
 }
