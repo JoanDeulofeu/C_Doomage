@@ -48,21 +48,25 @@ int		check_click_menu(t_main *s)
 		return (0);
 }
 
-int		key_controls_save(t_main *s, int key) //2
+int		key_controls_save(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 	{
 		s->display_mode = 0;
 		change_mode(s, MOVE);
 	}
-	// if (s->display_mode == 2 && key >= SDLK_a && key <= SDLK_z)
-	// {
-	// 	ft_add_letter_to_savemap(s, key);
-	// }
+	if ((key >= SDLK_a && key <= SDLK_z) || key == MINUS || key == 32)
+	{
+		ft_add_letter_to_savemap(s, key);
+	}
+	if (key == DEL)
+	{
+		ft_del_letter_to_savemap(s);
+	}
 	return (1);
 }
 
-int		key_controls_game(t_main *s, int key) //1
+int		key_controls_game(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
@@ -85,7 +89,7 @@ int		key_controls_game(t_main *s, int key) //1
 	return (1);
 }
 
-int		key_controls_edi(t_main *s, int key) //0
+int		key_controls_edi(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
@@ -100,6 +104,10 @@ int		key_controls_edi(t_main *s, int key) //0
 	if (key == SDLK_KP_MINUS)
 	{
 		s->editor->dply_floor = ft_prev_next_floor(s, 2);
+	}
+	if (key == SAVE)
+	{
+		s->display_mode = 2;
 	}
 	if (key == ROTATE_LEFT)
 	{
@@ -154,13 +162,13 @@ void	handle_editor_keys(t_main *s)
 		jump(s,-1);
 	}
 
-	if (s->display_mode == 0)
-	{
-		if (s->editor->mode == vertex && (keys[DEL]))
-			remove_selected_anchor(s);
-		if (s->editor->mode == sprite && (keys[DEL]))
-			remove_sprite_by_select(s);
-	}
+	// if (s->display_mode == editor)
+	// {
+	// 	if (s->editor->mode == vertex && (keys[DELETE]))
+	// 		remove_selected_anchor(s);
+	// 	if (s->editor->mode == sprite && (keys[DELETE]))
+	// 		remove_sprite_by_select(s);
+	// }
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
@@ -386,7 +394,7 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->display_mode == 0)
+					if (s->display_mode == editor)
 					{
 						if (s->editor->mode == sprite && !check_click_menu(s) && (check_sprite_menu_click(s,s->ft_mouse) == -1))
 						{
@@ -457,11 +465,11 @@ void	editor_handler(t_main *s)
 							}
 						}
 					}
-					else if (s->display_mode == 1)
+					else if (s->display_mode == game)
 					{
 						shoot(s,1);
 					}
-					else if (s->display_mode == 2)
+					else if (s->display_mode == save)
 					{
 						ft_click_save(s);
 					}
@@ -482,6 +490,7 @@ void	editor_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN)
 			{
+				printf("key = %d\n", s->sdl->event.key.keysym.sym);
 				if (s->display_mode == editor)
 				{
 					if ((remove_achr = key_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)

@@ -37,7 +37,7 @@
 # define UP_AR			SDL_SCANCODE_UP
 # define DOWN_AR		SDL_SCANCODE_DOWN
 
-# define SPACE			SDL_SCANCODE_SPACE
+# define SPACE			32
 # define LCTRL			SDL_SCANCODE_LCTRL
 # define SPRINT			SDL_SCANCODE_LSHIFT
 
@@ -58,8 +58,9 @@
 # define PORTAL			SDLK_l
 # define ROTATE_LEFT	SDLK_q
 # define ROTATE_RIGHT	SDLK_e
-# define DEL 			SDL_SCANCODE_DELETE
+# define DEL 			8
 # define DELETE			SDLK_DELETE
+# define MINUS			SDLK_MINUS
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 

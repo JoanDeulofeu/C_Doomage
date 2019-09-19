@@ -174,7 +174,7 @@ typedef struct				s_walls {
 
 typedef struct				s_savemap {
 	t_image					*croix_rouge;
-	char					str[21];
+	char					str[41];
 }							t_savemap;
 
 typedef struct				s_sdl {
@@ -426,6 +426,7 @@ int					is_colliding(t_main *s);
 void				ft_save_map(t_main *s);
 void				ft_click_save(t_main *s);
 void				ft_add_letter_to_savemap(t_main *s, int key);
+void				ft_del_letter_to_savemap(t_main *s);
 
 
 /*

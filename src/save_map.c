@@ -74,14 +74,28 @@ void	ft_add_letter_to_savemap(t_main *s, int key)
 	while (s->savemap->str[i] != '\0')
 	{
 		i++;
-		if (i == 21)
+		if (i == 41)
 			return ;
 	}
-	s->savemap->str[i] = key;
+	s->savemap->str[i] = (key == MINUS || key == 32) ? '_' : key;
+	// printf("str = %s\n", s->savemap->str);
+}
+
+void	ft_del_letter_to_savemap(t_main *s)
+{
+	int i = 0;
+
+	if (s->savemap->str[0] == '\0')
+		return ;
+	while (s->savemap->str[i] != '\0')
+		i++;
+	s->savemap->str[i - 1] = '\0';
+	// printf("str = %s\n", s->savemap->str);
 }
 
 void	ft_save_map(t_main *s)
 {
 	display_croix_rouge(s, 20, 20);
 	ft_draw_rect_text(s);
+
 }
