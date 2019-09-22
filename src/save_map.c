@@ -174,6 +174,8 @@ void	ft_write_file(t_main *s)
 		fprintf(fichier, "%d\n", wall->wall_value);
 		sct = sct->next;
 	}
+	fprintf(fichier, "\n\n");
+	fprintf(fichier, "player %d %d", (int)s->player.pos.y, (int)s->player.pos.x);
 	fclose(fichier);
 	bzero(s->savemap->str, 41);
 	ft_save_msg(s, 2);

@@ -161,8 +161,8 @@ t_main		*initialize_main(char *str)
 
 	s->player.set = 1;
 	s->player.i = 0;
-	s->player.pos.x = 500;
-	s->player.pos.y = 300;
+	s->player.pos.x = 0;
+	s->player.pos.y = 0;
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 	s->player.set_jump = 0;

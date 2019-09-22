@@ -18,6 +18,36 @@ void	update_anchor_list(t_main *s, t_vertex *temp)
 		s->vertex = NULL;
 }
 
+void	ft_drag_vextex_id(t_main *s, int id)
+{
+	t_vertex	*vtx;
+	t_sector	*sct;
+	t_int		*wall;
+	int			wall_end;
+
+	vtx = s->vertex;
+	sct = s->sector;
+	while(vtx)
+	{
+		if (vtx->id > id)
+			vtx->id--;
+		vtx = vtx->next;
+	}
+	while (sct)
+	{
+		wall = sct->vertex;
+		wall_end = wall->prev->id;
+		while (wall->id != wall_end)
+		{
+			if (wall->value > id)
+				wall->value--;
+			wall = wall->next;
+		}
+		if (wall->value > id)
+			wall->value--;
+		sct = sct->next;
+	}
+}
 
 void	remove_anchor(t_main *s, int id)
 {
@@ -31,6 +61,7 @@ void	remove_anchor(t_main *s, int id)
 			remove_sector(s, id, 0, 0);
 			update_anchor_list(s, temp);
 			ft_memdel((void **)&temp);
+			ft_drag_vextex_id(s, id);
 			return ;
 		}
 		temp = temp->next;

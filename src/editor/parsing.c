@@ -147,6 +147,13 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		else if (line[0] == 's')
 			ft_parse_sector(s, line);
+		else if (line[0] == 'p')
+		{
+			i = 7;
+			s->player.pos.y = ft_atoi(&line[i]);
+			i += ft_longlen(y) + 1;
+			s->player.pos.x = ft_atoi(&line[i]);
+		}
 		ft_strdel(&line);
 	}
 

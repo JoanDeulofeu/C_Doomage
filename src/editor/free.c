@@ -136,5 +136,7 @@ void	free_program(t_main *s)
 	SDL_DestroyRenderer(s->sdl->prenderer);
 	ft_memdel((void **)&s->sdl);
 	ft_memdel((void **)&s->editor);
+	ft_memdel((void **)&s->map_name);
+	ft_memdel((void **)&s->savemap);
 	ft_memdel((void **)&s);
 }

@@ -124,7 +124,7 @@ void	ft_visu_joan(t_main *s)
 	t_pos	new_pos;
 
 	// sct_id = s->player.sector_id;
-	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
+	if (s->player.sector_id == 0)
 	{
 		player_haut = s->player.pos;
 		player_bas = s->player.pos;

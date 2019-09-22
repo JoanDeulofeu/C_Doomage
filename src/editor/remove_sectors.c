@@ -97,5 +97,5 @@ void	remove_sector(t_main *s, int id, int del, int sct_id)
 		if (tmp_sct && !del)
 			tmp_sct = tmp_sct->next;
 	}
-	ft_test_chainlist(s);
+	// ft_test_chainlist(s);
 }

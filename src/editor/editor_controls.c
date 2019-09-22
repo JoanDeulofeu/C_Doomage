@@ -93,6 +93,8 @@ int		key_controls_game(t_main *s, int key)
 		if (s->player.angle < 0)
 			s->player.angle += 360;
 	}
+	if (key == TAB)
+		ft_test_chainlist(s);
 	return (1);
 }
 
@@ -100,6 +102,8 @@ int		key_controls_edi(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
+	if (key == TAB)
+		ft_test_chainlist(s);
 	if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
 	{
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
@@ -149,9 +153,9 @@ void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
 
-
+	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	keys = SDL_GetKeyboardState(NULL);
-	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
+	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT]) && (s->player.sector_id != 0))
 		ft_move_player(s, keys);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
@@ -200,8 +204,8 @@ void	handle_editor_keys(t_main *s)
 
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
-
-	ft_visu_joan(s);
+	if (s->player.sector_id != 0)
+		ft_visu_joan(s);
 	if (s->display_mode == 1)
 	{
 		play_anim(s);
