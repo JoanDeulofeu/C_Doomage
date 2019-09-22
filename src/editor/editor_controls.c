@@ -63,6 +63,13 @@ int		key_controls_save(t_main *s, int key)
 	{
 		ft_del_letter_to_savemap(s);
 	}
+	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
+	{
+		if (s->savemap->str[2] == '\0')
+			ft_save_msg(s, 1);
+		else
+			ft_write_file(s);
+	}
 	return (1);
 }
 
@@ -70,7 +77,7 @@ int		key_controls_game(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
-	if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
+	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
 	{
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
 	}
@@ -504,7 +511,8 @@ void	editor_handler(t_main *s)
 				}
 				else if (s->display_mode == game)
 				{
-					key_controls_game(s, s->sdl->event.key.keysym.sym);
+					if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0);
+						ingame = 0;
 				}
 				else if (s->display_mode == save)
 				{

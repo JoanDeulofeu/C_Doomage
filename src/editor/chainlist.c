@@ -237,15 +237,3 @@ void	ft_test_chainlist(t_main *s)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-//da

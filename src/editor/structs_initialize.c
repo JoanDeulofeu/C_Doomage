@@ -149,6 +149,7 @@ t_main		*initialize_main(void)
 	if (!(s->savemap = (t_savemap*)malloc(sizeof(t_savemap))))
 		exit(-1);
 	ft_bzero(s->savemap->str, 21);
+	s->savemap->error_msg = 0;
 	initialize_editor(s->editor);
 	s->vertex = NULL;
 	s->sector = NULL;

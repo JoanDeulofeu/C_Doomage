@@ -1,0 +1,36 @@
+Map : map_test
+
+vertex 3		5
+vertex 5		20
+vertex 10		24
+vertex 12		21
+vertex 13		6
+vertex 14		22
+vertex 15		7
+vertex 24		18
+vertex 25		8
+vertex 4		21
+vertex 9		25
+vertex 6		32
+vertex -1		17
+vertex -1		28
+vertex 65		95
+vertex 68		95
+vertex 63		101
+vertex 68		102
+vertex 2		-5
+vertex -5		2
+vertex -62		-39
+vertex -63		-36
+vertex -57		-38
+vertex -57		-33
+vertex -60		-35
+vertex -59		-24
+vertex -67		-23
+
+
+sector 0 20 | 1 2 3 4 5 | -1 11 -1 -1 8
+sector 20 40 | 6 8 9 7 | -1 5 -1 -1
+sector 0 20 | 13 14 12 11 10 | -1 -1 -1 2 -1
+sector 0 20 | 15 17 18 16 | -1 -1 -1 -1
+sector 0 20 | 21 22 27 25 26 24 23 | -1 -1 -1 -1 -1 -1 -1
