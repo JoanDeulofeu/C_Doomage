@@ -136,7 +136,7 @@ t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
 	return (text);
 }
 
-t_main		*initialize_main(void)
+t_main		*initialize_main(char *str)
 {
 	t_main		*s;
 
@@ -148,7 +148,11 @@ t_main		*initialize_main(void)
 		exit(-1);
 	if (!(s->savemap = (t_savemap*)malloc(sizeof(t_savemap))))
 		exit(-1);
-	ft_bzero(s->savemap->str, 21);
+	if (str)
+		s->map_name = ft_strdup(str);
+	else
+		s->map_name = ft_strdup("map.map");
+	ft_bzero(s->savemap->str, 41);
 	s->savemap->error_msg = 0;
 	initialize_editor(s->editor);
 	s->vertex = NULL;

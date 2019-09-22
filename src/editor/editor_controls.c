@@ -511,7 +511,7 @@ void	editor_handler(t_main *s)
 				}
 				else if (s->display_mode == game)
 				{
-					if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0);
+					if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0)
 						ingame = 0;
 				}
 				else if (s->display_mode == save)

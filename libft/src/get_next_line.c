@@ -6,7 +6,7 @@
 /*   By: malluin <malluin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 17:55:59 by malluin           #+#    #+#             */
-/*   Updated: 2019/03/20 14:56:55 by fnussbau         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:49:14 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ char	*allocate(char *buff, char *tmp2, int b, int e)
 	ft_memmove(tmp, tmp2, ft_strlen(tmp2));
 	ft_memmove((tmp + ft_strlen(tmp2)), buff + b, (e - b));
 	(tmp + ft_strlen(tmp2))[e - b] = '\0';
-	free(tmp2);
+	ft_memdel((void **)&tmp2);
 	tmp2 = ft_strdup(tmp);
-	free(tmp);
+	ft_memdel((void **)&tmp);
 	return (tmp2);
 }
 

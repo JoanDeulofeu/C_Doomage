@@ -205,6 +205,7 @@ typedef struct				s_main {
 	t_sdl					*sdl;
 	t_editor				*editor;
 	t_savemap				*savemap;
+	char					*map_name;
 	t_dpos					p_pos;
 	t_dpos					left_plan;
 	t_dpos					right_plan;
@@ -258,7 +259,7 @@ int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwal
 void				pre_initialize_sdl(t_main *s);
 void				initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture			*initialize_texture(t_sdl *sdl, int width, int height);
-t_main				*initialize_main(void);
+t_main				*initialize_main(char *str);
 void				free_program(t_main *s);
 
 /*

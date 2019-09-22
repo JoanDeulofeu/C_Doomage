@@ -38,7 +38,7 @@ t_int		*free_sector_struct(t_sector *temp_sector)
 	{
 		temp_vertex2 = temp_vertex;
 		temp_vertex = temp_vertex->next;
-		free(temp_vertex2);
+		ft_memdel((void **)&temp_vertex2);
 	}
 	return(temp_vertex);
 }
@@ -64,7 +64,7 @@ t_sector		*update_sector_list(t_main *s, t_sector *temp_sector)
 		s->sector = NULL;
 	temp_sector2 = temp_sector;
 	temp_sector = s->sector;
-	free(temp_sector2);
+	ft_memdel((void **)&temp_sector2);
 	return(temp_sector);
 
 }

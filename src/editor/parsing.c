@@ -125,7 +125,12 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 	char	*line;
 	int		i;
 
-	fd = open("map.map", O_RDWR);
+	fd = open(s->map_name, O_RDWR);
+	if (fd < 1)
+	{
+		printf("ERROR: Invalid map.\n");
+		exit(-1);
+	}
 	while (get_next_line(fd, &line) > 0)
 	{
 		size_line = ft_strlen(line);

@@ -30,7 +30,7 @@ void	remove_anchor(t_main *s, int id)
 		{
 			remove_sector(s, id, 0, 0);
 			update_anchor_list(s, temp);
-			free(temp);
+			ft_memdel((void **)&temp);
 			return ;
 		}
 		temp = temp->next;
