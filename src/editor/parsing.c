@@ -151,7 +151,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		{
 			i = 7;
 			s->player.pos.y = ft_atoi(&line[i]);
-			i += ft_longlen(y) + 1;
+			i += ft_longlen(s->player.pos.y);
 			s->player.pos.x = ft_atoi(&line[i]);
 		}
 		ft_strdel(&line);
