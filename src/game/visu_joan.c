@@ -114,45 +114,77 @@ void	ft_visu_joan(t_main *s)
 	t_visu	vs;
 	// t_visu	*vsu = &s->visu;
 	t_dpos	player;
+	t_dpos	player_haut;
+	t_dpos	player_bas;
+	int		sct_id;
+	int		ptr_id;
+	int		prct;
+	t_int	*wall;
+	int 	dist;
+	t_pos	new_pos;
 
+	// sct_id = s->player.sector_id;
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
 	{
+		player_haut = s->player.pos;
+		player_bas = s->player.pos;
+		player_haut.y += 5;
+		player_bas.y -= 5;
+		new_pos.x = 0;
+		new_pos.y = 0;
+		sct_id = get_nearest_sector(s, ft_dpos_to_pos(player_haut), &new_pos);
+		if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
+		{
+			player_haut = s->player.pos;
+			player_bas = s->player.pos;
+			player_haut.x += 5;
+			player_bas.x -= 5;
+			ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
+		}
+		wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
+		// printf("sct_id = %d, wall id = %d\n", sct_id, ptr_id);
+		dist = ft_dist_t_dpos(ft_pos_to_dpos(wall->ptr->pos), ft_pos_to_dpos(wall->next->ptr->pos));
+		prct = (ft_dist_t_dpos(ft_pos_to_dpos(wall->ptr->pos), s->player.pos)) * 100 / dist;
+		wall = wall->vtx_dest;
+		s->player.pos.x = wall->ptr->pos.x + (prct * dist) / 100;
+		s->player.pos.y = wall->ptr->pos.y + (prct * dist) / 100;
+		// printf("pourcentage = %d, sct_id = %d, wall id = %d\n", prct, sct_id, ptr_id);
 		// printf("player.y = %f, fplqyer.y = %f\n", s->player.pos.y, s->fplayer_pos.y);
 		// s->player.r_pos.x = s->fplayer_pos.x * METRE;
 		// s->player.r_pos.y = s->fplayer_pos.y * METRE;
 		// printf("=======\nplayer.angle = %f\n", s->player.angle);
 		// printf("fake player.angle = %f\n=======\n", s->fplayer_angle);
-		s->player.angle = (long)s->fplayer_angle % 360;
-		// s->player.pos.x = s->fplayer_pos.x;
-		// s->player.pos.y = s->fplayer_pos.y;
-		if (s->fplayer_angle > 0 && s->fplayer_angle < 180)
-		{
-			printf("1\n");
-			s->player.pos.y = s->fplayer_pos.y - 2;
-		}
-		else if (s->fplayer_angle >= 180 && s->fplayer_angle < 360)
-		{
-			printf("2\n");
-			s->player.pos.y = s->fplayer_pos.y + 2;
-		}
-		if (s->fplayer_angle > 90 && s->fplayer_angle <= 270)
-		{
-			printf("3\n");
-			s->player.pos.x = s->fplayer_pos.x + 2;
-		}
-		else if (s->fplayer_angle <= 90 || s->fplayer_angle > 270)
-		{
-			printf("3\n");
-			s->player.pos.x = s->fplayer_pos.x - 2;
-		}
-		// printf("fplayer angle = %f\n", s->fplayer_angle);
+		// s->player.angle = (long)s->fplayer_angle % 360;
+		// // s->player.pos.x = s->fplayer_pos.x;
+		// // s->player.pos.y = s->fplayer_pos.y;
+		// if (s->player.angle > 0 && s->player.angle < 180)
+		// {
+		// 	printf("1\n");
+		// 	s->player.pos.y = s->fplayer_pos.y - 10;
+		// }
+		// else if (s->player.angle >= 180 && s->player.angle < 360)
+		// {
+		// 	printf("2\n");
+		// 	s->player.pos.y = s->fplayer_pos.y + 10;
+		// }
+		// if (s->player.angle > 90 && s->player.angle <= 270)
+		// {
+		// 	printf("3\n");
+		// 	s->player.pos.x = s->fplayer_pos.x + 5;
+		// }
+		// else if (s->player.angle <= 90 || s->player.angle > 270)
+		// {
+		// 	printf("4\n");
+		// 	s->player.pos.x = s->fplayer_pos.x - 5;
+		// }
+		// printf("player angle = %f\n", s->player.angle);
 		// s->player.pos.x = s->fplayer_pos.x;
 		// s->player.pos.y = s->fplayer_pos.y;
 
 		player.x = s->player.pos.x;
 		player.y = s->player.pos.y;
 		//changer secteur en fonction de la teleportation
-		s->player.sector_id = s->fplayer_sct;
+		s->player.sector_id = wall->sct;
 		s->portal_nb = 0;
 	}
 	else
@@ -177,6 +209,7 @@ void	ft_visu_joan(t_main *s)
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
 	// draw_skybox(s, vs);
+	// printf("s->player->angle = %f, vs.angle = %f, vs.sct = %d, player.x = %f, player.y = %f\n", s->player.angle, vs.angle, vs.sct->id, player.x, player.y);
 	ft_draw_visu(s, player, get_sector_by_id(s, s->player.sector_id), vs);
 // printf("------  SORTIE  ------\n");
 
