@@ -123,6 +123,7 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 	t_int	*wall;
 	int		nb;
 
+	(void)keys;
 	nb = 10;
 	ptr_id = 0;
 	printf("x = %f, y = %f\n", s->col_pos.x, s->col_pos.y);
@@ -162,8 +163,8 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 		//changer secteur en fonction de la teleportation
 		s->player.sector_id = wall->sct_dest;
 		s->portal_nb = 0;
-		if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
-			ft_move_player(s, keys);
+		// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
+		// 	s->player.pos = get_direction(s, keys, 1.2, s->player.pos);
 }
 
 void	ft_visu_joan(t_main *s, const unsigned char *keys)
@@ -175,106 +176,15 @@ void	ft_visu_joan(t_main *s, const unsigned char *keys)
 	t_visu	vs;
 	// t_visu	*vsu = &s->visu;
 	t_dpos	player;
-	t_dpos	player_haut;
-	t_dpos	player_bas;
-	int		sct_id;
-	int		ptr_id;
-	int		prct;
-	t_int	*wall;
-	int		dist;
-	int 	dist_x;
-	int 	dist_y;
-	t_pos	new_pos;
-	double	angle;
+	// int		dist;
+	// double	angle;
 
 	// sct_id = s->player.sector_id;
 	bzero(&vs, sizeof(t_visu));
+	(void)keys;
 	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
-	// if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
-	// {
-	// 	player_haut = s->player.pos;
-	// 	player_bas = s->player.pos;
-	// 	player_haut.y += 5;
-	// 	player_bas.y -= 5;
-	// 	new_pos.x = 0;
-	// 	new_pos.y = 0;
-	// 	sct_id = get_nearest_sector(s, ft_dpos_to_pos(player_haut), &new_pos);
-	// 	if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
-	// 	{
-	// 		player_haut = s->player.pos;
-	// 		player_bas = s->player.pos;
-	// 		player_haut.x += 5;
-	// 		player_bas.x -= 5;
-	// 		ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
-	// 	}
-	// 	wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
-	// 	// // printf("sct_id = %d, wall id = %d\n", sct_id, ptr_id);
-	// 	// dist = ft_dist_double(wall->ptr->x * METRE, wall->ptr->y * METRE, wall->next->ptr->x * METRE, wall->next->ptr->y * METRE);
-	// 	// dist_x = abs(wall->ptr->x * METRE - wall->next->ptr->x);
-	// 	// dist_y = abs(wall->ptr->y * METRE - wall->next->ptr->y);
-	// 	// prct = (ft_dist_double(wall->ptr->x * METRE, wall->ptr->y * METRE, s->player.pos.x, s->player.pos.y) * 100) / dist;
-	// 	// wall = wall->vtx_dest;
-	// 	// if (wall->next->ptr->x < wall->ptr->x)
-	// 	// 	s->player.pos.x = wall->next->ptr->x * METRE + (prct * dist_x) / 100;
-	// 	// else
-	// 	// 	s->player.pos.x = wall->next->ptr->x * METRE - (prct * dist_x) / 100;
-	// 	// if (wall->next->ptr->y < wall->ptr->y)
-	// 	// 	s->player.pos.y = wall->next->ptr->y * METRE + (prct * dist_y) / 100;
-	// 	// else
-	// 	// 	s->player.pos.y = wall->next->ptr->y * METRE - (prct * dist_y) / 100;
-	// 	// printf("x = %f, y = %f\n", s->player.pos.x, s->player.pos.y);
-	// 	// printf("x = %f, y = %f\n", wall->ptr->pos.x, s->player.pos.y);
-	// 	// printf("pourcentage = %d, sct_id = %d, wall id = %d\n", prct, sct_id, ptr_id);
-	// 	// printf("player.y = %f, fplqyer.y = %f\n", s->player.pos.y, s->fplayer_pos.y);
-	// 	// s->player.r_pos.x = s->fplayer_pos.x * METRE;
-	// 	// s->player.r_pos.y = s->fplayer_pos.y * METRE;
-	// 	// printf("=======\nplayer.angle = %f\n", s->player.angle);
-	// 	// printf("fake player.angle = %f\n=======\n", s->fplayer_angle);
-	// 	// s->player.angle = (long)s->fplayer_angle % 360;
-	// 	// // s->player.pos.x = s->fplayer_pos.x;
-	// 	// // s->player.pos.y = s->fplayer_pos.y;
-	// 	// if (s->player.angle > 0 && s->player.angle < 180)
-	// 	// {
-	// 	// 	printf("1\n");
-	// 	// 	s->player.pos.y = s->fplayer_pos.y - 10;
-	// 	// }
-	// 	// else if (s->player.angle >= 180 && s->player.angle < 360)
-	// 	// {
-	// 	// 	printf("2\n");
-	// 	// 	s->player.pos.y = s->fplayer_pos.y + 10;
-	// 	// }
-	// 	// if (s->player.angle > 90 && s->player.angle <= 270)
-	// 	// {
-	// 	// 	printf("3\n");
-	// 	// 	s->player.pos.x = s->fplayer_pos.x + 5;
-	// 	// }
-	// 	// else if (s->player.angle <= 90 || s->player.angle > 270)
-	// 	// {
-	// 	// 	printf("4\n");
-	// 	// 	s->player.pos.x = s->fplayer_pos.x - 5;
-	// 	// }
-	// 	// printf("player angle = %f\n", s->player.angle);
-	// 	// s->player.pos.x = s->fplayer_pos.x;
-	// 	// s->player.pos.y = s->fplayer_pos.y;
-	//
-	// 	// player.x = s->player.pos.x;
-	// 	// player.y = s->player.pos.y;
-	// 	s->player.pos = ft_get_fake_player(s, s->player.pos, wall, &s->player.angle);
-	// 	player = s->player.pos;
-	// 	// player.y--;
-	// 	//changer secteur en fonction de la teleportation
-	// 	s->player.sector_id = wall->sct_dest;
-	// 	s->portal_nb = 0;
-	// 	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
-	// 		ft_move_player(s, keys);
-	// 	// update_image(s, s->sdl->editor);
-	// 	printf("player.x = %f, player.y = %f\n", player.x, player.y);
-	// 	printf("player.angle = %f\n", s->player.angle);
-	// }
-	// else
-	// {
-		player.x = s->player.r_pos.x * METRE;
-		player.y = s->player.r_pos.y * METRE;
+	player.x = s->player.r_pos.x * METRE;
+	player.y = s->player.r_pos.y * METRE;
 	// }
 
 

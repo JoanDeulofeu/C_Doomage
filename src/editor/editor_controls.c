@@ -205,7 +205,7 @@ void	handle_editor_keys(t_main *s)
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
 	if (s->player.sector_id != 0)
-		ft_visu_joan(s);
+		ft_visu_joan(s, keys);
 	if (s->display_mode == 1)
 	{
 		play_anim(s);
