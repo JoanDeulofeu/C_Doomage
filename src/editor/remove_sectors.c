@@ -71,8 +71,8 @@ t_sector		*update_sector_list(t_main *s, t_sector *temp_sector)
 void	remove_sector(t_main *s, int id, int del, int sct_id)
 {
 	t_sector	*tmp_sct;
-	t_int			*tmp_vtx;
-	int				i;
+	t_int		*tmp_vtx;
+	int			i;
 
 	tmp_sct = s->sector;
 	while (tmp_sct)

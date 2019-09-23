@@ -158,6 +158,52 @@ int		ft_find_next_number(char *str, int i)
 	return (i);
 }
 
+void	ft_check_validity_last_sector(t_main *s)
+{
+	t_sector	*sct;
+	t_int		*wall;
+
+	sct = s->sector;
+	while (sct->next)
+		sct = sct->next;
+	wall = sct->vertex;
+	// printf("sector a supprimer : %d\n", sct->id);
+	if (wall->prev->id < 3)
+		remove_sector(s, wall->value, 0, 0);
+}
+
+void	ft_check_parsing_validity(t_main *s)
+{
+	int			i;
+	t_vertex	*vtx;
+	t_sector	*sct;
+
+	vtx = s->vertex;
+	sct = s->sector;
+	i = 0;
+	while (vtx)
+	{
+		i++;
+		vtx = vtx->next;
+	}
+	if (i < 3)
+	{
+		printf("Moins de 3 vtx\n");
+		handle_error(s, MAP_ERROR);
+	}
+	if (sct == NULL)
+	{
+		printf("Moins de 1 sct\n");
+		handle_error(s, MAP_ERROR);
+	}
+	i = 0;
+	if (sct->vertex->prev->id < 3)
+	{
+		printf("Moins de 3 vtx dans sct1\n");
+		handle_error(s, MAP_ERROR);
+	}
+}
+
 int		ft_parsing(t_main *s, int x, int y, int fd)
 {
 	char	*line;
@@ -178,7 +224,10 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 			ft_add_vertex(s, x, y);
 		}
 		else if (line[0] == 'S')
+		{
 			ft_parse_sector(s, line);
+			ft_check_validity_last_sector(s);
+		}
 		else if (line[0] == 'P')
 		{
 			i = 7;
@@ -193,6 +242,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		ft_strdel(&line);
 	}
+	ft_check_parsing_validity(s);
 	// ft_test_chainlist(s);
 	ft_strdel(&line);
 	add_portal_ptr(s);
