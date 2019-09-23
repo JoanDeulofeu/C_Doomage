@@ -31,7 +31,7 @@ void 	free_lsprite(t_main *s)
 			free_image(tmp->img);
 		if (tmp->anim != NULL)
 			free_anim(tmp->anim);
-		free(tmp);
+		ft_memdel((void **)&tmp);
 	}
 }
 
@@ -45,7 +45,7 @@ void 	free_sprite(t_main *s)
 	{
 		tmp = sprite;
 		sprite = sprite->next;
-		free(tmp);
+		ft_memdel((void **)&tmp);
 	}
 	free_lsprite(s);
 }
@@ -62,13 +62,13 @@ void	free_sectors(t_main *s)
 		s_tmp = s->sector;
 		s->sector = s_tmp->next;
 		free_sector_struct(s_tmp);
-		free(s_tmp);
+		ft_memdel((void **)&s_tmp);
 	}
 	while (s->vertex)
 	{
 		v_tmp = s->vertex;
 		s->vertex = s->vertex->next;
-		free(v_tmp);
+		ft_memdel((void **)&v_tmp);
 	}
 	// printf ("structure principale vertex = %p, sector = %p, grid = %p, sr_vtx = %p\n", s->vertex, s->sector, s->grid, s->str_vtx);
 		// t_sdl			*sdl;
@@ -136,5 +136,7 @@ void	free_program(t_main *s)
 	SDL_DestroyRenderer(s->sdl->prenderer);
 	ft_memdel((void **)&s->sdl);
 	ft_memdel((void **)&s->editor);
+	ft_memdel((void **)&s->map_name);
+	ft_memdel((void **)&s->savemap);
 	ft_memdel((void **)&s);
 }

@@ -63,6 +63,13 @@ int		key_controls_save(t_main *s, int key)
 	{
 		ft_del_letter_to_savemap(s);
 	}
+	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
+	{
+		if (s->savemap->str[2] == '\0')
+			ft_save_msg(s, 1);
+		else
+			ft_write_file(s);
+	}
 	return (1);
 }
 
@@ -70,7 +77,7 @@ int		key_controls_game(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
-	if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
+	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
 	{
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
 	}
@@ -86,6 +93,8 @@ int		key_controls_game(t_main *s, int key)
 		if (s->player.angle < 0)
 			s->player.angle += 360;
 	}
+	if (key == TAB)
+		ft_test_chainlist(s);
 	return (1);
 }
 
@@ -93,6 +102,8 @@ int		key_controls_edi(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
+	if (key == TAB)
+		ft_test_chainlist(s);
 	if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
 	{
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
@@ -142,9 +153,9 @@ void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
 
-
+	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	keys = SDL_GetKeyboardState(NULL);
-	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
+	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT]) && (s->player.sector_id != 0))
 		ft_move_player(s, keys);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
@@ -193,8 +204,8 @@ void	handle_editor_keys(t_main *s)
 
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
-
-	ft_visu_joan(s, keys);
+	if (s->player.sector_id != 0)
+		ft_visu_joan(s);
 	if (s->display_mode == 1)
 	{
 		play_anim(s);
@@ -222,7 +233,7 @@ void	handle_editor_keys(t_main *s)
 	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
 	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
 	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
-	// printf("player.r_pos (%f, %f)\n",s->player.r_pos.x, s->player.r_pos.y);
+	// printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
 }
 
 void	editor_handler(t_main *s)
@@ -504,7 +515,8 @@ void	editor_handler(t_main *s)
 				}
 				else if (s->display_mode == game)
 				{
-					key_controls_game(s, s->sdl->event.key.keysym.sym);
+					if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0)
+						ingame = 0;
 				}
 				else if (s->display_mode == save)
 				{

@@ -68,7 +68,7 @@ void clear_wall_list(t_main *s)
 	{
 		tmp = s->walls;
 		s->walls = s->walls->next;
-		free(tmp);
+		ft_memdel((void **)&tmp);
 	}
 	s->walls = NULL;
 }

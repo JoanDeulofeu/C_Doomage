@@ -59,6 +59,7 @@
 # define ROTATE_LEFT	SDLK_q
 # define ROTATE_RIGHT	SDLK_e
 # define DEL 			8
+# define TAB 			9
 # define DELETE			SDLK_DELETE
 # define MINUS			SDLK_MINUS
 

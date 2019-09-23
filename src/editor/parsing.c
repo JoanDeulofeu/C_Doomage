@@ -125,7 +125,12 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 	char	*line;
 	int		i;
 
-	fd = open("map.map", O_RDWR);
+	fd = open(s->map_name, O_RDWR);
+	if (fd < 1)
+	{
+		printf("ERROR: Invalid map.\n");
+		exit(-1);
+	}
 	while (get_next_line(fd, &line) > 0)
 	{
 		size_line = ft_strlen(line);
@@ -142,6 +147,13 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		else if (line[0] == 's')
 			ft_parse_sector(s, line);
+		else if (line[0] == 'p')
+		{
+			i = 7;
+			s->player.pos.y = ft_atoi(&line[i]);
+			i += ft_longlen(s->player.pos.y);
+			s->player.pos.x = ft_atoi(&line[i]);
+		}
 		ft_strdel(&line);
 	}
 

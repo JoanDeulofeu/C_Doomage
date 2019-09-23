@@ -71,6 +71,7 @@ void	ft_add_letter_to_savemap(t_main *s, int key)
 {
 	int i = 0;
 
+	s->savemap->error_msg = 0;
 	while (s->savemap->str[i] != '\0')
 	{
 		i++;
@@ -85,6 +86,7 @@ void	ft_del_letter_to_savemap(t_main *s)
 {
 	int i = 0;
 
+	s->savemap->error_msg = 0;
 	if (s->savemap->str[0] == '\0')
 		return ;
 	while (s->savemap->str[i] != '\0')
@@ -131,4 +133,58 @@ void	ft_save_map(t_main *s)
 	ft_draw_rect_text(s);
 	if (sec % 800 < 400)
 		ft_draw_write_bar(s);
+}
+
+void	ft_write_file(t_main *s)
+{
+	FILE		*fichier = NULL;
+	t_vertex	*vtx;
+	t_sector	*sct;
+	t_int		*wall;
+	int			end_id;
+
+	vtx = s->vertex;
+	sct = s->sector;
+	fichier = fopen(ft_strjoin(s->savemap->str, ".map"), "w+");
+	fprintf(fichier, "Map : %s\n\n", s->savemap->str);
+	while (vtx)
+	{
+		fprintf(fichier, "vertex %d\t\t%d\n", vtx->y, vtx->x);
+		vtx = vtx->next;
+	}
+	fprintf(fichier, "\n\n");
+	while (sct)
+	{
+		wall = sct->vertex;
+		fprintf(fichier, "sector %d %d", sct->floor, sct->ceiling);
+		fprintf(fichier, " | ");
+		end_id = wall->prev->id;
+		while (wall->id != end_id)
+		{
+			fprintf(fichier, "%d ", wall->value);
+			wall = wall->next;
+		}
+		fprintf(fichier, "%d | ", wall->value);
+		wall = wall->next;
+		while (wall->id != end_id)
+		{
+			fprintf(fichier, "%d ", wall->wall_value);
+			wall = wall->next;
+		}
+		fprintf(fichier, "%d\n", wall->wall_value);
+		sct = sct->next;
+	}
+	fprintf(fichier, "\n\n");
+	fprintf(fichier, "player %d %d", (int)s->player.r_pos.y * METRE, (int)s->player.r_pos.x * METRE);
+	fclose(fichier);
+	bzero(s->savemap->str, 41);
+	ft_save_msg(s, 2);
+}
+
+void	ft_save_msg(t_main *s, int error)
+{
+	if (error == 1)
+		s->savemap->error_msg = 1;
+	else if (error == 2)
+		s->savemap->error_msg = 2;
 }

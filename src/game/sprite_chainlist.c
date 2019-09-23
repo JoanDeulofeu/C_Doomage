@@ -119,13 +119,13 @@ void 				remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,t_sprite *prev)
 
 		tmp = prev;
 		tmp->next = next;
-		free(cur);
+		ft_memdel((void **)&cur);
 	}
 	else if (prev == NULL)
 	{
 		tmp = next;
 		s->sprite = tmp;
-		free(cur);
+		ft_memdel((void **)&cur);
 	}
 }
 

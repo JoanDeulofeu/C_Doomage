@@ -1,0 +1,26 @@
+Map : simple
+
+vertex 14		7
+vertex 6		6
+vertex 6		16
+vertex 2		12
+vertex 20		21
+vertex 18		21
+vertex 18		25
+vertex 20		25
+vertex 8		24
+vertex 19		11
+vertex 10		28
+vertex 19		15
+vertex 10		24
+vertex 21		13
+vertex 8		28
+
+
+sector 0 20 | 9 15 11 13 | -1 -1 -1 -1
+sector 0 20 | 6 7 8 5 | -1 -1 -1 -1
+sector 0 20 | 12 14 10 | -1 -1 -1
+sector 0 20 | 1 2 4 3 | -1 -1 -1 -1
+
+
+player 270 780
