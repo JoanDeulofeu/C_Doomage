@@ -240,7 +240,7 @@ typedef struct				s_main {
 ****	Fonction du visualisateur
 */
 void				ft_visu(t_main *s);
-void				ft_visu_joan(t_main *s);
+void				ft_visu_joan(t_main *s, const unsigned char *keys);
 void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color);
@@ -406,6 +406,7 @@ void 				set_player(t_main *s);
 t_dpos				get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
 void				ft_move_player(t_main *s, const Uint8 *keys);
 void 				rotate_player(t_main *s , const Uint8 *keys);
+void 				teleport_player(t_main *s, const unsigned char *keys);
 void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);

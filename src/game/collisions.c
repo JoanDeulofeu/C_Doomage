@@ -13,8 +13,8 @@ int		is_colliding(t_main *s)
 			return (0);
 		sct = get_sector_by_id(s, s->player.sector_id);
 		wall = get_t_int_by_vertex_id(sct->vertex, id);
-		if (wall->wall_value == -1)
-			return (1);
+		// if (wall->wall_value == -1)
+		return (wall->wall_value);
 	}
 	return (0);
 }

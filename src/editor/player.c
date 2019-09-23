@@ -132,6 +132,8 @@ void	ft_move_player(t_main *s, const Uint8 *keys)
 		s->player.pos.x = target.x;
 		s->player.pos.y = target.y;
 	}
+	if (is_colliding(s) > 0)
+		teleport_player(s, keys);
 }
 
 void	ft_trace_vertical(t_main *s, t_line line, Uint32 color)
