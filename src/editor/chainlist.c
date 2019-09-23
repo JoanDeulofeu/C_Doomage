@@ -100,23 +100,34 @@ t_vertex	*ft_find_vertex_ptr(t_main *s, int id)
 	return (NULL);
 }
 
-void		put_wall_value(t_sector *sector, char *line, int i)
+int			ft_check_vtx_used(t_main *s, int value)
 {
-	t_int	*tmp;
-	int		size_line;
+	t_sector	*sct;
+	t_int		*wall;
+	int			i;
+	int			stop;
 
-	size_line = ft_strlen(line);
-	tmp = sector->vertex;
-
-	if (tmp == NULL)
-		return ;
-	while (i < size_line) //fill des wall et portal dans le secteur
+	sct = s->sector;
+	while (sct)
 	{
-		tmp->wall_value = ft_atoi(&line[i]);
-		i += ft_longlen(tmp->wall_value) + 1;
-		tmp = tmp->next;
+		wall = sct->vertex;
+		if (wall == NULL)
+		{
+			sct = sct->next;
+			continue;
+		}
+		stop = wall->prev->id + 1;
+		i = 1;
+		while (i++ < stop)
+		{
+			// printf("Verif value   a creer(%d) - (%d)existante\n", value, wall->value);
+			if (value == wall->value)
+				return (1);
+			wall = wall->next;
+		}
+		sct = sct->next;
 	}
-
+	return (0);
 }
 
 int			ft_add_intarray(t_main *s, t_sector *sector, int value)
@@ -125,6 +136,8 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	t_int	*tmp2;
 
 	tmp = sector->vertex;
+	if (ft_check_vtx_used(s, value))
+		return (-1);
 	if (tmp == NULL)
 	{
 		if (!(sector->vertex = (t_int*)malloc(sizeof(t_int))))

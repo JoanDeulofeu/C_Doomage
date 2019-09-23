@@ -229,11 +229,11 @@ void	handle_editor_keys(t_main *s)
 
 	// ft_test_chainlist(s);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
-	printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
-	printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
-	printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
-	printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
-	printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
+	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
+	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
+	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
+	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
+	// printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
 }
 
 void	editor_handler(t_main *s)

@@ -84,20 +84,47 @@ void	check_map_portals(t_main *s)
 	}
 }
 
+void		put_wall_value(t_sector *sector, char *line, int i)
+{
+	t_int	*tmp;
+
+	tmp = sector->vertex;
+	if (tmp == NULL)
+		return ;
+	while (line[i] != '\0')
+	{
+		tmp->wall_value = ft_atoi(&line[i]);
+		i += ft_longlen(tmp->wall_value) + 1;
+		i = ft_find_next_number(line, i);
+		tmp = tmp->next;
+	}
+}
+
+int		ft_check_bar(char *str, int i)
+{
+	while ((str[i] < '0' || str[i] > '9') && str[i] != '|' && str[i] != '\0')
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
+}
+
 void	ft_norm_parse_sector(t_main *s, char *line, t_sector *tmp, int i)
 {
-	int		size_line;
 	int		value;
 
-	size_line = ft_strlen(line);
 	value = 0;
-	while (line[i] != '|') //fill des vecteurs dans le secteur
+	while (line[i] != '|' && line[i] != '\0')
 	{
 		value = ft_atoi(&line[i]);
 		ft_add_intarray(s, tmp, value);
 		i += ft_longlen(value) + 1;
+		if (ft_check_bar(line, i))
+			break;
+		i = ft_find_next_number(line, i);
 	}
-	i += 2;
+	if ((i = ft_find_next_number(line, 0)) == -1)
+		handle_error(s, MAP_ERROR);
 	put_wall_value(tmp, line, i);
 }
 
@@ -108,42 +135,47 @@ int			ft_parse_sector(t_main *s, char *line)
 	int			floor;
 	int			ceiling;
 
-	i = 7;
+	if ((i = ft_find_next_number(line, 0)) == -1)
+		handle_error(s, MAP_ERROR);
 	floor = ft_atoi(&line[i]);
 	i += ft_longlen(floor) + 1;
 	ceiling = ft_atoi(&line[i]);
 	tmp = ft_add_sector(s, floor, ceiling);
 	while (line[i] != '|')
 		i++;
-	ft_norm_parse_sector(s, line, tmp, i + 2);
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
+	ft_norm_parse_sector(s, line, tmp, i);
 	return (0);
+}
+
+int		ft_find_next_number(char *str, int i)
+{
+	while ((str[i] < '0' || str[i] > '9') && str[i] != '\0' && str[i] != '-')
+		i++;
+	if (str[i] == '\0')
+		return (-1);
+	return (i);
 }
 
 int		ft_parsing(t_main *s, int x, int y, int fd)
 {
-	int		size_line;
 	char	*line;
 	int		i;
 
 	fd = open(s->map_name, O_RDWR);
 	if (fd < 1)
-	{
-		printf("ERROR: Invalid map.\n");
-		exit(-1);
-	}
+		handle_error(s, MAP_ERROR);
 	while (get_next_line(fd, &line) > 0)
 	{
-		size_line = ft_strlen(line);
+		if ((i = ft_find_next_number(line, 0)) == -1)
+			continue;
 		if (line[0] == 'V')
 		{
-			y = ft_atoi(&line[7]);
-			i = 10;
-			while (i < size_line)
-			{
-				x = ft_atoi(&line[i]);
-				ft_add_vertex(s, x, y);
-				i += ft_longlen(x) + 1;
-			}
+			y = ft_atoi(&line[i]);
+			i += ft_longlen(y) + 1;
+			x = ft_atoi(&line[i]);
+			ft_add_vertex(s, x, y);
 		}
 		else if (line[0] == 'S')
 			ft_parse_sector(s, line);
@@ -161,7 +193,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		ft_strdel(&line);
 	}
-
+	// ft_test_chainlist(s);
 	ft_strdel(&line);
 	add_portal_ptr(s);
 	check_map_portals(s);

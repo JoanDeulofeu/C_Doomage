@@ -31,6 +31,7 @@
 # define WALL_ERROR 6
 # define POINTER_ERROR 7
 # define SECTOR_ERROR 8
+# define MAP_ERROR 9
 
 # define LEFT_AR		SDL_SCANCODE_LEFT
 # define RIGHT_AR		SDL_SCANCODE_RIGHT
