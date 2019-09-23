@@ -1,18 +1,19 @@
 Map : map
 
-vertex 3		5
-vertex 5		20
-vertex 10		24
-vertex 12		21
-vertex 13		6
-vertex 14		22
-vertex 15		7
-vertex 24		18
-vertex 25		8
+Vertex 3		5
+Vertex 5		20
+Vertex 10		24
+Vertex 12		21
+Vertex 13		6
+Vertex 14		22
+Vertex 15		7
+Vertex 24		18
+Vertex 25		8
 
 
-sector 0 20 | 1 2 3 4 5 | -1 -1 -1 -1 8
-sector 20 40 | 6 8 9 7 | -1 5 -1 -1
+Sector 0 20 | 1 2 3 4 5 | -1 -1 -1 -1 8
+Sector 20 40 | 6 8 9 7 | -1 5 -1 -1
 
 
-player 240 210
+Player 240 210
+Angle 180

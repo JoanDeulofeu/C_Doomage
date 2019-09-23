@@ -134,7 +134,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 	while (get_next_line(fd, &line) > 0)
 	{
 		size_line = ft_strlen(line);
-		if (line[0] == 'v')
+		if (line[0] == 'V')
 		{
 			y = ft_atoi(&line[7]);
 			i = 10;
@@ -145,14 +145,19 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 				i += ft_longlen(x) + 1;
 			}
 		}
-		else if (line[0] == 's')
+		else if (line[0] == 'S')
 			ft_parse_sector(s, line);
-		else if (line[0] == 'p')
+		else if (line[0] == 'P')
 		{
 			i = 7;
 			s->player.pos.y = ft_atoi(&line[i]);
 			i += ft_longlen(s->player.pos.y);
 			s->player.pos.x = ft_atoi(&line[i]);
+		}
+		else if (line[0] == 'A')
+		{
+			i = 6;
+			s->player.angle = ft_atoi(&line[i]);
 		}
 		ft_strdel(&line);
 	}

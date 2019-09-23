@@ -149,14 +149,14 @@ void	ft_write_file(t_main *s)
 	fprintf(fichier, "Map : %s\n\n", s->savemap->str);
 	while (vtx)
 	{
-		fprintf(fichier, "vertex %d\t\t%d\n", vtx->y, vtx->x);
+		fprintf(fichier, "Vertex %d\t\t%d\n", vtx->y, vtx->x);
 		vtx = vtx->next;
 	}
 	fprintf(fichier, "\n\n");
 	while (sct)
 	{
 		wall = sct->vertex;
-		fprintf(fichier, "sector %d %d", sct->floor, sct->ceiling);
+		fprintf(fichier, "Sector %d %d", sct->floor, sct->ceiling);
 		fprintf(fichier, " | ");
 		end_id = wall->prev->id;
 		while (wall->id != end_id)
@@ -175,7 +175,8 @@ void	ft_write_file(t_main *s)
 		sct = sct->next;
 	}
 	fprintf(fichier, "\n\n");
-	fprintf(fichier, "player %d %d", (int)s->player.r_pos.y * METRE, (int)s->player.r_pos.x * METRE);
+	fprintf(fichier, "Player %d %d\n", ((int)s->player.ori.y * METRE) + s->player.p_ori.y, ((int)s->player.ori.x * METRE) + s->player.p_ori.x);
+	fprintf(fichier, "Angle %d\n", (int)s->player.angle);
 	fclose(fichier);
 	bzero(s->savemap->str, 41);
 	ft_save_msg(s, 2);

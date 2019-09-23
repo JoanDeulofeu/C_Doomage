@@ -22,6 +22,7 @@
 
 # define PORTAL_LIMIT 20
 
+# define MAP "map.map"
 
 //sprite
 #define ANGLE_MAX 360

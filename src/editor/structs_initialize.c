@@ -151,7 +151,7 @@ t_main		*initialize_main(char *str)
 	if (str)
 		s->map_name = ft_strdup(str);
 	else
-		s->map_name = ft_strdup("map.map");
+		s->map_name = ft_strdup(MAP);
 	ft_bzero(s->savemap->str, 41);
 	s->savemap->error_msg = 0;
 	initialize_editor(s->editor);
