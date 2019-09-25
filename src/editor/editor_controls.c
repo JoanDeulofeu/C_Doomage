@@ -156,7 +156,7 @@ void	handle_editor_keys(t_main *s)
 	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	keys = SDL_GetKeyboardState(NULL);
 	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT]) && (s->player.sector_id != 0))
-		ft_move_player(s, keys);
+		ft_move_player(s, keys, 2);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
 	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR]))
@@ -204,8 +204,14 @@ void	handle_editor_keys(t_main *s)
 
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
-	if (s->player.sector_id != 0)
-		ft_visu_joan(s, keys);
+	if (s->player.sector_id == 0)
+	{
+		s->player.pos = handle_sector_zero(s, keys);
+		set_player(s);
+	}
+
+	ft_visu_joan(s, keys);
+
 	if (s->display_mode == 1)
 	{
 		play_anim(s);
@@ -229,11 +235,11 @@ void	handle_editor_keys(t_main *s)
 
 	// ft_test_chainlist(s);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
-	printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
-	printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
-	printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
-	printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
-	printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
+	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
+	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
+	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
+	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
+	// printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
 }
 
 void	editor_handler(t_main *s)

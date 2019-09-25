@@ -96,7 +96,8 @@ t_visu get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angl
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff, vs.sct_id);
-	// if(vs.end_wall_id == 0)
+	if(vs.end_wall_id == 0 && vs.begin_wall_id != 0)
+		vs.end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs.sct_id)->vertex, vs.begin_wall_id)->next->ptr->id;
 	// 	exit(0);
 	vs.end = s->tmp_intersect;
 	// printf("TEST vs.end (%.1f, %.1f)\n", vs.end.x, vs.end.y);
@@ -126,7 +127,7 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 	(void)keys;
 	nb = 10;
 	ptr_id = 0;
-	printf("x = %f, y = %f\n", s->col_pos.x, s->col_pos.y);
+	// printf("x = %f, y = %f\n", s->col_pos.x, s->col_pos.y);
 	player_haut = s->col_pos;
 	player_bas = s->col_pos;
 	player_haut.y += nb;
@@ -164,7 +165,9 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 		s->player.sector_id = wall->sct_dest;
 		s->portal_nb = 0;
 		// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
-		// 	s->player.pos = get_direction(s, keys, 1.2, s->player.pos);
+		// 	s->player.pos = get_direction(s, keys, 1, s->player.pos);
+		if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
+			ft_move_player(s, keys, 1);
 }
 
 void	ft_visu_joan(t_main *s, const unsigned char *keys)
@@ -181,8 +184,10 @@ void	ft_visu_joan(t_main *s, const unsigned char *keys)
 
 	// sct_id = s->player.sector_id;
 	bzero(&vs, sizeof(t_visu));
+	// printf("visu\n");
 	(void)keys;
-	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
+	// s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
+	// printf("r_pos x = %f, pos.x = %f\n", s->player.r_pos.x, s->player.pos.x);
 	player.x = s->player.r_pos.x * METRE;
 	player.y = s->player.r_pos.y * METRE;
 	// }
