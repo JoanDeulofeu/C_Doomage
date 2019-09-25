@@ -166,7 +166,7 @@ typedef struct		s_vertex {
 	int				id;
 	int				x;
 	int				y;
-	t_pos			pos;
+	t_pos			pos; // position en pixel en rapport a l'editeur
 	t_pos			old;
 	int				selec;
 	char			selected;

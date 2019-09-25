@@ -11,6 +11,9 @@ int		check_walls_lenght(t_int *wall1, t_int *wall2)
 	end2 = ft_pos_to_dpos(wall2->next->ptr->pos);
 	beg1 = ft_pos_to_dpos(wall1->ptr->pos);
 	beg2 = ft_pos_to_dpos(wall2->ptr->pos);
+	// printf("adresse wall1->next->ptr -> %hd\n", wall1->next->ptr->pos.x);
+	// printf("(%.1f)(%.1f)|(%.1f)(%.1f)|(%.1f)(%.1f)|(%.1f)(%.1f)\n", beg1.x, beg1.y, end1.x, end1.y, beg2.x, beg2.y, end2.x, end2.y);
+	// printf("dist 1 (%f) et dist 2 (%f)\n", ft_dist_t_dpos(beg1, end1), ft_dist_t_dpos(beg2, end2));
 	if (ft_dist_t_dpos(beg1, end1) == ft_dist_t_dpos(beg2, end2))
 		return (1);
 	else

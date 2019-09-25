@@ -68,6 +68,7 @@ void	check_map_portals(t_main *s)
 		{
 			if (wall->vtx_dest != NULL)
 			{
+				// printf("wall->vtx_dest = %d       et wall = %d\n", wall->vtx_dest->value, wall->value);
 				if (!check_walls_lenght(wall->vtx_dest, wall))
 				{
 					wall->vtx_dest->vtx_dest = NULL;
@@ -84,16 +85,18 @@ void	check_map_portals(t_main *s)
 	}
 }
 
-void		put_wall_value(t_sector *sector, char *line, int i)
+void		put_wall_value(t_sector *sct, char *line, int i)
 {
 	t_int	*tmp;
 
-	tmp = sector->vertex;
+	tmp = sct->vertex;
 	if (tmp == NULL)
 		return ;
+	// printf("i = %d\n",i);
 	while (line[i] != '\0')
 	{
 		tmp->wall_value = ft_atoi(&line[i]);
+		// printf("wall = %d    (%s)\n", tmp->wall_value, &line[i]);
 		i += ft_longlen(tmp->wall_value) + 1;
 		i = ft_find_next_number(line, i);
 		tmp = tmp->next;
@@ -109,7 +112,7 @@ int		ft_check_bar(char *str, int i)
 	return (0);
 }
 
-void	ft_norm_parse_sector(t_main *s, char *line, t_sector *tmp, int i)
+void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 {
 	int		value;
 
@@ -117,20 +120,20 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *tmp, int i)
 	while (line[i] != '|' && line[i] != '\0')
 	{
 		value = ft_atoi(&line[i]);
-		ft_add_intarray(s, tmp, value);
+		ft_add_intarray(s, sct, value);
 		i += ft_longlen(value) + 1;
 		if (ft_check_bar(line, i))
 			break;
 		i = ft_find_next_number(line, i);
 	}
-	if ((i = ft_find_next_number(line, 0)) == -1)
+	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
-	put_wall_value(tmp, line, i);
+	put_wall_value(sct, line, i);
 }
 
 int			ft_parse_sector(t_main *s, char *line)
 {
-	t_sector	*tmp;
+	t_sector	*sct;
 	int			i;
 	int			floor;
 	int			ceiling;
@@ -140,12 +143,12 @@ int			ft_parse_sector(t_main *s, char *line)
 	floor = ft_atoi(&line[i]);
 	i += ft_longlen(floor) + 1;
 	ceiling = ft_atoi(&line[i]);
-	tmp = ft_add_sector(s, floor, ceiling);
+	sct = ft_add_sector(s, floor, ceiling);
 	while (line[i] != '|')
 		i++;
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
-	ft_norm_parse_sector(s, line, tmp, i);
+	ft_norm_parse_sector(s, line, sct, i);
 	return (0);
 }
 
@@ -168,8 +171,23 @@ void	ft_check_validity_last_sector(t_main *s)
 		sct = sct->next;
 	wall = sct->vertex;
 	// printf("sector a supprimer : %d\n", sct->id);
-	if (wall->prev->id < 3)
+	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
 		remove_sector(s, wall->value, 0, 0);
+}
+
+int		ft_how_many_pipe(char *str)
+{
+	int i;
+	int pipe;
+
+	i = 0;
+	pipe = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i++] == '|')
+			pipe++;
+	}
+	return (pipe);
 }
 
 void	ft_check_parsing_validity(t_main *s)
@@ -225,19 +243,19 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		else if (line[0] == 'S')
 		{
+			if (ft_how_many_pipe(line) != 2)
+				continue;
 			ft_parse_sector(s, line);
 			ft_check_validity_last_sector(s);
 		}
 		else if (line[0] == 'P')
 		{
-			i = 7;
 			s->player.pos.y = ft_atoi(&line[i]);
 			i += ft_longlen(s->player.pos.y);
 			s->player.pos.x = ft_atoi(&line[i]);
 		}
 		else if (line[0] == 'A')
 		{
-			i = 6;
 			s->player.angle = ft_atoi(&line[i]);
 		}
 		ft_strdel(&line);
@@ -246,6 +264,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 	// ft_test_chainlist(s);
 	ft_strdel(&line);
 	add_portal_ptr(s);
+	// ft_test_chainlist(s);
 	check_map_portals(s);
 	// ft_test_chainlist(s);
 	return (0);

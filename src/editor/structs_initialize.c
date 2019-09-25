@@ -110,9 +110,9 @@ void		load_images(t_main *s)
 
 	while (i < 15)
 	{
-	  s->editor->menu.image[i] = NULL;
-	  s->player.weapon.image[i] = NULL;
-	  s->editor->m_floor.image[i++] = NULL;
+		s->editor->menu.image[i] = NULL;
+		s->player.weapon.image[i] = NULL;
+		s->editor->m_floor.image[i++] = NULL;
 	}
 
 	s->lsprite =create_lsprite(s,7);

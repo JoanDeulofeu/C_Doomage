@@ -44,8 +44,8 @@ int			ft_add_vertex(t_main *s, int x, int y)
 		tmp->id = tmp->prev->id + 1;
 	}
 	tmp->next = NULL;
-	tmp->pos.x = 0;
-	tmp->pos.y = 0;
+	tmp->pos.x = x * s->editor->space;
+	tmp->pos.y = y * s->editor->space;
 	tmp->x = x;
 	tmp->y = y;
 	tmp->selec = 0;
@@ -164,6 +164,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	}
 	tmp->ptr = ft_find_vertex_ptr(s, value);
 	tmp->value = value;
+	tmp->wall_value = -1;
 	tmp->selected = 0;
 	tmp->sct_dest = 0;
 	tmp->sct = sector->id;
