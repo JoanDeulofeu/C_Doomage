@@ -31,6 +31,7 @@
 # define WALL_ERROR 6
 # define POINTER_ERROR 7
 # define SECTOR_ERROR 8
+# define MAP_ERROR 9
 
 # define LEFT_AR		SDL_SCANCODE_LEFT
 # define RIGHT_AR		SDL_SCANCODE_RIGHT
@@ -165,7 +166,7 @@ typedef struct		s_vertex {
 	int				id;
 	int				x;
 	int				y;
-	t_pos			pos;
+	t_pos			pos; // position en pixel en rapport a l'editeur
 	t_pos			old;
 	int				selec;
 	char			selected;

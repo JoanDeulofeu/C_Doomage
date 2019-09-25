@@ -9,7 +9,7 @@ Vertex 18		21
 Vertex 18		25
 Vertex 20		25
 Vertex 5		22
-Vertex 19		11
+Vertex 15		11
 Vertex 13		28
 Vertex 19		15
 Vertex 13		22
@@ -23,5 +23,5 @@ Sector 0 20 | 12 14 10 | -1 -1 -1
 Sector 0 20 | 1 2 4 3 | -1 -1 -1 -1
 
 
-Player 259 738
+Player 252 733
 Angle 306

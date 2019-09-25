@@ -319,6 +319,8 @@ void				move_editor(t_main *s, const Uint8 *keys);
 
 //MAP
 int					ft_parsing(t_main *s, int x, int y, int fd);
+int					ft_find_next_number(char *str, int i);
+void				ft_check_validity_last_sector(t_main *s);
 
 /*
 ****	Fonction de gestion des listes chainés

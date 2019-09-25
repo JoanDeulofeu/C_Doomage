@@ -4,6 +4,8 @@ void	display_error(int error_nb)
 {
 	if (error_nb == FILE_ERROR)
 		ft_putstr("Error : The file cannot be opened\n");
+	else if (error_nb == MAP_ERROR)
+		ft_putstr("Error : Invalid map\n");
 	else if (error_nb == SIZE_ERROR)
 		ft_putstr("Error : Map of incorrect size (Must be 3x3 to 50x50)\n");
 	else if (error_nb == SYNTAX_ERROR)
