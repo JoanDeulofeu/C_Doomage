@@ -23,7 +23,7 @@ t_pos	depiler(t_pile *pile)
 	{
 		pixel_depile = element_depile->pixel;
 		pile->first = element_depile->next;
-		free(element_depile);
+		ft_memdel((void **)&element_depile);
 	}
 	return (pixel_depile);
 }

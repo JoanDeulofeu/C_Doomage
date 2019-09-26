@@ -16,7 +16,7 @@ void	ft_init_font(t_main *s)
 		;
 	while ((s->font->open = TTF_OpenFont("sdl_font/Open.ttf", 10)) == NULL)
 		;
-	while ((s->font->roboto = TTF_OpenFont("sdl_font/Roboto.ttf", 10)) == NULL)
+	while ((s->font->roboto = TTF_OpenFont("sdl_font/Roboto.ttf", 20)) == NULL)
 		;
 	while ((s->font->stylish = TTF_OpenFont("sdl_font/Stylish.ttf", 10)) == NULL)
 		;
@@ -70,5 +70,35 @@ void	ft_draw_ttf(t_main *s)
 		ttf.pos.y = 400;
 		ttf.str = ft_strdup("Veuillez entrer le nom de la map a sauvegarder :");
 		ft_create_ttf(ttf, s, s->font->press_start);
+		if (s->savemap->str[0] != '\0')
+		{
+			ttf.r = 255;
+			ttf.g = 255;
+			ttf.b = 255;
+			ttf.pos.x = 240;
+			ttf.pos.y = 465;
+			ttf.str = ft_strdup(s->savemap->str);
+			ft_create_ttf(ttf, s, s->font->press_start);
+		}
+		if (s->savemap->error_msg == 1)
+		{
+			ttf.r = 255;
+			ttf.g = 0;
+			ttf.b = 0;
+			ttf.pos.x = 200;
+			ttf.pos.y = 620;
+			ttf.str = ft_strdup("ERROR : Le nom du fichier doit contenir au moins 3 caracteres.");
+			ft_create_ttf(ttf, s, s->font->roboto);
+		}
+		else if (s->savemap->error_msg == 2)
+		{
+			ttf.r = 0;
+			ttf.g = 255;
+			ttf.b = 0;
+			ttf.pos.x = 350;
+			ttf.pos.y = 620;
+			ttf.str = ft_strdup("Sauvegarde de la map reussi.");
+			ft_create_ttf(ttf, s, s->font->roboto);
+		}
 	}
 }

@@ -57,15 +57,9 @@ void	display_map(t_main *s)
 	{
 		if (edi->decal_x <= 0)
 			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-			// correc = 0;
 		else
 			correc = 0;
-		if (edi->decal_x < 0)
-			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-		else
-			pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-			// pos.x = (temp->x * edi->space - (edi->ref.x * edi->space + (edi->decal_x % edi->space)));
-		// printf("correc = %d | pos.x = %d\n", correc, pos.x);
+		pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
 
 		if (edi->decal_y <= 0)
 			correc = edi->decal_y % edi->space != 0 ? 1 : 0;
@@ -78,15 +72,8 @@ void	display_map(t_main *s)
 			ft_choose_draw_vertex(s, temp, pos);
 		temp = temp->next;
 	}
-	// printf("decalx = %d\n", s->editor->decal_x );
-
-	//player anchor
-		//draw_anchor(s, s->player.pos, BLUE);
 	set_player(s);
 	if (s->editor->selected ==1)
 		trace_select(s);
 	refresh_sprite_pos(s);
-	//draw_weapon(s, 0, WIDTH / 2, HEIGHT / 2);
-
-
 }

@@ -106,13 +106,11 @@ t_dpos	get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target)
 	return (target);
 }
 
-void	ft_move_player(t_main *s, const Uint8 *keys)
+void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 {
 	t_dpos	target;
 	double	speed;
-  	int     move_speed;
 
-  	move_speed = 2;
 	speed = move_speed * move_speed * 0.5;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
 		speed /= 1.5;
@@ -121,17 +119,24 @@ void	ft_move_player(t_main *s, const Uint8 *keys)
 	target.x = s->player.pos.x;
 	target.y = s->player.pos.y;
 	target = get_direction(s, keys, speed, target);
-	s->col_pos = get_direction(s, keys, speed + 10, s->player.pos);
-	// printf("player.x = %f, player.y = %f\n", s->player.pos.x, s->player.pos.y);
+	s->col_pos = get_direction(s, keys, speed + 10 , s->player.pos);
+	// s->col_pos = get_direction(s, keys, s->editor->space % 30 , s->col_pos);
+	// s->col_pos.x *= (s->editor->space % 30);
+	// s->col_pos.y *= (s->editor->space % 30);
+	// printf("s->editor->space = %d\n", s->editor->space);
+	// printf("player.x = %f, player.y = %f\n", s->player.r_pos.x, s->player.r_pos.y);
 	// printf("col.x = %f, col.y = %f\n", s->col_pos.x, s->col_pos.y);
 	// draw_anchor(s, ft_dpos_to_pos(s->col_pos), BLUE);
 	// update_image(s, s->sdl->editor);
 	//printf("sector = %d\n",ft_is_in_sector(s, ft_dpos_to_pos(target)));
-	if (!is_colliding(s))
+	if (is_colliding(s) != -1)
 	{
 		s->player.pos.x = target.x;
 		s->player.pos.y = target.y;
 	}
+	// s->col_pos = get_direction(s, keys, speed + 10, s->player.pos);
+	if (is_colliding(s) > 0)
+		teleport_player(s, keys);
 }
 
 void	ft_trace_vertical(t_main *s, t_line line, Uint32 color)

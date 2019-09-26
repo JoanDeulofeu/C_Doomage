@@ -15,7 +15,10 @@ int main (int argc, char **argv)
 	(void)argv;
 	t_main *s;
 
-	s = initialize_main();
+	if (!argv[1])
+		s = initialize_main(NULL);
+	else
+		s = initialize_main(argv[1]);
 	s->p_pos.x = 500;
 	s->p_pos.y = 330;
 	draw_player(s, s->p_pos);

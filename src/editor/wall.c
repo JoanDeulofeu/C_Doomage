@@ -107,8 +107,10 @@ void	ft_close_sector(t_main *s)
 		nb_wall--;
 	}
 	// printf("FINAL str_vtx = %s\n", s->str_vtx);
+	// printf("Ligne d'ajout de secteur:\n     |%s|\n\n", s->str_vtx);
 	ft_parse_sector(s, s->str_vtx);
 	s->str_vtx = NULL;
+	ft_check_validity_last_sector(s);
 	ft_reset_color_vertex(s);
 }
 

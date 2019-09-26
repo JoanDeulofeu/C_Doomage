@@ -110,9 +110,9 @@ void		load_images(t_main *s)
 
 	while (i < 15)
 	{
-	  s->editor->menu.image[i] = NULL;
-	  s->player.weapon.image[i] = NULL;
-	  s->editor->m_floor.image[i++] = NULL;
+		s->editor->menu.image[i] = NULL;
+		s->player.weapon.image[i] = NULL;
+		s->editor->m_floor.image[i++] = NULL;
 	}
 
 	s->lsprite =create_lsprite(s,7);
@@ -136,7 +136,7 @@ t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
 	return (text);
 }
 
-t_main		*initialize_main(void)
+t_main		*initialize_main(char *str)
 {
 	t_main		*s;
 
@@ -148,6 +148,12 @@ t_main		*initialize_main(void)
 		exit(-1);
 	if (!(s->savemap = (t_savemap*)malloc(sizeof(t_savemap))))
 		exit(-1);
+	if (str)
+		s->map_name = ft_strdup(str);
+	else
+		s->map_name = ft_strdup(MAP);
+	ft_bzero(s->savemap->str, 41);
+	s->savemap->error_msg = 0;
 	initialize_editor(s->editor);
 	s->vertex = NULL;
 	s->sector = NULL;
@@ -155,8 +161,8 @@ t_main		*initialize_main(void)
 
 	s->player.set = 1;
 	s->player.i = 0;
-	s->player.pos.x = 500;
-	s->player.pos.y = 300;
+	s->player.pos.x = 0;
+	s->player.pos.y = 0;
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 	s->player.set_jump = 0;

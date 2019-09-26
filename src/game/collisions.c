@@ -1,5 +1,36 @@
 #include "doom.h"
 
+t_dpos	handle_sector_zero(t_main *s, const unsigned char *keys)
+{
+	int		nb;
+	t_pos	curr;
+	int i;
+
+	nb = 1;
+	(void) keys;
+	while (1)
+	{
+		curr = ft_dpos_to_pos(s->player.pos);
+		curr.x = s->player.pos.x + nb;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		curr.x = s->player.pos.x - nb;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		curr.x = s->player.pos.x;
+		curr.y = s->player.pos.y + nb;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		curr.y = s->player.pos.y - nb;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		// curr.x = s->player->pos.x - nb;
+		// if (ft_is_in_sector(s, curr) != 0)
+		// 	return (curr);
+		nb++;
+	}
+}
+
 int		is_colliding(t_main *s)
 {
 	int			id;
@@ -13,8 +44,8 @@ int		is_colliding(t_main *s)
 			return (0);
 		sct = get_sector_by_id(s, s->player.sector_id);
 		wall = get_t_int_by_vertex_id(sct->vertex, id);
-		if (wall->wall_value == -1)
-			return (1);
+		// if (wall->wall_value == -1)
+		return (wall->wall_value);
 	}
 	return (0);
 }

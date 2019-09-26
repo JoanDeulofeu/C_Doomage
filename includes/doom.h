@@ -22,6 +22,7 @@
 
 # define PORTAL_LIMIT 20
 
+# define MAP "map.map"
 
 //sprite
 #define ANGLE_MAX 360
@@ -31,6 +32,12 @@
 
 /// Fixed-point Format: 16.16 (32-bit)
 typedef int32_t fixed_float;
+
+typedef enum  				e_display_mode {
+	editor,
+	game,
+	save,
+}							t_display_mode;
 
 typedef struct				s_fix_pos {
 	Uint32					x;
@@ -167,6 +174,8 @@ typedef struct				s_walls {
 
 typedef struct				s_savemap {
 	t_image					*croix_rouge;
+	char					str[41];
+	short					error_msg;
 }							t_savemap;
 
 typedef struct				s_sdl {
@@ -196,6 +205,7 @@ typedef struct				s_main {
 	t_sdl					*sdl;
 	t_editor				*editor;
 	t_savemap				*savemap;
+	char					*map_name;
 	t_dpos					p_pos;
 	t_dpos					left_plan;
 	t_dpos					right_plan;
@@ -210,7 +220,7 @@ typedef struct				s_main {
 	t_sector				*sector;
 	t_point					**grid;
 	char		 			*str_vtx;
-	char					display_mode; // 0=game, 1=editeur, 2=save
+	t_display_mode			display_mode;
 	int						viewline;
 	int						proj_distance;
 	t_image					*menu;
@@ -232,7 +242,7 @@ typedef struct				s_main {
 ****	Fonction du visualisateur
 */
 void				ft_visu(t_main *s);
-void				ft_visu_joan(t_main *s);
+void				ft_visu_joan(t_main *s, const unsigned char *keys);
 void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color);
@@ -249,7 +259,7 @@ int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwal
 void				pre_initialize_sdl(t_main *s);
 void				initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture			*initialize_texture(t_sdl *sdl, int width, int height);
-t_main				*initialize_main(void);
+t_main				*initialize_main(char *str);
 void				free_program(t_main *s);
 
 /*
@@ -308,6 +318,8 @@ void				move_editor(t_main *s, const Uint8 *keys);
 
 //MAP
 int					ft_parsing(t_main *s, int x, int y, int fd);
+int					ft_find_next_number(char *str, int i);
+void				ft_check_validity_last_sector(t_main *s);
 
 /*
 ****	Fonction de gestion des listes chainés
@@ -341,6 +353,8 @@ int					ft_sector_mode(t_main *s, int x, int y);
 void				fill_sectors(t_main *s);
 void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int				*free_sector_struct(t_sector *temp_sector);
+int					get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos);
+t_dpos				handle_sector_zero(t_main *s, const unsigned char *keys);
 
 /*
 ****	Fonction de gestion des portails
@@ -395,8 +409,9 @@ void				remove_selected_anchor(t_main *s);
 void 				set_player(t_main *s);
 //void				ft_move_player(t_main *s, const Uint8 *key);
 t_dpos				get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
-void				ft_move_player(t_main *s, const Uint8 *keys);
+void				ft_move_player(t_main *s, const Uint8 *keys, int move_speed);
 void 				rotate_player(t_main *s , const Uint8 *keys);
+void 				teleport_player(t_main *s, const unsigned char *keys);
 void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void				ft_get_line(t_main *s, t_line line, Uint32 color);
 int					ft_trace_line(t_main *s, t_line line, Uint32 color);
@@ -416,6 +431,11 @@ int					is_colliding(t_main *s);
 ****	Fonction de sauvegarde
 */
 void				ft_save_map(t_main *s);
+void				ft_click_save(t_main *s);
+void				ft_add_letter_to_savemap(t_main *s, int key);
+void				ft_del_letter_to_savemap(t_main *s);
+void				ft_save_msg(t_main *s, int error);
+void				ft_write_file(t_main *s);
 
 
 /*

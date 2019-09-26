@@ -31,13 +31,14 @@
 # define WALL_ERROR 6
 # define POINTER_ERROR 7
 # define SECTOR_ERROR 8
+# define MAP_ERROR 9
 
 # define LEFT_AR		SDL_SCANCODE_LEFT
 # define RIGHT_AR		SDL_SCANCODE_RIGHT
 # define UP_AR			SDL_SCANCODE_UP
 # define DOWN_AR		SDL_SCANCODE_DOWN
 
-# define SPACE			SDL_SCANCODE_SPACE
+# define SPACE			32
 # define LCTRL			SDL_SCANCODE_LCTRL
 # define SPRINT			SDL_SCANCODE_LSHIFT
 
@@ -58,8 +59,10 @@
 # define PORTAL			SDLK_l
 # define ROTATE_LEFT	SDLK_q
 # define ROTATE_RIGHT	SDLK_e
-# define DEL 			SDL_SCANCODE_DELETE
+# define DEL 			8
+# define TAB 			9
 # define DELETE			SDLK_DELETE
+# define MINUS			SDLK_MINUS
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
@@ -94,7 +97,7 @@ typedef enum  		e_mode {
 	sector,
 	vertex,
 	player,
-	save,
+	save_edi,
 	portal,
 	sprite
 }					t_mode;
@@ -163,7 +166,7 @@ typedef struct		s_vertex {
 	int				id;
 	int				x;
 	int				y;
-	t_pos			pos;
+	t_pos			pos; // position en pixel en rapport a l'editeur
 	t_pos			old;
 	int				selec;
 	char			selected;

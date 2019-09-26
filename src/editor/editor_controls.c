@@ -48,59 +48,103 @@ int		check_click_menu(t_main *s)
 		return (0);
 }
 
-int		keyboard_controls_edi(t_main *s, int key)
+int		key_controls_save(t_main *s, int key)
 {
-	if (s->display_mode != 2 && key == SDLK_ESCAPE)
-		return (0);
-	if (s->display_mode == 2 && key == SDLK_ESCAPE)
+	if (key == SDLK_ESCAPE)
 	{
 		s->display_mode = 0;
-		s->editor->mode = move;
+		change_mode(s, MOVE);
 	}
-	// if (s->display_mode == 2 && key >= SDLK_a && key <= SDLK_z)
-	// {
-	// 	ft_add_letter_to_savemap(s, key);
-	// }
-	if (s->display_mode < 2)
+	if ((key >= SDLK_a && key <= SDLK_z) || key == MINUS || key == 32)
 	{
-		if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
-		{
-			s->display_mode = s->display_mode == 1 ? 0 : 1;
-		}
-		if (key == SDLK_KP_PLUS && !s->display_mode)
-		{
-			s->editor->dply_floor = ft_prev_next_floor(s, 1);
-		}
-		if (key == SDLK_KP_MINUS && !s->display_mode)
-		{
-			s->editor->dply_floor = ft_prev_next_floor(s, 2);
-		}
-		if (key == ROTATE_LEFT)
-		{
-			s->player.angle += 20;
-			if (s->player.angle > 360)
-				s->player.angle -= 360;
-		}
-		if (key == ROTATE_RIGHT)
-		{
-			s->player.angle -= 20;
-			if (s->player.angle < 0)
-				s->player.angle += 360;
-		}
-		if (key == FLOOR && !s->display_mode)
-		{
-			if (s->editor->mode_floor == 1)
-				s->editor->mode_floor = 0;
-			else
-				s->editor->mode_floor = 1;
-			// s->editor->mode_floor = 1;
-			// ft_reset_color_vertex(s);
-		}
-		if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE)
-			change_mode(s, key);
-		if (key == DELETE)
-			return(2);
+		ft_add_letter_to_savemap(s, key);
 	}
+	if (key == DEL)
+	{
+		ft_del_letter_to_savemap(s);
+	}
+	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
+	{
+		if (s->savemap->str[2] == '\0')
+			ft_save_msg(s, 1);
+		else
+			ft_write_file(s);
+	}
+	return (1);
+}
+
+int		key_controls_game(t_main *s, int key)
+{
+	if (key == SDLK_ESCAPE)
+		return (0);
+	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
+	{
+		s->display_mode = s->display_mode == 1 ? 0 : 1;
+	}
+	if (key == ROTATE_LEFT)
+	{
+		s->player.angle += 20;
+		if (s->player.angle > 360)
+			s->player.angle -= 360;
+	}
+	if (key == ROTATE_RIGHT)
+	{
+		s->player.angle -= 20;
+		if (s->player.angle < 0)
+			s->player.angle += 360;
+	}
+	if (key == TAB)
+		ft_test_chainlist(s);
+	return (1);
+}
+
+int		key_controls_edi(t_main *s, int key)
+{
+	if (key == SDLK_ESCAPE)
+		return (0);
+	if (key == TAB)
+		ft_test_chainlist(s);
+	if ((key == SDLK_RETURN || key == SDLK_KP_ENTER) && s->display_mode < 2)
+	{
+		s->display_mode = s->display_mode == 1 ? 0 : 1;
+	}
+	if (key == SDLK_KP_PLUS)
+	{
+		s->editor->dply_floor = ft_prev_next_floor(s, 1);
+	}
+	if (key == SDLK_KP_MINUS)
+	{
+		s->editor->dply_floor = ft_prev_next_floor(s, 2);
+	}
+	if (key == SAVE)
+	{
+		s->display_mode = 2;
+	}
+	if (key == ROTATE_LEFT)
+	{
+		s->player.angle += 20;
+		if (s->player.angle > 360)
+			s->player.angle -= 360;
+	}
+	if (key == ROTATE_RIGHT)
+	{
+		s->player.angle -= 20;
+		if (s->player.angle < 0)
+			s->player.angle += 360;
+	}
+	if (key == FLOOR)
+	{
+		if (s->editor->mode_floor == 1)
+			s->editor->mode_floor = 0;
+		else
+			s->editor->mode_floor = 1;
+		// s->editor->mode_floor = 1;
+		// ft_reset_color_vertex(s);
+	}
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE)
+		change_mode(s, key);
+	if (key == DELETE)
+		return(2);
 	return (1);
 }
 
@@ -109,9 +153,10 @@ void	handle_editor_keys(t_main *s)
 {
 	const Uint8 *keys;
 
+	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	keys = SDL_GetKeyboardState(NULL);
-	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
-		ft_move_player(s, keys);
+	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT]) && (s->player.sector_id != 0))
+		ft_move_player(s, keys, 2);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
 	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR]))
@@ -128,17 +173,17 @@ void	handle_editor_keys(t_main *s)
 		jump(s,-1);
 	}
 
-	if (s->display_mode == 0)
-	{
-		if (s->editor->mode == vertex && (keys[DEL]))
-			remove_selected_anchor(s);
-		if (s->editor->mode == sprite && (keys[DEL]))
-			remove_sprite_by_select(s);
-	}
+	// if (s->display_mode == editor)
+	// {
+	// 	if (s->editor->mode == vertex && (keys[DELETE]))
+	// 		remove_selected_anchor(s);
+	// 	if (s->editor->mode == sprite && (keys[DELETE]))
+	// 		remove_sprite_by_select(s);
+	// }
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
-	// ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
+	ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
 	ft_draw_editor(s->editor, s->sdl->editor);
 	display_map(s);
 	ft_draw_all_wall(s);
@@ -159,7 +204,18 @@ void	handle_editor_keys(t_main *s)
 
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
+<<<<<<< HEAD
 	ft_visu_joan(s);
+=======
+	if (s->player.sector_id == 0)
+	{
+		s->player.pos = handle_sector_zero(s, keys);
+		set_player(s);
+	}
+
+	ft_visu_joan(s, keys);
+
+>>>>>>> 3ce7a08c9c6bad003a598911c231e756fbba05b3
 	if (s->display_mode == 1)
 	{
 		play_anim(s);
@@ -172,11 +228,11 @@ void	handle_editor_keys(t_main *s)
 		ft_save_map(s);
 	}
 
-	if (s->display_mode == 0)
+	if (s->display_mode == editor)
 		update_image(s, s->sdl->editor);
-	else if (s->display_mode == 1)
+	else if (s->display_mode == game)
 		update_image(s, s->sdl->game);
-	else if (s->display_mode == 2)
+	else if (s->display_mode == save)
 		update_image(s, s->sdl->save);
 
 	//	display_chainlist(s);
@@ -187,14 +243,14 @@ void	handle_editor_keys(t_main *s)
 	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
 	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
 	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
-	// printf("player.r_pos (%f, %f)\n",s->player.r_pos.x, s->player.r_pos.y);
+	// printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
 }
 
 void	editor_handler(t_main *s)
 {
 	int			zoom;
 	int 		remove;
-	int			editor;
+	int			ingame;
 	int			selected;
 	t_pos		ori;
 	int			id;
@@ -210,7 +266,7 @@ void	editor_handler(t_main *s)
 
 	// t_pos		dest;
 
-	editor = 1;
+	ingame = 1;
 	selected = 0;
 	zoom = 0;
 	id = 0;
@@ -220,7 +276,7 @@ void	editor_handler(t_main *s)
 	remove = 0;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
-	while (editor)
+	while (ingame)
 	{
 		tmp_mode = s->editor->mode;
 		v= s->vertex;
@@ -242,7 +298,7 @@ void	editor_handler(t_main *s)
 					move_vertex(s, tmp_move, ori, id);
 
 				}
-				if(s->display_mode)
+				if(s->display_mode == 1)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
 					 rotate_mouse(s);
@@ -285,7 +341,7 @@ void	editor_handler(t_main *s)
 				}
 			}
 			if (s->sdl->event.type == SDL_QUIT)
-				editor = 0;
+				ingame = 0;
 			if (s->sdl->event.type == SDL_MOUSEBUTTONUP)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
@@ -359,77 +415,84 @@ void	editor_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-					if (s->editor->mode == sprite && !check_click_menu(s) && (check_sprite_menu_click(s,s->ft_mouse) == -1))
+					if (s->display_mode == editor)
 					{
-					//	check_sprite_menu_click(s,s->ft_mouse);
-						deselect_sprite(s);
-						selected = set_selected_sprite(s,&mouse_save);
-						//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+						if (s->editor->mode == sprite && !check_click_menu(s) && (check_sprite_menu_click(s,s->ft_mouse) == -1))
+						{
+						//	check_sprite_menu_click(s,s->ft_mouse);
+							deselect_sprite(s);
+							selected = set_selected_sprite(s,&mouse_save);
+							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+						}
+						if (check_click_menu(s))
+						{
+							click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
+							// printf("mode = %u\n", s->editor->mode);
+						}
+						if (s->editor->mode == portal && !check_click_menu(s))
+						{
+							edit_portal(s);
+						}
+						if (s->editor->mode == vertex && !check_click_menu(s))
+						{
+							//deselect_vertex(s);
+							selected = exist_vertex(s,&mouse_save,&id,&ori);
+						}
+						else if (s->editor->mode == move && !check_click_menu(s))
+						{
+							tmp.x = s->editor->decal_x;
+							tmp.y = s->editor->decal_y;
+							mouse_save.x = s->sdl->event.button.x;
+							mouse_save.y = s->sdl->event.button.y;
+							selected = 1;
+
+						}
+						else if (s->editor->mode == sector && !check_click_menu(s))
+						{
+							ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
+							ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+							if (ori.x >= 0 && ori.x <= WIDTH
+								&& ori.y >= 0 && ori.y <= HEIGHT)
+								{
+									if ((id = anchor_exists(s, ori)) != 0)
+										set_selected(s, ori, s->editor->color_sector);
+								}
+							s->editor->color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
+
+
+							t_pos point_2;
+							int iii = -1;
+							point_2.x = s->sdl->event.button.x;
+							point_2.y = s->sdl->event.button.y;
+							iii = ft_is_in_sector(s, point_2);
+							if (iii == 0)
+								printf("SECTOR IS %d\n", iii);
+							else
+								printf("\033[31mSECTOR IS %d\033[0m\n", iii);
+							// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
+						}
+						else if (s->editor->mode == player && !check_click_menu(s))
+						{
+							tmp2.x = s->sdl->event.button.x;
+							tmp2.y = s->sdl->event.button.y;
+
+							if (ft_is_in_sector(s, tmp2) != 0)
+							{
+								s->player.pos.y = tmp2.y;
+								s->player.pos.x = tmp2.x;
+								s->player.set = 1;
+								s->player.correc = 0;
+
+							}
+						}
 					}
-					if (s->display_mode)
+					else if (s->display_mode == game)
 					{
 						shoot(s,1);
 					}
-					if (check_click_menu(s))
+					else if (s->display_mode == save)
 					{
-						click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
-						// printf("mode = %u\n", s->editor->mode);
-					}
-					if (s->editor->mode == portal && !check_click_menu(s))
-					{
-						edit_portal(s);
-					}
-					if (s->editor->mode == vertex && !check_click_menu(s))
-					{
-						//deselect_vertex(s);
-						selected = exist_vertex(s,&mouse_save,&id,&ori);
-					}
-					else if (s->editor->mode == move && !check_click_menu(s))
-					{
-						tmp.x = s->editor->decal_x;
-						tmp.y = s->editor->decal_y;
-						mouse_save.x = s->sdl->event.button.x;
-						mouse_save.y = s->sdl->event.button.y;
-						selected = 1;
-
-					}
-					else if (s->editor->mode == sector && !check_click_menu(s))
-					{
-						ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
-						ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
-						if (ori.x >= 0 && ori.x <= WIDTH
-							&& ori.y >= 0 && ori.y <= HEIGHT)
-							{
-								if ((id = anchor_exists(s, ori)) != 0)
-									set_selected(s, ori, s->editor->color_sector);
-							}
-						s->editor->color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
-
-
-						t_pos point_2;
-						int iii = -1;
-						point_2.x = s->sdl->event.button.x;
-						point_2.y = s->sdl->event.button.y;
-						iii = ft_is_in_sector(s, point_2);
-						if (iii == 0)
-							printf("SECTOR IS %d\n", iii);
-						else
-							printf("\033[31mSECTOR IS %d\033[0m\n", iii);
-						// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
-					}
-					else if (s->editor->mode == player && !check_click_menu(s))
-					{
-						tmp2.x = s->sdl->event.button.x;
-						tmp2.y = s->sdl->event.button.y;
-
-						if (ft_is_in_sector(s, tmp2) != 0)
-						{
-							s->player.pos.y = tmp2.y;
-							s->player.pos.x = tmp2.x;
-							s->player.set = 1;
-							s->player.correc = 0;
-
-						}
+						ft_click_save(s);
 					}
 				}
 			}
@@ -446,17 +509,30 @@ void	editor_handler(t_main *s)
 					zoom--;
 				}
 			}
-			if (s->sdl->event.type == SDL_KEYDOWN
-				&& (remove_achr = keyboard_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
-				editor = 0;
-			else if (s->sdl->event.type == SDL_KEYDOWN
-				&& remove_achr == 2 && selected == 1 && !s->display_mode)
+			if (s->sdl->event.type == SDL_KEYDOWN)
+			{
+				// printf("key = %d\n", s->sdl->event.key.keysym.sym);
+				if (s->display_mode == editor)
 				{
-					remove_anchor(s, id);
-					remove = 1;
-					id = 0;
-
+					if ((remove_achr = key_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
+						ingame = 0;
+					else if (remove_achr == 2 && selected == 1)
+						{
+							remove_anchor(s, id);
+							remove = 1;
+							id = 0;
+						}
 				}
+				else if (s->display_mode == game)
+				{
+					if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0)
+						ingame = 0;
+				}
+				else if (s->display_mode == save)
+				{
+					key_controls_save(s, s->sdl->event.key.keysym.sym);
+				}
+			}
 
 		}
 		handle_editor_keys(s);
