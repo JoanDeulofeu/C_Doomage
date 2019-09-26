@@ -176,7 +176,6 @@ void	ft_visu_joan(t_main *s)
 	angle_right = s->player.angle - demi_fov;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
-	// draw_skybox(s, vs);
 	ft_draw_visu(s, player, get_sector_by_id(s, s->player.sector_id), vs);
 // printf("------  SORTIE  ------\n");
 

@@ -142,7 +142,6 @@ typedef struct				s_visu {
 	t_int					*begin_wall;
 	t_dpos					end;
 	int						end_wall_id;
-	t_pos					pixel;
 	Uint32					color;
 	t_dpos					left_point;
 	t_dpos					right_point;
@@ -446,7 +445,7 @@ void 				print_wall_list(t_main *s);
 /*
 ****	Fonction des textures
 */
-void				draw_skybox(t_main *s, t_visu vs);
+void	display_sky(t_main *s);
 
 /*FCT SPRITE CHAINLIST*/
 t_pos 	get_px_r_pos(t_main *s, t_dpos ref);
