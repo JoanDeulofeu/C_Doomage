@@ -1,24 +1,30 @@
 #include "doom.h"
 
-void	draw_skybox(t_main *s, t_visu vs)
+ void			display_sky(t_main *s)
 {
-	double	angle = 0.0;
-	double	pery;
-	int		px_tex;
+	double		perx;
+	double		pery;
+	t_pos		coord;
+	int			px;
+	t_image 	*wp;
 
-	angle = angle > 360.0 ? angle - 360.0 : angle;
-	angle = angle < 0 ? angle + 360.0 : angle;
-	angle = (angle / 360.0);
-	vs.pixel.y = -1;
-	while (++(vs.pixel.y) < vs.begin_wall_id && vs.pixel.y < HEIGHT - s->interface->h)
+	wp = s->skybox;
+	coord.x = 0;
+	while (coord.x++ < WIDTH)
 	{
-		pery = (double)(vs.pixel.y - s->viewline + HEIGHT * 1.5) / (HEIGHT * 2.2);
-		pery = pery > 1.0 ? 1.0 : pery;
-		pery = pery < 0.0 ? 0.0 : pery;
-		px_tex = (int)((angle * s->skybox->w) + s->skybox->w
-			* (int)(s->skybox->h * pery));
-		if (px_tex < s->skybox->w * s->skybox->h && px_tex >= 0)
-			vs.color = s->skybox->tex[px_tex];
-		set_pixel(s->sdl->game, vs.color, vs.pixel);
+		coord.y = 0;
+		perx = (double)coord.x / (double)WIDTH;
+		while (coord.y++ < HEIGHT)
+		{
+			pery = (double)coord.y / (double)HEIGHT;
+			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
+			if (px >= 0 && px < wp->w * wp->h)
+				set_pixel(s->sdl->game, wp->tex[px], coord);
+		}
 	}
+}
+
+void 	calcul_angle(t_main *s)
+{
+	
 }

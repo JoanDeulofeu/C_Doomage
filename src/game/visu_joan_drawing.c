@@ -8,6 +8,7 @@ void	ft_draw_column(t_main *s, t_pos coord, int end, Uint32 color)
 	i = 0;
 	begin = coord.y ;
 	coord.y = 0 ;
+	// printf("coord.y %d, end = %d\n", begin, end);
 	while (i++ < begin)
 	{
 		set_pixel(s->sdl->game, 0x485050ff, coord);
@@ -181,6 +182,7 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	left.y = vtx->ptr->y * METRE;
 	right.x = vtx->next->ptr->x * METRE;
 	right.y = vtx->next->ptr->y * METRE;
+	// printf("3\n");
 
 	// printf("vs->left_point.x = %f, vs->left_point.y = %f\n", vs->left_point.x, vs->left_point.y);
 	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
@@ -188,6 +190,7 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 		wall->left = s->tmp_intersect;
 	else
 		wall->left = left;
+
 	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->l_plan = s->tmp_intersect;
 
@@ -197,10 +200,11 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
 
 	dist = ft_find_intersection(s, vs->right_point, vs->player, left, right, 1);
+	// printf("MUHAHAHA\n");
 	if (dist > 0)
 	{
 		wall->right = s->tmp_intersect;
-	//	printf("true\n");
+		// printf("true\n");
 	}
 	else
 		wall->right = right;
@@ -221,7 +225,7 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	}
 	else
 	{
-	//	printf("Mur[%d] caché\n", vtx->ptr->id);
+		// printf("Mur[%d] caché\n", vtx->ptr->id);
 	}
 }
 
@@ -236,10 +240,12 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	t_dpos	wall1;
 	t_dpos	wall2;
 
+	// printf("vtx->ptr->id = %d, vs->sct_id = %d\n",vtx->ptr->id, vs->sct_id);
 	if (vtx->wall_value != -1)
 	{
 		fake_angle = 0;
 		fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
+
 		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
@@ -268,6 +274,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
 		wall2.x = vtx->vtx_dest->ptr->x * METRE;
 		wall2.y = vtx->vtx_dest->ptr->y * METRE;
+		// printf("wall1 (%f;%f), wall2(%f, %f)\n", wall1.x, wall1.y, wall2.x, wall2.y);
 		ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
 		// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 		if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
@@ -307,6 +314,7 @@ void	draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		// fake_vs.begin_wall = get_t_int_by_vertex_id(fake_vs.sct->vertex, fake_vs.begin_wall_id);
 		// if (fake_vs.begin_wall== NULL)
 		// 	handle_error(s, POINTER_ERROR);
+		// printf("va ajouter portail\n");
 		if (s->portal_nb < PORTAL_LIMIT)
 			add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
 	}
@@ -327,6 +335,11 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 	t_dpos	wall2;
 
 	i = 0;
+	if (vs->end_wall_id == 0)
+	{
+		printf("ERROR\n");
+		exit(-1);
+	}
 	while (vtx->ptr->id != vs->end_wall_id)
 	{
 		if (vtx->wall_value != -1)

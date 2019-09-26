@@ -149,7 +149,6 @@ typedef struct				s_visu {
 	t_int					*begin_wall;
 	t_dpos					end;
 	int						end_wall_id;
-	t_pos					pixel;
 	Uint32					color;
 	t_dpos					left_point;
 	t_dpos					right_point;
@@ -361,6 +360,7 @@ void				fill_sectors(t_main *s);
 void				draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int				*free_sector_struct(t_sector *temp_sector);
 int					get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos);
+t_dpos				handle_sector_zero(t_main *s, const unsigned char *keys);
 
 /*
 ****	Fonction de gestion des portails
@@ -415,7 +415,7 @@ void				remove_selected_anchor(t_main *s);
 void 				set_player(t_main *s);
 //void				ft_move_player(t_main *s, const Uint8 *key);
 t_dpos				get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target);
-void				ft_move_player(t_main *s, const Uint8 *keys);
+void				ft_move_player(t_main *s, const Uint8 *keys, int move_speed);
 void 				rotate_player(t_main *s , const Uint8 *keys);
 void 				teleport_player(t_main *s, const unsigned char *keys);
 void				ft_trace_vertical(t_main *s, t_line line, Uint32 color);
@@ -471,7 +471,7 @@ void 				print_wall_list(t_main *s);
 /*
 ****	Fonction des textures
 */
-void				draw_skybox(t_main *s, t_visu vs);
+void	display_sky(t_main *s);
 
 /*FCT SPRITE CHAINLIST*/
 t_pos 	get_px_r_pos(t_main *s, t_dpos ref);

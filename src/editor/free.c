@@ -88,7 +88,6 @@ void	free_images(t_main *s)
 {
 	// (void)s;
 	// free_areas(s);
-	// free_image(s->skybox);
 	// free_image(s->weapon.image[0]);
 	// free_image(s->weapon.image[1]);
 	// free_image(s->weapon.image[2]);

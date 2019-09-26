@@ -179,10 +179,6 @@ t_main		*initialize_main(char *str)
 	s->portal_nb = 0;
 	s->interface = NULL;
 	s->skybox = NULL;
-	s->viewline = HEIGHT / 2;
-	s->fov = FOV;
-	s->proj_distance = (WIDTH / 2) / tan((double)(s->fov / 2)
-	* M_PI / 180.0);
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);
