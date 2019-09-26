@@ -228,6 +228,7 @@ void	handle_editor_keys(t_main *s)
 	//	display_chainlist(s);
 
 	// ft_test_chainlist(s);
+	// printf("old  (%d | %d)\n", s->vertex->next->next->old.x, s->vertex->next->next->old.y);
 	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
 	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
 	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
@@ -253,9 +254,6 @@ void	editor_handler(t_main *s)
 	t_vertex    *v;
 	t_mode			tmp_mode;
 
-
-	// t_pos		dest;
-
 	ingame = 1;
 	selected = 0;
 	zoom = 0;
@@ -269,7 +267,7 @@ void	editor_handler(t_main *s)
 	while (ingame)
 	{
 		tmp_mode = s->editor->mode;
-		v= s->vertex;
+		v = s->vertex;
 
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
@@ -286,14 +284,12 @@ void	editor_handler(t_main *s)
 				{
 					move_anchor(s, id);
 					move_vertex(s, tmp_move, ori, id);
-
 				}
 				if(s->display_mode == 1)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
-					 rotate_mouse(s);
-					 s->editor->mode = move;
-
+					rotate_mouse(s);
+					s->editor->mode = move;
 				}
 				else
 					SDL_SetRelativeMouseMode(SDL_FALSE);
@@ -351,22 +347,18 @@ void	editor_handler(t_main *s)
 						//printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
 						if (!id && s->editor->mode == vertex && (s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y) && remove == 0)
 						{
-
 							create_anchor(s, ori); //creation ancre
-
 						}
 						selected = 0;
 						if (s->editor->selected == 0)
 						{
 							deselect_vertex(s);
+							ft_check_move_vertex_validity(s, id);
 						}
 						if (s->editor->selected == 1)
 						{
 							select_vertex(s);
 						}
-
-						 	// printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
-						 	// printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
 					}
 					else if (s->editor->mode == sprite)
 					{
@@ -407,37 +399,39 @@ void	editor_handler(t_main *s)
 				{
 					if (s->display_mode == editor)
 					{
-						if (s->editor->mode == sprite && !check_click_menu(s) && (check_sprite_menu_click(s,s->ft_mouse) == -1))
-						{
-						//	check_sprite_menu_click(s,s->ft_mouse);
-							deselect_sprite(s);
-							selected = set_selected_sprite(s,&mouse_save);
-							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
-						}
 						if (check_click_menu(s))
 						{
 							click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
 							// printf("mode = %u\n", s->editor->mode);
 						}
-						if (s->editor->mode == portal && !check_click_menu(s))
+						else if (s->editor->mode == sprite
+							&& (check_sprite_menu_click(s,s->ft_mouse) == -1))
+						{
+							//	check_sprite_menu_click(s,s->ft_mouse);
+							deselect_sprite(s);
+							selected = set_selected_sprite(s, &mouse_save);
+							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
+						}
+						else if (s->editor->mode == portal)
 						{
 							edit_portal(s);
 						}
-						if (s->editor->mode == vertex && !check_click_menu(s))
+						else if (s->editor->mode == vertex)
 						{
 							//deselect_vertex(s);
-							selected = exist_vertex(s,&mouse_save,&id,&ori);
+							selected = exist_vertex(s, &mouse_save, &id, &ori);
+							s->save_coord_vtx.x = ori.x;
+							s->save_coord_vtx.y = ori.y;
 						}
-						else if (s->editor->mode == move && !check_click_menu(s))
+						else if (s->editor->mode == move)
 						{
 							tmp.x = s->editor->decal_x;
 							tmp.y = s->editor->decal_y;
 							mouse_save.x = s->sdl->event.button.x;
 							mouse_save.y = s->sdl->event.button.y;
 							selected = 1;
-
 						}
-						else if (s->editor->mode == sector && !check_click_menu(s))
+						else if (s->editor->mode == sector)
 						{
 							ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 							ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
@@ -461,7 +455,7 @@ void	editor_handler(t_main *s)
 								printf("\033[31mSECTOR IS %d\033[0m\n", iii);
 							// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 						}
-						else if (s->editor->mode == player && !check_click_menu(s))
+						else if (s->editor->mode == player)
 						{
 							tmp2.x = s->sdl->event.button.x;
 							tmp2.y = s->sdl->event.button.y;
@@ -526,10 +520,8 @@ void	editor_handler(t_main *s)
 
 		}
 		handle_editor_keys(s);
-		//printf("mode = %d,%d\n",tmp_mode,s->editor->mode);
 		if (tmp_mode != s->editor->mode)
 			deselect_vertex(s);
-		// printf("decalx = %d\n", s->editor->decal_x );
 		// ft_test_chainlist(s);
 	}
 }

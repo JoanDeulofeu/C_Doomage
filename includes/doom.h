@@ -237,6 +237,8 @@ typedef struct				s_main {
 	t_dpos					fplayer_pos;
 	double					fplayer_angle;
 	int						fplayer_sct;
+	t_pos					save_coord_vtx; //utilisé pour remettre un vtx a sa place
+	//										au cas ou on le deplace dans un secteur.
 }							t_main;
 
 /*
@@ -317,10 +319,14 @@ int					ft_prev_next_floor(t_main *s, char prev_next);
 void				move_editor(t_main *s, const Uint8 *keys);
 
 
-//MAP
+/*
+****	Fonction de gestion et de protection du parsing
+*/
 int					ft_parsing(t_main *s, int x, int y, int fd);
 int					ft_find_next_number(char *str, int i);
 void				ft_check_validity_last_sector(t_main *s);
+int					ft_check_wall_that_intersect(t_main *s, t_sector *sct_in_check);
+void				ft_check_move_vertex_validity(t_main *s, int id);
 
 /*
 ****	Fonction de gestion des listes chainés

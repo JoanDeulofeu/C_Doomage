@@ -168,6 +168,7 @@ typedef struct		s_vertex {
 	int				y;
 	t_pos			pos; // position en pixel en rapport a l'editeur
 	t_pos			old;
+	t_pos			save_pos;
 	int				selec;
 	char			selected;
 	struct s_vertex	*next;
@@ -192,7 +193,6 @@ typedef struct		s_sector {
 	int				floor;
 	int				ceiling;
 	t_int			*vertex;
-	// t_int			*wall;
 	struct s_sector	*next;
 	struct s_sector	*prev;
 }					t_sector;
@@ -218,11 +218,5 @@ typedef struct		s_editor {
 	int				over_sector;
 	int				over_sector2;
 }					t_editor;
-
-
-
-
-
-
 
 #endif

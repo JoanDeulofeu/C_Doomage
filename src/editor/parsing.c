@@ -142,6 +142,7 @@ int			ft_parse_sector(t_main *s, char *line)
 		handle_error(s, MAP_ERROR);
 	floor = ft_atoi(&line[i]);
 	i += ft_longlen(floor) + 1;
+	i = ft_find_next_number(line, i);
 	ceiling = ft_atoi(&line[i]);
 	sct = ft_add_sector(s, floor, ceiling);
 	while (line[i] != '|')
@@ -161,6 +162,119 @@ int		ft_find_next_number(char *str, int i)
 	return (i);
 }
 
+int		ft_check_other_sector_wall_intersect(t_main *s, t_sector *sct, t_sector *sct_in_check)
+{
+	t_int		*wall;
+	t_int		*wall_in_check;
+	int			wic_i;
+	int			wic_stop;
+	int			w_i;
+	int			w_stop;
+	t_dpos		beg1;
+	t_dpos		beg2;
+	t_dpos		end1;
+	t_dpos		end2;
+
+	wall_in_check = sct_in_check->vertex;
+	wic_i = wall_in_check->id;
+	wic_stop = wall_in_check->prev->id + 1;
+	while (wic_i++ < wic_stop)
+	{
+		wall = sct->vertex;
+		w_i = wall->id;
+		w_stop = wall->prev->id + 1;
+		while (w_i++ < w_stop)
+		{
+			beg1.x = wall_in_check->ptr->x * METRE;
+			beg1.y = wall_in_check->ptr->y * METRE;
+			beg2.x = wall_in_check->next->ptr->x * METRE;
+			beg2.y = wall_in_check->next->ptr->y * METRE;
+
+			end1.x = wall->ptr->x * METRE;
+			end1.y = wall->ptr->y * METRE;
+			end2.x = wall->next->ptr->x * METRE;
+			end2.y = wall->next->ptr->y * METRE;
+			if ((ft_find_intersection(s, beg1, beg2, end1, end2, 1)) > 0)
+				return (1);
+			wall = wall->next;
+		}
+		wall_in_check = wall_in_check->next;
+	}
+	return (0);
+}
+
+int		ft_check_inside_sector_wall_intersect(t_main *s, t_sector *sct)
+{
+	t_int		*wall;
+	t_int		*wall_in_check;
+	int			wic_i;
+	int			wic_stop;
+	int			w_i;
+	int			w_stop;
+	t_dpos		beg1;
+	t_dpos		beg2;
+	t_dpos		end1;
+	t_dpos		end2;
+
+	if (sct->vertex->prev->id < 4) //si le secteur a 3 murs
+		return (0);
+	wall_in_check = sct->vertex;
+	w_i = wall_in_check->id;
+	w_stop = wall_in_check->prev->id; //pas de +1 car pas besoin de check le dernier mur
+	wic_i = w_i;
+	wic_stop = w_stop + 1;
+	// printf("\n\nTEST\n");
+	while (wic_i++ < wic_stop)
+	{
+		wall = wall_in_check->next->next;
+		w_i = 1;
+		// printf("Mur testé n%d", wall_in_check->id);
+		while (w_i++ < w_stop)
+		{
+			beg1.x = wall_in_check->ptr->x * METRE;
+			beg1.y = wall_in_check->ptr->y * METRE;
+			beg2.x = wall_in_check->next->ptr->x * METRE;
+			beg2.y = wall_in_check->next->ptr->y * METRE;
+
+			end1.x = wall->ptr->x * METRE;
+			end1.y = wall->ptr->y * METRE;
+			end2.x = wall->next->ptr->x * METRE;
+			end2.y = wall->next->ptr->y * METRE;
+			if ((ft_find_intersection(s, beg1, beg2, end1, end2, 1)) > 0)
+				return (1);
+			// printf(" avec mur n%d", wall->id);
+			wall = wall->next;
+		}
+		// printf("\n");
+		wall_in_check = wall_in_check->next;
+	}
+	return (0);
+}
+
+
+int		ft_check_wall_that_intersect(t_main *s, t_sector *sct_in_check)
+{
+	t_sector	*sct;
+
+	sct = s->sector;
+	// printf("secteur testé = %d\n", sct_in_check->id);
+	while (sct)
+	{
+		// printf("test\n");
+		if (sct->id == sct_in_check->id)
+		{
+			if (ft_check_inside_sector_wall_intersect(s, sct_in_check))
+				return (1);
+			sct = sct->next;
+			continue;
+		}
+		if (ft_check_other_sector_wall_intersect(s, sct, sct_in_check))
+			return (1);
+		sct = sct->next;
+	}
+	return (0);
+}
+
 void	ft_check_validity_last_sector(t_main *s)
 {
 	t_sector	*sct;
@@ -170,8 +284,9 @@ void	ft_check_validity_last_sector(t_main *s)
 	while (sct->next)
 		sct = sct->next;
 	wall = sct->vertex;
-	// printf("sector a supprimer : %d\n", sct->id);
 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
+		remove_sector(s, wall->value, 0, 0);
+	if (ft_check_wall_that_intersect(s, sct))
 		remove_sector(s, wall->value, 0, 0);
 }
 

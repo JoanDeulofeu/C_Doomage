@@ -28,7 +28,7 @@ int   check_exist(t_main *s,t_dpos target, int id)
 
 double  found_player(t_main *s,t_sprite *cur)
 {
-  t_dpos	ctr_l;
+	t_dpos	ctr_l;
 	double  angle;
 	t_pos ret;
 
@@ -41,15 +41,12 @@ double  found_player(t_main *s,t_sprite *cur)
    	ctr_l.y = cur->pos.y - sin(to_rad(angle)) * cur->dist;
     ret = ft_dpos_to_pos(ctr_l);
 	//	 set_pixel(s->sdl->editor, BLUE, ret);
-		  if ((ret.x >= (s->player.pos.x -HITBOX) && ret.x <= (s->player.pos.x +HITBOX))
-		  	&& (ret.y >= (s->player.pos.y -HITBOX) && ret.y <= (s->player.pos.y +HITBOX)))
-		  {
-        break ;
-		 	}
-		 angle+=0.1;
-	 }
-   return (angle);
-
+		if ((ret.x >= (s->player.pos.x - HITBOX) && ret.x <= (s->player.pos.x + HITBOX))
+		&& (ret.y >= (s->player.pos.y - HITBOX) && ret.y <= (s->player.pos.y + HITBOX)))
+			break ;
+		angle+=0.1;
+	}
+	return (angle);
 }
 
 void  rand_move(t_main *s, t_sprite *cur)

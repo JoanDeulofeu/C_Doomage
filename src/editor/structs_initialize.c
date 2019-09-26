@@ -86,9 +86,9 @@ void		load_images(t_main *s)
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
 
-
 	s->menu = load_tga("images/menu.tga", 0, 0, 0);
 	s->savemap->croix_rouge = load_tga("images/croix_rouge.tga", 0, 0, 0);
+
 	s->player.weapon.image[1] = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->player.weapon.image[0] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
 	//s->player.weapon.image[2] = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
@@ -101,24 +101,15 @@ void		load_images(t_main *s)
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
 	s->skybox = load_tga("images/skybox_stars.tga", 0, 0, 0);
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
-
-
-
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
-
-
 	while (i < 15)
 	{
 		s->editor->menu.image[i] = NULL;
 		s->player.weapon.image[i] = NULL;
 		s->editor->m_floor.image[i++] = NULL;
 	}
-
 	s->lsprite =create_lsprite(s,7);
-
-
-
 }
 
 t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
@@ -166,17 +157,18 @@ t_main		*initialize_main(char *str)
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 	s->player.set_jump = 0;
-
 	s->player.fin_time = 0;
 	s->player.tmp_time = 0;
 	s->player.t.recoil.x = 0;
 	s->player.t.recoil.y = 0;
+
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;
 	s->intersect1.x = 0;
 	s->intersect1.y = 0;
 	s->intersect2.x = 0;
 	s->intersect2.y = 0;
+
 	s->player.angle = 180;
 	s->player.sector_id = 0;
 	s->player.sector = NULL;
@@ -196,6 +188,8 @@ t_main		*initialize_main(char *str)
 	load_images(s);
 	init_sprite(s);
 	s->choice_sprite = s->lsprite;
+	s->save_coord_vtx.x = 0;
+	s->save_coord_vtx.y = 0;
 
 	return (s);
 }

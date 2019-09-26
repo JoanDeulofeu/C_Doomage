@@ -117,14 +117,16 @@ void 	deselect_vertex(t_main *s)
 void select_vertex(t_main *s)
 {
 	t_vertex *v;
+	t_line line;
 
 	v = s->vertex;
+	line = s->editor->line;
 	while (v)
 	{
-		if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-			((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
-				((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-					((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
+		if (((v->pos.x >= line.x1 && v->pos.x <= line.x2) && (v->pos.y >= line.y1 && v->pos.y <= line.y2)) ||
+			((v->pos.x <= line.x1 && v->pos.x >= line.x2) && (v->pos.y <= line.y1 && v->pos.y >= line.y2)) ||
+				((v->pos.x <= line.x1 && v->pos.x >= line.x2) && (v->pos.y >= line.y1 && v->pos.y <= line.y2)) ||
+					((v->pos.x >= line.x1 && v->pos.x <= line.x2) && (v->pos.y <= line.y1 && v->pos.y >= line.y2)))
 					{
 						v->selec = 1;
 						v->selected = 1;
@@ -135,7 +137,6 @@ void select_vertex(t_main *s)
 			v = v->next;
 	}
 	s->editor->selected = 0;
-
 }
 
 

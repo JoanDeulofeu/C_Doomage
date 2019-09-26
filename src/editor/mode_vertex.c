@@ -129,3 +129,38 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	dest.y = ori.y + size;
 	draw_rect(s->sdl->editor, init, dest, color);
 }
+
+void	ft_check_move_vertex_validity(t_main *s, int id)
+{
+	t_sector	*sct;
+	t_int		*wall;
+	int			i;
+	int			stop;
+	t_pos		abs;
+
+	sct = s->sector;
+	while (sct)
+	{
+		wall = sct->vertex;
+		i = 1;
+		stop = wall->prev->id + 1;
+		while (i++ < stop)
+		{
+			if (wall->ptr->id == id)
+			{
+				if (ft_check_wall_that_intersect(s, sct))
+				{
+					wall->ptr->pos = s->save_coord_vtx;
+					abs = get_abs_pos(s, s->save_coord_vtx);
+					wall->ptr->x = abs.x;
+					wall->ptr->y = abs.y;
+				}
+				s->save_coord_vtx.x = 0;
+				s->save_coord_vtx.y = 0;
+				return ;
+			}
+			wall = wall->next;
+		}
+		sct = sct->next;
+	}
+}
