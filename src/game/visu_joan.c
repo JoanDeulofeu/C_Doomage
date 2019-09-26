@@ -208,11 +208,8 @@ void	ft_visu_joan(t_main *s, const unsigned char *keys)
 	// draw_anchor(s, ft_dpos_to_pos(player), PINK);
 	// update_image(s, s->sdl->editor);
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
-<<<<<<< HEAD
-=======
 	// draw_skybox(s, vs);
 	// printf("s->player->angle = %f, vs.angle = %f, vs.sct = %d, player.x = %f, player.y = %f\n", s->player.angle, vs.angle, vs.sct->id, player.x, player.y);
->>>>>>> 3ce7a08c9c6bad003a598911c231e756fbba05b3
 	ft_draw_visu(s, player, get_sector_by_id(s, s->player.sector_id), vs);
 // printf("------  SORTIE  ------\n");
 

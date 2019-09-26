@@ -204,9 +204,6 @@ void	handle_editor_keys(t_main *s)
 
 		//display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
-<<<<<<< HEAD
-	ft_visu_joan(s);
-=======
 	if (s->player.sector_id == 0)
 	{
 		s->player.pos = handle_sector_zero(s, keys);
@@ -214,8 +211,6 @@ void	handle_editor_keys(t_main *s)
 	}
 
 	ft_visu_joan(s, keys);
-
->>>>>>> 3ce7a08c9c6bad003a598911c231e756fbba05b3
 	if (s->display_mode == 1)
 	{
 		play_anim(s);
