@@ -24,8 +24,18 @@ t_dpos	handle_sector_zero(t_main *s, const unsigned char *keys)
 		curr.y = s->player.pos.y - nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
-		// curr.x = s->player->pos.x - nb;
-		// if (ft_is_in_sector(s, curr) != 0)
+		curr.x = s->player.pos.x - nb;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		curr.x = s->player.pos.x + nb;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		curr.y += nb * 2;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
+		curr.x -= nb * 2;
+		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
+			return (ft_pos_to_dpos(curr));
 		// 	return (curr);
 		nb++;
 	}

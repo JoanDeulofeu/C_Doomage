@@ -2,12 +2,11 @@
 
 void reset_temp_portals(t_main *s)
 {
-	t_sector *tmp_sct;
-
-	tmp_sct = s->sector;
+	// t_sector *tmp_sct;
+	//
+	// tmp_sct = s->sector;
 	// while (tmp_sct != NULL)
 	// {
-		s->editor->over_portal= 0;
 		s->editor->over_portal= 0;
 		s->editor->over_sector = 0;
 		s->editor->over_sector2 = 0;
@@ -200,7 +199,7 @@ void	change_over_wall(t_main *s)
 				beg = wall->ptr->pos;
 				end = wall->next->ptr->pos;
 
-				wall_save = wall;
+				wall_save = NULL;
 				while (i++ < sector->vertex->prev->id)
 				{
 					// printf("sector[%d] Wall[%d]\n", sector->id, wall->id);

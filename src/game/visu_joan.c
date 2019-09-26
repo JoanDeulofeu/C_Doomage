@@ -154,6 +154,25 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 		nb++;
 	}
 		wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
+		if (wall->vtx_dest == NULL)
+		{
+			printf("true\n");
+			// if (wall->next->vtx_dest != NULL && wall->prev->vtx_dest != NULL)
+			// {
+			// 	printf("true\n");
+			// 	if (ft_dist_t_dpos(ft_pos_to_dpos(wall->next->vtx_dest->ptr->pos), s->col_pos) <
+			// 	ft_dist_t_dpos(ft_pos_to_dpos(wall->prev->vtx_dest->ptr->pos), s->col_pos))
+			// 		wall = wall->next;
+			// 	else
+			// 		wall = wall->prev;
+			// 	printf("cas particulier\n");
+			// }
+			if (wall->next->vtx_dest != NULL) // Au cas où find intersection ne renvoie pas le bon mur, on check lequel a coté est un portail
+				wall = wall->next;
+			else if (wall->prev->vtx_dest != NULL)
+				wall = wall->prev;
+			printf("securité intersection marche\n");
+		}
 		if (wall == NULL)
 			printf("ptr_id = %d\n", ptr_id);
 		//TROUVER POURQUOI IL TROUVE UN SECTEUR A 0 !!!

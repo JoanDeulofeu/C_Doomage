@@ -195,7 +195,13 @@ void	handle_editor_keys(t_main *s)
 	else
 		s->editor->m_floor.current = 0;
 	if (s->editor->mode == portal)// && get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
+	{
 		change_over_wall(s);
+		// if (s->editor->wall && s->editor->wall2)
+		// 	printf("wall->ptr = %d, wall->selected = %d, wall2->ptr = %d, wall2->selected = %d\n", s->editor->wall->ptr->id, s->editor->wall->selected, s->editor->wall2->ptr->id, s->editor->wall2->selected);
+		// printf("wall = %p, wall2 = %p, portal_temp = %d, over_portal = %d, over_sector = %d, over_sector2 = %d\n", s->editor->wall, s->editor->wall2, s->editor->portal_temp, s->editor->over_portal, s->editor->over_sector, s->editor->over_sector2);
+	}
+
 	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 	draw_space_menu(s);
 
