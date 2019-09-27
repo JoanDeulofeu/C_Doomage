@@ -160,6 +160,12 @@ typedef struct				s_visu {
 	t_int					*vtx_droite;
 }							t_visu;
 
+typedef struct				s_skybox {
+	t_dpos					player;
+	t_dpos					left_point;
+	t_dpos					right_point;
+}							t_skybox;
+
 typedef struct				s_walls {
 	double					distance;
 	int						x;
@@ -206,6 +212,7 @@ typedef struct				s_main {
 	t_editor				*editor;
 	t_savemap				*savemap;
 	char					*map_name;
+	t_skybox				sky;
 	t_dpos					p_pos;
 	t_dpos					left_plan;
 	t_dpos					right_plan;
@@ -254,6 +261,7 @@ t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
 int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id);
 int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
+double				ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed);
 
 /*
 ****	Fonction d'initialisation
@@ -326,6 +334,8 @@ int					ft_find_next_number(char *str, int i);
 void				ft_check_validity_last_sector(t_main *s);
 int					ft_check_wall_that_intersect(t_main *s, t_sector *sct_in_check);
 void				ft_check_move_vertex_validity(t_main *s, int id);
+t_pos				ft_find_polygon_center(t_sector *sct);
+int					ft_check_sector_sens(t_main *s, t_sector *sct);
 
 /*
 ****	Fonction de gestion des listes chainés
@@ -393,6 +403,7 @@ t_vertex			*get_vertex_by_id(t_main *s, int id);
 t_int				*get_t_int_by_id(t_int *obj, int id);
 double				ft_dist_double(double x1, double y1, double x2, double y2);
 double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
+double				ft_dist_t_pos(t_pos pos1, t_pos pos2);
 int					clamp (int x, int min, int max);
 void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);

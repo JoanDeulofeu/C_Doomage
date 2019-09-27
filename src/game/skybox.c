@@ -7,12 +7,23 @@
 	t_pos		coord;
 	int			px;
 	t_image 	*wp;
+	double		fov;
+	double		angle_left;
+	double		pct_text;
+	double		pct_begin;
 
 	wp = s->skybox;
-	coord.x = 0;
+	coord.x = -1;
+	fov = ft_find_angle_portal(&s->sky.player, &s->sky.left_point, &s->sky.right_point, 1);
+	// printf("fov = %.2f\n", fov);
+	angle_left = s->player.angle - (fov / 2);
+	// printf("angle = %.2f\n", angle_left);
+	pct_text = (fov * 100) / 360;
+	// printf("pct = %.2f\n", pct_text);
+	pct_begin = 0; 
 	while (coord.x++ < WIDTH)
 	{
-		coord.y = 0;
+		coord.y = -1;
 		perx = (double)coord.x / (double)WIDTH;
 		while (coord.y++ < HEIGHT)
 		{
@@ -24,7 +35,7 @@
 	}
 }
 
-void 	calcul_angle(t_main *s)
-{
-	
-}
+// void 	calcul_angle(t_main *s)
+// {
+//
+// }

@@ -75,6 +75,10 @@ t_visu	ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
 	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
 
+	s->sky.player = player;
+	s->sky.left_point = vs.left_plan;
+	s->sky.right_point = vs.right_plan;
+
 	s->line.x1 = vs.left_plan.x + s->editor->decal_x;
 	s->line.y1 = vs.left_plan.y + s->editor->decal_y;
 	s->line.x2 = vs.right_plan.x + s->editor->decal_x;

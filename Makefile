@@ -39,6 +39,8 @@ SRC_NAME =	main.c						\
 			editor/parser_tga.c			\
 			editor/edit_portals.c		\
 			editor/list_utils.c			\
+			editor/polygon_center.c		\
+			editor/sector_sens.c		\
 			game/visu_joan.c			\
 			game/visu_portal.c			\
 			game/visu_joan_drawing.c	\
@@ -52,7 +54,7 @@ SRC_NAME =	main.c						\
 			game/fire_mode.c			\
 			game/skybox.c				\
 			game/ia.c					\
-			game/collisions.c			
+			game/collisions.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

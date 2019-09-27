@@ -217,6 +217,8 @@ void	handle_editor_keys(t_main *s)
 	}
 
 	ft_visu_joan(s, keys);
+
+	// display_sky(s);
 	if (s->display_mode == 1)
 	{
 		play_anim(s);

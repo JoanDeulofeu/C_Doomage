@@ -251,7 +251,6 @@ int		ft_check_inside_sector_wall_intersect(t_main *s, t_sector *sct)
 	return (0);
 }
 
-
 int		ft_check_wall_that_intersect(t_main *s, t_sector *sct_in_check)
 {
 	t_sector	*sct;
@@ -287,6 +286,8 @@ void	ft_check_validity_last_sector(t_main *s)
 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
 		remove_sector(s, wall->value, 0, 0);
 	if (ft_check_wall_that_intersect(s, sct))
+		remove_sector(s, wall->value, 0, 0);
+	if (ft_check_sector_sens(s, sct))
 		remove_sector(s, wall->value, 0, 0);
 }
 

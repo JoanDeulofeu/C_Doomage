@@ -4,7 +4,6 @@ t_dpos	handle_sector_zero(t_main *s, const unsigned char *keys)
 {
 	int		nb;
 	t_pos	curr;
-	int i;
 
 	nb = 1;
 	(void) keys;
