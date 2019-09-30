@@ -1,5 +1,6 @@
 #include "doom.h"
 
+
 void set_player(t_main *s)
 {
 	t_pos		pos;
@@ -7,48 +8,11 @@ void set_player(t_main *s)
 	int 		correc;
 	t_dpos 		res;
 
-	correc = 0;
-	edi = s->editor;
-	s->player.ori.x = arround(s->editor->space, s->player.pos.x - (s->editor->decal_x % s->editor->space));
-	s->player.ori.y = arround(s->editor->space, s->player.pos.y - (s->editor->decal_y % s->editor->space));
-	s->player.p_ori.x = s->player.pos.x - s->player.ori.x;
-	s->player.p_ori.y = s->player.pos.y - s->player.ori.y;
-	s->player.ori = get_abs_pos(s,s->player.ori);
-	s->player.init_space = s->editor->space;
-	s->player.p_ref = get_px_pos(s, s->editor->ref);
-	if (s->editor->decal_x <= 0)
-		s->player.correc = s->editor->decal_x % s->editor->space != 0 ? 1 : 0;
-	else
-		s->player.correc = 0;
-	s->player.ori.x += s->player.correc;
-	if (s->editor->decal_y <= 0)
-		s->player.correc = s->editor->decal_y % s->editor->space != 0 ? 1 : 0;
-	else
-		s->player.correc = 0;
-	s->player.ori.y += s->player.correc;
-
-	if (edi->decal_x <= 0)
-		correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-	else
-		correc = 0;
-	//s->player.ori.x += correc;
-	pos.x = (s->player.ori.x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-	if (edi->decal_y <= 0)
-		correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-	else
-		correc = 0;
-	pos.y = (s->player.ori.y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
-	res.x = ((double)s->player.p_ori.x / (double)s->player.init_space) * edi->space;
-	res.y = ((double)s->player.p_ori.y / (double)s->player.init_space) * edi->space;
-	pos.x += (int)res.x - s->player.p_ref.x;
-	pos.y += (int)res.y - s->player.p_ref.y;
-	s->player.r_pos.x = s->player.pos.x - edi->decal_x;
-	s->player.r_pos.x = (s->player.r_pos.x / edi->space);
-	s->player.r_pos.y = s->player.pos.y - edi->decal_y;
-	s->player.r_pos.y = (s->player.r_pos.y / edi->space);
-	if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT) && s->player.set == 1)
+// printf("pos=%f\n",s->player.r_pos.x);
+	s->player.pos = ft_pos_to_dpos(get_px_r_pos(s,s->player.r_pos));
+	if (!(s->player.pos.x < 0 || s->player.pos.y < 0 || s->player.pos.x > WIDTH || s->player.pos.y > HEIGHT) && s->player.set == 1)
 	{
-		draw_anchor(s, pos, BLUE);
+		draw_anchor(s, ft_dpos_to_pos(s->player.pos), BLUE);
 		trace_direction(s);
 	}
 
@@ -111,15 +75,15 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	t_dpos	target;
 	double	speed;
 
-	speed = move_speed * move_speed * 0.5;
+	speed = move_speed * move_speed * 0.03;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
 		speed /= 1.5;
 	if (keys[SPRINT] && keys[UP])
-		speed *= 3;
-	target.x = s->player.pos.x;
-	target.y = s->player.pos.y;
+		speed *= 1.2;
+	target.x = s->player.r_pos.x;
+	target.y = s->player.r_pos.y;
 	target = get_direction(s, keys, speed, target);
-	s->col_pos = get_direction(s, keys, speed + 10 , s->player.pos);
+	s->col_pos = get_direction(s, keys, speed , s->player.pos);
 	// s->col_pos = get_direction(s, keys, s->editor->space % 30 , s->col_pos);
 	// s->col_pos.x *= (s->editor->space % 30);
 	// s->col_pos.y *= (s->editor->space % 30);
@@ -131,8 +95,8 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	//printf("sector = %d\n",ft_is_in_sector(s, ft_dpos_to_pos(target)));
 	if (is_colliding(s) != -1)
 	{
-		s->player.pos.x = target.x;
-		s->player.pos.y = target.y;
+		s->player.r_pos.x = target.x;
+		s->player.r_pos.y = target.y;
 	}
 	// s->col_pos = get_direction(s, keys, speed + 10, s->player.pos);
 	if (is_colliding(s) > 0)
