@@ -402,6 +402,7 @@ t_int				*get_t_int_by_id(t_int *obj, int id);
 double				ft_dist_double(double x1, double y1, double x2, double y2);
 double				ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 double				ft_dist_t_pos(t_pos pos1, t_pos pos2);
+t_dpos				to_edi_coord(t_main *s, t_dpos coord); //enleve METRE et ajoute decal_x et SPACE
 int					clamp (int x, int min, int max);
 void  				ft_zoom(t_main *s, t_pos pos, int space);
 int					max(int value1, int value2);
@@ -483,19 +484,19 @@ void 				print_wall_list(t_main *s);
 void	display_sky(t_main *s);
 
 /*FCT SPRITE CHAINLIST*/
-t_pos 	get_px_r_pos(t_main *s, t_dpos ref);
-void	*ft_memalloc(size_t size);
-t_lsprite 				*load_lsprite(t_main *s,t_lsprite *start, int size);
+t_pos 				get_px_r_pos(t_main *s, t_dpos ref);
+void				*ft_memalloc(size_t size);
+t_lsprite 			*load_lsprite(t_main *s,t_lsprite *start, int size);
 
-t_lsprite 		*create_lsprite_elem(t_main *s, int id);
-t_lsprite 		*create_lsprite(t_main *s, int size);
-t_sprite 		*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
-void	add_sprite(t_main *s, t_dpos pos, int idimg);
-void             init_sprite(t_main *s);
-void        refresh_sprite_pos(t_main *s);
-double      calc_sprite_dist(t_main *s, t_pos pos);
-double      calc_sprite_r_dist(t_main *s, t_dpos pos);
-int 	check_is_on_sector(t_main *s, t_sprite *cur);
+t_lsprite 			*create_lsprite_elem(t_main *s, int id);
+t_lsprite 			*create_lsprite(t_main *s, int size);
+t_sprite 			*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos);
+void				add_sprite(t_main *s, t_dpos pos, int idimg);
+void             	init_sprite(t_main *s);
+void        		refresh_sprite_pos(t_main *s);
+double      		calc_sprite_dist(t_main *s, t_pos pos);
+double      		calc_sprite_r_dist(t_main *s, t_dpos pos);
+int 				check_is_on_sector(t_main *s, t_sprite *cur);
 
 
 

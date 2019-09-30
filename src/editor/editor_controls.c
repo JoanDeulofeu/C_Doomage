@@ -212,7 +212,9 @@ void	handle_editor_keys(t_main *s)
 	//printf("mode = %d\n", s->editor->mode);
 	if (s->player.sector_id == 0)
 	{
-		s->player.pos = handle_sector_zero(s, keys);
+		s->player.r_pos = handle_sector_zero(s, keys);
+		s->player.r_pos.x /= METRE;
+		s->player.r_pos.y /= METRE;
 		set_player(s);
 	}
 

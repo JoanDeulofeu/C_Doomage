@@ -29,18 +29,18 @@ int		ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct
 		// printf("wall1(%.1f, %.1f) | wall2(%.1f, %.1f) | player(%.1f, %.1f) | point(%.1f, %.1f)\n", wall1.x, wall1.y, wall2.x, wall2.y, player.x, player.y, point.x, point.y);
 		if (sct_id == 2)
 		{
-			s->line.x1 = player.x + s->editor->decal_x;
-			s->line.y1 = player.y + s->editor->decal_y;
-			s->line.x2 = point.x + s->editor->decal_x;
-			s->line.y2 = point.y + s->editor->decal_y;
+			s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
+			s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
+			s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
+			s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
 			get_line(s, color, 1);
 		}
 		if ((new_dist = ft_find_intersection(s, wall1, wall2, point, player, 1)) > 0)
 		{
-			s->line.x1 = player.x + s->editor->decal_x;
-			s->line.y1 = player.y + s->editor->decal_y;
-			s->line.x2 = point.x + s->editor->decal_x;
-			s->line.y2 = point.y + s->editor->decal_y;
+			s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
+			s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
+			s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
+			s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
 			get_line(s, color, 1);
 			// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
 			// printf("point(%.1f, %.1f), player(%.1f, %.1f), wall1(%.1f, %.1f), wall2(%.1f, %.1f)\n", point.x, point.y, player.x, player.y, wall1.x / METRE, wall1.y / METRE, wall2.x / METRE, wall2.y / METRE);
@@ -79,10 +79,10 @@ t_visu	ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	s->sky.left_point = vs.left_plan;
 	s->sky.right_point = vs.right_plan;
 
-	s->line.x1 = vs.left_plan.x + s->editor->decal_x;
-	s->line.y1 = vs.left_plan.y + s->editor->decal_y;
-	s->line.x2 = vs.right_plan.x + s->editor->decal_x;
-	s->line.y2 = vs.right_plan.y + s->editor->decal_y;
+	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
+	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
+	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;
+	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).y;
 	get_line(s, color, 1);
 	return(vs);
 }
@@ -136,8 +136,6 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 	player_bas = s->col_pos;
 	player_haut.y += nb;
 	player_bas.y -= nb;
-	// new_pos.x = 0;
-	// new_pos.y = 0;
 	sct_id = s->player.sector_id;
 	if (sct_id == 0)
 		printf ("FUUUUUUUUU\n");
@@ -156,21 +154,13 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 			ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
 		}
 		nb++;
+		printf("nb = %d\n", nb);
+
 	}
 		wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
 		if (wall->vtx_dest == NULL)
 		{
 			printf("true\n");
-			// if (wall->next->vtx_dest != NULL && wall->prev->vtx_dest != NULL)
-			// {
-			// 	printf("true\n");
-			// 	if (ft_dist_t_dpos(ft_pos_to_dpos(wall->next->vtx_dest->ptr->pos), s->col_pos) <
-			// 	ft_dist_t_dpos(ft_pos_to_dpos(wall->prev->vtx_dest->ptr->pos), s->col_pos))
-			// 		wall = wall->next;
-			// 	else
-			// 		wall = wall->prev;
-			// 	printf("cas particulier\n");
-			// }
 			if (wall->next->vtx_dest != NULL) // Au cas où find intersection ne renvoie pas le bon mur, on check lequel a coté est un portail
 				wall = wall->next;
 			else if (wall->prev->vtx_dest != NULL)
@@ -181,7 +171,9 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 			printf("ptr_id = %d\n", ptr_id);
 		//TROUVER POURQUOI IL TROUVE UN SECTEUR A 0 !!!
 
-		s->player.pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
+		s->player.r_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
+		s->player.r_pos.x /= METRE;
+		s->player.r_pos.y /= METRE;
 		// player = s->player.pos;
 		// player.y--;
 		//changer secteur en fonction de la teleportation
@@ -211,8 +203,7 @@ void	ft_visu_joan(t_main *s, const unsigned char *keys)
 	(void)keys;
 	// s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	// printf("r_pos x = %f, pos.x = %f\n", s->player.r_pos.x, s->player.pos.x);
-	player.x = s->player.r_pos.x * METRE;
-	player.y = s->player.r_pos.y * METRE;
+	player = s->player.m_pos;
 	// }
 
 

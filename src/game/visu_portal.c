@@ -250,13 +250,13 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	// printf("coord r_portal (%.1f,%.1f)\n\n",r_portal.x, r_portal.y);
 	// printf("coord player (%f,%f)\n\n",fake_player.x, fake_player.y);
 	*angle_fake = s->player.angle - (angle_portal_in - angle_portal_out);
-	fake_player2.x = fake_player.x + s->editor->decal_x;
-	fake_player2.y = fake_player.y + s->editor->decal_y;
-	draw_anchor(s, fake_player2, 0xfa00ffff); //juste pour tester la pos du fake_player
-	s->line.x1 = fake_player.x + s->editor->decal_x;
-	s->line.y1 = fake_player.y+ s->editor->decal_y;
-	s->line.x2 = fake_player.x + cos(to_rad(*angle_fake)) * 25 + s->editor->decal_x;
-	s->line.y2 = fake_player.y - sin(to_rad(*angle_fake)) * 25 + s->editor->decal_y;
+	// fake_player2.x = fake_player.x + s->editor->decal_x;
+	// fake_player2.y = fake_player.y + s->editor->decal_y;
+	draw_anchor(s,  ft_dpos_to_pos(to_edi_coord(s, fake_player)), 0xfa00ffff); //juste pour tester la pos du fake_player
+	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).x;
+	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).y;
+	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).x + cos(to_rad(*angle_fake)) * 25;
+	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).y - sin(to_rad(*angle_fake)) * 25;
 	get_line(s, 0xff66f0ff, 1);
 
 	return (fake_player);

@@ -216,10 +216,11 @@ void	change_over_wall(t_main *s)
 					// printf ("true\n");
 					s->editor->wall = wall_save;
 					s->editor->over_sector = sector->id;
+					s->editor->wall->selected = 2;
 				}
-				else if (s->editor->wall != wall_save)
+				else if (s->editor->wall && s->editor->wall != wall_save)
 				{
-					// printf ("s->editor->wall != wall_save\n");
+					printf ("s->editor->wall != wall_save\n");
 					s->editor->wall2 = wall_save;
 					s->editor->over_sector2 = sector->id;
 				}
