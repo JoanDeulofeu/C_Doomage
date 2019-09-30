@@ -135,13 +135,13 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	else
 		vs.begin = s->tmp_intersect;
 	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
-	draw_anchor(s, ft_dpos_to_pos(vs.begin), 0xfa0011ff); //#fa0011
+	// draw_anchor(s, ft_dpos_to_pos(vs.begin), 0xfa0011ff); //#fa0011
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 
 	vs.right_point.x = player.x + cos(to_rad(angle_right)) * 2000;
 	vs.right_point.y = player.y - sin(to_rad(angle_right)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
-	draw_anchor(s, ft_dpos_to_pos(vs.end), BLUE);
+	// draw_anchor(s, ft_dpos_to_pos(vs.end), BLUE);
 	// printf("sct_id = %d, end wall id = %d\n",vs.sct_id, vs.end_wall_id);
 	// printf("beginwall = %d\n", vs.begin_wall->ptr->id);
 	if (vs.end_wall_id == 0)
@@ -152,7 +152,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	}
 	// printf("end.x = %f, end.y = %f\n", vs.end.x, vs.end.y);
 
-	draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
+	// draw_anchor(s, ft_dpos_to_pos(vs.end), 0xfa00ffff);
 	// printf("vs.end wall id = %d\n", vs.end_wall_id);
 
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);

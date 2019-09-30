@@ -112,6 +112,13 @@ typedef struct		s_dpos {
 	double			y;
 }					t_dpos;
 
+typedef struct		s_4double {
+	double			d1;
+	double			d2;
+	double			d3;
+	double			d4;
+}					t_4double;
+
 typedef struct		s_line {
 	int				x1;
 	int				x2;
