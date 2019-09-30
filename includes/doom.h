@@ -121,9 +121,7 @@ typedef struct				s_player
 	int 					i;
 	t_dpos 					r_pos; // position reel du joueur par rpport au repere
 	t_dpos					pos; // Position du joueur en pixel
-	t_pos 					ori; //position du joueur en case (avant correction)
-	t_pos 					p_ori; //valeur en pixel à rajouter pour avoir la position
-	t_pos 					p_ref; // decalage en pixel par rapport a la ref
+	t_dpos 					m_pos;// positon reel * METRE
 	t_line 					line;
 	int 					set;
 	int 					correc;

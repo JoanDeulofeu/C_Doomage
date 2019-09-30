@@ -175,7 +175,7 @@ void	ft_write_file(t_main *s)
 		sct = sct->next;
 	}
 	fprintf(fichier, "\n\n");
-	fprintf(fichier, "Player %d %d\n", ((int)s->player.ori.y * METRE) + s->player.p_ori.y, ((int)s->player.ori.x * METRE) + s->player.p_ori.x);
+//	fprintf(fichier, "Player %d %d\n", ((int)s->player.ori.y * METRE) + s->player.p_ori.y, ((int)s->player.ori.x * METRE) + s->player.p_ori.x);
 	fprintf(fichier, "Angle %d\n", (int)s->player.angle);
 	fclose(fichier);
 	bzero(s->savemap->str, 41);

@@ -3,13 +3,9 @@
 
 void set_player(t_main *s)
 {
-	t_pos		pos;
-	t_editor 	*edi;
-	int 		correc;
-	t_dpos 		res;
-
-// printf("pos=%f\n",s->player.r_pos.x);
 	s->player.pos = ft_pos_to_dpos(get_px_r_pos(s,s->player.r_pos));
+	s->player.m_pos.x = s->player.r_pos.x * METRE;
+	s->player.m_pos.y = s->player.r_pos.y * METRE;
 	if (!(s->player.pos.x < 0 || s->player.pos.y < 0 || s->player.pos.x > WIDTH || s->player.pos.y > HEIGHT) && s->player.set == 1)
 	{
 		draw_anchor(s, ft_dpos_to_pos(s->player.pos), BLUE);

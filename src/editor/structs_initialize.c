@@ -154,6 +154,9 @@ t_main		*initialize_main(char *str)
 	s->player.i = 0;
 	s->player.r_pos.x = 7.5;
 	s->player.r_pos.y = 7.3;
+	s->player.m_pos.x =  s->player.r_pos.x * METRE;
+	s->player.m_pos.x =  s->player.r_pos.y * METRE;
+
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 	s->player.set_jump = 0;
