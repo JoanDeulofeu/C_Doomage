@@ -120,9 +120,9 @@ void select_vertex(t_main *s)
 	t_line line;
 	t_pos pos;
 
+	deselect_vertex(s);
 	v = s->vertex;
 	line = s->editor->line;
-
 	while (v)
 	{
 		pos.x = v->x;
