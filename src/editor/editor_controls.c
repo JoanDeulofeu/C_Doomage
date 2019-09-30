@@ -143,6 +143,14 @@ int		key_controls_edi(t_main *s, int key)
 	}
 	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE)
 		change_mode(s, key);
+
+	if (s->display_mode == editor)
+	{
+		if (s->editor->mode == vertex && (key == DELETE))
+			remove_selected_anchor(s);
+		if (s->editor->mode == sprite && (key == DELETE))
+			remove_sprite_by_select(s);
+	}
 	if (key == DELETE)
 		return(2);
 	return (1);
@@ -173,13 +181,7 @@ void	handle_editor_keys(t_main *s)
 		jump(s,-1);
 	}
 
-	// if (s->display_mode == editor)
-	// {
-	// 	if (s->editor->mode == vertex && (keys[DELETE]))
-	// 		remove_selected_anchor(s);
-	// 	if (s->editor->mode == sprite && (keys[DELETE]))
-	// 		remove_sprite_by_select(s);
-	// }
+
 
 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
@@ -208,7 +210,7 @@ void	handle_editor_keys(t_main *s)
 	// if (s->editor->mode == sprite)
 	// 	draw_sprite_menu(s);
 
-		//display_menu_sprite(s);
+		// display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
 	if (s->player.sector_id == 0)
 	{

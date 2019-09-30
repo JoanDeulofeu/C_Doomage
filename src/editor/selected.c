@@ -118,11 +118,16 @@ void select_vertex(t_main *s)
 {
 	t_vertex *v;
 	t_line line;
+	t_pos pos;
 
 	v = s->vertex;
 	line = s->editor->line;
+
 	while (v)
 	{
+		pos.x = v->x;
+		pos.y = v->y;
+		v->pos = get_px_pos(s,pos);
 		if (((v->pos.x >= line.x1 && v->pos.x <= line.x2) && (v->pos.y >= line.y1 && v->pos.y <= line.y2)) ||
 			((v->pos.x <= line.x1 && v->pos.x >= line.x2) && (v->pos.y <= line.y1 && v->pos.y >= line.y2)) ||
 				((v->pos.x <= line.x1 && v->pos.x >= line.x2) && (v->pos.y >= line.y1 && v->pos.y <= line.y2)) ||
