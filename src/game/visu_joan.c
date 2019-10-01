@@ -159,7 +159,7 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 			}
 		}
 		nb++;
-		printf("nb = %d\n", nb);
+		// printf("nb = %d\n", nb);
 
 	}
 		wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
