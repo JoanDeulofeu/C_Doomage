@@ -182,76 +182,67 @@ void	handle_editor_keys(t_main *s)
 	}
 
 
-
-	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
-	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
-	ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
-	ft_draw_editor(s->editor, s->sdl->editor);
-	display_map(s);
-	ft_draw_all_wall(s);
-	if (s->editor->mode_floor == 1)
+	if (s->display_mode == editor)
 	{
-		s->editor->m_floor.current = 1;
-		fill_sectors(s);
+		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
+		ft_draw_editor(s->editor, s->sdl->editor);
+		display_map(s);
+		ft_draw_all_wall(s);
+		if (s->editor->mode_floor == 1)
+		{
+			s->editor->m_floor.current = 1;
+			fill_sectors(s);
+		}
+		else
+			s->editor->m_floor.current = 0;
+		if (s->editor->mode == portal)
+			change_over_wall(s);
+		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_space_menu(s);
+		if (s->player.sector_id == 0)
+		{
+			s->player.r_pos = handle_sector_zero(s, keys); //Yohann
+			s->player.r_pos.x /= METRE;
+			s->player.r_pos.y /= METRE;
+			set_player(s);
+		}
+		ft_visu_joan(s, keys);
+		update_image(s, s->sdl->editor);
 	}
-	else
-		s->editor->m_floor.current = 0;
-	if (s->editor->mode == portal)// && get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == COLOR_WALL)
+	if (s->display_mode == game)
 	{
-		change_over_wall(s);
-		// if (s->editor->wall && s->editor->wall2)
-		// 	printf("wall->ptr = %d, wall->selected = %d, wall2->ptr = %d, wall2->selected = %d\n", s->editor->wall->ptr->id, s->editor->wall->selected, s->editor->wall2->ptr->id, s->editor->wall2->selected);
-		// printf("wall = %p, wall2 = %p, portal_temp = %d, over_portal = %d, over_sector = %d, over_sector2 = %d\n", s->editor->wall, s->editor->wall2, s->editor->portal_temp, s->editor->over_portal, s->editor->over_sector, s->editor->over_sector2);
+		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+		display_map(s);
+		if (s->player.sector_id == 0)
+		{
+			s->player.r_pos = handle_sector_zero(s, keys); //Yohann
+			s->player.r_pos.x /= METRE;
+			s->player.r_pos.y /= METRE;
+			set_player(s);
+		}
+		ft_visu_joan(s, keys);
+		play_anim(s);
+		//	sprite_move(s);
+		draw_sprite(s);
+		draw_hud(s);
+		update_image(s, s->sdl->game);
+	}
+	if (s->display_mode == save)
+	{
+		ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
+		ft_save_map(s);
+		update_image(s, s->sdl->save);
 	}
 
-	draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
-	draw_space_menu(s);
 
 	// if (s->editor->mode == sprite)
 	// 	draw_sprite_menu(s);
 
 		// display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
-	if (s->player.sector_id == 0)
-	{
-		s->player.r_pos = handle_sector_zero(s, keys);
-		s->player.r_pos.x /= METRE;
-		s->player.r_pos.y /= METRE;
-		set_player(s);
-	}
-
-	ft_visu_joan(s, keys);
 
 	// display_sky(s);
-	if (s->display_mode == 1)
-	{
-		play_anim(s);
-		//	sprite_move(s);
-		draw_sprite(s);
-		draw_hud(s);
-	}
-	if (s->display_mode == 2)
-	{
-		ft_save_map(s);
-	}
 
-	if (s->display_mode == editor)
-		update_image(s, s->sdl->editor);
-	else if (s->display_mode == game)
-		update_image(s, s->sdl->game);
-	else if (s->display_mode == save)
-		update_image(s, s->sdl->save);
-
-	//	display_chainlist(s);
-
-	// ft_test_chainlist(s);
-	// printf("old  (%d | %d)\n", s->vertex->next->next->old.x, s->vertex->next->next->old.y);
-	// printf("lol = %d\n", s->sector->vertex->->ptr->x);
-	// printf("player.ori (%d, %d)\n",s->player.ori.x, s->player.ori.y);
-	// printf("player.p_ori (%d, %d)\n",s->player.p_ori.x, s->player.p_ori.y);
-	// printf("player.p_ref (%d, %d)\n",s->player.p_ref.x, s->player.p_ref.y);
-	// printf("player.pos (%f, %f)\n",s->player.pos.x, s->player.pos.y);
-	// printf("player.r_pos (%f, %f)\n\n\n",s->player.r_pos.x, s->player.r_pos.y);
 }
 
 void	editor_handler(t_main *s)
@@ -269,7 +260,7 @@ void	editor_handler(t_main *s)
 	t_pos		diff;
 	int			remove_achr;
 	t_vertex    *v;
-	t_mode			tmp_mode;
+	t_mode		tmp_mode;
 
 	ingame = 1;
 	selected = 0;
