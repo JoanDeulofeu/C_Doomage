@@ -151,7 +151,12 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 			player_bas = s->col_pos;
 			player_haut.x += nb;
 			player_bas.x -= nb;
-			ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
+			if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
+			{
+				player_haut.y += nb;
+				player_bas.y -= nb;
+				ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
+			}
 		}
 		nb++;
 		printf("nb = %d\n", nb);
@@ -165,12 +170,11 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 				wall = wall->next;
 			else if (wall->prev->vtx_dest != NULL)
 				wall = wall->prev;
-			printf("securité intersection marche\n");
+			else
+				printf("fuck...\n");
 		}
 		if (wall == NULL)
 			printf("ptr_id = %d\n", ptr_id);
-		//TROUVER POURQUOI IL TROUVE UN SECTEUR A 0 !!!
-
 		s->player.r_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
 		s->player.r_pos.x /= METRE;
 		s->player.r_pos.y /= METRE;
@@ -183,6 +187,7 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 		// 	s->player.pos = get_direction(s, keys, 1, s->player.pos);
 		if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 			ft_move_player(s, keys, 1);
+		handle_sector_zero(s);
 }
 
 void	ft_visu_joan(t_main *s, const unsigned char *keys)

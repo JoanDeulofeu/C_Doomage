@@ -1,42 +1,58 @@
 #include "doom.h"
 
-t_dpos	handle_sector_zero(t_main *s, const unsigned char *keys)
+static int	check_pos(t_main *s, t_dpos curr)
+{
+	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(curr))) != 0)
+	{
+		s->player.r_pos.x = curr.x / s->editor->space - s->editor->decal_x;
+		s->player.r_pos.y = curr.y / s->editor->space - s->editor->decal_y;
+		set_player(s);
+		return (1);
+	}
+	else
+		return (0);
+}
+
+void	handle_sector_zero(t_main *s)
 {
 	int		nb;
-	t_pos	curr;
+	t_dpos	curr;
 
 	nb = 1;
-	(void) keys;
-	while (1)
+	// On cherche autour de la position du joueur
+	//jusqu'à ce qu'on trouve un endroit où le placer
+	if (s->player.sector_id == 0)
 	{
-		curr = ft_dpos_to_pos(s->player.pos);
-		curr.x = s->player.pos.x + nb;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.pos.x - nb;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.pos.x;
-		curr.y = s->player.pos.y + nb;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.y = s->player.pos.y - nb;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.pos.x - nb;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.pos.x + nb;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.y += nb * 2;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		curr.x -= nb * 2;
-		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
-			return (ft_pos_to_dpos(curr));
-		// 	return (curr);
-		nb++;
+		while (1)
+		{
+			curr = s->player.pos;
+			curr.x = s->player.pos.x + nb;
+			if (check_pos(s, curr))
+				return ;
+			curr.x = s->player.pos.x - nb;
+			if (check_pos(s, curr))
+				return ;
+			curr.x = s->player.pos.x;
+			curr.y = s->player.pos.y + nb;
+			if (check_pos(s, curr))
+				return ;
+			curr.y = s->player.pos.y - nb;
+			if (check_pos(s, curr))
+				return ;
+			curr.x = s->player.pos.x - nb;
+			if (check_pos(s, curr))
+				return ;
+			curr.x = s->player.pos.x + nb;
+			if (check_pos(s, curr))
+				return ;
+			curr.y += nb * 2;
+			if (check_pos(s, curr))
+				return ;
+			curr.x -= nb * 2;
+			if (check_pos(s, curr))
+				return ;
+			nb++;
+		}
 	}
 }
 
