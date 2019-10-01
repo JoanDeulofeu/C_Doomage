@@ -57,7 +57,7 @@ int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 {
 	int selected;
 
-	selected= 0;
+	selected = 0;
 	s->editor->selected =1;
 	mouse_save->x = s->sdl->event.button.x;
 	mouse_save->y = s->sdl->event.button.y;
@@ -67,7 +67,6 @@ int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 	ori->y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
 	if (ori->x >= 0 && ori->x <= WIDTH && ori->y >= 0 && ori->y <= HEIGHT)
 	{
-
 		if ((*id = anchor_exists(s, *ori)) != 0)
 		{
 			selected = 1;

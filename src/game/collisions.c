@@ -9,24 +9,24 @@ t_dpos	handle_sector_zero(t_main *s, const unsigned char *keys)
 	(void) keys;
 	while (1)
 	{
-		curr = ft_dpos_to_pos(s->player.m_pos);
-		curr.x = s->player.m_pos.x + nb;
+		curr = ft_dpos_to_pos(s->player.pos);
+		curr.x = s->player.pos.x + nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.m_pos.x - nb;
+		curr.x = s->player.pos.x - nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.m_pos.x;
-		curr.y = s->player.m_pos.y + nb;
+		curr.x = s->player.pos.x;
+		curr.y = s->player.pos.y + nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
-		curr.y = s->player.m_pos.y - nb;
+		curr.y = s->player.pos.y - nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.m_pos.x - nb;
+		curr.x = s->player.pos.x - nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
-		curr.x = s->player.m_pos.x + nb;
+		curr.x = s->player.pos.x + nb;
 		if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 			return (ft_pos_to_dpos(curr));
 		curr.y += nb * 2;

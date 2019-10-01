@@ -119,17 +119,15 @@ int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begi
 	return (sqrt(powf(end_l2.x - coord.x, 2) + powf(end_l2.y - coord.y, 2)));
 }
 
+
 int		ft_is_in_sector(t_main *s, t_pos position)
 {
 	t_sector	*sct;
-	t_vertex	*vtx;
-	t_int		*s_vtx;
+	t_int		*wall;
 	t_dpos		seg1;
 	t_dpos		seg2;
-	int			id;
 	int			count;
 	long		save_dist;
-	long		save_dist2;
 	int			next_test;
 	t_dpos		point_1;
 	t_dpos		point_2;
@@ -149,77 +147,36 @@ int		ft_is_in_sector(t_main *s, t_pos position)
 	{
 		i = 0;
 		count = 0;
-		save_dist2 = 0;
+		wall = sct->vertex;
 		point_1.y += next_test;
 		next_test = 0;
-		s_vtx = sct->vertex;
 		while (i++ < sct->vertex->prev->id)
 		{
-			vtx = s->vertex;
-			id = s_vtx->value;
-			while (vtx->id != id && vtx->next)
-				vtx = vtx->next;
-			seg1.x = vtx->x * s->editor->space + s->editor->decal_x;
-			seg1.y = vtx->y * s->editor->space + s->editor->decal_y;
-
-			vtx = s->vertex;
-			id = s_vtx->next->value;
-			while (vtx->id != id && vtx->next)
-				vtx = vtx->next;
-			seg2.x = vtx->x * s->editor->space + s->editor->decal_x;
-			seg2.y = vtx->y * s->editor->space + s->editor->decal_y;
+			seg1.x = wall->ptr->x * s->editor->space + s->editor->decal_x;
+			seg1.y = wall->ptr->y * s->editor->space + s->editor->decal_y;
+			seg2.x = wall->next->ptr->x * s->editor->space + s->editor->decal_x;
+			seg2.y = wall->next->ptr->y * s->editor->space + s->editor->decal_y;
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);
 			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
 			if (dist_sector == -1)
 			{
-				next_test += 10;
+				next_test = 10;
 				break;
 			}
 			if (dist_sector > 0)
-			{
-				save_dist2 = dist_sector;
 				count++;
-			}
-			s_vtx = s_vtx->next;
+			wall = wall->next;
 		}
-
 		if (dist_sector == -1)
 			continue;
-		vtx = s->vertex;
-		id = s_vtx->value;
-		while (vtx->id != id && vtx->next)
-			vtx = vtx->next;
-		seg1.x = vtx->x * s->editor->space + s->editor->decal_x;
-		seg1.y = vtx->y * s->editor->space + s->editor->decal_y;
-
-		s_vtx = sct->vertex;
-		vtx = s->vertex;
-		id = s_vtx->value;
-		while (vtx->id != id && vtx->next)
-			vtx = vtx->next;
-		seg2.x = vtx->x * s->editor->space + s->editor->decal_x;
-		seg2.y = vtx->y * s->editor->space + s->editor->decal_y;
-		if ((point_2.x == seg1.x && point_2.y == seg1.y)
-			|| (point_2.x == seg2.x && point_2.y == seg2.y))
-			return (0);
-		dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
-		if (dist_sector > 0)
-			count++;
-		if (save_dist2 > 0 && dist_sector == 0)
-			dist_sector = save_dist2;
-		// printf("TEST sector n%d et de distance %d\n", sct->id, dist_sector);
-		if (count % 2 == 1 && save_dist > dist_sector && dist_sector > 0)
+		if (count % 2 == 1 && save_dist > dist_sector)
 		{
 			n_sector = sct->id;
 			save_dist = dist_sector;
-			// printf("SAVE sector n%d et de distance %ld\n",n_sector, save_dist);
 		}
-		if (dist_sector != -1)
-			sct = sct->next;
-		else
-			next_test += 10;
+		sct = sct->next;
 	}
 	return (n_sector);
 }

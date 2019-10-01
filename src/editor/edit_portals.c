@@ -125,10 +125,13 @@ void	remove_portal(t_main *s)
 	t_pos		p;
 	t_sector	*sector;
 	int			i;
+	int			sct_id;
 
 	i = 0;
-	if (!(sector = get_sector_by_id(s, get_nearest_sector(s, s->ft_mouse, &p))))
-				return ;
+	if ((sct_id = get_nearest_sector(s, s->ft_mouse, &p)) == 0)
+		return ;
+	else
+		sector = get_sector_by_id(s, sct_id);
 	wall = sector->vertex;
 	while (i++ < sector->vertex->prev->id)
 	{
