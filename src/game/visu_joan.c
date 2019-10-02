@@ -134,11 +134,15 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 	// printf("x = %f, y = %f\n", s->col_pos.x, s->col_pos.y);
 	player_haut = s->col_pos;
 	player_bas = s->col_pos;
+	//col_pos est calcule dans player.c, quand le joueur bouge
+
 	player_haut.y += nb;
 	player_bas.y -= nb;
 	sct_id = s->player.sector_id;
 	if (sct_id == 0)
 		printf ("FUUUUUUUUU\n");
+
+	//on trouve le portail que touche col_pos
 	while (ptr_id == 0)
 	{
 		player_haut = s->col_pos;
@@ -175,16 +179,18 @@ void 	teleport_player(t_main *s, const unsigned char *keys)
 		}
 		if (wall == NULL)
 			printf("ptr_id = %d\n", ptr_id);
+
+		//On teleporte le player
 		s->player.r_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
 		s->player.r_pos.x /= METRE;
 		s->player.r_pos.y /= METRE;
-		// player = s->player.pos;
-		// player.y--;
 		//changer secteur en fonction de la teleportation
 		s->player.sector_id = wall->sct_dest;
 		s->portal_nb = 0;
 		// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 		// 	s->player.pos = get_direction(s, keys, 1, s->player.pos);
+
+		//On le bouge legerement et on verifie qu'il n'est pas coince
 		if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 			ft_move_player(s, keys, 1);
 		handle_sector_zero(s);
