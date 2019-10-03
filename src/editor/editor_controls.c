@@ -211,7 +211,8 @@ void	handle_editor_keys(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
-		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+		//ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+		display_sky(s);
 		display_map(s);
 		if (s->player.sector_id == 0)
 		{

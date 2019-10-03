@@ -182,6 +182,10 @@ typedef struct				s_savemap {
 	short					error_msg;
 }							t_savemap;
 
+typedef struct				s_hud {
+	int						health;
+}							t_hud;
+
 typedef struct				s_sdl {
 	SDL_Window				*pwindow;
 	SDL_Renderer			*prenderer;
