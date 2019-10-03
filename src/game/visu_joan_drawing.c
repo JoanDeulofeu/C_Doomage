@@ -11,7 +11,7 @@ void	ft_draw_column(t_main *s, t_pos coord, int end, Uint32 color)
 	// printf("coord.y %d, end = %d\n", begin, end);
 	while (i++ < begin)
 	{
-		// set_pixel(s->sdl->game, 0x485050ff, coord);
+		set_pixel(s->sdl->game, 0x485050ff, coord);
 		coord.y++;
 	}
 	coord.y--;
