@@ -11,7 +11,11 @@ void	ft_draw_column(t_main *s, t_pos coord, int end, Uint32 color)
 	// printf("coord.y %d, end = %d\n", begin, end);
 	while (i++ < begin)
 	{
+<<<<<<< HEAD
 		//set_pixel(s->sdl->game, 0x485050ff, coord);
+=======
+		// set_pixel(s->sdl->game, 0x485050ff, coord);
+>>>>>>> 24a014ba9fd1644d7040a10b3cc47f731816820a
 		coord.y++;
 	}
 	coord.y--;
@@ -342,6 +346,7 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 	}
 	while (vtx->ptr->id != vs->end_wall_id)
 	{
+		// printf("ptr->id = %d, vs->end_wall_id = %d\n", vtx->ptr->id, vs->end_wall_id);
 		if (vtx->wall_value != -1)
 		{
 			fake_angle = 0;
@@ -353,7 +358,6 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 				s->fplayer_pos = fake_player;
 				s->fplayer_angle = fake_angle;
 				s->fplayer_sct = vtx->sct_dest;
-				// printf("fplayer_pos.y = %f\n", s->fplayer_pos.y);
 			}
 			fake_vs.sct_id = vtx->sct_dest;
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
@@ -362,7 +366,6 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 				handle_error(s, POINTER_ERROR);
 			fake_vs.vtx_gauche = vtx->vtx_dest->next;
 			demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-			// printf("demi_fov = %f\n",demi_fov);
 			angle_left = fake_angle + demi_fov;
 			angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
 			angle_right = fake_angle - demi_fov;
@@ -372,8 +375,6 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			wall1.y = fake_vs.vtx_gauche->ptr->y * METRE;
 			wall2.x = fake_vs.vtx_droite->ptr->x * METRE;
 			wall2.y = fake_vs.vtx_droite->ptr->y * METRE;
-			// ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
-			// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 			if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
 			{
 				fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
@@ -396,16 +397,6 @@ t_int	*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 		else
 			ft_create_new_wall(s, vtx, vs);
 		vtx = vtx->next;
-		// {s->line.x1 = wall->l_plan.x + s->editor->decal_x;
-		// 	s->line.y1 = wall->l_plan.y + s->editor->decal_y;
-		// 	s->line.x2 = wall->left.x + s->editor->decal_x;
-		// 	s->line.y2 = wall->left.y + s->editor->decal_y;
-		// 	get_line(s, 0xea7cfcff);
-		// s->line.x1 = wall->r_plan.x + s->editor->decal_x;
-		// s->line.y1 = wall->r_plan.y + s->editor->decal_y;
-		// s->line.x2 = wall->right.x + s->editor->decal_x;
-		// s->line.y2 = wall->right.y + s->editor->decal_y;
-		// get_line(s, 0xea7cfcff);}
 	}
 	return(vtx);
 }

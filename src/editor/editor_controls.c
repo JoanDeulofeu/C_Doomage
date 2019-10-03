@@ -199,28 +199,20 @@ void	handle_editor_keys(t_main *s)
 			change_over_wall(s);
 		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 		draw_space_menu(s);
-		if (s->player.sector_id == 0)
-		{
-			s->player.r_pos = handle_sector_zero(s, keys); //Yohann
-			s->player.r_pos.x /= METRE;
-			s->player.r_pos.y /= METRE;
-			set_player(s);
-		}
+		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
 		update_image(s, s->sdl->editor);
 	}
 	if (s->display_mode == game)
 	{
+<<<<<<< HEAD
 		//ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+=======
+		// ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+>>>>>>> 24a014ba9fd1644d7040a10b3cc47f731816820a
 		display_sky(s);
 		display_map(s);
-		if (s->player.sector_id == 0)
-		{
-			s->player.r_pos = handle_sector_zero(s, keys); //Yohann
-			s->player.r_pos.x /= METRE;
-			s->player.r_pos.y /= METRE;
-			set_player(s);
-		}
+		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
 		play_anim(s);
 		//	sprite_move(s);

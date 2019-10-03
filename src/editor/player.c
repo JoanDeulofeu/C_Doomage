@@ -78,32 +78,16 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	target = s->player.r_pos;
 	target = get_direction(s, keys, speed, target);
 	s->col_pos = get_direction(s, keys, speed + 10, s->player.m_pos);
-	// s->col_pos = get_direction(s, keys, s->editor->space % 30 , s->col_pos);
-	// s->col_pos.x *= (s->editor->space % 30);
-	// s->col_pos.y *= (s->editor->space % 30);
-	// printf("s->editor->space = %d\n", s->editor->space);
-	// printf("player.x = %f, player.y = %f\n", s->player.m_pos.x, s->player.m_pos.y);
-	// printf("col.x = %f, col.y = %f\n", s->col_pos.x, s->col_pos.y);
-	// t_dpos test;
-	//
-	// test.x = s->col_pos.x / METRE;
-	// test.y = s->col_pos.y / METRE;
-	// test = ft_pos_to_dpos(get_px_r_pos(s, test));
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)), BLUE);
 	// update_image(s, s->sdl->editor);
-	//printf("sector = %d\n",ft_is_in_sector(s, ft_dpos_to_pos(target)));
+	//Si is_colliding renvoie -1, il y a collision, si il renvoie plus que 0 il faut se tp
 	if (is_colliding(s) == 0)
 	{
-		// printf("true1\n");
 		s->player.r_pos.x = target.x;
 		s->player.r_pos.y = target.y;
 	}
-	// s->col_pos = get_direction(s, keys, speed + 10, s->player.pos);
 	if (is_colliding(s) > 0)
-	{
-		// printf("true2\n");
 		teleport_player(s, keys);
-	}
 
 }
 
