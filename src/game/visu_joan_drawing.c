@@ -238,10 +238,9 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
 	{
-
 		add_wall_to_list(s, wall);
-//		printf("Mur[%d] ajouté\n", vtx->ptr->id);
-	//	printf("%f et %f\n", ft_dist_t_dpos(wall->l_plan, vs->left_plan), ft_dist_t_dpos(wall->r_plan, vs->left_plan));
+		//printf("Mur[%d] ajouté\n", vtx->ptr->id);
+		//printf("%f et %f\n", ft_dist_t_dpos(wall->l_plan, vs->left_plan), ft_dist_t_dpos(wall->r_plan, vs->left_plan));
 	}
 	else
 	{

@@ -199,7 +199,6 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	double		player_angle;
 	double		angle_portal_in;
 	double		angle_portal_out;
-	t_pos		fake_player2; //juste pour affichage du faek player
 	double		dist_player;
 	t_dpos		lwall;
 	t_dpos		rwall;
