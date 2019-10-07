@@ -50,9 +50,6 @@ void select_sprite(t_main *s)
 
 }
 
-
-
-
 int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 {
 	int selected;
