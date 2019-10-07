@@ -64,19 +64,19 @@ int        ft_print_wall(t_main *s, t_walls *wall, t_int *vtx)
 	double	l_pct;
 	double	r_pct;
 
-    l_dist = ft_dist_t_dpos(wall->player, wall->left)/METRE;
-    r_dist = ft_dist_t_dpos(wall->player, wall->right)/METRE;
-    longeur_a_afficher = ft_dist_t_dpos(wall->left, wall->right)/METRE; // longeur a afficher
-    dist_lwall = ft_dist_t_dpos(ft_pos_to_dpos(vtx->ptr->pos), wall->left)/METRE; // distance a retirer aux pixels d'affichage
-	l_small_dist = ft_dist_t_dpos(wall->player, wall->l_plan)/METRE;
-	r_small_dist = ft_dist_t_dpos(wall->player, wall->r_plan)/METRE;
+    l_dist = (ft_dist_t_dpos(wall->player, wall->left)/METRE);
+    r_dist = (ft_dist_t_dpos(wall->player, wall->right)/METRE);
+    longeur_a_afficher = (ft_dist_t_dpos(wall->left, wall->right)/METRE); // longeur a afficher
+    dist_lwall = (ft_dist_t_dpos(ft_pos_to_dpos(vtx->ptr->pos), wall->left)/METRE); // distance a retirer aux pixels d'affichage
+	l_small_dist = (ft_dist_t_dpos(wall->player, wall->l_plan)/METRE);
+	r_small_dist = (ft_dist_t_dpos(wall->player, wall->r_plan)/METRE);
 
 	// l_height_wall = HEIGHT / (l_dist) * 1.5; //calcule des hauteur des murs gauche et droit
     // r_height_wall = HEIGHT / (r_dist) * 1.5; //calcule des hauteur des murs gauche et droit
 	l_pct = (l_dist * 100.0) / l_small_dist; //calcule des ratios mur gauche et droit
 	r_pct = (r_dist * 100.0) / r_small_dist;
-	l_height_wall = HEIGHT / ((l_pct * 0.001)*6); //calcule des hauteur des murs gauche et droit
-	r_height_wall = HEIGHT / ((r_pct * 0.001)*6);
+	l_height_wall = HEIGHT / ((l_pct * 0.001)*4); //calcule des hauteur des murs gauche et droit
+	r_height_wall = HEIGHT / ((r_pct * 0.001)*4);
 
     pct_plan = (ft_dist_t_dpos(wall->l_plan, wall->r_plan)) / WIDTHPLAN; //calcule de la largeur du mur dans la fenetre
     width_wall = (WIDTH * pct_plan);
@@ -96,9 +96,9 @@ int        ft_print_wall(t_main *s, t_walls *wall, t_int *vtx)
     else
     {
 		longeur_a_afficher -= ((wall->longeur_total - (int)wall->longeur_total) / (int)wall->longeur_total) * (int)longeur_a_afficher;
-		if (wall->x > 0 && (wall->x + width_wall) >= 997) // mur gauche
+		if (wall->x > 0 && (wall->x + width_wall) >= 997) // mur droit
 			value = 0;
-		else // mur droit
+		else // mur gauche
 		{
 			value = (longeur_a_afficher - (int)longeur_a_afficher);
 			value = value * (double)(width_wall/longeur_a_afficher);
