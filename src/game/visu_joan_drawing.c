@@ -1,63 +1,116 @@
 #include "doom.h"
 
-void	ft_draw_column(t_main *s, t_pos coord, int end, Uint32 color)
+int        ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall, int r_height_wall, double width_wall, double longeur, double start_tex)
 {
-	int i;
-	int begin;
+    int        diff_wall;
+    double    x;
+    int        height_wall;
+    int        y;
+    t_pos    coord;
+    int        start;
+    int        end;
+    double        tex_x;
+    double        tex_y;
+    int            px;
+    double    pct_avcm; //pourcentage avancement
+    t_image *wp;
 
-	i = 0;
-	begin = coord.y ;
-	coord.y = 0 ;
-	// printf("coord.y %d, end = %d\n", begin, end);
-	while (i++ < begin)
-	{
-		set_pixel(s->sdl->game, 0x485050ff, coord);
-		coord.y++;
-	}
-	coord.y--;
-	while (coord.y++ < end)
-		set_pixel(s->sdl->game, color, coord);
-	while (end++ < HEIGHT)
-	{
-		set_pixel(s->sdl->game, 0xa8b08eff, coord);
-		coord.y++;
-	}
+    // printf("longeur = %f\n",longeur);
+    // printf("start_tex = %f\n",start_tex);
+    wp = s->menu;
+    x = 0;
+    diff_wall = abs(l_height_wall - r_height_wall); //calcule de la diff de hauteur entre les deux murs div par deux (pour haut et bas)
+    height_wall = l_height_wall;
+    coord.x = start_wallx;
+    while (coord.x++ < (width_wall + start_wallx))
+    {
+        start = (HEIGHT / 2) - height_wall / 2 +s->player.y_eye +  s->player.eyesight; //haut du mur
+        end = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
+        coord.y = start;
+        y = 0;
+        tex_x =  (double)(x++ - (start_tex)) / (double)(width_wall/longeur);
+        while (coord.y++ < end)
+        {
+            tex_y = (double)(y++) / (double)height_wall;
+            // set_pixel(s->sdl->game, PINK, coord);
+            px = (int)(tex_y * (double)wp->h) * wp->w + (int)(tex_x * (double)wp->w);
+            if (px >= 0 && px < wp->w * wp->h)
+                set_pixel(s->sdl->game, wp->tex[px], coord);
+        }
+        pct_avcm = (x) / width_wall;
+        if (l_height_wall < r_height_wall)
+            height_wall = l_height_wall + (diff_wall * pct_avcm);
+        else if (l_height_wall > r_height_wall)
+            height_wall = l_height_wall - (diff_wall * pct_avcm);
+        else
+            height_wall = l_height_wall;
+    }
+    return (coord.x);
 }
 
-int		ft_draw_wall(t_main *s, int x, int l_height_wall, int r_height_wall, double width_wall)
+int        ft_print_wall(t_main *s, t_walls *wall, t_int *vtx)
 {
-	int		diff_wall;
-	double	i;
-	int		height_wall;
-	t_pos	coord;
-	int		bottom;
-	double	pct_avcm; //pourcentage avancement
+    double    l_dist;
+    double    r_dist;
+    int        l_height_wall;
+    int        r_height_wall;
+    double    pct_plan;
+    double    width_wall;
+    double longeur_a_afficher;
+    double dist_lwall;
+    double value; // valeur pour debut de texture
+	double	l_small_dist;
+	double	r_small_dist;
+	double	l_pct;
+	double	r_pct;
 
-	i = 0;
-	diff_wall = abs(l_height_wall - r_height_wall); //calcule de la diff de hauteur entre les deux murs div par deux (pour haut et bas)
-	// printf("diff = %d\n",diff_wall);
-	height_wall = l_height_wall;
-	coord.x = x;
-	// printf("Largeur du mur = %f\n", width_wall);
-	while (i++ < width_wall)
+    l_dist = ft_dist_t_dpos(wall->player, wall->left)/METRE;
+    r_dist = ft_dist_t_dpos(wall->player, wall->right)/METRE;
+    longeur_a_afficher = ft_dist_t_dpos(wall->left, wall->right)/METRE; // longeur a afficher
+    dist_lwall = ft_dist_t_dpos(ft_pos_to_dpos(vtx->ptr->pos), wall->left)/METRE; // distance a retirer aux pixels d'affichage
+	l_small_dist = ft_dist_t_dpos(wall->player, wall->l_plan)/METRE;
+	r_small_dist = ft_dist_t_dpos(wall->player, wall->r_plan)/METRE;
+
+	// l_height_wall = HEIGHT / (l_dist) * 1.5; //calcule des hauteur des murs gauche et droit
+    // r_height_wall = HEIGHT / (r_dist) * 1.5; //calcule des hauteur des murs gauche et droit
+	l_pct = (l_dist * 100.0) / l_small_dist; //calcule des ratios mur gauche et droit
+	r_pct = (r_dist * 100.0) / r_small_dist;
+	l_height_wall = HEIGHT / ((l_pct * 0.001)*6); //calcule des hauteur des murs gauche et droit
+	r_height_wall = HEIGHT / ((r_pct * 0.001)*6);
+
+    pct_plan = (ft_dist_t_dpos(wall->l_plan, wall->r_plan)) / WIDTHPLAN; //calcule de la largeur du mur dans la fenetre
+    width_wall = (WIDTH * pct_plan);
+
+	if (wall->x > 0 && (wall->x + width_wall) < 997) // cas pour un mur afficher en entier
 	{
-		coord.y = (HEIGHT / 2) - height_wall / 2 +s->player.y_eye +  s->player.eyesight; //haut du mur
-		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
-		if (i == 1 || i == width_wall)
-			ft_draw_column(s, coord, bottom, 0x000000FF);
-		else
-			ft_draw_column(s, coord, bottom, 0xb0842fff);
-		coord.x++;
-		pct_avcm = (100 * i) / width_wall;
+		longeur_a_afficher = (int)wall->longeur_total;
+		value = 0;
 
-		if (l_height_wall < r_height_wall)
-			height_wall = l_height_wall + (diff_wall * pct_avcm) / 100;
-		else if (l_height_wall > r_height_wall)
-			height_wall = l_height_wall - (diff_wall * pct_avcm) / 100;
-		else
-			height_wall = l_height_wall;
 	}
-	return (coord.x);
+	else if (width_wall >= 999 && wall->x == 0) //cas pour 1 seul mur a afficher (sur tout l'ecran)
+    {
+        value = dist_lwall - (int)dist_lwall;
+        value = value * (double)(width_wall/longeur_a_afficher);
+        value *=  -1;
+    }
+    else
+    {
+		longeur_a_afficher -= ((wall->longeur_total - (int)wall->longeur_total) / (int)wall->longeur_total) * (int)longeur_a_afficher;
+		if (wall->x > 0 && (wall->x + width_wall) >= 997) // mur gauche
+			value = 0;
+		else // mur droit
+		{
+			value = (longeur_a_afficher - (int)longeur_a_afficher);
+			value = value * (double)(width_wall/longeur_a_afficher);
+
+		}
+    }
+	// printf("value = %f\n",value);
+    // printf("longeur total = %f\n",longeur_total);
+    wall->x = ft_draw_wall2(s, wall->x, l_height_wall, r_height_wall, width_wall,longeur_a_afficher,value);
+    // printf("Hauteur du mur Gauche (%d)\n",l_height_wall);
+    // printf("Hauteur du mur Droit  (%d)\n\n\n",r_height_wall);
+    return(wall->x);
 }
 
 void clear_wall_list(t_main *s)
@@ -130,41 +183,6 @@ void	add_wall_to_list(t_main *s, t_walls *new)
 			put_wall_after(new, tmp);
 }
 
-int		ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan)
-{
-	double	l_big_dist;
-	double	r_big_dist;
-	double	l_small_dist;
-	double	r_small_dist;
-	double	l_pct;
-	double	r_pct;
-	int		l_height_wall;
-	int		r_height_wall;
-	double	pct_plan;
-	double	width_wall;
-
-	l_big_dist = ft_dist_t_dpos(player, lwall);
-	r_big_dist = ft_dist_t_dpos(player, rwall);
-	l_small_dist = ft_dist_t_dpos(player, lplan);
-	r_small_dist = ft_dist_t_dpos(player, rplan);
-
-	l_pct = (l_big_dist * 100.0) / l_small_dist; //calcule des ratios mur gauche et droit
-	r_pct = (r_big_dist * 100.0) / r_small_dist;
-
-	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4); //calcule des hauteur des murs gauche et droit
-	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4);
-
-	pct_plan = (ft_dist_t_dpos(lplan, rplan) * 100.0) / WIDTHPLAN; //calcule de la largeur du mur dans la fenetre
-	width_wall = (WIDTH * pct_plan) / 100;
-	// printf("Mur vtx gauche(%.2f, %.2f)      vtx droit(%.2f, %.2f)    ",lwall.x / METRE, lwall.y / METRE, rwall.x / METRE, rwall.y / METRE);
-	// printf("\nx entree = %d", x);
-	x = ft_draw_wall(s, x, l_height_wall, r_height_wall, width_wall);
-	// printf("      x sortie= %d\n", x);
-	// printf("Hauteur du mur Gauche (%d)\n",l_height_wall);
-	// printf("Hauteur du mur Droit  (%d)\n\n\n",r_height_wall);
-
-	return(x);
-}
 
 void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 {
@@ -183,6 +201,8 @@ void	ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	right.x = vtx->next->ptr->x * METRE;
 	right.y = vtx->next->ptr->y * METRE;
 	// printf("3\n");
+	wall->longeur_total = ft_dist_t_dpos(right, left)/METRE;
+
 
 	// printf("vs->left_point.x = %f, vs->left_point.y = %f\n", vs->left_point.x, vs->left_point.y);
 	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
@@ -495,7 +515,8 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		{
 			while (tmp)
 			{
-				ft_print_wall(s, tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+				ft_print_wall(s, tmp,vtx);
+				// ft_print_wall(s,tmp tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan,vtx,tmp->longeur);
 				tmp = tmp->next;
 			}
 		}
@@ -510,8 +531,11 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	tmp = s->walls;
 	while(tmp)
 	{
-		ft_print_wall(s, tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan);
+		ft_print_wall(s, tmp,vtx);
+
+		// ft_print_wall(s, tmp->x, tmp->player, tmp->left, tmp->right, tmp->l_plan, tmp->r_plan,vtx,tmp->longeur);
 		tmp = tmp->next;
+		vtx = vtx->next;
 	}
 	// print_wall_list(s);
 	clear_wall_list(s);

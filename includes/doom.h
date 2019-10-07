@@ -167,6 +167,7 @@ typedef struct				s_skybox {
 typedef struct				s_walls {
 	double					distance;
 	int						x;
+	double					longeur_total;
 	t_dpos					player;
 	t_dpos					left;
 	t_dpos					right;
@@ -262,7 +263,12 @@ void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
 t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
 int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id);
-int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
+// int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
+int        		ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall, int r_height_wall, double width_wall, double longeur, double start_tex);
+// int        ft_print_wall(t_main *s, int x, t_dpos player, t_dpoms lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan, t_int *vtx, double longeur);
+int        ft_print_wall(t_main *s, t_walls *wall, t_int *vtx);
+
+
 double				ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed);
 
 /*
