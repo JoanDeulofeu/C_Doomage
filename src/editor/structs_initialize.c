@@ -157,6 +157,8 @@ t_main		*initialize_main(char *str)
 	s->player.m_pos.x =  s->player.r_pos.x * METRE;
 	s->player.m_pos.x =  s->player.r_pos.y * METRE;
 
+	s->player.health = 100;
+
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 	s->player.set_jump = 0;
