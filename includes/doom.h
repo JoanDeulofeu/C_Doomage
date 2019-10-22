@@ -131,8 +131,6 @@ typedef struct				s_player
 	int 					eyesight;
 	int 					y_eye;
 	int						health;
-	int						ammunition;
-	unsigned int			money;
 	double					angle;
 	int						height;
 	t_anim					weapon;
@@ -167,6 +165,14 @@ typedef struct				s_skybox {
 	t_dpos					left_point;
 	t_dpos					right_point;
 }							t_skybox;
+
+typedef struct				s_slider {
+	t_point					start;
+	t_point					end;
+	Uint32					color_one;
+	Uint32					color_two;
+	Uint32					value;
+}							t_slider;
 
 typedef struct				s_walls {
 	double					distance;
@@ -257,6 +263,7 @@ typedef struct				s_main {
 	t_image					*menu;
 	t_image					*interface;
 	t_image					*skybox;
+	t_slider				slider;
 	short					fov;
 	t_sprite				*sprite;
 	t_lsprite				*lsprite;
@@ -624,7 +631,6 @@ void				damage(t_main *s);
 void				draw_slider(t_main *s, t_slider slider);
 void				print_hp(t_main *s);
 void				set_pixel_slider(t_texture *text, Uint32 color, int x, int y);
-
 
 
 

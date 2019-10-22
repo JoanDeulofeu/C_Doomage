@@ -165,6 +165,8 @@ t_main		*initialize_main(char *str)
 	s->object.health_pack = 20;
 	// s->object.armor = 2;
 
+	s->player.health = 100;
+
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 	s->player.set_jump = 0;
