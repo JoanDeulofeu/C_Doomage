@@ -13,7 +13,7 @@ static int	check_pos(t_main *s, t_dpos curr)
 		return (0);
 }
 
-void	handle_sector_zero(t_main *s)
+void		handle_sector_zero(t_main *s)
 {
 	int		nb;
 	t_dpos	curr;
@@ -56,17 +56,19 @@ void	handle_sector_zero(t_main *s)
 	}
 }
 
-int		is_colliding(t_main *s)
+int			is_colliding(t_main *s)
 {
 	int			id;
 	t_sector	*sct;
 	t_int		*wall;
 
-	if (ft_is_in_sector(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos))) != s->player.sector_id)
+	if (ft_is_in_sector(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)))
+		!= s->player.sector_id)
 	{
-		id = ft_find_wall2(s, s->player.m_pos, s->col_pos, 0x37f3ffff, s->player.sector_id);
+		id = ft_find_wall2(s, s->player.m_pos, s->col_pos, 0x37f3ffff,
+			s->player.sector_id);
 		// printf("id = %d\n", id);
-		if (id == 0 )
+		if (id == 0)
 			return (0);
 		sct = get_sector_by_id(s, s->player.sector_id);
 		wall = get_t_int_by_vertex_id(sct->vertex, id);
