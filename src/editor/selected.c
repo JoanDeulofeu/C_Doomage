@@ -27,9 +27,9 @@ void 	deselect_sprite(t_main *s)
 	}
 }
 
-void select_sprite(t_main *s)
+void		select_sprite(t_main *s)
 {
-	t_sprite *v;
+	t_sprite	*v;
 
 	v = s->sprite;
 	while (v != NULL)
@@ -50,9 +50,9 @@ void select_sprite(t_main *s)
 
 }
 
-int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
+int			exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 {
-	int selected;
+	int		selected;
 
 	selected = 0;
 	s->editor->selected =1;
@@ -73,9 +73,9 @@ int exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 	return (selected);
 }
 
-void move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
+void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 {
-	t_vertex *v;
+	t_vertex	*v;
 
 	v = s->vertex;
 	tmp_move.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
@@ -96,9 +96,9 @@ void move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 	}
 }
 
-void 	deselect_vertex(t_main *s)
+void	deselect_vertex(t_main *s)
 {
-	t_vertex *v;
+	t_vertex	*v;
 
 	v = s->vertex;
 	while (v)
@@ -110,11 +110,11 @@ void 	deselect_vertex(t_main *s)
 	}
 }
 
-void select_vertex(t_main *s)
+void		select_vertex(t_main *s)
 {
-	t_vertex *v;
-	t_line line;
-	t_pos pos;
+	t_vertex	 *v;
+	t_line		line;
+	t_pos		pos;
 
 	deselect_vertex(s);
 	v = s->vertex;
@@ -142,11 +142,11 @@ void select_vertex(t_main *s)
 
 
 
-void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color)
+void		ft_trace_vertical_select(t_main *s, t_line line, Uint32 color)
 {
-	int sens_x;
-	int sens_y;
-	t_pos coord;
+	int		sens_x;
+	int		sens_y;
+	t_pos	coord;
 
 	line.e = line.y2 > line.y1 ? line.y2 - line.y1 : line.y1 - line.y2;
 	sens_x = line.x2 > line.x1 ? 1 : -1;
@@ -168,11 +168,11 @@ void	ft_trace_vertical_select(t_main *s, t_line line, Uint32 color)
 	}
 }
 
-int		ft_trace_line_select(t_main *s, t_line line, Uint32 color)
+int			ft_trace_line_select(t_main *s, t_line line, Uint32 color)
 {
-	int sens_x;
-	int sens_y;
-	t_pos coord;
+	int		sens_x;
+	int		sens_y;
+	t_pos	coord;
 
 	sens_x = line.x2 > line.x1 ? 1 : -1;
 	sens_y = line.y2 > line.y1 ? 1 : -1;
@@ -206,10 +206,10 @@ void	ft_get_line_select(t_main *s, t_line line, Uint32 color)
 }
 
 
-void 	trace_select(t_main *s)
+void		trace_select(t_main *s)
 {
-	t_editor *edi;
-	t_line line;
+	t_editor	*edi;
+	t_line		line;
 
 	if (s->editor->selected == 0)
 		return ;

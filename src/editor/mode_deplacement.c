@@ -16,7 +16,7 @@ void	mouse_grid(t_main *s, t_pos save)
 	// printf("souris X = %f et souris Y = %f\n", s->ft_mouse.x, s->ft_mouse.y);
 }
 
-void		move_editor(t_main *s, const Uint8 *keys)
+void	move_editor(t_main *s, const Uint8 *keys)
 {
 	if (keys[RIGHT_AR] && (s->editor->decal_x < INT_MAX) && (s->player.pos.x < INT_MAX))
 	{

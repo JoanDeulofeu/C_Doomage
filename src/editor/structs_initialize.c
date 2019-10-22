@@ -156,6 +156,14 @@ t_main		*initialize_main(char *str)
 	s->player.r_pos.y = 7.3;
 	s->player.m_pos.x =  s->player.r_pos.x * METRE;
 	s->player.m_pos.x =  s->player.r_pos.y * METRE;
+	s->player.health = 100;
+
+	// s->sprite.damage = 1;
+
+	s->ennemi.damage = -1;
+	//
+	s->object.health_pack = 20;
+	// s->object.armor = 2;
 
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;

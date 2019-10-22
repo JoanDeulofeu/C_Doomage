@@ -99,6 +99,7 @@ typedef struct				s_sprite
 	int						life;
 	int						current;
 	int						destroy;
+	int						damage;
 	double 					angle;
 	double 					s_angle;
 	double 					dist;
@@ -129,6 +130,9 @@ typedef struct				s_player
 	int						sector_id;
 	int 					eyesight;
 	int 					y_eye;
+	int						health;
+	int						ammunition;
+	unsigned int			money;
 	double					angle;
 	int						height;
 	t_anim					weapon;
@@ -183,9 +187,23 @@ typedef struct				s_savemap {
 	short					error_msg;
 }							t_savemap;
 
-typedef struct				s_hud {
-	int						health;
-}							t_hud;
+typedef struct				s_ennemi {
+	int						damage;
+
+}							t_ennemi;
+
+typedef struct				s_object {
+	int						health_pack;
+	int						armor;
+}							t_object;
+
+typedef struct				s_slider {
+	t_point					start;
+	t_point					end;
+	Uint32					color_one;
+	Uint32					color_two;
+	Uint32					value;
+}							t_slider;
 
 typedef struct				s_sdl {
 	SDL_Window				*pwindow;
@@ -222,7 +240,10 @@ typedef struct				s_main {
 	t_pos					ft_mouse;
 	t_line					line;
 	t_visu					visu;
+	t_slider				slider;
 	t_player				player;
+	t_ennemi				ennemi;
+	t_object				object;
 	t_dpos					tmp_intersect;
 	t_dpos					intersect1;
 	t_dpos					intersect2;
@@ -592,9 +613,17 @@ void 			set_orientation(t_main *s, t_sprite *cur);
 
 t_lanim        *get_anim_by_id(t_main *s, int id);
 
+/*
+****	Fonctions hud
+*/
 
-
-
+void				health(t_main *s);
+void				game_over(t_main *s);
+void				health_pack(t_main *s);
+void				damage(t_main *s);
+void				draw_slider(t_main *s, t_slider slider);
+void				print_hp(t_main *s);
+void				set_pixel_slider(t_texture *text, Uint32 color, int x, int y);
 
 
 

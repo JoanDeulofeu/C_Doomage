@@ -2,9 +2,11 @@
 
 int		ft_howmany_char(char *str, char c)
 {
-	int i = -1;
-	int res = 0;
+	int	i;
+	int	res;
 
+	i = -1;
+	res = 0;
 	while (str[++i] != '\0')
 	{
 		if (str[i] == c)
@@ -15,7 +17,7 @@ int		ft_howmany_char(char *str, char c)
 
 int		ft_nb_is_in_str(char *str, int nb)
 {
-	int i;
+	int	i;
 	int	tmp;
 	int	strlg;
 

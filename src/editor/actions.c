@@ -1,12 +1,12 @@
 #include "doom.h"
 
-void  	ft_zoom(t_main *s, t_pos mouse, int space)
+void			ft_zoom(t_main *s, t_pos mouse, int space)
 {
-	t_pos ori;
-	t_pos p_ori;
-	t_pos diff;
-	t_dpos 		r_pos;
-	t_editor 	*edi;
+	t_pos		ori;
+	t_pos		p_ori;
+	t_pos		diff;
+	t_dpos		r_pos;
+	t_editor	*edi;
 
 	edi = s->editor;
 	ori.x = arround(s->editor->space, mouse.x - (s->editor->decal_x % s->editor->space));
@@ -31,11 +31,11 @@ void  	ft_zoom(t_main *s, t_pos mouse, int space)
 	s->player.pos.y += s->editor->decal_y;
 }
 
-void 	crouch(t_main *s, int press)
+void 			crouch(t_main *s, int press)
 {
-	struct timeval tv;
-    long            curr_time;
-	char            v0id[32];
+	struct		timeval tv;
+	long		curr_time;
+	char		v0id[32];
 
 	gettimeofday(&tv, (void *)v0id);
 	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
@@ -59,11 +59,11 @@ void 	crouch(t_main *s, int press)
 	}
 }
 
-void 	jump(t_main *s, int press)
+void 			jump(t_main *s, int press)
 {
-	struct timeval tv;
-    long            curr_time;
-	char            v0id[32];
+	struct		timeval tv;
+	long		curr_time;
+	char		v0id[32];
 
 
 	gettimeofday(&tv, (void *)v0id);
@@ -82,9 +82,9 @@ void 	jump(t_main *s, int press)
 
 }
 
-void  	rotate_mouse(t_main *s)
+void		rotate_mouse(t_main *s)
 {
-	double angle;
+	double	angle;
 
 	angle = s->player.angle + (-s->sdl->event.motion.xrel) * ROTATE_SPEED / 50 + 360;
 	s->player.angle = (int)angle % 360;

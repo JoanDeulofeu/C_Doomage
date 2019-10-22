@@ -38,7 +38,7 @@ double	ft_find_angle_plan(double a, double b, double c)
 
 void	*ft_memalloc(size_t size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = (void *)malloc(sizeof(void *) * size);
 	if (!ptr)

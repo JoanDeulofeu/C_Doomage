@@ -214,3 +214,31 @@ void	display_hud(t_main *s, int i, int j)
 // 	// update_image(s, s->sdl->game);
 //
 // }
+
+void		health(t_main *s)
+{
+	if (s->player.health < 0)
+		game_over(s);
+	// printf("%d\n", s->player.health);
+	// printf("%d\n", s->object.health_pack);
+}
+
+void		game_over(t_main *s)
+{
+	s->player.health = 0;
+}
+
+void		health_pack(t_main *s)
+{
+	if (s->object.health_pack && s->player.health < 100 && s->player.health > 0)
+	{
+		s->player.health = 100;
+		s->object.health_pack--;
+	}
+}
+
+void		damage(t_main *s)
+{
+	if (s->player.health <= 100 && s->player.health > 0)
+		s->player.health += s->ennemi.damage;
+}
