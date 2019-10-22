@@ -203,14 +203,6 @@ typedef struct				s_object {
 	int						armor;
 }							t_object;
 
-typedef struct				s_slider {
-	t_point					start;
-	t_point					end;
-	Uint32					color_one;
-	Uint32					color_two;
-	Uint32					value;
-}							t_slider;
-
 typedef struct				s_sdl {
 	SDL_Window				*pwindow;
 	SDL_Renderer			*prenderer;
@@ -246,7 +238,6 @@ typedef struct				s_main {
 	t_pos					ft_mouse;
 	t_line					line;
 	t_visu					visu;
-	t_slider				slider;
 	t_player				player;
 	t_ennemi				ennemi;
 	t_object				object;
