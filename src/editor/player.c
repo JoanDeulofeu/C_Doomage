@@ -1,7 +1,7 @@
 #include "doom.h"
 
 
-void set_player(t_main *s)
+void	set_player(t_main *s)
 {
 	s->player.pos = ft_pos_to_dpos(get_px_r_pos(s,s->player.r_pos));
 	s->player.m_pos.x = s->player.r_pos.x * METRE;

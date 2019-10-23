@@ -54,6 +54,16 @@ void	ft_draw_ttf(t_main *s)
 		ttf.str = ft_strdup("1");
 		ft_create_ttf(ttf, s, s->font->press_start);
 	}
+	if (s->display_mode == game)
+	{
+		ttf.r = 255;
+		ttf.g = 255;
+		ttf.b = 255;
+		ttf.pos.x = 200;
+		ttf.pos.y = 700;
+		ttf.str = ft_strdup("0");
+		ft_create_ttf(ttf, s, s->font->roboto);
+	}
 	if (s->display_mode == 2)
 	{
 		ttf.r = 255;

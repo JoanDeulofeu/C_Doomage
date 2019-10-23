@@ -12,8 +12,8 @@ double  to_degres(double rad)
 
 int		arround(int space, int nb)
 {
-	int res;
-	int res2;
+	int    res;
+	int    res2;
 
 	res = nb / space;
 	res2 = res + 1;
@@ -140,8 +140,8 @@ t_pos	ft_dpos_to_pos(t_dpos dpos)
 
 double      calc_sprite_dist(t_main *s, t_pos pos)
 {
-  t_dpos distance;
-  double dist;
+  t_dpos    distance;
+  double    dist;
 
   distance.x =  pos.x - s->player.pos.x;
   distance.y =  pos.y - s->player.pos.y;
@@ -152,8 +152,8 @@ double      calc_sprite_dist(t_main *s, t_pos pos)
 
 double      calc_sprite_r_dist(t_main *s, t_dpos pos)
 {
-  t_dpos distance;
-  double dist;
+  t_dpos    distance;
+  double    dist;
 
   distance.x =  pos.x - s->player.r_pos.x;
   distance.y =  pos.y - s->player.r_pos.y;

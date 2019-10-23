@@ -1,6 +1,6 @@
 #include "doom.h"
 
-t_image	*initialize_image(void)
+t_image		*initialize_image(void)
 {
 	t_image	*image;
 
@@ -15,7 +15,7 @@ t_image	*initialize_image(void)
 	return (image);
 }
 
-void	print_bit(char c)
+void		print_bit(char c)
 {
 	int		i;
 	char	d;
@@ -29,7 +29,7 @@ void	print_bit(char c)
 	write(1, "\n", 1);
 }
 
-int		get_info_header(t_image *image, unsigned char *str)
+int			get_info_header(t_image *image, unsigned char *str)
 {
 	image->bits_alpha = str[17] << 4 >> 4;
 	image->bits_color = str[16];
@@ -52,7 +52,7 @@ int		get_info_header(t_image *image, unsigned char *str)
 	return (1);
 }
 
-t_image	*load_tga(char *path, int i, int idx, int ret)
+t_image		*load_tga(char *path, int i, int idx, int ret)
 {
 	unsigned char	str[PARSE_BUFF_SIZE];
 	t_image			*image;

@@ -1,10 +1,10 @@
 #include "doom.h"
 
-void 	shoot(t_main *s, int press)
+void		shoot(t_main *s, int press)
 {
-	struct timeval 	tv;
-	t_time 			t;
-	long            curr_time;
+	struct timeval	tv;
+	t_time			t;
+	long			curr_time;
 
 	gettimeofday(&tv, (void *)t.v0id);
 	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
@@ -16,39 +16,36 @@ void 	shoot(t_main *s, int press)
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
 		s->player.t = t;
-
-
 	}
-	if (s->player.t.tmp_time + 150000 > curr_time )
+	if (s->player.t.tmp_time + 150000 > curr_time)
 	{
 		s->player.weapon.current = 0;
 		s->player.t.recoil.y = 50;
 		s->player.t.recoil.x = 50;
 	}
-	else if (s->player.t.tmp_time + 200000 > curr_time )
+	else if (s->player.t.tmp_time + 200000 > curr_time)
 	{
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
 		s->player.weapon.current = 0;
-
 	}
-	else if (s->player.t.tmp_time + 300000  > curr_time)
+	else if (s->player.t.tmp_time + 300000 > curr_time)
 	{
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
 		s->player.weapon.current = 1;
 	}
-	else if (s->player.t.tmp_time + 450000  > curr_time)
+	else if (s->player.t.tmp_time + 450000 > curr_time)
 		s->player.weapon.current = 2;
-	else if (s->player.t.tmp_time + 500000  > curr_time)
+	else if (s->player.t.tmp_time + 500000 > curr_time)
 		s->player.weapon.current = 3;
-	else if (s->player.t.tmp_time + 650000  > curr_time)
+	else if (s->player.t.tmp_time + 650000 > curr_time)
 		s->player.weapon.current = 4;
-	else if (s->player.t.tmp_time + 800000  > curr_time)
+	else if (s->player.t.tmp_time + 800000 > curr_time)
 		s->player.weapon.current = 5;
-	else if (s->player.t.tmp_time + 950000  > curr_time)
+	else if (s->player.t.tmp_time + 950000 > curr_time)
 		s->player.weapon.current = 4;
-	else if (s->player.t.tmp_time + 1080000  > curr_time)
+	else if (s->player.t.tmp_time + 1080000 > curr_time)
 		s->player.weapon.current = 3;
 	else
 	{
@@ -58,19 +55,17 @@ void 	shoot(t_main *s, int press)
 	}
 }
 
-void 	draw_hud(t_main *s)
+void		draw_hud(t_main *s)
 {
-	shoot(s,-1);
+	shoot(s, -1);
 	//draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2 ), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
 	//draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
 	draw_weapon2(s, 0, 0);
 	display_crosshair(s, 0, 0);
-
 	display_hud(s, 0, 0);
 }
 
-
-void display_crosshair(t_main *s, int i, int j)
+void		display_crosshair(t_main *s, int i, int j)
 {
 	double		perx;
 	double		pery;
@@ -78,24 +73,23 @@ void display_crosshair(t_main *s, int i, int j)
 	int			px;
 	t_image		*wp;
 
-
 	coord.x = 0;
 	coord.y = 0;
 	wp = s->player.crosshair;
 	//coord.x = WIDTH / 2 - (wp->w / 2);
-
 	while (i < wp->w)
 	{
 		j = 0;//dont touch
-		coord.x = i ;
+		coord.x = i;
 		perx = (double)coord.x / (double)wp->w;
-		coord.x += WIDTH/2 - (wp->w/2);
+		coord.x += WIDTH / 2 - (wp->w / 2);
 		while (j < wp->h)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (double)wp->h;
-			coord.y += HEIGHT/2 - (wp->h/2);
-			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
+			coord.y += HEIGHT / 2 - (wp->h / 2);
+			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx
+				* (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 		}
@@ -103,7 +97,7 @@ void display_crosshair(t_main *s, int i, int j)
 	}
 }
 
-void draw_weapon2(t_main *s, int i, int j)
+void		draw_weapon2(t_main *s, int i, int j)
 {
 	double		perx;
 	double		pery;
@@ -112,30 +106,25 @@ void draw_weapon2(t_main *s, int i, int j)
 	t_image		*wp;
 	int			value;
 
-	value =150;// + s->player.t.recoil.x;
-
-
+	value = 150;// + s->player.t.recoil.x;
 	coord.x = 0;
 	coord.y = 0;
 	wp = s->player.weapon.image[s->player.weapon.current];
-
 	//wp = s->player.weapon.image[s->player.weapon.current];
 	//coord.x = WIDTH / 2 - (wp->w / 2);
-
-	while (i < wp->w + value )
+	while (i < wp->w + value)
 	{
 		j = 0;//dont touch
-		coord.x = i ;
-
-		perx = (double)coord.x / ((double)wp->w+ value);
-		coord.x += WIDTH/2 + 30 + s->player.t.recoil.x;
-
-		while (j < wp->h+value)
+		coord.x = i;
+		perx = (double)coord.x / ((double)wp->w + value);
+		coord.x += WIDTH / 2 + 30 + s->player.t.recoil.x;
+		while (j < wp->h + value)
 		{
 			coord.y = j++;
-			pery = (double)coord.y / ((double)wp->h+ value);
+			pery = (double)coord.y / ((double)wp->h + value);
 			coord.y += HEIGHT - wp->h - value + s->player.t.recoil.y;
-			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
+			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx
+				* (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 		}
@@ -143,7 +132,7 @@ void draw_weapon2(t_main *s, int i, int j)
 	}
 }
 
-void	display_hud(t_main *s, int i, int j)
+void		display_hud(t_main *s, int i, int j)
 {
 	double		perx;
 	double		pery;
@@ -151,13 +140,10 @@ void	display_hud(t_main *s, int i, int j)
 	int			px;
 	t_image		*wp;
 
-
 	coord.x = 0;
 	coord.y = 0;
 	wp = s->player.hud;
 	//wp = s->player.weapon.image[s->player.weapon.current];
-
-
 	while (i < WIDTH)
 	{
 		j = 0;
@@ -167,7 +153,8 @@ void	display_hud(t_main *s, int i, int j)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (double)HEIGHT;
-			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
+			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx
+				* (double)wp->w);
 			//  printf("%d  ", px);
 			// printf("%d  ", wp->tex[px]);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
@@ -214,3 +201,31 @@ void	display_hud(t_main *s, int i, int j)
 // 	// update_image(s, s->sdl->game);
 //
 // }
+
+void		health(t_main *s)
+{
+	if (s->player.health < 0)
+		game_over(s);
+	// printf("%d\n", s->player.health);
+	// printf("%d\n", s->object.health_pack);
+}
+
+void		game_over(t_main *s)
+{
+	s->player.health = 0;
+}
+
+void		health_pack(t_main *s)
+{
+	if (s->object.health_pack && s->player.health < 100 && s->player.health > 0)
+	{
+		s->player.health = 100;
+		s->object.health_pack--;
+	}
+}
+
+void		damage(t_main *s)
+{
+	if (s->player.health <= 100 && s->player.health > 0)
+		s->player.health += s->ennemi.damage;
+}

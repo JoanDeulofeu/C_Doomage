@@ -95,6 +95,10 @@ int		key_controls_game(t_main *s, int key)
 	}
 	if (key == TAB)
 		ft_test_chainlist(s);
+	if (key == HEALTH_PACK)
+		health_pack(s);
+	if (key == DAMAGE)
+		damage(s);
 	return (1);
 }
 
@@ -212,8 +216,10 @@ void	handle_editor_keys(t_main *s)
 		ft_visu_joan(s, keys);
 		play_anim(s);
 		//	sprite_move(s);
+		health(s);
 		draw_sprite(s);
 		draw_hud(s);
+		print_hp(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)

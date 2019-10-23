@@ -17,7 +17,6 @@ SRC_NAME =	main.c						\
 			editor/structs_initialize.c	\
 			editor/editor_controls.c	\
 			editor/lines.c				\
-			editor/mouse.c				\
 			editor/parsing.c			\
 			editor/chainlist.c			\
 			editor/utils_1.c			\
@@ -54,8 +53,9 @@ SRC_NAME =	main.c						\
 			game/fire_mode.c			\
 			game/skybox.c				\
 			game/ia.c					\
+			game/collisions.c			\
 			game/walls.c				\
-			game/collisions.c
+			game/slider_hud.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
