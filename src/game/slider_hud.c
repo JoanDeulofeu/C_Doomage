@@ -1,6 +1,6 @@
 #include "doom.h"
 
-void	set_pixel_slider(t_texture *text, Uint32 color, int x, int y)
+void		set_pixel_slider(t_texture *text, Uint32 color, int x, int y)
 {
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
@@ -8,7 +8,7 @@ void	set_pixel_slider(t_texture *text, Uint32 color, int x, int y)
 	}
 }
 
-void			draw_slider(t_main *s, t_slider slider)
+void		draw_slider(t_main *s, t_slider slider)
 {
 	int			tmp;
 	float		diff;
@@ -22,16 +22,18 @@ void			draw_slider(t_main *s, t_slider slider)
 		{
 			if (((1.0f - ((slider.end.x - slider.start.x) / diff)) * 100)
 			< slider.value)
-				set_pixel_slider(s->sdl->game, slider.color_one, slider.start.x, slider.start.y);
+				set_pixel_slider(s->sdl->game, slider.color_one,
+					slider.start.x, slider.start.y);
 			else
-				set_pixel_slider(s->sdl->game, slider.color_two, slider.start.x, slider.start.y);
+				set_pixel_slider(s->sdl->game, slider.color_two,
+					slider.start.x, slider.start.y);
 			++slider.start.x;
 		}
 		++slider.start.y;
 	}
 }
 
-void			print_hp(t_main *s)
+void		print_hp(t_main *s)
 {
 	s->slider.start.x = 750;
 	s->slider.end.x = 850;

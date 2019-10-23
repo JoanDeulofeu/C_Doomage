@@ -6,11 +6,9 @@ void			display_sky(t_main *s)
 	double		pery;
 	t_pos		coord;
 	int			px;
-	t_image 	*wp;
 	double		value;
 
-	wp = s->skybox;
-	value = wp->w / 360;
+	value = s->skybox->w / 360;
 	value = value * (s->player.angle);
 	coord.x = -1;
 	while (coord.x++ < WIDTH)
@@ -20,10 +18,10 @@ void			display_sky(t_main *s)
 		while (coord.y++ < HEIGHT)
 		{
 			pery = (double)coord.y / (double)HEIGHT;
-			px = (int)(pery * (double)wp->h) * wp->w + (int)
-				(perx * (double)wp->w);
-			if (px >= 0 && px < wp->w * wp->h)
-			set_pixel(s->sdl->game, wp->tex[px], coord);
+			px = (int)(pery * (double)s->skybox->h) * s->skybox->w + (int)
+				(perx * (double)s->skybox->w);
+			if (px >= 0 && px < s->skybox->w * s->skybox->h)
+				set_pixel(s->sdl->game, s->skybox->tex[px], coord);
 		}
 	}
 }
