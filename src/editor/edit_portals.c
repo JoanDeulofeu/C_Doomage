@@ -1,54 +1,52 @@
 #include "doom.h"
 
-void reset_temp_portals(t_main *s)
+void		reset_temp_portals(t_main *s)
 {
 	// t_sector *tmp_sct;
 	//
 	// tmp_sct = s->sector;
 	// while (tmp_sct != NULL)
 	// {
-		s->editor->over_portal= 0;
-		s->editor->over_sector = 0;
-		s->editor->over_sector2 = 0;
-		s->editor->portal_temp = 0;
-		if (s->editor->wall)
-			s->editor->wall->selected = 0;
-		s->editor->wall = NULL;
-		if (s->editor->wall2)
-			s->editor->wall2->selected = 0;
-		s->editor->wall2 = NULL;
-		// tmp_sct = tmp_sct->next;
+	s->editor->over_portal = 0;
+	s->editor->over_sector = 0;
+	s->editor->over_sector2 = 0;
+	s->editor->portal_temp = 0;
+	if (s->editor->wall)
+		s->editor->wall->selected = 0;
+	s->editor->wall = NULL;
+	if (s->editor->wall2)
+		s->editor->wall2->selected = 0;
+	s->editor->wall2 = NULL;
+	// tmp_sct = tmp_sct->next;
 	// }
 }
 
-void create_struct_portals(t_main *s)
+void		create_struct_portals(t_main *s)
 {
-		t_int *wall1;
-		t_int *wall2;
-		t_sector *sct1;
-		t_sector *sct2;
+	t_int		*wall1;
+	t_int		*wall2;
+	t_sector	*sct1;
+	t_sector	*sct2;
 
-		sct1 = get_sector_by_id(s, s->editor->over_sector);
-		sct2 = get_sector_by_id(s, s->editor->over_sector2);
-
-		wall1 = get_t_int_by_id(sct1->vertex, s->editor->wall->id);
-		wall2 = get_t_int_by_id(sct2->vertex, s->editor->wall2->id);
-
-		wall1->wall_value = s->editor->wall2->ptr->id;
-		wall2->wall_value = s->editor->wall->ptr->id;
-		wall1->sct_dest = sct2->id;
-		wall2->sct_dest = sct1->id;
-		wall1->vtx_dest = wall2;
-		wall2->vtx_dest = wall1;
-		// wall1->ptr = s->editor->wall2->ptr;
-		// wall2->ptr = s->editor->wall->ptr;
-		reset_temp_portals(s);
-		ft_test_chainlist(s);
-		// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
-		//modifier structure pour in et out
+	sct1 = get_sector_by_id(s, s->editor->over_sector);
+	sct2 = get_sector_by_id(s, s->editor->over_sector2);
+	wall1 = get_t_int_by_id(sct1->vertex, s->editor->wall->id);
+	wall2 = get_t_int_by_id(sct2->vertex, s->editor->wall2->id);
+	wall1->wall_value = s->editor->wall2->ptr->id;
+	wall2->wall_value = s->editor->wall->ptr->id;
+	wall1->sct_dest = sct2->id;
+	wall2->sct_dest = sct1->id;
+	wall1->vtx_dest = wall2;
+	wall2->vtx_dest = wall1;
+	// wall1->ptr = s->editor->wall2->ptr;
+	// wall2->ptr = s->editor->wall->ptr;
+	reset_temp_portals(s);
+	ft_test_chainlist(s);
+	// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
+	//modifier structure pour in et out
 }
 
-int	check_pos(t_main *s, int x, int y, t_pos *new_pos)
+int			check_pos(t_main *s, int x, int y, t_pos *new_pos)
 {
 	int		id;
 	t_pos	pos;
@@ -62,32 +60,29 @@ int	check_pos(t_main *s, int x, int y, t_pos *new_pos)
 	return (id);
 }
 
-
-
-int	get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos)
+int			get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos)
 {
-		int i;
-		int id;
+	int		i;
+	int		id;
 
-		i = 0;
-		id = 0;
-		while (i < 10)
-		{
-			if ((id = check_pos(s, pos.x + i, pos.y, new_pos)) != 0)
-				return (id);
-			if ((id = check_pos(s, pos.x - i, pos.y, new_pos)) != 0)
-				return (id);
-			if ((id = check_pos(s, pos.x, pos.y + i, new_pos)) != 0)
-				return (id);
-			if ((id = check_pos(s, pos.x, pos.y - i, new_pos)) != 0)
-				return (id);
-			i++;
-		}
-		return (id);
+	i = 0;
+	id = 0;
+	while (i < 10)
+	{
+		if ((id = check_pos(s, pos.x + i, pos.y, new_pos)) != 0)
+			return (id);
+		if ((id = check_pos(s, pos.x - i, pos.y, new_pos)) != 0)
+			return (id);
+		if ((id = check_pos(s, pos.x, pos.y + i, new_pos)) != 0)
+			return (id);
+		if ((id = check_pos(s, pos.x, pos.y - i, new_pos)) != 0)
+			return (id);
+		i++;
+	}
+	return (id);
 }
 
-
-int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
+int			check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 {
 	t_pos		begin;
 	t_pos		end;
@@ -116,10 +111,9 @@ int		check_between_wall(t_main *s, t_int *wall, t_pos mouse)
 		return (1);
 	else
 		return (0);
-
 }
 
-void	remove_portal(t_main *s)
+void		remove_portal(t_main *s)
 {
 	t_int		*wall;
 	t_pos		p;
@@ -137,24 +131,24 @@ void	remove_portal(t_main *s)
 	{
 		if (check_between_wall(s, wall, s->ft_mouse) && wall->vtx_dest)
 		{
-				wall->vtx_dest->vtx_dest = NULL;
-				wall->vtx_dest->sct_dest = 0;
-				wall->vtx_dest->wall_value = -1;
-				wall->vtx_dest = NULL;
-				wall->sct_dest = 0;
-				wall->wall_value = -1;
-				break;
+			wall->vtx_dest->vtx_dest = NULL;
+			wall->vtx_dest->sct_dest = 0;
+			wall->vtx_dest->wall_value = -1;
+			wall->vtx_dest = NULL;
+			wall->sct_dest = 0;
+			wall->wall_value = -1;
+			break ;
 		}
 		wall = wall->next;
 	}
 }
 
-int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
+int			get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
 {
-	int diffx1;
-	int diffx2;
-	int diffy1;
-	int diffy2;
+	int		diffx1;
+	int		diffx2;
+	int		diffy1;
+	int		diffy2;
 
 	diffx1 = mouse.x > pos1.x ? mouse.x - pos1.x : pos1.x - mouse.x;
 	diffx2 = mouse.x > pos2.x ? mouse.x - pos2.x : pos2.x - mouse.x;
@@ -163,8 +157,7 @@ int		get_smallest_diff(t_pos mouse, t_pos pos1, t_pos pos2)
 	return (diffx1 + diffx2 + diffy1 + diffy2);
 }
 
-
-void	change_over_wall(t_main *s)
+void		change_over_wall(t_main *s)
 {
 	t_sector	*sector;
 	int			id;
@@ -182,36 +175,33 @@ void	change_over_wall(t_main *s)
 	new_pos.x = 0;
 	new_pos.y = 0;
 	i = 0;
-	mouse.x = s->ft_mouse.x +box;
-	while (mouse.x <= (s->ft_mouse.x -box))
+	mouse.x = s->ft_mouse.x + box;
+	while (mouse.x <= (s->ft_mouse.x - box))
 	{
-		mouse.y = s->ft_mouse.y +box;
-
-		while (mouse.y <= (s->ft_mouse.y -box))
+		mouse.y = s->ft_mouse.y + box;
+		while (mouse.y <= (s->ft_mouse.y - box))
 		{
 			color = get_pixel_color(s->sdl->editor, mouse.x, mouse.y);
 			//set_pixel(s->sdl->editor, BLUE, mouse);
-
 			if (color == COLOR_WALL)
 			{
 				id = get_nearest_sector(s, s->ft_mouse, &new_pos);
 				if (id == 0)
 					return ;
-				sector  = get_sector_by_id(s, id);
+				sector = get_sector_by_id(s, id);
 				wall = sector->vertex;
 				beg = wall->ptr->pos;
 				end = wall->next->ptr->pos;
-
 				wall_save = NULL;
 				while (i++ < sector->vertex->prev->id)
 				{
 					// printf("sector[%d] Wall[%d]\n", sector->id, wall->id);
-						if (check_between_wall(s, wall, mouse))
-						{
-							wall_save = wall;
-							break;
-						}
-						wall = wall->next;
+					if (check_between_wall(s, wall, mouse))
+					{
+						wall_save = wall;
+						break ;
+					}
+					wall = wall->next;
 				}
 				s->editor->over_portal = wall_save->id;
 				if (s->editor->wall == NULL)
@@ -223,27 +213,27 @@ void	change_over_wall(t_main *s)
 				}
 				else if (s->editor->wall && s->editor->wall != wall_save)
 				{
-					printf ("s->editor->wall != wall_save\n");
+					printf("s->editor->wall != wall_save\n");
 					s->editor->wall2 = wall_save;
 					s->editor->over_sector2 = sector->id;
 				}
 				if (s->editor->wall2 != NULL && s->editor->over_sector != 0
-					&& s->editor->over_sector2 != 0 && check_walls_lenght(s->editor->wall, wall_save))
+					&& s->editor->over_sector2 != 0 &&
+						check_walls_lenght(s->editor->wall, wall_save))
 				{
 					wall_save->selected = 3;
 				}
 				else if (s->editor->wall2 != NULL)
 					wall_save->selected = 4;
-
-				return;
+				return ;
 			}
-			mouse.y+= 1;
+			mouse.y += 1;
 		}
 		mouse.x += 1;
 	}
 }
 
-void	edit_portal(t_main *s)
+void		edit_portal(t_main *s)
 {
 	t_sector	*sct;
 	t_int		*wall;
@@ -261,7 +251,7 @@ void	edit_portal(t_main *s)
 	else if (s->editor->portal_temp == 1 && s->editor->wall && s->editor->wall2)
 	{
 		if (s->editor->wall2->selected == 3)
-				create_struct_portals(s);
+			create_struct_portals(s);
 	}
 	else
 		reset_temp_portals(s);

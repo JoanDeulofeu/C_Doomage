@@ -1,6 +1,6 @@
 #include "doom.h"
 
-void	display_error(int error_nb)
+void		display_error(int error_nb)
 {
 	if (error_nb == FILE_ERROR)
 		ft_putstr("Error : The file cannot be opened\n");
@@ -22,7 +22,7 @@ void	display_error(int error_nb)
 		ft_putstr("Error : Looking for sector 0\n");
 }
 
-void	handle_error(t_main *s, int error_nb)
+void		handle_error(t_main *s, int error_nb)
 {
 	(void)s;
 	if (error_nb != 0)
@@ -34,7 +34,7 @@ void	handle_error(t_main *s, int error_nb)
 	exit(-1);
 }
 
-void	ft_error_sdl(char *str)
+void		ft_error_sdl(char *str)
 {
 	ft_putstr(str);
 	ft_putchar(' ');
@@ -42,7 +42,7 @@ void	ft_error_sdl(char *str)
 	exit(-1);
 }
 
-void	ft_error_ttf(char *str)
+void		ft_error_ttf(char *str)
 {
 	ft_putstr(str);
 	ft_putstr(TTF_GetError());

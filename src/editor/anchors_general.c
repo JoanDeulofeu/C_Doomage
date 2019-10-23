@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int		anchor_exists(t_main *s, t_pos ori)
+int			anchor_exists(t_main *s, t_pos ori)
 {
 	t_vertex	*temp;
 
@@ -15,7 +15,7 @@ int		anchor_exists(t_main *s, t_pos ori)
 	return (0);
 }
 
-void	set_selected(t_main *s, t_pos ori, char color)
+void		set_selected(t_main *s, t_pos ori, char color)
 {
 	t_vertex	*temp;
 
@@ -42,7 +42,7 @@ void	set_selected(t_main *s, t_pos ori, char color)
 	}
 }
 
-void	ft_reset_color_vertex(t_main *s)
+void		ft_reset_color_vertex(t_main *s)
 {
 	t_vertex	*tmp;
 

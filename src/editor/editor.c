@@ -16,7 +16,8 @@ void	draw_image(t_texture *texture, t_pos ori, t_pos dest, t_image *image)
 		{
 			coord.y++;
 			pery = percent(coord.y - ori.y, dest.y - ori.y);
-			pix_tex = (int)(pery * image->h - 1) * image->w + (int)(perx * image->w);
+			pix_tex = (int)(pery * image->h - 1) * image->w +
+				(int)(perx * image->w);
 			set_pixel(texture, image->tex[pix_tex], coord);
 		}
 		coord.x++;
@@ -55,7 +56,8 @@ void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
 		{
 			coord.y++;
 			pery = percent(coord.y - orig_y, dest.y - orig_y);
-			pix_tex = (int)(pery * menu->h - 1) * menu->w + (int)(perx * menu->w);
+			pix_tex = (int)(pery * menu->h - 1) * menu->w +
+				(int)(perx * menu->w);
 			set_pixel(s->sdl->editor, menu->tex[pix_tex], coord);
 		}
 		coord.x++;
@@ -90,7 +92,7 @@ void	change_mode(t_main *s, int key)
 		s->editor->menu.current = 3;
 		ft_reset_color_vertex(s);
 	}
-	else if(key == PORTAL)
+	else if (key == PORTAL)
 	{
 		s->editor->mode = portal;
 		s->editor->menu.current = 4;
@@ -133,7 +135,7 @@ int		ft_find_ref(t_editor *edi, int decal)
 		if (decal % edi->space == 0)
 			return ((decal / (edi->space)) * -1);
 		else
-			return ((decal / (edi->space) -1) * -1);
+			return ((decal / (edi->space) - 1) * -1);
 	}
 	return (0);
 }
@@ -141,13 +143,13 @@ int		ft_find_ref(t_editor *edi, int decal)
 void	ft_draw_editor(t_editor *edi, t_texture *tex)
 {
 	t_pos	coord;
-	Uint32	color = 0xaca7a7FF;
+	Uint32	color;
 
 	// decal_x = decalage total en pixels entre le point 0,0 et le premier point dans l'ecran.
 	// coord.x  decalage en pixels entre le pixel 0 de l'ecran et le premier point de la grille affichée a l'ecran.
+	color = 0xaca7a7FF;
 	coord.x = edi->decal_x % edi->space;
 	coord.y = edi->decal_y % edi->space;
-
 	edi->ref.x = ft_find_ref(edi, edi->decal_x);
 	edi->ref.y = ft_find_ref(edi, edi->decal_y);
 	if (coord.y < 0)

@@ -2,7 +2,7 @@
 
 void	empiler(t_main *s, t_pile *pile, t_pos new_pixel)
 {
-	t_element *new;
+	t_element	*new;
 
 	if (!(new = (t_element*)malloc(sizeof(t_element))))
 		handle_error(s, MALLOC_ERROR);
@@ -13,8 +13,8 @@ void	empiler(t_main *s, t_pile *pile, t_pos new_pixel)
 
 t_pos	depiler(t_pile *pile)
 {
-	t_pos pixel_depile;
-	t_element *element_depile;
+	t_pos		pixel_depile;
+	t_element	*element_depile;
 
 	pixel_depile.x = 0;
 	pixel_depile.y = 0;

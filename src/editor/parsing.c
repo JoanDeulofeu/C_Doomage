@@ -85,7 +85,7 @@ void	check_map_portals(t_main *s)
 	}
 }
 
-void		put_wall_value(t_sector *sct, char *line, int i)
+void	put_wall_value(t_sector *sct, char *line, int i)
 {
 	t_int	*tmp;
 
@@ -131,7 +131,7 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 	put_wall_value(sct, line, i);
 }
 
-int			ft_parse_sector(t_main *s, char *line)
+int		ft_parse_sector(t_main *s, char *line)
 {
 	t_sector	*sct;
 	int			i;
@@ -189,7 +189,6 @@ int		ft_check_other_sector_wall_intersect(t_main *s, t_sector *sct, t_sector *sc
 			beg1.y = wall_in_check->ptr->y * METRE;
 			beg2.x = wall_in_check->next->ptr->x * METRE;
 			beg2.y = wall_in_check->next->ptr->y * METRE;
-
 			end1.x = wall->ptr->x * METRE;
 			end1.y = wall->ptr->y * METRE;
 			end2.x = wall->next->ptr->x * METRE;
@@ -235,7 +234,6 @@ int		ft_check_inside_sector_wall_intersect(t_main *s, t_sector *sct)
 			beg1.y = wall_in_check->ptr->y * METRE;
 			beg2.x = wall_in_check->next->ptr->x * METRE;
 			beg2.y = wall_in_check->next->ptr->y * METRE;
-
 			end1.x = wall->ptr->x * METRE;
 			end1.y = wall->ptr->y * METRE;
 			end2.x = wall->next->ptr->x * METRE;
@@ -293,8 +291,8 @@ void	ft_check_validity_last_sector(t_main *s)
 
 int		ft_how_many_pipe(char *str)
 {
-	int i;
-	int pipe;
+	int	i;
+	int	pipe;
 
 	i = 0;
 	pipe = 0;

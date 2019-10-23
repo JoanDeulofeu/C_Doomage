@@ -1,9 +1,9 @@
 #include "doom.h"
 
-t_sector	*update_sector_walls(t_main *s, t_int *tmp_vtx,
-			t_sector *tmp_sct, int sector_id)
+t_sector		*update_sector_walls(t_main *s, t_int *tmp_vtx,
+				t_sector *tmp_sct, int sector_id)
 {
-	int i;
+	int		i;
 	while (tmp_sct)
 	{
 		i = 0;
@@ -20,10 +20,10 @@ t_sector	*update_sector_walls(t_main *s, t_int *tmp_vtx,
 		tmp_sct = tmp_sct->next;
 	}
 	tmp_sct = s->sector;
-	return(tmp_sct);
+	return (tmp_sct);
 }
 
-t_int		*free_sector_struct(t_sector *temp_sector)
+t_int			*free_sector_struct(t_sector *temp_sector)
 {
 	t_int		*temp_vertex;
 	t_int		*temp_vertex2;
@@ -40,7 +40,7 @@ t_int		*free_sector_struct(t_sector *temp_sector)
 		temp_vertex = temp_vertex->next;
 		ft_memdel((void **)&temp_vertex2);
 	}
-	return(temp_vertex);
+	return (temp_vertex);
 }
 
 t_sector		*update_sector_list(t_main *s, t_sector *temp_sector)
@@ -65,10 +65,10 @@ t_sector		*update_sector_list(t_main *s, t_sector *temp_sector)
 	temp_sector2 = temp_sector;
 	temp_sector = s->sector;
 	ft_memdel((void **)&temp_sector2);
-	return(temp_sector);
-
+	return (temp_sector);
 }
-void	remove_sector(t_main *s, int id, int del, int sct_id)
+
+void			remove_sector(t_main *s, int id, int del, int sct_id)
 {
 	t_sector	*tmp_sct;
 	t_int		*tmp_vtx;
@@ -89,7 +89,7 @@ void	remove_sector(t_main *s, int id, int del, int sct_id)
 				tmp_sct = update_sector_list(s, tmp_sct);
 				tmp_sct = update_sector_walls(s, tmp_vtx, tmp_sct, sct_id);
 				del = 1;
-				break;
+				break ;
 			}
 			else
 				tmp_vtx = tmp_vtx->next;

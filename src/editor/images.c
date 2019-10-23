@@ -21,9 +21,9 @@ void	set_pixel(t_texture *text, Uint32 color, t_pos coord)
 
 void	draw_rect(t_texture *text, t_dpos orig, t_dpos dest, Uint32 color)
 {
-	int			i;
-	int			j;
-	t_pos		coord;
+	int		i;
+	int		j;
+	t_pos	coord;
 
 	orig.x = orig.x < 0 ? 0 : orig.x;
 	orig.y = orig.y < 0 ? 0 : orig.y;

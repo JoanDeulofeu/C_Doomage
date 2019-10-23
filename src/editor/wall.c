@@ -159,11 +159,13 @@ Uint32	ft_color_trump(t_main *s, t_int *s_vtx)
 	{
 		return (0xddd241ff);
 	}
-	else if (s->editor->wall2 && s->editor->wall2->selected == 3 && s_vtx == s->editor->wall2)
+	else if (s->editor->wall2 && s->editor->wall2->selected == 3
+		&& s_vtx == s->editor->wall2)
 	{
 		return (GREEN);
 	}
-	else if (s->editor->wall2 && s->editor->wall2->selected == 4 && s_vtx == s->editor->wall2)
+	else if (s->editor->wall2 && s->editor->wall2->selected == 4
+		&& s_vtx == s->editor->wall2)
 	{
 		return (S_RED);
 	}

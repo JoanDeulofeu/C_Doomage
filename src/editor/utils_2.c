@@ -20,9 +20,9 @@ double		ft_dist_t_pos(t_pos pos1, t_pos pos2)
 	return (sqrt(pow(dpos1.x - dpos2.x, 2) + pow(dpos1.y - dpos2.y, 2)));
 }
 
-t_dpos	to_edi_coord(t_main *s, t_dpos coord)
+t_dpos		to_edi_coord(t_main *s, t_dpos coord)
 {
-	t_dpos new;
+	t_dpos	new;
 
 	new.x = coord.x / METRE;
 	new.y = coord.y / METRE;
@@ -30,13 +30,13 @@ t_dpos	to_edi_coord(t_main *s, t_dpos coord)
 	return (new);
 }
 
-double	ft_find_angle_plan(double a, double b, double c)
+double		ft_find_angle_plan(double a, double b, double c)
 {	//la variable c correspond a la longueur en face de langle a calculer
 	// printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
 	return (to_degres(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b))));
 }
 
-void	*ft_memalloc(size_t size)
+void		*ft_memalloc(size_t size)
 {
 	void	*ptr;
 

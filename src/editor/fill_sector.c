@@ -1,6 +1,6 @@
 #include "doom.h"
 
-void	r_check_y(t_main *s, t_pile *pile, t_pos pos)
+void		r_check_y(t_main *s, t_pile *pile, t_pos pos)
 {
 	Uint32	color_got;
 	t_pos	cur;
@@ -22,9 +22,9 @@ void	r_check_y(t_main *s, t_pile *pile, t_pos pos)
 	}
 }
 
-Uint32	get_color(int sct_id)
+Uint32		get_color(int sct_id)
 {
-	int res;
+	int		res;
 
 	res = sct_id % 10;
 	if (res == 0)
@@ -51,7 +51,7 @@ Uint32	get_color(int sct_id)
 		return (0);
 }
 
-void	remplissage(t_main *s, t_pile *pile, Uint32 r_color)
+void		remplissage(t_main *s, t_pile *pile, Uint32 r_color)
 {
 	t_pos	w;
 	t_pos	e;
@@ -79,7 +79,7 @@ void	remplissage(t_main *s, t_pile *pile, Uint32 r_color)
 	}
 }
 
-void	draw_sector(t_main *s, int x, int y, Uint32 r_color)
+void		draw_sector(t_main *s, int x, int y, Uint32 r_color)
 {
 	Uint32	color_got;
 	t_pile	*pile;
@@ -99,7 +99,7 @@ void	draw_sector(t_main *s, int x, int y, Uint32 r_color)
 	ft_memdel((void **)&pile);
 }
 
-int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
+int			check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 {
 	t_vertex	*temp_v;
 	Uint32		color_got;
@@ -180,7 +180,7 @@ int		check_around_vtx(t_main *s, t_int *vtx, int sct_id, t_pos *pos)
 	return (0);
 }
 
-void	fill_sectors(t_main *s)
+void		fill_sectors(t_main *s)
 {
 	t_sector	*tmp_sct;
 	t_int		*tmp_vtx;
@@ -202,7 +202,7 @@ void	fill_sectors(t_main *s)
 				&& check_around_vtx(s, tmp_vtx, tmp_sct->id, pos))
 			{
 				draw_sector(s, pos->x, pos->y, get_color(tmp_sct->id));
-				break;
+				break ;
 			}
 			tmp_vtx = tmp_vtx->next;
 		}

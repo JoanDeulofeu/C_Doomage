@@ -27,7 +27,7 @@ void	ft_drag_vextex_id(t_main *s, int id)
 
 	vtx = s->vertex;
 	sct = s->sector;
-	while(vtx)
+	while (vtx)
 	{
 		if (vtx->id > id)
 			vtx->id--;
@@ -68,9 +68,9 @@ void	remove_anchor(t_main *s, int id)
 	}
 }
 
-void remove_selected_anchor(t_main *s)
+void	remove_selected_anchor(t_main *s)
 {
-	t_vertex    *v;
+	t_vertex	*v;
 
 	v = s->vertex;
 	while (v)
