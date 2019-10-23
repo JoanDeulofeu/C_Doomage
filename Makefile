@@ -54,6 +54,7 @@ SRC_NAME =	main.c						\
 			game/fire_mode.c			\
 			game/skybox.c				\
 			game/ia.c					\
+			game/walls.c				\
 			game/collisions.c
 
 
@@ -63,7 +64,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -g3 #-Werror
+CFLAGS = -Wall -Wextra -g3 #-fsanitize=address #-Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

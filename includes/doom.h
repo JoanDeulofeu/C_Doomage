@@ -156,6 +156,10 @@ typedef struct				s_visu {
 	t_sector				*sct;
 	t_int					*vtx_gauche;
 	t_int					*vtx_droite;
+	t_dpos					right_ceiling_limit;
+	t_dpos					left_ceiling_limit;
+	t_dpos					right_floor_limit;
+	t_dpos					left_floor_limit;
 }							t_visu;
 
 typedef struct				s_skybox {
@@ -173,6 +177,10 @@ typedef struct				s_walls {
 	t_dpos					right;
 	t_dpos					l_plan;
 	t_dpos					r_plan;
+	t_dpos					right_ceiling_limit;
+	t_dpos					left_ceiling_limit;
+	t_dpos					right_floor_limit;
+	t_dpos					left_floor_limit;
 	struct s_walls			*prev;
 	struct s_walls			*next;
 }							t_walls;
@@ -255,18 +263,25 @@ typedef struct				s_main {
 */
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s, const unsigned char *keys);
-void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs);
+void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct,
+					t_visu vs);
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
-t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color);
+t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle,
+					Uint32 color);
 void 				ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
 t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
-int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id);
-// int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan);
-int        		ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall, int r_height_wall, double width_wall, double longeur, double start_tex);
-// int        ft_print_wall(t_main *s, int x, t_dpos player, t_dpoms lwall, t_dpos rwall, t_dpos lplan, t_dpos rplan, t_int *vtx, double longeur);
-int        ft_print_wall(t_main *s, t_walls *wall, t_int *vtx);
+int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
+					Uint32 color, int sct_id);
+int					ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
+					int r_height_wall, double width_wall, double longeur,
+					double start_tex);
+int					ft_print_wall(t_main *s, t_walls *wall, t_int *vtx);
+void				add_wall_to_list(t_main *s, t_walls *new);
+void				clear_wall_list(t_main *s);
+void				ft_limit_ceiling_floor(t_main *s, t_dpos player,
+					t_dpos left, t_dpos right, t_visu *vs);
 
 
 double				ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int needed);

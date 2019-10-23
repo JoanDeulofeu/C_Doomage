@@ -201,55 +201,31 @@ void	ft_visu_joan(t_main *s, const unsigned char *keys)
 	double	angle_left;
 	double	angle_right;
 	double	demi_fov;
-	// t_dpos	point;
 	t_visu	vs;
-	// t_visu	*vsu = &s->visu;
 	t_dpos	player;
-	// int		dist;
-	// double	angle;
 
-	// sct_id = s->player.sector_id;
-	bzero(&vs, sizeof(t_visu));
-	// printf("visu\n");
+	bzero(&vs, sizeof(t_visu)); //MERDE ? (pas de ft_bezo par hasard?)
 	(void)keys;
-	// s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
-	// printf("r_pos x = %f, pos.x = %f\n", s->player.r_pos.x, s->player.pos.x);
 	player = s->player.m_pos;
-	// }
 
-
-	// printf("s->visu = %f et vs->left_plan = %f\n", s->visu.left_plan.x, vs.left_plan.x);
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
-	// printf("sct id = %d\n", s->player.sector_id);
 	vs.sct_id = s->player.sector_id;
 	vs.sct = get_sector_by_id(s, s->player.sector_id);
 
+	vs.left_ceiling_limit.x = 0;
+	vs.left_ceiling_limit.y = 0;
+	vs.right_ceiling_limit.x = WIDTH;
+	vs.right_ceiling_limit.y = 0;
+	vs.left_floor_limit.x = 0;
+	vs.left_floor_limit.y = HEIGHT;
+	vs.right_floor_limit.x = WIDTH;
+	vs.right_floor_limit.y = HEIGHT;
+
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
-	// printf("demi_fov = %f\n",demi_fov);
 	angle_left = s->player.angle + demi_fov;
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
 	angle_right = s->player.angle - demi_fov;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
-	// draw_anchor(s, ft_dpos_to_pos(player), PINK);
-	// update_image(s, s->sdl->editor);
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
-	// draw_skybox(s, vs);
-	// printf("s->player->angle = %f, vs.angle = %f, vs.sct = %d, player.x = %f, player.y = %f\n", s->player.angle, vs.angle, vs.sct->id, player.x, player.y);
 	ft_draw_visu(s, player, get_sector_by_id(s, s->player.sector_id), vs);
-// printf("------  SORTIE  ------\n");
-
-	// printf("mur gauche = %d\nmur droite = %d\n", vs.begin_wall_id, vs.end_wall_id);
-	// printf("angle gauche = %.2f\nangle droite = %.2f\n\n", angle_left, angle_right);
-
 }
-
-
-
-
-
-
-
-
-
-
-//lol <== hey... è.é
