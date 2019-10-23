@@ -1,4 +1,3 @@
-
 NAME = doom-nukem
 
 SRC_PATH = src

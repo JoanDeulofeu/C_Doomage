@@ -156,10 +156,10 @@ typedef struct				s_visu {
 	t_sector				*sct;
 	t_int					*vtx_gauche;
 	t_int					*vtx_droite;
-	t_dpos					right_ceiling_limit;
-	t_dpos					left_ceiling_limit;
-	t_dpos					right_floor_limit;
-	t_dpos					left_floor_limit;
+	t_pos					right_ceiling_limit;
+	t_pos					left_ceiling_limit;
+	t_pos					right_floor_limit;
+	t_pos					left_floor_limit;
 }							t_visu;
 
 typedef struct				s_skybox {

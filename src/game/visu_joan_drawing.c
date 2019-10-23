@@ -358,8 +358,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
 			wall2.x = vtx->vtx_dest->ptr->x * METRE;
 			wall2.y = vtx->vtx_dest->ptr->y * METRE;
-			ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
-			// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
+
 			if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
 			{
 				fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
@@ -369,6 +368,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			{
 				fake_vs.begin = s->tmp_intersect;
 			}
+
 			if ((ft_find_intersection(s, wall1, wall2, fake_vs.right_point, fake_player, 1)) == 0)
 			{
 				fake_vs.end.x = fake_vs.vtx_droite->ptr->x * METRE;
@@ -390,6 +390,7 @@ void draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			vs->begin.y = vtx->ptr->y * METRE;
 			vs->tmp_wall.x = vtx->next->ptr->x * METRE;
 			vs->tmp_wall.y = vtx->next->ptr->y * METRE;
+			ft_limit_ceiling_floor(s, vs->player, vs->begin, vs->tmp_wall, vs);
 			ft_find_intersection(s, vs->begin, vs->player, vs->left_plan, vs->right_plan, 1);
 			ft_create_new_wall(s, vtx, vs);
 		}
@@ -428,15 +429,21 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	else
 		x = (ft_dist_t_dpos(vs->left_plan, l_plan) / WIDTHPLAN) * WIDTH;
 
-	vs->left_ceiling_limit.x = x;
+	vs->left_ceiling_limit.x = (int)x;
 	vs->left_ceiling_limit.y = (HEIGHT / 2) - l_height_wall / 2 + s->player.y_eye + s->player.eyesight;
-	vs->left_floor_limit.x = x;
+	vs->left_floor_limit.x = (int)x;
 	vs->left_floor_limit.y = (HEIGHT / 2) + l_height_wall / 2 + s->player.y_eye + s->player.eyesight;
 
 	vs->right_ceiling_limit.x = x + width_wall;
+	if (vs->right_ceiling_limit.x > WIDTH)
+		vs->right_ceiling_limit.x = WIDTH;
 	vs->right_ceiling_limit.y = (HEIGHT / 2) - r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
+	printf("---- TEST VALEUR ----\n\n");
+	printf("width_wall = %.1f\n", width_wall);
+	printf("LEFT  -      floor(%d, %d)   ceiling(%d, %d)\n", vs->left_floor_limit.x, vs->left_floor_limit.y, vs->left_ceiling_limit.x, vs->left_ceiling_limit.y);
+	printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n\n\n", vs->right_floor_limit.x, vs->right_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y);
 }
 
 void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
