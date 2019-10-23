@@ -3,49 +3,51 @@
 double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 {
 	t_dpos	ctr_l;
-	double  angle;
-	t_pos ret;
+	double	angle;
+	t_pos	ret;
 
 	angle = -50;
 	ctr_l.x = player.x + cos(to_rad(s->player.angle + angle)) * dist;
 	ctr_l.y = player.y - sin(to_rad(s->player.angle + angle)) * dist;
-//	draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
-	 while ( angle <= 50)
-	 {
-		 ctr_l.x = player.x + cos(to_rad(s->player.angle+ angle)) * dist;
-	 	 ctr_l.y = player.y - sin(to_rad(s->player.angle+ angle)) * dist;
-		 ret = ft_dpos_to_pos(ctr_l);
-	//	 set_pixel(s->sdl->editor, BLUE, ret);
-		  if ((ret.x >= (cur->pos.x -HITBOX) && ret.x <= (cur->pos.x +HITBOX)) //DEFINIR HITBOX
-		  	&& (ret.y >= (cur->pos.y -HITBOX) && ret.y <= (cur->pos.y +HITBOX)))
-		  {
-				//draw_anchor(s,cur->pos, PINK);
-		 		 return(-angle);
-		 	}
-		 angle+=0.1;
-	 }
+	//draw_anchor(s, ft_dpos_to_pos(ctr_l), GREEN);
+	while (angle <= 50)
+	{
+		ctr_l.x = player.x + cos(to_rad(s->player.angle + angle)) * dist;
+		ctr_l.y = player.y - sin(to_rad(s->player.angle + angle)) * dist;
+		ret = ft_dpos_to_pos(ctr_l);
+		//set_pixel(s->sdl->editor, BLUE, ret);
+		if ((ret.x >= (cur->pos.x - HITBOX)
+			&& ret.x <= (cur->pos.x + HITBOX)) //DEFINIR HITBOX
+				&& (ret.y >= (cur->pos.y - HITBOX)
+					&& ret.y <= (cur->pos.y + HITBOX)))
+		{
+			//draw_anchor(s, cur->pos, PINK);
+			return (-angle);
+		}
+		angle += 0.1;
+	}
 	return (0);
 }
 
-void 	display_by_id(t_main *s, int id)
+void		display_by_id(t_main *s, int id)
 {
-	t_sprite *cur;
+	t_sprite	*cur;
 
 	cur = s->sprite;
 	while (cur->id != id && cur->next != NULL)
 		cur = cur->next;
 	cur->set = 0;
 	if (cur->orientation == 0)
-		display_sprite(s,cur->angle,cur);
+		display_sprite(s, cur->angle, cur);
 	else
-		display_sprite_inverse(s,cur->angle,cur);
+		display_sprite_inverse(s, cur->angle, cur);
 }
 
-int 	found_closer(t_main *s)
+int			found_closer(t_main *s)
 {
-	t_sprite *cur;
-	int id;
-	int dist;
+	t_sprite	*cur;
+	int			id;
+	int			dist;
 
 	cur = s->sprite;
 	id = -1;
@@ -62,11 +64,11 @@ int 	found_closer(t_main *s)
 	return (id);
 }
 
-int 	found_farther(t_main *s)
+int			found_farther(t_main *s)
 {
-	t_sprite *cur;
-	int id;
-	int dist;
+	t_sprite	*cur;
+	int			id;
+	int			dist;
 
 	cur = s->sprite;
 	id = -1;
@@ -83,19 +85,19 @@ int 	found_farther(t_main *s)
 	return (id);
 }
 
-int 	check_is_on_sector(t_main *s,t_sprite *cur)
+int			check_is_on_sector(t_main *s, t_sprite *cur)
 {
-		if (ft_is_in_sector(s, get_px_r_pos(s,cur->r_pos)))
-		 	return (1);
-		return (-1);
+	if (ft_is_in_sector(s, get_px_r_pos(s, cur->r_pos)))
+		return (1);
+	return (-1);
 }
 
-void  found_sprite(t_main *s)
+void		found_sprite(t_main *s)
 {
-	t_sprite *cur;
-	int 			id;
-	int 			dist;
-	int 			i;
+	t_sprite	*cur;
+	int			id;
+	int			dist;
+	int			i;
 
 	id = -1;
 	dist = 0;
@@ -112,31 +114,35 @@ void  found_sprite(t_main *s)
 	{
 		if ((id = found_farther(s)) != -1)
 		{
-			display_by_id(s,id);
+			display_by_id(s, id);
 			i--;
 		}
 		cur = cur->next;
 	}
 }
 
-void 	draw_sprite(t_main *s)
+void		draw_sprite(t_main *s)
 {
-	t_sprite *cur;
-	double dist;
-	double angle;
+	t_sprite	*cur;
+	double		dist;
+	double		angle;
 
 	dist = 0;
 	if (s->sprite == NULL)
 		return ;
 	cur = s->sprite;
-	while(cur != NULL)
+	while (cur != NULL)
 	{
-		if (check_is_on_sector(s,cur) == 1)
+		if (check_is_on_sector(s, cur) == 1)
 		{
-			if (!(s->player.pos.x == cur->pos.x && s->player.pos.y == cur->pos.y) && ((angle = in_field(s,s->player.pos, cur->dist, cur)) != 0) && cur->dist < MAX_SPRITE_DIST)
+			if (!(s->player.pos.x == cur->pos.x
+				&& s->player.pos.y == cur->pos.y)
+					&& ((angle = in_field(s, s->player.pos,
+							cur->dist, cur)) != 0)
+								&& cur->dist < MAX_SPRITE_DIST)
 			{
 				cur->set = 1;
-				cur->angle = angle+40;
+				cur->angle = angle + 40;
 			}
 		}
 		cur = cur->next;
@@ -144,22 +150,20 @@ void 	draw_sprite(t_main *s)
 	found_sprite(s);
 }
 
-void display_sprite(t_main *s,double angle, t_sprite *cur)
+void		display_sprite(t_main *s, double angle, t_sprite *cur)
 {
 	double		perx;
 	double		pery;
 	t_pos		coord;
 	int			px;
 	t_image		*wp;
-	double value;
-	int 		i;
-	int j;
+	double		value;
+	int			i;
+	int			j;
 
 	wp = cur->img;
 	i = 0;
-
-	value = ( HEIGHT / (cur->r_dist)) /60;
-
+	value = (HEIGHT / (cur->r_dist)) / 60;
 	coord.x = 0;
 	coord.y = 0;
 	// printf("w = %d\n",wp->w);
@@ -172,16 +176,17 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 	{
 		j = 0;
 		coord.x = i;
-		perx = (double)i/ (((double)wp->w) * value);
-		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value) /2);
+		perx = (double)i / (((double)wp->w) * value);
+		coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
-
 		while (j < (wp->h) * value)
 		{
 			coord.y = j++;
 			pery = (double)j / (((double)wp->h) * value);
-			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value))/3.5);
-			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx * (double)wp->w);
+			coord.y += HEIGHT / 2 + s->player.y_eye + s->player.eyesight
+				- (((wp->h * value)) / 3.5);
+			px = (int)(pery * (double)wp->h) * wp->w
+				+ (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 		}
@@ -189,43 +194,41 @@ void display_sprite(t_main *s,double angle, t_sprite *cur)
 	}
 }
 
-
-void display_sprite_inverse(t_main *s,double angle, t_sprite *cur)
+void		display_sprite_inverse(t_main *s, double angle, t_sprite *cur)
 {
 	double		perx;
 	double		pery;
 	t_pos		coord;
 	int			px;
 	t_image		*wp;
-	double value;
-	int 		i;
-	int j;
+	double		value;
+	int			i;
+	int			j;
 
 	wp = cur->img;
 	i = 0;
-
-	value = ( HEIGHT / (cur->r_dist)) /60;
-
+	value = (HEIGHT / (cur->r_dist)) / 60;
 	coord.x = 0;
 	coord.y = 0;
-	  // printf("value = %f\n",value);
-	 // printf("angle = %f\n",angle);
-	 // printf("cur->dist = %f\n",cur->dist);
+	// printf("value = %f\n",value);
+	// printf("angle = %f\n",angle);
+	// printf("cur->dist = %f\n",cur->dist);
 	// printf("dist = %d\n",dist);
 	while (i < (wp->w) * value)
 	{
 		j = 0;
 		coord.x = i;
-		perx = (double)i/ (((double)wp->w) * value);
-		coord.x += angle * (double)(WIDTH/80) - ((wp->w *value)/2);
+		perx = (double)i / (((double)wp->w) * value);
+		coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
-
 		while (j < (wp->h) * value)
 		{
 			coord.y = j;
 			pery = (double)j / (((double)wp->h) * value);
-			coord.y += HEIGHT/2 + s->player.y_eye + s->player.eyesight - (((wp->h *value)/3.5));
-			px = (int)(pery * (double)wp->h) * wp->w - (int)(perx * (double)wp->w);
+			coord.y += HEIGHT / 2 + s->player.y_eye + s->player.eyesight
+				- (((wp->h * value) / 3.5));
+			px = (int)(pery * (double)wp->h) * wp->w
+				- (int)(perx * (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 			j++;
