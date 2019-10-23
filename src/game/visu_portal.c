@@ -103,6 +103,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	double		angle_right;
 	x = 0;
 	new_x = 0;
+	// printf("add_portal n(%d)\n", s->portal_nb);
 	// printf("sct->vertex")
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	s->portal_nb++;
@@ -172,6 +173,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// x = (ft_dist_t_dpos(vs.left_plan, plan_left) / WIDTHPLAN) * WIDTH;
 	// ft_create_new_wall(s, vtx, &vs);
 	// print_wall_list(s);
+	s->portal_nb--;
 }
 
 t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_fake)
