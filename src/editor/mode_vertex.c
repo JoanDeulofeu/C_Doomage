@@ -103,6 +103,7 @@ void	move_anchor(t_main *s, int id)
 			temp->pos = ori;
 			temp->x = abs.x;
 			temp->y = abs.y;
+			check_map_portals(s);
 			return ;
 		}
 		if (temp)

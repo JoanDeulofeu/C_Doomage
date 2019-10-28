@@ -429,6 +429,7 @@ t_visu						get_walls_to_draw(t_main *s, t_dpos player, double l_angle,
 	double r_angle, t_visu vs);
 void						add_portal_to_list(t_main *s, t_dpos player, t_sector *sct,
 	t_visu vs);
+void	check_map_portals(t_main *s);
 
 /*
 ****	Fonction utilitaire

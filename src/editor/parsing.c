@@ -60,15 +60,15 @@ void	check_map_portals(t_main *s)
 	int			i;
 
 	sct = s->sector;
-	wall = sct->vertex;
 	while (sct != NULL)
 	{
 		i = 0;
+		wall = sct->vertex;
 		while (i++ < sct->vertex->prev->id)
 		{
 			if (wall->vtx_dest != NULL)
 			{
-				// printf("wall->vtx_dest = %d       et wall = %d\n", wall->vtx_dest->value, wall->value);
+					// printf("wall->vtx_dest = %d       et wall = %d\n", wall->vtx_dest->value, wall->value);
 				if (!check_walls_lenght(wall->vtx_dest, wall))
 				{
 					wall->vtx_dest->vtx_dest = NULL;
