@@ -34,7 +34,7 @@ void	ft_score_no(t_int *wall, double *score_no)
 
 int		ft_verify_sens(t_sector *sct, t_4double score)
 {
-	int i;
+	int	i;
 	int	nb_secur;
 
 	i = 0;
@@ -71,12 +71,12 @@ int		ft_verify_sens(t_sector *sct, t_4double score)
 
 int		ft_check_sector_sens(t_main *s, t_sector *sct)
 {
-	(void)s;
 	t_pos		center;
 	t_4double	score;
 	t_int		*wall;
 	int			i;
 
+	(void)s;
 	center = ft_find_polygon_center(sct);
 	wall = sct->vertex;
 	i = 0;

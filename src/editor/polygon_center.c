@@ -1,6 +1,6 @@
 #include "doom.h"
 
-double	ft_find_signed_area(t_sector *sct)
+double		ft_find_signed_area(t_sector *sct)
 {
 	double	somme;
 	t_int	*wall;
@@ -21,7 +21,8 @@ double	ft_find_signed_area(t_sector *sct)
 /*
 **** Renvoie les coordonees du centre du secteur donner.
 */
-t_pos	ft_find_polygon_center(t_sector *sct)
+
+t_pos		ft_find_polygon_center(t_sector *sct)
 {
 	double	a; //a car represente la variable "A" de l'equation
 	t_int	*wall;

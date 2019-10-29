@@ -2,9 +2,11 @@
 
 void	mouse_grid(t_main *s, t_pos save)
 {
-	if (s->editor->decal_x + save.x > INT_MIN && s->editor->decal_x + save.x < INT_MAX)
+	if (s->editor->decal_x + save.x > INT_MIN && s->editor->decal_x +
+		save.x < INT_MAX)
 		s->editor->decal_x += save.x;
-	if (s->editor->decal_y + save.y > INT_MIN && s->editor->decal_y + save.y < INT_MAX)
+	if (s->editor->decal_y + save.y > INT_MIN && s->editor->decal_y +
+		save.y < INT_MAX)
 		s->editor->decal_y += save.y;
 	//s->player.pos.x += save.x;
 	//s->player.pos.y += save.y;
@@ -18,22 +20,26 @@ void	mouse_grid(t_main *s, t_pos save)
 
 void	move_editor(t_main *s, const Uint8 *keys)
 {
-	if (keys[RIGHT_AR] && (s->editor->decal_x < INT_MAX) && (s->player.pos.x < INT_MAX))
+	if (keys[RIGHT_AR] && (s->editor->decal_x < INT_MAX)
+		&& (s->player.pos.x < INT_MAX))
 	{
 		s->editor->decal_x += 5;
 		s->player.pos.x += 5;
 	}
-	if (keys[LEFT_AR] && (s->editor->decal_x > INT_MIN) && (s->player.pos.x > INT_MIN))
+	if (keys[LEFT_AR] && (s->editor->decal_x > INT_MIN)
+		&& (s->player.pos.x > INT_MIN))
 	{
 		s->player.pos.x -= 5;
 		s->editor->decal_x -= 5;
 	}
-	if (keys[UP_AR] && (s->editor->decal_y > INT_MIN) && (s->player.pos.y > INT_MIN))
+	if (keys[UP_AR] && (s->editor->decal_y > INT_MIN)
+		&& (s->player.pos.y > INT_MIN))
 	{
 		s->player.pos.y -= 5;
 		s->editor->decal_y -= 5;
 	}
-	if (keys[DOWN_AR] && (s->editor->decal_y < INT_MAX) && (s->player.pos.y < INT_MAX))
+	if (keys[DOWN_AR] && (s->editor->decal_y < INT_MAX)
+		&& (s->player.pos.y < INT_MAX))
 	{
 		s->player.pos.y += 5;
 		s->editor->decal_y += 5;

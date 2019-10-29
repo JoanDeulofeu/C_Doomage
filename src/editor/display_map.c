@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int		ft_vertex_worst_sector(t_main *s, int id)
+int			ft_vertex_worst_sector(t_main *s, int id)
 {
 	t_sector	*sct;
 	t_int		*vtx;
@@ -22,7 +22,7 @@ int		ft_vertex_worst_sector(t_main *s, int id)
 	return (0);
 }
 
-void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
+void		ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
 {
 	if (s->editor->mode_floor == 0)
 	{
@@ -40,14 +40,12 @@ void	ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
 	}
 }
 
-
-
-void	display_map(t_main *s)
+void		display_map(t_main *s)
 {
 	t_vertex	*temp;
 	t_editor	*edi;
 	t_pos		pos;
-	int			correc = 0;
+	int			correc;
 
 	temp = NULL;
 	edi = s->editor;
@@ -59,13 +57,14 @@ void	display_map(t_main *s)
 			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
 		else
 			correc = 0;
-		pos.x = (temp->x - edi->ref.x + correc) * edi->space + (edi->decal_x % edi->space);
-
+		pos.x = (temp->x - edi->ref.x + correc) *
+			edi->space + (edi->decal_x % edi->space);
 		if (edi->decal_y <= 0)
 			correc = edi->decal_y % edi->space != 0 ? 1 : 0;
 		else
 			correc = 0;
-		pos.y = (temp->y - edi->ref.y + correc) * edi->space + (edi->decal_y % edi->space);
+		pos.y = (temp->y - edi->ref.y + correc) *
+			edi->space + (edi->decal_y % edi->space);
 		temp->pos.x = temp->x * edi->space;
 		temp->pos.y = temp->y * edi->space;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
@@ -73,7 +72,7 @@ void	display_map(t_main *s)
 		temp = temp->next;
 	}
 	set_player(s);
-	if (s->editor->selected ==1)
+	if (s->editor->selected == 1)
 		trace_select(s);
 	refresh_sprite_pos(s);
 }

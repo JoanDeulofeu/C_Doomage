@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int		keyboard_controls(t_main *s, int key)
+int			keyboard_controls(t_main *s, int key)
 {
 	(void)s;
 	if (key == SDLK_ESCAPE)
@@ -16,9 +16,9 @@ int		keyboard_controls(t_main *s, int key)
 	return (1);
 }
 
-void	handle_keys(t_main *s)
+void		handle_keys(t_main *s)
 {
-	const Uint8 *keys;
+	const Uint8	*keys;
 
 	keys = SDL_GetKeyboardState(NULL);
 	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
@@ -40,9 +40,9 @@ void	handle_keys(t_main *s)
 	// }
 }
 
-void	event_handler(t_main *s)
+void		event_handler(t_main *s)
 {
-	int			game;
+	int		game;
 
 	game = 1;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);

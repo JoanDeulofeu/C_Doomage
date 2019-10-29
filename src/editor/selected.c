@@ -1,12 +1,11 @@
 #include "doom.h"
 
-
-int set_selected_sprite(t_main *s, t_pos *mouse_save)
+int			set_selected_sprite(t_main *s, t_pos *mouse_save)
 {
-	int selected;
+	int		selected;
 
-	selected= 0;
-	s->editor->selected =1;
+	selected = 0;
+	s->editor->selected = 1;
 	mouse_save->x = s->sdl->event.button.x;
 	mouse_save->y = s->sdl->event.button.y;
 	s->editor->line.x1 = mouse_save->x;
@@ -15,9 +14,9 @@ int set_selected_sprite(t_main *s, t_pos *mouse_save)
 	return (selected);
 }
 
-void 	deselect_sprite(t_main *s)
+void		deselect_sprite(t_main *s)
 {
-	t_sprite *v;
+	t_sprite	*v;
 
 	v = s->sprite;
 	while (v != NULL)
@@ -34,20 +33,28 @@ void		select_sprite(t_main *s)
 	v = s->sprite;
 	while (v != NULL)
 	{
-		if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-			((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)) ||
-				((v->pos.x <= s->editor->line.x1 && v->pos.x >= s->editor->line.x2) && (v->pos.y >= s->editor->line.y1 && v->pos.y <= s->editor->line.y2)) ||
-					((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2) && (v->pos.y <= s->editor->line.y1 && v->pos.y >= s->editor->line.y2)))
-					{
-						//printf("ok\n\n");
-					//	draw_anchor(s,v->pos, YELLOW);
-
-						v->select = 1;
-					}
+		if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2)
+			&& (v->pos.y >= s->editor->line.y1 && v->pos.y
+				<= s->editor->line.y2)) || ((v->pos.x <= s->editor->line.x1
+				&& v->pos.x >= s->editor->line.x2)
+				&& (v->pos.y <= s->editor->line.y1
+				&& v->pos.y >= s->editor->line.y2))
+				|| ((v->pos.x <= s->editor->line.x1
+				&& v->pos.x >= s->editor->line.x2)
+				&& (v->pos.y >= s->editor->line.y1
+				&& v->pos.y <= s->editor->line.y2))
+				|| ((v->pos.x >= s->editor->line.x1
+				&& v->pos.x <= s->editor->line.x2)
+				&& (v->pos.y <= s->editor->line.y1
+				&& v->pos.y >= s->editor->line.y2)))
+		{
+			//printf("ok\n\n");
+		//	draw_anchor(s,v->pos, YELLOW);
+			v->select = 1;
+		}
 		v = v->next;
 	}
 	s->editor->selected = 0;
-
 }
 
 int			exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
@@ -55,13 +62,15 @@ int			exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 	int		selected;
 
 	selected = 0;
-	s->editor->selected =1;
+	s->editor->selected = 1;
 	mouse_save->x = s->sdl->event.button.x;
 	mouse_save->y = s->sdl->event.button.y;
 	s->editor->line.x1 = mouse_save->x;
 	s->editor->line.y1 = mouse_save->y;
-	ori->x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
-	ori->y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+	ori->x = arround(s->editor->space, s->sdl->event.button.x
+		- (s->editor->decal_x % s->editor->space));
+	ori->y = arround(s->editor->space, s->sdl->event.button.y
+		- (s->editor->decal_y % s->editor->space));
 	if (ori->x >= 0 && ori->x <= WIDTH && ori->y >= 0 && ori->y <= HEIGHT)
 	{
 		if ((*id = anchor_exists(s, *ori)) != 0)
@@ -78,8 +87,10 @@ void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 	t_vertex	*v;
 
 	v = s->vertex;
-	tmp_move.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
-	tmp_move.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+	tmp_move.x = arround(s->editor->space, s->sdl->event.button.x
+		- (s->editor->decal_x % s->editor->space));
+	tmp_move.y = arround(s->editor->space, s->sdl->event.button.y
+		- (s->editor->decal_y % s->editor->space));
 	tmp_move.x -= ori.x;
 	tmp_move.y -= ori.y;
 	tmp_move.x /= s->editor->space;
@@ -96,7 +107,7 @@ void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 	}
 }
 
-void	deselect_vertex(t_main *s)
+void		deselect_vertex(t_main *s)
 {
 	t_vertex	*v;
 
@@ -112,7 +123,7 @@ void	deselect_vertex(t_main *s)
 
 void		select_vertex(t_main *s)
 {
-	t_vertex	 *v;
+	t_vertex	*v;
 	t_line		line;
 	t_pos		pos;
 
@@ -123,24 +134,26 @@ void		select_vertex(t_main *s)
 	{
 		pos.x = v->x;
 		pos.y = v->y;
-		v->pos = get_px_pos(s,pos);
-		if (((v->pos.x >= line.x1 && v->pos.x <= line.x2) && (v->pos.y >= line.y1 && v->pos.y <= line.y2)) ||
-			((v->pos.x <= line.x1 && v->pos.x >= line.x2) && (v->pos.y <= line.y1 && v->pos.y >= line.y2)) ||
-				((v->pos.x <= line.x1 && v->pos.x >= line.x2) && (v->pos.y >= line.y1 && v->pos.y <= line.y2)) ||
-					((v->pos.x >= line.x1 && v->pos.x <= line.x2) && (v->pos.y <= line.y1 && v->pos.y >= line.y2)))
-					{
-						v->selec = 1;
-						v->selected = 1;
-						v->old.x = v->x;
-						v->old.y = v->y;
-					}
+		v->pos = get_px_pos(s, pos);
+		if (((v->pos.x >= line.x1 && v->pos.x <= line.x2)
+			&& (v->pos.y >= line.y1 && v->pos.y <= line.y2))
+			|| ((v->pos.x <= line.x1 && v->pos.x >= line.x2)
+			&& (v->pos.y <= line.y1 && v->pos.y >= line.y2))
+			|| ((v->pos.x <= line.x1 && v->pos.x >= line.x2)
+			&& (v->pos.y >= line.y1 && v->pos.y <= line.y2))
+			|| ((v->pos.x >= line.x1 && v->pos.x <= line.x2)
+			&& (v->pos.y <= line.y1 && v->pos.y >= line.y2)))
+		{
+			v->selec = 1;
+			v->selected = 1;
+			v->old.x = v->x;
+			v->old.y = v->y;
+		}
 		if (v)
 			v = v->next;
 	}
 	s->editor->selected = 0;
 }
-
-
 
 void		ft_trace_vertical_select(t_main *s, t_line line, Uint32 color)
 {
@@ -152,7 +165,8 @@ void		ft_trace_vertical_select(t_main *s, t_line line, Uint32 color)
 	sens_x = line.x2 > line.x1 ? 1 : -1;
 	sens_y = line.y2 > line.y1 ? 1 : -1;
 	line.dy = line.e * 2;
-	line.dx = line.x2 > line.x1 ? (line.x2 - line.x1) * 2 : (line.x1 - line.x2) * 2;
+	line.dx = line.x2 > line.x1 ? (line.x2 - line.x1) * 2
+		: (line.x1 - line.x2) * 2;
 	line.pixel_o = line.y1;
 	while (line.y1 != line.y2)
 	{
@@ -197,14 +211,14 @@ int			ft_trace_line_select(t_main *s, t_line line, Uint32 color)
 	return (0);
 }
 
-void	ft_get_line_select(t_main *s, t_line line, Uint32 color)
+void		ft_get_line_select(t_main *s, t_line line, Uint32 color)
 {
-		line.e = line.x2 > line.x1 ? line.x2 - line.x1 : line.x1 - line.x2;
-		line.dy = line.y2 > line.y1 ? (line.y2 - line.y1) * 2 : (line.y1 - line.y2) * 2;
-		line.dx = line.e * 2;
-		ft_trace_line_select(s, line, color);
+	line.e = line.x2 > line.x1 ? line.x2 - line.x1 : line.x1 - line.x2;
+	line.dy = line.y2 > line.y1 ? (line.y2 - line.y1) * 2
+		: (line.y1 - line.y2) * 2;
+	line.dx = line.e * 2;
+	ft_trace_line_select(s, line, color);
 }
-
 
 void		trace_select(t_main *s)
 {
@@ -234,6 +248,4 @@ void		trace_select(t_main *s)
 	line.x2 = edi->line.x1;
 	line.y2 = edi->line.y2;
 	ft_get_line_select(s, line, BLUE);
-
-
 }

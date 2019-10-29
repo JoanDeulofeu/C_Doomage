@@ -153,9 +153,8 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 			handle_error(s, MALLOC_ERROR);
 		tmp2 = sector->vertex;
 		tmp2->prev = tmp;
-		while(tmp2->next->id != 1)
+		while (tmp2->next->id != 1)
 			tmp2 = tmp2->next;
-
 		tmp2->next = tmp;
 		tmp2->next->id = tmp2->id + 1;
 		tmp2->next->prev = tmp2;
@@ -172,13 +171,12 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	return (0);
 }
 
-void	ft_test_chainlist(t_main *s)
+void		ft_test_chainlist(t_main *s)
 {
 	t_vertex	*v_tmp;
 	t_sector	*s_tmp;
 	t_int		*i_tmp;
 	int			i;
-
 
 	printf("\n\n\n\033[32m------VERTEX------\033[0m\n");
 	v_tmp = s->vertex;

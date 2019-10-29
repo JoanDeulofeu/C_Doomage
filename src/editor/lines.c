@@ -2,9 +2,9 @@
 
 void	trace_vertical(t_main *s, Uint32 color, int w)
 {
-	int sens_x;
-	int sens_y;
-	t_pos coord;
+	int	sens_x;
+	int	sens_y;
+	t_pos	coord;
 	int		i;
 
 	// i = 0;
@@ -44,10 +44,10 @@ void	get_line(t_main *s, Uint32 color, int w)
 
 int		trace_line(t_main *s, Uint32 color, int w)
 {
-	int sens_x;
-	int sens_y;
+	int		sens_x;
+	int		sens_y;
 	// int perct;
-	t_pos coord;
+	t_pos	coord;
 	int		i;
 
 	// i = 0;

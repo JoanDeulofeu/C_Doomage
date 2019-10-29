@@ -1,9 +1,9 @@
 #include "doom.h"
 
-void	click_editor_menu(t_main *s, t_anim menu, int x)
+void		click_editor_menu(t_main *s, t_anim menu, int x)
 {
-	int case_size;
-	int ori_x;
+	int		case_size;
+	int		ori_x;
 
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
 	case_size = menu.image[0]->w / 6;
@@ -29,26 +29,27 @@ void	click_editor_menu(t_main *s, t_anim menu, int x)
 		s->editor->mode_floor = 0;
 }
 
-int		check_click_menu(t_main *s)
+int			check_click_menu(t_main *s)
 {
-	int x;
-	int y;
-	int ori_x;
-	int dest_x;
-	int case_size;
+	int		x;
+	int		y;
+	int		ori_x;
+	int		dest_x;
+	int		case_size;
 
 	x = s->ft_mouse.x;
 	y = s->ft_mouse.y;
 	case_size = s->editor->menu.image[0]->w / 6;
 	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
 	dest_x = ori_x + s->editor->menu.image[s->editor->menu.current]->w;
-	if (x >= ori_x && y >= 0 && x < dest_x + case_size && y < s->editor->menu.image[s->editor->menu.current]->h)
+	if (x >= ori_x && y >= 0 && x < dest_x + case_size && y <
+		s->editor->menu.image[s->editor->menu.current]->h)
 		return (1);
 	else
 		return (0);
 }
 
-int		key_controls_save(t_main *s, int key)
+int			key_controls_save(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 	{
@@ -73,7 +74,7 @@ int		key_controls_save(t_main *s, int key)
 	return (1);
 }
 
-int		key_controls_game(t_main *s, int key)
+int			key_controls_game(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
@@ -102,7 +103,7 @@ int		key_controls_game(t_main *s, int key)
 	return (1);
 }
 
-int		key_controls_edi(t_main *s, int key)
+int			key_controls_edi(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
@@ -145,7 +146,8 @@ int		key_controls_edi(t_main *s, int key)
 		// s->editor->mode_floor = 1;
 		// ft_reset_color_vertex(s);
 	}
-	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER || key == PORTAL || key == SPRITE)
+	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER ||
+		key == PORTAL || key == SPRITE)
 		change_mode(s, key);
 
 	if (s->display_mode == editor)
@@ -160,18 +162,19 @@ int		key_controls_edi(t_main *s, int key)
 	return (1);
 }
 
-
-void	handle_editor_keys(t_main *s)
+void		handle_editor_keys(t_main *s)
 {
-	const Uint8 *keys;
+	const Uint8	*keys;
 
 	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
 	keys = SDL_GetKeyboardState(NULL);
-	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT]) && (s->player.sector_id != 0))
+	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
+		&& (s->player.sector_id != 0))
 		ft_move_player(s, keys, 2);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
-	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] || keys[UP_AR] || keys[DOWN_AR]))
+	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] ||
+		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
 	if (keys[LCTRL])
 		crouch(s,1);
@@ -184,8 +187,6 @@ void	handle_editor_keys(t_main *s)
 		crouch(s,-1);
 		jump(s,-1);
 	}
-
-
 	if (s->display_mode == editor)
 	{
 		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
@@ -201,7 +202,8 @@ void	handle_editor_keys(t_main *s)
 			s->editor->m_floor.current = 0;
 		if (s->editor->mode == portal)
 			change_over_wall(s);
-		draw_editor_menu(s, 0, WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_editor_menu(s, 0, WIDTH / 2 -
+			(s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 		draw_space_menu(s);
 		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
@@ -228,19 +230,14 @@ void	handle_editor_keys(t_main *s)
 		ft_save_map(s);
 		update_image(s, s->sdl->save);
 	}
-
-
 	// if (s->editor->mode == sprite)
 	// 	draw_sprite_menu(s);
-
 		// display_menu_sprite(s);
 	//printf("mode = %d\n", s->editor->mode);
-
 	// display_sky(s);
-
 }
 
-void	editor_handler(t_main *s)
+void		editor_handler(t_main *s)
 {
 	int			zoom;
 	int 		remove;
@@ -271,7 +268,6 @@ void	editor_handler(t_main *s)
 	{
 		tmp_mode = s->editor->mode;
 		v = s->vertex;
-
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -297,30 +293,30 @@ void	editor_handler(t_main *s)
 				else
 					SDL_SetRelativeMouseMode(SDL_FALSE);
 				if (s->editor->mode == portal &&
-					get_pixel_color(s->sdl->editor, s->ft_mouse.x, s->ft_mouse.y) == BLACK_SCREEN)
+					get_pixel_color(s->sdl->editor, s->ft_mouse.x,
+						s->ft_mouse.y) == BLACK_SCREEN)
+				{
+					s->editor->over_portal = 0;
+					s->editor->over_sector2 = 0;
+					if (s->editor->portal_temp == 1)
+					{
+						if (s->editor->wall2)
+							s->editor->wall2->selected = 0;
+						s->editor->wall2 = NULL;
+					}
+					else if (s->editor->portal_temp == 0)
+					{
+						if (s->editor->wall && !s->editor->wall2)
 						{
-							s->editor->over_portal = 0;
-							s->editor->over_sector2 = 0;
-							if (s->editor->portal_temp == 1)
-							{
-								if (s->editor->wall2)
-									s->editor->wall2->selected = 0;
-								s->editor->wall2 = NULL;
-							}
-							else if (s->editor->portal_temp == 0)
-							{
-								if (s->editor->wall && !s->editor->wall2)
-								{
-									s->editor->wall->selected = 0;
-									s->editor->wall = NULL;
-								}
-								else
-									s->editor->over_sector = 0;
-							}
+							s->editor->wall->selected = 0;
+							s->editor->wall = NULL;
 						}
+						else
+							s->editor->over_sector = 0;
+					}
+				}
 				if (s->editor->mode == move && selected == 1)
 				{
-
 					s->player.pos.x -= s->editor->decal_x;
 					s->player.pos.y -= s->editor->decal_y;
 					s->editor->decal_x = tmp.x + s->ft_mouse.x - mouse_save.x;
@@ -348,7 +344,9 @@ void	editor_handler(t_main *s)
 					{
 						//printf("mouse (%d, %d)\n",s->ft_mouse.x, s->ft_mouse.y);
 						//printf("mouse_save (%d, %d)\n",mouse_save.x, mouse_save.y);
-						if (!id && s->editor->mode == vertex && (s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y) && remove == 0)
+						if (!id && s->editor->mode == vertex
+							&& (s->ft_mouse.x == mouse_save.x ||
+								s->ft_mouse.y == mouse_save.y) && remove == 0)
 						{
 							create_anchor(s, ori); //creation ancre
 						}
@@ -365,10 +363,11 @@ void	editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sprite)
 					{
-						if ((s->ft_mouse.x == mouse_save.x || s->ft_mouse.y == mouse_save.y) && remove == 0)
+						if ((s->ft_mouse.x == mouse_save.x ||
+							s->ft_mouse.y == mouse_save.y) && remove == 0)
 						{
-							add_sprite(s,get_abs_r_pos(s,s->ft_mouse),s->choice_sprite->id);
-
+							add_sprite(s,get_abs_r_pos(s,s->ft_mouse),
+								s->choice_sprite->id);
 							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
 							//deselect_sprite(s);
 							s->editor->selected = 0;
@@ -380,7 +379,6 @@ void	editor_handler(t_main *s)
 						if (s->editor->selected == 1)
 						{
 							select_sprite(s);
-
 						}
 					}
 					else if (s->editor->mode == move)
@@ -394,7 +392,6 @@ void	editor_handler(t_main *s)
 					if (s->editor->mode == portal)
 						remove_portal(s);
 				}
-
 			}
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
 			{
@@ -436,17 +433,20 @@ void	editor_handler(t_main *s)
 						}
 						else if (s->editor->mode == sector)
 						{
-							ori.x = arround(s->editor->space, s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
-							ori.y = arround(s->editor->space, s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
+							ori.x = arround(s->editor->space,
+								s->sdl->event.button.x -
+								(s->editor->decal_x % s->editor->space));
+							ori.y = arround(s->editor->space,
+								s->sdl->event.button.y -
+								(s->editor->decal_y % s->editor->space));
 							if (ori.x >= 0 && ori.x <= WIDTH
 								&& ori.y >= 0 && ori.y <= HEIGHT)
-								{
-									if ((id = anchor_exists(s, ori)) != 0)
-										set_selected(s, ori, s->editor->color_sector);
-								}
-							s->editor->color_sector = ft_sector_mode(s, s->sdl->event.button.x, s->sdl->event.button.y);
-
-
+							{
+								if ((id = anchor_exists(s, ori)) != 0)
+									set_selected(s, ori, s->editor->color_sector);
+							}
+							s->editor->color_sector = ft_sector_mode(s,
+								s->sdl->event.button.x, s->sdl->event.button.y);
 							t_pos point_2;
 							int iii = -1;
 							point_2.x = s->sdl->event.button.x;
@@ -467,7 +467,6 @@ void	editor_handler(t_main *s)
 								s->player.r_pos= get_abs_r_pos(s,tmp2);
 								s->player.set = 1;
 								s->player.correc = 0;
-
 							}
 						}
 					}
@@ -488,7 +487,8 @@ void	editor_handler(t_main *s)
 					ft_zoom(s,s->ft_mouse, 5);
 					zoom++;
 				}
-				else if (s->sdl->event.wheel.y < 0 && zoom > -3 && !s->display_mode)
+				else if (s->sdl->event.wheel.y < 0 && zoom > -3 &&
+					!s->display_mode)
 				{
 					ft_zoom(s,s->ft_mouse, -5);
 					zoom--;
@@ -499,7 +499,8 @@ void	editor_handler(t_main *s)
 				// printf("key = %d\n", s->sdl->event.key.keysym.sym);
 				if (s->display_mode == editor)
 				{
-					if ((remove_achr = key_controls_edi(s, s->sdl->event.key.keysym.sym)) == 0)
+					if ((remove_achr = key_controls_edi(s,
+						s->sdl->event.key.keysym.sym)) == 0)
 						ingame = 0;
 					else if (remove_achr == 2 && selected == 1)
 						{
@@ -518,7 +519,6 @@ void	editor_handler(t_main *s)
 					key_controls_save(s, s->sdl->event.key.keysym.sym);
 				}
 			}
-
 		}
 		handle_editor_keys(s);
 		if (tmp_mode != s->editor->mode)

@@ -8,19 +8,19 @@ void	free_image(t_image *img)
 	ft_memdel((void **)&img);
 }
 
-void 	free_anim(t_lanim *anim) // A TESTER
+void	free_anim(t_lanim *anim) // A TESTER
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (anim->image[++i] != NULL)
 		free_image(anim->image[i]);
 }
 
-void 	free_lsprite(t_main *s)
+void	free_lsprite(t_main *s)
 {
-	t_lsprite *lst;
-	t_lsprite *tmp;
+	t_lsprite	*lst;
+	t_lsprite	*tmp;
 
 	lst = s->lsprite;
 	while (lst != NULL)
@@ -35,10 +35,10 @@ void 	free_lsprite(t_main *s)
 	}
 }
 
-void 	free_sprite(t_main *s)
+void	free_sprite(t_main *s)
 {
-	t_sprite *sprite;
-	t_sprite *tmp;
+	t_sprite	*sprite;
+	t_sprite	*tmp;
 
 	sprite = s->sprite;
 	while (sprite != NULL)
@@ -52,11 +52,10 @@ void 	free_sprite(t_main *s)
 
 void	free_sectors(t_main *s)
 {
-	t_vertex *v_tmp;
-	t_sector *s_tmp;
+	t_vertex	*v_tmp;
+	t_sector	*s_tmp;
 
 	v_tmp = s->vertex;
-
 	while (s->sector)
 	{
 		s_tmp = s->sector;

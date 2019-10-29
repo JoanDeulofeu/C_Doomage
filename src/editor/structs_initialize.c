@@ -1,6 +1,6 @@
 #include "doom.h"
 
-void	pre_initialize_sdl(t_main *s)
+void		pre_initialize_sdl(t_main *s)
 {
 	if (!(s->sdl = (t_sdl *)malloc(sizeof(t_sdl))))
 		exit(-1);
@@ -12,7 +12,7 @@ void	pre_initialize_sdl(t_main *s)
 	s->sdl->editor = NULL;
 }
 
-void	initialize_editor(t_editor *edi)
+void		initialize_editor(t_editor *edi)
 {
 	edi->space = G_SPACE;
 	edi->anchor_size = 5;
@@ -30,7 +30,7 @@ void	initialize_editor(t_editor *edi)
 	edi->over_sector = 0;
 	edi->over_sector2 = 0;
 	edi->wall = NULL;
-	edi->wall2 = NULL ;
+	edi->wall2 = NULL;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
@@ -38,7 +38,7 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	(void)s;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		ft_error_sdl("Échec de l'initialisation de la SDL");
-	if(TTF_Init() == -1)
+	if (TTF_Init() == -1)
 		ft_error_ttf("Erreur initialisation TTF_Init: ");
 	if (!(sdl->pwindow = SDL_CreateWindow("Doom Nukem", 100,
 		100, WIDTH, HEIGHT, SDL_WINDOW_SHOWN)))
@@ -74,7 +74,7 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 
 void		load_images(t_main *s)
 {
-	int i;
+	int	i;
 
 	i = 6;
 	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
@@ -109,7 +109,7 @@ void		load_images(t_main *s)
 		s->player.weapon.image[i] = NULL;
 		s->editor->m_floor.image[i++] = NULL;
 	}
-	s->lsprite =create_lsprite(s,7);
+	s->lsprite = create_lsprite(s, 7);
 }
 
 t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
@@ -154,8 +154,8 @@ t_main		*initialize_main(char *str)
 	s->player.i = 0;
 	s->player.r_pos.x = 7.5;
 	s->player.r_pos.y = 7.3;
-	s->player.m_pos.x =  s->player.r_pos.x * METRE;
-	s->player.m_pos.x =  s->player.r_pos.y * METRE;
+	s->player.m_pos.x = s->player.r_pos.x * METRE;
+	s->player.m_pos.x = s->player.r_pos.y * METRE;
 	s->player.health = 100;
 
 	// s->sprite.damage = 1;

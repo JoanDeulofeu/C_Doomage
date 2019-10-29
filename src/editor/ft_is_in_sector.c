@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int		ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end)
+int			ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end)
 {
 	double	tmp;
 
@@ -23,7 +23,7 @@ int		ft_is_in_segment(t_dpos coord, t_dpos begin, t_dpos end)
 	return (1);
 }
 
-int		ft_go_through_point(t_dpos begin, t_dpos end, t_dpos coord)
+int			ft_go_through_point(t_dpos begin, t_dpos end, t_dpos coord)
 {
 	if (round(coord.x) == begin.x && round(coord.y) == begin.y)
 		return (1);
@@ -55,12 +55,12 @@ double		ft_find_ordered_in_origin(t_dpos point, double a)
 
 t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos begin_l2)
 {
+	t_dpos	coord;
+
 	(void)begin_l2;
 	(void)p_l1;
 	(void)p_l2;
-	t_dpos	coord;
 	// float	mid;
-
 	// if (l1.a == -999935168.0)
 	// {
 	// 	coord.x = p_l1.x;
@@ -80,7 +80,7 @@ t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos b
 	return (coord);
 }
 
-int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu)
+int			ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu)
 {
 	t_abpos	l1;
 	t_abpos	l2;
@@ -94,7 +94,6 @@ int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begi
 	s->tmp_intersect.x = coord.x;
 	s->tmp_intersect.y = coord.y;
 	// printf("coord(%f,%f)\n",coord.x, coord.y);
-
 	if (coord.x > INT_MAX || coord.y > INT_MAX || coord.x < INT_MIN || coord.y < INT_MIN)
 	{
 		// printf("out 1\n");
@@ -119,8 +118,7 @@ int		ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begi
 	return (sqrt(powf(end_l2.x - coord.x, 2) + powf(end_l2.y - coord.y, 2)));
 }
 
-
-int		ft_is_in_sector(t_main *s, t_pos position)
+int			ft_is_in_sector(t_main *s, t_pos position)
 {
 	t_sector	*sct;
 	t_int		*wall;
