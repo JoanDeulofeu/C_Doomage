@@ -101,6 +101,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	int			new_x;
 	double		angle_left;
 	double		angle_right;
+
 	x = 0;
 	new_x = 0;
 	// printf("add_portal n(%d)\n", s->portal_nb);

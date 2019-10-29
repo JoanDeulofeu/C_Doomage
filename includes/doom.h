@@ -285,7 +285,7 @@ void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct,
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle,
 					Uint32 color);
-void 				ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs);
+t_walls 			*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
 t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
 void				draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
@@ -294,14 +294,15 @@ int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
 int					ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
 					int r_height_wall, double width_wall, double longeur,
 					double start_tex);
-int					ft_print_wall(t_main *s, t_walls *wall, t_int *vtx);
+// int					ft_print_wall(t_main *s, t_walls *wall, t_int *vtx);
+int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall,
+					t_dpos rwall, t_dpos lplan, t_dpos rplan);
 void				add_wall_to_list(t_main *s, t_walls *new);
 void				clear_wall_list(t_main *s);
 void				ft_limit_ceiling_floor(t_main *s, t_dpos player,
 					t_dpos left, t_dpos right, t_visu *vs);
-
-double						ft_find_angle_portal(t_dpos *left, t_dpos *right,
-	t_dpos *third, int needed);
+double				ft_find_angle_portal(t_dpos *left, t_dpos *right,
+					t_dpos *third, int needed);
 
 /*
 ****	Fonction d'initialisation
@@ -423,12 +424,12 @@ void						change_over_wall(t_main *s);
 void						edit_portal(t_main *s);
 void						remove_portal(t_main *s);
 void						reset_temp_portals(t_main *s);
-t_dpos						ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx,
-	double *angle_portal_out);
-t_visu						get_walls_to_draw(t_main *s, t_dpos player, double l_angle,
-	double r_angle, t_visu vs);
-void						add_portal_to_list(t_main *s, t_dpos player, t_sector *sct,
-	t_visu vs);
+t_dpos						ft_get_fake_player(t_main *s, t_dpos player,
+							t_int *vtx, double *angle_portal_out);
+t_visu						get_walls_to_draw(t_main *s, t_dpos player,
+							double l_angle, double r_angle, t_visu vs);
+void						add_portal_to_list(t_main *s, t_dpos player,
+							t_sector *sct, t_visu vs);
 
 /*
 ****	Fonction utilitaire
@@ -439,8 +440,7 @@ void						empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos						depiler(t_pile *pile);
 int							ft_is_in_sector(t_main *s, t_pos point_2);
 int							ft_find_intersection(t_main *s, t_dpos begin_l1,
-	t_dpos end_l1,
-	t_dpos begin_l2, t_dpos end_l2, char visu);
+	t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu);
 t_pos						ft_dpos_to_pos(t_dpos dpos);
 t_dpos						ft_pos_to_dpos(t_pos pos);
 void						ft_reset_color_screen(Uint32 *str, int size);
