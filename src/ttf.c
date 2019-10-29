@@ -44,7 +44,7 @@ void	ft_draw_ttf(t_main *s)
 {
 	t_ttf		ttf;
 
-	if (s->editor->mode_floor == 1 && s->display_mode == 0)
+	if (s->editor->mode_floor == 1 && s->display_mode == editor)
 	{
 		ttf.r = 255;
 		ttf.g = 255;
@@ -64,7 +64,7 @@ void	ft_draw_ttf(t_main *s)
 		ttf.str = ft_strdup("0");
 		ft_create_ttf(ttf, s, s->font->roboto);
 	}
-	if (s->display_mode == 2)
+	if (s->display_mode == save)
 	{
 		ttf.r = 255;
 		ttf.g = 0;
