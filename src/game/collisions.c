@@ -23,7 +23,7 @@ void		handle_sector_zero(t_main *s)
 	//jusqu'à ce qu'on trouve un endroit où le placer
 	if (s->player.sector_id == 0)
 	{
-		while (1)
+		while (nb < 1000)
 		{
 			curr = s->player.pos;
 			curr.x = s->player.pos.x + nb;
@@ -53,6 +53,8 @@ void		handle_sector_zero(t_main *s)
 				return ;
 			nb++;
 		}
+		printf("Pas reussi a trouver un endroit ou se tp.\n");
+		handle_error(s, 0);
 	}
 }
 

@@ -92,13 +92,13 @@ void	put_wall_value(t_sector *sct, char *line, int i)
 	tmp = sct->vertex;
 	if (tmp == NULL)
 		return ;
-	// printf("i = %d\n",i);
 	while (line[i] != '\0')
 	{
 		tmp->wall_value = ft_atoi(&line[i]);
-		// printf("wall = %d    (%s)\n", tmp->wall_value, &line[i]);
-		i += ft_longlen(tmp->wall_value) + 1;
+		i += ft_longlen(tmp->wall_value);
 		i = ft_find_next_number(line, i);
+		if (i == -1)
+			return ;
 		tmp = tmp->next;
 	}
 }
@@ -119,16 +119,22 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 	value = 0;
 	while (line[i] != '|' && line[i] != '\0')
 	{
+		// printf("chocolat1\n");
 		value = ft_atoi(&line[i]);
+		// printf("chocolat2\n");
 		ft_add_intarray(s, sct, value);
 		i += ft_longlen(value) + 1;
+		// printf("chocolat3\n");
 		if (ft_check_bar(line, i))
 			break;
 		i = ft_find_next_number(line, i);
+		// printf("chocolat4\n");
 	}
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
+		// printf("chocolat5\n");
 	put_wall_value(sct, line, i);
+	// printf("chocolat6\n");
 }
 
 int		ft_parse_sector(t_main *s, char *line)
@@ -145,11 +151,15 @@ int		ft_parse_sector(t_main *s, char *line)
 	i = ft_find_next_number(line, i);
 	ceiling = ft_atoi(&line[i]);
 	sct = ft_add_sector(s, floor, ceiling);
+	// printf("entree1\n");
 	while (line[i] != '|')
 		i++;
+	// printf("sortie1\n");
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
+		// printf("entree2\n");
 	ft_norm_parse_sector(s, line, sct, i);
+	// printf("sortie2\n");
 	return (0);
 }
 
@@ -340,11 +350,12 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 {
 	char	*line;
 	int		i;
+	int		test;
 
 	fd = open(s->map_name, O_RDWR);
 	if (fd < 1)
 		handle_error(s, MAP_ERROR);
-	while (get_next_line(fd, &line) > 0)
+	while ((test = get_next_line(fd, &line)) > 0)
 	{
 		if ((i = ft_find_next_number(line, 0)) == -1)
 			continue;
