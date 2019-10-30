@@ -300,7 +300,7 @@ int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall,
 void				add_wall_to_list(t_main *s, t_walls *new);
 void				clear_wall_list(t_main *s);
 void				ft_limit_ceiling_floor(t_main *s, t_dpos player,
-					t_dpos left, t_dpos right, t_visu *vs);
+					t_dpos left, t_dpos right, t_visu *vs, char swich);
 double				ft_find_angle_portal(t_dpos *left, t_dpos *right,
 					t_dpos *third, int needed);
 
