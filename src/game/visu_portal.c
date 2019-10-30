@@ -191,15 +191,20 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	t_dpos		rwall;
 
 	(void)s;
+	// printf("player (%.1f, %.1f)\n", s->player.r_pos.x *METRE, s->player.r_pos.y *METRE);
 	lwall.x = vtx->ptr->x * METRE;
 	lwall.y = vtx->ptr->y * METRE;
 	rwall.x = vtx->next->ptr->x * METRE;
 	rwall.y = vtx->next->ptr->y * METRE;
+	// printf("lwall.x = %f\nlwall.y = %f\nrwall.x = %f\nrwall.y = %f\n", lwall.x, lwall.y, rwall.x, rwall.y);
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
 	l_portal.x = vtx->vtx_dest->ptr->x * METRE;
 	l_portal.y = vtx->vtx_dest->ptr->y * METRE;
+	// printf("l_portal = %d\n", vtx->vtx_dest->ptr->id);
+	// printf("r_portal = %d\n", vtx->vtx_dest->next->ptr->id);
 	r_portal.x = vtx->vtx_dest->next->ptr->x * METRE;
 	r_portal.y = vtx->vtx_dest->next->ptr->y * METRE;
+	// printf("l_portal.x = %f\nl_portal.y = %f\nr_portal.x = %f\nr_portal.y = %f\n", l_portal.x, l_portal.y, r_portal.x, r_portal.y);
 	//trouver la distance entre joueur et le point gauche du portail initial
 	dist_player = ft_dist_t_dpos(player, lwall);
 	// fake_angle = ft_find_angle_portal(&lwall, &rwall, &player, 1);
@@ -236,5 +241,6 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).x + cos(to_rad(*angle_fake)) * 25;
 	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).y - sin(to_rad(*angle_fake)) * 25;
 	get_line(s, 0xff66f0ff, 1);
+	// printf("fake player.x = %f, fake_player.y = %f\n", fake_player.x, fake_player.y);
 	return (fake_player);
 }

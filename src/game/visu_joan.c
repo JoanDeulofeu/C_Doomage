@@ -128,14 +128,15 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	t_int	*wall;
 	int		nb;
 
-	(void)keys;
+	// (void)keys;
+	// printf("ENTREE\n");
 	nb = 10;
 	ptr_id = 0;
 	// printf("x = %f, y = %f\n", s->col_pos.x, s->col_pos.y);
 	player_haut = s->col_pos;
 	player_bas = s->col_pos;
 	//col_pos est calcule dans player.c, quand le joueur bouge
-
+	// printf("hey\n\n\n");
 	player_haut.y += nb;
 	player_bas.y -= nb;
 	sct_id = s->player.sector_id;
@@ -144,6 +145,7 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	//on trouve le portail que touche col_pos
 	while (ptr_id == 0)
 	{
+		// printf ("test\n");
 		player_haut = s->col_pos;
 		player_bas = s->col_pos;
 		player_haut.y += nb;
@@ -162,6 +164,7 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 			}
 		}
 		nb++;
+
 		// printf("nb = %d\n", nb);
 	}
 	wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
@@ -169,18 +172,30 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	{
 		printf("true\n");
 		if (wall->next->vtx_dest != NULL) // Au cas où find intersection ne renvoie pas le bon mur, on check lequel a coté est un portail
+		{
+			printf("vertex suivant");
 			wall = wall->next;
+		}
 		else if (wall->prev->vtx_dest != NULL)
+		{
+			printf("vertex precedent\n");
 			wall = wall->prev;
+		}
 		else
 			printf("fuck...\n");
 	}
 	if (wall == NULL)
 		printf("ptr_id = %d\n", ptr_id);
 	//On teleporte le player
+	// printf("wall->ptr->id = %d\n", wall->ptr->id);
+	// printf("s->col_pos.x = %f, s->col_pos.y = %f, player.r_pos.x = %f\nplayer.r_pos.y = %f\n", s->col_pos.x, s->col_pos.y, s->player.r_pos.x, s->player.r_pos.y);
 	s->player.r_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
 	s->player.r_pos.x /= METRE;
 	s->player.r_pos.y /= METRE;
+	s->player.m_pos.x = s->player.r_pos.x * METRE;
+	s->player.m_pos.y = s->player.r_pos.y * METRE;
+	// printf("s->col_pos.x = %f, s->col_pos.y = %f\n", s->col_pos.x, s->col_pos.y);
+	// printf("Nouveau ==> player.r_pos.x = %f\nNouveau ==> player.r_pos.y = %f\n\n\n", s->player.r_pos.x, s->player.r_pos.y);
 	//changer secteur en fonction de la teleportation
 	s->player.sector_id = wall->sct_dest;
 	s->portal_nb = 0;
@@ -190,6 +205,8 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 		ft_move_player(s, keys, 1);
 	handle_sector_zero(s);
+	// printf("sortie\n");
+
 }
 
 void		ft_visu_joan(t_main *s, const unsigned char *keys)

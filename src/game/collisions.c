@@ -21,6 +21,7 @@ void		handle_sector_zero(t_main *s)
 	nb = 1;
 	// On cherche autour de la position du joueur
 	//jusqu'à ce qu'on trouve un endroit où le placer
+	// printf("blop.\n");
 	if (s->player.sector_id == 0)
 	{
 		while (nb < 1000)
