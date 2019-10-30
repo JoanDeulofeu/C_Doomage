@@ -375,9 +375,9 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		else if (line[0] == 'P')
 		{
-			s->player.pos.y = ft_atoi(&line[i]);
-			i += ft_longlen(s->player.pos.y);
-			s->player.pos.x = ft_atoi(&line[i]);
+			s->player.r_pos.y = ft_atoi(&line[i]) / METRE;
+			i += ft_longlen(s->player.r_pos.y * METRE);
+			s->player.r_pos.x = ft_atoi(&line[i]) / METRE;
 		}
 		else if (line[0] == 'A')
 		{

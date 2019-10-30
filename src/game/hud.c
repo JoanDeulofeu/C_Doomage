@@ -206,8 +206,6 @@ void		health(t_main *s)
 {
 	if (s->player.health < 0)
 		game_over(s);
-	// printf("%d\n", s->player.health);
-	// printf("%d\n", s->object.health_pack);
 }
 
 void		game_over(t_main *s)
