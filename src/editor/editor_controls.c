@@ -220,8 +220,8 @@ void		handle_editor_keys(t_main *s)
 		//	sprite_move(s);
 		health(s);
 		draw_sprite(s);
-		draw_hud(s);
-		print_hp(s);
+		// draw_hud(s);
+		// print_hp(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)
