@@ -162,6 +162,33 @@ int			key_controls_edi(t_main *s, int key)
 	return (1);
 }
 
+void	ft_nul(t_main *s)
+{
+	t_dpos		init;
+	t_dpos		dest;
+
+	init.x = 0;
+	init.y = 150;
+	dest.x = WIDTH;
+	dest.y = 151;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	init.x = 0;
+	init.y = 300;
+	dest.x = WIDTH;
+	dest.y = 301;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	init.x = 0;
+	init.y = 450;
+	dest.x = WIDTH;
+	dest.y = 451;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	init.x = 0;
+	init.y = 600;
+	dest.x = WIDTH;
+	dest.y = 601;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+}
+
 void		handle_editor_keys(t_main *s)
 {
 	const Uint8	*keys;
@@ -222,6 +249,7 @@ void		handle_editor_keys(t_main *s)
 		draw_sprite(s);
 		// draw_hud(s);
 		// print_hp(s);
+		ft_nul(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)

@@ -179,16 +179,23 @@ typedef struct				s_slider {
 typedef struct				s_walls {
 	double					distance;
 	int						x;
-	double					longeur_total;
 	t_dpos					player;
 	t_dpos					left;
 	t_dpos					right;
 	t_dpos					l_plan;
 	t_dpos					r_plan;
-	t_dpos					right_ceiling_limit;
-	t_dpos					left_ceiling_limit;
-	t_dpos					right_floor_limit;
-	t_dpos					left_floor_limit;
+	t_pos					right_ceiling_limit;
+	t_pos					left_ceiling_limit;
+	t_pos					right_floor_limit;
+	t_pos					left_floor_limit;
+	int						diffx_ceiling;
+	int						diffy_ceiling;
+	int						diffx_floor;
+	int						diffy_floor;
+	int						minx_ceiling;
+	int						miny_ceiling;
+	int						minx_floor;
+	int						miny_floor;
 	struct s_walls			*prev;
 	struct s_walls			*next;
 }							t_walls;
@@ -294,9 +301,7 @@ int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
 int					ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
 					int r_height_wall, double width_wall, double longeur,
 					double start_tex);
-// int					ft_print_wall(t_main *s, t_walls *wall, t_int *vtx);
-int					ft_print_wall(t_main *s, int x, t_dpos player, t_dpos lwall,
-					t_dpos rwall, t_dpos lplan, t_dpos rplan);
+int					ft_print_wall(t_main *s, t_walls *wall);
 void				add_wall_to_list(t_main *s, t_walls *new);
 void				clear_wall_list(t_main *s);
 void				ft_limit_ceiling_floor(t_main *s, t_dpos player,
