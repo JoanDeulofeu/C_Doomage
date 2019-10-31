@@ -58,7 +58,11 @@ void	remove_anchor(t_main *s, int id)
 	{
 		if (temp->id == id)
 		{
-			remove_sector(s, id, 0, 0);
+			if (remove_sector(s, id, 0, 0) == 0)
+			{
+				printf("Impossible de supprimer le secteur dans lequel est le joueur.\n");
+				return ;
+			}
 			update_anchor_list(s, temp);
 			ft_memdel((void **)&temp);
 			ft_drag_vextex_id(s, id);

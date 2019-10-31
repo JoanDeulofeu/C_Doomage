@@ -1,0 +1,18 @@
+Map : mapnul
+
+Vertex 3		6
+Vertex 3		20
+Vertex 10		20
+Vertex 13		20
+Vertex 13		6
+Vertex 14		22
+Vertex 15		7
+Vertex 24		18
+Vertex 25		8
+
+
+Sector 0 20 | 1 2 3 4 5 | 4 -1 -1 1 -1
+Sector 20 40 | 6 8 9 7 | -1 -1 -1 -1
+
+
+Angle 92

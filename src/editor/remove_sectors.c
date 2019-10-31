@@ -14,6 +14,8 @@ t_sector		*update_sector_walls(t_main *s, t_int *tmp_vtx,
 			{
 				tmp_vtx->sct_dest = 0;
 				tmp_vtx->wall_value = -1;
+				tmp_vtx->vtx_dest = NULL;
+				tmp_vtx->selected = 0;
 			}
 			tmp_vtx = tmp_vtx->next;
 		}
@@ -68,7 +70,7 @@ t_sector		*update_sector_list(t_main *s, t_sector *temp_sector)
 	return (temp_sector);
 }
 
-void			remove_sector(t_main *s, int id, int del, int sct_id)
+int			remove_sector(t_main *s, int id, int del, int sct_id)
 {
 	t_sector	*tmp_sct;
 	t_int		*tmp_vtx;
@@ -85,6 +87,8 @@ void			remove_sector(t_main *s, int id, int del, int sct_id)
 		{
 			if (tmp_vtx->ptr->id == id)
 			{
+				if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) == tmp_sct->id)
+					return (0);
 				tmp_vtx = free_sector_struct(tmp_sct);
 				tmp_sct = update_sector_list(s, tmp_sct);
 				tmp_sct = update_sector_walls(s, tmp_vtx, tmp_sct, sct_id);
@@ -97,5 +101,6 @@ void			remove_sector(t_main *s, int id, int del, int sct_id)
 		if (tmp_sct && !del)
 			tmp_sct = tmp_sct->next;
 	}
+	return (1);
 	// ft_test_chainlist(s);
 }

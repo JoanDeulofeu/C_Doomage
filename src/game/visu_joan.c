@@ -143,7 +143,7 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	if (sct_id == 0)
 		printf ("FUUUUUUUUU\n");
 	//on trouve le portail que touche col_pos
-	while (ptr_id == 0)
+	while (ptr_id == 0 && nb < 5000)
 	{
 		// printf ("test\n");
 		player_haut = s->col_pos;
@@ -160,12 +160,22 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 			{
 				player_haut.y += nb;
 				player_bas.y -= nb;
-				ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
+				if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
+				{
+					player_haut.x += nb * 2;
+					player_bas.x -= nb * 2;
+					ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
+				}
 			}
 		}
 		nb++;
 
-		// printf("nb = %d\n", nb);
+		printf("nb = %d\n", nb);
+	}
+	if (ptr_id == 0)
+	{
+		handle_sector_zero(s);
+		return ;
 	}
 	wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
 	if (wall->vtx_dest == NULL)
@@ -189,16 +199,15 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	//On teleporte le player
 	// printf("wall->ptr->id = %d\n", wall->ptr->id);
 	// printf("s->col_pos.x = %f, s->col_pos.y = %f, player.r_pos.x = %f\nplayer.r_pos.y = %f\n", s->col_pos.x, s->col_pos.y, s->player.r_pos.x, s->player.r_pos.y);
-	s->player.r_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
-	s->player.r_pos.x /= METRE;
-	s->player.r_pos.y /= METRE;
-	s->player.m_pos.x = s->player.r_pos.x * METRE;
-	s->player.m_pos.y = s->player.r_pos.y * METRE;
+	s->player.m_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
+	s->player.r_pos.x = s->player.m_pos.x / METRE;
+	s->player.r_pos.y = s->player.m_pos.y / METRE;
 	// printf("s->col_pos.x = %f, s->col_pos.y = %f\n", s->col_pos.x, s->col_pos.y);
 	// printf("Nouveau ==> player.r_pos.x = %f\nNouveau ==> player.r_pos.y = %f\n\n\n", s->player.r_pos.x, s->player.r_pos.y);
 	//changer secteur en fonction de la teleportation
 	s->player.sector_id = wall->sct_dest;
 	s->portal_nb = 0;
+	// printf("test\n");
 	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 	// 	s->player.pos = get_direction(s, keys, 1, s->player.pos);
 	//On le bouge legerement et on verifie qu'il n'est pas coince
