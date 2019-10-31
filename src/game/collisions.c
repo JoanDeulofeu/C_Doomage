@@ -54,7 +54,7 @@ void		handle_sector_zero(t_main *s)
 				return ;
 			nb++;
 		}
-		printf("Pas reussi a trouver un endroit ou se tp.\n");
+		printf("Pas reussi a trouver un endroit où se tp.\n");
 		handle_error(s, 0);
 	}
 }
