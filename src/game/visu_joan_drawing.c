@@ -576,7 +576,8 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	vs->right_ceiling_limit.y = (HEIGHT / 2) - r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
-	{// printf("---- TEST VALEUR ----\n\n");
+	{
+	// printf("---- TEST VALEUR ----\n\n");
 	// printf("width_wall = %.1f\n", width_wall);
 	// printf("LEFT  -      floor(%d, %d)   ceiling(%d, %d)\n", vs->left_floor_limit.x, vs->left_floor_limit.y, vs->left_ceiling_limit.x, vs->left_ceiling_limit.y);
 	// printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n", vs->right_floor_limit.x, vs->right_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y);
