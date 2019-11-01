@@ -1,5 +1,26 @@
 #include "doom.h"
 
+void tp_first_sector(t_main *s)
+{
+	t_sector	*sct;
+	t_pos		center;
+
+	sct = s->sector;
+	if (sct)
+	{
+		center = ft_find_polygon_center(sct);
+		s->player.r_pos.x = center.x / s->editor->space - s->editor->decal_x;
+		s->player.r_pos.y = center.y / s->editor->space - s->editor->decal_y;
+		set_player(s);
+		if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.r_pos))) == 0)
+			handle_sector_zero(s);
+	}
+
+	// printf("center.x = %d, center.y = %d\n", center.x, center.y);
+
+
+}
+
 static int	check_pos(t_main *s, t_dpos curr)
 {
 	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(curr))) != 0)
@@ -55,7 +76,8 @@ void		handle_sector_zero(t_main *s)
 			nb++;
 		}
 		printf("Pas reussi a trouver un endroit où se tp.\n");
-		handle_error(s, 0);
+		tp_first_sector(s);
+		// handle_error(s, 0);
 	}
 }
 
