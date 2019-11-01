@@ -51,7 +51,7 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 		}
 		nb++;
 
-		printf("nb = %d\n", nb);
+		// printf("nb = %d\n", nb);
 	}
 	if (ptr_id == 0)
 	{

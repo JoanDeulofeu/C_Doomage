@@ -8,11 +8,13 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	begin = coord.y;
 	pct = ((coord.x - wall->minx_ceiling) * 100) / wall->diffx_ceiling;
 	coord.y = ((pct * wall->diffy_ceiling) * 0.001) + wall->miny_ceiling;
+
 	while (coord.y < begin)
 	{
 		set_pixel(s->sdl->game, 0x485050ff, coord);
 		coord.y++;
 	}
+
 	return (coord.y - 1);
 }
 
@@ -32,10 +34,18 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 
 void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color)
 {
+	if (end < 0 || end > HEIGHT)
+		return ;
+	// printf("coord.y = %d, end = %d\n", coord.y, end);
 	coord.y = ft_draw_ceiling(s, wall, coord);
-
 	while (coord.y++ < end)
+	{
+		// printf("test1\n");
 		set_pixel(s->sdl->game, color, coord);
+		// printf("test2\n");
+	}
+
+	// printf("out draw column\n");
 
 	ft_draw_floor(s, wall, coord);
 
@@ -56,14 +66,21 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	height_wall = l_height_wall;
 	coord.x = wall->x;
 	// printf("Largeur du mur = %f\n", width_wall);
+	// printf("test1\n");
+	// if (width_wall - i > WIDTH)
+	// 	return (WIDTH);
 	while (i++ < width_wall)
 	{
+		// printf("test2\n");
+		// printf("i = %f, width_wall = %f\n", i, width_wall);
+		// printf("widthwall = %f\n", width_wall);
 		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye +  s->player.eyesight; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
 		if (i == 1 || i == width_wall)
 			ft_draw_column(s, wall, coord, bottom, 0x000000FF);
 		else
 			ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
+		// printf("test3\n");
 		coord.x++;
 		pct_avcm = (100 * i) / width_wall;
 
@@ -73,7 +90,9 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 			height_wall = l_height_wall - (diff_wall * pct_avcm) / 100;
 		else
 			height_wall = l_height_wall;
+
 	}
+	// printf("test4\n");
 	return (coord.x);
 }
 
@@ -125,6 +144,10 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
 	{
+		if (wall->r_plan.x >= 0 && wall->r_plan.x <= WIDTH &&
+		wall->r_plan.y >=0 && wall->r_plan.y <= HEIGHT && wall->l_plan.x >= 0
+		&& wall->l_plan.x <= WIDTH && wall->l_plan.y >=0
+		&& wall->l_plan.y <= HEIGHT )
 		add_wall_to_list(s, wall);
 	}
 	else
@@ -426,6 +449,7 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 
 	ft_init_diff_and_min(wall);
 
+	// printf("test1\n");
 	return (ft_draw_wall(s, wall, l_height_wall, r_height_wall, width_wall));
 }
 
@@ -504,6 +528,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	t_int		*vtx;
 	(void)player; //MERDE ?
 
+	// printf("1\n");
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
@@ -517,6 +542,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 			while (wall)
 			{
 				// ft_print_wall(s, wall, vtx);
+				// print_wall_list(s);
 				ft_print_wall(s, wall);
 				wall = wall->next;
 			}
@@ -525,19 +551,29 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		s->portal_nb = 0;
 		return ;
 	}
+	// printf("2\n");
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
+	// print_wall_list(s);
+	// printf("3\n");
 	draw_last_wall(s, vtx, &vs);
+	// print_wall_list(s);
+	// printf("4\n");
 	wall = s->walls;
 	while (wall)
 	{
+		// printf("test\n");
+		// print_wall_list(s);
 		// ft_print_wall(s, wall, vtx);
 		ft_print_wall(s, wall);
+		// printf("test2\n");
 		wall = wall->next;
 		vtx = vtx->next;
 	}
+	// printf("5\n");
 	// print_wall_list(s);
 	clear_wall_list(s);
 	s->portal_nb = 0;
+	// printf("6\n");
 	// printf("-------------------------\n");
 }

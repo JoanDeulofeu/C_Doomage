@@ -87,9 +87,9 @@ int			is_colliding(t_main *s)
 	t_sector	*sct;
 	t_int		*wall;
 
-	if (ft_is_in_sector(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)))
-		!= s->player.sector_id)
+	if (ft_is_in_sector(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)))!= s->player.sector_id)
 	{
+
 		id = ft_find_wall2(s, s->player.m_pos, s->col_pos, 0x37f3ffff,
 			s->player.sector_id);
 		// printf("id = %d\n", id);

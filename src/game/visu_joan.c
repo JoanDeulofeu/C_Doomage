@@ -42,7 +42,7 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 			s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
 			s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
 			s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
-			// get_line(s, color, 1);
+			get_line(s, color, 1);
 			// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
 			// printf("point(%.1f, %.1f), player(%.1f, %.1f), wall1(%.1f, %.1f), wall2(%.1f, %.1f)\n", point.x, point.y, player.x, player.y, wall1.x / METRE, wall1.y / METRE, wall2.x / METRE, wall2.y / METRE);
 			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
@@ -109,7 +109,7 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 	// printf("\nsortie-----------\n\n");
 	return(vs);
 }
-// 
+//
 // t_dpos		to_metre(t_pos pos)
 // {
 // 	t_dpos	new;
