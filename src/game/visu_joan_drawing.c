@@ -34,10 +34,9 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 
 void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color)
 {
-	if (end < 0 || end > HEIGHT)
-		return ;
 	// printf("coord.y = %d, end = %d\n", coord.y, end);
 	coord.y = ft_draw_ceiling(s, wall, coord);
+	// printf("end = %d\n", end);
 	while (coord.y++ < end)
 	{
 		// printf("test1\n");
@@ -74,6 +73,9 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 		// printf("test2\n");
 		// printf("i = %f, width_wall = %f\n", i, width_wall);
 		// printf("widthwall = %f\n", width_wall);
+		// printf("height_wall = %d\n", height_wall);
+		// print_player_values(s);
+		// printf("sct = %d\n", ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)));
 		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye +  s->player.eyesight; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
 		if (i == 1 || i == width_wall)
@@ -144,10 +146,10 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
 	{
-		if (wall->r_plan.x >= 0 && wall->r_plan.x <= WIDTH &&
-		wall->r_plan.y >=0 && wall->r_plan.y <= HEIGHT && wall->l_plan.x >= 0
-		&& wall->l_plan.x <= WIDTH && wall->l_plan.y >=0
-		&& wall->l_plan.y <= HEIGHT )
+		// if (wall->r_plan.x >= 0 && wall->r_plan.x <= WIDTH &&
+		// wall->r_plan.y >=0 && wall->r_plan.y <= HEIGHT && wall->l_plan.x >= 0
+		// && wall->l_plan.x <= WIDTH && wall->l_plan.y >=0
+		// && wall->l_plan.y <= HEIGHT )
 		add_wall_to_list(s, wall);
 	}
 	else
@@ -433,6 +435,7 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	double	pct_plan; //pourcentage de longueur de mur sur le plan
 	double	width_wall; //largeur du mur en pixel a l'ecran
 
+	// printf("wall->player x(%f) y(%f), wall->left = x(%f) y(%f))\n", wall->player.x, wall->player.y, wall->left.x, wall->left.y);
 	l_big_dist = ft_dist_t_dpos(wall->player, wall->left);
 	r_big_dist = ft_dist_t_dpos(wall->player, wall->right);
 	l_small_dist = ft_dist_t_dpos(wall->player, wall->l_plan);
@@ -542,7 +545,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 			while (wall)
 			{
 				// ft_print_wall(s, wall, vtx);
-				// print_wall_list(s);
+				print_wall_list(s);
 				ft_print_wall(s, wall);
 				wall = wall->next;
 			}
@@ -563,7 +566,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	while (wall)
 	{
 		// printf("test\n");
-		// print_wall_list(s);
+		print_wall_list(s);
 		// ft_print_wall(s, wall, vtx);
 		ft_print_wall(s, wall);
 		// printf("test2\n");

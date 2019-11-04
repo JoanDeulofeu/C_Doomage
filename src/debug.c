@@ -28,3 +28,15 @@ void print_wall_list(t_main *s)
     tmp = tmp->next;
   }
 }
+
+void print_player_values(t_main *s)
+{
+	printf("r_pos = x(%f) y(%f)\n", s->player.r_pos.x, s->player.r_pos.y);
+	printf("pos = x(%f) y(%f)\n", s->player.pos.x, s->player.pos.y);
+	printf("m_pos = x(%f) y(%f)\n", s->player.m_pos.x, s->player.m_pos.y);
+	printf("sector_id = %d\n", s->player.sector_id);
+	printf("eyesight = %d\n", s->player.eyesight);
+	printf("y_eye = %d\n", s->player.y_eye);
+	printf("angle = %f\n", s->player.angle);
+	printf("height = %d\n", s->player.height);
+}

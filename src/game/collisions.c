@@ -28,13 +28,14 @@ static int	check_pos(t_main *s, t_dpos curr)
 		s->player.r_pos.x = curr.x / s->editor->space - s->editor->decal_x;
 		s->player.r_pos.y = curr.y / s->editor->space - s->editor->decal_y;
 		set_player(s);
+		// printf("true\n");
 		return (1);
 	}
 	else
 		return (0);
 }
 
-void		handle_sector_zero(t_main *s)
+int		handle_sector_zero(t_main *s)
 {
 	int		nb;
 	t_dpos	curr;
@@ -43,42 +44,45 @@ void		handle_sector_zero(t_main *s)
 	// On cherche autour de la position du joueur
 	//jusqu'à ce qu'on trouve un endroit où le placer
 	// printf("blop.\n");
-	if (s->player.sector_id == 0)
+	if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) == 0)
 	{
-		while (nb < 1000)
+		// printf ("secyeur 0\n");
+		while (nb < 1000 * s->editor->space)
 		{
 			curr = s->player.pos;
 			curr.x = s->player.pos.x + nb;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.x = s->player.pos.x - nb;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.x = s->player.pos.x;
 			curr.y = s->player.pos.y + nb;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.y = s->player.pos.y - nb;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.x = s->player.pos.x - nb;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.x = s->player.pos.x + nb;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.y += nb * 2;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			curr.x -= nb * 2;
 			if (check_pos(s, curr))
-				return ;
+				return (1);
 			nb++;
+			printf("%d\n", nb);
 		}
 		printf("Pas reussi a trouver un endroit où se tp.\n");
 		tp_first_sector(s);
 		// handle_error(s, 0);
 	}
+	return (0);
 }
 
 int			is_colliding(t_main *s)

@@ -420,7 +420,7 @@ void						fill_sectors(t_main *s);
 void						draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int						*free_sector_struct(t_sector *temp_sector);
 int							get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos);
-void						handle_sector_zero(t_main *s);
+int							handle_sector_zero(t_main *s);
 
 /*
 ****	Fonction de gestion des portails
@@ -534,6 +534,7 @@ void						ft_draw_ttf(t_main *s);
 ****	Fonction de debug
 */
 void						print_wall_list(t_main *s);
+void 						print_player_values(t_main *s);
 
 /*
 ****	Fonction des textures

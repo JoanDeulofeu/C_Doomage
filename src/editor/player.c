@@ -78,7 +78,7 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)), BLUE);
 	// update_image(s, s->sdl->editor);
 	//Si is_colliding renvoie -1, il y a collision, si il renvoie plus que 0 il faut se tp
-	if (is_colliding(s) == 0)
+	if (handle_sector_zero(s) == 0 && is_colliding(s) == 0)
 	{
 		s->player.r_pos.x = target.x;
 		s->player.r_pos.y = target.y;
