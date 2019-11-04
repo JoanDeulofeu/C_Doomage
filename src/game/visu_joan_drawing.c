@@ -6,8 +6,13 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	double pct;
 
 	begin = coord.y;
-	pct = ((coord.x - wall->minx_ceiling) * 100) / wall->diffx_ceiling;
-	coord.y = ((pct * wall->diffy_ceiling) * 0.001) + wall->miny_ceiling;
+	pct = ((coord.x - wall->minx_ceiling) * 100) / wall->diffx_ceiling; // attention div par zero possible
+	if ((wall->minx_ceiling == wall->left_ceiling_limit.x && wall->miny_ceiling
+		== wall->right_ceiling_limit.y) || (wall->minx_ceiling
+		== wall->right_ceiling_limit.x && wall->miny_ceiling
+		== wall->left_ceiling_limit.y)) // si x et y mini sont pas du meme coté
+		pct = 100 - pct;
+	coord.y = ((pct * wall->diffy_ceiling) * 0.01) + wall->miny_ceiling;
 
 	while (coord.y < begin)
 	{
@@ -24,7 +29,12 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 	double pct;
 
 	pct = ((coord.x - wall->minx_floor) * 100) / (wall->diffx_floor); // attention div par zero possible
-	end = ((pct * wall->diffy_floor) * 0.001) + wall->miny_floor;
+	if ((wall->minx_floor == wall->left_floor_limit.x
+		&& wall->miny_floor == wall->right_floor_limit.y)
+		|| (wall->minx_floor == wall->right_floor_limit.x
+		&& wall->miny_floor == wall->left_floor_limit.y)) // si x et y mini sont pas du meme coté
+		pct = 100 - pct;
+	end = ((pct * wall->diffy_floor) * 0.01) + wall->miny_floor;
 	while (coord.y < end)
 	{
 		set_pixel(s->sdl->game, 0xa8b08eff, coord);
@@ -34,21 +44,14 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 
 void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color)
 {
-	if (end < 0 || end > HEIGHT)
-		return ;
-	// printf("coord.y = %d, end = %d\n", coord.y, end);
 	coord.y = ft_draw_ceiling(s, wall, coord);
+
 	while (coord.y++ < end)
 	{
-		// printf("test1\n");
 		set_pixel(s->sdl->game, color, coord);
-		// printf("test2\n");
 	}
 
-	// printf("out draw column\n");
-
 	ft_draw_floor(s, wall, coord);
-
 }
 
 int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall, double width_wall)
@@ -144,10 +147,10 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
 	{
-		if (wall->r_plan.x >= 0 && wall->r_plan.x <= WIDTH &&
-		wall->r_plan.y >=0 && wall->r_plan.y <= HEIGHT && wall->l_plan.x >= 0
-		&& wall->l_plan.x <= WIDTH && wall->l_plan.y >=0
-		&& wall->l_plan.y <= HEIGHT )
+		// if (wall->r_plan.x >= 0 && wall->r_plan.x <= WIDTH &&
+		// wall->r_plan.y >=0 && wall->r_plan.y <= HEIGHT && wall->l_plan.x >= 0
+		// && wall->l_plan.x <= WIDTH && wall->l_plan.y >=0
+		// && wall->l_plan.y <= HEIGHT ) //yohann bullshit
 		add_wall_to_list(s, wall);
 	}
 	else
@@ -158,6 +161,9 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	wall->left_floor_limit = vs->left_floor_limit;
 	wall->right_ceiling_limit = vs->right_ceiling_limit;
 	wall->right_floor_limit = vs->right_floor_limit;
+	// printf("---- TEST VALEUR (wall) ----\n");
+	// printf("LEFT  -      floor(%d, %d)   ceiling(%d, %d)\n", wall->left_floor_limit.x, wall->left_floor_limit.y, wall->left_ceiling_limit.x, wall->left_ceiling_limit.y);
+	// printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n", wall->right_floor_limit.x, wall->right_floor_limit.y, wall->right_ceiling_limit.x, wall->right_ceiling_limit.y);
 	return (wall);
 }
 
@@ -418,6 +424,7 @@ void	ft_init_diff_and_min(t_walls *wall)
 	wall->diffy_floor = ft_abs(wall->left_floor_limit.y - wall->right_floor_limit.y);
 	wall->minx_floor = wall->left_floor_limit.x < wall->right_floor_limit.x ? wall->left_floor_limit.x : wall->right_floor_limit.x;
 	wall->miny_floor = wall->left_floor_limit.y < wall->right_floor_limit.y ? wall->left_floor_limit.y : wall->right_floor_limit.y;
+	// printf("min_ceiling(x %d, y %d) min_floor(x %d, y %d) diff_ceiling(x %d, y %d) diff_floor(x %d, y %d)\n", wall->minx_ceiling, wall->miny_ceiling, wall->minx_floor, wall->miny_floor, wall->diffx_ceiling, wall->diffy_ceiling, wall->diffx_floor, wall->diffy_floor);
 }
 
 int		ft_print_wall(t_main *s, t_walls *wall)
@@ -512,14 +519,15 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	vs->right_ceiling_limit.y = (HEIGHT / 2) - r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
-	{
-	// printf("---- TEST VALEUR ----\n");
+
+	// printf("\033[32m---- TEST VALEUR (vs) ----\n");
+	// printf("swich = %d\n", swich);
 	// printf("width_wall = %.1f\n", width_wall);
 	// printf("LEFT  -      floor(%d, %d)   ceiling(%d, %d)\n", vs->left_floor_limit.x, vs->left_floor_limit.y, vs->left_ceiling_limit.x, vs->left_ceiling_limit.y);
-	// printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n", vs->right_floor_limit.x, vs->right_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y);
+	// printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n\033[0m", vs->right_floor_limit.x, vs->right_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y);
 	// if (swich == 3)
 	// 	printf("\n\n\n");
-	}
+
 }
 
 void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
