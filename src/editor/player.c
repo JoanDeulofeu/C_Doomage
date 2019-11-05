@@ -22,6 +22,9 @@ void	rotate_player(t_main *s, const Uint8 *keys)
 		angle = s->player.angle + (keys[RIGHT_NUM] - keys[LEFT_NUM])
 			* ROTATE_SPEED / 10 + 360;
 		s->player.angle = (int)angle % 360;
+		s->player.abs_angle = (int)(s->player.abs_angle + (keys[RIGHT_NUM] - keys[LEFT_NUM])
+			* ROTATE_SPEED / 10 + 360) % 360;
+			// printf("angle = %f, abs_angle = %f\n", s->player.angle, s->player.abs_angle);
 	}
 }
 
@@ -66,6 +69,7 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 {
 	t_dpos	target;
 	double	speed;
+	int		col;
 
 	speed = move_speed * move_speed * 0.03;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
@@ -78,12 +82,14 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)), BLUE);
 	// update_image(s, s->sdl->editor);
 	//Si is_colliding renvoie -1, il y a collision, si il renvoie plus que 0 il faut se tp
-	if (handle_sector_zero(s) == 0 && is_colliding(s) == 0)
+	if ((col = is_colliding(s, target)) == 0)
 	{
+		if (handle_sector_zero(s))
+			return ;
 		s->player.r_pos.x = target.x;
 		s->player.r_pos.y = target.y;
 	}
-	if (is_colliding(s) > 0)
+	if (col > 0)
 		teleport_player(s, keys);
 }
 

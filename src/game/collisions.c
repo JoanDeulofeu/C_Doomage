@@ -85,25 +85,54 @@ int		handle_sector_zero(t_main *s)
 	return (0);
 }
 
-int			is_colliding(t_main *s)
+int			check_col(t_main *s, t_dpos haut, t_dpos bas)
 {
-	int			id;
+	int id;
 	t_sector	*sct;
 	t_int		*wall;
 
-	if (ft_is_in_sector(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)))!= s->player.sector_id)
+	id = ft_find_wall2(s, haut, bas, 0x37f3ffff, s->player.sector_id);
+	if (id != 0)
 	{
-
-		id = ft_find_wall2(s, s->player.m_pos, s->col_pos, 0x37f3ffff,
-			s->player.sector_id);
-		// printf("id = %d\n", id);
-		if (id == 0)
-			return (0);
 		sct = get_sector_by_id(s, s->player.sector_id);
 		wall = get_t_int_by_vertex_id(sct->vertex, id);
-		// printf("wall value = %d\n", wall->wall_value);
-		// if (wall->wall_value == -1)
 		return (wall->wall_value);
 	}
+	else
+		return (0);
+}
+
+int			is_colliding(t_main *s, t_dpos target)
+{
+	int			id;
+	// t_sector	*sct;
+	// t_int		*wall;
+	t_dpos		haut;
+	t_dpos		bas;
+	int			value;
+
+	target = ft_pos_to_dpos(get_px_r_pos(s, target));
+	// value = (s->editor->anchor_size / 1.2);
+	value = (s->editor->anchor_size / 1.2) * (s->editor->space / G_SPACE);
+	haut = target;
+	bas = target;
+	haut.x = target.x + value;
+	bas.x = target.x - value;
+	if ((id = (check_col(s, haut, bas))) != 0)
+		return (id);
+	haut = target;
+	bas = target;
+	haut.y = target.y - value;
+	bas.y = target.y + value;
+	if ((id = (check_col(s, haut, bas))) != 0)
+		return (id);
+	haut.x = target.x - value;
+	bas.x = target.x + value;
+	if ((id = (check_col(s, haut, bas))) != 0)
+		return (id);
+	haut.x = target.x + value;
+	bas.x = target.x - value;
+	if ((id = (check_col(s, haut, bas))) != 0)
+		return (id);
 	return (0);
 }

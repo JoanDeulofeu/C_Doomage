@@ -130,6 +130,7 @@ typedef struct				s_player
 	int						y_eye;
 	int						health;
 	double					angle;
+	double					abs_angle;
 	int						height;
 	t_anim					weapon;
 	t_time					t;
@@ -499,7 +500,7 @@ void						display_hud(t_main *s, int i, int j);
 void						shoot(t_main *s, int press);
 void						display_crosshair(t_main *s, int i, int j);
 void						draw_weapon2(t_main *s, int i, int j);
-int							is_colliding(t_main *s);
+int							is_colliding(t_main *s, t_dpos target);
 
 /*
 ****	Fonction de sauvegarde

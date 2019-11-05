@@ -129,7 +129,7 @@ void		ft_visu_joan(t_main *s, const unsigned char *keys)
 
 	ft_bzero(&vs, sizeof(t_visu));
 	(void)keys;
-	print_player_values(s);
+	// print_player_values(s);
 	player = s->player.m_pos;
 
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);

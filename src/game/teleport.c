@@ -93,8 +93,8 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
 	// 	s->player.pos = get_direction(s, keys, 1, s->player.pos);
 	//On le bouge legerement et on verifie qu'il n'est pas coince
-	if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
-		ft_move_player(s, keys, 1);
+	// if (keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN])
+	// 	ft_move_player(s, keys, 1);
 	handle_sector_zero(s);
 	// printf("sortie\n");
 }

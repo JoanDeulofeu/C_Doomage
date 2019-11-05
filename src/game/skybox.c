@@ -7,17 +7,20 @@ void			display_sky(t_main *s)
 	t_pos		coord;
 	int			px;
 	double		value;
+	int j;
 
-	value = s->skybox->w / 360;
-	value = value * (s->player.angle);
-	coord.x = -1;
+	value = (s->skybox->w * s->player.angle) / 360;
+	coord.x = 0;
 	while (coord.x++ < WIDTH)
 	{
+		j = 0;
 		coord.y = -1;
-		perx = (double)(coord.x - value) / (double)WIDTH;
-		while (coord.y++ < HEIGHT)
+		perx = (double)(coord.x - value) / (double)s->skybox->w;
+		while (j < HEIGHT)
 		{
+			coord.y = j++;
 			pery = (double)coord.y / (double)HEIGHT;
+			coord.y -= HEIGHT / 2 - ((s->player.y_eye + s->player.eyesight));
 			px = (int)(pery * (double)s->skybox->h) * s->skybox->w + (int)
 				(perx * (double)s->skybox->w);
 			if (px >= 0 && px < s->skybox->w * s->skybox->h)

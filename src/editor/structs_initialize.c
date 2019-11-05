@@ -182,7 +182,8 @@ t_main		*initialize_main(char *str)
 	s->intersect2.x = 0;
 	s->intersect2.y = 0;
 
-	s->player.angle = 180;
+	s->player.abs_angle = 180;
+	s->player.angle = s->player.abs_angle;
 	s->player.sector_id = 0;
 	s->player.sector = NULL;
 	s->display_mode = 0;
