@@ -252,7 +252,7 @@ void		handle_editor_keys(t_main *s)
 		draw_sprite(s);
 		// draw_hud(s);
 		// print_hp(s);
-		ft_nul(s);
+		// ft_nul(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)
