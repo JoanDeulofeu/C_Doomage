@@ -47,10 +47,13 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 {
 	coord.y = ft_draw_ceiling(s, wall, coord);
 
-	while (coord.y++ < end)
-	{
-		set_pixel(s->sdl->game, color, coord);
-	}
+	if (wall->wall_or_portal == 'w')
+		while (coord.y++ < end)
+		{
+			set_pixel(s->sdl->game, color, coord);
+		}
+
+	coord.y = end - 1;
 
 	ft_draw_floor(s, wall, coord);
 }
@@ -218,6 +221,9 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 
 		ft_limit_ceiling_floor(s, fake_player, wall1, wall2, &fake_vs, 1);
 
+		fake_vs.player = fake_player;
+		ft_create_new_wall(s, vtx, vs, 'p');
+
 		if (s->portal_nb < PORTAL_LIMIT)
 			add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
 	}
@@ -301,10 +307,8 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 
 			ft_limit_ceiling_floor(s, fake_player, wall1, wall2, &fake_vs, 2);
 
-			{ //joan
-				fake_vs.player = fake_player;
-				ft_create_new_wall(s, vtx, vs, 'p');
-			}
+			fake_vs.player = fake_player;
+			ft_create_new_wall(s, vtx, vs, 'p');
 
 			if (s->portal_nb < PORTAL_LIMIT)
 				add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
@@ -383,6 +387,9 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 		}
 
 		ft_limit_ceiling_floor(s, fake_player, wall1, wall2, &fake_vs, 3);
+
+		fake_vs.player = fake_player;
+		ft_create_new_wall(s, vtx, vs, 'p');
 
 		if (s->portal_nb < PORTAL_LIMIT)
 			add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
