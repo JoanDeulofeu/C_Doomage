@@ -9,22 +9,24 @@ void			display_sky(t_main *s)
 	double		value;
 	int j;
 
-	value = (s->skybox->w * s->player.angle) / 360;
+	value = (s->skybox->w * 2 * s->player.abs_angle) / 360;
 	coord.x = 0;
 	while (coord.x++ < WIDTH)
 	{
 		j = 0;
 		coord.y = -1;
 		perx = (double)(coord.x - value) / (double)s->skybox->w;
-		while (j < HEIGHT)
+		while (coord.y < HEIGHT)
 		{
-			coord.y = j++;
-			pery = (double)coord.y / (double)HEIGHT;
-			coord.y -= HEIGHT / 2 - ((s->player.y_eye + s->player.eyesight));
+			perx = (double)(coord.x - value)  / ((double)s->skybox->w * 2);
+			pery = ((double)coord.y - s->player.y_eye + HEIGHT * 1.3) / ((double)HEIGHT * 2.5);
+			pery = pery > 1.0 ? 1.0 : pery;
+			pery = pery < 0.0 ? 0.0 : pery;
 			px = (int)(pery * (double)s->skybox->h) * s->skybox->w + (int)
 				(perx * (double)s->skybox->w);
 			if (px >= 0 && px < s->skybox->w * s->skybox->h)
 				set_pixel(s->sdl->game, s->skybox->tex[px], coord);
+			coord.y++;
 		}
 	}
 }
