@@ -239,12 +239,13 @@ void		handle_editor_keys(t_main *s)
 	if (s->display_mode == game)
 	{
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
+		display_sky(s);
 		display_map(s);
 
 
 		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
-		// display_sky(s);
+
 		play_anim(s);
 		//	sprite_move(s);
 		health(s);
