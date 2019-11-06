@@ -10,7 +10,6 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	int			px;
 
 	begin = coord.y;
-	// printf("player angle = %f\n", s->player.abs_angle);
 	if (wall->diffx_ceiling == 0)
 		wall->diffx_ceiling = 1;
 	pct = ((coord.x - wall->minx_ceiling) * 100) / wall->diffx_ceiling; // attention div par zero possible
@@ -23,16 +22,6 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 
 	while (coord.y < begin)
 	{
-		// perx = (double)(coord.x - value)  / ((double)s->skybox->w * 2);
-		// pery = ((double)coord.y - s->player.y_eye + HEIGHT * 1.3) / ((double)HEIGHT * 2.5);
-		// pery = pery > 1.0 ? 1.0 : pery;
-		// pery = pery < 0.0 ? 0.0 : pery;
-		// coord.y -= HEIGHT / 2 - ((s->player.y_eye + s->player.eyesight));
-		// px = (int)(pery * (double)s->skybox->h) * s->skybox->w + (int)
-		// 	(perx * (double)s->skybox->w);
-		// if (px >= 0 && px < s->skybox->w * s->skybox->h)
-		// 	set_pixel(s->sdl->game, s->skybox->tex[px], coord);
-		// set_pixel(s->sdl->game, 0x485050ff, coord);
 		coord.y++;
 	}
 	return (coord.y - 1);
