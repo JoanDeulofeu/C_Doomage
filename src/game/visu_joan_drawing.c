@@ -119,7 +119,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	return (coord.x);
 }
 
-t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
+t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 {
 	t_walls		*wall;
 	int			dist;
@@ -128,6 +128,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 
 	if (!(wall = (t_walls*)malloc(sizeof(t_walls))))
 		handle_error(s, MALLOC_ERROR);
+	wall->wall_or_portal = w_or_p;
 	wall->next = NULL;
 	wall->prev = NULL;
 	wall->player = vs->player;
@@ -136,8 +137,6 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 	right.x = vtx->next->ptr->x * METRE;
 	right.y = vtx->next->ptr->y * METRE;
 
-
-	// printf("vs->left_point.x = %f, vs->left_point.y = %f\n", vs->left_point.x, vs->left_point.y);
 	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
 	if (dist > 0)
 		wall->left = s->tmp_intersect;
@@ -145,45 +144,34 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs)
 		wall->left = left;
 	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->l_plan = s->tmp_intersect;
-	// printf("pour print: left(%.1f, %.1f), player(%.1f, %.1f)", wall->left.x, wall->left.y, vs->player.x, vs->player.y);
-	// printf(" et leftplan(%.1f, %.1f), rightplan(%.1f, %.1f)\n", vs->left_plan.x, vs->left_plan.y, vs->right_plan.x, vs->right_plan.y);
 	if (dist > 0 && !s->walls)
 		wall->x = 0;
 	else
 		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
+
 	dist = ft_find_intersection(s, vs->right_point, vs->player, left, right, 1);
+
 	if (dist > 0)
-	{
 		wall->right = s->tmp_intersect;
-	}
 	else
 		wall->right = right;
+
 	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->r_plan = s->tmp_intersect;
+
 	wall->distance = fabs(vs->player.x - wall->left.x)
 		+ fabs(vs->player.y - wall->left.y)
 		+ fabs(vs->player.x - wall->right.x)
 		+ fabs(vs->player.y - wall->right.y);
+
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
 	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
-	{
-		// if (wall->r_plan.x >= 0 && wall->r_plan.x <= WIDTH &&
-		// wall->r_plan.y >=0 && wall->r_plan.y <= HEIGHT && wall->l_plan.x >= 0
-		// && wall->l_plan.x <= WIDTH && wall->l_plan.y >=0
-		// && wall->l_plan.y <= HEIGHT )
 		add_wall_to_list(s, wall);
-	}
-	else
-	{
-		// printf("Mur[%d] caché\n", vtx->ptr->id);
-	}
+
 	wall->left_ceiling_limit = vs->left_ceiling_limit;
 	wall->left_floor_limit = vs->left_floor_limit;
 	wall->right_ceiling_limit = vs->right_ceiling_limit;
 	wall->right_floor_limit = vs->right_floor_limit;
-	// printf("---- TEST VALEUR (wall) ----\n");
-	// printf("LEFT  -      floor(%d, %d)   ceiling(%d, %d)\n", wall->left_floor_limit.x, wall->left_floor_limit.y, wall->left_ceiling_limit.x, wall->left_ceiling_limit.y);
-	// printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n", wall->right_floor_limit.x, wall->right_floor_limit.y, wall->right_ceiling_limit.x, wall->right_ceiling_limit.y);
 	return (wall);
 }
 
@@ -197,31 +185,26 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	double	demi_fov;
 	t_dpos	wall1;
 	t_dpos	wall2;
-	// printf("vtx->ptr->id = %d, vs->sct_id = %d\n",vtx->ptr->id, vs->sct_id);
+
 	if (vtx->wall_value != -1)
 	{
 		fake_angle = 0;
 		fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
-		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
-		// printf("player angle = %f, fake angle = %f\n",s->player.angle, fake_angle);
 		if (s->portal_nb == 0)
 		{
 			s->fplayer_pos = fake_player;
 			s->fplayer_angle = fake_angle;
 			s->fplayer_sct = vtx->sct_dest;
-			// printf("fplayer_pos.y = %f\n", s->fplayer_pos.y);
 		}
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-		// printf("sct dest = %d\n", vtx->sct_dest);
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		if (fake_vs.vtx_droite == NULL)
 			handle_error(s, POINTER_ERROR);
 		fake_vs.vtx_gauche = vtx->vtx_dest->next;
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 			fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-		// printf("demi_fov = %f\n",demi_fov);
 		angle_left = fake_angle + demi_fov;
 		angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
 		angle_right = fake_angle - demi_fov;
@@ -231,9 +214,7 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
 		wall2.x = vtx->vtx_dest->ptr->x * METRE;
 		wall2.y = vtx->vtx_dest->ptr->y * METRE;
-		// printf("wall1 (%f;%f), wall2(%f, %f)\n", wall1.x, wall1.y, wall2.x, wall2.y);
 		ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
-		// ft_find_wall2(s, fake_player, fake_vs.left_point, 0x37f3ffff, fake_vs.sct_id);
 		if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point,
 			fake_player, 1)) == 0)
 		{
@@ -262,8 +243,7 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		vs->begin.y = vtx->ptr->y * METRE;
 		vs->tmp_wall.x = vtx->next->ptr->x * METRE;
 		vs->tmp_wall.y = vtx->next->ptr->y * METRE;
-		ft_create_new_wall(s, vtx, vs);
-		// ft_limit_ceiling_floor(s, vs->player, vs->begin, vs->tmp_wall, vs, 1);
+		ft_create_new_wall(s, vtx, vs, 'w');
 	}
 }
 
@@ -334,13 +314,16 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			}
 			else
 				fake_vs.end = s->tmp_intersect;
-			// printf("begin wall ID PORTAAAAL = %d\n",fake_vs.begin_wall->ptr->id );
 
 			ft_limit_ceiling_floor(s, fake_player, wall1, wall2, &fake_vs, 2);
 
+			{ //joan
+				fake_vs.player = fake_player;
+				ft_create_new_wall(s, vtx, vs, 'p');
+			}
+
 			if (s->portal_nb < PORTAL_LIMIT)
 				add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
-			// vtx = vtx_ori->next;
 		}
 		else
 		{
@@ -348,8 +331,7 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			vs->begin.y = vtx->ptr->y * METRE;
 			vs->tmp_wall.x = vtx->next->ptr->x * METRE;
 			vs->tmp_wall.y = vtx->next->ptr->y * METRE;
-			ft_create_new_wall(s, vtx, vs);
-			// ft_limit_ceiling_floor(s, vs->player, vs->begin, vs->tmp_wall, vs, 2);
+			ft_create_new_wall(s, vtx, vs, 'w');
 		}
 		vtx = vtx->next;
 	}
@@ -366,7 +348,6 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 	double	demi_fov;
 	t_dpos	wall1;
 	t_dpos	wall2;
-	t_walls	*wall;
 
 	if (vtx->wall_value != -1)
 	{
@@ -429,8 +410,7 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 		vs->tmp_wall.x = vtx->next->ptr->x * METRE;
 		vs->tmp_wall.y = vtx->next->ptr->y * METRE;
 		ft_find_intersection(s, vs->begin, vs->player, vs->left_plan, vs->right_plan, 1);
-		wall = ft_create_new_wall(s, vtx, vs);
-		// ft_limit_ceiling_floor(s, vs->player, vs->begin, vs->tmp_wall, vs, 3);
+		ft_create_new_wall(s, vtx, vs, 'w');
 	}
 }
 void	ft_init_diff_and_min(t_walls *wall)
