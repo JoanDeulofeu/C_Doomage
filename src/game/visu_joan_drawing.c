@@ -4,11 +4,8 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 {
 	int			begin;
 	double		pct;
-	double		perx;
-	double		pery;
-	double		value;
-	int			px;
 
+	(void)s;
 	begin = coord.y;
 	if (wall->diffx_ceiling == 0)
 		wall->diffx_ceiling = 1;
