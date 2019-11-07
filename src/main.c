@@ -15,6 +15,9 @@ int main (int argc, char **argv)
 	(void)argv;
 	t_main *s;
 
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)
+		== -1)
+		ft_putstr(Mix_GetError());
 	if (!argv[1])
 		s = initialize_main(NULL);
 	else
@@ -25,14 +28,15 @@ int main (int argc, char **argv)
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0, 0, 0);
 	// get_grid_tab(s);
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)
-		== -1)
-		ft_putstr(Mix_GetError());
 	if (!handle_menu(s))
 		handle_error(s, 0);
-	display_map(s);
+	if (s->menu.current == 2)
+		launch_editor(s);
+	else
+		launch_game(s);
+	// display_map(s);
 	// ft_test_float();
-	editor_handler(s);
+	// editor_handler(s);
 	Mix_HaltMusic();
 	Mix_CloseAudio();
 	SDL_Quit();

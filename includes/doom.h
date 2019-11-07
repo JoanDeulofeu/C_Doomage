@@ -44,6 +44,12 @@ typedef struct				s_fix_pos {
 	Uint32					y;
 }							t_fix_pos;
 
+typedef	struct				s_sounds
+{
+	Mix_Chunk				*shot;
+	Mix_Chunk				*select;
+}							t_sounds;
+
 typedef struct				s_ttf {
 	SDL_Rect				pos;
 	char					*str;
@@ -198,6 +204,7 @@ typedef struct				s_walls {
 	int						miny_ceiling;
 	int						minx_floor;
 	int						miny_floor;
+	t_image					*image;
 	struct s_walls			*prev;
 	struct s_walls			*next;
 }							t_walls;
@@ -228,7 +235,7 @@ typedef struct				s_sdl {
 	t_texture				*save; //ecran de sauvegarde
 	int						x_o;
 	int						y_o;
-	// t_sounds				sounds;
+	t_sounds				sounds;
 	Mix_Music				*musique;
 }							t_sdl;
 
@@ -266,7 +273,7 @@ typedef struct				s_main {
 	t_display_mode			display_mode;
 	int						viewline;
 	int						proj_distance;
-	t_image					*menu;
+	t_anim					menu;
 	t_image					*interface;
 	t_image					*skybox;
 	t_slider				slider;
@@ -332,7 +339,13 @@ void						ft_error_ttf(char *str);
 ****	Fonction du menu principal
 */
 int							handle_menu(t_main *s);
-
+void 						launch_game(t_main *s);
+void 						launch_editor(t_main *s);
+/*
+****	Fonction des sons
+*/
+void						create_sounds(t_sdl *sdl);
+void						play_music(t_main *s);
 /*
 ****	Fonction de l'editeur
 */
@@ -575,7 +588,8 @@ void						display_sprite_inverse(t_main *s, double angle,
 
 void						free_sprite(t_main *s);
 void						free_lsprite(t_main *s);
-void						free_anim(t_lanim *anim);
+void						free_anim(t_anim anim);
+void						free_lanim(t_lanim *anim);
 
 void						remove_sprite_by_id(t_main *s, int id);
 void						remove_sprite_by_select(t_main *s);

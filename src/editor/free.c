@@ -8,7 +8,16 @@ void	free_image(t_image *img)
 	ft_memdel((void **)&img);
 }
 
-void	free_anim(t_lanim *anim) // A TESTER
+void	free_anim(t_anim anim)
+{
+	int	i;
+
+	i = -1;
+	while (anim.image[++i] != NULL)
+		free_image(anim.image[i]);
+}
+
+void	free_lanim(t_lanim *anim) // A TESTER
 {
 	int	i;
 
@@ -30,7 +39,7 @@ void	free_lsprite(t_main *s)
 		if (tmp->img != NULL)
 			free_image(tmp->img);
 		if (tmp->anim != NULL)
-			free_anim(tmp->anim);
+			free_lanim(tmp->anim);
 		ft_memdel((void **)&tmp);
 	}
 }
@@ -93,7 +102,7 @@ void	free_images(t_main *s)
 	// free_image(s->door);
 	// free_image(s->interface);
 	// free_image(s->win);
-	free_image(s->menu);
+	free_anim(s->menu);
 	// free_image(s->coupe);
 }
 

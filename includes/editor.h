@@ -22,6 +22,7 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 # define LONG_MAX 9223372036854775807
+# define DEF_TEX "images/textures/01.tga"
 
 # define FILE_ERROR 1
 # define SIZE_ERROR 2
@@ -192,6 +193,7 @@ typedef struct			s_int {
 	int					sct;
 	int					sct_dest;
 	int					wall_value;
+	t_image				*image;
 	struct s_int		*vtx_dest;
 	struct s_int		*next;
 	struct s_int		*prev;

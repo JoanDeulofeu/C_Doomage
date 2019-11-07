@@ -5,8 +5,10 @@ SRC_PATH = src
 SRC_NAME =	main.c						\
 			ttf.c						\
 			menu.c						\
+			sounds.c					\
 			debug.c						\
 			save_map.c					\
+			editor/editor_launcher.c	\
 			editor/controls.c			\
 			editor/actions.c			\
 			editor/selected.c			\
@@ -39,6 +41,7 @@ SRC_NAME =	main.c						\
 			editor/list_utils.c			\
 			editor/polygon_center.c		\
 			editor/sector_sens.c		\
+			game/game_launcher.c		\
 			game/visu_joan.c			\
 			game/visu_portal.c			\
 			game/visu_joan_drawing.c	\

@@ -1,5 +1,35 @@
 #include "doom.h"
 
+void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
+{
+	double		perx;
+	double		pery;
+	int			px;
+	double		value;
+	int j;
+
+	value = (wall->image->w * s->player.angle);
+	// coord.x = 0;
+	j = coord.y;
+	// coord.y = -1;
+	perx = (double)(coord.x - value) / (double)wall->image->w;
+	while (j < end && j < HEIGHT)
+	{
+		if (coord.y > wall->image->h)
+			coord.y =
+		perx = (double)(coord.x - value)  / ((double)wall->image->w * 2);
+		pery = ((double)coord.y - s->player.y_eye);
+		pery = pery > 1.0 ? 1.0 : pery;
+		pery = pery < 0.0 ? 0.0 : pery;
+		px = (int)(pery * (double)wall->image->h) * wall->image->w + (int)
+			(perx * (double)wall->image->w);
+		if (px >= 0 && px < wall->image->w * wall->image->h)
+			set_pixel(s->sdl->game, wall->image->tex[px], coord);
+		coord.y++;
+		j++;
+	}
+}
+
 int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 {
 	int			begin;
@@ -48,11 +78,17 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 	coord.y = ft_draw_ceiling(s, wall, coord);
 
 	if (wall->wall_or_portal == 'w')
-		while (coord.y++ < end)
-		{
-			set_pixel(s->sdl->game, color, coord);
-		}
-
+	{
+		// if (wall->image)
+		// 	draw_texture(s, wall, coord, end);
+		// else
+		// {
+			while (coord.y++ < end)
+			{
+				set_pixel(s->sdl->game, color, coord);
+			}
+		// }
+	}
 	coord.y = end - 1;
 
 	ft_draw_floor(s, wall, coord);
@@ -118,6 +154,9 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	wall->wall_or_portal = w_or_p;
 	wall->next = NULL;
 	wall->prev = NULL;
+	wall->image = NULL;
+	if (vtx->image)
+		wall->image = vtx->image;
 	wall->player = vs->player;
 	left.x = vtx->ptr->x * METRE;
 	left.y = vtx->ptr->y * METRE;

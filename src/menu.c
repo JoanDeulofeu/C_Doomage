@@ -1,5 +1,6 @@
 #include "doom.h"
 
+
 void	display_menu(t_main *s, int i, int j)
 {
 	double		perx;
@@ -18,27 +19,41 @@ void	display_menu(t_main *s, int i, int j)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (double)HEIGHT;
-			px = (int)(pery * (double)s->menu->h) * s->menu->w + (int)
-			(perx * (double)s->menu->w);
-			if (px >= 0 && px < s->menu->w * s->menu->h)
-				set_pixel(s->sdl->game, s->menu->tex[px], coord);
+			px = (int)(pery * (double)s->menu.image[s->menu.current]->h) * s->menu.image[s->menu.current]->w + (int)
+			(perx * (double)s->menu.image[s->menu.current]->w);
+			if (px >= 0 && px < s->menu.image[s->menu.current]->w * s->menu.image[s->menu.current]->h)
+				set_pixel(s->sdl->game, s->menu.image[s->menu.current]->tex[px], coord);
 		}
 		i++;
 	}
 	update_image(s, s->sdl->game);
 }
 
-void	play_music(t_main *s)
+void	select_game_mode(t_main *s, int key)
 {
-	s->sdl->musique = Mix_LoadMUS("musics/menu.wav");
-	if (s->sdl->musique == NULL)
-		ft_putstr("Error : music not loaded\n");
-	else
-		Mix_PlayMusic(s->sdl->musique, -1);
+	if (key == SDLK_a)
+	{
+		if (s->menu.current == 0 || s->menu.current == 2)
+			s->menu.current = 1;
+		else if (s->menu.current == 1)
+			s->menu.current = 2;
+	}
+	if (key == SDLK_d)
+	{
+		if (s->menu.current == 0 || s->menu.current == 1)
+			s->menu.current = 2;
+		else if (s->menu.current == 2)
+			s->menu.current = 1;
+	}
+	Mix_PlayChannel(2, s->sdl->sounds.select, 0);
+	if(s->sdl->sounds.select == NULL)
+		printf("true\n");
+	display_menu(s, 0, 0);
 }
 
 int		handle_menu(t_main *s)
 {
+	int key;
 	play_music(s);
 	display_menu(s, 0, 0);
 	while (1)
@@ -48,10 +63,15 @@ int		handle_menu(t_main *s)
 			return (0);
 		else if (s->sdl->event.type == SDL_KEYDOWN)
 		{
-			if (s->sdl->event.key.keysym.sym == SDLK_RETURN
+			key = s->sdl->event.key.keysym.sym;
+			if (key == SDLK_RETURN
 				|| s->sdl->event.key.keysym.sym == SDLK_KP_ENTER)
 				break ;
-			else if (s->sdl->event.key.keysym.sym == SDLK_ESCAPE)
+			else if(key == SDLK_a || key == SDLK_d)
+			{
+				select_game_mode(s, key);
+			}
+			else if (key == SDLK_ESCAPE)
 				return (0);
 		}
 		else

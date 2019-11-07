@@ -60,7 +60,7 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 	// sdl->x_o = WIDTH / 2 - ((SPACE * s->width) / 2);
 	// sdl->y_o = HEIGHT / 2 - ((SPACE * s->height) / 2);
 	sdl->musique = NULL;
-	// create_sounds(sdl);
+	create_sounds(sdl);
 	// if (s->interface->h > HEIGHT * 0.3)
 	// 	s->interface->h = HEIGHT * 0.3;
 	// if (s->interface->h > WIDTH)
@@ -76,7 +76,14 @@ void		load_images(t_main *s)
 {
 	int	i;
 
-	i = 6;
+	i = 0;
+	while (i < 15)
+	{
+		s->editor->menu.image[i] = NULL;
+		s->player.weapon.image[i] = NULL;
+		s->editor->m_floor.image[i++] = NULL;
+		s->menu.image[i] = NULL;
+	}
 	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
 	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
 	s->editor->menu.image[2] = load_tga("images/sector.tga", 0, 0, 0);
@@ -86,7 +93,10 @@ void		load_images(t_main *s)
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
 
-	s->menu = load_tga("images/menu.tga", 0, 0, 0);
+	s->menu.image[0] = load_tga("images/menu.tga", 0, 0, 0);
+	s->menu.image[1] = load_tga("images/play.tga", 0, 0, 0);
+	s->menu.image[2] = load_tga("images/editor.tga", 0, 0, 0);
+	s->menu.current = 0;
 	s->savemap->croix_rouge = load_tga("images/croix_rouge.tga", 0, 0, 0);
 
 	s->player.weapon.image[1] = load_tga("images/shotgun1.tga", 0, 0, 0);
@@ -103,12 +113,6 @@ void		load_images(t_main *s)
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
-	while (i < 15)
-	{
-		s->editor->menu.image[i] = NULL;
-		s->player.weapon.image[i] = NULL;
-		s->editor->m_floor.image[i++] = NULL;
-	}
 	s->lsprite = create_lsprite(s, 7);
 }
 
