@@ -48,6 +48,7 @@ typedef	struct				s_sounds
 {
 	Mix_Chunk				*shot;
 	Mix_Chunk				*select;
+	Mix_Chunk				*explode;
 }							t_sounds;
 
 typedef struct				s_ttf {
@@ -275,7 +276,7 @@ typedef struct				s_main {
 	int						proj_distance;
 	t_anim					menu;
 	t_image					*interface;
-	t_image					*skybox;
+	t_anim					skybox;
 	t_slider				slider;
 	short					fov;
 	t_sprite				*sprite;
@@ -645,6 +646,7 @@ void						sprite_walk(t_sprite *cur);
 void						dying(t_main *s, t_sprite *cur);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void						set_orientation(t_main *s, t_sprite *cur);
+void 						destroy_planet(t_main *s);
 
 t_lanim						*get_anim_by_id(t_main *s, int id);
 

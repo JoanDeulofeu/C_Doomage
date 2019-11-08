@@ -2,32 +2,69 @@
 
 void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 {
-	double		perx;
 	double		pery;
-	int			px;
-	double		value;
-	int j;
+	double		perx;
+	int			px_tex;
+	double		diff;
+	double		base_y;
+	double 		dist;
+	t_dpos		wall_lenght;
+	int			i;
+	int			nb_tex_x; //nb de textures a afficher en x
+	int			nb_tex_y; //nb de textures a afficher en x
 
-	value = (wall->image->w * s->player.angle);
-	// coord.x = 0;
-	j = coord.y;
-	// coord.y = -1;
-	perx = (double)(coord.x - value) / (double)wall->image->w;
-	while (j < end && j < HEIGHT)
+	i = 0;
+	base_y = coord.y;
+	wall_lenght.x = fabs(wall->right.x - wall->left.x);
+	wall_lenght.y = end - coord.y;
+	nb_tex_x = ceil(wall_lenght.x / METRE); //on arrondit au superieur
+	nb_tex_y = ceil(wall_lenght.y / METRE);
+	printf("wall_right.x (%f), wall_left.x (%f)\n", wall->right.x, wall->left.x);
+	printf("wall_lenght = x(%f) y(%f)\n", wall_lenght.x, wall_lenght.y);
+	printf("nb_tex = x(%d) y(%d)\n", nb_tex_x, nb_tex_y);
+
+	while (i < nb_tex_x)
 	{
-		if (coord.y > wall->image->h)
-			coord.y =
-		perx = (double)(coord.x - value)  / ((double)wall->image->w * 2);
-		pery = ((double)coord.y - s->player.y_eye);
-		pery = pery > 1.0 ? 1.0 : pery;
-		pery = pery < 0.0 ? 0.0 : pery;
-		px = (int)(pery * (double)wall->image->h) * wall->image->w + (int)
-			(perx * (double)wall->image->w);
-		if (px >= 0 && px < wall->image->w * wall->image->h)
-			set_pixel(s->sdl->game, wall->image->tex[px], coord);
-		coord.y++;
-		j++;
+		if (wall->left.x + METRE * i > wall->x)
+		{
+			perx = (wall->x - wall->left.x) / ((wall->left.x + METRE * i) - wall->left.x);
+		}
+		i++;
 	}
+	i = 0;
+	while (coord.y < HEIGHT && coord.y < end)
+	{
+		pery = (coord.y - base_y) / ((base_y + METRE * i) - base_y);
+		px_tex = (int)(pery * wall->image->h) * wall->image->w + (perx * wall->image->w);
+		if (px_tex >= 0 && px_tex < wall->image->h * wall->image->w)
+			set_pixel(s->sdl->game, wall->image->tex[px_tex], coord);
+		coord.y++;
+		i = coord.y - base_y / METRE;
+	}
+
+	// perx = (ray.orientation == 'N' || ray.orientation == 'S') ? (ray.dpos.x
+	// 		- (int)ray.dpos.x) : (ray.dpos.y - (int)ray.dpos.y);
+	// dist = wall->distance;
+	// dist = dist > 14 ? 14 : dist;
+	// dist = dist > 6 ? dist - (dist - 6) * 0.6 : dist;
+	// dist = 1 - (dist * 0.125);
+	// diff = end - coord.y;
+	// pery = 0;
+	// perx = 0;
+	//
+	// while (coord.y < HEIGHT && coord.y < end)
+	// {
+	// 	if (pery == 0 || (int)((coord.y - base_y) / diff
+	// 		* wall->image->h) > (pery * wall->image->h))
+	// 	{
+	// 		pery = (double)(coord.y - end) / diff;
+	// 		px_tex = (int)(pery * wall->image->h) * wall->image->w + (perx * wall->image->w);
+	// 		if (px_tex >= 0 && px_tex < wall->image->h * wall->image->w)
+	// 			sl.color = wall->image->tex[px_tex];
+	// 	}
+	// 	set_pixel(s->sdl->game, wall->image->tex[px_tex], coord);
+	// 	coord.y++;
+	// }
 }
 
 int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
@@ -79,15 +116,15 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 
 	if (wall->wall_or_portal == 'w')
 	{
-		// if (wall->image)
-		// 	draw_texture(s, wall, coord, end);
-		// else
-		// {
+		if (wall->image)
+			draw_texture(s, wall, coord, end);
+		else
+		{
 			while (coord.y++ < end)
 			{
 				set_pixel(s->sdl->game, color, coord);
 			}
-		// }
+		}
 	}
 	coord.y = end - 1;
 

@@ -24,6 +24,8 @@ void		handle_game_keys(t_main *s)
 	}
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
+		if (s->skybox.current != 0 && s->skybox.current < 17)
+			destroy_planet(s);
 		display_map(s);
 		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
@@ -61,6 +63,8 @@ void		game_handler(t_main *s)
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
 						shoot(s,1);
+						if (s->skybox.current < 17)
+						destroy_planet(s);
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)

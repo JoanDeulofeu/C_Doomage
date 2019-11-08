@@ -77,12 +77,13 @@ void		load_images(t_main *s)
 	int	i;
 
 	i = 0;
-	while (i < 15)
+	while (i < 18)
 	{
 		s->editor->menu.image[i] = NULL;
 		s->player.weapon.image[i] = NULL;
 		s->editor->m_floor.image[i++] = NULL;
 		s->menu.image[i] = NULL;
+		s->skybox.image[i] = NULL;
 	}
 	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
 	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
@@ -109,7 +110,25 @@ void		load_images(t_main *s)
 	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
-	s->skybox = load_tga("images/skybox_stars.tga", 0, 0, 0);
+	s->skybox.image[0] = load_tga("images/skybox_00.tga", 0, 0, 0);
+	s->skybox.image[1] = load_tga("images/skybox_01.tga", 0, 0, 0);
+	s->skybox.image[2] = load_tga("images/skybox_02.tga", 0, 0, 0);
+	s->skybox.image[3] = load_tga("images/skybox_03.tga", 0, 0, 0);
+	s->skybox.image[4] = load_tga("images/skybox_04.tga", 0, 0, 0);
+	s->skybox.image[5] = load_tga("images/skybox_05.tga", 0, 0, 0);
+	s->skybox.image[6] = load_tga("images/skybox_06.tga", 0, 0, 0);
+	s->skybox.image[7] = load_tga("images/skybox_07.tga", 0, 0, 0);
+	s->skybox.image[8] = load_tga("images/skybox_08.tga", 0, 0, 0);
+	s->skybox.image[9] = load_tga("images/skybox_09.tga", 0, 0, 0);
+	s->skybox.image[10] = load_tga("images/skybox_10.tga", 0, 0, 0);
+	s->skybox.image[11] = load_tga("images/skybox_11.tga", 0, 0, 0);
+	s->skybox.image[12] = load_tga("images/skybox_12.tga", 0, 0, 0);
+	s->skybox.image[13] = load_tga("images/skybox_13.tga", 0, 0, 0);
+	s->skybox.image[14] = load_tga("images/skybox_14.tga", 0, 0, 0);
+	s->skybox.image[15] = load_tga("images/skybox_15.tga", 0, 0, 0);
+	s->skybox.image[16] = load_tga("images/skybox_16.tga", 0, 0, 0);
+	s->skybox.image[17] = load_tga("images/skybox_17.tga", 0, 0, 0);
+	s->skybox.current = 0;
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
@@ -196,7 +215,6 @@ t_main		*initialize_main(char *str)
 	s->walls = NULL;
 	s->portal_nb = 0;
 	s->interface = NULL;
-	s->skybox = NULL;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);
