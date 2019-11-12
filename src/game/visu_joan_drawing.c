@@ -1,70 +1,33 @@
 #include "doom.h"
 
+int		get_total_w_wall(t_walls *wall)
+{
+	int		dist_screen;
+	int		dist_total;
+	double	perc;
+
+	dist_screen = abs(wall->right.x - wall->left.x);
+	dist_total = abs(wall->r_right.x - wall->r_left.x);
+
+	perc = (dist_screen * 100) / dist_total;
+	return (100 * wall->screen_width_wall / perc);
+}
+
 void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 {
-	double		pery;
-	double		perx;
-	int			px_tex;
-	double		diff;
-	double		base_y;
-	double 		dist;
-	t_dpos		wall_lenght;
-	int			i;
-	int			nb_tex_x; //nb de textures a afficher en x
-	int			nb_tex_y; //nb de textures a afficher en x
+	int		x; //x calculé par rapport a la taille totale du mur fenetré
+	int		y; //x calculé par rapport a la taille totale du mur fenetré
+	double	nb_tex;
+	double	tex_size;
+	int		perx; // pourcentage en x sur la texture.
+	int		pery; // pourcentage en y sur la texture.
 
-	i = 0;
-	base_y = coord.y;
-	wall_lenght.x = fabs(wall->right.x - wall->left.x);
-	wall_lenght.y = end - coord.y;
-	nb_tex_x = ceil(wall_lenght.x / METRE); //on arrondit au superieur
-	nb_tex_y = ceil(wall_lenght.y / METRE);
-	printf("wall_right.x (%f), wall_left.x (%f)\n", wall->right.x, wall->left.x);
-	printf("wall_lenght = x(%f) y(%f)\n", wall_lenght.x, wall_lenght.y);
-	printf("nb_tex = x(%d) y(%d)\n", nb_tex_x, nb_tex_y);
+	x = wall->total_width_wall - wall->screen_width_wall + coord.x;
+	nb_tex = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
+	tex_size = wall->total_width_wall / nb_tex;
+	perx = (x % tex_size) * 100 / tex_size; // on a le pourcentage en x sur la texture
+	pery =
 
-	while (i < nb_tex_x)
-	{
-		if (wall->left.x + METRE * i > wall->x)
-		{
-			perx = (wall->x - wall->left.x) / ((wall->left.x + METRE * i) - wall->left.x);
-		}
-		i++;
-	}
-	i = 0;
-	while (coord.y < HEIGHT && coord.y < end)
-	{
-		pery = (coord.y - base_y) / ((base_y + METRE * i) - base_y);
-		px_tex = (int)(pery * wall->image->h) * wall->image->w + (perx * wall->image->w);
-		if (px_tex >= 0 && px_tex < wall->image->h * wall->image->w)
-			set_pixel(s->sdl->game, wall->image->tex[px_tex], coord);
-		coord.y++;
-		i = coord.y - base_y / METRE;
-	}
-
-	// perx = (ray.orientation == 'N' || ray.orientation == 'S') ? (ray.dpos.x
-	// 		- (int)ray.dpos.x) : (ray.dpos.y - (int)ray.dpos.y);
-	// dist = wall->distance;
-	// dist = dist > 14 ? 14 : dist;
-	// dist = dist > 6 ? dist - (dist - 6) * 0.6 : dist;
-	// dist = 1 - (dist * 0.125);
-	// diff = end - coord.y;
-	// pery = 0;
-	// perx = 0;
-	//
-	// while (coord.y < HEIGHT && coord.y < end)
-	// {
-	// 	if (pery == 0 || (int)((coord.y - base_y) / diff
-	// 		* wall->image->h) > (pery * wall->image->h))
-	// 	{
-	// 		pery = (double)(coord.y - end) / diff;
-	// 		px_tex = (int)(pery * wall->image->h) * wall->image->w + (perx * wall->image->w);
-	// 		if (px_tex >= 0 && px_tex < wall->image->h * wall->image->w)
-	// 			sl.color = wall->image->tex[px_tex];
-	// 	}
-	// 	set_pixel(s->sdl->game, wall->image->tex[px_tex], coord);
-	// 	coord.y++;
-	// }
 }
 
 int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
@@ -116,25 +79,25 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 
 	if (wall->wall_or_portal == 'w')
 	{
-		if (wall->image)
-			draw_texture(s, wall, coord, end);
-		else
-		{
+		// if (wall->image)
+		// 	draw_texture(s, wall, coord, end);
+		// else
+		// {
 			while (coord.y++ < end)
 			{
 				set_pixel(s->sdl->game, color, coord);
 			}
-		}
+		// }
 	}
 	coord.y = end - 1;
 
 	ft_draw_floor(s, wall, coord);
 }
 
-int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall, double width_wall)
+int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall, int width_wall)
 {
 	int		diff_wall;
-	double	i;
+	int		i;
 	int		height_wall;
 	t_pos	coord;
 	int		bottom;
@@ -149,6 +112,8 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	// printf("test1\n");
 	// if (width_wall - i > WIDTH)
 	// 	return (WIDTH);
+	wall->screen_width_wall = width_wall;
+	wall->total_width_wall = get_total_w_wall(wall);
 	while (i++ < width_wall)
 	{
 		// printf("test2\n");
@@ -199,6 +164,8 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	left.y = vtx->ptr->y * METRE;
 	right.x = vtx->next->ptr->x * METRE;
 	right.y = vtx->next->ptr->y * METRE;
+	wall->r_right = right;
+	wall->r_left = left;
 
 	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
 	if (dist > 0)
@@ -505,7 +472,7 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	int		l_height_wall; //hauteur du mur
 	int		r_height_wall;
 	double	pct_plan; //pourcentage de longueur de mur sur le plan
-	double	width_wall; //largeur du mur en pixel a l'ecran
+	int		width_wall; //largeur du mur en pixel a l'ecran
 
 	// printf("wall->player x(%f) y(%f), wall->left = x(%f) y(%f))\n", wall->player.x, wall->player.y, wall->left.x, wall->left.y);
 	l_big_dist = ft_dist_t_dpos(wall->player, wall->left);

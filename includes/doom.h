@@ -189,8 +189,12 @@ typedef struct				s_walls {
 	double					distance;
 	int						x;
 	t_dpos					player;
+	int						screen_width_wall;
+	int 					total_width_wall;
 	t_dpos					left;
 	t_dpos					right;
+	t_dpos					r_left; //ptr gauche du mur
+	t_dpos					r_right; //ptr droite du mur
 	t_dpos					l_plan;
 	t_dpos					r_plan;
 	t_pos					right_ceiling_limit;
