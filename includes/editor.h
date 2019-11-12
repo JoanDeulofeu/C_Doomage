@@ -41,6 +41,7 @@
 
 # define SPACE			32
 # define LCTRL			SDL_SCANCODE_LCTRL
+# define RCTRL			SDL_SCANCODE_RCTRL
 # define SPRINT			SDL_SCANCODE_LSHIFT
 
 # define LEFT			SDL_SCANCODE_A

@@ -104,29 +104,17 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	double	pct_avcm; //pourcentage avancement
 
 	i = 0;
-	diff_wall = abs(l_height_wall - r_height_wall); //calcule de la diff de hauteur entre les deux murs
-	// printf("diff = %d\n",diff_wall);
+	diff_wall = abs(l_height_wall - r_height_wall);
 	height_wall = l_height_wall;
 	coord.x = wall->x;
-	// printf("Largeur du mur = %f\n", width_wall);
-	// printf("test1\n");
-	// if (width_wall - i > WIDTH)
-	// 	return (WIDTH);
 	while (i++ < width_wall)
 	{
-		// printf("test2\n");
-		// printf("i = %f, width_wall = %f\n", i, width_wall);
-		// printf("widthwall = %f\n", width_wall);
-		// printf("height_wall = %d\n", height_wall);
-		// print_player_values(s);
-		// printf("sct = %d\n", ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)));
 		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye +  s->player.eyesight; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
 		if (i == 1 || i == width_wall)
 			ft_draw_column(s, wall, coord, bottom, 0x000000FF);
 		else
 			ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
-		// printf("test3\n");
 		coord.x++;
 		pct_avcm = (100 * i) / width_wall;
 
@@ -138,7 +126,6 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 			height_wall = l_height_wall;
 
 	}
-	// printf("test4\n");
 	return (coord.x);
 }
 
@@ -198,6 +185,8 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	wall->left_floor_limit = vs->left_floor_limit;
 	wall->right_ceiling_limit = vs->right_ceiling_limit;
 	wall->right_floor_limit = vs->right_floor_limit;
+	wall->floor_height = vs->sct->floor;
+	wall->ceiling_height = vs->sct->ceiling;
 	return (wall);
 }
 
@@ -223,6 +212,7 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 			s->fplayer_angle = fake_angle;
 			s->fplayer_sct = vtx->sct_dest;
 		}
+		fake_vs.prev_sct_id = vtx->sct;
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 		fake_vs.vtx_droite = vtx->vtx_dest;
@@ -309,6 +299,7 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 				s->fplayer_angle = fake_angle;
 				s->fplayer_sct = vtx->sct_dest;
 			}
+			fake_vs.prev_sct_id = vtx->sct;
 			fake_vs.sct_id = vtx->sct_dest;
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 			fake_vs.vtx_droite = vtx->vtx_dest;
@@ -387,6 +378,7 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			s->fplayer_angle = fake_angle;
 			s->fplayer_sct = vtx->sct_dest;
 		}
+		fake_vs.prev_sct_id = vtx->sct;
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 		fake_vs.vtx_droite = vtx->vtx_dest;
@@ -479,8 +471,8 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	l_pct = (l_big_dist * 100.0) / l_small_dist;
 	r_pct = (r_big_dist * 100.0) / r_small_dist;
 
-	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4);
-	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4);
+	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4) * ft_abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
+	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4) * ft_abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
 
 	pct_plan = (ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN;
 	width_wall = (WIDTH * pct_plan) / 100;
@@ -533,8 +525,10 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	l_small_dist = (ft_dist_t_dpos(player, l_plan) / METRE);
 	r_small_dist = (ft_dist_t_dpos(player, r_plan) / METRE);
 
-	l_height_wall = HEIGHT / ((((l_big_dist * 100.0) / l_small_dist) * 0.001) * 4);
-	r_height_wall = HEIGHT / ((((r_big_dist * 100.0) / r_small_dist) * 0.001) * 4);
+	l_height_wall = HEIGHT / ((((l_big_dist * 100.0) / l_small_dist) * 0.001) * 4)
+	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
+	r_height_wall = HEIGHT / ((((r_big_dist * 100.0) / r_small_dist) * 0.001) * 4)
+	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
 	width_wall = (WIDTH * ((ft_dist_t_dpos(l_plan, r_plan) * 100.0) / WIDTHPLAN)) / 100;
 
 	if (ft_find_intersection(s, vs->left_point, vs->player, left, right, 1) > 0)
@@ -551,13 +545,10 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + r_height_wall / 2 + s->player.y_eye + s->player.eyesight;
 
-	// printf("\033[32m---- TEST VALEUR (vs) ----\n");
-	// printf("swich = %d\n", swich);
-	// printf("width_wall = %.1f\n", width_wall);
-	// printf("LEFT  -      floor(%d, %d)   ceiling(%d, %d)\n", vs->left_floor_limit.x, vs->left_floor_limit.y, vs->left_ceiling_limit.x, vs->left_ceiling_limit.y);
-	// printf("RIGHT -      floor(%d, %d)   ceiling(%d, %d)\n\n\033[0m", vs->right_floor_limit.x, vs->right_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y);
-	// if (swich == 3)
-	// 	printf("\n\n\n");
+
+	// printf("Sct actuel : %d\nSct dest : %d\n\n\n", vs->prev_sct_id, vs->sct_id);
+	//recuperer la valeur de hauteur du secteur actuel et du secteur de dest.
+	//puis ajouter au calcul de hauteur des murs la diff de hauteur (floor/ceiling).
 
 }
 
@@ -568,6 +559,7 @@ void	ft_draw_visu(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	(void)player; //MERDE ?
 
 	// printf("1\n");
+	s->player.eyesight = EYESIGHT + (ft_abs(sct->floor - sct->ceiling) - 2) * -50;
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
