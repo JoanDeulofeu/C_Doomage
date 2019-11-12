@@ -30,7 +30,7 @@ int main (int argc, char **argv)
 	// get_grid_tab(s);
 	if (!handle_menu(s))
 		handle_error(s, 0);
-	if (s->menu.current == 2)
+	if (s->menu.current == 2 || s->menu.current == 0)
 		launch_editor(s);
 	else
 		launch_game(s);

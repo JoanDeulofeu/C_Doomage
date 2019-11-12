@@ -9,7 +9,7 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	t_int	*wall;
 	int		nb;
 
-	// (void)keys;
+	(void)keys;
 	// printf("ENTREE\n");
 	nb = 10;
 	ptr_id = 0;

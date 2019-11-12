@@ -113,13 +113,16 @@ int			key_controls_edi(t_main *s, int key)
 	{
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
 	}
-	if (key == SDLK_KP_PLUS)
+	if (s->editor->mode_floor == 1)
 	{
-		s->editor->dply_floor = ft_prev_next_floor(s, 1);
-	}
-	if (key == SDLK_KP_MINUS)
-	{
-		s->editor->dply_floor = ft_prev_next_floor(s, 2);
+		if (key == SDLK_KP_PLUS)
+		{
+			s->editor->dply_floor = ft_prev_next_floor(s, 1);
+		}
+		if (key == SDLK_KP_MINUS)
+		{
+			s->editor->dply_floor = ft_prev_next_floor(s, 2);
+		}
 	}
 	if (key == SAVE)
 	{
@@ -189,6 +192,29 @@ void	ft_nul(t_main *s)
 	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 }
 
+void		ft_change_height(t_main *s, const Uint8	*keys)
+{
+	t_sector *sct;
+
+	printf("test1\n");
+	sct = get_sector_by_id(s, s->player.sector_id);
+	printf("test2\n");
+	if (keys[SDLK_KP_MINUS])
+	{
+		if (keys[RCTRL])
+			sct->floor--;
+		else
+			sct->ceiling--;
+	}
+	else
+	{
+		if (keys[RCTRL])
+			sct->floor++;
+		else
+			sct->ceiling++;
+	}
+}
+
 void		handle_editor_keys(t_main *s)
 {
 	const Uint8	*keys;
@@ -205,6 +231,8 @@ void		handle_editor_keys(t_main *s)
 		move_editor(s, keys);
 	if (keys[LCTRL])
 		crouch(s,1);
+	// if (keys[SDLK_KP_MINUS] || keys[SDLK_KP_PLUS])
+	// 	ft_change_height(s, keys);
 	else if (keys[SPACE])
 	{
 //		 jump(s,1);
@@ -238,10 +266,8 @@ void		handle_editor_keys(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
-		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
 		display_map(s);
-
 
 		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
@@ -249,7 +275,7 @@ void		handle_editor_keys(t_main *s)
 		play_anim(s);
 		//	sprite_move(s);
 		health(s);
-		draw_sprite(s);
+		// draw_sprite(s);
 		// draw_hud(s);
 		// print_hp(s);
 		// ft_nul(s);
@@ -261,11 +287,7 @@ void		handle_editor_keys(t_main *s)
 		ft_save_map(s);
 		update_image(s, s->sdl->save);
 	}
-	// if (s->editor->mode == sprite)
-	// 	draw_sprite_menu(s);
-		// display_menu_sprite(s);
-	//printf("mode = %d\n", s->editor->mode);
-	// display_sky(s);
+	// printf("s->player.y_eye = %d\ns->player.eyesight = %d\n\n", s->player.y_eye, s->player.eyesight);
 }
 
 void		editor_handler(t_main *s)

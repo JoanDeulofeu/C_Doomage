@@ -109,15 +109,6 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 	// printf("\nsortie-----------\n\n");
 	return(vs);
 }
-//
-// t_dpos		to_metre(t_pos pos)
-// {
-// 	t_dpos	new;
-//
-// 	new.x = pos.x * METRE;
-// 	new.y = pos.y * METRE;
-// 	return (new);
-// }
 
 void		ft_visu_joan(t_main *s, const unsigned char *keys)
 {
@@ -129,10 +120,10 @@ void		ft_visu_joan(t_main *s, const unsigned char *keys)
 
 	ft_bzero(&vs, sizeof(t_visu));
 	(void)keys;
-	// print_player_values(s);
 	player = s->player.m_pos;
 
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
+	vs.prev_sct_id = 0; //pas de sct precedent...
 	vs.sct_id = s->player.sector_id;
 	vs.sct = get_sector_by_id(s, s->player.sector_id);
 

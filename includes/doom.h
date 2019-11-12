@@ -12,9 +12,10 @@
 
 # define WALL_HEIGHT 10
 // # define METRE 30
+# define HEIGHT_MULT 0.5
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
-# define EYESIGHT 10
+# define EYESIGHT 0
 # define MAX_SPRITE_DIST 1500
 
 # define HITBOX 2
@@ -160,7 +161,8 @@ typedef struct				s_visu {
 	t_dpos					right_point;
 	t_dpos					player;
 	double					angle;
-	int						sct_id;
+	int						prev_sct_id; //sct_id du sct AVANT de passer le portail
+	int						sct_id; //sct_id du sct APRES de passer le portail
 	t_sector				*sct;
 	t_int					*vtx_gauche;
 	t_int					*vtx_droite;
@@ -209,6 +211,8 @@ typedef struct				s_walls {
 	int						miny_ceiling;
 	int						minx_floor;
 	int						miny_floor;
+	int						floor_height;
+	int						ceiling_height;
 	t_image					*image;
 	struct s_walls			*prev;
 	struct s_walls			*next;

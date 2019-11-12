@@ -95,7 +95,7 @@ void	ft_close_sector(t_main *s)
 	char	*begin;
 	char	*end;
 
-	begin = ft_strdup("sector 0 20 | ");
+	begin = ft_strdup("sector 0 2 | ");
 	end = NULL;
 	init = 1;
 	nb_wall = ft_howmany_char(s->str_vtx, ' ') + 1;
