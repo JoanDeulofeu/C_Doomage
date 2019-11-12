@@ -6,6 +6,7 @@ void	create_sounds(t_sdl *sdl)
 	Mix_Volume(1, MIX_MAX_VOLUME / 2);
 	// sdl->sounds.shot = Mix_LoadWAV("sounds/Pistol.wav");
 	sdl->sounds.select = Mix_LoadWAV("sounds/menu_mode.wav");
+	sdl->sounds.explode = Mix_LoadWAV("sounds/explosion.wav");
 	if (sdl->sounds.select == NULL)
 		printf("Mix_LoadWAV: %s\n", Mix_GetError());;
 }

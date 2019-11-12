@@ -156,7 +156,7 @@ typedef struct			s_image {
 
 typedef struct			s_anim {
 	int					current;
-	t_image				*image[15];
+	t_image				*image[18];
 }						t_anim;
 
 typedef struct			s_pos {
