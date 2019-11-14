@@ -194,6 +194,7 @@ typedef struct				s_walls {
 	t_dpos					player;
 	int						screen_width_wall;
 	int 					total_width_wall;
+	int						left_void_side; //cote gauche entre total et screen
 	int						avcm_x;
 	t_dpos					left;
 	t_dpos					right;
