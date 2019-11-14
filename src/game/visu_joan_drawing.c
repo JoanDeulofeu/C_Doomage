@@ -20,37 +20,47 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 {
 	int		x; //x calculé par rapport a la taille totale du mur fenetré
 	int		y; //x calculé par rapport a la taille totale du mur fenetré
-	double	nb_tex;
-	double	tex_size;
+	double	nb_tex_x;
+	double	nb_tex_y;
+	double	tex_size_x;
+	double	tex_size_y;
 	int		perx; // pourcentage en x sur la texture.
 	int		pery; // pourcentage en y sur la texture.
 	int		begin_wall;
 	int		px;
 
 	begin_wall = coord.y;
-	x = wall->total_width_wall - wall->screen_width_wall + coord.x;
-	if (coord.x < 200 || coord.x > 800)
-	// {printf("x   = wall->total_width_wall - wall->screen_width_wall + coord.x\n");
-	// printf("%d =    %d                -        %d             +  %d\n", x, wall->total_width_wall, wall->screen_width_wall, coord.x);}
-	nb_tex = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
-	tex_size = wall->total_width_wall / nb_tex;
-	perx = (fmod((double)x,tex_size)) * 100 / tex_size; // on a le pourcentage en x sur la texture
+	y = 1;
+	if (begin_wall < 0)
+		y += abs(begin_wall);
+	x = wall->total_width_wall - wall->screen_width_wall + wall->avcm_x;
+	// if (coord.x < 100 || coord.x > 900)
+	// {printf("x   = wall->total_width_wall - wall->screen_width_wall + wall->avcm_x\n");
+	// printf("%d =    %d                -        %d             +  %d\n", x, wall->total_width_wall, wall->screen_width_wall, wall->avcm_x);}
+	nb_tex_x = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
+	nb_tex_y = abs(wall->floor_height - wall->ceiling_height) * 2;
+	tex_size_x = wall->total_width_wall / nb_tex_x;
+	tex_size_y = (end - coord.y) / nb_tex_y;
+	perx = (fmod((double)x, tex_size_x)) * 100 / tex_size_x; // on a le pourcentage en x sur la texture
+	// if (coord.x == 500)
+	// 	printf("hauteur du mur = %d\n", end - coord.y);
 	while (coord.y < end)
 	{
+		// if (coord.x == 500)
+		// 	printf("y = %d\n", y);
 		if (coord.y < 0)
 		{
 			coord.y++;
 			continue ;
 		}
-		y = abs(begin_wall) + coord.y;
-		pery = (fmod((double)y,tex_size)) * 100 / tex_size;
+		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
 		// printf("perx = %d, pery = %d\n", perx, pery);
 		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
 			+ (int)((perx * (double)wall->image->w) / 100);
 		// printf("px = %d, wall->image->w = %d, wall->image->h = %d\n", px, wall->image->w, wall->image->w);
 		if (px >= 0 && px < wall->image->w * wall->image->h)
 			set_pixel(s->sdl->game, wall->image->tex[px], coord);
-
+		y++;
 		coord.y++;
 	}
 }
@@ -145,6 +155,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	// printf("\n\n");
 	while (i++ < width_wall)
 	{
+		wall->avcm_x = i;
 		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye +  s->player.eyesight; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
 		if (i == 1 || i == width_wall)
