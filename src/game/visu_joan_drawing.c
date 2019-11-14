@@ -6,10 +6,13 @@ int		get_total_w_wall(t_walls *wall)
 	int		dist_total;
 	double	perc;
 
-	dist_screen = abs(wall->right.x - wall->left.x);
-	dist_total = abs(wall->r_right.x - wall->r_left.x);
-
+	dist_screen = fabs(wall->right.x - wall->left.x);
+	dist_total = fabs(wall->r_right.x - wall->r_left.x);
+	// printf("dist_screen = %d, dist_total = %d\n", dist_screen, dist_total);
+	if (dist_total == 0) // Quand on a un portail infini ?
+		dist_total = 1;
 	perc = (dist_screen * 100) / dist_total;
+	// printf("100 * wall->screen_width_wall (%d)/ perc (%f) = %f\n", 100 * wall->screen_width_wall, perc, 100 * wall->screen_width_wall / perc);
 	return (100 * wall->screen_width_wall / perc);
 }
 
@@ -21,12 +24,35 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	double	tex_size;
 	int		perx; // pourcentage en x sur la texture.
 	int		pery; // pourcentage en y sur la texture.
+	int		begin_wall;
+	int		px;
 
+	begin_wall = coord.y;
+	// coord.y -= (s->player.y_eye +  s->player.eyesight);
 	x = wall->total_width_wall - wall->screen_width_wall + coord.x;
 	nb_tex = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
 	tex_size = wall->total_width_wall / nb_tex;
-	perx = (x % tex_size) * 100 / tex_size; // on a le pourcentage en x sur la texture
-	pery =
+	// printf("tex size = %f\n", tex_size);
+	perx = (fmod((double)x,tex_size)) * 100 / tex_size; // on a le pourcentage en x sur la texture
+		// printf("perx = %d\n", perx);
+	while (coord.y < end)
+	{
+		if (coord.y < 0)
+		{
+			coord.y++;
+			continue ;
+		}
+		y = abs(begin_wall) + coord.y;
+		pery = (fmod((double)y,tex_size)) * 100 / tex_size;
+		// printf("perx = %d, pery = %d\n", perx, pery);
+		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
+			+ (int)((perx * (double)wall->image->w) / 100);
+		// printf("px = %d, wall->image->w = %d, wall->image->h = %d\n", px, wall->image->w, wall->image->w);
+		if (px >= 0 && px < wall->image->w * wall->image->h)
+			set_pixel(s->sdl->game, wall->image->tex[px], coord);
+
+		coord.y++;
+	}
 
 }
 
@@ -36,7 +62,8 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	double		pct;
 
 	(void)s;
-	begin = coord.y;
+	if ((begin = coord.y) < 0)//test
+		return (begin);
 	if (wall->diffx_ceiling == 0)
 		wall->diffx_ceiling = 1;
 	pct = ((coord.x - wall->minx_ceiling) * 100) / wall->diffx_ceiling; // attention div par zero possible
@@ -49,6 +76,7 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 
 	while (coord.y < begin)
 	{
+
 		coord.y++;
 	}
 	return (coord.y - 1);
@@ -79,15 +107,17 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 
 	if (wall->wall_or_portal == 'w')
 	{
-		// if (wall->image)
-		// 	draw_texture(s, wall, coord, end);
-		// else
-		// {
+		if (wall->image)
+			draw_texture(s, wall, coord, end);
+		else
+		{
 			while (coord.y++ < end)
 			{
+				if (coord.y < 0)
+					continue ;
 				set_pixel(s->sdl->game, color, coord);
 			}
-		// }
+		}
 	}
 	coord.y = end - 1;
 
@@ -113,6 +143,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	// 	return (WIDTH);
 	wall->screen_width_wall = width_wall;
 	wall->total_width_wall = get_total_w_wall(wall);
+	// printf("\n\n");
 	while (i++ < width_wall)
 	{
 		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye +  s->player.eyesight; //haut du mur

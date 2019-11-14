@@ -6,10 +6,12 @@ void		shoot(t_main *s, int press)
 	t_time			t;
 	long			curr_time;
 
+
 	gettimeofday(&tv, (void *)t.v0id);
 	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
 	if (press == 1 && s->player.t.fin_time < curr_time)
 	{
+		Mix_PlayChannel(3, s->sdl->sounds.shotgun, 0);
 		fire(s);
 		t.fin_time = curr_time + 1100000;
 		t.tmp_time = curr_time;
@@ -19,7 +21,7 @@ void		shoot(t_main *s, int press)
 	}
 	if (s->player.t.tmp_time + 150000 > curr_time)
 	{
-		s->player.weapon.current = 0;
+		s->player.weapon.current = 1;
 		s->player.t.recoil.y = 50;
 		s->player.t.recoil.x = 50;
 	}
@@ -27,13 +29,13 @@ void		shoot(t_main *s, int press)
 	{
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
-		s->player.weapon.current = 0;
+		s->player.weapon.current = 1;
 	}
 	else if (s->player.t.tmp_time + 300000 > curr_time)
 	{
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
-		s->player.weapon.current = 1;
+		s->player.weapon.current = 0;
 	}
 	else if (s->player.t.tmp_time + 450000 > curr_time)
 		s->player.weapon.current = 2;
@@ -51,7 +53,7 @@ void		shoot(t_main *s, int press)
 	{
 		s->player.t.recoil.y = 0;
 		s->player.t.recoil.x = 0;
-		s->player.weapon.current = 1;
+		s->player.weapon.current = 0;
 	}
 }
 

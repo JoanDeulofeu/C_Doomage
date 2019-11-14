@@ -22,7 +22,7 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 # define LONG_MAX 9223372036854775807
-# define DEF_TEX "images/textures/01.tga"
+# define DEF_TEX "images/textures/02.tga"
 
 # define FILE_ERROR 1
 # define SIZE_ERROR 2

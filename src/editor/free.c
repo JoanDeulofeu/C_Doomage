@@ -130,8 +130,8 @@ void	free_program(t_main *s)
 	{
 		Mix_HaltMusic();
 		Mix_FreeMusic(s->sdl->musique);
-		// Mix_FreeChunk(s->sdl->sounds.door);
-		// Mix_FreeChunk(s->sdl->sounds.shot);
+		Mix_FreeChunk(s->sdl->sounds.explode);
+		Mix_FreeChunk(s->sdl->sounds.shotgun);
 		Mix_CloseAudio();
 	}
 	free_images(s);

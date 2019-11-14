@@ -50,6 +50,7 @@ typedef	struct				s_sounds
 	Mix_Chunk				*shot;
 	Mix_Chunk				*select;
 	Mix_Chunk				*explode;
+	Mix_Chunk				*shotgun;
 }							t_sounds;
 
 typedef struct				s_ttf {

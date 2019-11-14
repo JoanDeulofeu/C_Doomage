@@ -1,5 +1,6 @@
 #include "doom.h"
 
+
 double		in_field(t_main *s, t_dpos player, int dist, t_sprite *cur)
 {
 	t_dpos	ctr_l;
@@ -172,14 +173,14 @@ void		display_sprite(t_main *s, double angle, t_sprite *cur)
 	//  printf("angle = %f\n",angle);
 	// printf("cur->dist = %f\n",cur->r_dist);
 	// printf("dist = %d\n",dist);
-	while (i < (wp->w) * value)
+	while (i < (wp->w) * value && i >= 0 && i <= WIDTH)
 	{
 		j = 0;
 		coord.x = i;
 		perx = (double)i / (((double)wp->w) * value);
 		coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
-		while (j < (wp->h) * value)
+		while (j < (wp->h) * value && j >= 0 && j <= HEIGHT) //J'ai ajouté la protection pour pas que ca rame mais ça fait disparaitre le sprite quand on ets trop pres
 		{
 			coord.y = j++;
 			pery = (double)j / (((double)wp->h) * value);
@@ -214,14 +215,14 @@ void		display_sprite_inverse(t_main *s, double angle, t_sprite *cur)
 	// printf("angle = %f\n",angle);
 	// printf("cur->dist = %f\n",cur->dist);
 	// printf("dist = %d\n",dist);
-	while (i < (wp->w) * value)
+	while (i < (wp->w) * value && i >= 0 && i <= WIDTH)
 	{
 		j = 0;
 		coord.x = i;
 		perx = (double)i / (((double)wp->w) * value);
 		coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
-		while (j < (wp->h) * value)
+		while (j < (wp->h) * value && j >= 0 && j <= HEIGHT)
 		{
 			coord.y = j;
 			pery = (double)j / (((double)wp->h) * value);

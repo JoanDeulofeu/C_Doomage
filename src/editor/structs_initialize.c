@@ -100,8 +100,8 @@ void		load_images(t_main *s)
 	s->menu.current = 0;
 	s->savemap->croix_rouge = load_tga("images/croix_rouge.tga", 0, 0, 0);
 
-	s->player.weapon.image[1] = load_tga("images/shotgun1.tga", 0, 0, 0);
-	s->player.weapon.image[0] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
+	s->player.weapon.image[0] = load_tga("images/shotgun1.tga", 0, 0, 0);
+	s->player.weapon.image[1] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
 	//s->player.weapon.image[2] = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
 	s->player.weapon.image[2] = load_tga("images/shotgun2.tga", 0, 0, 0);
 	s->player.weapon.image[3] = load_tga("images/shotgun3.tga", 0, 0, 0);

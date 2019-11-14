@@ -63,8 +63,13 @@ void		game_handler(t_main *s)
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
 						shoot(s,1);
-						if (s->skybox.current < 17)
-						destroy_planet(s);
+						if (s->skybox.current < 17 && s->player.abs_angle > 62
+							&& s->player.abs_angle < 82 && s->player.y_eye >= 376
+							&& s->player.y_eye <= 782)
+						{
+							destroy_planet(s);
+						}
+
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
@@ -77,6 +82,7 @@ void		game_handler(t_main *s)
 				// if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0)
 				// 		ingame = 0;
 		}
+		// printf("current = %d\n", s->player.weapon.current);
 		handle_game_keys(s);
 	}
 }
