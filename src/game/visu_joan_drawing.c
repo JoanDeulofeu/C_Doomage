@@ -28,13 +28,13 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	int		px;
 
 	begin_wall = coord.y;
-	// coord.y -= (s->player.y_eye +  s->player.eyesight);
 	x = wall->total_width_wall - wall->screen_width_wall + coord.x;
+	if (coord.x < 200 || coord.x > 800)
+	// {printf("x   = wall->total_width_wall - wall->screen_width_wall + coord.x\n");
+	// printf("%d =    %d                -        %d             +  %d\n", x, wall->total_width_wall, wall->screen_width_wall, coord.x);}
 	nb_tex = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
 	tex_size = wall->total_width_wall / nb_tex;
-	// printf("tex size = %f\n", tex_size);
 	perx = (fmod((double)x,tex_size)) * 100 / tex_size; // on a le pourcentage en x sur la texture
-		// printf("perx = %d\n", perx);
 	while (coord.y < end)
 	{
 		if (coord.y < 0)
@@ -53,7 +53,6 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 
 		coord.y++;
 	}
-
 }
 
 int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
@@ -76,7 +75,7 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 
 	while (coord.y < begin)
 	{
-
+		//print ceiling
 		coord.y++;
 	}
 	return (coord.y - 1);
@@ -161,8 +160,11 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 			height_wall = l_height_wall - (diff_wall * pct_avcm) / 100;
 		else
 			height_wall = l_height_wall;
-
 	}
+	// printf("\033[32m------------------------------\033[0m\n");
+	// if (coord.x > 980)
+	// 	exit(0);
+	// sleep(5);
 	return (coord.x);
 }
 

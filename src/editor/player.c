@@ -71,6 +71,8 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	double	speed;
 	int		col;
 
+	if (s->display_mode == save)
+		return ;
 	speed = move_speed * move_speed * 0.03;
 	if ((keys[UP] || keys[DOWN]) && (keys[LEFT] || keys[RIGHT]))
 		speed /= 1.5;

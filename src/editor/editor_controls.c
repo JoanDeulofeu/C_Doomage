@@ -126,7 +126,7 @@ int			key_controls_edi(t_main *s, int key)
 	}
 	if (key == SAVE)
 	{
-		s->display_mode = 2;
+		s->display_mode = save;
 	}
 	if (key == ROTATE_LEFT)
 	{
