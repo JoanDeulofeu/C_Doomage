@@ -281,8 +281,7 @@ typedef struct				s_main {
 */
 void				ft_visu(t_main *s);
 void				ft_visu_joan(t_main *s, const unsigned char *keys);
-void 				ft_draw_visu(t_main *s, t_dpos player, t_sector *sct,
-					t_visu vs);
+void 				ft_draw_visu(t_main *s, t_sector *sct, t_visu vs);
 int					check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle,
 					Uint32 color);
@@ -540,6 +539,10 @@ void 						print_player_values(t_main *s);
 ****	Fonction des textures
 */
 void						display_sky(t_main *s);
+void						ft_draw_floor(t_main *s, t_walls *wall, t_pos coord);
+int							ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord);
+void 						draw_texture(t_main *s, t_walls *wall, t_pos coord, int end);
+void						get_total_w_wall(t_walls *wall);
 
 /*
 ****	Fonction sprite chainlist
