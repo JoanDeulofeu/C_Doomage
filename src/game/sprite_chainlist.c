@@ -1,4 +1,4 @@
-// #include "doom.h"
+#include "doom.h"
 //
 // void		display_chainlist(t_main *s)
 // {
@@ -166,27 +166,27 @@
 //
 void		remove_sprite_by_select(t_main *s)
 {
-	t_sprite	*cur;
-	t_sprite	*prev;
-
-	cur = s->sprite;
-	prev = NULL;
-	while (cur != NULL)
-	{
-		if (cur->select == 1)
-		{
-			remove_sprite(s, cur, cur->next, prev);
-			cur = s->sprite;
-			prev = NULL;
-			continue ;
-		}
-		prev = cur;
-		cur = cur->next;
-	}
-	if (s->sprite != NULL)
-	{
-		reset_id(s);
-	}
+	// t_sprite	*cur;
+	// t_sprite	*prev;
+	//
+	// cur = s->sprite;
+	// prev = NULL;
+	// while (cur != NULL)
+	// {
+	// 	if (cur->select == 1)
+	// 	{
+	// 		remove_sprite(s, cur, cur->next, prev);
+	// 		cur = s->sprite;
+	// 		prev = NULL;
+	// 		continue ;
+	// 	}
+	// 	prev = cur;
+	// 	cur = cur->next;
+	// }
+	// if (s->sprite != NULL)
+	// {
+	// 	reset_id(s);
+	// }
 }
 //
 // t_sprite	*create_sprite_elem(t_main *s, int id, int idimg, t_dpos pos)
