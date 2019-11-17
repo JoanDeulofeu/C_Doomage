@@ -9,6 +9,7 @@ SRC_NAME =	main.c						\
 			debug.c						\
 			save_map.c					\
 			editor/editor_launcher.c	\
+			game/texture.c			\
 			editor/controls.c			\
 			editor/actions.c			\
 			editor/selected.c			\

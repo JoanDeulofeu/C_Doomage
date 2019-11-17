@@ -65,9 +65,25 @@ Vertex -9		-14
 Vertex -47		-14
 Vertex -47		35
 Vertex -9		35
+Vertex 32		4
+Vertex 32		7
+Vertex 37		7
+Vertex 36		4
+Vertex 37		4
+Vertex 38		7
+Vertex 41		6
+Vertex 38		3
+Vertex 42		5
+Vertex 39		2
+Vertex 44		2
+Vertex 40		1
+Vertex 40		0
+Vertex 44		1
+Vertex 54		-9
+Vertex 36		-11
 
 
-Sector 0 2 | 1 2 3 4 5 | -1 -1 -1 -1 8
+Sector 0 4 | 1 2 3 4 5 | -1 -1 -1 -1 8
 Sector 1 3 | 6 8 9 7 | -1 5 -1 -1
 Sector 0 2 | 10 11 12 13 | 14 -1 20 -1
 Sector 0 2 | 14 15 16 17 18 19 20 21 | 10 -1 22 -1 24 -1 12 -1
@@ -82,7 +98,11 @@ Sector 0 2 | 49 48 52 51 | -1 -1 -1 -1
 Sector 0 2 | 60 59 58 61 | -1 57 -1 -1
 Sector 0 2 | 56 54 55 57 | -1 -1 -1 59
 Sector 0 2 | 65 62 63 64 | -1 -1 -1 -1
+Sector 0 2 | 66 67 68 69 | -1 -1 70 -1
+Sector 0 3 | 70 71 72 73 | 68 -1 75 -1
+Sector 0 4 | 75 74 76 77 | 72 -1 78 -1
+Sector 0 5 | 81 78 79 80 | -1 76 -1 -1
 
 
-Player 639 394
-Angle 91
+Player 1418 -186
+Angle 50
