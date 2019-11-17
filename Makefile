@@ -50,6 +50,7 @@ SRC_NAME =	main.c						\
 			game/utils_2.c				\
 			game/hud.c					\
 			game/animation.c			\
+			game/sprite_yohann.c		\
 			game/sprite.c				\
 			game/sprite_menu.c			\
 			game/sprite_chainlist.c		\

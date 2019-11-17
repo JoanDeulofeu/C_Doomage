@@ -129,10 +129,11 @@ void		load_images(t_main *s)
 	s->skybox.image[16] = load_tga("images/skybox_16.tga", 0, 0, 0);
 	s->skybox.image[17] = load_tga("images/skybox_17.tga", 0, 0, 0);
 	s->skybox.current = 0;
+	s->stormtrooper = load_storm_anim(s);
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
-	s->lsprite = create_lsprite(s, 7);
+	// s->lsprite = create_lsprite(s, 7);
 }
 
 t_texture	*initialize_texture(t_sdl *sdl, int width, int height)
@@ -221,7 +222,7 @@ t_main		*initialize_main(char *str)
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);
-	init_sprite(s);
+	// init_sprite(s);
 	s->choice_sprite = s->lsprite;
 	s->save_coord_vtx.x = 0;
 	s->save_coord_vtx.y = 0;

@@ -16,9 +16,9 @@ t_lanim		*get_anim_by_id(t_main *s, int id)
 
 void		kill(t_sprite *cur)
 {
-	if (cur->current != cur->anim->max_current)
+	if (cur->anim.image[cur->current] != NULL)
 	{
-		cur->img = cur->anim->image[cur->current];
+		// cur->img = cur->anim->image[cur->current];
 		cur->current += 1;
 	}
 	else
@@ -27,23 +27,23 @@ void		kill(t_sprite *cur)
 
 void		sprite_shooting(t_main *s, t_sprite *cur)
 {
-	if (cur->anim != NULL)
+	if (cur->anim.image[cur->current] != NULL)
 	{
 		cur->s_angle = s->player.angle + 180;
 		set_img(s, cur, 6, 0);
 		cur->current = 1;
-		cur->img = cur->anim->image[cur->current];
+		// cur->img = cur->anim->image[cur->current];
 	}
 }
 
 void		sprite_walk(t_sprite *cur)
 {
-	if (cur->current == cur->anim->max_current)
+	if (cur->anim.image[cur->current] == NULL)
 		cur->current = 1;
 	else
 	{
 		cur->current += 1;
-		cur->img = cur->anim->image[cur->current];
+		// cur->img = cur->anim->image[cur->current];
 	}
 }
 
@@ -54,14 +54,12 @@ void		play_anim(t_main *s)
 	cur = s->sprite;
 	while (cur != NULL)
 	{
-		if (cur->anim != NULL)
+		if (cur->anim.image[cur->current] != NULL)
 		{
 			if (cur->life == 0)
 				kill(cur);
 			else if (cur->r_dist <= SPRITE_SHOT_DIST)
 				sprite_shooting(s, cur);
-			else if (cur->current == cur->anim->max_current)
-				cur->current = 0;
 			else
 			{
 				ia(s, cur);
@@ -70,6 +68,8 @@ void		play_anim(t_main *s)
 				sprite_walk(cur);
 			}
 		}
+		else
+			cur->current = 0;
 		cur = cur->next;
 	}
 }
@@ -100,8 +100,8 @@ void		set_img(t_main *s, t_sprite *cur, int id, int orientation)
 	if (lst->anim != NULL)
 	{
 		cur->orientation = orientation;
-		cur->anim = lst->anim;
-		cur->img = lst->anim->image[cur->current];
+		// cur->anim = lst->anim;
+		// cur->img = lst->anim->image[cur->current];
 	}
 }
 
