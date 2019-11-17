@@ -45,9 +45,12 @@ void		game_handler(t_main *s)
 
 	ingame = 1;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+	s->display_mode = game;
 	// draw_interface(s);
 	while (ingame)
 	{
+		s->time->time_ms = SDL_GetTicks();
+		ft_fps(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)

@@ -170,26 +170,49 @@ void	ft_nul(t_main *s)
 	t_dpos		init;
 	t_dpos		dest;
 
-	init.x = 0;
-	init.y = 150;
-	dest.x = WIDTH;
-	dest.y = 151;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 300;
-	dest.x = WIDTH;
-	dest.y = 301;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 450;
-	dest.x = WIDTH;
-	dest.y = 451;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 600;
-	dest.x = WIDTH;
-	dest.y = 601;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 150;
+	// dest.x = WIDTH;
+	// dest.y = 151;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 300;
+	// dest.x = WIDTH;
+	// dest.y = 301;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 450;
+	// dest.x = WIDTH;
+	// dest.y = 451;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 600;
+	// dest.x = WIDTH;
+	// dest.y = 601;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+
+
+	//trait vertaicaux
+	init.x = 400;
+	init.y = 0;
+	dest.x = 402;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 450;
+	init.y = 0;
+	dest.x = 452;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 880;
+	init.y = 0;
+	dest.x = 882;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 930;
+	init.y = 0;
+	dest.x = 932;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
 }
 
 void		ft_change_height(t_main *s, const Uint8	*keys)
@@ -321,6 +344,8 @@ void		editor_handler(t_main *s)
 	{
 		tmp_mode = s->editor->mode;
 		v = s->vertex;
+		s->time->time_ms = SDL_GetTicks();
+		ft_fps(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)

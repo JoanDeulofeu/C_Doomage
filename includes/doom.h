@@ -259,7 +259,15 @@ typedef struct				s_font {
 	TTF_Font				*stylish100;
 }							t_font;
 
+typedef struct				s_timer {
+	long					time_ms;
+	int						count_fps;
+	int						tmp_sec_fps;
+	int						fps;
+}							t_timer;
+
 typedef struct				s_main {
+	t_timer					*time;
 	t_font					*font;
 	t_sdl					*sdl;
 	t_editor				*editor;
@@ -352,11 +360,19 @@ void						ft_error_ttf(char *str);
 int							handle_menu(t_main *s);
 void 						launch_game(t_main *s);
 void 						launch_editor(t_main *s);
+
 /*
 ****	Fonction des sons
 */
 void						create_sounds(t_sdl *sdl);
 void						play_music(t_main *s);
+
+/*
+****	Fonction de temps
+*/
+void						ft_set_time(t_main *s);
+void						ft_fps(t_main* s);
+
 /*
 ****	Fonction de l'editeur
 */
