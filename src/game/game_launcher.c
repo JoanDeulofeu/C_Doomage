@@ -32,7 +32,7 @@ void		handle_game_keys(t_main *s)
 		play_anim(s);
 		//	sprite_move(s);
 		health(s);
-		draw_sprite(s);
+		// draw_sprite(s);
 		draw_hud(s);
 		// print_hp(s);
 		// ft_nul(s);

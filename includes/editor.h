@@ -96,6 +96,11 @@ typedef enum			e_type {
 	autre
 }						t_type;
 
+typedef enum			e_name {
+	storm,
+	table
+}						t_name;
+
 typedef enum			e_mode {
 	move,
 	sector,
@@ -200,10 +205,55 @@ typedef struct			s_int {
 	struct s_int		*prev;
 }						t_int;
 
+typedef struct				s_anim_enemy
+{
+	// int						id;
+	// int						max_current;
+	t_anim					face;
+	t_anim					back;
+	t_anim					prof;
+	t_anim					prof_back;
+	t_anim					prof_face;
+	t_anim					dying;
+	t_anim					shooting;
+	// t_image					*current[18];
+}							t_anim_enemy;
+
+typedef struct				s_lanim
+{
+	int						id;
+	int						max_current;
+	t_image					*image[15];
+}							t_lanim;
+
+typedef struct				s_sprite
+{
+	int						id;
+	int						set;
+	int						orientation;
+	int						select;
+	int						life;
+	int						current;
+	int						destroy;
+	int						damage;
+	double					angle;
+	double					s_angle;
+	double					dist;
+	double					r_dist;
+	t_dpos					r_pos;
+	t_pos					pos;
+	t_type					type;
+	t_name					name;
+	t_image					*img;
+	t_anim					anim;
+	struct s_sprite			*next;
+}							t_sprite;
+
 typedef struct			s_sector {
 	int					id;
 	int					floor;
 	int					ceiling;
+	t_sprite			*sprite;
 	t_int				*vertex;
 	struct s_sector		*next;
 	struct s_sector		*prev;

@@ -74,5 +74,5 @@ void		display_map(t_main *s)
 	set_player(s);
 	if (s->editor->selected == 1)
 		trace_select(s);
-	refresh_sprite_pos(s);
+	// refresh_sprite_pos(s);
 }

@@ -83,12 +83,6 @@ typedef struct				s_time
 	char					v0id[32];
 }							t_time;
 
-typedef struct				s_lanim
-{
-	int						id;
-	int						max_current;
-	t_image					*image[15];
-}							t_lanim;
 
 typedef struct				s_lsprite
 {
@@ -97,28 +91,6 @@ typedef struct				s_lsprite
 	t_lanim					*anim;
 	struct s_lsprite		*next;
 }							t_lsprite;
-
-typedef struct				s_sprite
-{
-	int						id;
-	int						set;
-	int						orientation;
-	int						select;
-	int						life;
-	int						current;
-	int						destroy;
-	int						damage;
-	double					angle;
-	double					s_angle;
-	double					dist;
-	double					r_dist;
-	t_dpos					r_pos;
-	t_pos					pos;
-	t_type					type;
-	t_image					*img;
-	t_lanim					*anim;
-	struct s_sprite			*next;
-}							t_sprite;
 
 typedef struct				s_player
 {
@@ -193,7 +165,7 @@ typedef struct				s_walls {
 	int						x;
 	t_dpos					player;
 	int						screen_width_wall;
-	int 					total_width_wall;
+	long 					total_width_wall;
 	int						left_void_side; //cote gauche entre total et screen
 	int						avcm_x;
 	t_dpos					left;
@@ -266,6 +238,7 @@ typedef struct				s_main {
 	t_savemap				*savemap;
 	char					*map_name;
 	t_skybox				sky;
+	t_anim_enemy			stormtrooper;
 	t_dpos					p_pos;
 	t_dpos					left_plan;
 	t_dpos					right_plan;
@@ -658,6 +631,7 @@ void						dying(t_main *s, t_sprite *cur);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void						set_orientation(t_main *s, t_sprite *cur);
 void 						destroy_planet(t_main *s);
+t_anim_enemy 				load_storm_anim(t_main *s);
 
 t_lanim						*get_anim_by_id(t_main *s, int id);
 

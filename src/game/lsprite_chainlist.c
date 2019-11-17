@@ -1,21 +1,21 @@
 #include "doom.h"
 
-void		load_lanim(t_lanim *data, int idanim)
+void		load_lanim(t_lanim *data, t_name name)
 {
-	if (idanim == 1)
-		load_anim1(data);
-	if (idanim == 2)
-		load_anim2(data);
-	if (idanim == 3)
-		load_anim3(data);
-	if (idanim == 4)
-		load_anim4(data);
-	if (idanim == 5)
-		load_anim5(data);
-	if (idanim == 6)
-		load_anim6(data);
-	if (idanim == 7)
-		load_anim7(data);
+	// if (idanim == 1)
+	// 	load_anim1(data);
+	// if (idanim == 2)
+	// 	load_anim2(data);
+	// if (idanim == 3)
+	// 	load_anim3(data);
+	// if (idanim == 4)
+	// 	load_anim4(data);
+	// if (idanim == 5)
+	// 	load_anim5(data);
+	// if (idanim == 6)
+	// 	load_anim6(data);
+	// if (idanim == 7)
+	// 	load_anim7(data);
 }
 
 t_lanim		*create_lanim_elem(t_main *s, int id, int idanim)
