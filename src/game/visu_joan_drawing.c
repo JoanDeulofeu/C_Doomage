@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int		get_total_w_wall(t_walls *wall)
+void	get_total_w_wall(t_walls *wall)
 {
 	int		dist_screen;
 	int		dist_total;
@@ -10,20 +10,22 @@ int		get_total_w_wall(t_walls *wall)
 	dist_screen = ft_dist_t_dpos(wall->right, wall->left);
 	dist_total = ft_dist_t_dpos(wall->r_right, wall->r_left);
 	dist_left = ft_dist_t_dpos(wall->left, wall->r_left);
-	// printf("dist_screen = %d, dist_total = %d\n", dist_screen, dist_total);
-	if (dist_left == 0) // Quand on a un portail infini ?
-		dist_left = 1;
-	perc = (dist_screen * 100) / dist_left;
-	if (perc == 0)
-		perc = 1;
-	wall->left_void_side = 100 * wall->screen_width_wall / perc;
+	//---------------TOTAL------------------
 	if (dist_total == 0) // Quand on a un portail infini ?
 		dist_total = 1;
 	perc = (dist_screen * 100) / dist_total;
 	if (perc == 0)
 		perc = 1;
-	// printf("100 * wall->screen_width_wall (%d)/ perc (%f) = %f\n", 100 * wall->screen_width_wall, perc, 100 * wall->screen_width_wall / perc);
-	return (100 * wall->screen_width_wall / perc);
+	wall->total_width_wall = (100 * wall->screen_width_wall) / perc;
+	//---------------TOTAL------------------
+	//---------------LEFT-------------------
+	if (dist_total == 0)
+		dist_total = 1;
+	perc = (dist_left * 100) / dist_total;
+	if (perc == 0)
+		perc = 1;
+	wall->left_void_side = (perc * wall->total_width_wall) / 100;
+	//---------------LEFT-------------------
 }
 
 void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
@@ -49,10 +51,10 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		x = wall->avcm_x;
 	else if ((wall->left.x != wall->r_left.x) && (wall->left.y != wall->r_left.y)
 		&& (wall->right.x != wall->r_right.x) && (wall->right.y != wall->r_right.y))
-		x = wall->left_void_side;
-	if (coord.x < 100 || coord.x > 900)
-	{printf("x   = wall->total_width_wall - wall->screen_width_wall + wall->avcm_x\n");
-	printf("%d =    %d                -        %d             +  %d\n", x, wall->total_width_wall, wall->screen_width_wall, wall->avcm_x);}
+		x = wall->left_void_side + wall->avcm_x;
+	// if (coord.x < 100 || coord.x > 900)
+	// 	{printf("x   = wall->total_width_wall - wall->screen_width_wall + wall->avcm_x\n");
+	// 	printf("%d =    %d                -        %d             +  %d\n", x, wall->total_width_wall, wall->screen_width_wall, wall->avcm_x);}
 	nb_tex_x = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
 	nb_tex_y = abs(wall->floor_height - wall->ceiling_height) * 2;
 	tex_size_x = wall->total_width_wall / nb_tex_x;
@@ -167,7 +169,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, int l_height_wall, int r_height_wall
 	// if (width_wall - i > WIDTH)
 	// 	return (WIDTH);
 	wall->screen_width_wall = width_wall;
-	wall->total_width_wall = get_total_w_wall(wall);
+	get_total_w_wall(wall);
 	// printf("\n\n");
 	while (i++ < width_wall)
 	{
