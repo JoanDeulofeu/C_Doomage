@@ -29,7 +29,7 @@ void		handle_game_keys(t_main *s)
 		display_map(s);
 		handle_sector_zero(s);
 		ft_visu_joan(s, keys);
-		play_anim(s);
+		// play_anim(s);
 		//	sprite_move(s);
 		health(s);
 		// draw_sprite(s);
