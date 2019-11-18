@@ -26,23 +26,23 @@ void	free_lanim(t_lanim *anim) // A TESTER
 		free_image(anim->image[i]);
 }
 
-void	free_lsprite(t_main *s)
-{
-	t_lsprite	*lst;
-	t_lsprite	*tmp;
-
-	lst = s->lsprite;
-	while (lst != NULL)
-	{
-		tmp = lst;
-		lst = lst->next;
-		if (tmp->img != NULL)
-			free_image(tmp->img);
-		if (tmp->anim != NULL)
-			free_lanim(tmp->anim);
-		ft_memdel((void **)&tmp);
-	}
-}
+// void	free_lsprite(t_main *s)
+// {
+// 	// t_lsprite	*lst;
+// 	// t_lsprite	*tmp;
+// 	//
+// 	// lst = s->lsprite;
+// 	// while (lst != NULL)
+// 	// {
+// 	// 	tmp = lst;
+// 	// 	lst = lst->next;
+// 	// 	if (tmp->img != NULL)
+// 	// 		free_image(tmp->img);
+// 	// 	if (tmp->anim != NULL)
+// 	// 		free_lanim(tmp->anim);
+// 	// 	ft_memdel((void **)&tmp);
+// 	// }
+// }
 
 void	free_sprite(t_main *s)
 {
@@ -56,7 +56,7 @@ void	free_sprite(t_main *s)
 		sprite = sprite->next;
 		ft_memdel((void **)&tmp);
 	}
-	free_lsprite(s);
+	// free_lsprite(s);
 }
 
 void	free_sectors(t_main *s)

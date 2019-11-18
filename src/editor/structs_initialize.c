@@ -216,6 +216,7 @@ t_main		*initialize_main(char *str)
 	s->walls = NULL;
 	s->portal_nb = 0;
 	s->interface = NULL;
+	s->sprite = NULL;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);

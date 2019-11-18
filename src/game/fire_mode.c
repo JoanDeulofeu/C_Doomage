@@ -56,7 +56,7 @@ void		give_damage(t_main *s, int id)
 		{
 			cur->life = 0;
 			cur->current = 0;
-			set_img(s, cur, 5, 0);
+			// set_img(s, cur, 5, 0);
 			break ;
 		}
 		cur = cur->next;

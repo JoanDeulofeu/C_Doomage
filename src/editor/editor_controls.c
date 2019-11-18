@@ -247,6 +247,7 @@ void		handle_editor_keys(t_main *s)
 		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
 		ft_draw_editor(s->editor, s->sdl->editor);
 		display_map(s);
+		draw_sprites_ori(s);
 		ft_draw_all_wall(s);
 		if (s->editor->mode_floor == 1)
 		{
@@ -416,9 +417,11 @@ void		editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sprite)
 					{
+						create_new_sprite(s, 0, ft_pos_to_dpos(s->ft_mouse));
 						if ((s->ft_mouse.x == mouse_save.x ||
-							s->ft_mouse.y == mouse_save.y) && remove == 0)
+							s->ft_mouse.y == mouse_save.y) && remove == 0) //reset de yoann, a checker
 						{
+							printf("hey\n");
 							// add_sprite(s,get_abs_r_pos(s,s->ft_mouse),
 								// s->choice_sprite->id);
 							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);

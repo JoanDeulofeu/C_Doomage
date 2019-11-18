@@ -246,14 +246,21 @@ typedef struct				s_sprite
 	t_name					name;
 	t_image					*img;
 	t_anim					anim;
+	int						sct_id;
 	struct s_sprite			*next;
 }							t_sprite;
+
+typedef struct				s_lsprite
+{
+	t_sprite				*sprite;
+	struct s_lsprite		*next;
+}							t_lsprite;
 
 typedef struct			s_sector {
 	int					id;
 	int					floor;
 	int					ceiling;
-	t_sprite			*sprite;
+	t_lsprite			*liste;
 	t_int				*vertex;
 	struct s_sector		*next;
 	struct s_sector		*prev;
