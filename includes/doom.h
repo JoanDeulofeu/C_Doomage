@@ -74,16 +74,6 @@ typedef struct				s_visu_sct
 	int						sx2;
 }							t_visu_sct;
 
-typedef struct				s_time
-{
-	int						action;
-	t_pos					recoil;
-	long					fin_time;
-	long					tmp_time;
-	char					v0id[32];
-}							t_time;
-
-
 typedef struct				s_lsprite
 {
 	int						id;
@@ -94,10 +84,6 @@ typedef struct				s_lsprite
 
 typedef struct				s_player
 {
-	long					j_fin_time;
-	long					fin_time;
-	long					tmp_time;
-	int						set_jump;
 	int						i;
 	t_dpos					r_pos; // position reel du joueur par rpport au repere
 	t_dpos					pos; // Position du joueur en pixel
@@ -114,7 +100,6 @@ typedef struct				s_player
 	double					abs_angle;
 	int						height;
 	t_anim					weapon;
-	t_time					t;
 	t_image					*hud;
 	t_image					*crosshair;
 	t_sector				*sector;
@@ -505,15 +490,12 @@ void						ft_get_line(t_main *s, t_line line, Uint32 color);
 int							ft_trace_line(t_main *s, t_line line, Uint32 color);
 void						trace_direction(t_main *s);
 void						rotate_mouse(t_main *s);
-void						jump(t_main *s, int press);
-void						crouch(t_main *s, int press);
-void						draw_weapon(t_main *s, double perx, short orig_x,
-	short orig_y);
+// void						draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void						draw_hud(t_main *s);
 void						display_hud(t_main *s, int i, int j);
 void						shoot(t_main *s, int press);
 void						display_crosshair(t_main *s, int i, int j);
-void						draw_weapon2(t_main *s, int i, int j);
+// void						draw_weapon2(t_main *s, int i, int j);
 int							is_colliding(t_main *s, t_dpos target);
 
 /*

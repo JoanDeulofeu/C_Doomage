@@ -196,11 +196,6 @@ t_main		*initialize_main(char *str)
 
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
-	s->player.set_jump = 0;
-	s->player.fin_time = 0;
-	s->player.tmp_time = 0;
-	s->player.t.recoil.x = 0;
-	s->player.t.recoil.y = 0;
 
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;
