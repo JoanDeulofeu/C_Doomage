@@ -33,56 +33,6 @@ void		ft_zoom(t_main *s, t_pos mouse, int space)
 	s->player.pos.y += s->editor->decal_y;
 }
 
-void		crouch(t_main *s, int press)
-{
-	struct timeval	tv;
-	long			curr_time;
-	char			v0id[32];
-
-	gettimeofday(&tv, (void *)v0id);
-	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
-	//printf("curr tine =%ld\n",curr_time);
-	if (press == 1 && s->player.fin_time < curr_time)
-	{
-		s->player.fin_time = curr_time + 500000;
-		s->player.tmp_time = curr_time;
-	}
-	if (s->player.fin_time > curr_time && s->player.tmp_time != curr_time
-		&& ((press == 1) && (s->player.i != 5)))
-	{
-		s->player.eyesight -= 10;
-		s->player.tmp_time++;
-		s->player.i++;
-	}
-	if (s->player.eyesight < EYESIGHT && press == -1)
-	{
-		s->player.eyesight += 10;
-		s->player.tmp_time++;
-		s->player.i--;
-	}
-}
-
-void		jump(t_main *s, int press)
-{
-	struct timeval	tv;
-	long			curr_time;
-	char			v0id[32];
-
-	gettimeofday(&tv, (void *)v0id);
-	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
-	if (press == 1 && s->player.set_jump == 0)
-	{
-		s->player.j_fin_time = curr_time + 150000;
-		s->player.set_jump = 1;
-	}
-	if (s->player.j_fin_time > curr_time && s->player.set_jump == 1)
-		s->player.eyesight += 10;
-	else if (s->player.eyesight > EYESIGHT && s->player.set_jump == 1)
-		s->player.eyesight -= 10;
-	if (s->player.eyesight == EYESIGHT)
-		s->player.set_jump = 0;
-}
-
 void		rotate_mouse(t_main *s)
 {
 	double	angle;

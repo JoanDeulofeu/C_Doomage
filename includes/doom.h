@@ -94,10 +94,6 @@ typedef struct				s_time
 
 typedef struct				s_player
 {
-	long					j_fin_time;
-	long					fin_time;
-	long					tmp_time;
-	int						set_jump;
 	int						i;
 	t_dpos					r_pos; // position reel du joueur par rpport au repere
 	t_dpos					pos; // Position du joueur en pixel
@@ -114,7 +110,6 @@ typedef struct				s_player
 	double					abs_angle;
 	int						height;
 	t_anim					weapon;
-	t_time					t;
 	t_image					*hud;
 	t_image					*crosshair;
 	t_sector				*sector;
@@ -231,7 +226,15 @@ typedef struct				s_font {
 	TTF_Font				*stylish100;
 }							t_font;
 
+typedef struct				s_timer {
+	long					time_ms;
+	int						count_fps;
+	int						tmp_sec_fps;
+	int						fps;
+}							t_timer;
+
 typedef struct				s_main {
+	t_timer					*time;
 	t_font					*font;
 	t_sdl					*sdl;
 	t_editor				*editor;
@@ -325,11 +328,19 @@ void						ft_error_ttf(char *str);
 int							handle_menu(t_main *s);
 void 						launch_game(t_main *s);
 void 						launch_editor(t_main *s);
+
 /*
 ****	Fonction des sons
 */
 void						create_sounds(t_sdl *sdl);
 void						play_music(t_main *s);
+
+/*
+****	Fonction de temps
+*/
+void						ft_set_time(t_main *s);
+void						ft_fps(t_main* s);
+
 /*
 ****	Fonction de l'editeur
 */
@@ -489,15 +500,12 @@ void						ft_get_line(t_main *s, t_line line, Uint32 color);
 int							ft_trace_line(t_main *s, t_line line, Uint32 color);
 void						trace_direction(t_main *s);
 void						rotate_mouse(t_main *s);
-void						jump(t_main *s, int press);
-void						crouch(t_main *s, int press);
-void						draw_weapon(t_main *s, double perx, short orig_x,
-	short orig_y);
+// void						draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void						draw_hud(t_main *s);
 void						display_hud(t_main *s, int i, int j);
 void						shoot(t_main *s, int press);
 void						display_crosshair(t_main *s, int i, int j);
-void						draw_weapon2(t_main *s, int i, int j);
+// void						draw_weapon2(t_main *s, int i, int j);
 int							is_colliding(t_main *s, t_dpos target);
 
 /*

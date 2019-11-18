@@ -43,6 +43,8 @@
 # define LCTRL			SDL_SCANCODE_LCTRL
 # define RCTRL			SDL_SCANCODE_RCTRL
 # define SPRINT			SDL_SCANCODE_LSHIFT
+# define PAGE_UP		1073741899
+# define PAGE_DOWN		1073741902
 
 # define LEFT			SDL_SCANCODE_A
 # define RIGHT			SDL_SCANCODE_D
@@ -66,7 +68,14 @@
 # define DEL 			8
 # define TAB 			9
 # define DELETE			SDLK_DELETE
-# define MINUS			SDLK_MINUS
+# define MINUS			45
+# define PLUS			61
+# define ZERO			48
+# define HOME			1073741898
+# define END			1073741901
+# define PAGE_UP		1073741899
+# define PAGE_DOWN		1073741902
+
 
 # define SPRINT	SDL_SCANCODE_LSHIFT
 

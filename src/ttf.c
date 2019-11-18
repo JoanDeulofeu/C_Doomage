@@ -43,6 +43,7 @@ void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
 void	ft_draw_ttf(t_main *s)
 {
 	t_ttf		ttf;
+	char*		str;
 
 	if (s->editor->mode_floor == 1 && s->display_mode == editor)
 	{
@@ -56,62 +57,22 @@ void	ft_draw_ttf(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 0;
-		// ttf.pos.y = 150;
-		// ttf.str = ft_strdup("150");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 0;
-		// ttf.pos.y = 300;
-		// ttf.str = ft_strdup("300");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 0;
-		// ttf.pos.y = 450;
-		// ttf.str = ft_strdup("450");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 0;
-		// ttf.pos.y = 600;
-		// ttf.str = ft_strdup("600");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 960;
-		// ttf.pos.y = 150;
-		// ttf.str = ft_strdup("150");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 960;
-		// ttf.pos.y = 300;
-		// ttf.str = ft_strdup("300");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 960;
-		// ttf.pos.y = 450;
-		// ttf.str = ft_strdup("450");
-		// ft_create_ttf(ttf, s, s->font->roboto);
-		// ttf.r = 255;
-		// ttf.g = 255;
-		// ttf.b = 255;
-		// ttf.pos.x = 960;
-		// ttf.pos.y = 600;
-		// ttf.str = ft_strdup("600");
-		// ft_create_ttf(ttf, s, s->font->roboto);
+		ttf.r = 255;
+		ttf.g = 255;
+		ttf.b = 255;
+		ttf.pos.x = 900;
+		ttf.pos.y = 100;
+		ttf.str = ft_strdup("FPS");
+		ft_create_ttf(ttf, s, s->font->roboto);
+		str = ft_itoa(s->time->fps);
+		ttf.r = 255;
+		ttf.g = 255;
+		ttf.b = 255;
+		ttf.pos.x = 940;
+		ttf.pos.y = 100;
+		ttf.str = ft_strdup(str);
+		ft_create_ttf(ttf, s, s->font->roboto);
+		ft_memdel((void **)&str);
 	}
 	if (s->display_mode == save)
 	{

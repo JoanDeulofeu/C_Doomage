@@ -25,7 +25,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 {
 	double	diff_wall;
 	int		i;
-	int		height_wall;
+	double	height_wall;
 	t_pos	coord;
 	int		bottom;
 	double	pct_avcm; //pourcentage avancement
@@ -46,7 +46,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		else
 			ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
 		coord.x++;
-		pct_avcm = (100 * i) / width_wall;
+		pct_avcm = (100 * (double)i) / (double)width_wall;
 
 		if (l_height_wall < r_height_wall)
 			height_wall = l_height_wall + (diff_wall * pct_avcm) / 100;
@@ -55,6 +55,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		else
 			height_wall = l_height_wall;
 	}
+	// printf("-----------------------------------------------\n\n\n\n");
 	return (coord.x);
 }
 
@@ -205,11 +206,9 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 	double	angle_right;
 	double	angle_left;
 	double	demi_fov;
-	int		i;
 	t_dpos	wall1;
 	t_dpos	wall2;
 
-	i = 0;
 	if (vs->end_wall_id == 0)
 	{
 		printf("ERROR\n");
@@ -393,7 +392,6 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	double	pct_plan; //pourcentage de longueur de mur sur le plan
 	int		width_wall; //largeur du mur en pixel a l'ecran
 
-	// printf("wall->player x(%f) y(%f), wall->left = x(%f) y(%f))\n", wall->player.x, wall->player.y, wall->left.x, wall->left.y);
 	l_big_dist = ft_dist_t_dpos(wall->player, wall->left);
 	r_big_dist = ft_dist_t_dpos(wall->player, wall->right);
 	l_small_dist = ft_dist_t_dpos(wall->player, wall->l_plan);
@@ -402,15 +400,14 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	l_pct = (l_big_dist * 100.0) / l_small_dist;
 	r_pct = (r_big_dist * 100.0) / r_small_dist;
 
-	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4) * ft_abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
-	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4) * ft_abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
+	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4) * (double)abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
+	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4) * (double)abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
 
 	pct_plan = (ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN;
 	width_wall = (WIDTH * pct_plan) / 100;
 
 	ft_init_diff_and_min(wall);
 
-	// printf("test1\n");
 	return (ft_draw_wall(s, wall, l_height_wall, r_height_wall, width_wall));
 }
 
@@ -422,8 +419,8 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	double	r_big_dist;
 	double	l_small_dist;
 	double	r_small_dist;
-	int		l_height_wall;
-	int		r_height_wall;
+	double	l_height_wall;
+	double	r_height_wall;
 	double	x;
 	t_dpos	l_plan;
 	t_dpos	r_plan;

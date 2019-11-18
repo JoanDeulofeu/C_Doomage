@@ -49,6 +49,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	nb_tex_y = abs(wall->floor_height - wall->ceiling_height) * 2;
 	tex_size_x = wall->total_width_wall / nb_tex_x;
 	tex_size_y = (end - coord.y) / nb_tex_y;
+	// printf("x = %d,   size_tex_x = %f\n", x, tex_size_x);
 	perx = (fmod((double)x, tex_size_x)) * 100 / tex_size_x;
 	while (coord.y < end)
 	{

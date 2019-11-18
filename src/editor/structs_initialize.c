@@ -163,6 +163,8 @@ t_main		*initialize_main(char *str)
 		exit(-1);
 	if (!(s->savemap = (t_savemap*)malloc(sizeof(t_savemap))))
 		exit(-1);
+	if (!(s->time = (t_timer*)malloc(sizeof(t_timer))))
+		exit(-1);
 	if (str)
 		s->map_name = ft_strdup(str);
 	else
@@ -173,6 +175,7 @@ t_main		*initialize_main(char *str)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	ft_set_time(s);
 
 	s->player.set = 1;
 	s->player.i = 0;
@@ -193,11 +196,6 @@ t_main		*initialize_main(char *str)
 
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
-	s->player.set_jump = 0;
-	s->player.fin_time = 0;
-	s->player.tmp_time = 0;
-	s->player.t.recoil.x = 0;
-	s->player.t.recoil.y = 0;
 
 	s->tmp_intersect.x = 0;
 	s->tmp_intersect.y = 0;

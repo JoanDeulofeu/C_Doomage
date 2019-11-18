@@ -1,5 +1,55 @@
 #include "doom.h"
 
+void	ft_nul(t_main *s)
+{
+	t_dpos		init;
+	t_dpos		dest;
+
+	// init.x = 0;
+	// init.y = 150;
+	// dest.x = WIDTH;
+	// dest.y = 151;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 300;
+	// dest.x = WIDTH;
+	// dest.y = 301;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 450;
+	// dest.x = WIDTH;
+	// dest.y = 451;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 600;
+	// dest.x = WIDTH;
+	// dest.y = 601;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+
+
+	//trait vertaicaux
+	init.x = 400;
+	init.y = 0;
+	dest.x = 402;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 450;
+	init.y = 0;
+	dest.x = 452;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 880;
+	init.y = 0;
+	dest.x = 882;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 930;
+	init.y = 0;
+	dest.x = 932;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+}
+
 void		click_editor_menu(t_main *s, t_anim menu, int x)
 {
 	int		case_size;
@@ -74,10 +124,27 @@ int			key_controls_save(t_main *s, int key)
 	return (1);
 }
 
+void		ft_change_height(t_main *s, int key)
+{
+	t_sector *sct;
+
+	sct = get_sector_by_id(s, s->player.sector_id);
+	if (key == PAGE_DOWN && sct->floor > 0)
+		sct->floor--;
+	else if (key == END && sct->ceiling > 0 && sct->ceiling > sct->floor + 1)
+		sct->ceiling--;
+	else if (key == PAGE_UP && sct->floor < 10 && sct->ceiling > sct->floor + 1)
+		sct->floor++;
+	else if (key == HOME && sct->ceiling < 10)
+		sct->ceiling++;
+}
+
 int			key_controls_game(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
+	if (key == HOME || key == END || key == PAGE_UP || key == PAGE_DOWN)
+		ft_change_height(s, key);
 	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
 	{
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
@@ -152,7 +219,6 @@ int			key_controls_edi(t_main *s, int key)
 	if (key == MOVE || key == VERTEX || key == WALL || key == PLAYER ||
 		key == PORTAL || key == SPRITE)
 		change_mode(s, key);
-
 	if (s->display_mode == editor)
 	{
 		if (s->editor->mode == vertex && (key == DELETE))
@@ -163,56 +229,6 @@ int			key_controls_edi(t_main *s, int key)
 	if (key == DELETE)
 		return(2);
 	return (1);
-}
-
-void	ft_nul(t_main *s)
-{
-	t_dpos		init;
-	t_dpos		dest;
-
-	init.x = 0;
-	init.y = 150;
-	dest.x = WIDTH;
-	dest.y = 151;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 300;
-	dest.x = WIDTH;
-	dest.y = 301;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 450;
-	dest.x = WIDTH;
-	dest.y = 451;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 600;
-	dest.x = WIDTH;
-	dest.y = 601;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-}
-
-void		ft_change_height(t_main *s, const Uint8	*keys)
-{
-	t_sector *sct;
-
-	printf("test1\n");
-	sct = get_sector_by_id(s, s->player.sector_id);
-	printf("test2\n");
-	if (keys[SDLK_KP_MINUS])
-	{
-		if (keys[RCTRL])
-			sct->floor--;
-		else
-			sct->ceiling--;
-	}
-	else
-	{
-		if (keys[RCTRL])
-			sct->floor++;
-		else
-			sct->ceiling++;
-	}
 }
 
 void		handle_editor_keys(t_main *s)
@@ -229,19 +245,11 @@ void		handle_editor_keys(t_main *s)
 	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] ||
 		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
-	if (keys[LCTRL])
-		crouch(s,1);
-	// if (keys[SDLK_KP_MINUS] || keys[SDLK_KP_PLUS])
-	// 	ft_change_height(s, keys);
-	else if (keys[SPACE])
-	{
-//		 jump(s,1);
-	}
-	else
-	{
-		crouch(s,-1);
-		jump(s,-1);
-	}
+
+	// if (keys[LCTRL])
+	// 	crouch(s,1);
+	// else if (keys[SPACE])
+	// 	jump();
 	if (s->display_mode == editor)
 	{
 		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
@@ -322,6 +330,8 @@ void		editor_handler(t_main *s)
 	{
 		tmp_mode = s->editor->mode;
 		v = s->vertex;
+		s->time->time_ms = SDL_GetTicks();
+		ft_fps(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -528,7 +538,7 @@ void		editor_handler(t_main *s)
 					}
 					else if (s->display_mode == game)
 					{
-						shoot(s,1);
+						// shoot(s,1);
 					}
 					else if (s->display_mode == save)
 					{
@@ -552,7 +562,7 @@ void		editor_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN)
 			{
-				// printf("key = %d\n", s->sdl->event.key.keysym.sym);
+				printf("key = %d\n", s->sdl->event.key.keysym.sym);
 				if (s->display_mode == editor)
 				{
 					if ((remove_achr = key_controls_edi(s,

@@ -11,17 +11,6 @@ void		handle_game_keys(t_main *s)
 		ft_move_player(s, keys, 2);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
-	if (keys[LCTRL])
-		crouch(s,1);
-	else if (keys[SPACE])
-	{
-//		 jump(s,1);
-	}
-	else
-	{
-		crouch(s,-1);
-		jump(s,-1);
-	}
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
 		if (s->skybox.current != 0 && s->skybox.current < 17)
@@ -45,9 +34,12 @@ void		game_handler(t_main *s)
 
 	ingame = 1;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+	s->display_mode = game;
 	// draw_interface(s);
 	while (ingame)
 	{
+		s->time->time_ms = SDL_GetTicks();
+		ft_fps(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -62,7 +54,7 @@ void		game_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-						shoot(s,1);
+						// shoot(s,1);
 						if (s->skybox.current < 17 && s->player.abs_angle > 62
 							&& s->player.abs_angle < 82 && s->player.y_eye >= 376
 							&& s->player.y_eye <= 782)
