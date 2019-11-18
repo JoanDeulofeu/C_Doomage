@@ -559,7 +559,7 @@ void		editor_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN)
 			{
-				printf("key = %d\n", s->sdl->event.key.keysym.sym);
+				// printf("key = %d\n", s->sdl->event.key.keysym.sym);
 				if (s->display_mode == editor)
 				{
 					if ((remove_achr = key_controls_edi(s,
