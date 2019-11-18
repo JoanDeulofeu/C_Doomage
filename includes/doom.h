@@ -74,13 +74,14 @@ typedef struct				s_visu_sct
 	int						sx2;
 }							t_visu_sct;
 
-typedef struct				s_lsprite
-{
-	int						id;
-	t_image					*img;
-	t_lanim					*anim;
-	struct s_lsprite		*next;
-}							t_lsprite;
+
+// typedef struct				s_lsprite
+// {
+// 	int						id;
+// 	t_image					*img;
+// 	t_lanim					*anim;
+// 	struct s_lsprite		*next;
+// }							t_lsprite;
 
 typedef struct				s_player
 {
@@ -583,6 +584,11 @@ void						remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,
 	t_sprite *prev);
 
 t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
+/*
+****	Fonction sprite Yohann
+*/
+t_sprite					*create_new_sprite(t_main *s, t_type type, t_dpos pos);
+void 						draw_sprites_ori(t_main *s);
 
 /*
 ****	Fonction mode selection
