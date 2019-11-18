@@ -74,15 +74,6 @@ typedef struct				s_visu_sct
 	int						sx2;
 }							t_visu_sct;
 
-typedef struct				s_time
-{
-	int						action;
-	t_pos					recoil;
-	long					fin_time;
-	long					tmp_time;
-	char					v0id[32];
-}							t_time;
-
 
 // typedef struct				s_lsprite
 // {
