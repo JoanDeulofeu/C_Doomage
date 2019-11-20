@@ -180,7 +180,8 @@ int			key_controls_game(t_main *s, int key)
 	if (key == DAMAGE)
 		damage(s);
 	if (key == SDLK_KP_PLUS)
-		ft_create_message(s, 2, 4000, "Vive le chocolat !");
+		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
+		tp_first_sector(s);
 	return (1);
 }
 

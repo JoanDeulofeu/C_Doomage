@@ -510,6 +510,7 @@ void						shoot(t_main *s, int press);
 void						display_crosshair(t_main *s, int i, int j);
 // void						draw_weapon2(t_main *s, int i, int j);
 int							is_colliding(t_main *s, t_dpos target);
+void						tp_first_sector(t_main *s);
 
 /*
 ****	Fonction de sauvegarde

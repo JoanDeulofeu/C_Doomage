@@ -1,6 +1,6 @@
 #include "doom.h"
 
-void tp_first_sector(t_main *s)
+void	tp_first_sector(t_main *s)
 {
 	t_sector	*sct;
 	t_pos		center;
@@ -12,7 +12,7 @@ void tp_first_sector(t_main *s)
 		s->player.r_pos.x = (center.x / METRE);
 		s->player.r_pos.y = (center.y / METRE);
 		// printf("s->player.r_pos x(%f) y(%f)\n", s->player.r_pos.x, s->player.r_pos.y);
-		exit(-1);
+
 		set_player(s);
 		if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.r_pos))) == 0)
 			handle_sector_zero(s);

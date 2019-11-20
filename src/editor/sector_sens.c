@@ -78,6 +78,7 @@ int		ft_check_sector_sens(t_main *s, t_sector *sct)
 
 	(void)s;
 	center = ft_find_polygon_center(sct);
+	// printf("sct n%d center = x(%d) y(%d)\n", sct->id, center.x, center.y);
 	wall = sct->vertex;
 	i = 0;
 	score.d1 = 0.0;
