@@ -1,5 +1,24 @@
 #include "doom.h"
 
+void	get_wall_distance(t_walls *wall, t_visu *vs)
+{
+	int	dist1;
+	int dist2;
+
+	dist1 = ft_dist_t_dpos(wall->left, vs->player);
+	dist2 = ft_dist_t_dpos(wall->right, vs->player);
+	if (dist1 <= dist2)
+	{
+		wall->l_dist = dist1;
+		wall->b_dist = dist2;
+	}
+	else
+	{
+		wall->l_dist = dist2;
+		wall->b_dist = dist1;
+	}
+}
+
 void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color)
 {
 	coord.y = ft_draw_ceiling(s, wall, coord);
@@ -83,11 +102,13 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	wall->r_left = left;
 
 	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
+	// printf("tmp_intersct 1 : x(%f) y(%f)\n", s->tmp_intersect.x, s->tmp_intersect.y);
 	if (dist > 0)
 		wall->left = s->tmp_intersect;
 	else
 		wall->left = left;
 	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
+	// printf("tmp_intersct 2 : x(%f) y(%f)\n", s->tmp_intersect.x, s->tmp_intersect.y);
 	wall->l_plan = s->tmp_intersect;
 	if (dist > 0 && !s->walls)
 		wall->x = 0;
@@ -95,23 +116,57 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
 
 	dist = ft_find_intersection(s, vs->right_point, vs->player, left, right, 1);
+	// printf("tmp_intersct 3 : x(%f) y(%f)\n", s->tmp_intersect.x, s->tmp_intersect.y);
 
 	if (dist > 0)
 		wall->right = s->tmp_intersect;
 	else
 		wall->right = right;
 
+
 	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
+	// printf("tmp_intersct 4 : x(%f) y(%f)\n\n", s->tmp_intersect.x, s->tmp_intersect.y);
 	wall->r_plan = s->tmp_intersect;
+	// if (dist > 0)
+	// 	wall->r_plan = vs->right_plan;
+	get_wall_distance(wall, vs);
+	// wall->distance = fabs(vs->player.x - wall->r_left.x)
+	// 	+ fabs(vs->player.y - wall->r_left.y)
+	// 	+ fabs(vs->player.x - wall->r_right.x)
+	// 	+ fabs(vs->player.y - wall->r_right.y);
+	// wall->l_distance = ft_dist_t_dpos(wall->left, vs->player);
+	if (vtx->ptr->id == 19) //19 mur du fond
+	{
+		// printf("mesure1 = %f ou %f, mesure2 = %f ou %f\n", ceil(ft_dist_t_dpos(wall->r_plan, vs->player)) ,ft_dist_t_dpos(wall->r_plan, vs->player),  ceil(ft_dist_t_dpos(vs->right_plan, vs->player)), ft_dist_t_dpos(vs->right_plan, vs->player));
+		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
+		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
+		// printf();
+	}
+	// if (ft_find_intersection(s, temp1, temp2, vs->left_plan, vs->right_plan, 1) > 0)
+	// {
+	// printf("mur gauche = %f, mur droite = %f\n", ft_dist_t_dpos(wall->l_plan, vs->left_plan), ft_dist_t_dpos(wall->r_plan, vs->left_plan));
+	// printf("mesure = %f, mesure2 = %f\n", ft_dist_t_dpos(wall->r_plan, vs->player), ft_dist_t_dpos(vs->left_plan, vs->player));
+		// if (ft_find_intersection(s, wall->r_plan, vs->player, vs->left_plan, vs->right_plan, 1))
+		// 	printf("intersection ok\n");
+		if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <=
+		ft_dist_t_dpos(wall->r_plan, vs->left_plan)
+		&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player)) - ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
+		{
+			// if (ft_find_intersection(s, wall->r_plan, vs->player, vs->left_plan, vs->right_plan, 1)|| (fabs(vs->right_plan.x - wall->r_plan.x) < 0.5 && fabs(vs->right_plan.y - wall->r_plan.y) < 0.5)||ceil(ft_dist_t_dpos(wall->r_plan, vs->player)) == ceil(ft_dist_t_dpos(vs->right_plan, vs->player)))
+			// if (ft_find_intersection(s, wall->r_plan, vs->player, vs->left_plan, vs->right_plan, 1))
+			// if ()
+				add_wall_to_list(s, wall);
+			// else
+			// {
+			// 	// printf("vs->right_plan x(%f) y(%f),wall-rlan x(%f), y(%f)\n",vs->right_plan.x, vs->right_plan.y, wall->r_plan.x, wall->r_plan.y);
+			// 	// printf("valeur 1 = %f, valeur 2 = %f\n", fabs(vs->right_plan.x - wall->r_plan.x),fabs(vs->right_plan.y - wall->r_plan.y));
+			// }
+			// 	// printf("wall->right x(%f) y(%f),vs->player x(%f) y(%f), vs->left_plan x(%f) y(%f), vs->right_plan x(%f) y(%f)\n",
+			 	// 	wall->right.x, wall->right.y, vs->player.x, vs->player.y, vs->left_plan.x, vs->left_plan.y, vs->right_plan.x, vs->right_plan.y);
 
-	wall->distance = fabs(vs->player.x - wall->left.x)
-		+ fabs(vs->player.y - wall->left.y)
-		+ fabs(vs->player.x - wall->right.x)
-		+ fabs(vs->player.y - wall->right.y);
-
-	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <
-	ft_dist_t_dpos(wall->r_plan, vs->left_plan))
-		add_wall_to_list(s, wall);
+			// printf("vtx gauche = %d, vtx_droit = %d\n", vtx->ptr->id, vtx->next->ptr->id);
+		}
+	 // }
 
 	wall->left_ceiling_limit = vs->left_ceiling_limit;
 	wall->left_floor_limit = vs->left_floor_limit;
@@ -510,6 +565,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	vtx = draw_mid_walls(s, vtx, &vs);
 	draw_last_wall(s, vtx, &vs);
 	wall = s->walls;
+	// print_wall_list(s);
 	while (wall)
 	{
 		ft_print_wall(s, wall);

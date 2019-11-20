@@ -250,9 +250,11 @@ typedef struct				s_sprite
 	double					dist;
 	double					r_dist;
 	t_dpos					r_pos;
+	t_dpos					r_ori; //Position a sauvegarder
 	t_pos					pos;
-	t_type					type;
-	t_name					name;
+	t_dpos					m_pos;
+	t_type					type; //type a sauvegarder
+	t_name					name; //name a sauvegarder
 	t_image					*img;
 	t_anim					anim;
 	int						sct_id;
