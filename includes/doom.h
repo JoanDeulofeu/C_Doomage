@@ -211,6 +211,7 @@ typedef struct				s_sdl {
 
 typedef struct				s_font {
 	TTF_Font				*press_start;
+	TTF_Font				*press_start25;
 	TTF_Font				*open;
 	TTF_Font				*roboto;
 	TTF_Font				*stylish;
@@ -222,10 +223,20 @@ typedef struct				s_timer {
 	int						count_fps;
 	int						tmp_sec_fps;
 	int						fps;
+	long					msg_tmp_ms;
 }							t_timer;
+
+typedef struct				s_msg {
+	int						r;
+	int						g;
+	int						b;
+	int						duration;
+	char					*message;
+}							t_msg;
 
 typedef struct				s_main {
 	t_timer					*time;
+	t_msg					*msg;
 	t_font					*font;
 	t_sdl					*sdl;
 	t_editor				*editor;
@@ -527,6 +538,9 @@ fixed_float					ft_fixed_mul(fixed_float a, fixed_float b);
 void						ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
 void						ft_init_font(t_main *s);
 void						ft_draw_ttf(t_main *s);
+void						ft_display_message(t_main *s);
+void						ft_create_message(t_main *s, int color, int duration, char *str);
+void						ft_init_msg(t_main *s);
 
 /*
 ****	Fonction de debug

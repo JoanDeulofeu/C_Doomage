@@ -130,13 +130,25 @@ void		ft_change_height(t_main *s, int key)
 
 	sct = get_sector_by_id(s, s->player.sector_id);
 	if (key == PAGE_DOWN && sct->floor > 0)
+	{
 		sct->floor--;
+		ft_create_message(s, 0, 1000, "Floor down");
+	}
 	else if (key == END && sct->ceiling > 0 && sct->ceiling > sct->floor + 1)
+	{
 		sct->ceiling--;
+		ft_create_message(s, 0, 1000, "Ceiling down");
+	}
 	else if (key == PAGE_UP && sct->floor < 10 && sct->ceiling > sct->floor + 1)
+	{
 		sct->floor++;
+		ft_create_message(s, 0, 1000, "Floor up");
+	}
 	else if (key == HOME && sct->ceiling < 10)
+	{
 		sct->ceiling++;
+		ft_create_message(s, 0, 1000, "Ceiling up");
+	}
 }
 
 int			key_controls_game(t_main *s, int key)
@@ -167,6 +179,8 @@ int			key_controls_game(t_main *s, int key)
 		health_pack(s);
 	if (key == DAMAGE)
 		damage(s);
+	if (key == SDLK_KP_PLUS)
+		ft_create_message(s, 2, 4000, "Vive le chocolat !");
 	return (1);
 }
 

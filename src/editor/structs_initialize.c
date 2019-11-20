@@ -165,6 +165,8 @@ t_main		*initialize_main(char *str)
 		exit(-1);
 	if (!(s->time = (t_timer*)malloc(sizeof(t_timer))))
 		exit(-1);
+	if (!(s->msg = (t_msg*)malloc(sizeof(t_msg))))
+		exit(-1);
 	if (str)
 		s->map_name = ft_strdup(str);
 	else
@@ -176,6 +178,7 @@ t_main		*initialize_main(char *str)
 	s->sector = NULL;
 	s->grid = NULL;
 	ft_set_time(s);
+	ft_init_msg(s);
 
 	s->player.set = 1;
 	s->player.i = 0;

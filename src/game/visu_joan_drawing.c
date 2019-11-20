@@ -39,7 +39,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	while (i++ < width_wall)
 	{
 		wall->avcm_x = i;
-		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye +  s->player.eyesight; //haut du mur
+		coord.y = (HEIGHT / 2) - height_wall / 2 + s->player.y_eye + s->player.eyesight; //haut du mur
 		bottom = (HEIGHT / 2) + height_wall / 2 + s->player.y_eye + s->player.eyesight; //bas du mur
 		if (i == 1 || i == width_wall)
 			ft_draw_column(s, wall, coord, bottom, 0x000000FF);

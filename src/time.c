@@ -6,6 +6,7 @@ void	ft_set_time(t_main *s)
 	s->time->tmp_sec_fps = s->time->time_ms * 0.001;
 	s->time->count_fps = 0;
 	s->time->fps = 0;
+	s->time->msg_tmp_ms = 0;
 }
 
 void	ft_fps(t_main* s)

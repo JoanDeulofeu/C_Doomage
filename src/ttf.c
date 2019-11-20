@@ -3,6 +3,7 @@
 void	ft_all_ttf_to_null(t_main *s)
 {
 	s->font->press_start = NULL;
+	s->font->press_start25 = NULL;
 	s->font->open = NULL;
 	s->font->roboto = NULL;
 	s->font->stylish = NULL;
@@ -13,6 +14,8 @@ void	ft_init_font(t_main *s)
 {
 	ft_all_ttf_to_null(s);
 	while ((s->font->press_start = TTF_OpenFont("sdl_font/press-start.ttf", 10)) == NULL)
+		;
+	while ((s->font->press_start25 = TTF_OpenFont("sdl_font/press-start.ttf", 25)) == NULL)
 		;
 	while ((s->font->open = TTF_OpenFont("sdl_font/Open.ttf", 10)) == NULL)
 		;
@@ -45,6 +48,7 @@ void	ft_draw_ttf(t_main *s)
 	t_ttf		ttf;
 	char*		str;
 
+	ft_display_message(s);
 	if (s->editor->mode_floor == 1 && s->display_mode == editor)
 	{
 		ttf.r = 255;
@@ -60,16 +64,16 @@ void	ft_draw_ttf(t_main *s)
 		ttf.r = 255;
 		ttf.g = 255;
 		ttf.b = 255;
-		ttf.pos.x = 900;
-		ttf.pos.y = 100;
+		ttf.pos.x = 920;
+		ttf.pos.y = 4;
 		ttf.str = ft_strdup("FPS");
 		ft_create_ttf(ttf, s, s->font->roboto);
 		str = ft_itoa(s->time->fps);
 		ttf.r = 255;
 		ttf.g = 255;
 		ttf.b = 255;
-		ttf.pos.x = 940;
-		ttf.pos.y = 100;
+		ttf.pos.x = 960;
+		ttf.pos.y = 4;
 		ttf.str = ft_strdup(str);
 		ft_create_ttf(ttf, s, s->font->roboto);
 		ft_memdel((void **)&str);

@@ -5,12 +5,13 @@ SRC_PATH = src
 SRC_NAME =	main.c						\
 			ttf.c						\
 			time.c						\
+			message.c					\
 			menu.c						\
 			sounds.c					\
 			debug.c						\
 			save_map.c					\
 			editor/editor_launcher.c	\
-			game/texture.c			\
+			game/texture.c				\
 			editor/controls.c			\
 			editor/actions.c			\
 			editor/selected.c			\
