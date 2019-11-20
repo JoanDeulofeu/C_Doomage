@@ -9,8 +9,8 @@ void tp_first_sector(t_main *s)
 	if (sct)
 	{
 		center = ft_find_polygon_center(sct);
-		s->player.r_pos.x = (center.x / s->editor->space - s->editor->decal_x);
-		s->player.r_pos.y = (center.y / s->editor->space - s->editor->decal_y);
+		s->player.r_pos.x = (center.x / METRE);
+		s->player.r_pos.y = (center.y / METRE);
 		// printf("s->player.r_pos x(%f) y(%f)\n", s->player.r_pos.x, s->player.r_pos.y);
 		exit(-1);
 		set_player(s);
