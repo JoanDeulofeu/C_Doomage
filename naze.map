@@ -1,0 +1,30 @@
+Map : naze
+
+Vertex 3		5
+Vertex 5		20
+Vertex 10		24
+Vertex 12		21
+Vertex 13		6
+Vertex 16		9
+Vertex 19		13
+Vertex 21		9
+Vertex 23		13
+Vertex 26		9
+Vertex 26		19
+Vertex 23		15
+Vertex 21		19
+Vertex 19		15
+Vertex 16		19
+Vertex 16		25
+Vertex 26		25
+Vertex 26		29
+Vertex 16		29
+
+
+Sector 0 2 | 1 2 3 4 5 | -1 -1 -1 -1 -1
+Sector 0 2 | 6 15 14 13 12 11 10 9 8 7 | 17 -1 -1 -1 -1 -1 -1 -1 -1 -1
+Sector 0 2 | 16 19 18 17 | -1 -1 -1 6
+
+
+Player 504 418
+Angle 809

@@ -83,13 +83,17 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	s->col_pos = get_direction(s, keys, speed + 10, s->player.m_pos);
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, s->col_pos)), BLUE);
 	// update_image(s, s->sdl->editor);
+	// printf("s->col_pos x(%f)y(%f)\n player x(%f)y(%f)\n\n", s->col_pos.x, s->col_pos.y, s->player.m_pos.x, s->player.m_pos.y);
 	//Si is_colliding renvoie -1, il y a collision, si il renvoie plus que 0 il faut se tp
 	if ((col = is_colliding(s, target)) == 0)
 	{
+		// printf("BOUYAAA\n");
 		if (handle_sector_zero(s))
 			return ;
+		// printf("snf\n");
 		s->player.r_pos.x = target.x;
 		s->player.r_pos.y = target.y;
+		set_player(s);
 	}
 	if (col > 0)
 		teleport_player(s, keys);

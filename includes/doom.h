@@ -11,7 +11,6 @@
 # define MAX_QUEUE 32
 
 # define WALL_HEIGHT 10
-// # define METRE 30
 # define HEIGHT_MULT 0.5
 # define DIVPLAN 20
 # define WIDTHPLAN (WIDTH / DIVPLAN)
@@ -147,7 +146,9 @@ typedef struct				s_slider {
 
 typedef struct				s_walls {
 	char					wall_or_portal; //wall = "w", portal = "p";
-	double					distance;
+	// double					distance;
+	double					l_dist;
+	double					b_dist;
 	int						x;
 	t_dpos					player;
 	int						screen_width_wall;

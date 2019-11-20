@@ -75,9 +75,9 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
 	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
-	s->sky.player = player;
-	s->sky.left_point = vs.left_plan;
-	s->sky.right_point = vs.right_plan;
+	// s->sky.player = player;
+	// s->sky.left_point = vs.left_plan;
+	// s->sky.right_point = vs.right_plan;
 	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
 	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
 	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;

@@ -12,7 +12,8 @@ void print_wall_list(t_main *s)
     printf("==========\n");
     printf("MUR[%d]\n", i);
     printf("----------\n");
-    printf("mur[%d].distance = %f\n", i, tmp->distance);
+    printf("mur[%d].l_dist = %f\n", i, tmp->l_dist);
+    printf("mur[%d].b_dist = %f\n", i, tmp->b_dist);
     printf("mur[%d].x = %d\n", i, tmp->x);
     printf("mur[%d].player.x = %f\n", i, tmp->player.x);
     printf("mur[%d].player.y = %f\n", i, tmp->player.y);

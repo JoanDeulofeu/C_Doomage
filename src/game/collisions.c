@@ -9,8 +9,10 @@ void tp_first_sector(t_main *s)
 	if (sct)
 	{
 		center = ft_find_polygon_center(sct);
-		s->player.r_pos.x = center.x / s->editor->space - s->editor->decal_x;
-		s->player.r_pos.y = center.y / s->editor->space - s->editor->decal_y;
+		s->player.r_pos.x = (center.x / s->editor->space - s->editor->decal_x);
+		s->player.r_pos.y = (center.y / s->editor->space - s->editor->decal_y);
+		// printf("s->player.r_pos x(%f) y(%f)\n", s->player.r_pos.x, s->player.r_pos.y);
+		exit(-1);
 		set_player(s);
 		if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.r_pos))) == 0)
 			handle_sector_zero(s);
@@ -28,7 +30,7 @@ static int	check_pos(t_main *s, t_dpos curr)
 		s->player.r_pos.x = curr.x / s->editor->space - s->editor->decal_x;
 		s->player.r_pos.y = curr.y / s->editor->space - s->editor->decal_y;
 		set_player(s);
-		// printf("true\n");
+		// printf("handle_sector_zero works !\n");
 		return (1);
 	}
 	else
@@ -47,7 +49,7 @@ int		handle_sector_zero(t_main *s)
 	if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) == 0)
 	{
 		// printf ("secyeur 0\n");
-		while (nb < 1000 * s->editor->space)
+		while (nb < 100 * s->editor->space)
 		{
 			curr = s->player.pos;
 			curr.x = s->player.pos.x + nb;
@@ -76,7 +78,7 @@ int		handle_sector_zero(t_main *s)
 			if (check_pos(s, curr))
 				return (1);
 			nb++;
-			printf("%d\n", nb);
+			// printf("%d\n", nb);
 		}
 		printf("Pas reussi a trouver un endroit où se tp.\n");
 		tp_first_sector(s);
@@ -111,9 +113,10 @@ int			is_colliding(t_main *s, t_dpos target)
 	t_dpos		bas;
 	int			value;
 
-	target = ft_pos_to_dpos(get_px_r_pos(s, target));
-	// value = (s->editor->anchor_size / 1.2);
-	value = (s->editor->anchor_size / 1.2) * (s->editor->space / G_SPACE);
+	target.x *= METRE;
+	target.y *= METRE;
+	value = (s->editor->anchor_size / 1.2);
+	value = (s->editor->anchor_size / 1.2);
 	haut = target;
 	bas = target;
 	haut.x = target.x + value;

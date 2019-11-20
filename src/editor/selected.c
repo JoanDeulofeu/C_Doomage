@@ -86,6 +86,7 @@ void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 {
 	t_vertex	*v;
 
+		printf("-------\nid = %d\n-------\n", id);
 	v = s->vertex;
 	tmp_move.x = arround(s->editor->space, s->sdl->event.button.x
 		- (s->editor->decal_x % s->editor->space));
