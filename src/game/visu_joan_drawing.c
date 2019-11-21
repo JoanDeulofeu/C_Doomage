@@ -36,7 +36,6 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 		}
 	}
 	coord.y = end - 1;
-
 	ft_draw_floor(s, wall, coord);
 }
 
@@ -184,10 +183,6 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_vs.prev_sct_id = vtx->sct;
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-		fake_vs.vtx_droite = vtx->vtx_dest;
-		if (fake_vs.vtx_droite == NULL)
-			handle_error(s, POINTER_ERROR);
-		fake_vs.vtx_gauche = vtx->vtx_dest->next;
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 			fake_vs.left_plan), METRE, WIDTHPLAN / 2);
 		angle_left = fake_angle + demi_fov;
@@ -195,6 +190,10 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		angle_right = fake_angle - demi_fov;
 		angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 		fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
+		fake_vs.vtx_droite = vtx->vtx_dest;
+		if (fake_vs.vtx_droite == NULL)
+			handle_error(s, POINTER_ERROR);
+		fake_vs.vtx_gauche = vtx->vtx_dest->next;
 		wall1.x = vtx->vtx_dest->next->ptr->x * METRE;
 		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
 		wall2.x = vtx->vtx_dest->ptr->x * METRE;
@@ -223,10 +222,13 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		ft_create_new_wall(s, vtx, vs, 'p');
 
 		if (s->portal_nb < PORTAL_LIMIT)
+		{
 			add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
+		}
 	}
 	else
 	{
+		// vs.vtx_droite = vtx->vtx_dest;
 		vs->begin.x = vtx->ptr->x * METRE;
 		vs->begin.y = vtx->ptr->y * METRE;
 		vs->tmp_wall.x = vtx->next->ptr->x * METRE;
@@ -269,10 +271,6 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			fake_vs.prev_sct_id = vtx->sct;
 			fake_vs.sct_id = vtx->sct_dest;
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-			fake_vs.vtx_droite = vtx->vtx_dest;
-			if (fake_vs.vtx_droite == NULL)
-				handle_error(s, POINTER_ERROR);
-			fake_vs.vtx_gauche = vtx->vtx_dest->next;
 			demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 				fake_vs.left_plan), METRE, WIDTHPLAN / 2);
 			angle_left = fake_angle + demi_fov;
@@ -281,6 +279,10 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			angle_right = angle_right < 0 ? angle_right + 360 : angle_right;
 			fake_vs = get_walls_to_draw(s, fake_player, angle_left,
 				angle_right, fake_vs);
+			fake_vs.vtx_droite = vtx->vtx_dest;
+			if (fake_vs.vtx_droite == NULL)
+				handle_error(s, POINTER_ERROR);
+			fake_vs.vtx_gauche = vtx->vtx_dest->next;
 			wall1.x = fake_vs.vtx_gauche->ptr->x * METRE;
 			wall1.y = fake_vs.vtx_gauche->ptr->y * METRE;
 			wall2.x = fake_vs.vtx_droite->ptr->x * METRE;
@@ -348,16 +350,16 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_vs.prev_sct_id = vtx->sct;
 		fake_vs.sct_id = vtx->sct_dest;
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-		fake_vs.vtx_droite = vtx->vtx_dest;
-		if (fake_vs.vtx_droite == NULL)
-			handle_error(s, POINTER_ERROR);
-		fake_vs.vtx_gauche = vtx->vtx_dest->next;
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.right_plan), METRE, WIDTHPLAN / 2);
 		angle_left = fake_angle + demi_fov;
 		angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
 		angle_right = fake_angle - demi_fov;
 		angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 		fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
+		fake_vs.vtx_droite = vtx->vtx_dest;
+		if (fake_vs.vtx_droite == NULL)
+			handle_error(s, POINTER_ERROR);
+		fake_vs.vtx_gauche = vtx->vtx_dest->next;
 		fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
 		wall1.x = vtx->vtx_dest->next->ptr->x * METRE;
 		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
@@ -531,6 +533,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	draw_first_wall(s, vtx, &vs);
 	if (vs.begin_wall_id == vs.end_wall_id)// cas 1 seul mur
 	{
+		// print_wall_list(s);
 		wall = s->walls;
 		if (wall != NULL)
 		{
@@ -542,6 +545,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 		}
 		clear_wall_list(s);
 		s->portal_nb = 0;
+		set_visible_sprites(s, &vs);
 		return ;
 	}
 	vtx = vtx->next;
@@ -551,10 +555,12 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	// print_wall_list(s);
 	while (wall)
 	{
+		// if (wall->w_or_p == 'c')
 		ft_print_wall(s, wall);
 		wall = wall->next;
 		vtx = vtx->next;
 	}
 	clear_wall_list(s);
 	s->portal_nb = 0;
+	set_visible_sprites(s, &vs);
 }

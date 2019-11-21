@@ -92,6 +92,7 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
+	// printf("begin_wall id = %d\n", vs.begin_wall_id);
 	// if(vs.begin_wall_id == 0)
 	// 	exit(0);
 	vs.begin = s->tmp_intersect;
@@ -104,6 +105,10 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 		vs.begin_wall_id)->next->ptr->id;
 	// 	exit(0);
 	vs.end = s->tmp_intersect;
+	vs.vtx_gauche = get_t_int_by_id(vs.sct->vertex, vs.begin_wall_id);
+	vs.vtx_droite = get_t_int_by_id(vs.sct->vertex, vs.end_wall_id);
+	// if (!vs.vtx_gauche && !vs.vtx_droite)
+	// 	exit(-1);
 	// printf("TEST vs.end (%.1f, %.1f)\n", vs.end.x, vs.end.y);
 	vs.player = player;
 	// printf("\nsortie-----------\n\n");
@@ -121,6 +126,8 @@ void		ft_visu_joan(t_main *s, const unsigned char *keys)
 	ft_bzero(&vs, sizeof(t_visu));
 	(void)keys;
 	player = s->player.m_pos;
+	vs.vtx_droite = NULL;
+	vs.vtx_gauche = NULL;
 
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
 	vs.prev_sct_id = 0; //pas de sct precedent...

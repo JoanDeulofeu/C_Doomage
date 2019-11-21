@@ -1,5 +1,106 @@
 #include "doom.h"
 
+void get_sprite_x(t_main *s, t_visu *vs, t_sprite *sprite)
+{
+	float	per;
+	t_dpos	inter;
+
+	per = 0;
+	ft_find_intersection(s, vs->left_plan, vs->right_plan,
+		vs->player, sprite->m_pos, 1);
+	inter = s->tmp_intersect;
+	per = ft_dist_t_dpos(vs->player, sprite->m_pos) * 100 / ft_dist_t_dpos(vs->left_plan, vs->right_plan);
+
+	//calculer ratio sur widthplan
+
+
+}
+
+void 	unset_sprites(t_main *s)
+{
+	t_sprite *sprite;
+
+	sprite = s->sprite;
+	while (sprite)
+	{
+		sprite->set = 0;
+		sprite = sprite->next;
+	}
+}
+
+void 	set_visible_sprites(t_main *s, t_visu *vs)
+{
+	t_lsprite 	*liste;
+	t_int		*wall;
+	int			inter;
+	t_dpos		wall1;
+	t_dpos		wall2;
+
+
+	liste = vs->sct->liste;
+	if(!liste)
+	{
+		return ;
+	}
+
+	wall = vs->vtx_gauche;
+	if (wall == NULL || vs->vtx_droite == NULL)
+		return ;
+	while (liste)
+	{
+		inter = 0;
+		while (wall->id != vs->vtx_droite->next->id)
+		{
+			wall1.x = wall->ptr->x * METRE;
+			wall1.y = wall->ptr->y * METRE;
+			wall2.x = wall->next->ptr->x * METRE;
+			wall2.y = wall->next->ptr->y * METRE;
+			if (ft_find_intersection(s, wall1, wall2, vs->player, liste->sprite->m_pos, 1))
+			{
+				// printf("inter\n");
+				inter = 1;;
+				break;
+			}
+			wall = wall->next;
+		}
+		if (inter == 0 && ft_find_intersection(s, vs->left_plan, vs->right_plan,
+			vs->player, liste->sprite->m_pos, 1))
+		{
+			liste->sprite->x = (ft_dist_t_dpos(vs->left_plan, liste->sprite->m_pos) / WIDTHPLAN) * WIDTH;
+			liste->sprite->set = 1;
+			// printf("sprite set\n");
+		}
+
+		else
+		{
+			liste->sprite->set = 0;
+			// printf("nop\n");
+		}
+
+		liste = liste->next;
+	}
+}
+
+void 	display_sprites(t_main *s)
+{
+	t_sprite *sprite;
+
+	sprite = s->sprite;
+	if (!sprite)
+		return ;
+	while (sprite)
+	{
+		// printf("boucle\n");
+		if (sprite->set == 1 && sprite->destroy == 0)
+		{
+			// printf("sprite ok\n");
+			sprite->r_dist = calc_sprite_r_dist(s, sprite->r_pos);
+			draw_sprite(s, sprite->angle, sprite);
+		}
+		sprite = sprite->next;
+	}
+}
+
 void	set_sprite(t_main *s)
 {
 	t_sprite *tmp;
@@ -69,6 +170,9 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos pos)
 	sprite->m_pos.y = sprite->r_pos.y * METRE;
 	sprite->type = type;
 	sprite->life = 100;
+	sprite->set = 0;
+	// sprite->next = NULL;
+	sprite->anim = s->stormtrooper.face;
 	if (!s->sprite)
 		s->sprite = sprite;
 	else

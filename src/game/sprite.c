@@ -151,7 +151,7 @@
 // 	found_sprite(s);
 // }
 
-void		display_sprite(t_main *s, double angle, t_sprite *cur)
+void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 {
 	double		perx;
 	double		pery;
@@ -162,9 +162,11 @@ void		display_sprite(t_main *s, double angle, t_sprite *cur)
 	int			i;
 	int			j;
 
-	wp = cur->img;
+	wp = cur->anim.image[cur->anim.current];
 	i = 0;
+	// printf("HELLO\n");
 	value = (HEIGHT / (cur->r_dist)) / 60;
+	// value = 0;
 	coord.x = 0;
 	coord.y = 0;
 	// printf("w = %d\n",wp->w);
@@ -178,7 +180,7 @@ void		display_sprite(t_main *s, double angle, t_sprite *cur)
 		j = 0;
 		coord.x = i;
 		perx = (double)i / (((double)wp->w) * value);
-		coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
+		// coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);
 		while (j < (wp->h) * value && j >= 0 && j <= HEIGHT) //J'ai ajouté la protection pour pas que ca rame mais ça fait disparaitre le sprite quand on ets trop pres
 		{
