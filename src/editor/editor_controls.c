@@ -285,6 +285,7 @@ void		handle_editor_keys(t_main *s)
 			(s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 		draw_space_menu(s);
 		handle_sector_zero(s);
+		unset_sprites(s);
 		ft_visu_joan(s, keys);
 		update_image(s, s->sdl->editor);
 	}
@@ -294,12 +295,13 @@ void		handle_editor_keys(t_main *s)
 		display_map(s);
 
 		handle_sector_zero(s);
+		unset_sprites(s);
 		ft_visu_joan(s, keys);
 
 		play_anim(s);
 		//	sprite_move(s);
 		health(s);
-		// draw_sprite(s);
+		display_sprites(s);
 		// draw_hud(s);
 		// print_hp(s);
 		// ft_nul(s);

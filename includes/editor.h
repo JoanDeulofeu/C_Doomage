@@ -238,6 +238,7 @@ typedef struct				s_lanim
 typedef struct				s_sprite
 {
 	int						id;
+	int						x;
 	int						set;
 	int						orientation;
 	int						select;

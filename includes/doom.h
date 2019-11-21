@@ -582,8 +582,10 @@ int							found_closer(t_main *s);
 
 void						found_sprite(t_main *s);
 
-void						draw_sprite(t_main *s);
-void						display_sprite(t_main *s, double angle, t_sprite *cur);
+void						draw_sprite(t_main *s, double angle, t_sprite *sprite);
+void 						display_sprites(t_main *s);
+void 						unset_sprites(t_main *s);
+void 						set_visible_sprites(t_main *s, t_visu *vs);
 int							check_sprite_menu_click(t_main *s, t_pos pos);
 void						draw_sprite_menu(t_main *s);
 void						display_sprite_inverse(t_main *s, double angle,
