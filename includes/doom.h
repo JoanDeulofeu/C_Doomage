@@ -89,6 +89,7 @@ typedef struct				s_player
 	t_dpos					pos; // Position du joueur en pixel
 	t_dpos					m_pos;// positon reel * METRE
 	t_line					line;
+	int						size;
 	int						set;
 	int						correc;
 	int						init_space;

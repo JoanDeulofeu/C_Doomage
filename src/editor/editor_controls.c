@@ -5,34 +5,34 @@ void	ft_nul(t_main *s)
 	t_dpos		init;
 	t_dpos		dest;
 
+	// init.x = 0;
+	// init.y = 150;
+	// dest.x = WIDTH;
+	// dest.y = 151;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 300;
+	// dest.x = WIDTH;
+	// dest.y = 301;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 	init.x = 0;
-	init.y = 150;
+	init.y = HEIGHT / 2;
 	dest.x = WIDTH;
-	dest.y = 151;
+	dest.y = HEIGHT / 2 + 2;
 	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 300;
-	dest.x = WIDTH;
-	dest.y = 301;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 450;
-	dest.x = WIDTH;
-	dest.y = 451;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 600;
-	dest.x = WIDTH;
-	dest.y = 601;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 600;
+	// dest.x = WIDTH;
+	// dest.y = 601;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 
 
-	//trait vertaicaux
+	//trait verticaux
 	// init.x = 400;
 	// init.y = 0;
 	// dest.x = 402;
 	// dest.y = HEIGHT;
-	// draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 	// init.x = 450;
 	// init.y = 0;
 	// dest.x = 452;
