@@ -39,17 +39,12 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 	ft_draw_floor(s, wall, coord);
 }
 
-int		ft_get_diff_height_pxl(t_main *s, int ceiling_height, int floor_height, int height_wall)
+int		ft_get_diff_height_pxl(int pct_eyesight, int height_wall)
 {
-	int		ig_height_wall; // hauteur du mur in game (en metre)
-	double	pct_eyesight; //pourcentage vision player
 	int		half_wall; //hauteur du mur en pxl divisé par 2;
 
-	ig_height_wall = ceiling_height - floor_height;
-	pct_eyesight = 100 - (s->player.size * 100 / ig_height_wall);
-	// printf("pct = %.2f      ", pct_eyesight);
 	half_wall = height_wall / 2;
-	return (((half_wall * pct_eyesight ) / 50) - half_wall); //50 car moitié mur
+	return (((half_wall * pct_eyesight) / 50) - half_wall); //50 car moitié mur
 }
 
 int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
@@ -61,6 +56,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	int		bottom;
 	double	pct_avcm; //pourcentage avancement
 	double	diff_height_pxl;
+	double	pct_eyesight; //pourcentage vision player
 
 	i = 0;
 	diff_wall = fabs(l_height_wall - r_height_wall);
@@ -68,11 +64,12 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	coord.x = wall->x;
 	wall->screen_width_wall = width_wall;
 	get_total_w_wall(wall);
+	pct_eyesight = 100 - (s->player.size * 100 / (wall->ceiling_height - wall->floor_height));
 	// printf("---\nwall size = %d       player size %d\n", wall->ceiling_height - wall->floor_height, s->player.size);
 	while (i++ < width_wall)
 	{
 		wall->avcm_x = i;
-		diff_height_pxl = ft_get_diff_height_pxl(s, wall->ceiling_height, wall->floor_height, l_height_wall);
+		diff_height_pxl = ft_get_diff_height_pxl(pct_eyesight, l_height_wall);
 		// printf("height = %.2f      diff = %.2f\n", height_wall, diff_height_pxl);
 		coord.y = (HEIGHT / 2) - (height_wall / 2 + diff_height_pxl) + s->player.y_eye;
 		bottom = (HEIGHT / 2) + (height_wall / 2 - diff_height_pxl) + s->player.y_eye;
@@ -465,6 +462,7 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	double	x;
 	t_dpos	l_plan;
 	t_dpos	r_plan;
+	double	pct_eyesight;
 
 	if (swich == 1) //si cest le premier mur
 	{
@@ -505,8 +503,9 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	else
 		x = (ft_dist_t_dpos(vs->left_plan, l_plan) / WIDTHPLAN) * WIDTH;
 
-	l_height_wall_diff = ft_get_diff_height_pxl(s, vs->sct->ceiling, vs->sct->floor, l_height_wall);
-	r_height_wall_diff = ft_get_diff_height_pxl(s, vs->sct->ceiling, vs->sct->floor, r_height_wall);
+	pct_eyesight = 100 - (s->player.size * 100 / (vs->sct->ceiling - vs->sct->floor));
+	l_height_wall_diff = ft_get_diff_height_pxl(pct_eyesight, l_height_wall);
+	r_height_wall_diff = ft_get_diff_height_pxl(pct_eyesight, r_height_wall);
 	// printf("height_wall (%.2f, %.2f)\nles deux diff (%.2f, %.2f)\n", l_height_wall, r_height_wall, l_height_wall_diff, r_height_wall_diff);
 	vs->left_ceiling_limit.x = (int)x;
 	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall / 2 + l_height_wall_diff) + s->player.y_eye + s->player.eyesight;
