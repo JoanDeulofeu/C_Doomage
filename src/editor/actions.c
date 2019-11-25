@@ -49,3 +49,25 @@ void		rotate_mouse(t_main *s)
 	else if (s->player.y_eye < -1000)
 		s->player.y_eye = -1000;
 }
+
+void	ft_crouch(t_main *s, const Uint8 *keys)
+{
+	if (keys[LCTRL])
+	{
+		if ((s->time->time_ms > s->time->crouch_ms + 25) && s->player.size > 1.05)
+		{
+			s->player.size -= 0.1;
+			s->time->crouch_ms = s->time->time_ms;
+			// printf("Crouch - \nPlayer size %.2f\n\n", s->player.size);
+		}
+	}
+	else
+	{
+		if ((s->time->time_ms > s->time->crouch_ms + 25) && s->player.size < 2)
+		{
+			s->player.size += 0.1;
+			s->time->crouch_ms = s->time->time_ms;
+			// printf("Crouch + \nPlayer size %.2f\n\n", s->player.size);
+		}
+	}
+}

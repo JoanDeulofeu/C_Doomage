@@ -89,13 +89,13 @@ typedef struct				s_player
 	t_dpos					pos; // Position du joueur en pixel
 	t_dpos					m_pos;// positon reel * METRE
 	t_line					line;
-	int						size;
+	double					size;
 	int						foot_height;
 	int						set;
 	int						correc;
 	int						init_space;
 	int						sector_id;
-	int						eyesight;
+	double					eyesight;
 	int						y_eye;
 	int						health;
 	double					angle;
@@ -227,6 +227,8 @@ typedef struct				s_timer {
 	int						tmp_sec_fps;
 	int						fps;
 	long					msg_tmp_ms;
+	long					crouch_ms;
+	long					jump_ms;
 }							t_timer;
 
 typedef struct				s_msg {
@@ -389,6 +391,7 @@ void						handle_keys(t_main *s);
 void						change_mode(t_main *s, int key);
 int							ft_prev_next_floor(t_main *s, char prev_next);
 void						move_editor(t_main *s, const Uint8 *keys);
+void						ft_crouch(t_main *s, const Uint8 *keys);
 
 /*
 ****	Fonction de gestion et de protection du parsing

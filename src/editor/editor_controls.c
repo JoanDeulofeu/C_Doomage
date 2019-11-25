@@ -262,10 +262,8 @@ void		handle_editor_keys(t_main *s)
 		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
 
-	// if (keys[LCTRL])
-	// 	crouch(s,1);
-	// else if (keys[SPACE])
-	// 	jump();
+	ft_crouch(s, keys);
+
 	if (s->display_mode == editor)
 	{
 		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
@@ -282,8 +280,8 @@ void		handle_editor_keys(t_main *s)
 			s->editor->m_floor.current = 0;
 		if (s->editor->mode == portal)
 			change_over_wall(s);
-		draw_editor_menu(s, 0, WIDTH / 2 -
-			(s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_editor_menu(s, 0, WIDTH / 2
+			- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 		draw_space_menu(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
@@ -356,8 +354,8 @@ void		editor_handler(t_main *s)
 			{
 				if (s->editor->mode == vertex || s->editor->mode == sprite)
 				{
-						s->editor->line.x2 = s->sdl->event.motion.x;
-						s->editor->line.y2 = s->sdl->event.motion.y;
+					s->editor->line.x2 = s->sdl->event.motion.x;
+					s->editor->line.y2 = s->sdl->event.motion.y;
 				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
