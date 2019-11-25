@@ -166,6 +166,7 @@
 //
 void		remove_sprite_by_select(t_main *s)
 {
+	(void)s;
 	// t_sprite	*cur;
 	// t_sprite	*prev;
 	//

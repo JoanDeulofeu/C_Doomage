@@ -2,6 +2,8 @@
 
 void		load_lanim(t_lanim *data, t_name name)
 {
+	(void)data;
+	(void)name;
 	// if (idanim == 1)
 	// 	load_anim1(data);
 	// if (idanim == 2)
@@ -30,7 +32,7 @@ void		load_lanim(t_lanim *data, t_name name)
 // 	load_lanim(data, idanim);
 // 	return (data);
 // }
-// 
+//
 // t_lsprite	*load_lsprite(t_main *s, t_lsprite *start, int size)
 // {
 // 	t_lsprite	*cur;
