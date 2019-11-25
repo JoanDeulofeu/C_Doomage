@@ -149,6 +149,7 @@ typedef struct				s_visu {
 
 typedef struct				s_walls {
 	char					wall_or_portal; //wall = "w", portal = "p";
+	int						sct_id;
 	double					l_dist;
 	double					b_dist;
 	int						x;
