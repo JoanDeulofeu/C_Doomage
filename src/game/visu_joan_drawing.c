@@ -142,12 +142,13 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
 		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
 	}
-		if (ft_dist_t_dpos(wall->l_plan, vs->left_plan) <=
-		ft_dist_t_dpos(wall->r_plan, vs->left_plan)
-		&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player)) - ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
-		{
-				add_wall_to_list(s, wall);
-		}
+	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan)
+	<= ft_dist_t_dpos(wall->r_plan, vs->left_plan)
+	&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player))
+	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
+	{
+		add_wall_to_list(s, wall);
+	}
 
 	wall->left_ceiling_limit = vs->left_ceiling_limit;
 	wall->left_floor_limit = vs->left_floor_limit;

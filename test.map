@@ -97,8 +97,8 @@ Vertex 39		41
 Vertex 42		41
 Vertex 42		38
 Vertex 12		10
-Vertex 4		10
-Vertex 4		18
+Vertex -2		10
+Vertex -2		18
 Vertex 12		18
 Vertex 13		18
 Vertex 13		10
@@ -132,5 +132,5 @@ Sector 0 2 | 98 99 100 97 | -1 -1 102 -1
 Sector 1 4 | 102 101 104 103 | 100 -1 -1 -1
 
 
-Player 134 390
-Angle 279
+Player 142 438
+Angle 269

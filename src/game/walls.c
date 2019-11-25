@@ -83,15 +83,18 @@ void	add_wall_to_list(t_main *s, t_walls *new)
 		return ;
 	}
 
-	while (tmp->next && new->l_dist < tmp->l_dist) //On avance tant que la distance du nouveau mur est plus petite que le mur actuek
+	//On avance tant que la distance du nouveau mur est plus petite que le mur actuel
+	while (tmp->next && new->l_dist < tmp->l_dist)
 		tmp = tmp->next;
-	if (new->l_dist == tmp->l_dist)
+	if ((new->l_dist == tmp->l_dist) && tmp->wall_or_portal != 'p')
 	{
 		if (new->b_dist < tmp->b_dist)
 			put_wall_before(s, new, tmp);
 		else
 			put_wall_after(new, tmp);
 	}
+	else if ((new->l_dist == tmp->l_dist) && tmp->wall_or_portal == 'p')
+		put_wall_before(s, new, tmp);
 	else if (new->l_dist > tmp->l_dist)
 		put_wall_before(s, new, tmp);
 	else
