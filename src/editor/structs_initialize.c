@@ -181,7 +181,7 @@ t_main		*initialize_main(char *str)
 	ft_init_msg(s);
 
 	s->player.set = 1;
-	s->player.size = 2;
+	s->player.size = PLAYER_SIZE;
 	s->player.i = 0;
 	s->player.r_pos.x = 7.5;
 	s->player.r_pos.y = 7.3;

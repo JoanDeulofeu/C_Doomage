@@ -1,136 +1,35 @@
 Map : test
 
-Vertex 20		25
-Vertex 20		28
-Vertex 23		28
-Vertex 23		25
-Vertex 15		30
-Vertex 15		33
-Vertex 15		34
-Vertex 15		37
-Vertex 24		37
-Vertex 24		34
-Vertex 24		33
-Vertex 24		30
-Vertex 20		40
-Vertex 23		40
-Vertex 23		43
-Vertex 20		43
-Vertex -14		38
-Vertex -10		38
-Vertex -10		41
-Vertex -14		41
-Vertex -14		45
-Vertex -10		45
-Vertex -10		48
-Vertex -14		48
-Vertex -7		38
-Vertex -7		41
-Vertex 0		38
-Vertex 0		41
-Vertex 3		46
-Vertex 8		51
-Vertex 7		52
-Vertex 2		47
-Vertex 7		53
-Vertex 2		58
-Vertex 8		54
-Vertex 3		59
-Vertex 9		54
-Vertex 14		59
-Vertex 15		58
-Vertex 10		53
-Vertex 9		51
-Vertex 10		52
-Vertex 15		47
-Vertex 14		46
-Vertex 1		4
-Vertex 23		4
-Vertex 11		-9
-Vertex 14		-9
-Vertex 14		-12
-Vertex 11		-12
-Vertex 4		-23
-Vertex 22		-23
-Vertex -9		-14
-Vertex -47		-14
-Vertex -47		35
-Vertex -9		35
-Vertex 32		4
-Vertex 32		7
-Vertex 37		7
-Vertex 36		4
-Vertex 37		4
-Vertex 38		7
-Vertex 41		6
-Vertex 38		3
-Vertex 42		5
-Vertex 39		2
-Vertex 44		2
-Vertex 40		1
-Vertex 40		0
-Vertex 44		1
-Vertex 54		-9
-Vertex 36		-11
-Vertex 35		26
-Vertex 35		36
-Vertex 46		36
-Vertex 46		26
-Vertex 42		30
-Vertex 46		30
-Vertex 46		33
-Vertex 42		33
-Vertex 39		33
-Vertex 39		30
-Vertex 35		30
-Vertex 35		33
-Vertex 48		30
-Vertex 48		33
-Vertex 52		33
-Vertex 52		30
-Vertex 30		30
-Vertex 30		33
-Vertex 34		33
-Vertex 34		30
-Vertex 39		38
-Vertex 39		41
-Vertex 42		41
-Vertex 42		38
-Vertex 12		10
-Vertex -2		10
-Vertex -2		18
-Vertex 12		18
-Vertex 13		18
-Vertex 13		10
-Vertex 23		10
-Vertex 23		18
+Vertex 3		6
+Vertex 3		15
+Vertex 3		24
+Vertex 27		24
+Vertex 27		6
+Vertex 1		15
+Vertex 1		24
+Vertex -2		24
+Vertex -2		15
+Vertex -5		15
+Vertex -5		24
+Vertex -8		24
+Vertex -8		15
+Vertex -10		24
+Vertex -10		6
+Vertex -28		6
+Vertex -28		24
+Vertex -10		15
+Vertex 33		24
+Vertex 33		6
+Vertex 44		10
+Vertex 44		20
 
 
-Sector 0 5 | 1 2 3 4 | 14 -1 -1 -1
-Sector 0 5 | 5 6 7 8 9 10 11 12 | -1 -1 -1 -1 -1 -1 -1 -1
-Sector 0 5 | 13 16 15 14 | 16 13 -1 1
-Sector 0 5 | 17 20 19 18 | -1 -1 -1 -1
-Sector 0 5 | 21 24 23 22 | -1 -1 -1 -1
-Sector 0 5 | 27 25 26 28 | -1 28 -1 25
-Sector 0 5 | 29 30 41 44 | -1 -1 -1 -1
-Sector 0 5 | 32 34 33 31 | -1 -1 -1 -1
-Sector 0 5 | 36 38 37 35 | -1 -1 -1 -1
-Sector 0 5 | 40 39 43 42 | -1 -1 -1 -1
-Sector 0 5 | 51 50 49 52 | -1 57 -1 -1
-Sector 0 5 | 47 45 46 48 | -1 -1 -1 -1
-Sector 0 5 | 56 53 54 55 | -1 -1 -1 -1
-Sector 0 5 | 57 58 59 60 | 50 -1 -1 -1
-Sector 0 3 | 61 62 63 64 | -1 -1 -1 -1
-Sector 0 5 | 66 65 67 68 | -1 -1 -1 -1
-Sector 0 5 | 72 69 70 71 | -1 -1 -1 -1
-Sector 0 5 | 73 83 82 77 78 76 | -1 -1 105 -1 -1 -1
-Sector 0 5 | 84 74 75 79 80 81 | -1 -1 -1 -1 -1 -1
-Sector 0 5 | 92 89 90 91 | 92 94 90 96
-Sector 0 5 | 85 86 87 88 | -1 88 -1 86
-Sector 1 2 | 96 93 94 95 | 91 -1 89 -1
-Sector 0 2 | 98 99 100 97 | -1 -1 102 -1
-Sector 1 4 | 102 101 104 103 | 100 -1 -1 -1
+Sector 0 5 | 1 2 3 4 5 | -1 7 -1 20 -1
+Sector 1 6 | 9 8 7 6 | 11 -1 2 -1
+Sector 2 7 | 10 13 12 11 | -1 14 -1 9
+Sector 3 8 | 14 18 15 16 17 | 13 -1 -1 -1 -1
+Sector 1 4 | 20 19 22 21 | 4 -1 -1 -1
 
 
-Player 142 438
-Angle 269
+Player 480 411
+Angle 77

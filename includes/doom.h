@@ -21,6 +21,7 @@
 # define SPRITE_HITBOX 10
 
 # define PORTAL_LIMIT 20
+# define PLAYER_SIZE 3
 
 # define MAP "map.map"
 
@@ -107,6 +108,20 @@ typedef struct				s_player
 	t_sector				*sector;
 }							t_player;
 
+typedef struct				s_skybox {
+	t_dpos					player;
+	t_dpos					left_point;
+	t_dpos					right_point;
+}							t_skybox;
+
+typedef struct				s_slider {
+	t_point					start;
+	t_point					end;
+	Uint32					color_one;
+	Uint32					color_two;
+	Uint32					value;
+}							t_slider;
+
 typedef struct				s_visu {
 	t_dpos					tmp_wall;
 	t_dpos					left_plan;
@@ -132,23 +147,9 @@ typedef struct				s_visu {
 	t_pos					left_floor_limit;
 }							t_visu;
 
-typedef struct				s_skybox {
-	t_dpos					player;
-	t_dpos					left_point;
-	t_dpos					right_point;
-}							t_skybox;
-
-typedef struct				s_slider {
-	t_point					start;
-	t_point					end;
-	Uint32					color_one;
-	Uint32					color_two;
-	Uint32					value;
-}							t_slider;
-
 typedef struct				s_walls {
 	char					wall_or_portal; //wall = "w", portal = "p";
-	// double					distance;
+
 	double					l_dist;
 	double					b_dist;
 	int						x;
@@ -177,6 +178,8 @@ typedef struct				s_walls {
 	int						miny_floor;
 	int						floor_height;
 	int						ceiling_height;
+	int						floor_height_dest; // dans le cas dun sct
+	int						ceiling_height_dest; // dans le cas dun sct
 	t_image					*image;
 	struct s_walls			*prev;
 	struct s_walls			*next;

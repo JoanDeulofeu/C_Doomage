@@ -21,6 +21,24 @@ void	get_total_w_wall(t_walls *wall)
 	wall->left_void_side = (perc * wall->total_width_wall) / 100;
 }
 
+void	ft_limit_portal_texture(t_walls *wall, int begin, int end, int *limit_ceiling, int *limit_floor)
+{
+	int	diff_haute; // en metre ig
+	int	diff_total; // en metre ig
+	int	diff_total_pxl; // en pixel
+	int	diff_basse; // en metre ig
+
+	diff_haute = wall->ceiling_height - wall->ceiling_height_dest;
+	diff_basse = wall->floor_height_dest - wall->floor_height;
+	diff_total = wall->ceiling_height - wall->floor_height;
+	diff_total_pxl = end - begin;
+
+	*limit_ceiling = begin + ((diff_haute * 100 / diff_total) * diff_total_pxl) / 100;
+	*limit_floor = end - ((diff_basse * 100 / diff_total) * diff_total_pxl) / 100;
+	// printf("res ceiling %d      res floor %d\n\n", ((diff_haute * 100 / diff_total) * 100) / diff_total_pxl, ((diff_basse * 100 / diff_total) * 100) / diff_total_pxl);
+	// printf("begin %d | limit_ceiling %d       limit_floor %d | end %d\n\n", begin, *limit_ceiling, *limit_floor, end);
+}
+
 void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 {
 	int		x; //x calculé par rapport a la taille totale du mur fenetré
@@ -33,7 +51,11 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	int		pery; // pourcentage en y sur la texture.
 	int		begin_wall;
 	int		px;
+	int		limit_ceiling; // dans le cas dun portail.
+	int		limit_floor; // dans le cas dun portail.
 
+	if (wall->wall_or_portal == 'p')
+		ft_limit_portal_texture(wall, coord.y, end, &limit_ceiling, &limit_floor);
 	begin_wall = coord.y;
 	y = 1;
 	if (begin_wall < 0)
@@ -49,12 +71,21 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	nb_tex_y = abs(wall->floor_height - wall->ceiling_height) * 2;
 	tex_size_x = wall->total_width_wall / nb_tex_x;
 	tex_size_y = (end - coord.y) / nb_tex_y;
-	// printf("x = %d,   size_tex_x = %f\n", x, tex_size_x);
 	perx = (fmod((double)x, tex_size_x)) * 100 / tex_size_x;
+	if (coord.y < 0)
+		coord.y = 0;
+	if ((wall->wall_or_portal == 'p') && (coord.y > limit_ceiling))
+		coord.y = limit_floor;
 	while (coord.y < end)
 	{
-		if (coord.y < 0)
-			coord.y = 0;
+		if (wall->wall_or_portal == 'p')
+		{
+			if (coord.y == limit_ceiling)
+			{
+				coord.y = limit_floor;
+				// y += limit_floor - limit_ceiling;
+			}
+		}
 		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
 		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
 			+ (int)((perx * (double)wall->image->w) / 100);

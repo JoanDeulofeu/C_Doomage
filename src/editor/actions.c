@@ -63,7 +63,7 @@ void	ft_crouch(t_main *s, const Uint8 *keys)
 	}
 	else
 	{
-		if ((s->time->time_ms > s->time->crouch_ms + 25) && s->player.size < 2)
+		if ((s->time->time_ms > s->time->crouch_ms + 25) && s->player.size < PLAYER_SIZE)
 		{
 			s->player.size += 0.1;
 			s->time->crouch_ms = s->time->time_ms;
