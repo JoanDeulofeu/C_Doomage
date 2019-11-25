@@ -1,0 +1,24 @@
+Map : sprite
+
+Vertex 3		5
+Vertex 5		20
+Vertex 10		24
+Vertex 12		21
+Vertex 13		6
+Vertex 17		19
+Vertex 17		23
+Vertex 20		25
+Vertex 20		17
+Vertex 17		12
+Vertex 21		12
+Vertex 21		7
+Vertex 17		7
+
+
+Sector 0 2 | 1 2 3 4 5 | -1 -1 -1 -1 -1
+Sector 0 2 | 6 7 8 9 | 10 -1 -1 -1
+Sector 0 2 | 13 10 11 12 | -1 6 -1 -1
+
+
+Player 565 270
+Angle 358

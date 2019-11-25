@@ -24,6 +24,7 @@ void		handle_game_keys(t_main *s)
 		health(s);
 		display_sprites(s);
 		draw_hud(s);
+		clear_wall_list(s);
 		// print_hp(s);
 		// ft_nul(s);
 		update_image(s, s->sdl->game);
