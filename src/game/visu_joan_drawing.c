@@ -43,13 +43,11 @@ int		ft_get_diff_height_pxl(t_main *s, int ceiling_height, int floor_height, int
 {
 	int		ig_height_wall; // hauteur du mur in game (en metre)
 	double	pct_eyesight; //pourcentage vision player
-	int		half_wall; //hauteur du mur en pxl divisé par 2;
 
 	ig_height_wall = ceiling_height - floor_height;
-	pct_eyesight = 100 - (s->player.size * 100 / ig_height_wall);
+	pct_eyesight = (s->player.eyesight * 100 / ig_height_wall);
 	// printf("pct = %.2f      ", pct_eyesight);
-	half_wall = height_wall / 2;
-	return (((half_wall * pct_eyesight ) / 50) - half_wall); //50 car moitié mur
+	return ((pct_eyesight * height_wall) / 100);
 }
 
 int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
@@ -68,14 +66,16 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	coord.x = wall->x;
 	wall->screen_width_wall = width_wall;
 	get_total_w_wall(wall);
-	// printf("---\nwall size = %d       player size %d\n", wall->ceiling_height - wall->floor_height, s->player.size);
+	s->player.eyesight = s->player.foot_height - wall->floor_height + s->player.size;
+	// printf("---\nwall size = %d       player size %d      player eyesight %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight);
 	while (i++ < width_wall)
 	{
+		// printf("---\nwall size = %d - player size %d - player eyesight %d - floor height %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight, wall->floor_height);
 		wall->avcm_x = i;
-		diff_height_pxl = ft_get_diff_height_pxl(s, wall->ceiling_height, wall->floor_height, l_height_wall);
+		diff_height_pxl = ft_get_diff_height_pxl(s, wall->ceiling_height, wall->floor_height, height_wall);
 		// printf("height = %.2f      diff = %.2f\n", height_wall, diff_height_pxl);
-		coord.y = (HEIGHT / 2) - (height_wall / 2 + diff_height_pxl) + s->player.y_eye;
-		bottom = (HEIGHT / 2) + (height_wall / 2 - diff_height_pxl) + s->player.y_eye;
+		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
 		if (i == 1 || i == width_wall)
 			ft_draw_column(s, wall, coord, bottom, 0x000000FF);
 		else
@@ -505,18 +505,19 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	else
 		x = (ft_dist_t_dpos(vs->left_plan, l_plan) / WIDTHPLAN) * WIDTH;
 
+	s->player.eyesight = s->player.foot_height - vs->sct->floor + s->player.size;
 	l_height_wall_diff = ft_get_diff_height_pxl(s, vs->sct->ceiling, vs->sct->floor, l_height_wall);
 	r_height_wall_diff = ft_get_diff_height_pxl(s, vs->sct->ceiling, vs->sct->floor, r_height_wall);
 	// printf("height_wall (%.2f, %.2f)\nles deux diff (%.2f, %.2f)\n", l_height_wall, r_height_wall, l_height_wall_diff, r_height_wall_diff);
 	vs->left_ceiling_limit.x = (int)x;
-	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall / 2 + l_height_wall_diff) + s->player.y_eye + s->player.eyesight;
+	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall) + s->player.y_eye + l_height_wall_diff;
 	vs->left_floor_limit.x = (int)x;
-	vs->left_floor_limit.y = (HEIGHT / 2) + (l_height_wall / 2 - l_height_wall_diff) + s->player.y_eye + s->player.eyesight;
+	vs->left_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + l_height_wall_diff;
 
 	vs->right_ceiling_limit.x = x + width_wall > WIDTH ? WIDTH : x + width_wall;
-	vs->right_ceiling_limit.y = (HEIGHT / 2) - (r_height_wall / 2 + r_height_wall_diff) + s->player.y_eye + s->player.eyesight;
+	vs->right_ceiling_limit.y = (HEIGHT / 2) - (r_height_wall) + s->player.y_eye + r_height_wall_diff;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
-	vs->right_floor_limit.y = (HEIGHT / 2) + (r_height_wall / 2 - r_height_wall_diff) + s->player.y_eye + s->player.eyesight;
+	vs->right_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + r_height_wall_diff;
 
 }
 

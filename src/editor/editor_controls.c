@@ -181,7 +181,8 @@ int			key_controls_game(t_main *s, int key)
 		damage(s);
 	if (key == SDLK_KP_PLUS)
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
-		tp_first_sector(s);
+		// tp_first_sector(s);
+		s->player.y_eye = 0;
 	return (1);
 }
 
@@ -304,7 +305,7 @@ void		handle_editor_keys(t_main *s)
 		display_sprites(s);
 		// draw_hud(s);
 		// print_hp(s);
-		// ft_nul(s);
+		ft_nul(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)

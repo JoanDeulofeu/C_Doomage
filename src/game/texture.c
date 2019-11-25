@@ -82,11 +82,12 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 		pct = 100 - pct;
 	coord.y = ((pct * wall->diffy_ceiling) * 0.01) + wall->miny_ceiling;
 
-	while (coord.y < begin)
-	{
-		//print ceiling
-		coord.y++;
-	}
+	// while (coord.y < begin)
+	// {
+	// 	set_pixel(s->sdl->game, 0x6e492eff, coord);
+	// 	coord.y++;
+	// }
+	coord.y = begin;
 	return (coord.y - 1);
 }
 

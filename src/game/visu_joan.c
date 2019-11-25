@@ -133,6 +133,7 @@ void		ft_visu_joan(t_main *s, const unsigned char *keys)
 	vs.prev_sct_id = 0; //pas de sct precedent...
 	vs.sct_id = s->player.sector_id;
 	vs.sct = get_sector_by_id(s, s->player.sector_id);
+	s->player.foot_height = vs.sct->floor;
 
 	vs.left_ceiling_limit.x = 0;
 	vs.left_ceiling_limit.y = 0;

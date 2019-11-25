@@ -90,6 +90,7 @@ typedef struct				s_player
 	t_dpos					m_pos;// positon reel * METRE
 	t_line					line;
 	int						size;
+	int						foot_height;
 	int						set;
 	int						correc;
 	int						init_space;
