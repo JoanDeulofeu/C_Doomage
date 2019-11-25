@@ -161,6 +161,7 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	double		value;
 	int			i;
 	int			j;
+	(void)angle;
 
 	wp = cur->anim.image[cur->anim.current];
 	i = 0;

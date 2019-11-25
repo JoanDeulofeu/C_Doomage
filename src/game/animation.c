@@ -107,6 +107,8 @@ int			calc_angle(double angle, int range)
 
 void		set_orientation(t_main *s, t_sprite *cur)
 {
+	(void)s;
+	(void)cur;
 	// int		i;
 	// int		angle;
 	//

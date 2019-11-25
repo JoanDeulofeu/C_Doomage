@@ -5,34 +5,34 @@ void	ft_nul(t_main *s)
 	t_dpos		init;
 	t_dpos		dest;
 
+	// init.x = 0;
+	// init.y = 150;
+	// dest.x = WIDTH;
+	// dest.y = 151;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 300;
+	// dest.x = WIDTH;
+	// dest.y = 301;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 	init.x = 0;
-	init.y = 150;
+	init.y = HEIGHT / 2;
 	dest.x = WIDTH;
-	dest.y = 151;
+	dest.y = HEIGHT / 2 + 2;
 	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 300;
-	dest.x = WIDTH;
-	dest.y = 301;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 450;
-	dest.x = WIDTH;
-	dest.y = 451;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	init.x = 0;
-	init.y = 600;
-	dest.x = WIDTH;
-	dest.y = 601;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	// init.x = 0;
+	// init.y = 600;
+	// dest.x = WIDTH;
+	// dest.y = 601;
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 
 
-	//trait vertaicaux
+	//trait verticaux
 	// init.x = 400;
 	// init.y = 0;
 	// dest.x = 402;
 	// dest.y = HEIGHT;
-	// draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 	// init.x = 450;
 	// init.y = 0;
 	// dest.x = 452;
@@ -181,7 +181,8 @@ int			key_controls_game(t_main *s, int key)
 		damage(s);
 	if (key == SDLK_KP_PLUS)
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
-		tp_first_sector(s);
+		// tp_first_sector(s);
+		s->player.y_eye = 0;
 	return (1);
 }
 
@@ -261,10 +262,8 @@ void		handle_editor_keys(t_main *s)
 		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
 
-	// if (keys[LCTRL])
-	// 	crouch(s,1);
-	// else if (keys[SPACE])
-	// 	jump();
+	ft_crouch(s, keys);
+
 	if (s->display_mode == editor)
 	{
 		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
@@ -281,8 +280,8 @@ void		handle_editor_keys(t_main *s)
 			s->editor->m_floor.current = 0;
 		if (s->editor->mode == portal)
 			change_over_wall(s);
-		draw_editor_menu(s, 0, WIDTH / 2 -
-			(s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_editor_menu(s, 0, WIDTH / 2
+			- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
 		draw_space_menu(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
@@ -307,7 +306,7 @@ void		handle_editor_keys(t_main *s)
 		clear_wall_list(s);
 		// draw_hud(s);
 		// print_hp(s);
-		// ft_nul(s);
+		ft_nul(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)
@@ -358,8 +357,8 @@ void		editor_handler(t_main *s)
 			{
 				if (s->editor->mode == vertex || s->editor->mode == sprite)
 				{
-						s->editor->line.x2 = s->sdl->event.motion.x;
-						s->editor->line.y2 = s->sdl->event.motion.y;
+					s->editor->line.x2 = s->sdl->event.motion.x;
+					s->editor->line.y2 = s->sdl->event.motion.y;
 				}
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
