@@ -179,7 +179,7 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	while (i < (wp->w) * value && i >= 0 && i <= WIDTH)
 	{
 		j = 0;
-		coord.x = i;
+		coord.x = cur->x + i;
 		perx = (double)i / (((double)wp->w) * value);
 		// coord.x += angle * (double)(WIDTH / 80) - ((wp->w * value) / 2);
 		// printf("coord (%d,%d)\n\n",coord.x,coord.y);

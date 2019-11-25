@@ -105,8 +105,11 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 		vs.begin_wall_id)->next->ptr->id;
 	// 	exit(0);
 	vs.end = s->tmp_intersect;
-	vs.vtx_gauche = get_t_int_by_id(vs.sct->vertex, vs.begin_wall_id);
-	vs.vtx_droite = get_t_int_by_id(vs.sct->vertex, vs.end_wall_id);
+	// printf("end_wall id = %d\n", vs.end_wall_id);
+	// printf("sct = %d, sct->vertex->id = %d\n", vs.sct->id, vs.sct->vertex->id);
+	vs.vtx_gauche = get_t_int_by_vertex_id(vs.sct->vertex, vs.begin_wall_id);
+	vs.vtx_droite = get_t_int_by_vertex_id(vs.sct->vertex, vs.end_wall_id);
+	// printf("id 1 = %d, id 2 = %d\n", vs.vtx_gauche->id, vs.vtx_droite->id);
 	// if (!vs.vtx_gauche && !vs.vtx_droite)
 	// 	exit(-1);
 	// printf("TEST vs.end (%.1f, %.1f)\n", vs.end.x, vs.end.y);
@@ -149,6 +152,7 @@ void		ft_visu_joan(t_main *s, const unsigned char *keys)
 	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
 	angle_right = s->player.angle - demi_fov;
 	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
+	vs.angle = angle_mod(s->player.angle);
 	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
 	// printf("\n\n\n");
 	ft_draw_visu(s, get_sector_by_id(s, s->player.sector_id), vs);

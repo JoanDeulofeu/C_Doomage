@@ -53,7 +53,7 @@ t_pos		get_px_pos(t_main *s, t_pos ref)
 {
 	t_pos		pos;
 	t_editor	*edi;
-	int		correc;
+	int			correc;
 
 	correc = 0;
 	edi = s->editor;
@@ -141,26 +141,26 @@ t_pos		ft_dpos_to_pos(t_dpos dpos)
 	return (pos);
 }
 
-double		calc_sprite_dist(t_main *s, t_pos pos)
-{
-	t_dpos	distance;
-	double	dist;
-
-	distance.x = pos.x - s->player.pos.x;
-	distance.y = pos.y - s->player.pos.y;
-	dist = (distance.x * distance.x) + (distance.y * distance.y);
-	dist = sqrt(dist);
-	return (dist);
-}
-
-double		calc_sprite_r_dist(t_main *s, t_dpos pos)
-{
-	t_dpos	distance;
-	double	dist;
-
-	distance.x = pos.x - s->player.r_pos.x;
-	distance.y = pos.y - s->player.r_pos.y;
-	dist = (distance.x * distance.x) + (distance.y * distance.y);
-	dist = sqrt(dist);
-	return (dist);
-}
+// double		calc_sprite_dist(t_main *s, t_pos pos)
+// {
+// 	t_dpos	distance;
+// 	double	dist;
+//
+// 	distance.x = pos.x - s->player.pos.x;
+// 	distance.y = pos.y - s->player.pos.y;
+// 	dist = (distance.x * distance.x) + (distance.y * distance.y);
+// 	dist = sqrt(dist);
+// 	return (dist);
+// }
+//
+// double		calc_sprite_r_dist(t_main *s, t_dpos pos)
+// {
+// 	t_dpos	distance;
+// 	double	dist;
+//
+// 	distance.x = pos.x - s->player.r_pos.x;
+// 	distance.y = pos.y - s->player.r_pos.y;
+// 	dist = (distance.x * distance.x) + (distance.y * distance.y);
+// 	dist = sqrt(dist);
+// 	return (dist);
+// }

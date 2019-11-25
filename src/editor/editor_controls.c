@@ -286,6 +286,8 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
+		display_sprites(s);
+		clear_wall_list(s);
 		update_image(s, s->sdl->editor);
 	}
 	if (s->display_mode == game)
@@ -301,6 +303,7 @@ void		handle_editor_keys(t_main *s)
 		//	sprite_move(s);
 		health(s);
 		display_sprites(s);
+		clear_wall_list(s);
 		// draw_hud(s);
 		// print_hp(s);
 		// ft_nul(s);

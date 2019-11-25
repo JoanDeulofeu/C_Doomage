@@ -1,0 +1,42 @@
+Map : pasopti
+
+Vertex 3		5
+Vertex 5		20
+Vertex 10		24
+Vertex 12		21
+Vertex 13		6
+Vertex 16		9
+Vertex 19		13
+Vertex 21		9
+Vertex 23		13
+Vertex 26		9
+Vertex 26		19
+Vertex 23		15
+Vertex 21		19
+Vertex 19		15
+Vertex 16		19
+Vertex 16		25
+Vertex 26		25
+Vertex 26		29
+Vertex 16		29
+Vertex -4		37
+Vertex 0		43
+Vertex 2		36
+Vertex 2		51
+Vertex -2		45
+Vertex -4		51
+Vertex -6		37
+Vertex -6		51
+Vertex -9		51
+Vertex -9		37
+
+
+Sector 0 2 | 1 2 3 4 5 | -1 -1 -1 -1 -1
+Sector 0 2 | 6 15 14 13 12 11 10 9 8 7 | 17 -1 -1 -1 -1 -1 -1 -1 -1 -1
+Sector 0 2 | 16 19 18 17 | -1 -1 -1 6
+Sector 0 2 | 23 22 24 20 25 21 | -1 -1 -1 29 -1 -1
+Sector 0 2 | 29 28 27 26 | 20 -1 -1 -1
+
+
+Player 45 1305
+Angle 88

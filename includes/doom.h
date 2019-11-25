@@ -149,10 +149,10 @@ typedef struct				s_visu {
 
 typedef struct				s_walls {
 	char					wall_or_portal; //wall = "w", portal = "p";
-
 	double					l_dist;
 	double					b_dist;
 	int						x;
+	double					angle;
 	t_dpos					player;
 	int						screen_width_wall;
 	long 					total_width_wall;
@@ -462,6 +462,7 @@ void						check_map_portals(t_main *s);
 ****	Fonction utilitaire
 */
 int							arround(int space, int nb);
+double						angle_mod(double angle);
 t_pos						get_px_pos(t_main *s, t_pos ref);
 void						empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos						depiler(t_pile *pile);

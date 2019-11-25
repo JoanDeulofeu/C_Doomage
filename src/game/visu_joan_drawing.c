@@ -120,6 +120,9 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	right.y = vtx->next->ptr->y * METRE;
 	wall->r_right = right;
 	wall->r_left = left;
+	wall->angle = vs->angle;
+	wall->sct_id = vs->sct_id;
+	// printf("vs angle = %f\n", vs->angle);
 
 	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
 	if (dist > 0)
@@ -189,6 +192,7 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	{
 		fake_angle = 0;
 		fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
+
 		fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 		if (s->portal_nb == 0)
 		{
@@ -206,6 +210,7 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		angle_right = fake_angle - demi_fov;
 		angle_right = angle_right < 0 ? angle_right + 360: angle_right;
 		fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
+		fake_vs.angle = angle_mod(fake_angle);
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		if (fake_vs.vtx_droite == NULL)
 			handle_error(s, POINTER_ERROR);
@@ -284,6 +289,7 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 				s->fplayer_angle = fake_angle;
 				s->fplayer_sct = vtx->sct_dest;
 			}
+			fake_vs.angle = angle_mod(fake_angle);
 			fake_vs.prev_sct_id = vtx->sct;
 			fake_vs.sct_id = vtx->sct_dest;
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
@@ -365,6 +371,7 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 		}
 		fake_vs.prev_sct_id = vtx->sct;
 		fake_vs.sct_id = vtx->sct_dest;
+		fake_vs.angle = angle_mod(fake_angle);
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.right_plan), METRE, WIDTHPLAN / 2);
 		angle_left = fake_angle + demi_fov;
@@ -559,9 +566,8 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 				wall = wall->next;
 			}
 		}
-		clear_wall_list(s);
-		s->portal_nb = 0;
 		set_visible_sprites(s, &vs);
+		s->portal_nb = 0;
 		return ;
 	}
 	vtx = vtx->next;
@@ -576,7 +582,6 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 		wall = wall->next;
 		vtx = vtx->next;
 	}
-	clear_wall_list(s);
-	s->portal_nb = 0;
 	set_visible_sprites(s, &vs);
+	s->portal_nb = 0;
 }
