@@ -263,6 +263,7 @@ void		handle_editor_keys(t_main *s)
 		move_editor(s, keys);
 
 	ft_crouch(s, keys);
+	ft_jump(s, keys);
 
 	if (s->display_mode == editor)
 	{

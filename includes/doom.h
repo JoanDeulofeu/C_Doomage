@@ -22,6 +22,7 @@
 
 # define PORTAL_LIMIT 20
 # define PLAYER_SIZE 2
+# define JUMP_SIZE 1
 
 # define MAP "map.map"
 
@@ -91,7 +92,9 @@ typedef struct				s_player
 	t_dpos					m_pos;// positon reel * METRE
 	t_line					line;
 	double					size;
-	int						foot_height;
+	double					foot_height;
+	char					jump; //0 = pas de jump, 1 = phase montante, 2 = descendante
+	double					jump_height;
 	int						set;
 	int						correc;
 	int						init_space;
@@ -396,6 +399,7 @@ void						change_mode(t_main *s, int key);
 int							ft_prev_next_floor(t_main *s, char prev_next);
 void						move_editor(t_main *s, const Uint8 *keys);
 void						ft_crouch(t_main *s, const Uint8 *keys);
+void						ft_jump(t_main *s, const Uint8 *keys);
 
 /*
 ****	Fonction de gestion et de protection du parsing

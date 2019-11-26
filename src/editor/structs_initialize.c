@@ -182,6 +182,8 @@ t_main		*initialize_main(char *str)
 
 	s->player.set = 1;
 	s->player.size = PLAYER_SIZE;
+	s->player.jump = 0;
+	s->player.jump_height = 0;
 	s->player.i = 0;
 	s->player.r_pos.x = 7.5;
 	s->player.r_pos.y = 7.3;
@@ -194,9 +196,6 @@ t_main		*initialize_main(char *str)
 	s->ennemi.damage = -1;
 	//
 	s->object.health_pack = 20;
-	// s->object.armor = 2;
-
-	s->player.health = 100;
 
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
