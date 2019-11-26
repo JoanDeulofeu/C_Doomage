@@ -21,7 +21,7 @@
 # define SPRITE_HITBOX 10
 
 # define PORTAL_LIMIT 20
-# define PLAYER_SIZE 3
+# define PLAYER_SIZE 2
 
 # define MAP "map.map"
 

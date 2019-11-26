@@ -75,7 +75,10 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	if (coord.y < 0)
 		coord.y = 0;
 	if ((wall->wall_or_portal == 'p') && (coord.y > limit_ceiling))
+	{
 		coord.y = limit_floor;
+		y = 0;
+	}
 	while (coord.y < end)
 	{
 		if (wall->wall_or_portal == 'p')
@@ -83,7 +86,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 			if (coord.y == limit_ceiling)
 			{
 				coord.y = limit_floor;
-				// y += limit_floor - limit_ceiling;
+				y = 0;
 			}
 		}
 		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
