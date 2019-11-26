@@ -76,14 +76,14 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 {
 	//pour player->jump, 0 = pas de jump, 1 = phase montante, 2 = descendante
 	if (keys[SDL_SCANCODE_SPACE] && s->player.jump == 0)
-	{
 		s->player.jump = 1;
-		printf("      JUMP !!!!!!!!!!!\n");
-	}
 	if (s->player.jump == 1 && (s->time->time_ms > s->time->jump_ms + 10)
 	&& s->player.jump_height < JUMP_SIZE)
 	{
-		s->player.jump_height += 0.1;
+		if (s->player.jump_height < 0.5)
+			s->player.jump_height += 0.2;
+		else
+			s->player.jump_height += 0.1;
 		s->time->jump_ms = s->time->time_ms;
 		if (s->player.jump_height >= JUMP_SIZE)
 			s->player.jump = 2;
@@ -91,7 +91,10 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 	if (s->player.jump == 2 && (s->time->time_ms > s->time->jump_ms + 10)
 	&& s->player.jump_height > 0)
 	{
-		s->player.jump_height -= 0.1;
+		if (s->player.jump_height < 0.7)
+			s->player.jump_height -= 0.2;
+		else
+			s->player.jump_height -= 0.1;
 		s->time->jump_ms = s->time->time_ms;
 		if (s->player.jump_height <= 0)
 		{

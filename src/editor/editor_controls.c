@@ -262,8 +262,10 @@ void		handle_editor_keys(t_main *s)
 		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
 
-	ft_crouch(s, keys);
-	ft_jump(s, keys);
+	if (s->player.jump_height == 0)
+		ft_crouch(s, keys);
+	if (s->player.size == PLAYER_SIZE)
+		ft_jump(s, keys);
 
 	if (s->display_mode == editor)
 	{
