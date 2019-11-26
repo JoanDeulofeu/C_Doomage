@@ -23,7 +23,9 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 {
 	coord.y = ft_draw_ceiling(s, wall, coord);
 
-	if (wall->wall_or_portal == 'w')
+	if ((wall->wall_or_portal == 'w') || (wall->wall_or_portal == 'p'
+		&& (wall->floor_height_dest > wall->floor_height
+		|| wall->ceiling_height_dest < wall->ceiling_height)))
 	{
 		if (wall->image)
 			draw_texture(s, wall, coord, end);
@@ -68,7 +70,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	get_total_w_wall(wall);
 	s->player.eyesight = s->player.foot_height - wall->floor_height + s->player.size;
 	// printf("---\nwall size = %d       player size %d      player eyesight %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight);
-	while (i++ < width_wall)
+	while (i++ <= width_wall)
 	{
 		// printf("---\nwall size = %d - player size %d - player eyesight %d - floor height %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight, wall->floor_height);
 		wall->avcm_x = i;
@@ -100,9 +102,11 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	int			dist;
 	t_dpos		left;
 	t_dpos		right;
+	t_sector	*sct;
 
 	if (!(wall = (t_walls*)malloc(sizeof(t_walls))))
 		handle_error(s, MALLOC_ERROR);
+	sct = NULL;
 	wall->wall_or_portal = w_or_p;
 	wall->next = NULL;
 	wall->prev = NULL;
@@ -159,6 +163,17 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	wall->right_floor_limit = vs->right_floor_limit;
 	wall->floor_height = vs->sct->floor;
 	wall->ceiling_height = vs->sct->ceiling;
+	if (w_or_p == 'p')
+	{
+		sct = get_sector_by_id(s, vtx->sct_dest);
+		wall->floor_height_dest = sct->floor;
+		wall->ceiling_height_dest = sct->ceiling;
+	}
+	else
+	{
+		wall->floor_height_dest = 0;
+		wall->ceiling_height_dest = 0;
+	}
 	return (wall);
 }
 

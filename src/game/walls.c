@@ -82,7 +82,6 @@ void	add_wall_to_list(t_main *s, t_walls *new)
 		// printf("pas de mur\n");
 		return ;
 	}
-
 	//On avance tant que la distance du nouveau mur est plus petite que le mur actuel
 	while (tmp->next && new->l_dist < tmp->l_dist)
 		tmp = tmp->next;

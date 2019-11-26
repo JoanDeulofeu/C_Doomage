@@ -21,6 +21,8 @@
 # define SPRITE_HITBOX 10
 
 # define PORTAL_LIMIT 20
+# define PLAYER_SIZE 2
+# define JUMP_SIZE 1
 
 # define MAP "map.map"
 
@@ -90,7 +92,9 @@ typedef struct				s_player
 	t_dpos					m_pos;// positon reel * METRE
 	t_line					line;
 	double					size;
-	int						foot_height;
+	double					foot_height;
+	char					jump; //0 = pas de jump, 1 = phase montante, 2 = descendante
+	double					jump_height;
 	int						set;
 	int						correc;
 	int						init_space;
@@ -106,6 +110,20 @@ typedef struct				s_player
 	t_image					*crosshair;
 	t_sector				*sector;
 }							t_player;
+
+typedef struct				s_skybox {
+	t_dpos					player;
+	t_dpos					left_point;
+	t_dpos					right_point;
+}							t_skybox;
+
+typedef struct				s_slider {
+	t_point					start;
+	t_point					end;
+	Uint32					color_one;
+	Uint32					color_two;
+	Uint32					value;
+}							t_slider;
 
 typedef struct				s_visu {
 	t_dpos					tmp_wall;
@@ -132,23 +150,8 @@ typedef struct				s_visu {
 	t_pos					left_floor_limit;
 }							t_visu;
 
-typedef struct				s_skybox {
-	t_dpos					player;
-	t_dpos					left_point;
-	t_dpos					right_point;
-}							t_skybox;
-
-typedef struct				s_slider {
-	t_point					start;
-	t_point					end;
-	Uint32					color_one;
-	Uint32					color_two;
-	Uint32					value;
-}							t_slider;
-
 typedef struct				s_walls {
 	char					wall_or_portal; //wall = "w", portal = "p";
-	// double					distance;
 	int						sct_id;
 	double					l_dist;
 	double					b_dist;
@@ -179,6 +182,8 @@ typedef struct				s_walls {
 	int						miny_floor;
 	int						floor_height;
 	int						ceiling_height;
+	int						floor_height_dest; // dans le cas dun sct
+	int						ceiling_height_dest; // dans le cas dun sct
 	t_image					*image;
 	struct s_walls			*prev;
 	struct s_walls			*next;
@@ -394,6 +399,7 @@ void						change_mode(t_main *s, int key);
 int							ft_prev_next_floor(t_main *s, char prev_next);
 void						move_editor(t_main *s, const Uint8 *keys);
 void						ft_crouch(t_main *s, const Uint8 *keys);
+void						ft_jump(t_main *s, const Uint8 *keys);
 
 /*
 ****	Fonction de gestion et de protection du parsing
