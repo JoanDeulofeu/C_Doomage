@@ -240,6 +240,7 @@ typedef struct				s_sprite
 	int						id;
 	int						x;
 	int						set;
+	int						inverse; //savoir si on inverse le display sprite
 	int						orientation;
 	int						select;
 	int						life;
@@ -247,7 +248,7 @@ typedef struct				s_sprite
 	int						destroy;
 	int						damage;
 	double					angle;
-	double					s_angle;
+	double					s_angle; //direction du regard du sprite
 	double					dist;
 	double					r_dist;
 	t_dpos					r_pos;

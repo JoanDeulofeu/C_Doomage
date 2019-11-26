@@ -153,7 +153,7 @@ typedef struct				s_walls {
 	double					l_dist;
 	double					b_dist;
 	int						x;
-	double					angle;
+	double					angle; //angle du fake_player
 	t_dpos					player;
 	int						screen_width_wall;
 	long 					total_width_wall;
@@ -667,6 +667,7 @@ void 						destroy_planet(t_main *s);
 t_anim_enemy 				load_storm_anim(t_main *s);
 
 t_lanim						*get_anim_by_id(t_main *s, int id);
+void 						select_anim(t_main *s, t_sprite *sprite);
 
 /*
 ****	Fonctions hud

@@ -189,8 +189,13 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 			pery = (double)j / (((double)wp->h) * value);
 			coord.y += HEIGHT / 2 + s->player.y_eye + s->player.eyesight
 				- (((wp->h * value)) / 3.5);
-			px = (int)(pery * (double)wp->h) * wp->w
-				+ (int)(perx * (double)wp->w);
+			if (cur->inverse == 1)
+				px = (int)(pery * (double)wp->h) * wp->w
+					+ (int)(perx * (double)wp->w);
+				else
+					px = (int)(pery * (double)wp->h) * wp->w
+						+ (int)(perx * (double)wp->w);
+
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
 		}

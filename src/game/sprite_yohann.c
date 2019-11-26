@@ -43,7 +43,7 @@ void 	get_sprite_x(t_main *s, t_visu *vs, t_sprite *sprite)
 		vs->player, sprite->m_pos, 1);
 	inter = s->tmp_intersect;
 	per = ft_dist_t_dpos(vs->left_plan, inter) * 100 / ft_dist_t_dpos(vs->left_plan, vs->right_plan);
-	sprite->x = per * WIDTH / 100;
+	sprite->x = per * WIDTH / 100 - sprite->anim.image[sprite->anim.current]->w;
 	// printf("sprite->x = %d\n", sprite->x);
 
 	//calculer ratio sur widthplan
@@ -106,15 +106,8 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 			liste->sprite->angle = ft_find_angle_portal(&vs->player, &liste->sprite->m_pos, NULL, 1);
 			if (liste->sprite->m_pos.y > vs->player.y)
 				liste->sprite->angle = 180 + (180 - liste->sprite->angle);
-			// else
-			// 	{
-			// 		liste->sprite->angle = 180 - (180 + liste->sprite->angle);
-			// 	}
-			// printf("-----\nsprite_angle = %f, vs->angle = %f\n", liste->sprite->angle, vs->angle);
 			liste->sprite->angle = (angle_mod(liste->sprite->angle - vs->angle));
-			// printf("sprite_angle = %f\n-----\n", liste->sprite->angle);
 			liste->sprite->set = 1;
-			// printf("sprite set\n");
 		}
 
 		else
@@ -140,6 +133,7 @@ void 	display_sprites(t_main *s)
 		if (sprite->set == 1 && sprite->destroy == 0 && check_if_visible(s, sprite))
 		{
 			// printf("sprite ok\n");
+			select_anim(s, sprite);
 			draw_sprite(s, sprite->angle, sprite);
 		}
 		sprite = sprite->next;
