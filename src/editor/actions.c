@@ -58,7 +58,6 @@ void	ft_crouch(t_main *s, const Uint8 *keys)
 		{
 			s->player.size -= 0.1;
 			s->time->crouch_ms = s->time->time_ms;
-			// printf("Crouch - \nPlayer size %.2f\n\n", s->player.size);
 		}
 	}
 	else
@@ -67,15 +66,14 @@ void	ft_crouch(t_main *s, const Uint8 *keys)
 		{
 			s->player.size += 0.1;
 			s->time->crouch_ms = s->time->time_ms;
-			// printf("Crouch + \nPlayer size %.2f\n\n", s->player.size);
 		}
 	}
 }
 
 void	ft_jump(t_main *s, const Uint8 *keys)
 {
-	//pour player->jump, 0 = pas de jump, 1 = phase montante, 2 = descendante
-	if (keys[SDL_SCANCODE_SPACE] && s->player.jump == 0)
+	//pour player->jump, 0 = pas de jump, 1 = phase montante, 2 = descendante, 3 = chute apres fly
+	if (keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size + JUMP_SIZE <= s->player.ceiling_height - s->player.floor_height))
 		s->player.jump = 1;
 	if (s->player.jump == 1 && (s->time->time_ms > s->time->jump_ms + 10)
 	&& s->player.jump_height < JUMP_SIZE)
@@ -101,5 +99,53 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 			s->player.jump = 0;
 			s->player.jump_height = 0;
 		}
+	}
+	if (s->player.jump == 3 && (s->time->time_ms > s->time->jump_ms + 10)
+	&& s->player.jump_height > 0)
+	{
+		s->player.jump_height -= 0.6 * s->player.tumble;
+		s->player.tumble += 0.2;
+		s->time->jump_ms = s->time->time_ms;
+		if (s->player.jump_height <= 0)
+		{
+			s->player.tumble = 0;
+			s->player.jump = 0;
+			s->player.jump_height = 0;
+		}
+	}
+}
+
+void	ft_fly_mode(t_main *s, const Uint8 *keys)
+{
+	// printf("ft_fly\n");
+	if (keys[SDL_SCANCODE_BACKSLASH])
+	{
+		// printf("%.1f + %.1f + 0.2 < plafond %d\n", s->player.foot_height, s->player.size, s->player.ceiling_height);
+		if (s->player.foot_height + s->player.size + 0.2 < s->player.ceiling_height)
+			s->player.jump_height += 0.2;
+		// printf("fly up\n");
+	}
+	if (keys[SDL_SCANCODE_DELETE])
+	{
+		// printf("%.1f - 0.2 > sol %d\n", s->player.foot_height, s->player.floor_height);
+		if (s->player.foot_height - 0.2 > s->player.floor_height)
+			s->player.jump_height -= 0.2;
+		// printf("fly down\n");
+	}
+}
+
+void	ft_activ_fly(t_main *s)
+{
+	if (!s->player.fly)
+	{
+		s->player.fly = 1;
+		ft_create_message(s, 0, 1000, "Fly active");
+	}
+	else
+	{
+		s->player.fly = 0;
+		ft_create_message(s, 0, 1000, "Fly down");
+		if (s->player.foot_height > s->player.floor_height)
+			s->player.jump = 3;
 	}
 }

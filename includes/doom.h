@@ -95,6 +95,8 @@ typedef struct				s_player
 	double					foot_height;
 	char					jump; //0 = pas de jump, 1 = phase montante, 2 = descendante
 	double					jump_height;
+	char					fly; //0 = pas de fly, 1 = fly
+	double					tumble;
 	int						set;
 	int						correc;
 	int						init_space;
@@ -104,7 +106,8 @@ typedef struct				s_player
 	int						health;
 	double					angle;
 	double					abs_angle;
-	int						height;
+	int						floor_height;
+	int						ceiling_height;
 	t_anim					weapon;
 	t_image					*hud;
 	t_image					*crosshair;
@@ -400,6 +403,8 @@ int							ft_prev_next_floor(t_main *s, char prev_next);
 void						move_editor(t_main *s, const Uint8 *keys);
 void						ft_crouch(t_main *s, const Uint8 *keys);
 void						ft_jump(t_main *s, const Uint8 *keys);
+void						ft_fly_mode(t_main *s, const Uint8 *keys);
+void						ft_activ_fly(t_main *s);
 
 /*
 ****	Fonction de gestion et de protection du parsing

@@ -155,7 +155,7 @@ int			key_controls_game(t_main *s, int key)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
-	if (key == HOME || key == END || key == PAGE_UP || key == PAGE_DOWN)
+	if ((!s->player.fly) && (key == HOME || key == END || key == PAGE_UP || key == PAGE_DOWN))
 		ft_change_height(s, key);
 	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
 	{
@@ -262,10 +262,16 @@ void		handle_editor_keys(t_main *s)
 		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
 
-	if (s->player.jump_height == 0)
+	if (s->player.jump_height == 0 && !s->player.fly)
 		ft_crouch(s, keys);
-	if (s->player.size == PLAYER_SIZE)
+	if (s->player.size == PLAYER_SIZE && !s->player.fly)
 		ft_jump(s, keys);
+
+	if (keys[SDL_SCANCODE_F5])
+		ft_activ_fly(s);
+	if (s->player.fly)
+		ft_fly_mode(s, keys);
+	// printf("-\n-\n-\n-\n-\n");
 
 	if (s->display_mode == editor)
 	{

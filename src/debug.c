@@ -45,5 +45,4 @@ void print_player_values(t_main *s)
 	printf("eyesight = %f\n", s->player.eyesight);
 	printf("y_eye = %d\n", s->player.y_eye);
 	printf("angle = %f\n", s->player.angle);
-	printf("height = %d\n", s->player.height);
 }

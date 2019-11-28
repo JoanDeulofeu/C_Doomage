@@ -108,7 +108,7 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	if ((begin = coord.y) < 0)
 		return (begin);
 	wall->diffx_ceiling = (wall->diffx_ceiling == 0) ? 1 : wall->diffx_ceiling;
-	pct = ((coord.x - wall->minx_ceiling) * 100) / wall->diffx_ceiling;
+	pct = (((double)coord.x - (double)wall->minx_ceiling) * 100) / (double)wall->diffx_ceiling;
 	if ((wall->minx_ceiling == wall->left_ceiling_limit.x && wall->miny_ceiling
 		== wall->right_ceiling_limit.y) || (wall->minx_ceiling
 		== wall->right_ceiling_limit.x && wall->miny_ceiling
@@ -131,7 +131,7 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 	double pct;
 
 	wall->diffx_floor = (wall->diffx_floor == 0) ? 1 : wall->diffx_floor;
-	pct = ((coord.x - wall->minx_floor) * 100) / (wall->diffx_floor);
+	pct = (((double)coord.x - (double)wall->minx_floor) * 100) / ((double)wall->diffx_floor);
 	if ((wall->minx_floor == wall->left_floor_limit.x
 		&& wall->miny_floor == wall->right_floor_limit.y)
 		|| (wall->minx_floor == wall->right_floor_limit.x
