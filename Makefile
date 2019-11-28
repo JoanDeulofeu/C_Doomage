@@ -48,6 +48,7 @@ SRC_NAME =	main.c						\
 			game/visu_joan.c			\
 			game/visu_portal.c			\
 			game/visu_joan_drawing.c	\
+			game/anim_yohann.c			\
 			game/utils_2.c				\
 			game/hud.c					\
 			game/animation.c			\
