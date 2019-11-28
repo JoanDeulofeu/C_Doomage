@@ -46,3 +46,22 @@ void print_player_values(t_main *s)
 	printf("y_eye = %d\n", s->player.y_eye);
 	printf("angle = %f\n", s->player.angle);
 }
+
+void	ft_print_sprite_list(t_main *s)
+{
+	t_sprite	*sprite;
+
+	sprite = s->sprite;
+	printf("lol\n");
+	if (s->sprite == NULL)
+		return ;
+	while (sprite)
+	{
+		printf("------SPRITE %d------\n", sprite->id);
+		printf("s_angle = %f\n", sprite->s_angle);
+		printf("r_ori x(%.2f) y(%.2f)\n", sprite->r_ori.x, sprite->r_ori.y);
+		printf("type = %d\n",  sprite->type);
+		printf("name = %d\n\n",  sprite->name);
+		sprite = sprite->next;
+	}
+}

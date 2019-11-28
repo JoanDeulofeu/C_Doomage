@@ -568,6 +568,7 @@ void						ft_init_msg(t_main *s);
 */
 void						print_wall_list(t_main *s);
 void 						print_player_values(t_main *s);
+void						ft_print_sprite_list(t_main *s);
 
 /*
 ****	Fonction des textures
