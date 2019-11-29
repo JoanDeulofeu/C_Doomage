@@ -31,6 +31,7 @@
 # define SPRITE_DETECTION 5
 # define SPRITE_SHOT_DIST 3
 # define SPRITE_MOVE_SPEED 0.1
+# define STORM_RANGE 6
 
 // Fixed-point Format: 16.16 (32-bit)
 typedef int32_t				fixed_float;
@@ -40,6 +41,12 @@ typedef enum				e_display_mode {
 	game,
 	save,
 }							t_display_mode;
+
+typedef enum				e_wp_name {
+	kick,
+	gun,
+	shotgun
+}							t_wp_name;
 
 typedef struct				s_fix_pos {
 	Uint32					x;
@@ -96,6 +103,7 @@ typedef struct				s_player
 	char					jump; //0 = pas de jump, 1 = phase montante, 2 = descendante
 	double					jump_height;
 	int						set;
+	int						shoot;
 	int						correc;
 	int						init_space;
 	int						sector_id;
@@ -106,6 +114,8 @@ typedef struct				s_player
 	double					abs_angle;
 	int						height;
 	t_anim					weapon;
+	t_wp_name				wp_name;
+	int						wp_wheel[3]; //roue des armes
 	t_image					*hud;
 	t_image					*crosshair;
 	t_sector				*sector;
@@ -236,6 +246,7 @@ typedef struct				s_timer {
 	long					msg_tmp_ms;
 	long					crouch_ms;
 	long					jump_ms;
+	long					shotgun_ms;
 }							t_timer;
 
 typedef struct				s_msg {
@@ -256,6 +267,7 @@ typedef struct				s_main {
 	char					*map_name;
 	t_skybox				sky;
 	t_anim_enemy			stormtrooper;
+	t_anim_wp				wp_anims;
 	t_dpos					p_pos;
 	t_dpos					left_plan;
 	t_dpos					right_plan;
@@ -325,6 +337,7 @@ double				ft_find_angle_portal(t_dpos *left, t_dpos *right,
 void						pre_initialize_sdl(t_main *s);
 void						initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture					*initialize_texture(t_sdl *sdl, int width, int height);
+t_anim_wp 					load_wp_anims(t_main *s);
 t_main						*initialize_main(char *str);
 void						free_program(t_main *s);
 
@@ -400,6 +413,7 @@ int							ft_prev_next_floor(t_main *s, char prev_next);
 void						move_editor(t_main *s, const Uint8 *keys);
 void						ft_crouch(t_main *s, const Uint8 *keys);
 void						ft_jump(t_main *s, const Uint8 *keys);
+void						change_weapon(t_main *s, int up);
 
 /*
 ****	Fonction de gestion et de protection du parsing
@@ -520,7 +534,7 @@ void						rotate_mouse(t_main *s);
 // void						draw_weapon(t_main *s, double perx, short orig_x, short orig_y);
 void						draw_hud(t_main *s);
 void						display_hud(t_main *s, int i, int j);
-void						shoot(t_main *s, int press);
+void						shoot(t_main *s);
 void						display_crosshair(t_main *s, int i, int j);
 // void						draw_weapon2(t_main *s, int i, int j);
 int							is_colliding(t_main *s, t_dpos target);
@@ -563,6 +577,7 @@ void						ft_init_msg(t_main *s);
 */
 void						print_wall_list(t_main *s);
 void 						print_player_values(t_main *s);
+void						draw_sprite_hitbox(t_main *s);
 
 /*
 ****	Fonction des textures
@@ -621,6 +636,7 @@ t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
 */
 t_sprite					*create_new_sprite(t_main *s, t_type type, t_dpos pos);
 void 						draw_sprites_ori(t_main *s);
+void						set_sprite(t_main *s);
 
 /*
 ****	Fonction mode selection
@@ -645,7 +661,7 @@ void						fire(t_main *s);
 void						sprite_move_on_player(t_main *s, t_sprite *cur);
 void						ia(t_main*s, t_sprite *cur);
 
-void						rand_move(t_main *s, t_sprite *cur);
+void						rand_move(t_main *s);
 
 /*
 ****	Fonction load animation
@@ -662,15 +678,18 @@ void						load_anim7(t_lanim *data);
 ****	Fonction animations
 */
 void						kill(t_sprite *cur);
-void						play_anim(t_main *s);
+void						play_sprites_anims(t_main *s);
+void 						enemy_walk_anim(t_main *s, t_sprite *sprite);
 
 void						sprite_shooting(t_main *s, t_sprite *cur);
 void						sprite_walk(t_sprite *cur);
-void						dying(t_main *s, t_sprite *cur);
+void						kill_anim(t_main *s, t_sprite *cur);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void						set_orientation(t_main *s, t_sprite *cur);
 void 						destroy_planet(t_main *s);
 t_anim_enemy 				load_storm_anim(t_main *s);
+void						animate_weapon(t_main *s);
+void						select_weapon_anim(t_main *s);
 
 t_lanim						*get_anim_by_id(t_main *s, int id);
 void 						select_anim(t_main *s, t_sprite *sprite);

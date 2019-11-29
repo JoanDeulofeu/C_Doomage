@@ -14,7 +14,7 @@ void			display_sky(t_main *s)
 	t_pos		coord;
 	int			px;
 	double		value;
-	int j;
+	int 		j;
 	float			w_mul;
 
 	w_mul = 2.6;

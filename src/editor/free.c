@@ -26,24 +26,6 @@ void	free_lanim(t_lanim *anim) // A TESTER
 		free_image(anim->image[i]);
 }
 
-// void	free_lsprite(t_main *s)
-// {
-// 	// t_lsprite	*lst;
-// 	// t_lsprite	*tmp;
-// 	//
-// 	// lst = s->lsprite;
-// 	// while (lst != NULL)
-// 	// {
-// 	// 	tmp = lst;
-// 	// 	lst = lst->next;
-// 	// 	if (tmp->img != NULL)
-// 	// 		free_image(tmp->img);
-// 	// 	if (tmp->anim != NULL)
-// 	// 		free_lanim(tmp->anim);
-// 	// 	ft_memdel((void **)&tmp);
-// 	// }
-// }
-
 void	free_sprite(t_main *s)
 {
 	t_sprite	*sprite;
@@ -94,15 +76,17 @@ void	free_sectors(t_main *s)
 
 void	free_images(t_main *s)
 {
-	// (void)s;
-	// free_areas(s);
-	// free_image(s->weapon.image[0]);
-	// free_image(s->weapon.image[1]);
-	// free_image(s->weapon.image[2]);
-	// free_image(s->door);
-	// free_image(s->interface);
-	// free_image(s->win);
 	free_anim(s->menu);
+	free_anim(s->stormtrooper.face);
+	free_anim(s->stormtrooper.back);
+	free_anim(s->stormtrooper.prof);
+	free_anim(s->stormtrooper.prof_face);
+	free_anim(s->stormtrooper.prof_back);
+	free_anim(s->stormtrooper.dying);
+	free_anim(s->stormtrooper.shooting);
+	free_anim(s->wp_anims.gun);
+	free_anim(s->wp_anims.shotgun);
+	free_anim(s->wp_anims.kick);
 	// free_image(s->coupe);
 }
 

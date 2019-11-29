@@ -133,7 +133,7 @@ void 	display_sprites(t_main *s)
 		if (sprite->set == 1 && sprite->destroy == 0 && check_if_visible(s, sprite))
 		{
 			// printf("sprite ok\n");
-			select_anim(s, sprite);
+			play_sprites_anims(s);
 			draw_sprite(s, sprite->angle, sprite);
 		}
 		sprite = sprite->next;
@@ -156,12 +156,15 @@ void	set_sprite(t_main *s)
 
 void 		draw_sprites_ori(t_main *s)
 {
-	t_sprite *tmp;
+	t_sprite	*tmp;
+	t_dpos		pos;
 
 	tmp = s->sprite;
 	while (tmp)
 	{
-		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, tmp->m_pos)), YELLOW);
+		pos.x = tmp->r_ori.x * METRE;
+		pos.y = tmp->r_ori.y * METRE;
+		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos)), YELLOW);
 		tmp = tmp->next;
 	}
 }
@@ -205,6 +208,7 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos pos)
 	ft_bzero((void*)sprite, sizeof(t_sprite));
 	sprite->sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos));
 	sprite->r_pos = r_pos;
+	sprite->size = 2;
 	sprite->pos = ft_dpos_to_pos(pos);
 	sprite->r_ori = sprite->r_pos;
 	sprite->m_pos.x = sprite->r_pos.x * METRE;
@@ -225,4 +229,63 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos pos)
 	add_sprite_to_sector(s, sprite);
 	// ft_test_chainlist(s);
 	return (sprite);
+}
+
+int		ft_get_sprite_height_pxl(t_main *s, t_sprite *sprite)
+{
+	int			ig_height_wall; // hauteur du mur in game (en metre)
+	double		pct_eyesight; //pourcentage vision player
+	t_sector 	*sct;
+
+	sct = get_sector_by_id(s, sprite->sct_id);
+
+	ig_height_wall = sct->ceiling - sct->floor;
+	pct_eyesight = (s->player.eyesight * 100 / ig_height_wall);
+	// printf("pct = %.2f      ", pct_eyesight);
+	return ((pct_eyesight * sprite->size) / 100);
+}
+
+void		draw_sprite(t_main *s, double angle, t_sprite *cur)
+{
+	double		perx;
+	double		pery;
+	t_pos		coord;
+	int			px;
+	t_image		*wp;
+	double		value;
+	int			i;
+	int			j;
+	double		diff_height_pxl;
+	(void)angle;
+
+	wp = cur->anim.image[cur->current];
+	i = 0;
+	value = (HEIGHT / (cur->r_dist)) / 60;
+	// value = 0;
+	coord.x = 0;
+	coord.y = 0;
+	while (i < (wp->w) * value && i >= 0 && i <= WIDTH)
+	{
+		j = 0;
+		coord.x = cur->x + i;
+		perx = (double)i / (((double)wp->w) * value);
+		while (j < (wp->h) * value && j >= 0 && j <= HEIGHT) //J'ai ajouté la protection pour pas que ca rame mais ça fait disparaitre le sprite quand on ets trop pres
+		{
+			coord.y = j++;
+			pery = (double)j / (((double)wp->h) * value);
+			diff_height_pxl = ft_get_sprite_height_pxl(s, cur);
+			coord.y += HEIGHT / 2 + s->player.y_eye + diff_height_pxl
+				- (((wp->h * value)) / 3.5);
+			if (cur->inverse == 0)
+				px = (int)(pery * (double)wp->h) * wp->w
+					+ (int)(perx * (double)wp->w);
+				else
+					px = (int)(pery * (double)wp->h) * wp->w
+						- (int)(perx * (double)wp->w);
+
+			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
+				set_pixel(s->sdl->game, wp->tex[px], coord);
+		}
+		i++;
+	}
 }

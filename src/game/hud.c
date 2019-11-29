@@ -1,68 +1,139 @@
 #include "doom.h"
 
-// void		shoot(t_main *s, int press)
-// {
-// 	struct timeval	tv;
-// 	t_time			t;
-// 	long			curr_time;
-//
-//
-// 	gettimeofday(&tv, (void *)t.v0id);
-// 	curr_time = tv.tv_sec * 1000000 + tv.tv_usec;
-// 	if (press == 1 && s->player.t.fin_time < curr_time)
-// 	{
-// 		Mix_PlayChannel(3, s->sdl->sounds.shotgun, 0);
-// 		fire(s);
-// 		t.fin_time = curr_time + 1100000;
-// 		t.tmp_time = curr_time;
-// 		s->player.t.recoil.y = 0;
-// 		s->player.t.recoil.x = 0;
-// 		s->player.t = t;
-// 	}
-// 	if (s->player.t.tmp_time + 150000 > curr_time)
-// 	{
-// 		s->player.weapon.current = 1;
-// 		s->player.t.recoil.y = 50;
-// 		s->player.t.recoil.x = 50;
-// 	}
-// 	else if (s->player.t.tmp_time + 200000 > curr_time)
-// 	{
-// 		s->player.t.recoil.y = 0;
-// 		s->player.t.recoil.x = 0;
-// 		s->player.weapon.current = 1;
-// 	}
-// 	else if (s->player.t.tmp_time + 300000 > curr_time)
-// 	{
-// 		s->player.t.recoil.y = 0;
-// 		s->player.t.recoil.x = 0;
-// 		s->player.weapon.current = 0;
-// 	}
-// 	else if (s->player.t.tmp_time + 450000 > curr_time)
-// 		s->player.weapon.current = 2;
-// 	else if (s->player.t.tmp_time + 500000 > curr_time)
-// 		s->player.weapon.current = 3;
-// 	else if (s->player.t.tmp_time + 650000 > curr_time)
-// 		s->player.weapon.current = 4;
-// 	else if (s->player.t.tmp_time + 800000 > curr_time)
-// 		s->player.weapon.current = 5;
-// 	else if (s->player.t.tmp_time + 950000 > curr_time)
-// 		s->player.weapon.current = 4;
-// 	else if (s->player.t.tmp_time + 1080000 > curr_time)
-// 		s->player.weapon.current = 3;
-// 	else
-// 	{
-// 		s->player.t.recoil.y = 0;
-// 		s->player.t.recoil.x = 0;
-// 		s->player.weapon.current = 0;
-// 	}
-// }
+void		animate_shotgun(t_main *s)
+{
+	long	time;
+
+	if (s->player.shoot == 0)
+		return ;
+	time = s->time->time_ms - s->time->shotgun_ms;
+	if (time >= 0 && time <= 200)
+		s->player.weapon.current = 1;
+	else if (time > 200 && time <= 300)
+		s->player.weapon.current = 2;
+	else if (time > 300 && time <= 400)
+		s->player.weapon.current = 3;
+	else if (time > 400 && time <= 500)
+		s->player.weapon.current = 4;
+	else if (time > 500 && time <= 600)
+		s->player.weapon.current = 5;
+	else if (time > 600 && time <= 700)
+		s->player.weapon.current = 6;
+	else if (time > 700 && time <= 800)
+		s->player.weapon.current = 5;
+	else if (time > 800 && time <= 900)
+		s->player.weapon.current = 4;
+	else if (time > 900)
+		{
+			s->player.weapon.current = 0;
+			s->player.shoot = 0;
+		}
+}
+
+void		animate_gun(t_main *s)
+{
+	long	time;
+
+	if (s->player.shoot == 0)
+		return ;
+	time = s->time->time_ms - s->time->shotgun_ms;
+	if (time > 100 && time <= 150)
+		s->player.weapon.current = 1;
+	if (time > 150 && time <= 250)
+		s->player.weapon.current = 2;
+	if (time > 250)
+	{
+		s->player.weapon.current = 0;
+		s->player.shoot = 0;
+	}
+}
+
+void		animate_kick(t_main *s)
+{
+	long	time;
+
+	if (s->player.shoot == 0)
+		return ;
+	time = s->time->time_ms - s->time->shotgun_ms;
+	if (time <= 200)
+	s->player.weapon.current = 1;
+	else if (time > 200 && time <= 400)
+	{
+		s->player.weapon.current = 2;
+	}
+	else if (time > 400 && time <= 600)
+	{
+		s->player.weapon.current = 3;
+	}
+	else
+	{
+		s->player.weapon.current = 0;
+		s->player.shoot = 0;
+	}
+
+}
+
+void		animate_weapon(t_main *s)
+{
+	if (s->player.wp_name == shotgun)
+		animate_shotgun(s);
+	else if (s->player.wp_name == gun)
+		animate_gun(s);
+	else if (s->player.wp_name == kick)
+		animate_kick(s);
+}
+
+void		shoot(t_main *s)
+{
+	if (s->player.shoot == 0)
+	{
+		s->player.shoot = 1;
+		s->time->shotgun_ms = s->time->time_ms;
+		Mix_PlayChannel(2, s->sdl->sounds.shotgun, 0);
+		animate_weapon(s);
+		fire(s);
+	}
+}
+
+void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
+{
+	t_pos	coord;
+	t_pos	dest;
+	double		pery;
+	int			pix_tex;
+	t_image		*wp;
+
+	wp = s->player.weapon.image[s->player.weapon.current];
+	dest.x = orig_x + wp->w + 100;
+	dest.y = HEIGHT ;
+	if (s->player.weapon.current == 1 && s->player.wp_name == shotgun)
+	{
+		orig_y += 50;
+		dest.y += 50;
+	}
+
+	coord.x = orig_x;
+	while (coord.x < dest.x)
+	{
+		coord.y = orig_y;
+		perx = percent(coord.x - orig_x , dest.x - orig_x);
+		while (coord.y < dest.y)
+		{
+			coord.y++;
+
+			pery = percent(coord.y - orig_y, dest.y - orig_y);
+			pix_tex = (int)(pery * wp->h) * wp->w + (int)(perx * wp->w);
+			if (pix_tex <= wp->h * wp->w && wp->tex[pix_tex] != 10676224)
+				set_pixel(s->sdl->game, wp->tex[pix_tex], coord);
+		}
+		coord.x++;
+	}
+}
 
 void		draw_hud(t_main *s)
 {
-	// shoot(s, -1);
-	//draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2 ), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
-	//draw_weapon(s, 0, WIDTH / 2 - (s->player.weapon.image[s->player.weapon.current]->w / 2), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
-	// draw_weapon2(s, 0, 0);
+	if (s->player.weapon.image[s->player.weapon.current])
+		draw_weapon(s, 0, WIDTH / 2 + (s->player.weapon.image[s->player.weapon.current]->w ), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
 	display_crosshair(s, 0, 0);
 	display_hud(s, 0, 0);
 }
@@ -99,41 +170,6 @@ void		display_crosshair(t_main *s, int i, int j)
 	}
 }
 
-// void		draw_weapon2(t_main *s, int i, int j)
-// {
-// 	double		perx;
-// 	double		pery;
-// 	t_pos		coord;
-// 	int			px;
-// 	t_image		*wp;
-// 	int			value;
-//
-// 	value = 150;// + s->player.t.recoil.x;
-// 	coord.x = 0;
-// 	coord.y = 0;
-// 	wp = s->player.weapon.image[s->player.weapon.current];
-// 	//wp = s->player.weapon.image[s->player.weapon.current];
-// 	//coord.x = WIDTH / 2 - (wp->w / 2);
-// 	while (i < wp->w + value)
-// 	{
-// 		j = 0;//dont touch
-// 		coord.x = i;
-// 		perx = (double)coord.x / ((double)wp->w + value);
-// 		coord.x += WIDTH / 2 + 30 + s->player.t.recoil.x;
-// 		while (j < wp->h + value)
-// 		{
-// 			coord.y = j++;
-// 			pery = (double)coord.y / ((double)wp->h + value);
-// 			coord.y += HEIGHT - wp->h - value + s->player.t.recoil.y;
-// 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx
-// 				* (double)wp->w);
-// 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
-// 				set_pixel(s->sdl->game, wp->tex[px], coord);
-// 		}
-// 		i++;
-// 	}
-// }
-
 void		display_hud(t_main *s, int i, int j)
 {
 	double		perx;
@@ -166,43 +202,6 @@ void		display_hud(t_main *s, int i, int j)
 	}
 	//update_image(s, s->sdl->game);
 }
-// void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
-// {
-// 	t_pos	coord;
-// 	t_pos	dest;
-// 	double		pery;
-// 	int			pix_tex;
-// 	t_image		*wp;
-//
-// 	//printf("recoil = %d\n",s->player.t.recoil);
-// 	wp = s->player.weapon.image[s->player.weapon.current];
-// 	dest.x = WIDTH / 2 + (wp->w / 2) + 100;
-// 	dest.y = HEIGHT ;
-// 	coord.x = orig_x;
-// 	//coord.x += s->player.t.recoil.x;
-//
-// 	while (coord.x < dest.x)
-// 	{
-// 		coord.y = orig_y;
-// 		perx = percent(coord.x - orig_x , dest.x - orig_x);// - s->player.t.recoil;
-// 		//coord.y += s->player.t.recoil.y;
-// 		while (coord.y < dest.y)
-// 		{
-// 			coord.y++;
-//
-// 			pery = percent(coord.y - orig_y, dest.y - orig_y);
-// 			pix_tex = (int)(pery * wp->h) * wp->w + (int)(perx * wp->w);
-//
-// 			// printf("%d  ", pix_tex);
-// 			//printf("%d  ", wp->tex[pix_tex]);
-// 			if (pix_tex <= wp->h * wp->w && wp->tex[pix_tex] != 10676224)
-// 				set_pixel(s->sdl->game, wp->tex[pix_tex], coord);
-// 		}
-// 		coord.x++;
-// 	}
-// 	// update_image(s, s->sdl->game);
-//
-// }
 
 void		health(t_main *s)
 {

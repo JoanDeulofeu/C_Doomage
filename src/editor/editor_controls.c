@@ -289,6 +289,8 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
+		rand_move(s);
+		play_sprites_anims(s);
 		display_sprites(s);
 		clear_wall_list(s);
 		update_image(s, s->sdl->editor);
@@ -302,14 +304,14 @@ void		handle_editor_keys(t_main *s)
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
 
-		play_anim(s);
-		//	sprite_move(s);
 		health(s);
+		rand_move(s);
+		play_sprites_anims(s);
+		// draw_sprite_hitbox(s);
 		display_sprites(s);
 		clear_wall_list(s);
-		// draw_hud(s);
-		// print_hp(s);
-		// ft_nul(s);
+		draw_hud(s);
+		animate_weapon(s);
 		update_image(s, s->sdl->game);
 	}
 	if (s->display_mode == save)
@@ -415,7 +417,7 @@ void		editor_handler(t_main *s)
 				ingame = 0;
 			if (s->sdl->event.type == SDL_MOUSEBUTTONUP)
 			{
-				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
+				if (s->sdl->event.button.button == SDL_BUTTON_LEFT && s->display_mode == editor)
 				{
 					if (s->editor->mode == move && selected == 1)
 					{
@@ -449,17 +451,8 @@ void		editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sprite)
 					{
-						create_new_sprite(s, 0, ft_pos_to_dpos(s->ft_mouse));
-						if ((s->ft_mouse.x == mouse_save.x ||
-							s->ft_mouse.y == mouse_save.y) && remove == 0) //reset de yoann, a checker
-						{
-							printf("hey\n");
-							// add_sprite(s,get_abs_r_pos(s,s->ft_mouse),
-								// s->choice_sprite->id);
-							//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
-							//deselect_sprite(s);
+							create_new_sprite(s, 0, ft_pos_to_dpos(s->ft_mouse));
 							s->editor->selected = 0;
-						}
 						if (s->editor->selected == 0)
 						{
 							deselect_sprite(s);
@@ -560,7 +553,7 @@ void		editor_handler(t_main *s)
 					}
 					else if (s->display_mode == game)
 					{
-						// shoot(s,1);
+						shoot(s);
 					}
 					else if (s->display_mode == save)
 					{

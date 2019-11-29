@@ -51,32 +51,43 @@ double		found_player(t_main *s, t_sprite *cur)
 	return (angle);
 }
 
-void		rand_move(t_main *s, t_sprite *cur)
+void		rand_move(t_main *s)
 {
-	t_dpos	target;
-	double	angle;
+	t_dpos		target;
+	double		angle;
+	t_sprite	*sprite;
 	// printf("rand\n\n");
-	// printf("cur->angle =%f\n\n",cur->angle);
-	target.x = cur->r_pos.x;
-	target.y = cur->r_pos.y;
+	// printf("sprite->angle =%f\n\n",sprite->angle);
+
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->set == 1 & sprite->destroy == 0 && sprite->a_name == walking)
+		{
+			target.x = sprite->r_pos.x;
+			target.y = sprite->r_pos.y;
+			target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
+			target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
+			if (ft_is_in_sector(s, get_px_r_pos(s, target)) != 0)
+			{
+				sprite->r_pos = target;
+				set_sprite(s);
+			}
+			else
+			{
+				angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
+				// printf("angle =%f\n",angle);
+				sprite->s_angle = angle;
+			}
+		}
+		sprite = sprite->next;
+
+	}
 	//  angle = found_player(s,cur);
-	target.x += cos(to_rad(cur->s_angle)) * SPRITE_MOVE_SPEED;
-	target.y -= sin(to_rad(cur->s_angle)) * SPRITE_MOVE_SPEED;
+
 	//target = get_px_r_pos(s,target);
 	//   printf("cur->pos (%d,%d)\n",cur->pos.x,cur->pos.y);
 	// printf("target (%f,%f)\n\n",target.x,target.y);
-	if (ft_is_in_sector(s, get_px_r_pos(s, target)) != 0
-		&& check_exist(s, target, cur->id) == -1
-			&& cur->r_dist > SPRITE_SHOT_DIST)
-	{
-		cur->r_pos = target;
-	}
-	else
-	{
-		angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
-		//printf("angle =%f\n",angle);
-		cur->s_angle = angle;
-	}
 }
 
 void		sprite_move_on_player(t_main *s, t_sprite *cur)
@@ -103,8 +114,8 @@ void		sprite_move_on_player(t_main *s, t_sprite *cur)
 	}
 }
 
-void		ia(t_main *s, t_sprite *cur)
-{
-	rand_move(s, cur);
-	//    sprite_move_on_player(s,cur);
-}
+// void		ia(t_main *s, t_sprite *cur)
+// {
+// 	// rand_move(s, cur);
+// 	//    sprite_move_on_player(s,cur);
+// }

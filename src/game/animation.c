@@ -14,28 +14,6 @@
 // 	return (NULL);
 // }
 
-void		kill(t_sprite *cur)
-{
-	if (cur->anim.image[cur->current] != NULL)
-	{
-		// cur->img = cur->anim->image[cur->current];
-		cur->current += 1;
-	}
-	else
-		cur->destroy = 1;
-}
-
-void		sprite_shooting(t_main *s, t_sprite *cur)
-{
-	if (cur->anim.image[cur->current] != NULL)
-	{
-		cur->s_angle = s->player.angle + 180;
-		// set_img(s, cur, 6, 0);
-		cur->current = 1;
-		// cur->img = cur->anim->image[cur->current];
-	}
-}
-
 void		sprite_walk(t_sprite *cur)
 {
 	if (cur->anim.image[cur->current] == NULL)
@@ -44,33 +22,6 @@ void		sprite_walk(t_sprite *cur)
 	{
 		cur->current += 1;
 		// cur->img = cur->anim->image[cur->current];
-	}
-}
-
-void		play_anim(t_main *s)
-{
-	t_sprite	*cur;
-
-	cur = s->sprite;
-	while (cur != NULL)
-	{
-		if (cur->anim.image[cur->current] != NULL)
-		{
-			if (cur->life == 0)
-				kill(cur);
-			// else if (cur->r_dist <= SPRITE_SHOT_DIST)
-			// 	sprite_shooting(s, cur);
-			else
-			{
-				// ia(s, cur);
-				// set_orientation(s, cur);
-				// sprite_orientation(s);
-				// sprite_walk(cur);
-			}
-		}
-		else
-			cur->current = 0;
-		cur = cur->next;
 	}
 }
 

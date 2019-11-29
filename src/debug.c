@@ -1,5 +1,26 @@
 #include "doom.h"
 
+void		draw_sprite_hitbox(t_main *s)
+{
+	t_sprite 	*sprite;
+	t_dpos		init1;
+	t_dpos		dest1;
+
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->set == 1)
+		{
+			init1.y = 0;
+			init1.x = sprite->x;
+			dest1.y = HEIGHT;
+			dest1.x = sprite->x + (sprite->anim.image[sprite->current]->w * ((HEIGHT / sprite->r_dist) / 60));
+			draw_rect(s->sdl->game, init1, dest1, 0x622b2bff);
+		}
+		sprite = sprite->next;
+	}
+}
+
 void print_wall_list(t_main *s)
 {
   t_walls *tmp;

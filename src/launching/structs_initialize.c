@@ -99,15 +99,6 @@ void		load_images(t_main *s)
 	s->menu.image[2] = load_tga("images/editor.tga", 0, 0, 0);
 	s->menu.current = 0;
 	s->savemap->croix_rouge = load_tga("images/croix_rouge.tga", 0, 0, 0);
-
-	s->player.weapon.image[0] = load_tga("images/shotgun1.tga", 0, 0, 0);
-	s->player.weapon.image[1] = load_tga("images/shotgun_fire.tga", 0, 0, 0);
-	//s->player.weapon.image[2] = load_tga("images/shotgun_fire2.tga", 0, 0, 0);
-	s->player.weapon.image[2] = load_tga("images/shotgun2.tga", 0, 0, 0);
-	s->player.weapon.image[3] = load_tga("images/shotgun3.tga", 0, 0, 0);
-	s->player.weapon.image[4] = load_tga("images/shotgun4.tga", 0, 0, 0);
-	s->player.weapon.image[5] = load_tga("images/shotgun5.tga", 0, 0, 0);
-	s->player.weapon.current = 0;
 	s->player.hud = load_tga("images/hud.tga", 0, 0, 0);
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
 	s->skybox.image[0] = load_tga("images/skybox_00.tga", 0, 0, 0);
@@ -130,6 +121,13 @@ void		load_images(t_main *s)
 	s->skybox.image[17] = load_tga("images/skybox_17.tga", 0, 0, 0);
 	s->skybox.current = 0;
 	s->stormtrooper = load_storm_anim(s);
+	s->wp_anims = load_wp_anims(s);
+	s->player.weapon = s->wp_anims.gun;
+	s->player.wp_name = gun;
+	s->player.wp_wheel[gun] = 1;
+	s->player.wp_wheel[kick] = 1;
+	s->player.wp_wheel[shotgun] = 1;
+	s->player.weapon.current = 0;
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
@@ -157,6 +155,7 @@ t_main		*initialize_main(char *str)
 
 	if (!(s = (t_main*)malloc(sizeof(t_main))))
 		exit(-1);
+	ft_bzero((void*)s, sizeof(t_main));
 	if (!(s->editor = (t_editor*)malloc(sizeof(t_editor))))
 		exit(-1);
 	if (!(s->font = (t_font*)malloc(sizeof(t_font))))
@@ -179,7 +178,7 @@ t_main		*initialize_main(char *str)
 	s->grid = NULL;
 	ft_set_time(s);
 	ft_init_msg(s);
-
+	s->player.shoot = 0;
 	s->player.set = 1;
 	s->player.size = PLAYER_SIZE;
 	s->player.jump = 0;

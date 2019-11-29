@@ -216,8 +216,6 @@ typedef struct			s_int {
 
 typedef struct				s_anim_enemy
 {
-	// int						id;
-	// int						max_current;
 	t_anim					face;
 	t_anim					back;
 	t_anim					prof;
@@ -225,8 +223,21 @@ typedef struct				s_anim_enemy
 	t_anim					prof_face;
 	t_anim					dying;
 	t_anim					shooting;
-	// t_image					*current[18];
 }							t_anim_enemy;
+
+typedef struct				s_anim_wp
+{
+	t_anim					kick;
+	t_anim					gun;
+	t_anim					shotgun;
+}							t_anim_wp;
+
+typedef enum				e_anim_name
+{
+	walking,
+	dying,
+	shooting
+}							t_anim_name;
 
 typedef struct				s_lanim
 {
@@ -241,9 +252,11 @@ typedef struct				s_sprite
 	int						x;
 	int						set;
 	int						inverse; //savoir si on inverse le display sprite
+	int						anim_ms;
 	int						orientation;
 	int						select;
 	int						life;
+	int						size;
 	int						current;
 	int						destroy;
 	int						damage;
@@ -257,6 +270,7 @@ typedef struct				s_sprite
 	t_dpos					m_pos;
 	t_type					type; //type a sauvegarder
 	t_name					name; //name a sauvegarder
+	t_anim_name				a_name;
 	t_image					*img;
 	t_anim					anim;
 	int						sct_id;

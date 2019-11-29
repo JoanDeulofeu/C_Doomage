@@ -1,5 +1,40 @@
 #include "doom.h"
 
+void		change_weapon(t_main *s, int up)
+{
+	if (up)
+	{
+		s->player.wp_name++;
+		// printf(" up name = %d\n", s->player.wp_name);
+		if (s->player.wp_name > 2)
+			s->player.wp_name = 0;
+		while (s->player.wp_wheel[s->player.wp_name] != 1)
+		{
+			s->player.wp_name++;
+			if (s->player.wp_name > 2)
+			s->player.wp_name = 0;
+		}
+	}
+	if (up == 0)
+	{
+		if (s->player.wp_name == kick)
+		{
+			s->player.wp_name = 2;
+		}
+		else
+			s->player.wp_name--;
+		// printf(" down name = %d\n", s->player.wp_name);
+		while (s->player.wp_wheel[s->player.wp_name] != 1)
+		{
+			if (s->player.wp_name == kick)
+				s->player.wp_name = 2;
+			else
+				s->player.wp_name--;
+		}
+	}
+	select_weapon_anim(s);
+}
+
 int			check_exist_sprite(t_main *s)
 {
 	t_sprite	*cur;
@@ -65,19 +100,29 @@ void		give_damage(t_main *s, int id)
 
 void		fire(t_main *s)
 {
-	// t_dpos	target;
-	// t_pos trace;
-	int		i;
-	int		id;
+	t_sprite 	*sprite;
+	t_sprite	*save_sprite;
 
-	i = -1;
-	id = -1;
-	if ((id = check_exist_sprite(s)) != -1)
+	sprite = s->sprite;
+	save_sprite = NULL;
+	while (sprite)
 	{
-		// printf("id =%d\n",id);
-		give_damage(s, id);
-		//  remove_sprite_by_id(s,id);
+		if (sprite->set == 1 && sprite->r_dist < 6 && (WIDTH / 2) > sprite->x && WIDTH / 2 < sprite->x + (sprite->anim.image[sprite->current]->w * ((HEIGHT / sprite->r_dist) / 60)))
+		{
+			if (save_sprite)
+			{
+				if (sprite->r_dist < save_sprite->r_dist)
+					save_sprite = sprite;
+			}
+			else
+				save_sprite = sprite;
+		}
+		sprite = sprite->next;
+	}
+	if (save_sprite)
+	{
+		save_sprite->anim = s->stormtrooper.dying;
+		save_sprite->a_name = dying;
+		save_sprite->current = 0;
 	}
 }
-
-// if ((id= found_id_sprite(s,ft_dpos_to_pos(s->player.pos),trace)) != -1)

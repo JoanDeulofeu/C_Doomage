@@ -26,8 +26,11 @@ void		handle_game_keys(t_main *s)
 	// play_anim(s);
 	//	sprite_move(s);
 	health(s);
+	rand_move(s);
+	play_sprites_anims(s);
 	display_sprites(s);
 	draw_hud(s);
+	animate_weapon(s);
 	clear_wall_list(s);
 	// print_hp(s);
 	// ft_nul(s);
@@ -46,6 +49,7 @@ void		game_handler(t_main *s)
 	{
 		s->time->time_ms = SDL_GetTicks();
 		ft_fps(s);
+		animate_weapon(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -60,7 +64,7 @@ void		game_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
-						// shoot(s,1);
+						shoot(s);
 						if (s->skybox.current < 17 && s->player.abs_angle > 62
 							&& s->player.abs_angle < 82 && s->player.y_eye >= 376
 							&& s->player.y_eye <= 782)
@@ -72,7 +76,10 @@ void		game_handler(t_main *s)
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{
-
+				if (s->sdl->event.wheel.y > 0)
+					change_weapon(s, 1);
+				if (s->sdl->event.wheel.y < 0)
+					change_weapon(s, 0);
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN)
 				if (s->sdl->event.key.keysym.sym == SDLK_ESCAPE)
