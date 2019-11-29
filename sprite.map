@@ -1,24 +1,41 @@
 Map : sprite
 
-Vertex 3		5
-Vertex 5		20
-Vertex 10		24
-Vertex 12		21
-Vertex 13		6
-Vertex 17		19
-Vertex 17		23
-Vertex 20		25
-Vertex 20		17
-Vertex 17		12
-Vertex 21		12
-Vertex 21		7
-Vertex 17		7
+Vertex 3		6
+Vertex 3		15
+Vertex 3		24
+Vertex 27		24
+Vertex 27		6
+Vertex 1		15
+Vertex 1		24
+Vertex -2		24
+Vertex -2		15
+Vertex -5		15
+Vertex -5		24
+Vertex -8		24
+Vertex -8		15
+Vertex -10		24
+Vertex -10		6
+Vertex -28		6
+Vertex -28		24
+Vertex -10		15
+Vertex 33		24
+Vertex 33		6
+Vertex 44		10
+Vertex 44		20
 
 
-Sector 0 2 | 1 2 3 4 5 | -1 -1 -1 -1 -1
-Sector 0 2 | 6 7 8 9 | 10 -1 -1 -1
-Sector 0 2 | 13 10 11 12 | -1 6 -1 -1
+Sector 0 10 | 1 2 3 4 5 | -1 7 -1 20 -1
+Sector 1 6 | 9 8 7 6 | 11 -1 2 -1
+Sector 2 7 | 10 13 12 11 | -1 14 -1 9
+Sector 3 8 | 14 18 15 16 17 | 13 -1 -1 -1 -1
+Sector 1 4 | 20 19 22 21 | 4 -1 -1 -1
 
 
-Player 565 270
-Angle 358
+Ennemi 1 | 0 | 1446 630 | 0 | 0
+Ennemi 2 | 0 | 1823 636 | 0 | 0
+Ennemi 3 | 0 | 1943 780 | 0 | 0
+Ennemi 4 | 0 | 2100 1030 | 0 | 0
+
+
+Player 463 356
+Angle 60

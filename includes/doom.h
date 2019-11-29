@@ -102,6 +102,8 @@ typedef struct				s_player
 	double					foot_height;
 	char					jump; //0 = pas de jump, 1 = phase montante, 2 = descendante
 	double					jump_height;
+	char					fly; //0 = pas de fly, 1 = fly
+	double					tumble;
 	int						set;
 	int						shoot;
 	int						correc;
@@ -112,7 +114,8 @@ typedef struct				s_player
 	int						health;
 	double					angle;
 	double					abs_angle;
-	int						height;
+	int						floor_height;
+	int						ceiling_height;
 	t_anim					weapon;
 	t_wp_name				wp_name;
 	int						wp_wheel[3]; //roue des armes
@@ -414,6 +417,8 @@ void						move_editor(t_main *s, const Uint8 *keys);
 void						ft_crouch(t_main *s, const Uint8 *keys);
 void						ft_jump(t_main *s, const Uint8 *keys);
 void						change_weapon(t_main *s, int up);
+void						ft_fly_mode(t_main *s, const Uint8 *keys);
+void						ft_activ_fly(t_main *s);
 
 /*
 ****	Fonction de gestion et de protection du parsing
@@ -578,6 +583,7 @@ void						ft_init_msg(t_main *s);
 void						print_wall_list(t_main *s);
 void 						print_player_values(t_main *s);
 void						draw_sprite_hitbox(t_main *s);
+void						ft_print_sprite_list(t_main *s);
 
 /*
 ****	Fonction des textures

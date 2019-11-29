@@ -183,6 +183,8 @@ t_main		*initialize_main(char *str)
 	s->player.size = PLAYER_SIZE;
 	s->player.jump = 0;
 	s->player.jump_height = 0;
+	s->player.fly = 0;
+	s->player.tumble = 0.0;
 	s->player.i = 0;
 	s->player.r_pos.x = 7.5;
 	s->player.r_pos.y = 7.3;

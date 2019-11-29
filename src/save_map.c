@@ -135,6 +135,25 @@ void	ft_save_map(t_main *s)
 		ft_draw_write_bar(s);
 }
 
+void	ft_write_file_sprite(t_main *s, FILE *fichier)
+{
+	t_sprite	*sprite;
+
+	sprite = s->sprite;
+	if (!sprite)
+		return ;
+	while (sprite)
+	{
+		fprintf(fichier, "Ennemi %d | ", sprite->id);
+		fprintf(fichier, "%d | ", (int)sprite->s_angle);
+		fprintf(fichier, "%ld ", (long)(sprite->r_ori.x * 100));
+		fprintf(fichier, "%ld | ", (long)(sprite->r_ori.y * 100));
+		fprintf(fichier, "%d | ", sprite->type);
+		fprintf(fichier, "%d\n", sprite->name);
+		sprite = sprite->next;
+	}
+}
+
 void	ft_write_file(t_main *s)
 {
 	FILE		*fichier = NULL;
@@ -175,7 +194,8 @@ void	ft_write_file(t_main *s)
 		sct = sct->next;
 	}
 	fprintf(fichier, "\n\n");
-//	fprintf(fichier, "Player %d %d\n", ((int)s->player.ori.y * METRE) + s->player.p_ori.y, ((int)s->player.ori.x * METRE) + s->player.p_ori.x);
+	ft_write_file_sprite(s, fichier);
+	fprintf(fichier, "\n\n");
 	fprintf(fichier, "Player %d %d\n", (int)(s->player.r_pos.y * METRE), (int)(s->player.r_pos.x * METRE));
 	fprintf(fichier, "Angle %d\n", (int)s->player.angle);
 	fclose(fichier);

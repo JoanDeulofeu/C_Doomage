@@ -218,13 +218,17 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos pos)
 	sprite->set = 0;
 	sprite->anim = s->stormtrooper.face;
 	if (!s->sprite)
+	{
 		s->sprite = sprite;
+		s->sprite->id = 1;
+	}
 	else
 	{
 		temp = s->sprite;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = sprite;
+		sprite->id = temp->id + 1;
 	}
 	add_sprite_to_sector(s, sprite);
 	// ft_test_chainlist(s);
