@@ -11,7 +11,8 @@ SRC_NAME =	main.c							\
 			debug.c							\
 			save_map.c						\
 			launching/load_storm_anim.c 	\
-			launching/load_wp_anim.c 	\
+			launching/load_wp_anim.c 		\
+			launching/load_anims.c			\
 			launching/structs_initialize.c	\
 			editor/editor_launcher.c		\
 			game/texture.c					\

@@ -232,6 +232,11 @@ typedef struct				s_anim_wp
 	t_anim					shotgun;
 }							t_anim_wp;
 
+typedef struct				s_static
+{
+	t_anim					table;
+}							t_static;
+
 typedef enum				e_anim_name
 {
 	walking,

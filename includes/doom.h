@@ -296,8 +296,7 @@ typedef struct				s_main {
 	t_slider				slider;
 	short					fov;
 	t_sprite				*sprite;
-	t_lsprite				*lsprite;
-	t_lsprite				*choice_sprite;
+	t_static				items;
 	t_walls					*walls;
 	int						portal_nb;
 	t_dpos					col_pos;
@@ -693,6 +692,7 @@ void						kill_anim(t_main *s, t_sprite *cur);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void						set_orientation(t_main *s, t_sprite *cur);
 void 						destroy_planet(t_main *s);
+void						load_anims(t_main *s);
 t_anim_enemy 				load_storm_anim(t_main *s);
 void						animate_weapon(t_main *s);
 void						select_weapon_anim(t_main *s);
