@@ -7,7 +7,10 @@ void	update_image(t_main *s, t_texture *texture)
 		* sizeof(Uint32));
 	SDL_SetRenderTarget(s->sdl->prenderer, NULL);
 	SDL_RenderCopy(s->sdl->prenderer, texture->texture, NULL, NULL);
-	ft_draw_ttf(s);
+	if (!s->play_or_editor)
+		ft_draw_ttf_play(s);
+	else
+		ft_draw_ttf_editor(s);
 	SDL_RenderPresent(s->sdl->prenderer);
 }
 

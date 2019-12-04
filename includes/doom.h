@@ -253,6 +253,7 @@ typedef struct				s_msg {
 }							t_msg;
 
 typedef struct				s_main {
+	int						play_or_editor;
 	t_timer					*time;
 	t_msg					*msg;
 	t_font					*font;
@@ -562,7 +563,8 @@ fixed_float					ft_fixed_mul(fixed_float a, fixed_float b);
 */
 void						ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
 void						ft_init_font(t_main *s);
-void						ft_draw_ttf(t_main *s);
+void						ft_draw_ttf_play(t_main *s);
+void						ft_draw_ttf_editor(t_main *s);
 void						ft_display_message(t_main *s);
 void						ft_create_message(t_main *s, int color, int duration, char *str);
 void						ft_init_msg(t_main *s);

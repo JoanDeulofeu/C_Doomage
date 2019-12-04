@@ -350,6 +350,7 @@ void		editor_handler(t_main *s)
 	tmp_move.x = 0;
 	tmp_move.y = 0;
 	remove = 0;
+	s->play_or_editor = 1;
 	// SDL_SetRelativeMouseMode(SDL_TRUE);
 	// draw_interface(s);
 	while (ingame)

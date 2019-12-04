@@ -255,7 +255,6 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	t_pos		coord;
 	int			px;
 	t_image		*wp;
-	double		value;
 	int			i;
 	int			j;
 	double		height;

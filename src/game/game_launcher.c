@@ -43,6 +43,7 @@ void		game_handler(t_main *s)
 	ingame = 1;
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	s->display_mode = game;
+	s->play_or_editor = 0;
 	// draw_interface(s);
 	while (ingame)
 	{

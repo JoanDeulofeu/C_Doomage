@@ -43,7 +43,22 @@ void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
 	SDL_RenderCopy(s->sdl->prenderer, texture, NULL, &ttf.pos);
 }
 
-void	ft_draw_ttf(t_main *s)
+void	ft_draw_ttf_play(t_main *s)
+{
+	t_ttf		ttf;
+	// char*		str;
+
+	ft_display_message(s);
+	ttf.r = 255;
+	ttf.g = 255;
+	ttf.b = 255;
+	ttf.pos.x = 50;
+	ttf.pos.y = 750;
+	ttf.str = ft_strdup("100");
+	ft_create_ttf(ttf, s, s->font->press_start);
+}
+
+void	ft_draw_ttf_editor(t_main *s)
 {
 	t_ttf		ttf;
 	char*		str;

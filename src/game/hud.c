@@ -179,26 +179,23 @@ void		display_hud(t_main *s, int i, int j)
 	t_image		*wp;
 
 	coord.x = 0;
-	coord.y = 0;
 	wp = s->player.hud;
-	//wp = s->player.weapon.image[s->player.weapon.current];
 	while (i < WIDTH)
 	{
 		j = 0;
+		coord.y = HEIGHT - 129;
 		coord.x = i;
 		perx = (double)coord.x / (double)WIDTH;
-		while (j < HEIGHT)
+		while (j < 129)
 		{
-			coord.y = j++;
-			pery = (double)coord.y / (double)HEIGHT;
+			pery = (double)j / 129;
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx
 				* (double)wp->w);
-			//  printf("%d  ", px);
-			// printf("%d  ", wp->tex[px]);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
+			j++;
+			coord.y++;
 		}
 		i++;
 	}
-	//update_image(s, s->sdl->game);
 }
