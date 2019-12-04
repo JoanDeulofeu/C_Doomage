@@ -28,12 +28,7 @@ int main (int argc, char **argv)
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0, 0, 0);
 	// get_grid_tab(s);
-	if (!handle_menu(s))
-		handle_error(s, 0);
-	if (s->menu.current == 2 || s->menu.current == 0)
-		launch_editor(s);
-	else
-		launch_game(s);
+	while (handle_menu(s));
 	// display_map(s);
 	// ft_test_float();
 	// editor_handler(s);

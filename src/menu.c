@@ -82,5 +82,9 @@ int		handle_menu(t_main *s)
 		Mix_FreeMusic(s->sdl->musique);
 		s->sdl->musique = NULL;
 	}
+	if (s->menu.current == 2 || s->menu.current == 0)
+		launch_editor(s);
+	else
+		launch_game(s);
 	return (1);
 }
