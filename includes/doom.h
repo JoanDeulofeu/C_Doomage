@@ -130,14 +130,6 @@ typedef struct				s_skybox {
 	t_dpos					right_point;
 }							t_skybox;
 
-typedef struct				s_slider {
-	t_point					start;
-	t_point					end;
-	Uint32					color_one;
-	Uint32					color_two;
-	Uint32					value;
-}							t_slider;
-
 typedef struct				s_visu {
 	t_dpos					tmp_wall;
 	t_dpos					left_plan;
@@ -293,7 +285,6 @@ typedef struct				s_main {
 	t_anim					menu;
 	t_image					*interface;
 	t_anim					skybox;
-	t_slider				slider;
 	short					fov;
 	t_sprite				*sprite;
 	t_static				items;
@@ -700,17 +691,5 @@ void						select_weapon_anim(t_main *s);
 
 t_lanim						*get_anim_by_id(t_main *s, int id);
 void 						select_anim(t_main *s, t_sprite *sprite);
-
-/*
-****	Fonctions hud
-*/
-void						health(t_main *s);
-void						game_over(t_main *s);
-void						health_pack(t_main *s);
-void						damage(t_main *s);
-void						draw_slider(t_main *s, t_slider slider);
-void						print_hp(t_main *s);
-void						set_pixel_slider(t_texture *text, Uint32 color, int x,
-	int y);
 
 #endif

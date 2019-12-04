@@ -175,10 +175,6 @@ int			key_controls_game(t_main *s, int key)
 	}
 	if (key == TAB)
 		ft_test_chainlist(s);
-	if (key == HEALTH_PACK)
-		health_pack(s);
-	if (key == DAMAGE)
-		damage(s);
 	if (key == SDLK_KP_PLUS)
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
 		// tp_first_sector(s);
@@ -311,7 +307,6 @@ void		handle_editor_keys(t_main *s)
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
 
-		health(s);
 		rand_move(s);
 		play_sprites_anims(s);
 		// draw_sprite_hitbox(s);

@@ -1,6 +1,5 @@
 #include "doom.h"
 
-
 void	display_menu(t_main *s, int i, int j)
 {
 	double		perx;

@@ -433,11 +433,8 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		ft_strdel(&line);
 	}
 	ft_check_parsing_validity(s);
-	// ft_test_chainlist(s);
 	ft_strdel(&line);
 	add_portal_ptr(s);
-	// ft_test_chainlist(s);
 	check_map_portals(s);
-	// ft_test_chainlist(s);
 	return (0);
 }

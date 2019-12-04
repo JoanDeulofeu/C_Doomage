@@ -64,8 +64,7 @@ SRC_NAME =	main.c							\
 			game/ia.c						\
 			game/collisions.c				\
 			game/walls.c					\
-			game/teleport.c					\
-			game/slider_hud.c
+			game/teleport.c					
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

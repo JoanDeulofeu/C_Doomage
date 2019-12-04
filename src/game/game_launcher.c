@@ -25,7 +25,6 @@ void		handle_game_keys(t_main *s)
 	ft_visu_joan(s, keys);
 	// play_anim(s);
 	//	sprite_move(s);
-	health(s);
 	rand_move(s);
 	play_sprites_anims(s);
 	display_sprites(s);
