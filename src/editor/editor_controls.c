@@ -236,8 +236,8 @@ int			key_controls_edi(t_main *s, int key)
 	{
 		if (s->editor->mode == vertex && (key == DELETE))
 			remove_selected_anchor(s);
-		if (s->editor->mode == sprite && (key == DELETE))
-			remove_sprite_by_select(s);
+		// if (s->editor->mode == sprite && (key == DELETE))
+		// 	remove_sprite_by_select(s);
 	}
 	if (key == DELETE)
 		return(2);
@@ -292,9 +292,6 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
-		// rand_move(s);
-		play_sprites_anims(s);
-		display_sprites(s);
 		clear_wall_list(s);
 		update_image(s, s->sdl->editor);
 	}
@@ -307,9 +304,6 @@ void		handle_editor_keys(t_main *s)
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
 
-		rand_move(s);
-		play_sprites_anims(s);
-		// draw_sprite_hitbox(s);
 		display_sprites(s);
 		clear_wall_list(s);
 		draw_hud(s);

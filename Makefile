@@ -50,21 +50,17 @@ SRC_NAME =	main.c							\
 			game/visu_joan.c				\
 			game/visu_portal.c				\
 			game/visu_joan_drawing.c		\
-			game/anim_yohann.c				\
 			game/utils_2.c					\
 			game/hud.c						\
-			game/animation.c				\
-			game/sprite_yohann.c			\
+			game/anim.c						\
 			game/sprite.c					\
 			game/sprite_menu.c				\
-			game/sprite_chainlist.c			\
-			game/lsprite_chainlist.c		\
 			game/fire_mode.c				\
 			game/skybox.c					\
 			game/ia.c						\
 			game/collisions.c				\
 			game/walls.c					\
-			game/teleport.c					
+			game/teleport.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

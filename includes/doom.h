@@ -589,24 +589,7 @@ void						get_total_w_wall(t_walls *wall);
 */
 t_pos						get_px_r_pos(t_main *s, t_dpos ref);
 void						*ft_memalloc(size_t size);
-t_lsprite					*load_lsprite(t_main *s, t_lsprite *start, int size);
-t_lsprite					*create_lsprite_elem(t_main *s, int id);
-t_lsprite					*create_lsprite(t_main *s, int size);
-t_sprite					*create_sprite_elem(t_main *s, int id, int idimg,
-	t_dpos pos);
 void						add_sprite(t_main *s, t_dpos pos, int idimg);
-void						init_sprite(t_main *s);
-void						refresh_sprite_pos(t_main *s);
-double						calc_sprite_dist(t_main *s, t_pos pos);
-double						calc_sprite_r_dist(t_main *s, t_dpos pos);
-int							check_is_on_sector(t_main *s, t_sprite *cur);
-
-void						display_by_id(t_main *s, int id);
-int							found_farther(t_main *s);
-int							found_closer(t_main *s);
-
-void						found_sprite(t_main *s);
-
 void						draw_sprite(t_main *s, double angle, t_sprite *sprite);
 void 						display_sprites(t_main *s);
 void 						unset_sprites(t_main *s);
@@ -619,7 +602,7 @@ void						display_sprite_inverse(t_main *s, double angle,
 void						free_sprite(t_main *s);
 void						free_lsprite(t_main *s);
 void						free_anim(t_anim anim);
-void						free_lanim(t_lanim *anim);
+// void						free_lanim(t_lanim *anim);
 
 void						remove_sprite_by_id(t_main *s, int id);
 void						remove_sprite_by_select(t_main *s);
@@ -661,17 +644,6 @@ void						ia(t_main*s, t_sprite *cur);
 void						rand_move(t_main *s);
 
 /*
-****	Fonction load animation
-*/
-void						load_anim1(t_lanim *data);
-void						load_anim2(t_lanim *data);
-void						load_anim3(t_lanim *data);
-void						load_anim4(t_lanim *data);
-void						load_anim5(t_lanim *data);
-void						load_anim6(t_lanim *data);
-void						load_anim7(t_lanim *data);
-
-/*
 ****	Fonction animations
 */
 void						kill(t_sprite *cur);
@@ -679,17 +651,14 @@ void						play_sprites_anims(t_main *s);
 void 						enemy_walk_anim(t_main *s, t_sprite *sprite);
 
 void						sprite_shooting(t_main *s, t_sprite *cur);
-void						sprite_walk(t_sprite *cur);
 void						kill_anim(t_main *s, t_sprite *cur);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
-void						set_orientation(t_main *s, t_sprite *cur);
 void 						destroy_planet(t_main *s);
 void						load_anims(t_main *s);
 t_anim_enemy 				load_storm_anim(t_main *s);
 void						animate_weapon(t_main *s);
 void						select_weapon_anim(t_main *s);
 
-t_lanim						*get_anim_by_id(t_main *s, int id);
 void 						select_anim(t_main *s, t_sprite *sprite);
 
 #endif
