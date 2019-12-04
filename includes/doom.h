@@ -576,6 +576,7 @@ void						print_wall_list(t_main *s);
 void 						print_player_values(t_main *s);
 void						draw_sprite_hitbox(t_main *s);
 void						ft_print_sprite_list(t_main *s);
+void						ft_print_sectors_sprites(t_main *s);
 
 /*
 ****	Fonction des textures
@@ -607,15 +608,17 @@ void						free_anim(t_anim anim);
 // void						free_lanim(t_lanim *anim);
 
 void						remove_sprite_by_id(t_main *s, int id);
-void						remove_sprite_by_select(t_main *s);
-void						remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,
-	t_sprite *prev);
+// void						remove_sprite_by_select(t_main *s);
+// void						remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,
+	// t_sprite *prev);
 
 t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
 /*
 ****	Fonction sprite Yohann
 */
 t_sprite					*create_new_sprite(t_main *s, t_type type, t_dpos pos);
+t_sprite					*is_sprite_under_mouse(t_main *s);
+void						remove_selected_sprite(t_main *s);
 void 						draw_sprites_ori(t_main *s);
 void						set_sprite(t_main *s);
 void 						add_sprite_to_sector(t_main *s, t_sprite *sprite);
@@ -632,7 +635,7 @@ void						reset_id(t_main *s);
 int							found_id_sprite(t_main *s, t_pos start, t_pos end);
 
 void						deselect_sprite(t_main *s);
-void						select_sprite(t_main *s);
+int							select_sprite(t_main *s);
 int							set_selected_sprite(t_main *s, t_pos *mouse_save);
 
 void						display_chainlist(t_main *s);

@@ -151,84 +151,6 @@ void	set_sprite(t_main *s)
 	}
 }
 
-void 		draw_sprites_ori(t_main *s)
-{
-	t_sprite	*tmp;
-	t_dpos		pos;
-
-	tmp = s->sprite;
-	while (tmp)
-	{
-		pos.x = tmp->r_ori.x * METRE;
-		pos.y = tmp->r_ori.y * METRE;
-		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos)), YELLOW);
-		tmp = tmp->next;
-	}
-}
-
-void 		add_sprite_to_sector(t_main *s, t_sprite *sprite)
-{
-	t_sector	*sct;
-	t_lsprite	*tmp;
-	t_lsprite	*liste;
-
-	sct = get_sector_by_id(s, sprite->sct_id);
-	if ((liste = malloc(sizeof(t_lsprite))) == NULL)
-		handle_error(s, MALLOC_ERROR);
-	liste->sprite = sprite;
-	liste->next = NULL;
-	if (sct->liste == NULL)
-		sct->liste = liste;
-	else
-	{
-		tmp = sct->liste;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = liste;
-	}
-}
-
-t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
-{
-	t_sprite	*sprite;
-	t_sprite	*temp;
-	int			sct_id;
-	t_dpos		pos;
-
-	sprite = NULL;
-	pos = ft_pos_to_dpos(get_px_r_pos(s, r_pos));
-	if ((sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos))) == 0)
-		return (NULL);
-	if (!(sprite = ft_memalloc(sizeof(t_sprite))))
-		handle_error(s, MALLOC_ERROR);
-	ft_bzero((void*)sprite, sizeof(t_sprite));
-	sprite->sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos));
-	sprite->r_pos = r_pos;
-	sprite->size = 2;
-	sprite->pos = ft_dpos_to_pos(pos);
-	sprite->r_ori = sprite->r_pos;
-	sprite->m_pos.x = sprite->r_pos.x * METRE;
-	sprite->m_pos.y = sprite->r_pos.y * METRE;
-	sprite->type = type;
-	sprite->life = 100;
-	sprite->set = 0;
-	sprite->anim = s->stormtrooper.face;
-	if (!s->sprite)
-	{
-		s->sprite = sprite;
-		s->sprite->id = 1;
-		add_sprite_to_sector(s, sprite);
-		return (sprite);
-	}
-	temp = s->sprite;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = sprite;
-	sprite->id = temp->id + 1;
-	add_sprite_to_sector(s, sprite);
-	return (sprite);
-}
-
 int		ft_get_sprite_height_pxl(t_main *s, t_sprite *sprite, double height)
 {
 	int			ig_height_wall; // hauteur du mur in game (en metre)
@@ -251,7 +173,6 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	t_pos		coord;
 	int			px;
 	t_image		*wp;
-	double		value;
 	int			i;
 	int			j;
 	double		height;

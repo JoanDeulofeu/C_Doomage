@@ -15,7 +15,6 @@ SRC_NAME =	main.c							\
 			launching/load_anims.c			\
 			launching/structs_initialize.c	\
 			editor/editor_launcher.c		\
-			game/texture.c					\
 			editor/controls.c				\
 			editor/actions.c				\
 			editor/selected.c				\
@@ -30,6 +29,7 @@ SRC_NAME =	main.c							\
 			editor/utils_2.c				\
 			editor/anchors_general.c		\
 			editor/mode_vertex.c			\
+			editor/mode_sprite.c			\
 			editor/remove_sectors.c			\
 			editor/wall.c					\
 			editor/mode_deplacement.c		\
@@ -46,6 +46,7 @@ SRC_NAME =	main.c							\
 			editor/list_utils.c				\
 			editor/polygon_center.c			\
 			editor/sector_sens.c			\
+			game/texture.c					\
 			game/game_launcher.c			\
 			game/visu_joan.c				\
 			game/visu_portal.c				\

@@ -280,6 +280,7 @@ typedef struct				s_sprite
 	t_image					*img;
 	t_anim					anim;
 	int						sct_id;
+	int						selected;
 	struct s_sprite			*next;
 }							t_sprite;
 

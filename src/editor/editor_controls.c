@@ -183,7 +183,7 @@ int			key_controls_game(t_main *s, int key)
 	return (1);
 }
 
-int			key_controls_edi(t_main *s, int key)
+int			key_controls_edi(t_main *s, int key, int selected)
 {
 	if (key == SDLK_ESCAPE)
 		return (0);
@@ -236,8 +236,13 @@ int			key_controls_edi(t_main *s, int key)
 	{
 		if (s->editor->mode == vertex && (key == DELETE))
 			remove_selected_anchor(s);
-		// if (s->editor->mode == sprite && (key == DELETE))
-		// 	remove_sprite_by_select(s);
+		if (s->editor->mode == sprite && (key == DELETE))
+		{
+			remove_selected_sprite(s);
+			// ft_print_sprite_list(s);
+			selected = 0;
+		}
+
 	}
 	if (key == DELETE)
 		return(2);
@@ -448,11 +453,12 @@ void		editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sprite)
 					{
-						create_new_sprite(s, 0, get_abs_r_pos(s, s->ft_mouse));
-						s->editor->selected = 0;
-						if (s->editor->selected == 0)
+
+						// s->editor->selected = 0;
+						if (selected == 0 && !is_sprite_under_mouse(s))
 						{
-							deselect_sprite(s);
+							create_new_sprite(s, 0, get_abs_r_pos(s, s->ft_mouse));
+							// deselect_sprite(s);
 						}
 						if (s->editor->selected == 1)
 						{
@@ -482,7 +488,10 @@ void		editor_handler(t_main *s)
 							click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
 							// printf("mode = %u\n", s->editor->mode);
 						}
-						// else if (s->editor->mode == sprite
+						else if (s->editor->mode == sprite)
+						{
+							selected = select_sprite(s);
+						}
 						// 	&& (check_sprite_menu_click(s,s->ft_mouse) == -1))
 						// {
 						// 	//	check_sprite_menu_click(s,s->ft_mouse);
@@ -578,7 +587,7 @@ void		editor_handler(t_main *s)
 				if (s->display_mode == editor)
 				{
 					if ((remove_achr = key_controls_edi(s,
-						s->sdl->event.key.keysym.sym)) == 0)
+						s->sdl->event.key.keysym.sym, selected)) == 0)
 						ingame = 0;
 					else if (remove_achr == 2 && selected == 1)
 						{

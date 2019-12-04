@@ -26,36 +26,60 @@ void		deselect_sprite(t_main *s)
 	}
 }
 
-void		select_sprite(t_main *s)
+t_sprite	*is_sprite_under_mouse(t_main *s)
 {
-	t_sprite	*v;
+	t_sprite *sprite;
 
-	v = s->sprite;
-	while (v != NULL)
+	sprite = s->sprite;
+	while (sprite)
 	{
-		if (((v->pos.x >= s->editor->line.x1 && v->pos.x <= s->editor->line.x2)
-			&& (v->pos.y >= s->editor->line.y1 && v->pos.y
-				<= s->editor->line.y2)) || ((v->pos.x <= s->editor->line.x1
-				&& v->pos.x >= s->editor->line.x2)
-				&& (v->pos.y <= s->editor->line.y1
-				&& v->pos.y >= s->editor->line.y2))
-				|| ((v->pos.x <= s->editor->line.x1
-				&& v->pos.x >= s->editor->line.x2)
-				&& (v->pos.y >= s->editor->line.y1
-				&& v->pos.y <= s->editor->line.y2))
-				|| ((v->pos.x >= s->editor->line.x1
-				&& v->pos.x <= s->editor->line.x2)
-				&& (v->pos.y <= s->editor->line.y1
-				&& v->pos.y >= s->editor->line.y2)))
-		{
-			//printf("ok\n\n");
-		//	draw_anchor(s,v->pos, YELLOW);
-			v->select = 1;
-		}
-		v = v->next;
+		if (sprite->pos.x <= s->ft_mouse.x + s->editor->anchor_size
+		&& sprite->pos.x >= s->ft_mouse.x - s->editor->anchor_size
+		&& sprite->pos.y >= s->ft_mouse.y - s->editor->anchor_size
+		&& sprite->pos.y <= s->ft_mouse.y + s->editor->anchor_size)
+			return (sprite);
+		sprite = sprite->next;
 	}
-	s->editor->selected = 0;
+	return (NULL);
 }
+
+int		select_sprite(t_main *s)
+{
+	t_sprite *sprite;
+
+	sprite = is_sprite_under_mouse(s);
+	if (sprite)
+	{
+		sprite->selected = 1;
+		return (1);
+	}
+		return (0);
+}
+
+// void		select_sprite(t_main *s)
+// {
+// 	t_sprite	*v;
+// 	t_line 		l;
+//
+// 	l = s->editor->line;
+// 	v = s->sprite;
+// 	while (v != NULL)
+// 	{
+// 		if (((v->pos.x >= l.x1 && v->pos.x <= l.x2)
+// 			&& (v->pos.y >= l.y1 && v->pos.y <= l.y2))
+// 			|| ((v->pos.x <= l.x1 && v->pos.x >= l.x2) && (v->pos.y <= l.y1
+// 			&& v->pos.y >= l.y2)) || ((v->pos.x <= l.x1 && v->pos.x >= l.x2)
+// 			&& (v->pos.y >= l.y1 && v->pos.y <= l.y2)) || ((v->pos.x >= l.x1
+// 			&& v->pos.x <= l.x2) && (v->pos.y <= l.y1 && v->pos.y >= l.y2)))
+// 		{
+// 			//printf("ok\n\n");
+// 		//	draw_anchor(s,v->pos, YELLOW);
+// 			v->selected = 1;
+// 		}
+// 		v = v->next;
+// 	}
+// 	s->editor->selected = 0;
+// }
 
 int			exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 {

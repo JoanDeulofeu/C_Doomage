@@ -60,7 +60,7 @@ void	remove_anchor(t_main *s, int id)
 		{
 			if (remove_sector(s, id, 0, 0) == 0)
 			{
-				printf("Impossible de supprimer le secteur dans lequel est le joueur.\n");
+				ft_create_message(s, WHITE, 200, "Impossible de supprimer le secteur dans lequel est le joueur.\n");
 				return ;
 			}
 			update_anchor_list(s, temp);

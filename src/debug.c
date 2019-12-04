@@ -86,3 +86,29 @@ void	ft_print_sprite_list(t_main *s)
 		sprite = sprite->next;
 	}
 }
+
+void	ft_print_sectors_sprites(t_main *s)
+{
+	t_sector	*sct;
+	t_lsprite	*liste;
+
+	sct = s->sector;
+	if (s->sprite == NULL)
+		return ;
+	while (sct)
+	{
+		liste = sct->liste;
+		printf("------SECTOR %d------\n", sct->id);
+		while (liste)
+		{
+			printf("SPRITE %d\n", liste->sprite->id);
+			// printf("s_angle = %f\n", sprite->s_angle);
+			// printf("r_ori x(%.2f) y(%.2f)\n", sprite->r_ori.x, sprite->r_ori.y);
+			// printf("type = %d\n",  sprite->type);
+			// printf("name = %d\n\n",  sprite->name);
+			liste = liste->next;
+		}
+		sct = sct->next;
+	}
+	printf("\n\n");
+}
