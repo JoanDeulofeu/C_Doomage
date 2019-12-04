@@ -38,7 +38,8 @@ void	play_sprites_anims(t_main *s)
 	{
 		if (sprite->a_name == walking && !sprite->destroy)
 		{
-			select_anim(s, sprite);
+			if (sprite->set)
+				select_anim(s, sprite);
 			enemy_walk_anim(s, sprite);
 		}
 
@@ -88,7 +89,7 @@ void 	select_anim(t_main *s, t_sprite *sprite)
 	t_dpos		point;
 
 	wall = s->walls;
-	while (wall->sct_id != sprite->sct_id)
+	while (wall && wall->sct_id != sprite->sct_id)
 		wall = wall->next;
 	point.x = sprite->m_pos.x + cos(to_rad(sprite->s_angle)) * 2;
 	point.y = sprite->m_pos.y - sin(to_rad(sprite->s_angle)) * 2;
