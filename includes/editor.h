@@ -273,6 +273,7 @@ typedef struct				s_sprite
 	t_dpos					r_ori; //Position a sauvegarder
 	t_pos					pos;
 	t_dpos					m_pos;
+	double					l_dist;
 	t_type					type; //type a sauvegarder
 	t_name					name; //name a sauvegarder
 	t_anim_name				a_name;

@@ -296,7 +296,7 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
-		rand_move(s);
+		// rand_move(s);
 		play_sprites_anims(s);
 		display_sprites(s);
 		clear_wall_list(s);
@@ -312,7 +312,7 @@ void		handle_editor_keys(t_main *s)
 		ft_visu_joan(s, keys);
 
 		health(s);
-		rand_move(s);
+		// rand_move(s);
 		play_sprites_anims(s);
 		// draw_sprite_hitbox(s);
 		display_sprites(s);
