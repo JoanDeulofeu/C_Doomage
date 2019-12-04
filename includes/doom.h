@@ -642,6 +642,7 @@ t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
 t_sprite					*create_new_sprite(t_main *s, t_type type, t_dpos pos);
 void 						draw_sprites_ori(t_main *s);
 void						set_sprite(t_main *s);
+void 						add_sprite_to_sector(t_main *s, t_sprite *sprite);
 
 /*
 ****	Fonction mode selection

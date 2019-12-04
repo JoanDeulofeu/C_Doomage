@@ -157,6 +157,7 @@ t_main		*initialize_main(char *str)
 	s->vertex = NULL;
 	s->sector = NULL;
 	s->grid = NULL;
+	s->sprite = NULL;
 	ft_set_time(s);
 	ft_init_msg(s);
 	s->player.shoot = 0;

@@ -148,7 +148,8 @@ int		ft_parse_sector(t_main *s, char *line)
 		handle_error(s, MAP_ERROR);
 	floor = ft_atoi(&line[i]);
 	i += ft_longlen(floor) + 1;
-	i = ft_find_next_number(line, i);
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
 	ceiling = ft_atoi(&line[i]);
 	sct = ft_add_sector(s, floor, ceiling);
 	// printf("entree1\n");
@@ -346,6 +347,46 @@ void	ft_check_parsing_validity(t_main *s)
 	}
 }
 
+int		ft_parse_ennemi_part2(t_main *s, char *line, int i, t_sprite *sprite)
+{
+	if (!sprite)
+		return (0);
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
+	sprite->s_angle = (double)ft_atoi(&line[i]);
+	i += ft_longlen((int)sprite->s_angle) + 1;
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
+	sprite->name = ft_atoi(&line[i]);
+	return (0);
+}
+
+int		ft_parse_ennemi(t_main *s, char *line)
+{
+	t_sprite	*sprite;
+	t_dpos		pos;
+	t_type		type;
+	int			i;
+
+	if ((i = ft_find_next_number(line, 0)) == -1)
+		handle_error(s, MAP_ERROR);
+	type = ft_atoi(&line[i]);
+	i += ft_longlen(type) + 1;
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
+	pos.x = ft_atoi(&line[i]);
+	i += ft_longlen((int)pos.x) + 1;
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
+	pos.y = ft_atoi(&line[i]);
+	i += ft_longlen((int)pos.y) + 1;
+	pos.x /= 100;
+	pos.y /= 100;
+	sprite = create_new_sprite(s, type, pos);
+	ft_parse_ennemi_part2(s, line, i, sprite);
+	return (0);
+}
+
 int		ft_parsing(t_main *s, int x, int y, int fd)
 {
 	char	*line;
@@ -372,6 +413,12 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 				continue;
 			ft_parse_sector(s, line);
 			ft_check_validity_last_sector(s);
+		}
+		else if (line[0] == 'E')
+		{
+			if (ft_how_many_pipe(line) != 3)
+				continue;
+			ft_parse_ennemi(s, line);
 		}
 		else if (line[0] == 'P')
 		{

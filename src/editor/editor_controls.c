@@ -458,8 +458,8 @@ void		editor_handler(t_main *s)
 					}
 					else if (s->editor->mode == sprite)
 					{
-							create_new_sprite(s, 0, ft_pos_to_dpos(s->ft_mouse));
-							s->editor->selected = 0;
+						create_new_sprite(s, 0, get_abs_r_pos(s, s->ft_mouse));
+						s->editor->selected = 0;
 						if (s->editor->selected == 0)
 						{
 							deselect_sprite(s);

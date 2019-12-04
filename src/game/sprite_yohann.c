@@ -191,15 +191,14 @@ void 		add_sprite_to_sector(t_main *s, t_sprite *sprite)
 	}
 }
 
-t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos pos)
+t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
 {
 	t_sprite	*sprite;
 	t_sprite	*temp;
 	int			sct_id;
-	t_dpos		r_pos;
+	t_dpos		pos;
 
 	sprite = NULL;
-	r_pos = get_abs_r_pos(s, ft_dpos_to_pos(pos));
 	pos = ft_pos_to_dpos(get_px_r_pos(s, r_pos));
 	if ((sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos))) == 0)
 		return (NULL);
@@ -221,17 +220,15 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos pos)
 	{
 		s->sprite = sprite;
 		s->sprite->id = 1;
+		add_sprite_to_sector(s, sprite);
+		return (sprite);
 	}
-	else
-	{
-		temp = s->sprite;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = sprite;
-		sprite->id = temp->id + 1;
-	}
+	temp = s->sprite;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = sprite;
+	sprite->id = temp->id + 1;
 	add_sprite_to_sector(s, sprite);
-	// ft_test_chainlist(s);
 	return (sprite);
 }
 
