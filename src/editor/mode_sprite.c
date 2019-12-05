@@ -6,11 +6,11 @@ void	remove_sprite_from_sector(t_main *s, t_sprite *sprite)
 	t_lsprite	*temp;
 	t_lsprite	*del;
 
-	sct = get_sector_by_id(s, sprite->id);
+	sct = get_sector_by_id(s, sprite->sct_id);
 	temp = sct->liste;
-	printf("sprite a supprimer = %d\n", sprite->id);
-	printf("secteur du sprite a supprimer = %d\n", sct->id);
-	ft_print_sectors_sprites(s);
+	// printf("sprite a supprimer = %d\n", sprite->id);
+	// printf("secteur du sprite a supprimer = %d\n", sct->id);
+	// ft_print_sectors_sprites(s);
 
 	if (!temp)
 		return ;

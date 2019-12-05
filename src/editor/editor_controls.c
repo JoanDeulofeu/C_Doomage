@@ -177,9 +177,9 @@ int			key_controls_game(t_main *s, int key)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
-		// tp_first_sector(s);
+		tp_first_sector(s);
 		// s->player.y_eye = 0;
-		ft_print_sprite_list(s);
+		// ft_print_sprite_list(s);
 	return (1);
 }
 
@@ -240,7 +240,6 @@ int			key_controls_edi(t_main *s, int key, int selected)
 		{
 			remove_selected_sprite(s);
 			// ft_print_sprite_list(s);
-			selected = 0;
 		}
 
 	}
@@ -490,7 +489,7 @@ void		editor_handler(t_main *s)
 						}
 						else if (s->editor->mode == sprite)
 						{
-							selected = select_sprite(s);
+							select_sprite(s);
 						}
 						// 	&& (check_sprite_menu_click(s,s->ft_mouse) == -1))
 						// {

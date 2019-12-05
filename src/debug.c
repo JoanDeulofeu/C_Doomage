@@ -101,11 +101,14 @@ void	ft_print_sectors_sprites(t_main *s)
 		printf("------SECTOR %d------\n", sct->id);
 		while (liste)
 		{
-			printf("SPRITE %d\n", liste->sprite->id);
-			// printf("s_angle = %f\n", sprite->s_angle);
-			// printf("r_ori x(%.2f) y(%.2f)\n", sprite->r_ori.x, sprite->r_ori.y);
-			// printf("type = %d\n",  sprite->type);
-			// printf("name = %d\n\n",  sprite->name);
+			if (liste->sprite)
+			{
+				printf("SPRITE %d\n", liste->sprite->id);
+				printf("secteur du sprite = %d\n", liste->sprite->sct_id);
+			}
+
+			else
+				printf("/!\\sprite free\n");
 			liste = liste->next;
 		}
 		sct = sct->next;
