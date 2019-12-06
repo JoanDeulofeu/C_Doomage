@@ -26,18 +26,41 @@ void		deselect_sprite(t_main *s)
 	}
 }
 
+// int			arround(int space, int nb)
+// {
+// 	int		res;
+// 	int		res2;
+//
+// 	res = nb / space;
+// 	res2 = res + 1;
+// 	return (nb - (space * res) > space * res2
+// 	- nb ? space * res2 : space * res);
+// }
+
 t_sprite	*is_sprite_under_mouse(t_main *s)
 {
 	t_sprite *sprite;
+	t_dpos	s_pos;
+	t_dpos	mouse;
 
 	sprite = s->sprite;
+	mouse = get_abs_r_pos(s, s->ft_mouse);
+	// mouse.x *= METRE;
+	// mouse.y *= METRE;
+	// mouse = ft_dpos_to_pos(to_edi_coord(s, ft_pos_to_dpos(mouse)));
 	while (sprite)
 	{
-		if (sprite->pos.x <= s->ft_mouse.x + s->editor->anchor_size
-		&& sprite->pos.x >= s->ft_mouse.x - s->editor->anchor_size
-		&& sprite->pos.y >= s->ft_mouse.y - s->editor->anchor_size
-		&& sprite->pos.y <= s->ft_mouse.y + s->editor->anchor_size)
+		s_pos = sprite->r_pos;
+		,mouse.x + 1, mouse.y - 1 , mouse.y + 1);
+		if (s_pos.x <= mouse.x + 1
+		&& s_pos.x >= mouse.x - 1
+		&& s_pos.y >= mouse.y - 1
+		&& s_pos.y <= mouse.y + 1)
+		{
+			printf("TRUE\n");
 			return (sprite);
+		}
+
 		sprite = sprite->next;
 	}
 	return (NULL);
