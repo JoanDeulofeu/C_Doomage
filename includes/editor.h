@@ -281,6 +281,7 @@ typedef struct				s_sprite
 	t_anim					anim;
 	int						sct_id;
 	int						selected;
+	t_dpos					old;
 	struct s_sprite			*next;
 }							t_sprite;
 

@@ -21,29 +21,45 @@ void		deselect_sprite(t_main *s)
 	v = s->sprite;
 	while (v != NULL)
 	{
-		v->select = 0;
+		if (v->selected == 1)
+		{
+			if (ft_is_in_sector(s, v->pos) == 0)
+			{
+				ft_create_message(s, 2, 200, "sprite must be in sector!");
+				v->r_ori = v->old;
+				v->r_pos = v->old;
+				set_sprite(s);
+			}
+			v->selected = 0;
+		}
+
 		v = v->next;
 	}
 }
 
-// int			arround(int space, int nb)
-// {
-// 	int		res;
-// 	int		res2;
-//
-// 	res = nb / space;
-// 	res2 = res + 1;
-// 	return (nb - (space * res) > space * res2
-// 	- nb ? space * res2 : space * res);
-// }
+int			is_sprite_selected(t_main *s)
+{
+	t_sprite	*v;
+
+	v = s->sprite;
+	while (v)
+	{
+		if (v->selected == 1)
+			return (1);
+		v = v->next;
+	}
+	return (0);
+}
 
 t_sprite	*is_sprite_under_mouse(t_main *s)
 {
 	t_sprite *sprite;
 	t_dpos	s_pos;
 	t_dpos	mouse;
+	float	value;
 
 	sprite = s->sprite;
+	value = 0.5;
 	mouse = get_abs_r_pos(s, s->ft_mouse);
 	// mouse.x *= METRE;
 	// mouse.y *= METRE;
@@ -51,16 +67,20 @@ t_sprite	*is_sprite_under_mouse(t_main *s)
 	while (sprite)
 	{
 		s_pos = sprite->r_pos;
-		,mouse.x + 1, mouse.y - 1 , mouse.y + 1);
-		if (s_pos.x <= mouse.x + 1
-		&& s_pos.x >= mouse.x - 1
-		&& s_pos.y >= mouse.y - 1
-		&& s_pos.y <= mouse.y + 1)
+		if (s_pos.x <= mouse.x + value
+		&& s_pos.x >= mouse.x - value
+		&& s_pos.y >= mouse.y - value
+		&& s_pos.y <= mouse.y + value)
 		{
-			printf("TRUE\n");
+			// printf("\033[32m%f < %f > %f\n", mouse.x - value, s_pos.x, mouse.x + value);
+			// printf("%f < %f > %f\n", mouse.y - value, s_pos.y, mouse.y + value);
 			return (sprite);
 		}
-
+		else
+		{
+			// printf(" \033[31m%f < %f > %f\n", mouse.x - value, s_pos.x, mouse.x + value);
+			// printf(" %f < %f > %f\n", mouse.y - value, s_pos.y, mouse.y + value);
+		}
 		sprite = sprite->next;
 	}
 	return (NULL);
@@ -74,6 +94,7 @@ int		select_sprite(t_main *s)
 	if (sprite)
 	{
 		sprite->selected = 1;
+		sprite->old = sprite->r_ori;
 		return (1);
 	}
 		return (0);
@@ -152,6 +173,25 @@ void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 		}
 		if (v)
 			v = v->next;
+	}
+}
+
+void		move_sprite(t_main *s)
+{
+	t_sprite	*sprite;
+
+	// printf("sprite move\n");
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->selected == 1)
+		{
+			sprite->r_ori = get_abs_r_pos(s, s->ft_mouse);
+			sprite->r_pos = sprite->r_ori;
+			set_sprite(s);
+			break ;
+		}
+		sprite = sprite->next;
 	}
 }
 

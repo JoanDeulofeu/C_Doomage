@@ -454,15 +454,25 @@ void		editor_handler(t_main *s)
 					{
 
 						// s->editor->selected = 0;
-						if (selected == 0 && !is_sprite_under_mouse(s))
+						if (!is_sprite_selected(s) && !is_sprite_under_mouse(s) && selected == 0)
 						{
 							create_new_sprite(s, 0, get_abs_r_pos(s, s->ft_mouse));
 							// deselect_sprite(s);
 						}
-						if (s->editor->selected == 1)
+						else if (is_sprite_selected(s))
 						{
-							select_sprite(s);
+							// printf("deselect sprite\n");
+							deselect_sprite(s);
+							selected = 0;
 						}
+						// if (s->editor->selected == 1)
+						// {
+						// 	if (!is_sprite_selected(s))
+						// 		{
+						// 			select_sprite(s);
+						// 			selected = 1;
+						// 		}
+						// }
 					}
 					else if (s->editor->mode == move)
 					{
@@ -489,7 +499,13 @@ void		editor_handler(t_main *s)
 						}
 						else if (s->editor->mode == sprite)
 						{
-							select_sprite(s);
+							if (!is_sprite_selected(s))
+							{
+								// printf("select sprite\n");
+								selected = select_sprite(s);
+
+							}
+
 						}
 						// 	&& (check_sprite_menu_click(s,s->ft_mouse) == -1))
 						// {
@@ -606,6 +622,8 @@ void		editor_handler(t_main *s)
 				}
 			}
 		}
+		if (s->display_mode == editor && s->editor->mode == sprite)
+			move_sprite(s);
 		handle_editor_keys(s);
 		if (tmp_mode != s->editor->mode)
 			deselect_vertex(s);

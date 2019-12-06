@@ -78,7 +78,8 @@ void	remove_selected_sprite(t_main *s)
 		{
 			// printf("sprite a supprimer %d\n", sprite->id);
 			remove_sprite(s, sprite->id);
-			ft_print_sectors_sprites(s);
+			deselect_sprite(s);
+			// ft_print_sectors_sprites(s);
 			return ;
 		}
 		sprite = sprite->next;
@@ -120,7 +121,7 @@ void 		add_sprite_to_sector(t_main *s, t_sprite *sprite)
 			tmp = tmp->next;
 		tmp->next = liste;
 	}
-	ft_print_sectors_sprites(s);
+	// ft_print_sectors_sprites(s);
 }
 
 t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
