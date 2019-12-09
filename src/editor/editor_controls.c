@@ -268,6 +268,8 @@ void		handle_editor_keys(t_main *s)
 	if (s->player.size == PLAYER_SIZE && !s->player.fly)
 		ft_jump(s, keys);
 
+
+
 	if (keys[SDL_SCANCODE_F5])
 		ft_activ_fly(s);
 	if (s->player.fly)
@@ -297,6 +299,8 @@ void		handle_editor_keys(t_main *s)
 		unset_sprites(s);
 		ft_visu_joan(s, keys);
 		clear_wall_list(s);
+		if (s->editor->select_sprite)
+			display_sprite_menu(s);
 		update_image(s, s->sdl->editor);
 	}
 	if (s->display_mode == game)
@@ -499,21 +503,11 @@ void		editor_handler(t_main *s)
 						}
 						else if (s->editor->mode == sprite)
 						{
-							if (!is_sprite_selected(s))
-							{
-								// printf("select sprite\n");
+							if (!is_sprite_selected(s) && !s->editor->select_sprite)
 								selected = select_sprite(s);
-
-							}
-
+							else if (!is_sprite_selected(s) && s->editor->select_sprite)
+								select_sprite_type(s);
 						}
-						// 	&& (check_sprite_menu_click(s,s->ft_mouse) == -1))
-						// {
-						// 	//	check_sprite_menu_click(s,s->ft_mouse);
-						// 	deselect_sprite(s);
-						// 	selected = set_selected_sprite(s, &mouse_save);
-						// 	//add_sprite(s,get_abs_r_pos(s,s->ft_mouse),1);
-						// }
 						else if (s->editor->mode == portal)
 						{
 							edit_portal(s);
@@ -581,6 +575,15 @@ void		editor_handler(t_main *s)
 						ft_click_save(s);
 					}
 				}
+				else if (s->sdl->event.button.button == SDL_BUTTON_RIGHT)
+				{
+					if (s->editor->mode == sprite && !s->editor->select_sprite)
+						s->editor->select_sprite = 1;
+					else if (s->editor->mode == sprite
+						&& s->editor->select_sprite)
+						s->editor->select_sprite = 0;
+				}
+
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
 			{

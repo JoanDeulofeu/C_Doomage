@@ -81,9 +81,11 @@ void		load_images(t_main *s)
 	{
 		s->editor->menu.image[i] = NULL;
 		s->player.weapon.image[i] = NULL;
-		s->editor->m_floor.image[i++] = NULL;
+		s->editor->m_floor.image[i] = NULL;
 		s->menu.image[i] = NULL;
+		s->editor->sprite_menu.image[i] = NULL;
 		s->skybox.image[i] = NULL;
+		s->editor->all_sprite.image[i++] = NULL;
 	}
 	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
 	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
@@ -91,6 +93,10 @@ void		load_images(t_main *s)
 	s->editor->menu.image[3] = load_tga("images/player.tga", 0, 0, 0);
 	s->editor->menu.image[4] = load_tga("images/portal.tga", 0, 0, 0);
 	s->editor->menu.image[5] = load_tga("images/save.tga", 0, 0, 0);
+	s->editor->sprite_menu.image[0] = load_tga("images/ressources/sprite_menu/sprite_01.tga", 0, 0, 0);
+	s->editor->sprite_menu.image[1] = load_tga("images/ressources/sprite_menu/sprite_02.tga", 0, 0, 0);
+	s->editor->sprite_menu.image[2] = load_tga("images/ressources/sprite_menu/sprite_03.tga", 0, 0, 0);
+	s->editor->sprite_menu.current = 0;
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
 
@@ -102,6 +108,7 @@ void		load_images(t_main *s)
 	s->player.hud = load_tga("images/hud_doom.tga", 0, 0, 0);
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
 	load_anims(s);
+	fill_sprite_list(s);
 	s->skybox.current = 0;
 	s->player.weapon = s->wp_anims.gun;
 	s->player.wp_name = gun;

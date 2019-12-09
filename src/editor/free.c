@@ -77,6 +77,8 @@ void	free_sectors(t_main *s)
 void	free_images(t_main *s)
 {
 	free_anim(s->menu);
+	free_anim(s->editor->sprite_menu);
+	free_anim(s->editor->m_floor);
 	free_anim(s->stormtrooper.face);
 	free_anim(s->stormtrooper.back);
 	free_anim(s->stormtrooper.prof);
@@ -87,7 +89,9 @@ void	free_images(t_main *s)
 	free_anim(s->wp_anims.gun);
 	free_anim(s->wp_anims.shotgun);
 	free_anim(s->wp_anims.kick);
-	// free_image(s->coupe);
+	free_image(s->savemap->croix_rouge);
+	free_image(s->player.hud);
+	free_image(s->player.crosshair);
 }
 
 void	free_texture(t_texture *tex)

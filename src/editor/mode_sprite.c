@@ -1,5 +1,81 @@
 #include "doom.h"
 
+void 	draw_sprite_list(t_main *s)
+{
+	// t_name	name;
+	//
+	// if (s->editor->select_sprite == 0)
+	// {
+	// 	name = storm;
+	// 	while (name < table)
+	// 	{
+	//
+	// 		name++;
+	// 	}
+	// }
+}
+
+void 	select_sprite_type(t_main *s)
+{
+	t_image	*img;
+	t_pos	begin;
+	t_pos	end;
+
+	img = s->editor->sprite_menu.image[0];
+	begin.x = WIDTH / 2 - img->w / 2;
+	begin.y = HEIGHT / 2 - img->h / 2;
+	end.x = begin.x + img->w;
+	end.y = begin.y + img->h;
+	if (s->ft_mouse.x >= begin.x && s->ft_mouse.x <= begin.x + 200)
+	{
+		if (s->ft_mouse.y >= begin.y && s->ft_mouse.y <= begin.y + 60)
+		{
+			s->editor->sprite_menu.current = 0;
+
+		}
+		else if (s->ft_mouse.y > 60 && s->ft_mouse.y <= begin.y + 120)
+			s->editor->sprite_menu.current = 1;
+		else if (s->ft_mouse.y > 120 && s->ft_mouse.y <= begin.y + 180)
+			s->editor->sprite_menu.current = 2;
+	}
+}
+
+void 	display_sprite_menu(t_main *s)
+{
+	double		perx;
+	double		pery;
+	t_pos		coord;
+	t_pos		ori;
+	int			px;
+	t_anim		menu;
+	int 		i;
+	int			j;
+
+	menu = s->editor->sprite_menu;
+	coord.x = WIDTH / 2 - menu.image[0]->w / 2;
+	coord.y = HEIGHT / 2 - menu.image[0]->h / 2;
+	ori = coord;
+	i = 0;
+
+	while (i < menu.image[0]->w)
+	{
+		j = 0;
+		coord.x = ori.x + i;
+		perx = (double)i / (double) menu.image[0]->w;
+		while (j < menu.image[0]->h)
+		{
+			coord.y = ori.y + j;
+			pery = (double)j / (double) menu.image[0]->h;
+			px = (int)(pery * (double)menu.image[menu.current]->h) * menu.image[menu.current]->w + (int)
+			(perx * (double)menu.image[menu.current]->w);
+			if (px >= 0 && px < menu.image[menu.current]->w * menu.image[menu.current]->h)
+				set_pixel(s->sdl->editor, menu.image[menu.current]->tex[px], coord);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	remove_sprite_from_sector(t_main *s, t_sprite *sprite)
 {
 	t_sector	*sct;

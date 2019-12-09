@@ -100,9 +100,9 @@
 # define S_DGREEN 0x288333FF
 
 typedef enum			e_type {
-	ennemi,
-	boss,
-	autre
+	enemy,
+	obstacle,
+	item
 }						t_type;
 
 typedef enum			e_name {
@@ -314,6 +314,10 @@ typedef struct			s_editor {
 	int					dply_floor;
 	char				mode_floor;
 	t_anim				menu;
+	t_anim				sprite_menu;
+	t_type				sprite_type;
+	t_anim				all_sprite;
+	int					select_sprite;
 	t_anim				m_floor;
 	t_int				*wall;
 	t_int				*wall2;

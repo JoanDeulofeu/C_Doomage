@@ -332,6 +332,7 @@ void						pre_initialize_sdl(t_main *s);
 void						initialize_sdl(t_main *s, t_sdl *sdl);
 t_texture					*initialize_texture(t_sdl *sdl, int width, int height);
 t_anim_wp 					load_wp_anims(t_main *s);
+void						fill_sprite_list(t_main *s);
 t_main						*initialize_main(char *str);
 void						free_program(t_main *s);
 
@@ -619,6 +620,8 @@ t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
 t_sprite					*create_new_sprite(t_main *s, t_type type, t_dpos pos);
 t_sprite					*is_sprite_under_mouse(t_main *s);
 int							is_sprite_selected(t_main *s);
+void 						display_sprite_menu(t_main *s);
+void 						select_sprite_type(t_main *s);
 void						remove_selected_sprite(t_main *s);
 void						move_sprite(t_main *s);
 void 						draw_sprites_ori(t_main *s);
@@ -630,7 +633,7 @@ void 						add_sprite_to_sector(t_main *s, t_sprite *sprite);
 */
 void						select_vertex(t_main *s);
 void						deselect_vertex(t_main *s);
-void						move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id);
+void						move_vertex(t_main *s, t_pos tmp_mosve, t_pos ori, int id);
 int							exist_vertex(t_main *s, t_pos *mouse_save, int *id,
 	t_pos *ori);
 void						reset_id(t_main *s);
