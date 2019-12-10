@@ -1,5 +1,53 @@
 #include "doom.h"
 
+t_pos		get_subline_coord(t_main *s, t_name value)
+{
+	t_pos	new;
+	t_name	name;
+
+	new.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;;
+	new.y = 0;
+	name = 0;
+	if (value < table) //si on est sur les enemeis
+		name = storm;
+	else if (value == table) // a changer quand il y a plusieurs obstacles
+		name = table;
+	while (name < value)
+	{
+		if (new.y < s->editor->m_sprite_pos[name].y)
+			new.y = s->editor->m_sprite_pos[name].y;
+		name++;
+	}
+	return (new);
+}
+
+void 		fill_sprite_list_value(t_main *s)
+{
+	t_name	name;
+	t_pos	coord;
+	t_pos	end;
+
+	coord.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;
+	coord.y = HEIGHT / 2 - s->editor->sprite_menu.image[0]->h / 2 + 5;
+	end.x = coord.x + s->editor->sprite_menu.image[0]->w;
+	end.y = coord.y + s->editor->sprite_menu.image[0]->h;
+	// printf("select sprite = %d\n", s->editor->select_sprite);
+	name = storm;
+	while (name <= table)
+	{
+		if (name == storm || name == table)
+		{
+			coord.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;
+			coord.y = HEIGHT / 2 - s->editor->sprite_menu.image[0]->h / 2 + 5;
+		}
+		if (coord.x + s->editor->all_sprite.image[name]->w < end.x)
+			s->editor->m_sprite_pos[name] = coord;
+		else
+			s->editor->m_sprite_pos[name] = get_subline_coord(s, name);
+		name++;
+	}
+}
+
 void		pre_initialize_sdl(t_main *s)
 {
 	if (!(s->sdl = (t_sdl *)malloc(sizeof(t_sdl))))
@@ -14,6 +62,7 @@ void		pre_initialize_sdl(t_main *s)
 
 void		initialize_editor(t_editor *edi)
 {
+	ft_bzero((void *)edi, sizeof(t_editor));
 	edi->space = G_SPACE;
 	edi->anchor_size = 5;
 	edi->mode = move;
@@ -109,6 +158,8 @@ void		load_images(t_main *s)
 	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
 	load_anims(s);
 	fill_sprite_list(s);
+	fill_sprite_list_value(s);
+
 	s->skybox.current = 0;
 	s->player.weapon = s->wp_anims.gun;
 	s->player.wp_name = gun;

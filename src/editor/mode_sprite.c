@@ -1,18 +1,94 @@
 #include "doom.h"
 
+void 	select_sprite_in_menu(t_main *s)
+{
+	t_name	name;
+	t_name	max_name;
+	t_pos	pos;
+	t_image *img;
+
+	if (s->editor->sprite_menu.current == 0)
+	{
+		name = storm;
+		max_name = storm;
+	}
+	else if (s->editor->sprite_menu.current == 1)
+	{
+		name = table;
+		max_name = table;
+	}
+	else
+	{
+		name = storm;
+		max_name = storm;
+	}
+	while (name <= max_name)
+	{
+		pos = s->editor->m_sprite_pos[name];
+		img = s->editor->all_sprite.image[name];
+		if (s->ft_mouse.x > pos.x && s->ft_mouse.x < pos.x + img->w
+		&& s->ft_mouse.y > pos.y && s->ft_mouse.y < pos.y + img->h)
+		{
+			s->editor->sprite_selected = name;
+			break ;
+		}
+		name++;
+	}
+}
+
+void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img)
+{
+	double		perx;
+	double		pery;
+	t_pos		ori;
+	int			px;
+	int 		i;
+	int			j;
+
+	ori = coord;
+	i = 0;
+	while (i < img->w)
+	{
+		j = 0;
+		coord.x = ori.x + i;
+		perx = (double)i / (double) img->w;
+		while (j < img->h)
+		{
+			coord.y = ori.y + j;
+			pery = (double)j / (double) img->h;
+			px = (int)(pery * (double)img->h) * img->w +
+			(int)(perx * (double)img->w);
+			if (px >= 0 && px < img->w * img->h)
+				set_pixel(s->sdl->editor, img->tex[px], coord);
+			j++;
+		}
+		i++;
+	}
+}
+
 void 	draw_sprite_list(t_main *s)
 {
-	// t_name	name;
-	//
-	// if (s->editor->select_sprite == 0)
-	// {
-	// 	name = storm;
-	// 	while (name < table)
-	// 	{
-	//
-	// 		name++;
-	// 	}
-	// }
+	t_name	name;
+	// printf("select sprite = %d\n", s->editor->select_sprite);
+	if (s->editor->sprite_menu.current == 0)
+	{
+		name = storm;
+		while (name < table)
+		{
+			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
+			name++;
+		}
+	}
+	else if (s->editor->sprite_menu.current == 1)
+	{
+		name = table;
+		while (name <= table)
+		{
+			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
+			name++;
+			// printf("%d\n", name);
+		}
+	}
 }
 
 void 	select_sprite_type(t_main *s)
@@ -38,6 +114,9 @@ void 	select_sprite_type(t_main *s)
 		else if (s->ft_mouse.y > 120 && s->ft_mouse.y <= begin.y + 180)
 			s->editor->sprite_menu.current = 2;
 	}
+	if (s->ft_mouse.x > begin.x + 200 && s->ft_mouse.x < end.x
+		&& s->ft_mouse.y > begin.y && s->ft_mouse.y < end.y)
+			select_sprite_in_menu(s);
 }
 
 void 	display_sprite_menu(t_main *s)
@@ -50,6 +129,7 @@ void 	display_sprite_menu(t_main *s)
 	t_anim		menu;
 	int 		i;
 	int			j;
+
 
 	menu = s->editor->sprite_menu;
 	coord.x = WIDTH / 2 - menu.image[0]->w / 2;
@@ -74,6 +154,8 @@ void 	display_sprite_menu(t_main *s)
 		}
 		i++;
 	}
+	ori.x += 200;
+	draw_sprite_list(s);
 }
 
 void	remove_sprite_from_sector(t_main *s, t_sprite *sprite)

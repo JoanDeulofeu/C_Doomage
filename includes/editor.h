@@ -314,9 +314,11 @@ typedef struct			s_editor {
 	int					dply_floor;
 	char				mode_floor;
 	t_anim				menu;
+	t_name				sprite_selected;
 	t_anim				sprite_menu;
 	t_type				sprite_type;
 	t_anim				all_sprite;
+	t_pos				m_sprite_pos[10];
 	int					select_sprite;
 	t_anim				m_floor;
 	t_int				*wall;

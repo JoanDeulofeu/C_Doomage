@@ -24,7 +24,7 @@ void	load_skybox(t_main *s)
 
 void	load_items(t_main *s)
 {
-	s->items.table.image[0] = load_tga("images/static/table.tga", 0, 0, 0);
+	s->items.table.image[0] = load_tga("images/ressources/static/table.tga", 0, 0, 0);
 }
 
 void	fill_sprite_list(t_main *s)
