@@ -454,7 +454,7 @@ void		editor_handler(t_main *s)
 							select_vertex(s);
 						}
 					}
-					else if (s->editor->mode == sprite)
+					else if (s->editor->mode == sprite && !s->editor->select_sprite)
 					{
 
 						// s->editor->selected = 0;

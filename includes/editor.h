@@ -107,7 +107,8 @@ typedef enum			e_type {
 
 typedef enum			e_name {
 	storm,
-	table
+	table,
+	lamp
 }						t_name;
 
 typedef enum			e_mode {
@@ -235,6 +236,7 @@ typedef struct				s_anim_wp
 typedef struct				s_static
 {
 	t_anim					table;
+	t_anim					lamp;
 }							t_static;
 
 typedef enum				e_anim_name

@@ -36,20 +36,22 @@ void	play_sprites_anims(t_main *s)
 	sprite = s->sprite;
 	while (sprite)
 	{
-		if (sprite->a_name == walking && !sprite->destroy)
+		if (sprite->name == storm)
 		{
-			if (sprite->set)
-				select_anim(s, sprite);
-			enemy_walk_anim(s, sprite);
-		}
+			if (sprite->a_name == walking && !sprite->destroy)
+			{
+				if (sprite->set)
+					select_anim(s, sprite);
+				enemy_walk_anim(s, sprite);
+			}
+			else if (sprite->a_name == dying && !sprite->destroy)
+			{
+				kill_anim(s, sprite);
+			}
+			else if (sprite->a_name == shooting && !sprite->destroy)
+				sprite_shooting(s, sprite);
 
-		else if (sprite->a_name == dying && !sprite->destroy)
-		{
-			// printf("true\n");
-			kill_anim(s, sprite);
 		}
-		else if (sprite->a_name == shooting && !sprite->destroy)
-			sprite_shooting(s, sprite);
 		sprite = sprite->next;
 	}
 }

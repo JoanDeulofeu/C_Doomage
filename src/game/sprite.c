@@ -153,15 +153,13 @@ void	set_sprite(t_main *s)
 
 int		ft_get_sprite_height_pxl(t_main *s, t_sprite *sprite, double height)
 {
-	int			ig_height_wall; // hauteur du mur in game (en metre)
 	double		pct_eyesight; //pourcentage vision player
 	t_sector 	*sct;
 
 	sct = get_sector_by_id(s, sprite->sct_id);
 
 	s->player.eyesight = s->player.foot_height - sct->floor + s->player.size;
-	ig_height_wall = sprite->size;
-	pct_eyesight = (s->player.eyesight * 100 / ig_height_wall);
+	pct_eyesight = (s->player.eyesight * 100 / sprite->size);
 	// printf("pct = %.2f      ", pct_eyesight);
 	return ((pct_eyesight * height) / 100);
 }

@@ -33,7 +33,7 @@ void 		fill_sprite_list_value(t_main *s)
 	end.y = coord.y + s->editor->sprite_menu.image[0]->h;
 	// printf("select sprite = %d\n", s->editor->select_sprite);
 	name = storm;
-	while (name <= table)
+	while (name <= lamp)
 	{
 		if (name == storm || name == table)
 		{
@@ -44,7 +44,9 @@ void 		fill_sprite_list_value(t_main *s)
 			s->editor->m_sprite_pos[name] = coord;
 		else
 			s->editor->m_sprite_pos[name] = get_subline_coord(s, name);
+		coord.x += s->editor->all_sprite.image[name]->w + 5;
 		name++;
+
 	}
 }
 

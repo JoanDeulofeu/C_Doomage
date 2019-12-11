@@ -62,7 +62,7 @@ void		rand_move(t_main *s)
 	sprite = s->sprite;
 	while (sprite)
 	{
-		if (sprite->set == 1 & sprite->destroy == 0 && sprite->a_name == walking)
+		if (sprite->set == 1 && sprite->name == storm && sprite->destroy == 0 && sprite->a_name == walking)
 		{
 			target.x = sprite->r_pos.x;
 			target.y = sprite->r_pos.y;

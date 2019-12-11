@@ -25,6 +25,7 @@ void	load_skybox(t_main *s)
 void	load_items(t_main *s)
 {
 	s->items.table.image[0] = load_tga("images/ressources/static/table.tga", 0, 0, 0);
+	s->items.lamp.image[0] = load_tga("images/ressources/static/lamp.tga", 0, 0, 0);
 }
 
 void	fill_sprite_list(t_main *s)
@@ -34,6 +35,7 @@ void	fill_sprite_list(t_main *s)
 	name = storm;
 	s->editor->all_sprite.image[storm] = s->stormtrooper.face.image[0];
 	s->editor->all_sprite.image[table] = s->items.table.image[0];
+	s->editor->all_sprite.image[lamp] = s->items.lamp.image[0];
 }
 
 void	load_anims(t_main *s)

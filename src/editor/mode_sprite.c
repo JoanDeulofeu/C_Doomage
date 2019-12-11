@@ -15,7 +15,7 @@ void 	select_sprite_in_menu(t_main *s)
 	else if (s->editor->sprite_menu.current == 1)
 	{
 		name = table;
-		max_name = table;
+		max_name = lamp;
 	}
 	else
 	{
@@ -82,7 +82,7 @@ void 	draw_sprite_list(t_main *s)
 	else if (s->editor->sprite_menu.current == 1)
 	{
 		name = table;
-		while (name <= table)
+		while (name <= lamp)
 		{
 			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
 			name++;
@@ -154,7 +154,7 @@ void 	display_sprite_menu(t_main *s)
 		}
 		i++;
 	}
-	ori.x += 200;
+	// ori.x += 200;
 	draw_sprite_list(s);
 }
 
@@ -282,6 +282,26 @@ void 		add_sprite_to_sector(t_main *s, t_sprite *sprite)
 	// ft_print_sectors_sprites(s);
 }
 
+void 		get_sprite_info_by_name(t_main *s, t_sprite *sprite)
+{
+	sprite->name = s->editor->sprite_selected;
+	if (s->editor->sprite_selected == storm)
+	{
+		sprite->size = 2;
+		sprite->anim = s->stormtrooper.face;
+	}
+	else if (s->editor->sprite_selected == table)
+	{
+		sprite->size = 1;
+		sprite->anim = s->items.table;
+	}
+	else if (s->editor->sprite_selected == lamp)
+	{
+		sprite->size = 3;
+		sprite->anim = s->items.lamp;
+	}
+}
+
 t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
 {
 	t_sprite	*sprite;
@@ -298,7 +318,6 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
 	ft_bzero((void*)sprite, sizeof(t_sprite));
 	sprite->sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos));
 	sprite->r_pos = r_pos;
-	sprite->size = 2;
 	sprite->pos = ft_dpos_to_pos(pos);
 	sprite->r_ori = sprite->r_pos;
 	sprite->m_pos.x = sprite->r_pos.x * METRE;
@@ -306,7 +325,8 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
 	sprite->type = type;
 	sprite->life = 100;
 	sprite->set = 0;
-	sprite->anim = s->stormtrooper.face;
+	get_sprite_info_by_name(s, sprite);
+
 	if (!s->sprite)
 	{
 		s->sprite = sprite;

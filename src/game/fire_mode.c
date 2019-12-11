@@ -107,7 +107,10 @@ void		fire(t_main *s)
 	save_sprite = NULL;
 	while (sprite)
 	{
-		if (sprite->set == 1 && sprite->r_dist < 6 && (WIDTH / 2) > sprite->x && WIDTH / 2 < sprite->x + (sprite->anim.image[sprite->current]->w * ((HEIGHT / sprite->r_dist) / 60)))
+		if (sprite->name == storm && sprite->set == 1 && sprite->r_dist < 6
+			&& (WIDTH / 2) > sprite->x && WIDTH / 2 <
+			sprite->x + (sprite->anim.image[sprite->current]->w
+				* ((HEIGHT / sprite->r_dist) / 60)))
 		{
 			if (save_sprite)
 			{
