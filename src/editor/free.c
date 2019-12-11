@@ -89,6 +89,8 @@ void	free_images(t_main *s)
 	free_anim(s->wp_anims.gun);
 	free_anim(s->wp_anims.shotgun);
 	free_anim(s->wp_anims.kick);
+	free_anim(s->items.table);
+	free_anim(s->items.lamp);
 	free_image(s->savemap->croix_rouge);
 	free_image(s->player.hud);
 	free_image(s->player.crosshair);

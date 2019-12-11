@@ -105,7 +105,7 @@ void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
 
 	wp = s->player.weapon.image[s->player.weapon.current];
 	dest.x = orig_x + wp->w + 100;
-	dest.y = HEIGHT ;
+	dest.y = HEIGHT - s->player.hud->h ;
 	if (s->player.weapon.current == 1 && s->player.wp_name == shotgun)
 	{
 		orig_y += 50;
@@ -133,7 +133,7 @@ void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
 void		draw_hud(t_main *s)
 {
 	if (s->player.weapon.image[s->player.weapon.current])
-		draw_weapon(s, 0, WIDTH / 2 + (s->player.weapon.image[s->player.weapon.current]->w ), HEIGHT - s->player.weapon.image[s->player.weapon.current]->h - s->player.weapon.image[s->player.weapon.current]->h);
+		draw_weapon(s, 0, WIDTH / 2 + (s->player.weapon.image[s->player.weapon.current]->w), HEIGHT - (s->player.weapon.image[s->player.weapon.current]->h * 2) - s->player.hud->h);
 	display_crosshair(s, 0, 0);
 	display_hud(s, 0, 0);
 }
