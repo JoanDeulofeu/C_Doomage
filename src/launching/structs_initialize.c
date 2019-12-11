@@ -10,8 +10,10 @@ t_pos		get_subline_coord(t_main *s, t_name value)
 	name = 0;
 	if (value < table) //si on est sur les enemeis
 		name = storm;
-	else if (value == table) // a changer quand il y a plusieurs obstacles
+	else if (value < o_gun) // a changer quand il y a plusieurs obstacles
 		name = table;
+	else if (value <= o_shotgun)
+		name = o_gun;
 	while (name < value)
 	{
 		if (new.y < s->editor->m_sprite_pos[name].y)
@@ -33,9 +35,9 @@ void 		fill_sprite_list_value(t_main *s)
 	end.y = coord.y + s->editor->sprite_menu.image[0]->h;
 	// printf("select sprite = %d\n", s->editor->select_sprite);
 	name = storm;
-	while (name <= lamp)
+	while (name <= o_shotgun)
 	{
-		if (name == storm || name == table)
+		if (name == storm || name == table || name == o_gun)
 		{
 			coord.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;
 			coord.y = HEIGHT / 2 - s->editor->sprite_menu.image[0]->h / 2 + 5;

@@ -108,7 +108,9 @@ typedef enum			e_type {
 typedef enum			e_name {
 	storm,
 	table,
-	lamp
+	lamp,
+	o_gun,
+	o_shotgun
 }						t_name;
 
 typedef enum			e_mode {
@@ -201,19 +203,19 @@ typedef struct			s_vertex {
 	struct s_vertex		*prev;
 }						t_vertex;
 
-typedef struct			s_int {
-	int					id;
-	int					value;
-	t_vertex			*ptr;
-	char				selected;
-	int					sct;
-	int					sct_dest;
-	int					wall_value;
-	t_image				*image;
-	struct s_int		*vtx_dest;
-	struct s_int		*next;
-	struct s_int		*prev;
-}						t_int;
+typedef struct				s_int {
+	int						id;
+	int						value;
+	t_vertex				*ptr;
+	char					selected;
+	int						sct;
+	int						sct_dest;
+	int						wall_value;
+	t_image					*image;
+	struct s_int			*vtx_dest;
+	struct s_int			*next;
+	struct s_int			*prev;
+}							t_int;
 
 typedef struct				s_anim_enemy
 {
@@ -237,6 +239,8 @@ typedef struct				s_static
 {
 	t_anim					table;
 	t_anim					lamp;
+	t_anim					gun;
+	t_anim					shotgun;
 }							t_static;
 
 typedef enum				e_anim_name
@@ -263,7 +267,7 @@ typedef struct				s_sprite
 	int						orientation;
 	int						select;
 	int						life;
-	int						size;
+	float					size;
 	int						current;
 	int						destroy;
 	int						damage;

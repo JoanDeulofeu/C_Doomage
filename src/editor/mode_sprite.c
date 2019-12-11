@@ -19,8 +19,8 @@ void 	select_sprite_in_menu(t_main *s)
 	}
 	else
 	{
-		name = storm;
-		max_name = storm;
+		name = o_gun;
+		max_name = o_shotgun;
 	}
 	while (name <= max_name)
 	{
@@ -83,6 +83,16 @@ void 	draw_sprite_list(t_main *s)
 	{
 		name = table;
 		while (name <= lamp)
+		{
+			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
+			name++;
+			// printf("%d\n", name);
+		}
+	}
+	else if (s->editor->sprite_menu.current == 2)
+	{
+		name = o_gun;
+		while (name <= o_shotgun)
 		{
 			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
 			name++;
@@ -248,13 +258,20 @@ void 		draw_sprites_ori(t_main *s)
 {
 	t_sprite	*tmp;
 	t_dpos		pos;
+	Uint32		color;
 
 	tmp = s->sprite;
-	while (tmp)
+		while (tmp)
 	{
+		if (tmp->type == enemy)
+			color = YELLOW;
+		else if (tmp->type == obstacle)
+			color = S_RED;
+		else
+			color = S_PINK;
 		pos.x = tmp->r_ori.x * METRE;
 		pos.y = tmp->r_ori.y * METRE;
-		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos)), YELLOW);
+		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos)), color);
 		tmp = tmp->next;
 	}
 }
@@ -289,20 +306,35 @@ void 		get_sprite_info_by_name(t_main *s, t_sprite *sprite)
 	{
 		sprite->size = 2;
 		sprite->anim = s->stormtrooper.face;
+		sprite->type = enemy;
 	}
 	else if (s->editor->sprite_selected == table)
 	{
 		sprite->size = 1;
 		sprite->anim = s->items.table;
+		sprite->type = obstacle;
 	}
 	else if (s->editor->sprite_selected == lamp)
 	{
 		sprite->size = 3;
 		sprite->anim = s->items.lamp;
+		sprite->type = obstacle;
+	}
+	else if (s->editor->sprite_selected == o_gun)
+	{
+		sprite->size = 0.5;
+		sprite->anim = s->items.gun;
+		sprite->type = item;
+	}
+	else if (s->editor->sprite_selected == o_shotgun)
+	{
+		sprite->size = 0.3;
+		sprite->anim = s->items.shotgun;
+		sprite->type = item;
 	}
 }
 
-t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
+t_sprite	*create_new_sprite(t_main *s, t_dpos r_pos)
 {
 	t_sprite	*sprite;
 	t_sprite	*temp;
@@ -322,7 +354,6 @@ t_sprite	*create_new_sprite(t_main *s, t_type type, t_dpos r_pos)
 	sprite->r_ori = sprite->r_pos;
 	sprite->m_pos.x = sprite->r_pos.x * METRE;
 	sprite->m_pos.y = sprite->r_pos.y * METRE;
-	sprite->type = type;
 	sprite->life = 100;
 	sprite->set = 0;
 	get_sprite_info_by_name(s, sprite);
