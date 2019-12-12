@@ -87,6 +87,18 @@ int		handle_sector_zero(t_main *s)
 	return (0);
 }
 
+void 		get_item(t_main *s, t_sprite *sprite)
+{
+	// printf("sprite->name = %d\n", sprite->name);
+	if (sprite->name == o_shotgun)
+	{
+		s->player.wp_wheel[shotgun] = 1;
+	}
+
+	else if (sprite->name == o_gun)
+		s->player.wp_wheel[gun] = 1;
+}
+
 void 		check_collectible(t_main *s)
 {
 	t_sprite	*sprite;
@@ -94,8 +106,12 @@ void 		check_collectible(t_main *s)
 	sprite = s->sprite;
 	while (sprite)
 	{
-		if (sprite->type == item && sprite->destroy == 0 && sprite->r_dist < 0.2)
+		if (sprite->type == item && sprite->destroy == 0 && sprite->r_dist < 2)
+		{
+			get_item(s, sprite);
 			sprite->destroy = 1;
+		}
+
 		sprite = sprite->next;
 	}
 }
