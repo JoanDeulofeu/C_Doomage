@@ -81,7 +81,6 @@ void 	draw_selected_feedback(t_main *s, t_name name, t_pos pos)
 void 	draw_sprite_list(t_main *s)
 {
 	t_name	name;
-	// printf("select sprite = %d\n", s->editor->select_sprite);
 	if (s->editor->sprite_menu.current == 0)
 	{
 		name = storm;

@@ -87,6 +87,11 @@ int		handle_sector_zero(t_main *s)
 	return (0);
 }
 
+void 		check_collectible(t_main *s)
+{
+	
+}
+
 int			check_col(t_main *s, t_dpos haut, t_dpos bas)
 {
 	int id;
