@@ -541,6 +541,7 @@ void						shoot(t_main *s);
 void						display_crosshair(t_main *s, int i, int j);
 // void						draw_weapon2(t_main *s, int i, int j);
 int							is_colliding(t_main *s, t_dpos target);
+void 						check_collectible(t_main *s);
 void						tp_first_sector(t_main *s);
 
 /*

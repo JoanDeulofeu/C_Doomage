@@ -167,11 +167,11 @@ void		load_images(t_main *s)
 	s->skybox.current = 0;
 	s->player.mun_gun = 45;
 	s->player.mun_shotgun = 12;
-	s->player.weapon = s->wp_anims.gun;
-	s->player.wp_name = gun;
-	s->player.wp_wheel[gun] = 1;
+	s->player.weapon = s->wp_anims.kick;
+	s->player.wp_name = kick;
+	s->player.wp_wheel[gun] = 0;
 	s->player.wp_wheel[kick] = 1;
-	s->player.wp_wheel[shotgun] = 1;
+	s->player.wp_wheel[shotgun] = 0;
 	s->player.weapon.current = 0;
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->editor->menu.current = 0;

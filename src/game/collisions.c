@@ -89,7 +89,15 @@ int		handle_sector_zero(t_main *s)
 
 void 		check_collectible(t_main *s)
 {
-	
+	t_sprite	*sprite;
+
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->type == item && sprite->destroy == 0 && sprite->r_dist < 0.2)
+			sprite->destroy = 1;
+		sprite = sprite->next;
+	}
 }
 
 int			check_col(t_main *s, t_dpos haut, t_dpos bas)
