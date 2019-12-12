@@ -89,13 +89,23 @@ void		shoot(t_main *s)
 	{
 		s->player.shoot = 1;
 		s->time->shotgun_ms = s->time->time_ms;
-		Mix_PlayChannel(2, s->sdl->sounds.shotgun, 0);
-		animate_weapon(s);
+
 		fire(s);
 		if (s->player.wp_name == gun && s->player.mun_gun > 0)
+		{
+			animate_weapon(s);
 			s->player.mun_gun--;
+		}
+
 		else if (s->player.wp_name == shotgun && s->player.mun_shotgun > 0)
+		{
+			Mix_PlayChannel(2, s->sdl->sounds.shotgun, 0);
+			animate_weapon(s);
 			s->player.mun_shotgun--;
+		}
+		else if (s->player.wp_name == kick)
+			animate_weapon(s);
+
 	}
 }
 

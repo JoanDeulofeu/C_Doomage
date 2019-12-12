@@ -109,7 +109,6 @@ void 		check_collectible(t_main *s)
 			get_item(s, sprite);
 			sprite->destroy = 1;
 		}
-
 		sprite = sprite->next;
 	}
 }

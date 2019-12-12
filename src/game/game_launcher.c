@@ -64,6 +64,10 @@ void		game_handler(t_main *s)
 			{
 				if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 				{
+					if ((s->player.wp_name == gun && s->player.mun_gun > 0)
+					|| (s->player.wp_name == shotgun && s->player.mun_shotgun > 0)
+					|| s->player.wp_name == kick)
+					{
 						shoot(s);
 						if (s->skybox.current < 17 && s->player.abs_angle > 62
 							&& s->player.abs_angle < 82 && s->player.y_eye >= 376
@@ -71,7 +75,7 @@ void		game_handler(t_main *s)
 						{
 							destroy_planet(s);
 						}
-
+					}
 				}
 			}
 			if (s->sdl->event.type == SDL_MOUSEWHEEL)
