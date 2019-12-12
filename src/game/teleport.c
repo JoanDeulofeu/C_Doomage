@@ -1,6 +1,23 @@
 #include "doom.h"
 
-void		teleport_player(t_main *s, const unsigned char *keys)
+int		ft_check_high_coll(t_main *s, t_int *wall)
+{
+	t_sector	*sct_player;
+	t_sector	*sct_dest;
+
+	sct_player = get_sector_by_id(s, s->player.sector_id);
+	sct_dest = get_sector_by_id(s, wall->sct_dest);
+	// printf("if %.2f < %d\n", s->player.foot_height, sct_dest->floor);
+	if (s->player.foot_height < (double)sct_dest->floor)
+		return (0);
+	// printf("%d > %.1f + %.1f\n", sct_dest->ceiling, s->player.foot_height ,s->player.size);
+	if ((double)sct_dest->ceiling < s->player.foot_height + s->player.size)
+		return (0);
+	// printf("TP ACCEPTER\n");
+	return (1);
+}
+
+void	teleport_player(t_main *s, const unsigned char *keys)
 {
 	t_dpos	player_haut;
 	t_dpos	player_bas;
@@ -76,6 +93,11 @@ void		teleport_player(t_main *s, const unsigned char *keys)
 	}
 	if (wall == NULL)
 		printf("ptr_id = %d\n", ptr_id);
+	if (ft_check_high_coll(s, wall) == 0)
+	{
+		// printf("TP INTERDIT\n");
+		return ;
+	}
 	s->player.m_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
 	s->player.r_pos.x = s->player.m_pos.x / METRE;
 	s->player.r_pos.y = s->player.m_pos.y / METRE;

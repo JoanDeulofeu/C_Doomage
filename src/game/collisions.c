@@ -19,8 +19,6 @@ void	tp_first_sector(t_main *s)
 	}
 
 	// printf("center.x = %d, center.y = %d\n", center.x, center.y);
-
-
 }
 
 static int	check_pos(t_main *s, t_dpos curr)
