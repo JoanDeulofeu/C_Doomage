@@ -10,8 +10,8 @@ int		ft_check_high_coll(t_main *s, t_int *wall)
 	// printf("if %.2f < %d\n", s->player.foot_height, sct_dest->floor);
 	if (s->player.foot_height < (double)sct_dest->floor)
 		return (0);
-	printf("%d > %.1f + %.1f\n", sct_dest->ceiling, s->player.foot_height ,s->player.size);
-	// if ((double)sct_dest->ceiling < s->player.foot_height + s->player.size)
+	// printf("%d > %.1f + %.1f\n", sct_dest->ceiling, s->player.foot_height ,s->player.size);
+	if ((double)sct_dest->ceiling < s->player.foot_height + s->player.size)
 		return (0);
 	// printf("TP ACCEPTER\n");
 	return (1);
