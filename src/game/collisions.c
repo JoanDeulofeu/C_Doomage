@@ -19,8 +19,6 @@ void	tp_first_sector(t_main *s)
 	}
 
 	// printf("center.x = %d, center.y = %d\n", center.x, center.y);
-
-
 }
 
 static int	check_pos(t_main *s, t_dpos curr)
@@ -89,7 +87,7 @@ int		handle_sector_zero(t_main *s)
 
 void 		check_collectible(t_main *s)
 {
-	
+
 }
 
 int			check_col(t_main *s, t_dpos haut, t_dpos bas)

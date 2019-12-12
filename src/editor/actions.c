@@ -73,7 +73,8 @@ void	ft_crouch(t_main *s, const Uint8 *keys)
 void	ft_jump(t_main *s, const Uint8 *keys)
 {
 	//pour player->jump, 0 = pas de jump, 1 = phase montante, 2 = descendante, 3 = chute apres fly
-	if (keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size + JUMP_SIZE <= s->player.ceiling_height - s->player.floor_height))
+	if (keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size
+		+ JUMP_SIZE - 0.1 <= s->player.ceiling_height - s->player.floor_height))
 		s->player.jump = 1;
 	if (s->player.jump == 1 && (s->time->time_ms > s->time->jump_ms + 10)
 	&& s->player.jump_height < JUMP_SIZE)
