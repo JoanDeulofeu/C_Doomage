@@ -370,6 +370,7 @@ t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 	ft_bzero((void*)sprite, sizeof(t_sprite));
 	sprite->sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos));
 	sprite->r_pos = r_pos;
+	sprite->r_dist = 100;
 	sprite->pos = ft_dpos_to_pos(pos);
 	sprite->r_ori = sprite->r_pos;
 	sprite->m_pos.x = sprite->r_pos.x * METRE;
