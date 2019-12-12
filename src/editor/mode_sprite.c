@@ -20,7 +20,7 @@ void 	select_sprite_in_menu(t_main *s)
 	else
 	{
 		name = o_gun;
-		max_name = o_shotgun;
+		max_name = big_s_ammo;
 	}
 	while (name <= max_name)
 	{
@@ -107,7 +107,7 @@ void 	draw_sprite_list(t_main *s)
 	else if (s->editor->sprite_menu.current == 2)
 	{
 		name = o_gun;
-		while (name <= o_shotgun)
+		while (name <= big_s_ammo)
 		{
 			if (s->editor->sprite_selected == name)
 				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
@@ -350,6 +350,18 @@ void 		get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite)
 	{
 		sprite->size = 0.3;
 		sprite->anim = s->items.shotgun;
+		sprite->type = item;
+	}
+	else if (sprite->name == big_g_ammo)
+	{
+		sprite->size = 0.2;
+		sprite->anim = s->items.big_g_ammo;
+		sprite->type = item;
+	}
+	else if (sprite->name == big_s_ammo)
+	{
+		sprite->size = 0.2;
+		sprite->anim = s->items.big_s_ammo;
 		sprite->type = item;
 	}
 }

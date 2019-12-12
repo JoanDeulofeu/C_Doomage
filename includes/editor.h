@@ -111,7 +111,9 @@ typedef enum			e_name {
 	table,
 	lamp,
 	o_gun,
-	o_shotgun
+	o_shotgun,
+	big_g_ammo,
+	big_s_ammo
 }						t_name;
 
 typedef enum			e_mode {
@@ -242,6 +244,8 @@ typedef struct				s_static
 	t_anim					lamp;
 	t_anim					gun;
 	t_anim					shotgun;
+	t_anim					big_g_ammo;
+	t_anim					big_s_ammo;
 }							t_static;
 
 typedef enum				e_anim_name
