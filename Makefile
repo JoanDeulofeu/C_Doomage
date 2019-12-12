@@ -48,9 +48,9 @@ SRC_NAME =	main.c							\
 			editor/sector_sens.c			\
 			game/texture.c					\
 			game/game_launcher.c			\
-			game/visu_joan.c				\
+			game/visu.c						\
 			game/visu_portal.c				\
-			game/visu_joan_drawing.c		\
+			game/visu_drawing.c				\
 			game/utils_2.c					\
 			game/hud.c						\
 			game/anim.c						\
@@ -62,7 +62,8 @@ SRC_NAME =	main.c							\
 			game/collisions.c				\
 			game/walls.c					\
 			game/teleport.c					\
-			game/text_hud.c
+			game/draw_wall.c				\
+			game/create_wall.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

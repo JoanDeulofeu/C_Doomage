@@ -185,6 +185,7 @@ int			key_controls_game(t_main *s, int key)
 
 int			key_controls_edi(t_main *s, int key, int selected)
 {
+	(void)selected; //MERDE
 	if (key == SDLK_ESCAPE)
 		return (0);
 	if (key == TAB)
