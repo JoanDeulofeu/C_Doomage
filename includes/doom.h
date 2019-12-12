@@ -617,7 +617,8 @@ t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
 /*
 ****	Fonction sprite Yohann
 */
-t_sprite					*create_new_sprite(t_main *s, t_dpos pos);
+t_sprite					*create_new_sprite(t_main *s, t_name name, t_dpos pos);
+void 						get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite);
 t_sprite					*is_sprite_under_mouse(t_main *s);
 int							is_sprite_selected(t_main *s);
 void 						display_sprite_menu(t_main *s);

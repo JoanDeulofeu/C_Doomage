@@ -106,6 +106,7 @@ typedef enum			e_type {
 }						t_type;
 
 typedef enum			e_name {
+	none,
 	storm,
 	table,
 	lamp,

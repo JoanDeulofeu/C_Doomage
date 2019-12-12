@@ -144,7 +144,7 @@ void	ft_write_file_sprite(t_main *s, FILE *fichier)
 		return ;
 	while (sprite)
 	{
-		fprintf(fichier, "Ennemi %d | ", sprite->type);
+		fprintf(fichier, "Ennemi %d | ", sprite->name);
 		fprintf(fichier, "%ld ", (long)(sprite->r_ori.x * 100));
 		fprintf(fichier, "%ld | ", (long)(sprite->r_ori.y * 100));
 		fprintf(fichier, "%d | ", (int)sprite->s_angle);

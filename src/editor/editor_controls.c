@@ -460,7 +460,7 @@ void		editor_handler(t_main *s)
 						// s->editor->selected = 0;
 						if (!is_sprite_selected(s) && !is_sprite_under_mouse(s) && selected == 0)
 						{
-							create_new_sprite(s, get_abs_r_pos(s, s->ft_mouse));
+							create_new_sprite(s, none, get_abs_r_pos(s, s->ft_mouse));
 							// deselect_sprite(s);
 						}
 						else if (is_sprite_selected(s))

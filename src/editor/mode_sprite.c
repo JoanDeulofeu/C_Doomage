@@ -299,34 +299,37 @@ void 		add_sprite_to_sector(t_main *s, t_sprite *sprite)
 	// ft_print_sectors_sprites(s);
 }
 
-void 		get_sprite_info_by_name(t_main *s, t_sprite *sprite)
+void 		get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite)
 {
-	sprite->name = s->editor->sprite_selected;
-	if (s->editor->sprite_selected == storm)
+	if (name != none)
+		sprite->name = name;
+	else
+		sprite->name = s->editor->sprite_selected;
+	if (sprite->name == storm)
 	{
 		sprite->size = 2;
 		sprite->anim = s->stormtrooper.face;
 		sprite->type = enemy;
 	}
-	else if (s->editor->sprite_selected == table)
+	else if (sprite->name == table)
 	{
 		sprite->size = 1;
 		sprite->anim = s->items.table;
 		sprite->type = obstacle;
 	}
-	else if (s->editor->sprite_selected == lamp)
+	else if (sprite->name == lamp)
 	{
 		sprite->size = 3;
 		sprite->anim = s->items.lamp;
 		sprite->type = obstacle;
 	}
-	else if (s->editor->sprite_selected == o_gun)
+	else if (sprite->name == o_gun)
 	{
 		sprite->size = 0.5;
 		sprite->anim = s->items.gun;
 		sprite->type = item;
 	}
-	else if (s->editor->sprite_selected == o_shotgun)
+	else if (sprite->name == o_shotgun)
 	{
 		sprite->size = 0.3;
 		sprite->anim = s->items.shotgun;
@@ -334,7 +337,7 @@ void 		get_sprite_info_by_name(t_main *s, t_sprite *sprite)
 	}
 }
 
-t_sprite	*create_new_sprite(t_main *s, t_dpos r_pos)
+t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 {
 	t_sprite	*sprite;
 	t_sprite	*temp;
@@ -356,7 +359,7 @@ t_sprite	*create_new_sprite(t_main *s, t_dpos r_pos)
 	sprite->m_pos.y = sprite->r_pos.y * METRE;
 	sprite->life = 100;
 	sprite->set = 0;
-	get_sprite_info_by_name(s, sprite);
+	get_sprite_info_by_name(s, name, sprite);
 
 	if (!s->sprite)
 	{

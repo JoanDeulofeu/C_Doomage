@@ -358,6 +358,7 @@ int		ft_parse_ennemi_part2(t_main *s, char *line, int i, t_sprite *sprite)
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
 	sprite->name = ft_atoi(&line[i]);
+	get_sprite_info_by_name(s, sprite->name, sprite);
 	return (0);
 }
 
@@ -382,7 +383,7 @@ int		ft_parse_ennemi(t_main *s, char *line)
 	i += ft_longlen((int)pos.y) + 1;
 	pos.x /= 100;
 	pos.y /= 100;
-	sprite = create_new_sprite(s, pos);
+	sprite = create_new_sprite(s, 0, pos);
 	ft_parse_ennemi_part2(s, line, i, sprite);
 	return (0);
 }
