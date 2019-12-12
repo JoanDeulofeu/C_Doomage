@@ -314,7 +314,7 @@ void		handle_editor_keys(t_main *s)
 
 		display_sprites(s);
 		clear_wall_list(s);
-		draw_hud(s);
+		// draw_hud(s);
 		animate_weapon(s);
 		update_image(s, s->sdl->game);
 	}
