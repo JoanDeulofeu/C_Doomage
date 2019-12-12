@@ -7,9 +7,9 @@ void	update_image(t_main *s, t_texture *texture)
 		* sizeof(Uint32));
 	SDL_SetRenderTarget(s->sdl->prenderer, NULL);
 	SDL_RenderCopy(s->sdl->prenderer, texture->texture, NULL, NULL);
-	if (!s->play_or_editor)
+	if (s->play_or_editor == 0)
 		ft_draw_ttf_play(s);
-	else
+	else if (s->play_or_editor == 1)
 		ft_draw_ttf_editor(s);
 	SDL_RenderPresent(s->sdl->prenderer);
 }
