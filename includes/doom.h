@@ -112,6 +112,10 @@ typedef struct				s_player
 	double					eyesight;
 	int						y_eye;
 	int						health;
+	int						armor;
+	int						keys;
+	int						mun_gun;
+	int						mun_shotgun;
 	double					angle;
 	double					abs_angle;
 	int						floor_height;
@@ -231,6 +235,8 @@ typedef struct				s_font {
 	TTF_Font				*roboto;
 	TTF_Font				*stylish;
 	TTF_Font				*stylish100;
+	TTF_Font				*digit;
+	TTF_Font				*digit42;
 }							t_font;
 
 typedef struct				s_timer {

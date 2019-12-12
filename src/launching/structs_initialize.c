@@ -165,6 +165,8 @@ void		load_images(t_main *s)
 	fill_sprite_list_value(s);
 
 	s->skybox.current = 0;
+	s->player.mun_gun = 45;
+	s->player.mun_shotgun = 12;
 	s->player.weapon = s->wp_anims.gun;
 	s->player.wp_name = gun;
 	s->player.wp_wheel[gun] = 1;
@@ -235,6 +237,8 @@ t_main		*initialize_main(char *str)
 	s->player.m_pos.x = s->player.r_pos.x * METRE;
 	s->player.m_pos.x = s->player.r_pos.y * METRE;
 	s->player.health = 100;
+	s->player.armor = 100;
+	s->player.keys = 0;
 
 	// s->sprite.damage = 1;
 
@@ -251,6 +255,7 @@ t_main		*initialize_main(char *str)
 	s->intersect1.y = 0;
 	s->intersect2.x = 0;
 	s->intersect2.y = 0;
+	s->play_or_editor = 2;
 
 	s->player.abs_angle = 180;
 	s->player.angle = s->player.abs_angle;
