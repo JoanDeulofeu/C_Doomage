@@ -66,6 +66,18 @@ void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img)
 	}
 }
 
+void 	draw_selected_feedback(t_main *s, t_name name, t_pos pos)
+{
+	t_dpos	ori;
+	t_dpos	dest;
+
+	ori.x = pos.x - 5;
+	ori.y = pos.y - 5;
+	dest.x = pos.x + s->editor->all_sprite.image[name]->w + 5;
+	dest.y = pos.y + s->editor->all_sprite.image[name]->h + 5;
+	draw_rect(s->sdl->editor, ori, dest, GREEN);
+}
+
 void 	draw_sprite_list(t_main *s)
 {
 	t_name	name;
@@ -75,6 +87,8 @@ void 	draw_sprite_list(t_main *s)
 		name = storm;
 		while (name < table)
 		{
+			if (s->editor->sprite_selected == name)
+				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
 			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
 			name++;
 		}
@@ -84,6 +98,8 @@ void 	draw_sprite_list(t_main *s)
 		name = table;
 		while (name <= lamp)
 		{
+			if (s->editor->sprite_selected == name)
+				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
 			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
 			name++;
 			// printf("%d\n", name);
@@ -94,6 +110,8 @@ void 	draw_sprite_list(t_main *s)
 		name = o_gun;
 		while (name <= o_shotgun)
 		{
+			if (s->editor->sprite_selected == name)
+				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
 			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
 			name++;
 			// printf("%d\n", name);
