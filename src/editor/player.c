@@ -85,6 +85,7 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	// update_image(s, s->sdl->editor);
 	// printf("s->col_pos x(%f)y(%f)\n player x(%f)y(%f)\n\n", s->col_pos.x, s->col_pos.y, s->player.m_pos.x, s->player.m_pos.y);
 	//Si is_colliding renvoie -1, il y a collision, si il renvoie plus que 0 il faut se tp
+	check_collectible(s);
 	if ((col = is_colliding(s, target)) == 0)
 	{
 		// printf("BOUYAAA\n");
