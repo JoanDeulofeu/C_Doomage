@@ -92,9 +92,9 @@ void		shoot(t_main *s)
 		Mix_PlayChannel(2, s->sdl->sounds.shotgun, 0);
 		animate_weapon(s);
 		fire(s);
-		if (s->player.wp_name == gun)
+		if (s->player.wp_name == gun && s->player.mun_gun > 0)
 			s->player.mun_gun--;
-		else if (s->player.wp_name == shotgun)
+		else if (s->player.wp_name == shotgun && s->player.mun_shotgun > 0)
 			s->player.mun_shotgun--;
 	}
 }

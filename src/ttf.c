@@ -77,12 +77,12 @@ void	ft_draw_ttf_play(t_main *s)
 	{
 		ttf.str = ft_strdup("inf");
 	}
-	else if (s->player.wp_name == gun)
+	else if (s->player.wp_name == gun && s->player.wp_wheel[gun] == 1)
 	{
 		str = ft_itoa(s->player.mun_gun);
 		ttf.str = ft_strdup(str);
 	}
-	else
+	else if (s->player.wp_name == shotgun && s->player.wp_wheel[shotgun] == 1)
 	{
 		str = ft_itoa(s->player.mun_shotgun);
 		ttf.str = ft_strdup(str);
@@ -113,19 +113,24 @@ void	ft_draw_ttf_play(t_main *s)
 	ttf.str = ft_strdup("Weapon 1 : Kick");
 	ft_create_ttf(ttf, s, s->font->digit);
 
-	ttf.g = 140;
-	if (s->player.wp_name == gun)
-		ttf.g = 255;
-	ttf.pos.y = 737;
-	ttf.str = ft_strdup("Weapon 2 : Gun");
-	ft_create_ttf(ttf, s, s->font->digit);
-
-	ttf.g = 140;
-	if (s->player.wp_name == shotgun)
-		ttf.g = 250;
-	ttf.pos.y = 759;
-	ttf.str = ft_strdup("Weapon 3 : Shotgun");
-	ft_create_ttf(ttf, s, s->font->digit);
+	if (s->player.wp_wheel[gun] == 1)
+	{
+		ttf.g = 140;
+		if (s->player.wp_name == gun)
+			ttf.g = 255;
+		ttf.pos.y = 737;
+		ttf.str = ft_strdup("Weapon 2 : Gun");
+		ft_create_ttf(ttf, s, s->font->digit);
+	}
+	if (s->player.wp_wheel[shotgun] == 1)
+	{
+		ttf.g = 140;
+		if (s->player.wp_name == shotgun)
+			ttf.g = 250;
+		ttf.pos.y = 759;
+		ttf.str = ft_strdup("Weapon 3 : Shotgun");
+		ft_create_ttf(ttf, s, s->font->digit);
+	}
 }
 
 void	ft_draw_ttf_editor(t_main *s)
