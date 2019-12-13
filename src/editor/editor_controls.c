@@ -632,6 +632,7 @@ void		editor_handler(t_main *s)
 		if (tmp_mode != s->editor->mode)
 			deselect_vertex(s);
 		s->wall_fk_id = 0;
+		printf("\n\n\n");
 		// ft_test_chainlist(s);
 	}
 }

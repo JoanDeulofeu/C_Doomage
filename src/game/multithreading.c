@@ -16,7 +16,7 @@ void	*ft_assign_wall(void *s_void)
 	wall_tmp = NULL;
 	found = 1;
 	secur = 0;
-	while (wall->occuped != 0 || wall == NULL) //javance jusqua trouver un mur non occupé
+	while (wall && wall->occuped != 0) //javance jusqua trouver un mur non occupé
 	{
 		printf("-wall_id %d ", wall->id);
 		wall = wall->next;
@@ -73,13 +73,13 @@ void	ft_fucking_threading(t_main *s)
 	wall = s->walls;
 	while (wall)
 	{
-		// printf("wall_id %d \n", wall->id);
-		// printf("limit left %d      limit right %d\n", wall->x, wall->x + wall->screen_width_wall);
+		printf("wall_id %d \n", wall->id);
+		printf("limit left %d      limit right %d\n", wall->x, wall->x + wall->screen_width_wall);
 		if (wall->id > s->pthread)
 			s->pthread = wall->id;
 		wall = wall->next;
 	}
-	// printf("fini---------------------\n");
+	printf("fini---------------------\n");
 
 
 	printf("\033[33m-entree dans ft_fucking_threading-\033[0m\n");
