@@ -93,6 +93,8 @@ void	free_images(t_main *s)
 	free_anim(s->items.lamp);
 	free_anim(s->items.gun);
 	free_anim(s->items.shotgun);
+	free_anim(s->items.big_g_ammo);
+	free_anim(s->items.big_s_ammo);
 	free_image(s->savemap->croix_rouge);
 	free_image(s->player.hud);
 	free_image(s->player.crosshair);
