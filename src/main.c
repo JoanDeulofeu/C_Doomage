@@ -28,6 +28,7 @@ int main (int argc, char **argv)
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0, 0, 0);
 	// get_grid_tab(s);
+	s->wall_fk_id = 0;
 	while (handle_menu(s));
 	// display_map(s);
 	// ft_test_float();

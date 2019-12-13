@@ -63,7 +63,8 @@ SRC_NAME =	main.c							\
 			game/walls.c					\
 			game/teleport.c					\
 			game/draw_wall.c				\
-			game/create_wall.c
+			game/create_wall.c				\
+			game/multithreading.c
 
 
 CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD

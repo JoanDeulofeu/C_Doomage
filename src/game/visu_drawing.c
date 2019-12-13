@@ -11,6 +11,8 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	if (!(wall = (t_walls*)malloc(sizeof(t_walls))))
 		handle_error(s, MALLOC_ERROR);
 	sct = NULL;
+	wall->occuped = 0;
+	wall->id = ++s->wall_fk_id;
 	wall->wall_or_portal = w_or_p;
 	wall->next = NULL;
 	wall->prev = NULL;
@@ -78,6 +80,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		wall->floor_height_dest = 0;
 		wall->ceiling_height_dest = 0;
 	}
+	wall->screen_width_wall = (WIDTH * ((ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN)) / 100;
 	return (wall);
 }
 
@@ -105,7 +108,6 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	double	r_pct;
 	double	l_height_wall; //hauteur du mur
 	double	r_height_wall;
-	double	pct_plan; //pourcentage de longueur de mur sur le plan
 	int		width_wall; //largeur du mur en pixel a l'ecran
 
 	l_big_dist = ft_dist_t_dpos(wall->player, wall->left);
@@ -119,9 +121,7 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	l_height_wall = HEIGHT / ((l_pct * 0.001) * 4) * (double)abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
 	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4) * (double)abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
 
-	pct_plan = (ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN;
-	width_wall = (WIDTH * pct_plan) / 100;
-
+	width_wall = wall->screen_width_wall;
 	ft_init_diff_and_min(wall);
 
 	return (ft_draw_wall(s, wall, l_height_wall, r_height_wall, width_wall));
@@ -228,11 +228,11 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	vtx = draw_mid_walls(s, vtx, &vs);
 	draw_last_wall(s, vtx, &vs);
 	wall = s->walls;
+	// ft_fucking_threading(s);
 	while (wall)
 	{
 		ft_print_wall(s, wall);
 		wall = wall->next;
-		vtx = vtx->next;
 	}
 	set_visible_sprites(s, &vs);
 	s->portal_nb = 0;

@@ -257,7 +257,7 @@ void		handle_editor_keys(t_main *s)
 	keys = SDL_GetKeyboardState(NULL);
 	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
 		&& (s->player.sector_id != 0))
-		ft_move_player(s, keys, 2);
+		ft_move_player(s, keys, PLAYER_SPEED);
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 		rotate_player(s, keys);
 	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] ||
@@ -631,6 +631,7 @@ void		editor_handler(t_main *s)
 		handle_editor_keys(s);
 		if (tmp_mode != s->editor->mode)
 			deselect_vertex(s);
+		s->wall_fk_id = 0;
 		// ft_test_chainlist(s);
 	}
 }

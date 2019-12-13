@@ -22,6 +22,7 @@
 
 # define PORTAL_LIMIT 20
 # define PLAYER_SIZE 2
+# define PLAYER_SPEED 3
 # define JUMP_SIZE 1.1
 
 # define MAP "map.map"
@@ -160,6 +161,8 @@ typedef struct				s_visu {
 }							t_visu;
 
 typedef struct				s_walls {
+	int						id;
+	int						occuped;
 	char					wall_or_portal; //wall = "w", portal = "p";
 	int						sct_id;
 	double					l_dist;
@@ -259,6 +262,8 @@ typedef struct				s_msg {
 }							t_msg;
 
 typedef struct				s_main {
+	int						pthread;
+	int						wall_fk_id;
 	int						play_or_editor;
 	t_timer					*time;
 	t_msg					*msg;
@@ -304,6 +309,11 @@ typedef struct				s_main {
 	t_pos					save_coord_vtx; //utilisé pour remettre un vtx a sa place
 	//										au cas ou on le deplace dans un secteur.
 }							t_main;
+
+/*
+****	Fonction du multithreading
+*/
+void				ft_fucking_threading(t_main *s);
 
 /*
 ****	Fonction du visualisateur

@@ -66,7 +66,6 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	diff_wall = fabs(l_height_wall - r_height_wall);
 	height_wall = l_height_wall;
 	coord.x = wall->x;
-	wall->screen_width_wall = width_wall;
 	get_total_w_wall(wall);
 	s->player.eyesight = s->player.foot_height - wall->floor_height + s->player.size;
 	// printf("---\nwall size = %d       player size %d      player eyesight %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight);
