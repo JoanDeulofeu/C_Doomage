@@ -378,7 +378,7 @@ void		editor_handler(t_main *s)
 					move_anchor(s, id);
 					move_vertex(s, tmp_move, ori, id);
 				}
-				if(s->display_mode == 1)
+				if(s->display_mode == game)
 				{
 					SDL_SetRelativeMouseMode(SDL_TRUE);
 					rotate_mouse(s);
@@ -598,6 +598,13 @@ void		editor_handler(t_main *s)
 				{
 					ft_zoom(s,s->ft_mouse, -5);
 					zoom--;
+				}
+				if (s->display_mode == game)
+				{
+					if (s->sdl->event.wheel.y > 0)
+					 	change_wall_texture(s, 1);
+					else
+						change_wall_texture(s, 0);
 				}
 			}
 			if (s->sdl->event.type == SDL_KEYDOWN)

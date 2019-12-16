@@ -42,10 +42,12 @@ void	trace_direction(t_main *s)
 
 t_dpos	get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target)
 {
-	if (keys[UP] || keys == NULL)
+	if ( keys == NULL || keys[UP])
 	{
 		target.x += cos(to_rad(s->player.angle)) * speed;
 		target.y -= sin(to_rad(s->player.angle)) * speed;
+		if (keys == NULL)
+			return (target);
 	}
 	if (keys[DOWN])
 	{

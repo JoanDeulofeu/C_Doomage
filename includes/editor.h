@@ -216,6 +216,7 @@ typedef struct				s_int {
 	int						sct_dest;
 	int						wall_value;
 	t_image					*image;
+	int						tex_nb;
 	struct s_int			*vtx_dest;
 	struct s_int			*next;
 	struct s_int			*prev;
@@ -330,6 +331,7 @@ typedef struct			s_editor {
 	t_anim				sprite_menu;
 	t_type				sprite_type;
 	t_anim				all_sprite;
+	t_anim				all_texture;
 	t_pos				m_sprite_pos[10];
 	int					select_sprite;
 	t_anim				m_floor;

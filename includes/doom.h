@@ -9,6 +9,7 @@
 # define HFOV 0.73f * HEIGHT
 # define FOV 60
 # define MAX_QUEUE 32
+# define MAX_TEXTURES 1
 
 # define WALL_HEIGHT 10
 # define HEIGHT_MULT 0.5
@@ -60,6 +61,7 @@ typedef	struct				s_sounds
 	Mix_Chunk				*select;
 	Mix_Chunk				*explode;
 	Mix_Chunk				*shotgun;
+	Mix_Chunk				*blaster;
 }							t_sounds;
 
 typedef struct				s_ttf {
@@ -609,6 +611,7 @@ void						ft_draw_floor(t_main *s, t_walls *wall, t_pos coord);
 int							ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord);
 void 						draw_texture(t_main *s, t_walls *wall, t_pos coord, int end);
 void						get_total_w_wall(t_walls *wall);
+void 						change_wall_texture(t_main *s, int up);
 
 /*
 ****	Fonction sprite chainlist
@@ -689,6 +692,7 @@ void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void 						destroy_planet(t_main *s);
 void						load_anims(t_main *s);
 t_anim_enemy 				load_storm_anim(t_main *s);
+void						fill_texture_list(t_main *s);
 void						animate_weapon(t_main *s);
 void						select_weapon_anim(t_main *s);
 

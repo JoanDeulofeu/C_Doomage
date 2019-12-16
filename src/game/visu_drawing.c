@@ -13,7 +13,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	sct = NULL;
 	wall->occuped = 0;
 	wall->id = ++s->wall_fk_id;
-	printf("creation du mur n%d\n", wall->id);
+	// printf("creation du mur n%d\n", wall->id);
 	wall->wall_or_portal = w_or_p;
 	wall->next = NULL;
 	wall->prev = NULL;

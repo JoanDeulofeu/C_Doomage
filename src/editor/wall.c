@@ -1,5 +1,34 @@
 #include "doom.h"
 
+void 	change_wall_texture(t_main *s, int up)
+{
+	t_int		*wall;
+	t_dpos		pos;
+	t_sector	*sct;
+
+	sct = get_sector_by_id(s, s->player.sector_id);
+	if (sct == NULL)
+		return ;
+	pos = get_direction(s, NULL, 1000, s->player.m_pos);
+	wall = get_t_int_by_id(sct->vertex, ft_find_wall2(s, s->player.m_pos, pos, YELLOW, s->player.sector_id));
+	if (wall == NULL)
+		handle_error(s, SECTOR_ERROR);
+	// printf("wall->id = %d\n", wall->id);
+	if (up == 1)
+	{
+		wall->tex_nb += 1;
+		if (s->editor->all_texture.image[wall->tex_nb] == NULL)
+			wall->tex_nb = 0;
+	}
+	else if (up == 0)
+	{
+		wall->tex_nb -= 1;
+		if (wall->tex_nb == -1)
+			wall->tex_nb = MAX_TEXTURES;
+	}
+	wall->image = s->editor->all_texture.image[wall->tex_nb];
+}
+
 int		ft_howmany_char(char *str, char c)
 {
 	int	i;

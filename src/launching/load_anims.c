@@ -46,6 +46,12 @@ void	fill_sprite_list(t_main *s)
 	s->editor->all_sprite.image[big_s_ammo] = s->items.big_s_ammo.image[0];
 }
 
+void	fill_texture_list(t_main *s)
+{
+	s->editor->all_texture.image[0] = load_tga("images/textures/02.tga", 0, 0, 0);
+	s->editor->all_texture.image[1] = load_tga("images/textures/01.tga", 0, 0, 0);
+}
+
 void	load_anims(t_main *s)
 {
 	load_skybox(s);

@@ -169,7 +169,8 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	tmp->sct_dest = 0;
 	tmp->sct = sector->id;
 	tmp->vtx_dest = NULL;
-	tmp->image = load_tga(DEF_TEX, 0, 0, 0); //temporaire
+	tmp->tex_nb = 0;
+	tmp->image = s->editor->all_texture.image[tmp->tex_nb]; //temporaire
 	return (0);
 }
 

@@ -163,6 +163,7 @@ void		load_images(t_main *s)
 	load_anims(s);
 	fill_sprite_list(s);
 	fill_sprite_list_value(s);
+	fill_texture_list(s);
 
 	s->skybox.current = 0;
 	s->player.mun_gun = 45;
@@ -216,6 +217,7 @@ t_main		*initialize_main(char *str)
 	else
 		s->map_name = ft_strdup(MAP);
 	ft_bzero(s->savemap->str, 41);
+	ft_bzero((void *)s->editor, sizeof(t_editor));
 	s->savemap->error_msg = 0;
 	initialize_editor(s->editor);
 	s->vertex = NULL;

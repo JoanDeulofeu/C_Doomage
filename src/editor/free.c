@@ -95,6 +95,7 @@ void	free_images(t_main *s)
 	free_anim(s->items.shotgun);
 	free_anim(s->items.big_g_ammo);
 	free_anim(s->items.big_s_ammo);
+	free_anim(s->editor->all_texture);
 	free_image(s->savemap->croix_rouge);
 	free_image(s->player.hud);
 	free_image(s->player.crosshair);
@@ -126,6 +127,7 @@ void	free_program(t_main *s)
 		Mix_FreeMusic(s->sdl->musique);
 		Mix_FreeChunk(s->sdl->sounds.explode);
 		Mix_FreeChunk(s->sdl->sounds.shotgun);
+		Mix_FreeChunk(s->sdl->sounds.blaster);
 		Mix_CloseAudio();
 	}
 	free_images(s);
