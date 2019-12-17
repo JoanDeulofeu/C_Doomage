@@ -210,10 +210,10 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
 		return ;
 	draw_first_wall(s, vtx, &vs);
+	wall = s->walls;
 	if (vs.begin_wall_id == vs.end_wall_id)// cas 1 seul mur
 	{
 		// print_wall_list(s);
-		wall = s->walls;
 		if (wall != NULL)
 		{
 			// ft_fucking_threading(s);
@@ -230,6 +230,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
 	draw_last_wall(s, vtx, &vs);
+	wall = s->walls;
 	// ft_fucking_threading(s);
 	while (wall)
 	{
