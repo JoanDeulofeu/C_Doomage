@@ -184,8 +184,8 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 		x = (ft_dist_t_dpos(vs->left_plan, l_plan) / WIDTHPLAN) * WIDTH;
 
 	s->player.eyesight = s->player.foot_height - vs->sct->floor + s->player.size;
-	l_height_wall_diff = ft_get_diff_height_pxl(s, vs->sct->ceiling, vs->sct->floor, l_height_wall);
-	r_height_wall_diff = ft_get_diff_height_pxl(s, vs->sct->ceiling, vs->sct->floor, r_height_wall);
+	l_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, l_height_wall);
+	r_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, r_height_wall);
 	// printf("height_wall (%.2f, %.2f)\nles deux diff (%.2f, %.2f)\n", l_height_wall, r_height_wall, l_height_wall_diff, r_height_wall_diff);
 	vs->left_ceiling_limit.x = (int)x;
 	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall) + s->player.y_eye + l_height_wall_diff;
@@ -204,6 +204,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	t_int		*vtx;
 
 	// s->player.eyesight = EYESIGHT + (ft_abs(sct->floor - sct->ceiling) - 2) * -50;
+	// printf("--- DEBUT VISU ---\n");
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
@@ -229,7 +230,6 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	vtx = vtx->next;
 	vtx = draw_mid_walls(s, vtx, &vs);
 	draw_last_wall(s, vtx, &vs);
-	wall = s->walls;
 	// ft_fucking_threading(s);
 	while (wall)
 	{
@@ -238,4 +238,5 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	}
 	set_visible_sprites(s, &vs);
 	s->portal_nb = 0;
+	// printf("--- FIN VISU ---\n\n");
 }

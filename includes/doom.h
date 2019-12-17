@@ -345,7 +345,7 @@ double				ft_find_angle_portal(t_dpos *left, t_dpos *right,
 void				get_wall_distance(t_walls *wall, t_visu *vs);
 int					ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall,
 	 				double r_height_wall, int width_wall);
-int					ft_get_diff_height_pxl(t_main *s, int ceiling_height,
+int					ft_get_diff_height_pxl(double eyesight, int ceiling_height,
 					int floor_height, int height_wall);
 
 /*
