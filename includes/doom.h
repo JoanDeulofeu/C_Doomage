@@ -9,7 +9,7 @@
 # define HFOV 0.73f * HEIGHT
 # define FOV 60
 # define MAX_QUEUE 32
-# define MAX_TEXTURES 1
+# define MAX_TEXTURES 11
 
 # define WALL_HEIGHT 10
 # define HEIGHT_MULT 0.5

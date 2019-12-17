@@ -50,6 +50,16 @@ void	fill_texture_list(t_main *s)
 {
 	s->editor->all_texture.image[0] = load_tga("images/textures/02.tga", 0, 0, 0);
 	s->editor->all_texture.image[1] = load_tga("images/textures/01.tga", 0, 0, 0);
+	s->editor->all_texture.image[2] = load_tga("images/textures/03.tga", 0, 0, 0);
+	s->editor->all_texture.image[3] = load_tga("images/textures/04.tga", 0, 0, 0);
+	s->editor->all_texture.image[4] = load_tga("images/textures/05.tga", 0, 0, 0);
+	s->editor->all_texture.image[5] = load_tga("images/textures/06.tga", 0, 0, 0);
+	s->editor->all_texture.image[6] = load_tga("images/textures/07.tga", 0, 0, 0);
+	s->editor->all_texture.image[7] = load_tga("images/textures/08.tga", 0, 0, 0);
+	s->editor->all_texture.image[8] = load_tga("images/textures/09.tga", 0, 0, 0);
+	s->editor->all_texture.image[9] = load_tga("images/textures/10.tga", 0, 0, 0);
+	s->editor->all_texture.image[10] = load_tga("images/textures/11.tga", 0, 0, 0);
+	s->editor->all_texture.image[11] = load_tga("images/textures/12.tga", 0, 0, 0);
 }
 
 void	load_anims(t_main *s)
