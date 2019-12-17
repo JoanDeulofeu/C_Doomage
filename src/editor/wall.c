@@ -5,14 +5,16 @@ void 	change_wall_texture(t_main *s, int up)
 	t_int		*wall;
 	t_dpos		pos;
 	t_sector	*sct;
+	int 		ptr_id;
 
 	sct = get_sector_by_id(s, s->player.sector_id);
 	if (sct == NULL)
 		return ;
 	pos = get_direction(s, NULL, 1000, s->player.m_pos);
-	wall = get_t_int_by_id(sct->vertex, ft_find_wall2(s, s->player.m_pos, pos, YELLOW, s->player.sector_id));
+	ptr_id = ft_find_wall2(s, s->player.m_pos, pos, YELLOW, sct->id);
+	wall = get_t_int_by_vertex_id(sct->vertex, ptr_id);
 	if (wall == NULL)
-		handle_error(s, SECTOR_ERROR);
+		return ;
 	// printf("wall->id = %d\n", wall->id);
 	if (up == 1)
 	{

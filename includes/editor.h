@@ -271,6 +271,7 @@ typedef struct				s_sprite
 	int						set;
 	int						inverse; //savoir si on inverse le display sprite
 	int						anim_ms;
+	int						shoot_ms;
 	int						orientation;
 	int						select;
 	int						life;

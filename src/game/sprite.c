@@ -1,6 +1,5 @@
 #include "doom.h"
 
-
 int		check_if_visible(t_main *s, t_sprite *sprite)
 {
 	t_walls	*wall;

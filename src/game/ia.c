@@ -1,5 +1,10 @@
 #include "doom.h"
 
+int			is_player_shot(t_main *s, t_sprite *sprite)
+{
+	
+}
+
 int			check_exist(t_main *s, t_dpos target, int id)
 {
 	t_sprite	*cur;
