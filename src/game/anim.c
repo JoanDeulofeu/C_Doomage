@@ -13,13 +13,18 @@ void		select_weapon_anim(t_main *s)
 
 void		sprite_shooting(t_main *s, t_sprite *cur)
 {
-	(void)s;
 	if (cur->anim.image[cur->current] != NULL)
 	{
 		// cur->s_angle = s->player.angle + 180;
 		if (cur->r_dist < STORM_RANGE)
 		{
 			cur->current = 1;
+			if (s->time->time_ms - cur->shoot_ms > 1000)
+			{
+				cur->shoot_ms = s->time->time_ms;
+				Mix_PlayChannel(6, s->sdl->sounds.blaster, 0);
+				is_player_shot(s, sprite);
+			}
 		}
 		else
 		{
@@ -122,6 +127,7 @@ void 	select_anim(t_main *s, t_sprite *sprite)
 			sprite->current = 0;
 			sprite->anim = s->stormtrooper.shooting;
 			sprite->a_name = shooting;
+			// sprite_shooting(s, sprite);
 		}
 
 	}

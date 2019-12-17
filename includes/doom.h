@@ -686,7 +686,7 @@ void						kill(t_sprite *cur);
 void						play_sprites_anims(t_main *s);
 void 						enemy_walk_anim(t_main *s, t_sprite *sprite);
 
-void						sprite_shooting(t_main *s, t_sprite *cur);
+// void						sprite_shooting(t_main *s, t_sprite *cur);
 void						kill_anim(t_main *s, t_sprite *cur);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void 						destroy_planet(t_main *s);
@@ -698,4 +698,8 @@ void						select_weapon_anim(t_main *s);
 
 void 						select_anim(t_main *s, t_sprite *sprite);
 
+/*
+****	Fonction IA
+*/
+void 						sprite_shooting(t_main *s, t_sprite *sprite);
 #endif
