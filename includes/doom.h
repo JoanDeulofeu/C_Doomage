@@ -702,4 +702,5 @@ void 						select_anim(t_main *s, t_sprite *sprite);
 ****	Fonction IA
 */
 void 						sprite_shooting(t_main *s, t_sprite *sprite);
+int							is_player_shot(t_main *s, t_sprite *sprite);
 #endif

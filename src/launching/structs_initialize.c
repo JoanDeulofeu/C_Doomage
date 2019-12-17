@@ -67,6 +67,7 @@ void		pre_initialize_sdl(t_main *s)
 void		initialize_editor(t_editor *edi)
 {
 	ft_bzero((void *)edi, sizeof(t_editor));
+
 	edi->space = G_SPACE;
 	edi->anchor_size = 5;
 	edi->mode = move;
@@ -84,6 +85,7 @@ void		initialize_editor(t_editor *edi)
 	edi->over_sector2 = 0;
 	edi->wall = NULL;
 	edi->wall2 = NULL;
+	edi->sprite_selected = storm;
 }
 
 void		initialize_sdl(t_main *s, t_sdl *sdl)
