@@ -41,13 +41,13 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 	ft_draw_floor(s, wall, coord);
 }
 
-int		ft_get_diff_height_pxl(t_main *s, int ceiling_height, int floor_height, int height_wall)
+int		ft_get_diff_height_pxl(double eyesight, int ceiling_height, int floor_height, int height_wall)
 {
 	int		ig_height_wall; // hauteur du mur in game (en metre)
 	double	pct_eyesight; //pourcentage vision player
 
 	ig_height_wall = ceiling_height - floor_height;
-	pct_eyesight = (s->player.eyesight * 100 / ig_height_wall);
+	pct_eyesight = (eyesight * 100 / ig_height_wall);
 	// printf("pct = %.2f      ", pct_eyesight);
 	return ((pct_eyesight * height_wall) / 100);
 }
@@ -61,6 +61,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	int		bottom;
 	double	pct_avcm; //pourcentage avancement
 	double	diff_height_pxl;
+	double	eyesight;
 
 	i = 0;
 	diff_wall = fabs(l_height_wall - r_height_wall);
@@ -68,12 +69,13 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	coord.x = wall->x;
 	get_total_w_wall(wall);
 	s->player.eyesight = s->player.foot_height - wall->floor_height + s->player.size;
+	eyesight = s->player.eyesight;
 	// printf("---\nwall size = %d       player size %d      player eyesight %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight);
 	while (i++ <= width_wall)
 	{
 		// printf("---\nwall size = %d - player size %d - player eyesight %d - floor height %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight, wall->floor_height);
 		wall->avcm_x = i;
-		diff_height_pxl = ft_get_diff_height_pxl(s, wall->ceiling_height, wall->floor_height, height_wall);
+		diff_height_pxl = ft_get_diff_height_pxl(eyesight, wall->ceiling_height, wall->floor_height, height_wall);
 		// printf("height = %.2f      diff = %.2f\n", height_wall, diff_height_pxl);
 		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
 		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
