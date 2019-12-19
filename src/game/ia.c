@@ -2,7 +2,9 @@
 
 int			is_player_shot(t_main *s, t_sprite *sprite)
 {
-	
+	(void)s;
+	(void)sprite;
+	return (0);
 }
 
 int			check_exist(t_main *s, t_dpos target, int id)

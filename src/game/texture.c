@@ -92,7 +92,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
 		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
 			+ (int)((perx * (double)wall->image->w) / 100);
-		if (px >= 0 && px < wall->image->w * wall->image->h)
+		if (px >= 0 && px < wall->image->w * wall->image->h && wall->image->tex[px] != 65280)
 			set_pixel(s->sdl->game, wall->image->tex[px], coord);
 		y++;
 		coord.y++;

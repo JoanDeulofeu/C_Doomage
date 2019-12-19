@@ -1,5 +1,34 @@
 #include "doom.h"
 
+void	play_g_o_anim(t_main *s)
+{
+	t_pos	pos;
+	int		time;
+
+	pos.x = 0;
+	pos.y = 0;
+	if (s->time->g_o_ms == 0)
+		s->time->g_o_ms = s->time->time_ms;
+	time = s->time->time_ms - s->time->g_o_ms;
+	if (time < 250)
+		draw_plain_sprite(s, pos, s->gameover.image[0], s->sdl->game);
+	else if (time >= 250 && time < 500)
+		draw_plain_sprite(s, pos, s->gameover.image[1], s->sdl->game);
+	else if (time >= 500 && time < 750)
+		draw_plain_sprite(s, pos, s->gameover.image[2], s->sdl->game);
+	else if (time >= 750 && time < 1000)
+		draw_plain_sprite(s, pos, s->gameover.image[3], s->sdl->game);
+	else if (time >= 1000 && time < 1250)
+		draw_plain_sprite(s, pos, s->gameover.image[4], s->sdl->game);
+	else if (time >= 1250 && time < 1500)
+		draw_plain_sprite(s, pos, s->gameover.image[5], s->sdl->game);
+	else if (time >= 1500 && time < 2000)
+	{
+		draw_plain_sprite(s, pos, s->gameover.image[6], s->sdl->game);
+	}
+
+}
+
 void		select_weapon_anim(t_main *s)
 {
 	if (s->player.wp_name == kick)
@@ -16,14 +45,21 @@ void		sprite_shooting(t_main *s, t_sprite *cur)
 	if (cur->anim.image[cur->current] != NULL)
 	{
 		// cur->s_angle = s->player.angle + 180;
-		if (cur->r_dist < STORM_RANGE)
+		if (cur->r_dist < STORM_RANGE && !ft_find_wall2(s, s->player.m_pos, cur->m_pos, YELLOW, s->player.sector_id))
 		{
 			cur->current = 1;
 			if (s->time->time_ms - cur->shoot_ms > 1000)
 			{
 				cur->shoot_ms = s->time->time_ms;
 				Mix_PlayChannel(6, s->sdl->sounds.blaster, 0);
-				is_player_shot(s, sprite);
+				if (s->player.armor > 0)
+					s->player.armor -= 20;
+				else
+				{
+					s->player.health -= 10;
+					if (s->player.health <= 0)
+						s->player.dead = 1;
+				}
 			}
 		}
 		else
@@ -113,6 +149,13 @@ void 	select_anim(t_main *s, t_sprite *sprite)
 	{
 		sprite->anim = s->stormtrooper.face;
 		// printf("face\n");
+		if (sprite->r_dist < STORM_RANGE) //ajouter find intersection pour savoir s'il y a un mur entre nous
+		{
+			sprite->current = 0;
+			sprite->anim = s->stormtrooper.shooting;
+			sprite->a_name = shooting;
+			// sprite_shooting(s, sprite);
+		}
 	}
 	else if ((angle > 22 && angle <= 67) || (angle > 292 && angle <= 337))
 	{

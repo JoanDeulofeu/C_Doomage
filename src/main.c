@@ -1,5 +1,23 @@
 #include "doom.h"
 
+void 	reset(t_main *s)
+{
+	t_sprite *sprite;
+
+	s->player.r_pos = s->player.r_ori;
+	set_player(s);
+	s->player.health = 100;
+	s->player.armor = 100;
+	sprite = s->sprite;
+	while (sprite)
+	{
+		sprite->destroy = 0;
+		sprite->r_pos = sprite->r_ori;
+		sprite = sprite->next;
+	}
+	set_sprite(s);
+}
+
 void	draw_player(t_main *s, t_dpos p_pos)
 {
 	t_dpos p_size;

@@ -54,6 +54,7 @@ int		handle_menu(t_main *s)
 {
 	int key;
 	play_music(s);
+	reset(s);
 	s->play_or_editor = 2;
 	display_menu(s, 0, 0);
 	while (1)

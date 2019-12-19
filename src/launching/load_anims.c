@@ -32,6 +32,16 @@ void	load_items(t_main *s)
 	s->items.big_g_ammo.image[0] = load_tga("images/ressources/static/big_g_ammo.tga", 0, 0, 0);
 }
 
+void 	load_game_over(t_main *s)
+{
+	s->gameover.image[0] = load_tga("images/go/00.tga", 0, 0, 0);
+	s->gameover.image[1] = load_tga("images/go/01.tga", 0, 0, 0);
+	s->gameover.image[2] = load_tga("images/go/02.tga", 0, 0, 0);
+	s->gameover.image[3] = load_tga("images/go/03.tga", 0, 0, 0);
+	s->gameover.image[4] = load_tga("images/go/04.tga", 0, 0, 0);
+	s->gameover.image[5] = load_tga("images/go/05.tga", 0, 0, 0);
+	s->gameover.image[6] = load_tga("images/go/06.tga", 0, 0, 0);
+}
 void	fill_sprite_list(t_main *s)
 {
 	t_name	name;
@@ -67,5 +77,6 @@ void	load_anims(t_main *s)
 	load_skybox(s);
 	s->stormtrooper = load_storm_anim(s);
 	load_items(s);
+	load_game_over(s);
 	s->wp_anims = load_wp_anims(s);
 }

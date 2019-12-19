@@ -1,0 +1,21 @@
+Map : yoyo
+
+Vertex 3		5
+Vertex 5		20
+Vertex 10		24
+Vertex 12		21
+Vertex 13		6
+Vertex 14		22
+Vertex 15		7
+Vertex 24		18
+Vertex 25		8
+
+
+Sector 0 6 | 1 2 3 4 5 | -1 -1 -1 -1 8
+Sector 1 5 | 6 8 9 7 | -1 5 -1 -1
+
+
+
+
+Player 447 618
+Angle 171
