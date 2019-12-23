@@ -115,38 +115,3 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 		}
 	}
 }
-
-void	ft_fly_mode(t_main *s, const Uint8 *keys)
-{
-	// printf("ft_fly\n");
-	if (keys[SDL_SCANCODE_BACKSLASH])
-	{
-		// printf("%.1f + %.1f + 0.2 < plafond %d\n", s->player.foot_height, s->player.size, s->player.ceiling_height);
-		if (s->player.foot_height + s->player.size + 0.2 < s->player.ceiling_height)
-			s->player.jump_height += 0.2;
-		// printf("fly up\n");
-	}
-	if (keys[SDL_SCANCODE_DELETE])
-	{
-		// printf("%.1f - 0.2 > sol %d\n", s->player.foot_height, s->player.floor_height);
-		if (s->player.foot_height - 0.2 > s->player.floor_height)
-			s->player.jump_height -= 0.2;
-		// printf("fly down\n");
-	}
-}
-
-void	ft_activ_fly(t_main *s)
-{
-	if (!s->player.fly)
-	{
-		s->player.fly = 1;
-		ft_create_message(s, 0, 1000, "Fly active");
-	}
-	else
-	{
-		s->player.fly = 0;
-		ft_create_message(s, 0, 1000, "Fly down");
-		if (s->player.foot_height > s->player.floor_height)
-			s->player.jump = 3;
-	}
-}

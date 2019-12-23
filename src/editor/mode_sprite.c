@@ -364,6 +364,12 @@ void 		get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite)
 		sprite->anim = s->items.big_s_ammo;
 		sprite->type = item;
 	}
+	else if (sprite->name == jetpack)
+	{
+		sprite->size = 0.5;
+		sprite->anim = s->items.jetpack;
+		sprite->type = item;
+	}
 }
 
 t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)

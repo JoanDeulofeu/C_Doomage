@@ -34,6 +34,7 @@
 # define SPRITE_SHOT_DIST 3
 # define SPRITE_MOVE_SPEED 0.1
 # define STORM_RANGE 6
+# define JET_TIME 10000
 
 // Fixed-point Format: 16.16 (32-bit)
 typedef int32_t				fixed_float;
@@ -61,6 +62,7 @@ typedef	struct				s_sounds
 	Mix_Chunk				*select;
 	Mix_Chunk				*explode;
 	Mix_Chunk				*shotgun;
+	Mix_Chunk				*gun;
 	Mix_Chunk				*blaster;
 }							t_sounds;
 
@@ -125,7 +127,10 @@ typedef struct				s_player
 	double					abs_angle;
 	int						floor_height;
 	int						ceiling_height;
+	int						jetpack;
 	t_anim					weapon;
+	int						range;
+	int						power;
 	t_wp_name				wp_name;
 	int						wp_wheel[3]; //roue des armes
 	t_image					*hud;
@@ -256,6 +261,8 @@ typedef struct				s_timer {
 	long					jump_ms;
 	long					shotgun_ms;
 	long					g_o_ms;
+	long					jetpack_ms;
+	long					jetpack_reserve;
 }							t_timer;
 
 typedef struct				s_msg {
@@ -439,6 +446,7 @@ void						ft_jump(t_main *s, const Uint8 *keys);
 void						change_weapon(t_main *s, int up);
 void						ft_fly_mode(t_main *s, const Uint8 *keys);
 void						ft_activ_fly(t_main *s);
+void 						fly(t_main *s);
 
 /*
 ****	Fonction de gestion et de protection du parsing
@@ -598,6 +606,7 @@ void						ft_draw_ttf_editor(t_main *s);
 void						ft_display_message(t_main *s);
 void						ft_create_message(t_main *s, int color, int duration, char *str);
 void						ft_init_msg(t_main *s);
+char						*get_jetpack_value(t_main *s);
 
 /*
 ****	Fonction de debug
@@ -704,6 +713,11 @@ void						select_weapon_anim(t_main *s);
 
 void 						select_anim(t_main *s, t_sprite *sprite);
 void						play_g_o_anim(t_main *s);
+/*
+****	Fonction geston des armes
+*/
+
+void 						set_weapon_range(t_main *s);
 
 /*
 ****	Fonction IA

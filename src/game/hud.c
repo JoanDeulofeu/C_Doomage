@@ -93,6 +93,7 @@ void		shoot(t_main *s)
 		fire(s);
 		if (s->player.wp_name == gun && s->player.mun_gun > 0)
 		{
+			Mix_PlayChannel(2, s->sdl->sounds.gun, 0);
 			animate_weapon(s);
 			s->player.mun_gun--;
 		}

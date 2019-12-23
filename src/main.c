@@ -8,10 +8,17 @@ void 	reset(t_main *s)
 	set_player(s);
 	s->player.health = 100;
 	s->player.armor = 100;
+	s->player.dead = 0;
+	s->player.wp_wheel[gun] = 0;
+	s->player.wp_wheel[shotgun] = 0;
+	s->player.wp_name = kick;
+	select_weapon_anim(s);
+	set_weapon_range(s);
 	sprite = s->sprite;
 	while (sprite)
 	{
 		sprite->destroy = 0;
+		sprite->life = 100;
 		sprite->r_pos = sprite->r_ori;
 		sprite = sprite->next;
 	}

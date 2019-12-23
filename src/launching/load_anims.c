@@ -30,6 +30,7 @@ void	load_items(t_main *s)
 	s->items.shotgun.image[0] = load_tga("images/ressources/static/shotgun.tga", 0, 0, 0);
 	s->items.big_s_ammo.image[0] = load_tga("images/ressources/static/big_s_ammo.tga", 0, 0, 0);
 	s->items.big_g_ammo.image[0] = load_tga("images/ressources/static/big_g_ammo.tga", 0, 0, 0);
+	s->items.jetpack.image[0] = load_tga("images/ressources/static/jetpack.tga", 0, 0, 0);
 }
 
 void 	load_game_over(t_main *s)
@@ -54,6 +55,7 @@ void	fill_sprite_list(t_main *s)
 	s->editor->all_sprite.image[o_shotgun] = s->items.shotgun.image[0];
 	s->editor->all_sprite.image[big_g_ammo] = s->items.big_g_ammo.image[0];
 	s->editor->all_sprite.image[big_s_ammo] = s->items.big_s_ammo.image[0];
+	s->editor->all_sprite.image[jetpack] = s->items.jetpack.image[0];
 }
 
 void	fill_texture_list(t_main *s)

@@ -64,6 +64,7 @@ SRC_NAME =	main.c							\
 			game/teleport.c					\
 			game/draw_wall.c				\
 			game/create_wall.c				\
+			game/fly.c						\
 			game/multithreading.c
 
 
