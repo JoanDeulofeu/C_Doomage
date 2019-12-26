@@ -1,5 +1,18 @@
 #include "doom.h"
 
+void 	reset_jetpack(t_main *s)
+{
+	t_sprite *sprite;
+
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->name == jetpack)
+			sprite->destroy = 0;
+		sprite = sprite->next;
+	}
+}
+
 char	*get_jetpack_value(t_main *s)
 {
 	char *str;
@@ -9,6 +22,8 @@ char	*get_jetpack_value(t_main *s)
 
 	str = ft_strdup("jetpack:");
 	pct = s->time->jetpack_reserve * 100 / JET_TIME;
+	if (pct < 2)
+		reset_jetpack(s);
 	str2 = ft_itoa(pct);
 	str3 = ft_strjoin_free(&str, &str2);
 	str = ft_strdup("%");

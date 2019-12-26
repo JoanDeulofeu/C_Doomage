@@ -17,9 +17,21 @@ void 	reset(t_main *s)
 	sprite = s->sprite;
 	while (sprite)
 	{
+		if (sprite->destroy == 1 && sprite->name == storm)
+			add_sprite_to_sector(s, sprite);
+		if (sprite->name == storm)
+		{
+			sprite->a_name = walking;
+			sprite->anim = s->stormtrooper.face;
+		}
 		sprite->destroy = 0;
 		sprite->life = 100;
 		sprite->r_pos = sprite->r_ori;
+		sprite->angle = 0;
+		sprite->r_dist = 100;
+		sprite->set = 0;
+
+
 		sprite = sprite->next;
 	}
 	set_sprite(s);
