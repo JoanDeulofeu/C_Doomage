@@ -11,8 +11,8 @@ double		ft_find_signed_area(t_sector *sct)
 	somme = 0.0;
 	while (i++ < sct->vertex->prev->id)
 	{
-		somme += (wall->ptr->pos.x * wall->next->ptr->pos.y)
-		- (wall->next->ptr->pos.x * wall->ptr->pos.y);
+		somme += (wall->ptr->x * METRE * wall->next->ptr->y * METRE)
+		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE);
 		wall = wall->next;
 	}
 	return (0.5 * somme);
@@ -37,12 +37,12 @@ t_pos		ft_find_polygon_center(t_sector *sct)
 	somme.y = 0.0;
 	while (i++ < sct->vertex->prev->id)
 	{
-		somme.x += (wall->ptr->pos.x + wall->next->ptr->pos.x)
-		* ((wall->ptr->pos.x * wall->next->ptr->pos.y)
-		- (wall->next->ptr->pos.x * wall->ptr->pos.y));
-		somme.y += (wall->ptr->pos.y + wall->next->ptr->pos.y)
-		* ((wall->ptr->pos.x * wall->next->ptr->pos.y)
-		- (wall->next->ptr->pos.x * wall->ptr->pos.y));
+		somme.x += (wall->ptr->x * METRE + wall->next->ptr->x * METRE)
+		* ((wall->ptr->x * METRE * wall->next->ptr->y * METRE)
+		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE));
+		somme.y += (wall->ptr->y * METRE + wall->next->ptr->y * METRE)
+		* ((wall->ptr->x * METRE * wall->next->ptr->y * METRE)
+		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE));
 		wall = wall->next;
 	}
 	center.x = (1 / (6 * a)) * somme.x;
