@@ -117,8 +117,16 @@ void	move_anchor(t_main *s, int id)
 
 void	create_anchor(t_main *s, t_pos ori)
 {
+	t_vertex *vtx;
+
+	vtx = s->vertex;
 	ori = get_abs_pos(s, ori);
-	ft_add_vertex(s, ori.x, ori.y);
+	while (vtx->next != NULL)
+		vtx = vtx->next;
+	if (vtx->id < 500)
+		ft_add_vertex(s, ori.x, ori.y);
+	else
+		printf("Error: Trop de vertex.\n");
 }
 
 void	draw_anchor(t_main *s, t_pos ori, Uint32 color)

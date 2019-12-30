@@ -20,8 +20,8 @@
 # define ROTATE_SPEED 20.00
 # define PARSE_BUFF_SIZE 64
 
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
+# define INT_MAX 2147480000
+# define INT_MIN -2147480000
 # define LONG_MAX 9223372036854775807
 # define DEF_TEX "images/textures/02.tga"
 

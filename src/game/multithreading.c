@@ -98,10 +98,3 @@ void	ft_fucking_threading(t_main *s)
 			perror("thread join");
 	// printf("-sortie de ft_fucking_threading-\n");
 }
-
-/*
-verifier que toutes les variables ne soit pas modifier par les thread en meme temps,
-notamment celle qui definissent les quatres coins dun mur.
-verifier quil ny a pas de double mur quand il doit ny en avoir quun
-mettre la texture sous mutex
-*/

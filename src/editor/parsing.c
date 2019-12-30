@@ -307,6 +307,11 @@ void	ft_check_validity_last_sector(t_main *s)
 		remove_sector(s, wall->value, 0, 0);
 		printf("ERROR secteur non valide: sens du secteur non valide.\n");
 	}
+	if (sct->id > 100)
+	{
+		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: Trop de secteur sur cette map.\n");
+	}
 }
 
 int		ft_how_many_pipe(char *str)

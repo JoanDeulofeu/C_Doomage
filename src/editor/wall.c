@@ -139,7 +139,7 @@ void	ft_close_sector(t_main *s)
 			ft_norm_close_sector(s, 2, end);
 		nb_wall--;
 	}
-	printf("FINAL str_vtx = %s\n", s->str_vtx);
+	// printf("FINAL str_vtx = %s\n", s->str_vtx);
 	// printf("Ligne d'ajout de secteur:\n     |%s|\n\n", s->str_vtx);
 	ft_parse_sector(s, s->str_vtx);
 	s->str_vtx = NULL;
