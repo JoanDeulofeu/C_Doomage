@@ -231,12 +231,12 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	vtx = draw_mid_walls(s, vtx, &vs);
 	draw_last_wall(s, vtx, &vs);
 	wall = s->walls;
-	// ft_fucking_threading(s);
-	while (wall)
-	{
-		ft_print_wall(s, wall);
-		wall = wall->next;
-	}
+	ft_fucking_threading(s);
+	// while (wall)
+	// {
+	// 	ft_print_wall(s, wall);
+	// 	wall = wall->next;
+	// }
 	set_visible_sprites(s, &vs);
 	s->portal_nb = 0;
 	// printf("--- FIN VISU ---\n\n");
