@@ -6,7 +6,7 @@ void		handle_game_keys(t_main *s)
 
 	if (!s->player.dead)
 	{
-		s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
+		s->player.sector_id = ft_is_in_sector(s, s->player.m_pos);
 		keys = SDL_GetKeyboardState(NULL);
 		if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
 			&& (s->player.sector_id != 0))

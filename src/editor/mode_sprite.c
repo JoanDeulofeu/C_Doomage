@@ -380,19 +380,20 @@ t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 	t_dpos		pos;
 
 	sprite = NULL;
-	pos = ft_pos_to_dpos(get_px_r_pos(s, r_pos));
-	if ((sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos))) == 0)
+	pos.x = r_pos.x * METRE;
+	pos.y = r_pos.y * METRE;
+	 //pos = ft_pos_to_dpos(get_px_r_pos(s, r_pos));
+	if ((sct_id = ft_is_in_sector(s, pos)) == 0)
 		return (NULL);
 	if (!(sprite = ft_memalloc(sizeof(t_sprite))))
 		handle_error(s, MALLOC_ERROR);
 	ft_bzero((void*)sprite, sizeof(t_sprite));
-	sprite->sct_id = ft_is_in_sector(s, ft_dpos_to_pos(pos));
+	sprite->sct_id = ft_is_in_sector(s, pos);
 	sprite->r_pos = r_pos;
 	sprite->r_dist = 100;
-	sprite->pos = ft_dpos_to_pos(pos);
+	sprite->pos = get_px_r_pos(s, r_pos);
 	sprite->r_ori = sprite->r_pos;
-	sprite->m_pos.x = sprite->r_pos.x * METRE;
-	sprite->m_pos.y = sprite->r_pos.y * METRE;
+	sprite->m_pos = pos;
 	sprite->life = 100;
 	sprite->set = 0;
 	get_sprite_info_by_name(s, name, sprite);

@@ -87,7 +87,7 @@ int			remove_sector(t_main *s, int id, int del, int sct_id)
 		{
 			if (tmp_vtx->ptr->id == id)
 			{
-				if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) == tmp_sct->id)
+				if (ft_is_in_sector(s, s->player.m_pos) == tmp_sct->id)
 					return (0);
 				tmp_vtx = free_sector_struct(tmp_sct);
 				tmp_sct = update_sector_list(s, tmp_sct);

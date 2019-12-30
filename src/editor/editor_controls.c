@@ -253,7 +253,7 @@ void		handle_editor_keys(t_main *s)
 {
 	const Uint8	*keys;
 
-	s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos));
+	s->player.sector_id = ft_is_in_sector(s, s->player.m_pos);
 	keys = SDL_GetKeyboardState(NULL);
 	if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
 		&& (s->player.sector_id != 0))
@@ -287,7 +287,7 @@ void		handle_editor_keys(t_main *s)
 		if (s->editor->mode_floor == 1)
 		{
 			s->editor->m_floor.current = 1;
-			fill_sectors(s);
+			// fill_sectors(s);
 		}
 		else
 			s->editor->m_floor.current = 0;
@@ -338,7 +338,7 @@ void		editor_handler(t_main *s)
 	int			id;
 	t_pos		mouse_save;
 	t_pos 		tmp;
-	t_pos 		tmp2;
+	t_dpos 		tmp2;
 	t_pos		tmp_move;
 	t_pos		diff;
 	int			remove_achr;
@@ -544,10 +544,13 @@ void		editor_handler(t_main *s)
 							}
 							s->editor->color_sector = ft_sector_mode(s,
 								s->sdl->event.button.x, s->sdl->event.button.y);
-							t_pos point_2;
+							t_dpos point_2;
 							int iii = -1;
-							point_2.x = s->sdl->event.button.x;
-							point_2.y = s->sdl->event.button.y;
+							point_2 = get_abs_r_pos(s, s->ft_mouse);
+							point_2.x *= METRE;
+							point_2.y *= METRE;
+							// point_2.x = s->sdl->event.button.x;
+							// point_2.y = s->sdl->event.button.y;
 							iii = ft_is_in_sector(s, point_2);
 							if (iii == 0)
 								printf("SECTOR IS %d\n", iii);
@@ -557,11 +560,15 @@ void		editor_handler(t_main *s)
 						}
 						else if (s->editor->mode == player)
 						{
-							tmp2.x = s->sdl->event.button.x;
-							tmp2.y = s->sdl->event.button.y;
+							tmp2 = get_abs_r_pos(s, s->ft_mouse);
+							tmp2.x *= METRE;
+							tmp2.y *= METRE;
+							// tmp2.x = s->sdl->event.button.x;
+							// tmp2.y = s->sdl->event.button.y;
 							if (ft_is_in_sector(s, tmp2) != 0)
 							{
-								s->player.r_ori= get_abs_r_pos(s,tmp2);
+								s->player.r_ori.x = tmp2.x / METRE;
+								s->player.r_ori.y = tmp2.y / METRE;
 								s->player.r_pos = s->player.r_ori;
 								s->player.set = 1;
 								s->player.correc = 0;
