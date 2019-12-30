@@ -293,11 +293,20 @@ void	ft_check_validity_last_sector(t_main *s)
 		sct = sct->next;
 	wall = sct->vertex;
 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
+	{
 		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: moins de 3 vertex.\n");
+	}
 	if (ft_check_wall_that_intersect(s, sct))
+	{
 		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: collision avec un autre secteur.\n");
+	}
 	if (ft_check_sector_sens(s, sct))
+	{
 		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: sens du secteur non valide.\n");
+	}
 }
 
 int		ft_how_many_pipe(char *str)

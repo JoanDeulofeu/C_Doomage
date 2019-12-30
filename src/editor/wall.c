@@ -126,7 +126,7 @@ void	ft_close_sector(t_main *s)
 	char	*begin;
 	char	*end;
 
-	begin = ft_strdup("sector 0 2 | ");
+	begin = ft_strdup("sector 0 3 | ");
 	end = NULL;
 	init = 1;
 	nb_wall = ft_howmany_char(s->str_vtx, ' ') + 1;
@@ -139,7 +139,7 @@ void	ft_close_sector(t_main *s)
 			ft_norm_close_sector(s, 2, end);
 		nb_wall--;
 	}
-	// printf("FINAL str_vtx = %s\n", s->str_vtx);
+	printf("FINAL str_vtx = %s\n", s->str_vtx);
 	// printf("Ligne d'ajout de secteur:\n     |%s|\n\n", s->str_vtx);
 	ft_parse_sector(s, s->str_vtx);
 	s->str_vtx = NULL;

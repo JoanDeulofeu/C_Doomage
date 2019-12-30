@@ -24,7 +24,7 @@ void	*ft_assign_wall(void *s_void)
 	// printf("\n");
 	if (!wall)
 	{
-		// printf("\033[31msortie prematuré\033[0m\n");
+		printf("\033[31msortie prematuré\033[0m\n");
 		pthread_mutex_unlock(&mutex_stock);
 		pthread_exit(NULL);
 	}
@@ -46,21 +46,12 @@ void	*ft_assign_wall(void *s_void)
 					found = 1;
 					break ;
 				}
-
-				// //si les murs n'interfere pas entre eux et que wall_tmp nest pas occupé
-				// if (((wall->x + wall->screen_width_wall < wall_tmp->x) || (wall->x > wall_tmp->x + wall_tmp->screen_width_wall)) && wall_tmp->occuped != 1)
-				// 	found = 0;
-				// else
-				// 	found = 1;
 				wall_tmp = wall_tmp->next;
 			}
-			// if (found)
-			// 	printf("Wall %d en attente\n", wall->id);
-			if (secur == 100000)
+			if (secur == 1000000)
 			{
 				printf("\n\033[31msortie prematuré 2\033[0m\n");
 				// exit(0);
-				// pthread_mutex_unlock(&mutex_stock);
 				pthread_exit(NULL);
 			}
 		}
