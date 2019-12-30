@@ -14,6 +14,12 @@ void		handle_game_keys(t_main *s)
 		if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 			rotate_player(s, keys);
 
+		if (s->player.jetpack == 1 && keys[SDL_SCANCODE_SPACE])
+			s->player.fly = 1;
+		if (s->player.jump_height == 0)
+			ft_crouch(s, keys);
+		if (s->player.size == PLAYER_SIZE && s->player.fly == 0)
+			ft_jump(s, keys);
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
 		if (s->skybox.current != 0 && s->skybox.current < 17)
@@ -21,10 +27,8 @@ void		handle_game_keys(t_main *s)
 		display_map(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
-		if (s->player.jump_height == 0)
-			ft_crouch(s, keys);
-		if (s->player.size == PLAYER_SIZE && s->player.fly == 0)
-			ft_jump(s, keys);
+
+
 		// if (keys[SDL_SCANCODE_SPACE] && s->player.jetpack == 1)
 		// 	ft_activ_fly(s);
 		ft_visu_joan(s, keys);
@@ -101,8 +105,7 @@ void		game_handler(t_main *s)
 			{
 				if (s->sdl->event.key.keysym.sym == SDLK_ESCAPE)
 					ingame = 0;
-				if (s->sdl->event.key.keysym.sym == SDLK_SPACE)
-					s->player.fly = 1;
+
 			}
 
 			if (s->sdl->event.type == SDL_KEYUP)

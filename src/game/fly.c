@@ -77,7 +77,6 @@ void 	fly(t_main *s)
 			if (s->time->jetpack_reserve <= 0)
 			{
 				s->player.jetpack = 0;
-				s->player.fly = 0;
 				s->time->jetpack_reserve = JET_TIME;
 			}
 			s->time->jetpack_ms = s->time->time_ms;
@@ -85,8 +84,10 @@ void 	fly(t_main *s)
 	}
 	else
 	{
-		if (s->player.foot_height - 0.2 > s->player.floor_height)
+		if (s->player.fly == 1 && s->player.foot_height - 0.2 > s->player.floor_height)
 			s->player.jump_height -= 0.2;
+		else
+			s->player.fly = 0;
 		s->time->jetpack_ms = s->time->time_ms;
 	}
 }

@@ -79,7 +79,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		coord.y = limit_floor;
 		y = 0;
 	}
-	while (coord.y < end)
+	while (coord.y < end && coord.y < HEIGHT)
 	{
 		if (wall->wall_or_portal == 'p')
 		{
@@ -116,7 +116,7 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 		pct = 100 - pct;
 	coord.y = ((pct * wall->diffy_ceiling) * 0.01) + wall->miny_ceiling;
 
-	while (coord.y < begin)
+	while (coord.y < begin && coord.y < HEIGHT)
 	{
 		set_pixel(s->sdl->game, 0x6e492eff, coord);
 		coord.y++;
@@ -138,7 +138,7 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 		&& wall->miny_floor == wall->left_floor_limit.y)) // si x et y mini sont pas du meme coté
 		pct = 100 - pct;
 	end = ((pct * wall->diffy_floor) * 0.01) + wall->miny_floor;
-	while (coord.y < end)
+	while (coord.y < end && coord.y < HEIGHT)
 	{
 		set_pixel(s->sdl->game, 0xa8b08eff, coord);
 		coord.y++;
