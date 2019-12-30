@@ -89,10 +89,11 @@ int			check_between_wall(t_main *s, t_int *wall, t_dpos mouse)
 	char		bool_x;
 	char		bool_y;
 
-	begin.x = wall->ptr->pos.x * METRE;
-	begin.y = wall->ptr->pos.y * METRE;
-	end.x = wall->next->ptr->pos.x * METRE;
-	end.y = wall->next->ptr->pos.y * METRE;
+	(void)s;
+	begin.x = wall->ptr->x * METRE;
+	begin.y = wall->ptr->y * METRE;
+	end.x = wall->next->ptr->x * METRE;
+	end.y = wall->next->ptr->y * METRE;
 	bool_x = 0;
 	bool_y = 0;
 	// printf("Wall %d et %d\n", wall->id, wall->next->id);
@@ -176,16 +177,17 @@ void		change_over_wall(t_main *s)
 	int			box;
 	t_dpos		m_mouse;
 	box = -5;
-	m_mouse.x = s->ft_mouse.x * METRE;
-	m_mouse.y = s->ft_mouse.y * METRE;
+	m_mouse = get_abs_r_pos(s, s->ft_mouse);
+	m_mouse.x *= METRE;
+	m_mouse.y *= METRE;
 	new_pos.x = 0;
 	new_pos.y = 0;
 	i = 0;
 	mouse.x = m_mouse.x + box;
-	while (mouse.x <= (s->ft_mouse.x - box))
+	while (mouse.x <= (m_mouse.x - box))
 	{
 		mouse.y = m_mouse.y + box;
-		while (mouse.y <= (s->ft_mouse.y - box))
+		while (mouse.y <= (m_mouse.y - box))
 		{
 			color = get_pixel_color(s->sdl->editor, mouse.x, mouse.y);
 			//set_pixel(s->sdl->editor, BLUE, mouse);
