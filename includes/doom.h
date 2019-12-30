@@ -492,7 +492,7 @@ int							ft_sector_mode(t_main *s, int x, int y);
 void						fill_sectors(t_main *s);
 void						draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int						*free_sector_struct(t_sector *temp_sector);
-int							get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos);
+int							get_nearest_sector(t_main *s, t_dpos pos, t_dpos *new_pos);
 int							handle_sector_zero(t_main *s);
 
 /*
@@ -518,7 +518,7 @@ double						angle_mod(double angle);
 t_pos						get_px_pos(t_main *s, t_pos ref);
 void						empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos						depiler(t_pile *pile);
-int							ft_is_in_sector(t_main *s, t_pos point_2);
+int							ft_is_in_sector(t_main *s, t_dpos point_2);
 int							ft_find_intersection(t_main *s, t_dpos begin_l1,
 	t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu);
 t_pos						ft_dpos_to_pos(t_dpos dpos);

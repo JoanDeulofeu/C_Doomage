@@ -23,7 +23,7 @@ void		deselect_sprite(t_main *s)
 	{
 		if (v->selected == 1)
 		{
-			if (ft_is_in_sector(s, v->pos) == 0)
+			if (ft_is_in_sector(s, v->m_pos) == 0)
 			{
 				ft_create_message(s, 2, 200, "sprite must be in sector!");
 				v->r_ori = v->old;

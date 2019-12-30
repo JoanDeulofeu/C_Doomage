@@ -118,7 +118,7 @@ int			ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos beg
 	return (sqrt(powf(end_l2.x - coord.x, 2) + powf(end_l2.y - coord.y, 2)));
 }
 
-int			ft_is_in_sector(t_main *s, t_pos position)
+int			ft_is_in_sector(t_main *s, t_dpos position)
 {
 	t_sector	*sct;
 	t_int		*wall;
@@ -138,7 +138,7 @@ int			ft_is_in_sector(t_main *s, t_pos position)
 	dist_sector = 0;
 	save_dist = LONG_MAX;
 	next_test = 0;
-	point_2 = ft_pos_to_dpos(position);
+	point_2 = position;
 	point_1.x = point_2.x - 10000;
 	point_1.y = point_2.y;
 	while (sct)
@@ -150,10 +150,10 @@ int			ft_is_in_sector(t_main *s, t_pos position)
 		next_test = 0;
 		while (i++ < sct->vertex->prev->id)
 		{
-			seg1.x = wall->ptr->x * s->editor->space + s->editor->decal_x;
-			seg1.y = wall->ptr->y * s->editor->space + s->editor->decal_y;
-			seg2.x = wall->next->ptr->x * s->editor->space + s->editor->decal_x;
-			seg2.y = wall->next->ptr->y * s->editor->space + s->editor->decal_y;
+			seg1.x = wall->ptr->x * METRE;
+			seg1.y = wall->ptr->y * METRE;
+			seg2.x = wall->next->ptr->x * METRE;
+			seg2.y = wall->next->ptr->y * METRE;
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);

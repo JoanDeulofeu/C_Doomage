@@ -14,7 +14,7 @@ void	tp_first_sector(t_main *s)
 		// printf("s->player.r_pos x(%f) y(%f)\n", s->player.r_pos.x, s->player.r_pos.y);
 
 		set_player(s);
-		if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos))) == 0)
+		if ((s->player.sector_id = ft_is_in_sector(s, s->player.m_pos)) == 0)
 			handle_sector_zero(s);
 	}
 
@@ -23,11 +23,14 @@ void	tp_first_sector(t_main *s)
 
 static int	check_pos(t_main *s, t_dpos curr)
 {
-	if ((s->player.sector_id = ft_is_in_sector(s, ft_dpos_to_pos(curr))) != 0)
+	if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 	{
-		s->player.r_pos.x = curr.x / s->editor->space - s->editor->decal_x;
-		s->player.r_pos.y = curr.y / s->editor->space - s->editor->decal_y;
+		s->player.r_pos.x = curr.x / METRE;
+		s->player.r_pos.y = curr.y / METRE;
+
 		set_player(s);
+		// printf("cur.x = %f, player.pos = %f\n", curr.x, s->player.m_pos.x);
+
 		// printf("handle_sector_zero works !\n");
 		return (1);
 	}
@@ -44,29 +47,29 @@ int		handle_sector_zero(t_main *s)
 	// On cherche autour de la position du joueur
 	//jusqu'à ce qu'on trouve un endroit où le placer
 	// printf("blop.\n");
-	if (ft_is_in_sector(s, ft_dpos_to_pos(s->player.pos)) == 0)
+	if (ft_is_in_sector(s, s->player.m_pos) == 0)
 	{
 		// printf ("secyeur 0\n");
 		while (nb < 100 * s->editor->space)
 		{
-			curr = s->player.pos;
-			curr.x = s->player.pos.x + nb;
+			curr = s->player.m_pos;
+			curr.x = s->player.m_pos.x + nb;
 			if (check_pos(s, curr))
 				return (1);
-			curr.x = s->player.pos.x - nb;
+			curr.x = s->player.m_pos.x - nb;
 			if (check_pos(s, curr))
 				return (1);
-			curr.x = s->player.pos.x;
-			curr.y = s->player.pos.y + nb;
+			curr.x = s->player.m_pos.x;
+			curr.y = s->player.m_pos.y + nb;
 			if (check_pos(s, curr))
 				return (1);
-			curr.y = s->player.pos.y - nb;
+			curr.y = s->player.m_pos.y - nb;
 			if (check_pos(s, curr))
 				return (1);
-			curr.x = s->player.pos.x - nb;
+			curr.x = s->player.m_pos.x - nb;
 			if (check_pos(s, curr))
 				return (1);
-			curr.x = s->player.pos.x + nb;
+			curr.x = s->player.m_pos.x + nb;
 			if (check_pos(s, curr))
 				return (1);
 			curr.y += nb * 2;
