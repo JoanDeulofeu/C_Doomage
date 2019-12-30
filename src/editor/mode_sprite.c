@@ -45,6 +45,7 @@ void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img, t_texture *tex)
 	int 		i;
 	int			j;
 
+	(void)s;
 	ori = coord;
 	i = 0;
 	while (i < img->w)
