@@ -459,6 +459,7 @@ int							ft_check_wall_that_intersect(t_main *s,
 void						ft_check_move_vertex_validity(t_main *s, int id);
 t_pos						ft_find_polygon_center(t_sector *sct);
 int							ft_check_sector_sens(t_main *s, t_sector *sct);
+int							ft_check_wall_lenght(t_sector *sct);
 
 /*
 ****	Fonction de gestion des listes chainés
