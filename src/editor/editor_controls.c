@@ -561,7 +561,8 @@ void		editor_handler(t_main *s)
 							tmp2.y = s->sdl->event.button.y;
 							if (ft_is_in_sector(s, tmp2) != 0)
 							{
-								s->player.r_pos= get_abs_r_pos(s,tmp2);
+								s->player.r_ori= get_abs_r_pos(s,tmp2);
+								s->player.r_pos = s->player.r_ori;
 								s->player.set = 1;
 								s->player.correc = 0;
 							}

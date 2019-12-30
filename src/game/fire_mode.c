@@ -1,5 +1,26 @@
 #include "doom.h"
 
+void 		set_weapon_range(t_main *s)
+{
+	if (s->player.wp_name == kick)
+	{
+		s->player.range = 10;
+		s->player.power = 10;
+
+	}
+	else if (s->player.wp_name == gun)
+	{
+		s->player.range = 20;
+		s->player.power = 30;
+
+	}
+	else if (s->player.wp_name == shotgun)
+	{
+		s->player.range = 10;
+		s->player.power = 100;
+	}
+}
+
 void		change_weapon(t_main *s, int up)
 {
 	if (up)
@@ -33,6 +54,7 @@ void		change_weapon(t_main *s, int up)
 		}
 	}
 	select_weapon_anim(s);
+	set_weapon_range(s);
 }
 
 int			check_exist_sprite(t_main *s)
@@ -107,7 +129,8 @@ void		fire(t_main *s)
 	save_sprite = NULL;
 	while (sprite)
 	{
-		if (sprite->name == storm && sprite->set == 1 && sprite->r_dist < 6
+		if (sprite->name == storm && sprite->set == 1 &&
+			sprite->r_dist < s->player.range
 			&& (WIDTH / 2) > sprite->x && WIDTH / 2 <
 			sprite->x + (sprite->anim.image[sprite->current]->w
 				* ((HEIGHT / sprite->r_dist) / 60)))
@@ -124,8 +147,13 @@ void		fire(t_main *s)
 	}
 	if (save_sprite)
 	{
-		save_sprite->anim = s->stormtrooper.dying;
-		save_sprite->a_name = dying;
-		save_sprite->current = 0;
+		printf("hit\n");
+		save_sprite->life -= s->player.power;
+		if (save_sprite->life <= 0)
+		{
+			save_sprite->anim = s->stormtrooper.dying;
+			save_sprite->a_name = dying;
+			save_sprite->current = 0;
+		}
 	}
 }

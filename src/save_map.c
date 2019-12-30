@@ -195,7 +195,7 @@ void	ft_write_file(t_main *s)
 	fprintf(fichier, "\n\n");
 	ft_write_file_sprite(s, fichier);
 	fprintf(fichier, "\n\n");
-	fprintf(fichier, "Player %d %d\n", (int)(s->player.r_pos.y * METRE), (int)(s->player.r_pos.x * METRE));
+	fprintf(fichier, "Player %d %d\n", (int)(s->player.r_ori.y * METRE), (int)(s->player.r_ori.x * METRE));
 	fprintf(fichier, "Angle %d\n", (int)s->player.angle);
 	fclose(fichier);
 	bzero(s->savemap->str, 41);

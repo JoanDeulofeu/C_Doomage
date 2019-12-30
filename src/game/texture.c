@@ -79,7 +79,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		coord.y = limit_floor;
 		y = 0;
 	}
-	while (coord.y < end)
+	while (coord.y < end && coord.y < HEIGHT)
 	{
 		if (wall->wall_or_portal == 'p')
 		{
@@ -92,7 +92,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
 		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
 			+ (int)((perx * (double)wall->image->w) / 100);
-		if (px >= 0 && px < wall->image->w * wall->image->h)
+		if (px >= 0 && px < wall->image->w * wall->image->h && wall->image->tex[px] != 65280)
 			set_pixel(s->sdl->game, wall->image->tex[px], coord);
 		y++;
 		coord.y++;
@@ -116,7 +116,7 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 		pct = 100 - pct;
 	coord.y = ((pct * wall->diffy_ceiling) * 0.01) + wall->miny_ceiling;
 
-	while (coord.y < begin)
+	while (coord.y < begin && coord.y < HEIGHT)
 	{
 		set_pixel(s->sdl->game, 0x6e492eff, coord);
 		coord.y++;
@@ -138,7 +138,7 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 		&& wall->miny_floor == wall->left_floor_limit.y)) // si x et y mini sont pas du meme coté
 		pct = 100 - pct;
 	end = ((pct * wall->diffy_floor) * 0.01) + wall->miny_floor;
-	while (coord.y < end)
+	while (coord.y < end && coord.y < HEIGHT)
 	{
 		set_pixel(s->sdl->game, 0xa8b08eff, coord);
 		coord.y++;

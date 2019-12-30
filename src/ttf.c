@@ -97,8 +97,23 @@ void	ft_draw_ttf_play(t_main *s)
 	ft_memdel((void **)&str);
 
 	ttf.pos.x = 732;
-	ttf.str = ft_strdup("Empty");
-	ft_create_ttf(ttf, s, s->font->digit42);
+	if (s->player.jetpack)
+	{
+		ttf.str = get_jetpack_value(s);
+		// ft_strdup("jetpack:");
+		// ttf.str = ft_strdup("jetpack:");
+		ttf.r = 0;
+		ttf.b = 0;
+		ttf.g = 250;
+		ft_create_ttf(ttf, s, s->font->digit);
+	}
+	else
+	{
+		ttf.str = ft_strdup("Empty");
+		ft_create_ttf(ttf, s, s->font->digit42);
+	}
+
+
 	ft_memdel((void **)&str);
 
 

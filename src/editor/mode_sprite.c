@@ -36,7 +36,7 @@ void 	select_sprite_in_menu(t_main *s)
 	}
 }
 
-void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img)
+void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img, t_texture *tex)
 {
 	double		perx;
 	double		pery;
@@ -59,7 +59,7 @@ void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img)
 			px = (int)(pery * (double)img->h) * img->w +
 			(int)(perx * (double)img->w);
 			if (px >= 0 && px < img->w * img->h)
-				set_pixel(s->sdl->editor, img->tex[px], coord);
+				set_pixel(tex, img->tex[px], coord);
 			j++;
 		}
 		i++;
@@ -88,7 +88,7 @@ void 	draw_sprite_list(t_main *s)
 		{
 			if (s->editor->sprite_selected == name)
 				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
-			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
+			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name], s->sdl->editor);
 			name++;
 		}
 	}
@@ -99,7 +99,7 @@ void 	draw_sprite_list(t_main *s)
 		{
 			if (s->editor->sprite_selected == name)
 				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
-			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
+			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name], s->sdl->editor);
 			name++;
 			// printf("%d\n", name);
 		}
@@ -111,7 +111,7 @@ void 	draw_sprite_list(t_main *s)
 		{
 			if (s->editor->sprite_selected == name)
 				draw_selected_feedback(s, name, s->editor->m_sprite_pos[name]);
-			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name]);
+			draw_plain_sprite(s, s->editor->m_sprite_pos[name], s->editor->all_sprite.image[name], s->sdl->editor);
 			name++;
 			// printf("%d\n", name);
 		}
@@ -362,6 +362,12 @@ void 		get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite)
 	{
 		sprite->size = 0.2;
 		sprite->anim = s->items.big_s_ammo;
+		sprite->type = item;
+	}
+	else if (sprite->name == jetpack)
+	{
+		sprite->size = 0.5;
+		sprite->anim = s->items.jetpack;
 		sprite->type = item;
 	}
 }

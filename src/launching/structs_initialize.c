@@ -176,6 +176,7 @@ void		load_images(t_main *s)
 	s->player.wp_wheel[kick] = 1;
 	s->player.wp_wheel[shotgun] = 0;
 	s->player.weapon.current = 0;
+	s->player.power = 10;
 	//s->sprites.img = load_tga("images/shotgun1.tga", 0, 0, 0);
 	s->editor->menu.current = 0;
 	s->editor->m_floor.current = 0;
@@ -272,6 +273,7 @@ t_main		*initialize_main(char *str)
 	s->portal_nb = 0;
 	s->interface = NULL;
 	s->sprite = NULL;
+	s->time->jetpack_reserve = JET_TIME;
 	pre_initialize_sdl(s);
 	initialize_sdl(s, s->sdl);
 	load_images(s);

@@ -34,6 +34,7 @@
 # define SPRITE_SHOT_DIST 3
 # define SPRITE_MOVE_SPEED 0.1
 # define STORM_RANGE 6
+# define JET_TIME 10000
 
 // Fixed-point Format: 16.16 (32-bit)
 typedef int32_t				fixed_float;
@@ -61,6 +62,7 @@ typedef	struct				s_sounds
 	Mix_Chunk				*select;
 	Mix_Chunk				*explode;
 	Mix_Chunk				*shotgun;
+	Mix_Chunk				*gun;
 	Mix_Chunk				*blaster;
 }							t_sounds;
 
@@ -96,7 +98,9 @@ typedef struct				s_visu_sct
 
 typedef struct				s_player
 {
-	int						i;
+	int						dead;
+	int						i; //???
+	t_dpos					r_ori;
 	t_dpos					r_pos; // position reel du joueur par rpport au repere
 	t_dpos					pos; // Position du joueur en pixel
 	t_dpos					m_pos;// positon reel * METRE
@@ -123,7 +127,10 @@ typedef struct				s_player
 	double					abs_angle;
 	int						floor_height;
 	int						ceiling_height;
+	int						jetpack;
 	t_anim					weapon;
+	int						range;
+	int						power;
 	t_wp_name				wp_name;
 	int						wp_wheel[3]; //roue des armes
 	t_image					*hud;
@@ -253,6 +260,9 @@ typedef struct				s_timer {
 	long					crouch_ms;
 	long					jump_ms;
 	long					shotgun_ms;
+	long					g_o_ms;
+	long					jetpack_ms;
+	long					jetpack_reserve;
 }							t_timer;
 
 typedef struct				s_msg {
@@ -297,6 +307,7 @@ typedef struct				s_main {
 	int						viewline;
 	int						proj_distance;
 	t_anim					menu;
+	t_anim					gameover;
 	t_image					*interface;
 	t_anim					skybox;
 	short					fov;
@@ -312,41 +323,42 @@ typedef struct				s_main {
 	//										au cas ou on le deplace dans un secteur.
 }							t_main;
 
+void 						reset(t_main *s);
 /*
 ****	Fonction du multithreading
 */
-void				ft_fucking_threading(t_main *s);
+void						ft_fucking_threading(t_main *s);
 
 /*
 ****	Fonction du visualisateur
 */
-void				ft_visu(t_main *s);
-void				ft_visu_joan(t_main *s, const unsigned char *keys);
-void 				ft_draw_visu(t_main *s, t_sector *sct, t_visu vs);
-int					check_walls_lenght(t_int *wall1, t_int *wall2);
-t_visu				ft_place_view_plan(t_main *s, t_dpos player, double angle,
-					Uint32 color);
-t_walls 			*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p);
-void				draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
-t_int				*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
-void				draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
-int					ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
-					Uint32 color, int sct_id);
-int					ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
-					int r_height_wall, double width_wall, double longeur,
-					double start_tex);
-int					ft_print_wall(t_main *s, t_walls *wall);
-void				add_wall_to_list(t_main *s, t_walls *new);
-void				clear_wall_list(t_main *s);
-void				ft_limit_ceiling_floor(t_main *s, t_dpos player,
-					t_dpos left, t_dpos right, t_visu *vs, char swich);
-double				ft_find_angle_portal(t_dpos *left, t_dpos *right,
-					t_dpos *third, int needed);
-void				get_wall_distance(t_walls *wall, t_visu *vs);
-int					ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall,
-	 				double r_height_wall, int width_wall);
-int					ft_get_diff_height_pxl(double eyesight, int ceiling_height,
-					int floor_height, int height_wall);
+void						ft_visu(t_main *s);
+void						ft_visu_joan(t_main *s, const unsigned char *keys);
+void 						ft_draw_visu(t_main *s, t_sector *sct, t_visu vs);
+int							check_walls_lenght(t_int *wall1, t_int *wall2);
+t_visu						ft_place_view_plan(t_main *s, t_dpos player, double angle,
+							Uint32 color);
+t_walls 					*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p);
+void						draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
+t_int						*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
+void						draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);
+int							ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
+							Uint32 color, int sct_id);
+int							ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
+							int r_height_wall, double width_wall, double longeur,
+							double start_tex);
+int							ft_print_wall(t_main *s, t_walls *wall);
+void						add_wall_to_list(t_main *s, t_walls *new);
+void						clear_wall_list(t_main *s);
+void						ft_limit_ceiling_floor(t_main *s, t_dpos player,
+							t_dpos left, t_dpos right, t_visu *vs, char swich);
+double						ft_find_angle_portal(t_dpos *left, t_dpos *right,
+							t_dpos *third, int needed);
+void						get_wall_distance(t_walls *wall, t_visu *vs);
+int							ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall,
+	 						double r_height_wall, int width_wall);
+int							ft_get_diff_height_pxl(double eyesight, int ceiling_height,
+							int floor_height, int height_wall);
 
 /*
 ****	Fonction d'initialisation
@@ -434,6 +446,7 @@ void						ft_jump(t_main *s, const Uint8 *keys);
 void						change_weapon(t_main *s, int up);
 void						ft_fly_mode(t_main *s, const Uint8 *keys);
 void						ft_activ_fly(t_main *s);
+void 						fly(t_main *s);
 
 /*
 ****	Fonction de gestion et de protection du parsing
@@ -593,6 +606,7 @@ void						ft_draw_ttf_editor(t_main *s);
 void						ft_display_message(t_main *s);
 void						ft_create_message(t_main *s, int color, int duration, char *str);
 void						ft_init_msg(t_main *s);
+char						*get_jetpack_value(t_main *s);
 
 /*
 ****	Fonction de debug
@@ -653,6 +667,7 @@ void						move_sprite(t_main *s);
 void 						draw_sprites_ori(t_main *s);
 void						set_sprite(t_main *s);
 void 						add_sprite_to_sector(t_main *s, t_sprite *sprite);
+void 						draw_plain_sprite(t_main *s, t_pos coord, t_image *img, t_texture *tex);
 
 /*
 ****	Fonction mode selection
@@ -697,6 +712,12 @@ void						animate_weapon(t_main *s);
 void						select_weapon_anim(t_main *s);
 
 void 						select_anim(t_main *s, t_sprite *sprite);
+void						play_g_o_anim(t_main *s);
+/*
+****	Fonction geston des armes
+*/
+
+void 						set_weapon_range(t_main *s);
 
 /*
 ****	Fonction IA

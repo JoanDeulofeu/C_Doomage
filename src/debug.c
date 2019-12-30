@@ -73,7 +73,6 @@ void	ft_print_sprite_list(t_main *s)
 	t_sprite	*sprite;
 
 	sprite = s->sprite;
-	printf("lol\n");
 	if (s->sprite == NULL)
 		return ;
 	while (sprite)
@@ -82,7 +81,10 @@ void	ft_print_sprite_list(t_main *s)
 		printf("s_angle = %f\n", sprite->s_angle);
 		printf("r_ori x(%.2f) y(%.2f)\n", sprite->r_ori.x, sprite->r_ori.y);
 		printf("type = %d\n",  sprite->type);
-		printf("name = %d\n\n",  sprite->name);
+		printf("name = %d\n",  sprite->name);
+		printf("life = %d\n",  sprite->life);
+		printf("set = %d\n",  sprite->set);
+		printf("destroy = %d\n\n",  sprite->destroy);
 		sprite = sprite->next;
 	}
 }

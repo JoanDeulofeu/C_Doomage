@@ -1,5 +1,42 @@
 #include "doom.h"
 
+void 	reset(t_main *s)
+{
+	t_sprite *sprite;
+
+	s->player.r_pos = s->player.r_ori;
+	set_player(s);
+	s->player.health = 100;
+	s->player.armor = 100;
+	s->player.dead = 0;
+	s->player.wp_wheel[gun] = 0;
+	s->player.wp_wheel[shotgun] = 0;
+	s->player.wp_name = kick;
+	select_weapon_anim(s);
+	set_weapon_range(s);
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->destroy == 1 && sprite->name == storm)
+			add_sprite_to_sector(s, sprite);
+		if (sprite->name == storm)
+		{
+			sprite->a_name = walking;
+			sprite->anim = s->stormtrooper.face;
+		}
+		sprite->destroy = 0;
+		sprite->life = 100;
+		sprite->r_pos = sprite->r_ori;
+		sprite->angle = 0;
+		sprite->r_dist = 100;
+		sprite->set = 0;
+
+
+		sprite = sprite->next;
+	}
+	set_sprite(s);
+}
+
 void	draw_player(t_main *s, t_dpos p_pos)
 {
 	t_dpos p_size;
