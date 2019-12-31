@@ -141,25 +141,25 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 	save_dist = LONG_MAX;
 	next_test = 0;
 	point_2 = position;
-	point_1.x = point_2.x - 1000000;
-	point_1.y = point_2.y;
+	point_1.x = point_2.x - 10000;
+	point_1.y = point_2.y + 10;
 	//debug
-	printf("BEGIN =-=-=-=-=-=-=-=-=\n");
-	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).x;
-	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).y;
-	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).x;
-	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).y;
-	get_line(s, S_YELLOW, 1);
+	// printf("BEGIN =-=-=-=-=-=-=-=-=\n");
+	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).x;
+	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).y;
+	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).x;
+	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).y;
+	// get_line(s, S_YELLOW, 1);
 	//debug
 	while (sct)
 	{
-		printf("--- test sector %d ---\n", sct->id);
+		// printf("--- test sector %d ---\n", sct->id);
 		i = 0;
 		count = 0;
 		wall = sct->vertex;
 		point_1.y += next_test;
 		next_test = 0;
-		printf("while ---\n");
+		// printf("while ---\n");
 		while (i++ < sct->vertex->prev->id)
 		{
 			seg1.x = wall->ptr->x * METRE;
@@ -169,11 +169,13 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);
+			if (sct->id == 9)
+				// printf("sct 9 - coord de test: seg1(%.1f, %.1f), seg2(%.1f, %.1f), point_1(%.1f, %.1f), point_2(%.1f, %.1f)\n", seg1.x, seg1.y, seg2.x, seg2.y, point_1.x, point_1.y, point_2.x, point_2.y);
 			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
 			if (dist_sector == -1)
 			{
 				next_test = 10;
-				printf("BREAK\n");
+				// printf("BREAK\n");
 				break;
 			}
 			if (dist_sector > 0)
@@ -183,22 +185,22 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 				count++;
 			}
 			wall = wall->next;
-			printf("count = %d\n", count);
+			// printf("count = %d\n", count);
 		}
-		printf("end ---\n");
+		// printf("end ---\n");
 		if (dist_sector == -1)
 			continue;
 		if (count % 2 == 1)
-			printf("new dist = %ld\n", tmp_dist);
+			// printf("new dist = %ld\n", tmp_dist);
 		if (count % 2 == 1 && save_dist > tmp_dist)
 		{
 			n_sector = sct->id;
 			save_dist = tmp_dist;
-			printf("sector %d save\n", sct->id);
-			printf("dist save = %ld\n", tmp_dist);
+			// printf("sector %d save\n", sct->id);
+			// printf("dist save = %ld\n", tmp_dist);
 		}
 		sct = sct->next;
 	}
-	printf("END =-=-=-=-=-=-=-=-=-=\n\n\n");
+	// printf("END =-=-=-=-=-=-=-=-=-=\n\n\n");
 	return (n_sector);
 }
