@@ -97,7 +97,8 @@ t_vertex	*ft_find_vertex_ptr(t_main *s, int id)
 		res = res->next;
 	}
 	printf("ft_find_vertex_ptr crash\n");
-	exit(0); //merde
+	handle_error(s, 0);
+	exit(-1);
 	return (NULL);
 }
 

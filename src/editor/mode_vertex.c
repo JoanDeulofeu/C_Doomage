@@ -117,8 +117,16 @@ void	move_anchor(t_main *s, int id)
 
 void	create_anchor(t_main *s, t_pos ori)
 {
+	t_vertex *vtx;
+
+	vtx = s->vertex;
 	ori = get_abs_pos(s, ori);
-	ft_add_vertex(s, ori.x, ori.y);
+	while (vtx->next != NULL)
+		vtx = vtx->next;
+	if (vtx->id < 500)
+		ft_add_vertex(s, ori.x, ori.y);
+	else
+		printf("Error: Trop de vertex.\n");
 }
 
 void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
@@ -133,6 +141,31 @@ void	draw_anchor(t_main *s, t_pos ori, Uint32 color)
 	dest.x = ori.x + size;
 	dest.y = ori.y + size;
 	draw_rect(s->sdl->editor, init, dest, color);
+}
+
+int		ft_check_wall_lenght(t_sector *sct)
+{
+	t_int		*wall;
+	int			i;
+	int			stop;
+	t_pos		vtx1;
+	t_pos		vtx2;
+	int			dist;
+
+	i = 0;
+	wall = sct->vertex;
+	stop = wall->prev->id;
+	while (i++ < stop)
+	{
+		vtx1.x = wall->ptr->x * METRE;
+		vtx1.y = wall->ptr->y * METRE;
+		vtx2.x = wall->next->ptr->x * METRE;
+		vtx2.y = wall->next->ptr->y * METRE;
+		if ((dist = ft_dist_t_pos(vtx1, vtx2)) > 2000)
+			return (1);
+		wall = wall->next;
+	}
+	return (0);
 }
 
 void	ft_check_move_vertex_validity(t_main *s, int id)
@@ -153,7 +186,7 @@ void	ft_check_move_vertex_validity(t_main *s, int id)
 		{
 			if (wall->ptr->id == id)
 			{
-				if (ft_check_wall_that_intersect(s, sct))
+				if (ft_check_wall_that_intersect(s, sct) || ft_check_wall_lenght(sct))
 				{
 					wall->ptr->pos = s->save_coord_vtx;
 					abs = get_abs_pos(s, s->save_coord_vtx);
