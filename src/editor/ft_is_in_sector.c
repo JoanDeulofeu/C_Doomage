@@ -169,8 +169,6 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);
-			// if (sct->id == 9)
-				// printf("sct 9 - coord de test: seg1(%.1f, %.1f), seg2(%.1f, %.1f), point_1(%.1f, %.1f), point_2(%.1f, %.1f)\n", seg1.x, seg1.y, seg2.x, seg2.y, point_1.x, point_1.y, point_2.x, point_2.y);
 			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
 			if (dist_sector == -1)
 			{
