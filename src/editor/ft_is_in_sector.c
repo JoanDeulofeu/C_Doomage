@@ -126,6 +126,7 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 	t_dpos		seg2;
 	int			count;
 	long		save_dist;
+	long		tmp_dist;
 	int			next_test;
 	t_dpos		point_1;
 	t_dpos		point_2;
@@ -136,18 +137,22 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 	sct = s->sector;
 	n_sector = 0;
 	dist_sector = 0;
+	tmp_dist = LONG_MAX;
 	save_dist = LONG_MAX;
 	next_test = 0;
 	point_2 = position;
 	point_1.x = point_2.x - 10000;
 	point_1.y = point_2.y;
+	printf("BEGIN =-=-=-=-=-=-=-=-=\n");
 	while (sct)
 	{
+		printf("--- test sector %d ---\n", sct->id);
 		i = 0;
 		count = 0;
 		wall = sct->vertex;
 		point_1.y += next_test;
 		next_test = 0;
+		printf("while ---\n");
 		while (i++ < sct->vertex->prev->id)
 		{
 			seg1.x = wall->ptr->x * METRE;
@@ -161,20 +166,32 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 			if (dist_sector == -1)
 			{
 				next_test = 10;
+				printf("BREAK\n");
 				break;
 			}
 			if (dist_sector > 0)
+			{
+				if (tmp_dist > dist_sector)
+					tmp_dist = dist_sector;
 				count++;
+			}
 			wall = wall->next;
+			printf("count = %d\n", count);
 		}
+		printf("end ---\n");
 		if (dist_sector == -1)
 			continue;
-		if (count % 2 == 1 && save_dist > dist_sector)
+		if (count % 2 == 1)
+			printf("new dist = %ld\n", tmp_dist);
+		if (count % 2 == 1 && save_dist > tmp_dist)
 		{
 			n_sector = sct->id;
-			save_dist = dist_sector;
+			save_dist = tmp_dist;
+			printf("sector %d save\n", sct->id);
+			printf("dist save = %ld\n", tmp_dist);
 		}
 		sct = sct->next;
 	}
+	printf("END =-=-=-=-=-=-=-=-=-=\n");
 	return (n_sector);
 }

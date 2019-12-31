@@ -176,7 +176,10 @@ int			key_controls_game(t_main *s, int key)
 	if (key == TAB)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
+	{
 		printf("Test = %d\n", ft_is_in_sector(s, s->player.m_pos));
+		sleep(4);
+	}
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
 		// tp_first_sector(s);
 		// s->player.y_eye = 0;
@@ -557,6 +560,11 @@ void		editor_handler(t_main *s)
 								printf("SECTOR IS %d\n", iii);
 							else
 								printf("\033[31mSECTOR IS %d\033[0m\n", iii);
+							if (iii == 7) //test
+							{
+								printf("waiting...\n");
+								sleep(100);
+							}
 							// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 						}
 						else if (s->editor->mode == player)
