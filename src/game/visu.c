@@ -49,7 +49,7 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 			// return (id_wall);
 			if (new_dist < dist && new_dist != 0 && new_dist != -1)
 			{
-				// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
+				// printf("on test le mur[%d] : dist = %d, new_dist = %d\n\n", s_vtx->id, dist, new_dist);
 				id_wall = s_vtx->ptr->id;
 				// printf("vertex = %d\n", id_wall);
 				dist = new_dist;
@@ -92,7 +92,8 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
-	// printf("begin_wall id = %d\n", vs.begin_wall_id);
+	// if (vs.sct_id == s->player.sector_id)
+	// 	printf("begin_wall id = %d\n", vs.begin_wall_id);
 	// if(vs.begin_wall_id == 0)
 	// 	exit(0);
 	vs.begin = s->tmp_intersect;
@@ -103,6 +104,8 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_ang
 	if(vs.end_wall_id == 0 && vs.begin_wall_id != 0)
 		vs.end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs.sct_id)->vertex,
 		vs.begin_wall_id)->next->ptr->id;
+		// if (vs.sct_id == s->player.sector_id)
+		// 	printf("end_wall id = %d\n\n", vs.end_wall_id);
 	// 	exit(0);
 	vs.end = s->tmp_intersect;
 	// printf("end_wall id = %d\n", vs.end_wall_id);
