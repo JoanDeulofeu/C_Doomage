@@ -359,7 +359,7 @@ void		editor_handler(t_main *s)
 	// draw_interface(s);
 	while (ingame)
 	{
-		printf("player id = %d\n", s->player.sector_id);
+		// printf("player id = %d\n", s->player.sector_id);
 		tmp_mode = s->editor->mode;
 		v = s->vertex;
 		s->time->time_ms = SDL_GetTicks();
