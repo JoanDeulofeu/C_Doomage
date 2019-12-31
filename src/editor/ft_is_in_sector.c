@@ -139,8 +139,15 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 	save_dist = LONG_MAX;
 	next_test = 0;
 	point_2 = position;
-	point_1.x = point_2.x - 10000;
+	point_1.x = point_2.x - 1000000;
 	point_1.y = point_2.y;
+	//debug
+	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).x;
+	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).y;
+	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).x;
+	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).y;
+	get_line(s, S_YELLOW, 1);
+	//debug
 	while (sct)
 	{
 		i = 0;
@@ -173,6 +180,7 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 		{
 			n_sector = sct->id;
 			save_dist = dist_sector;
+			// return (n_sector);
 		}
 		sct = sct->next;
 	}
