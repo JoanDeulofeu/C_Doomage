@@ -27,7 +27,6 @@ void	display_croix_rouge(t_main *s, int i, int j)
 		}
 		i++;
 	}
-	// update_image(s, s->sdl->save);
 }
 
 void	ft_click_save(t_main *s)
@@ -189,7 +188,14 @@ void	ft_write_file(t_main *s)
 			fprintf(fichier, "%d ", wall->wall_value);
 			wall = wall->next;
 		}
-		fprintf(fichier, "%d\n", wall->wall_value);
+		fprintf(fichier, "%d | ", wall->wall_value);
+		wall = wall->next;
+		while (wall->id != end_id)
+		{
+			fprintf(fichier, "%d ", wall->tex_nb);
+			wall = wall->next;
+		}
+		fprintf(fichier, "%d\n", wall->tex_nb);
 		sct = sct->next;
 	}
 	fprintf(fichier, "\n\n");

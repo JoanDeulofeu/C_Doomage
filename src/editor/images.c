@@ -2,6 +2,7 @@
 
 void	update_image(t_main *s, t_texture *texture)
 {
+	s->time->time_ms = SDL_GetTicks();
 	ft_fps(s);
 	SDL_SetRenderTarget(s->sdl->prenderer, texture->texture);
 	SDL_UpdateTexture(texture->texture, NULL, texture->content, WIDTH
