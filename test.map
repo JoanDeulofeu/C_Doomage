@@ -5,22 +5,79 @@ Vertex 3		15
 Vertex 3		24
 Vertex 27		24
 Vertex 27		6
-Vertex 14		31
-Vertex 14		39
-Vertex 17		38
-Vertex 19		29
-Vertex 2		31
-Vertex 8		32
-Vertex 7		38
-Vertex 1		37
+Vertex 1		15
+Vertex 1		24
+Vertex -2		24
+Vertex -2		15
+Vertex -5		15
+Vertex -5		24
+Vertex -8		24
+Vertex -8		15
+Vertex -10		24
+Vertex -10		6
+Vertex -28		6
+Vertex -28		24
+Vertex -10		15
+Vertex 33		24
+Vertex 33		6
+Vertex 44		10
+Vertex 44		20
+Vertex -4		-34
+Vertex -4		-18
+Vertex 13		-18
+Vertex 13		-35
+Vertex 4		-29
+Vertex 7		50
+Vertex 11		50
+Vertex 7		54
+Vertex 7		59
+Vertex 7		63
+Vertex 11		63
+Vertex 16		63
+Vertex 16		50
+Vertex 20		50
+Vertex 20		54
+Vertex 20		59
+Vertex 20		63
+Vertex 16		47
+Vertex 11		47
+Vertex 11		41
+Vertex 16		41
+Vertex 4		54
+Vertex 4		59
+Vertex -3		61
+Vertex -3		52
+Vertex -8		56
+Vertex 11		66
+Vertex 8		67
+Vertex 15		76
+Vertex 20		67
+Vertex 16		66
+Vertex 23		54
+Vertex 23		59
+Vertex 25		59
+Vertex 25		54
+Vertex 29		54
+Vertex 36		54
+Vertex 29		59
+Vertex 36		59
 
 
-Sector 0 10 | 1 2 3 4 5 | -1 -1 -1 -1 -1 | 2 2 2 2 2
-Sector 0 3 | 9 6 7 8 | -1 -1 -1 -1 | -1 -1 -1 -1
-Sector 0 3 | 10 13 12 11 | -1 -1 -1 -1 | -1 -1 -1 -1
+Sector 0 10 | 1 2 3 4 5 | -1 7 -1 20 -1 | 6 9 10 7 2
+Sector 1 6 | 9 8 7 6 | 11 -1 2 -1 | 0 0 0 0
+Sector 2 7 | 10 13 12 11 | -1 14 -1 9 | 0 0 0 0
+Sector 3 8 | 14 18 15 16 17 | 13 -1 -1 -1 -1 | 0 0 0 0 0
+Sector 1 4 | 20 19 22 21 | 4 -1 -1 -1 | 0 0 0 0
+Sector 0 2 | 27 23 24 25 26 | -1 -1 -1 -1 -1 | 0 0 0 0 0
+Sector 0 3 | 42 41 40 43 | -1 35 -1 -1 | 0 0 0 0
+Sector 0 3 | 44 47 46 45 | -1 -1 -1 30 | 0 0 0 0
+Sector 0 4 | 28 30 31 32 33 34 39 38 37 36 35 29 | -1 45 -1 -1 53 -1 -1 54 -1 -1 41 -1 | 0 0 0 0 0 0 0 0 0 0 0 0
+Sector 0 3 | 49 50 51 52 53 | -1 -1 -1 -1 33 | 0 0 0 0 0
+Sector 1 5 | 54 55 56 57 | 38 -1 58 -1 | 0 0 0 0
+Sector 2 6 | 58 60 61 59 | 56 -1 -1 -1 | 0 0 0 0
 
 
 
 
-Player 166 1118
-Angle 316
+Player 434 1668
+Angle 176

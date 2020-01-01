@@ -67,8 +67,8 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	else if ((wall->left.x != wall->r_left.x) && (wall->left.y != wall->r_left.y)
 		&& (wall->right.x != wall->r_right.x) && (wall->right.y != wall->r_right.y))
 		x = wall->left_void_side + wall->avcm_x;
-	nb_tex_x = ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE;
-	nb_tex_y = abs(wall->floor_height - wall->ceiling_height) * 2;
+	nb_tex_x = (ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE) / 2;
+	nb_tex_y = abs(wall->floor_height - wall->ceiling_height);
 	tex_size_x = wall->total_width_wall / nb_tex_x;
 	tex_size_y = (end - coord.y) / nb_tex_y;
 	perx = (fmod((double)x, tex_size_x)) * 100 / tex_size_x;
