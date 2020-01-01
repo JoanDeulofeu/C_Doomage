@@ -172,7 +172,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 	tmp->sct_dest = 0;
 	tmp->sct = sector->id;
 	tmp->vtx_dest = NULL;
-	tmp->tex_nb = 0;
+	tmp->tex_nb = 1;
 	tmp->image = s->editor->all_texture.image[tmp->tex_nb]; //temporaire
 	return (0);
 }
