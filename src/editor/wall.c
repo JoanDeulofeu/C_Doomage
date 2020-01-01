@@ -108,7 +108,7 @@ int		ft_norm_close_sector(t_main *s, int part, char *end)
 	}
 	else
 	{
-		if (!(end = (char*)malloc(sizeof(char) * 2)))
+		if (!(end = (char*)malloc(sizeof(char) * 4)))
 			handle_error(s, MALLOC_ERROR);
 		end[0] = ' ';
 		end[1] = '-';
@@ -119,9 +119,35 @@ int		ft_norm_close_sector(t_main *s, int part, char *end)
 	return (0);
 }
 
+int		ft_norm_close_sector2(t_main *s, int part, char *end)
+{
+	if (part == 1)
+	{
+		if (!(end = (char*)malloc(sizeof(char) * 5)))
+			handle_error(s, MALLOC_ERROR);
+		end[0] = ' ';
+		end[1] = '|';
+		end[2] = ' ';
+		end[3] = '0';
+		end[4] = '\0';
+		s->str_vtx = ft_strjoin_free(&s->str_vtx, &end);
+	}
+	else
+	{
+		if (!(end = (char*)malloc(sizeof(char) * 3)))
+			handle_error(s, MALLOC_ERROR);
+		end[0] = ' ';
+		end[1] = '0';
+		end[2] = '\0';
+		s->str_vtx = ft_strjoin_free(&s->str_vtx, &end);
+	}
+	return (0);
+}
+
 void	ft_close_sector(t_main *s)
 {
 	int		nb_wall;
+	int		i;
 	int		init;
 	char	*begin;
 	char	*end;
@@ -129,17 +155,26 @@ void	ft_close_sector(t_main *s)
 	begin = ft_strdup("sector 0 3 | ");
 	end = NULL;
 	init = 1;
+	i = 0;
 	nb_wall = ft_howmany_char(s->str_vtx, ' ') + 1;
 	s->str_vtx = ft_strjoin_free(&begin, &s->str_vtx);
-	while (nb_wall > 0)
+	while (nb_wall > i++)
 	{
 		if (init)
 			init = ft_norm_close_sector(s, 1, end);
 		else
 			ft_norm_close_sector(s, 2, end);
-		nb_wall--;
 	}
-	// printf("FINAL str_vtx = %s\n", s->str_vtx);
+	i = 0;
+	init = 1;
+	while (nb_wall > i++)
+	{
+		if (init)
+			init = ft_norm_close_sector2(s, 1, end);
+		else
+			ft_norm_close_sector2(s, 2, end);
+	}
+	// printf("FINAL str_vtx = -%s-\n", s->str_vtx);
 	// printf("Ligne d'ajout de secteur:\n     |%s|\n\n", s->str_vtx);
 	ft_parse_sector(s, s->str_vtx);
 	s->str_vtx = NULL;
