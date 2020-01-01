@@ -303,6 +303,19 @@ void		handle_editor_keys(t_main *s)
 		clear_wall_list(s);
 		if (s->editor->select_sprite)
 			display_sprite_menu(s);
+
+			t_sector *sct = s->sector;
+			while (sct->next)
+				sct = sct->next;
+			if (sct->id == 13)
+			{
+				t_pos coord;
+				coord = ft_find_polygon_center(sct);
+				// coord.x /= METRE;
+				// coord.y /= METRE;
+				draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, ft_pos_to_dpos(coord))), WHITE);
+			}
+
 		update_image(s, s->sdl->editor);
 	}
 	if (s->display_mode == game)
@@ -363,7 +376,6 @@ void		editor_handler(t_main *s)
 		tmp_mode = s->editor->mode;
 		v = s->vertex;
 		s->time->time_ms = SDL_GetTicks();
-		ft_fps(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)
@@ -554,19 +566,20 @@ void		editor_handler(t_main *s)
 							// point_2.x = s->sdl->event.button.x;
 							// point_2.y = s->sdl->event.button.y;
 							iii = ft_is_in_sector(s, point_2);
+							printf("mouse (%.0f, %.0f)\n", point_2.x, point_2.y);
 							if (iii == 0 || iii == 1)
 							{
 								printf("SECTOR IS %d\n", iii);
-								printf("donnees envoyees = x(%f puis %f) y(%f puis %f)\n", get_abs_r_pos(s, s->ft_mouse).x, point_2.x, get_abs_r_pos(s, s->ft_mouse).y, point_2.y);
+								// printf("donnees envoyees = x(%f puis %f) y(%f puis %f)\n", get_abs_r_pos(s, s->ft_mouse).x, point_2.x, get_abs_r_pos(s, s->ft_mouse).y, point_2.y);
 							}
 							else
 								printf("\033[31mSECTOR IS %d\033[0m\n", iii);
-							if (iii != 9) //test
-							{
-								printf("donnees envoyees = x(%f puis %f) y(%f puis %f)\n", get_abs_r_pos(s, s->ft_mouse).x, point_2.x, get_abs_r_pos(s, s->ft_mouse).y, point_2.y);
-								// printf("waiting...\n");
-								// sleep(100);
-							}
+							// if (iii != 9) //test
+							// {
+								// printf("donnees envoyees = x(%f puis %f) y(%f puis %f)\n", get_abs_r_pos(s, s->ft_mouse).x, point_2.x, get_abs_r_pos(s, s->ft_mouse).y, point_2.y);
+							// 	// printf("waiting...\n");
+							// 	// sleep(100);
+							// }
 							// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 						}
 						else if (s->editor->mode == player)
