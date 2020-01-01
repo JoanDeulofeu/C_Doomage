@@ -299,7 +299,7 @@ void		handle_editor_keys(t_main *s)
 		draw_space_menu(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
-		ft_visu_joan(s, keys);
+		ft_visu_joan(s);
 		clear_wall_list(s);
 		if (s->editor->select_sprite)
 			display_sprite_menu(s);
@@ -325,7 +325,7 @@ void		handle_editor_keys(t_main *s)
 
 		handle_sector_zero(s);
 		unset_sprites(s);
-		ft_visu_joan(s, keys);
+		ft_visu_joan(s);
 
 		display_sprites(s);
 		clear_wall_list(s);

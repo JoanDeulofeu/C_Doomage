@@ -5,8 +5,6 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 	double	fake_angle;
-	double	angle_right;
-	double	angle_left;
 	double	demi_fov;
 	t_dpos	wall1;
 	t_dpos	wall2;
@@ -28,11 +26,7 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 			fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-		angle_left = fake_angle + demi_fov;
-		angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-		angle_right = fake_angle - demi_fov;
-		angle_right = angle_right < 0 ? angle_right + 360: angle_right;
-		fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
+		fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
 		fake_vs.angle = angle_mod(fake_angle);
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		if (fake_vs.vtx_droite == NULL)
@@ -76,8 +70,6 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 	double	fake_angle;
-	double	angle_right;
-	double	angle_left;
 	double	demi_fov;
 	t_dpos	wall1;
 	t_dpos	wall2;
@@ -108,12 +100,7 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 			demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 				fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-			angle_left = fake_angle + demi_fov;
-			angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-			angle_right = fake_angle - demi_fov;
-			angle_right = angle_right < 0 ? angle_right + 360 : angle_right;
-			fake_vs = get_walls_to_draw(s, fake_player, angle_left,
-				angle_right, fake_vs);
+			fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
 			fake_vs.vtx_droite = vtx->vtx_dest;
 			if (fake_vs.vtx_droite == NULL)
 				handle_error(s, POINTER_ERROR);
@@ -155,8 +142,6 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 	double	fake_angle;
-	double	angle_right;
-	double	angle_left;
 	double	demi_fov;
 	t_dpos	wall1;
 	t_dpos	wall2;
@@ -177,11 +162,7 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 		fake_vs.angle = angle_mod(fake_angle);
 		fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 		demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player, fake_vs.right_plan), METRE, WIDTHPLAN / 2);
-		angle_left = fake_angle + demi_fov;
-		angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-		angle_right = fake_angle - demi_fov;
-		angle_right = angle_right < 0 ? angle_right + 360: angle_right;
-		fake_vs = get_walls_to_draw(s, fake_player, angle_left, angle_right, fake_vs);
+		fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
 		fake_vs.vtx_droite = vtx->vtx_dest;
 		if (fake_vs.vtx_droite == NULL)
 			handle_error(s, POINTER_ERROR);

@@ -333,7 +333,7 @@ void						ft_fucking_threading(t_main *s);
 ****	Fonction du visualisateur
 */
 void						ft_visu(t_main *s);
-void						ft_visu_joan(t_main *s, const unsigned char *keys);
+void						ft_visu_joan(t_main *s);
 void 						ft_draw_visu(t_main *s, t_sector *sct, t_visu vs);
 int							check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu						ft_place_view_plan(t_main *s, t_dpos player, double angle,
@@ -505,8 +505,7 @@ void						remove_portal(t_main *s);
 void						reset_temp_portals(t_main *s);
 t_dpos						ft_get_fake_player(t_main *s, t_dpos player,
 							t_int *vtx, double *angle_portal_out);
-t_visu						get_walls_to_draw(t_main *s, t_dpos player,
-							double l_angle, double r_angle, t_visu vs);
+t_visu						get_walls_to_draw(t_main *s, t_dpos player, double demi_fov, t_visu vs);
 void						add_portal_to_list(t_main *s, t_dpos player,
 							t_sector *sct, t_visu vs);
 void						check_map_portals(t_main *s);

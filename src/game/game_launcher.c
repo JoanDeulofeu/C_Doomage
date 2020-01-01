@@ -31,7 +31,7 @@ void		handle_game_keys(t_main *s)
 
 		// if (keys[SDL_SCANCODE_SPACE] && s->player.jetpack == 1)
 		// 	ft_activ_fly(s);
-		ft_visu_joan(s, keys);
+		ft_visu_joan(s);
 		fly(s);
 		// play_anim(s);
 		//	sprite_move(s);

@@ -84,79 +84,57 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	return (vs);
 }
 
-t_visu		get_walls_to_draw(t_main *s, t_dpos player, double l_angle, double r_angle, t_visu vs)
+t_visu		get_walls_to_draw(t_main *s, t_dpos player, double demi_fov, t_visu vs)
 {
-	// printf("entree-----------\n");
+	double	l_angle;
+	double	r_angle;
+
+	l_angle = s->player.angle + demi_fov;
+	l_angle = l_angle > 360 ? l_angle - 360 : l_angle;
+	r_angle = s->player.angle - demi_fov;
+	r_angle = r_angle < 0 ? r_angle + 360: r_angle;
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
-	// if (vs.sct_id == s->player.sector_id)
-	// 	printf("begin_wall id = %d\n", vs.begin_wall_id);
-	// if(vs.begin_wall_id == 0)
-	// 	exit(0);
 	vs.begin = s->tmp_intersect;
-	// printf("------MUR DROITE------\n");
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 10000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 10000;
 	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff, vs.sct_id);
 	if(vs.end_wall_id == 0 && vs.begin_wall_id != 0)
 		vs.end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs.sct_id)->vertex,
 		vs.begin_wall_id)->next->ptr->id;
-		// if (vs.sct_id == s->player.sector_id)
-		// 	printf("end_wall id = %d\n\n", vs.end_wall_id);
-	// 	exit(0);
 	vs.end = s->tmp_intersect;
-	// printf("end_wall id = %d\n", vs.end_wall_id);
-	// printf("sct = %d, sct->vertex->id = %d\n", vs.sct->id, vs.sct->vertex->id);
 	vs.vtx_gauche = get_t_int_by_vertex_id(vs.sct->vertex, vs.begin_wall_id);
 	vs.vtx_droite = get_t_int_by_vertex_id(vs.sct->vertex, vs.end_wall_id);
-	// printf("id 1 = %d, id 2 = %d\n", vs.vtx_gauche->id, vs.vtx_droite->id);
-	// if (!vs.vtx_gauche && !vs.vtx_droite)
-	// 	exit(-1);
-	// printf("TEST vs.end (%.1f, %.1f)\n", vs.end.x, vs.end.y);
 	vs.player = player;
-	// printf("\nsortie-----------\n\n");
 	return(vs);
 }
 
-void		ft_visu_joan(t_main *s, const unsigned char *keys)
+void		ft_visu_joan(t_main *s)
 {
-	double	angle_left;
-	double	angle_right;
+
 	double	demi_fov;
 	t_visu	vs;
 	t_dpos	player;
 
 	ft_bzero(&vs, sizeof(t_visu));
-	(void)keys;
 	player = s->player.m_pos;
 	vs.vtx_droite = NULL;
 	vs.vtx_gauche = NULL;
-
 	vs = ft_place_view_plan(s, player, s->player.angle, 0x4bd9ffff);
-	vs.prev_sct_id = 0; //pas de sct precedent...
 	vs.sct_id = s->player.sector_id;
 	vs.sct = get_sector_by_id(s, s->player.sector_id);
 	s->player.foot_height = vs.sct->floor + s->player.jump_height;
 	s->player.ceiling_height = vs.sct->ceiling;
 	s->player.floor_height = vs.sct->floor;
-
-	vs.left_ceiling_limit.x = 0;
-	vs.left_ceiling_limit.y = 0;
 	vs.right_ceiling_limit.x = WIDTH;
-	vs.right_ceiling_limit.y = 0;
-	vs.left_floor_limit.x = 0;
 	vs.left_floor_limit.y = HEIGHT;
 	vs.right_floor_limit.x = WIDTH;
 	vs.right_floor_limit.y = HEIGHT;
-
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
-	angle_left = s->player.angle + demi_fov;
-	angle_left = angle_left > 360 ? angle_left - 360 : angle_left;
-	angle_right = s->player.angle - demi_fov;
-	angle_right = angle_right < 0 ? angle_right + 360: angle_right;
+
 	vs.angle = angle_mod(s->player.angle);
-	vs = get_walls_to_draw(s, player, angle_left, angle_right, vs);
+	vs = get_walls_to_draw(s, player, demi_fov, vs);
 	// printf("\n\n\n");
 	ft_draw_visu(s, get_sector_by_id(s, s->player.sector_id), vs);
 }
