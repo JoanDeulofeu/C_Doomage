@@ -107,6 +107,8 @@ void	move_anchor(t_main *s, int id)
 			temp->pos = ori;
 			temp->x = abs.x;
 			temp->y = abs.y;
+			temp->m_pos.x = temp->x * METRE;
+			temp->m_pos.y = temp->y * METRE;
 			check_map_portals(s);
 			return ;
 		}
@@ -192,6 +194,8 @@ void	ft_check_move_vertex_validity(t_main *s, int id)
 					abs = get_abs_pos(s, s->save_coord_vtx);
 					wall->ptr->x = abs.x;
 					wall->ptr->y = abs.y;
+					wall->ptr->m_pos.x = wall->ptr->x * METRE;
+					wall->ptr->m_pos.y = wall->ptr->y * METRE;
 				}
 				s->save_coord_vtx.x = 0;
 				s->save_coord_vtx.y = 0;

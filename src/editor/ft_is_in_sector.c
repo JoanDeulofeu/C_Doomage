@@ -162,10 +162,8 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 		// printf("while ---\n");
 		while (i++ < sct->vertex->prev->id)
 		{
-			seg1.x = wall->ptr->x * METRE;
-			seg1.y = wall->ptr->y * METRE;
-			seg2.x = wall->next->ptr->x * METRE;
-			seg2.y = wall->next->ptr->y * METRE;
+			seg1 = wall->ptr->m_pos;
+			seg2 = wall->next->ptr->m_pos;
 			if ((point_2.x == seg1.x && point_2.y == seg1.y)
 				|| (point_2.x == seg2.x && point_2.y == seg2.y))
 				return (0);

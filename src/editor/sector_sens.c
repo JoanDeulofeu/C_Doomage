@@ -2,34 +2,34 @@
 
 void	ft_score_se(t_int *wall, double *score_se)
 {
-	if (wall->ptr->x * METRE > wall->next->ptr->x * METRE)
-		*score_se += ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
-	else if (wall->ptr->x * METRE < wall->next->ptr->x * METRE)
-		*score_se -= ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
+	if (wall->ptr->m_pos.x > wall->next->ptr->m_pos.x)
+		*score_se += ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
+	else if (wall->ptr->m_pos.x < wall->next->ptr->m_pos.x)
+		*score_se -= ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
 }
 
 void	ft_score_so(t_int *wall, double *score_so)
 {
-	if (wall->ptr->y * METRE > wall->next->ptr->y * METRE)
-		*score_so += ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
-	else if (wall->ptr->y * METRE < wall->next->ptr->y * METRE)
-		*score_so -= ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
+	if (wall->ptr->m_pos.y > wall->next->ptr->m_pos.y)
+		*score_so += ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
+	else if (wall->ptr->m_pos.y < wall->next->ptr->m_pos.y)
+		*score_so -= ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
 }
 
 void	ft_score_ne(t_int *wall, double *score_ne)
 {
-	if (wall->ptr->y * METRE < wall->next->ptr->y * METRE)
-		*score_ne += ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
-	else if (wall->ptr->y * METRE > wall->next->ptr->y * METRE)
-		*score_ne -= ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
+	if (wall->ptr->m_pos.y < wall->next->ptr->m_pos.y)
+		*score_ne += ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
+	else if (wall->ptr->m_pos.y > wall->next->ptr->m_pos.y)
+		*score_ne -= ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
 }
 
 void	ft_score_no(t_int *wall, double *score_no)
 {
-	if (wall->ptr->x * METRE < wall->next->ptr->x * METRE)
-		*score_no += ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
-	else if (wall->ptr->x * METRE > wall->next->ptr->x * METRE)
-		*score_no -= ft_dist_t_pos(wall->ptr->pos, wall->next->ptr->pos);
+	if (wall->ptr->m_pos.x < wall->next->ptr->m_pos.x)
+		*score_no += ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
+	else if (wall->ptr->m_pos.x > wall->next->ptr->m_pos.x)
+		*score_no -= ft_dist_t_dpos(wall->ptr->m_pos, wall->next->ptr->m_pos);
 }
 
 int		ft_verify_sens(t_sector *sct, t_4double score)
@@ -88,25 +88,25 @@ int		ft_check_sector_sens(t_main *s, t_sector *sct)
 	score.d4 = 0.0;
 	while (i++ < sct->vertex->prev->id)
 	{
-		if (wall->ptr->x * METRE < center.x)
+		if (wall->ptr->m_pos.x < center.x)
 		{
-			if (wall->ptr->y * METRE < center.y)
+			if (wall->ptr->m_pos.y < center.y)
 				ft_score_no(wall, &score.d1);
-			else if (wall->ptr->y * METRE >= center.y)
+			else if (wall->ptr->m_pos.y >= center.y)
 				ft_score_so(wall, &score.d3);
 		}
-		else if (wall->ptr->x * METRE > center.x)
+		else if (wall->ptr->m_pos.x > center.x)
 		{
-			if (wall->ptr->y * METRE <= center.y)
+			if (wall->ptr->m_pos.y <= center.y)
 				ft_score_ne(wall, &score.d2);
-			else if (wall->ptr->y * METRE > center.y)
+			else if (wall->ptr->m_pos.y > center.y)
 				ft_score_se(wall, &score.d4);
 		}
-		else if (wall->ptr->x * METRE == center.x)
+		else if (wall->ptr->m_pos.x == center.x)
 		{
-			if (wall->ptr->y * METRE <= center.y)
+			if (wall->ptr->m_pos.y <= center.y)
 				ft_score_no(wall, &score.d1);
-			else if (wall->ptr->y * METRE > center.y)
+			else if (wall->ptr->m_pos.y > center.y)
 				ft_score_se(wall, &score.d4);
 		}
 		wall = wall->next;

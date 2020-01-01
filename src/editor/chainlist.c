@@ -48,6 +48,8 @@ int			ft_add_vertex(t_main *s, int x, int y)
 	tmp->pos.y = y * s->editor->space;
 	tmp->x = x;
 	tmp->y = y;
+	tmp->m_pos.x = x * METRE;
+	tmp->m_pos.y = y * METRE;
 	tmp->selec = 0;
 	tmp->selected = 0;
 

@@ -196,14 +196,10 @@ int		ft_check_other_sector_wall_intersect(t_main *s, t_sector *sct, t_sector *sc
 		w_stop = wall->prev->id + 1;
 		while (w_i++ < w_stop)
 		{
-			beg1.x = wall_in_check->ptr->x * METRE;
-			beg1.y = wall_in_check->ptr->y * METRE;
-			beg2.x = wall_in_check->next->ptr->x * METRE;
-			beg2.y = wall_in_check->next->ptr->y * METRE;
-			end1.x = wall->ptr->x * METRE;
-			end1.y = wall->ptr->y * METRE;
-			end2.x = wall->next->ptr->x * METRE;
-			end2.y = wall->next->ptr->y * METRE;
+			beg1 = wall_in_check->ptr->m_pos;
+			beg2 = wall_in_check->next->ptr->m_pos;
+			end1 = wall->ptr->m_pos;
+			end2 = wall->next->ptr->m_pos;
 			if ((ft_find_intersection(s, beg1, beg2, end1, end2, 1)) > 0)
 				return (1);
 			wall = wall->next;
@@ -241,14 +237,10 @@ int		ft_check_inside_sector_wall_intersect(t_main *s, t_sector *sct)
 		// printf("Mur testé n%d", wall_in_check->id);
 		while (w_i++ < w_stop)
 		{
-			beg1.x = wall_in_check->ptr->x * METRE;
-			beg1.y = wall_in_check->ptr->y * METRE;
-			beg2.x = wall_in_check->next->ptr->x * METRE;
-			beg2.y = wall_in_check->next->ptr->y * METRE;
-			end1.x = wall->ptr->x * METRE;
-			end1.y = wall->ptr->y * METRE;
-			end2.x = wall->next->ptr->x * METRE;
-			end2.y = wall->next->ptr->y * METRE;
+			beg1 = wall_in_check->ptr->m_pos;
+			beg2 = wall_in_check->next->ptr->m_pos;
+			end1 = wall->ptr->m_pos;
+			end2 = wall->next->ptr->m_pos;
 			if ((ft_find_intersection(s, beg1, beg2, end1, end2, 1)) > 0)
 				return (1);
 			// printf(" avec mur n%d", wall->id);

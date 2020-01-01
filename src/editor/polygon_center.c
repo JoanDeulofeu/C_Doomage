@@ -11,8 +11,8 @@ double		ft_find_signed_area(t_sector *sct)
 	somme = 0.0;
 	while (i++ < sct->vertex->prev->id)
 	{
-		somme += (wall->ptr->x * METRE * wall->next->ptr->y * METRE)
-		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE);
+		somme += (wall->ptr->m_pos.x * wall->next->ptr->m_pos.y)
+		- (wall->next->ptr->m_pos.x * wall->ptr->m_pos.y);
 		wall = wall->next;
 	}
 	return (0.5 * somme);
@@ -38,13 +38,13 @@ t_pos		ft_find_polygon_center(t_sector *sct)
 	// printf("coord   ");
 	while (i++ < sct->vertex->prev->id)
 	{
-		// printf("(%d, %d)  ", wall->ptr->x * METRE, wall->ptr->y * METRE);
-		somme.x += (wall->ptr->x * METRE + wall->next->ptr->x * METRE)
-		* ((wall->ptr->x * METRE * wall->next->ptr->y * METRE)
-		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE));
-		somme.y += (wall->ptr->y * METRE + wall->next->ptr->y * METRE)
-		* ((wall->ptr->x * METRE * wall->next->ptr->y * METRE)
-		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE));
+		// printf("(%d, %d)  ", wall->ptr->m_pos.x, wall->ptr->m_pos.y);
+		somme.x += (wall->ptr->m_pos.x + wall->next->ptr->m_pos.x)
+		* ((wall->ptr->m_pos.x * wall->next->ptr->m_pos.y)
+		- (wall->next->ptr->m_pos.x * wall->ptr->m_pos.y));
+		somme.y += (wall->ptr->m_pos.y + wall->next->ptr->m_pos.y)
+		* ((wall->ptr->m_pos.x * wall->next->ptr->m_pos.y)
+		- (wall->next->ptr->m_pos.x * wall->ptr->m_pos.y));
 		wall = wall->next;
 		// printf("s(%.1f, %.1f) ", somme.x, somme.y);
 	}

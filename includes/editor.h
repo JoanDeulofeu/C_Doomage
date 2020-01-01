@@ -200,6 +200,7 @@ typedef struct			s_vertex {
 	int					x;
 	int					y;
 	t_pos				pos; // position en pixel en rapport a l'editeur
+	t_dpos				m_pos; // x et y * METRE
 	t_pos				old;
 	t_pos				save_pos;
 	int					selec;
