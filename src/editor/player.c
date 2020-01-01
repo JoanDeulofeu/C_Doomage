@@ -94,8 +94,7 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 		if (handle_sector_zero(s))
 			return ;
 		// printf("snf\n");
-		s->player.r_pos.x = target.x;
-		s->player.r_pos.y = target.y;
+		s->player.r_pos = target;
 		set_player(s);
 	}
 	if (col > 0)

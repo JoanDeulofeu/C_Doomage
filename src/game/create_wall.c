@@ -38,25 +38,17 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 		if (fake_vs.vtx_droite == NULL)
 			handle_error(s, POINTER_ERROR);
 		fake_vs.vtx_gauche = vtx->vtx_dest->next;
-		wall1.x = vtx->vtx_dest->next->ptr->x * METRE;
-		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
-		wall2.x = vtx->vtx_dest->ptr->x * METRE;
-		wall2.y = vtx->vtx_dest->ptr->y * METRE;
+		wall1 = vtx->vtx_dest->next->ptr->m_pos;
+		wall2 = vtx->vtx_dest->ptr->m_pos;
 		ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1);
 		if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point,
 			fake_player, 1)) == 0)
-		{
-			fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
-			fake_vs.begin.y = fake_vs.vtx_gauche->ptr->y * METRE;
-		}
+			fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 		else
 			fake_vs.begin = s->tmp_intersect;
 		if ((ft_find_intersection(s, wall1, wall2, fake_vs.right_point,
 			fake_player, 1)) == 0)
-		{
-			fake_vs.end.x = fake_vs.vtx_droite->ptr->x * METRE;
-			fake_vs.end.y = fake_vs.vtx_droite->ptr->y * METRE;
-		}
+			fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 		else
 			fake_vs.end = s->tmp_intersect;
 
@@ -73,10 +65,8 @@ void		draw_first_wall(t_main *s, t_int *vtx, t_visu *vs)
 	else
 	{
 		// vs.vtx_droite = vtx->vtx_dest;
-		vs->begin.x = vtx->ptr->x * METRE;
-		vs->begin.y = vtx->ptr->y * METRE;
-		vs->tmp_wall.x = vtx->next->ptr->x * METRE;
-		vs->tmp_wall.y = vtx->next->ptr->y * METRE;
+		vs->begin = vtx->ptr->m_pos;
+		vs->tmp_wall = vtx->next->ptr->m_pos;
 		ft_create_new_wall(s, vtx, vs, 'w');
 	}
 }
@@ -128,24 +118,16 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 			if (fake_vs.vtx_droite == NULL)
 				handle_error(s, POINTER_ERROR);
 			fake_vs.vtx_gauche = vtx->vtx_dest->next;
-			wall1.x = fake_vs.vtx_gauche->ptr->x * METRE;
-			wall1.y = fake_vs.vtx_gauche->ptr->y * METRE;
-			wall2.x = fake_vs.vtx_droite->ptr->x * METRE;
-			wall2.y = fake_vs.vtx_droite->ptr->y * METRE;
+			wall1 = fake_vs.vtx_gauche->ptr->m_pos;
+			wall2 = fake_vs.vtx_droite->ptr->m_pos;
 			if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point,
 				fake_player, 1)) == 0)
-			{
-				fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
-				fake_vs.begin.y = fake_vs.vtx_gauche->ptr->y * METRE;
-			}
+				fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 			else
 				fake_vs.begin = s->tmp_intersect;
 			if ((ft_find_intersection(s, wall1, wall2, fake_vs.right_point,
 				fake_player, 1)) == 0)
-			{
-				fake_vs.end.x = fake_vs.vtx_droite->ptr->x * METRE;
-				fake_vs.end.y = fake_vs.vtx_droite->ptr->y * METRE;
-			}
+				fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 			else
 				fake_vs.end = s->tmp_intersect;
 
@@ -159,10 +141,8 @@ t_int		*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs)
 		}
 		else
 		{
-			vs->begin.x = vtx->ptr->x * METRE;
-			vs->begin.y = vtx->ptr->y * METRE;
-			vs->tmp_wall.x = vtx->next->ptr->x * METRE;
-			vs->tmp_wall.y = vtx->next->ptr->y * METRE;
+			vs->begin = vtx->ptr->m_pos;
+			vs->tmp_wall = vtx->next->ptr->m_pos;
 			ft_create_new_wall(s, vtx, vs, 'w');
 		}
 		vtx = vtx->next;
@@ -207,45 +187,27 @@ void		draw_last_wall(t_main *s, t_int *vtx, t_visu *vs)
 			handle_error(s, POINTER_ERROR);
 		fake_vs.vtx_gauche = vtx->vtx_dest->next;
 		fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
-		wall1.x = vtx->vtx_dest->next->ptr->x * METRE;
-		wall1.y = vtx->vtx_dest->next->ptr->y * METRE;
-		wall2.x = vtx->vtx_dest->ptr->x * METRE;
-		wall2.y = vtx->vtx_dest->ptr->y * METRE;
+		wall1 = vtx->vtx_dest->next->ptr->m_pos;
+		wall2 = vtx->vtx_dest->ptr->m_pos;
 
 		if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_player, 1)) == 0)
-		{
-			fake_vs.begin.x = fake_vs.vtx_gauche->ptr->x * METRE;
-			fake_vs.begin.y = fake_vs.vtx_gauche->ptr->y * METRE;
-		}
+			fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 		else
-		{
 			fake_vs.begin = s->tmp_intersect;
-		}
-
 		if ((ft_find_intersection(s, wall1, wall2, fake_vs.right_point, fake_player, 1)) == 0)
-		{
-			fake_vs.end.x = fake_vs.vtx_droite->ptr->x * METRE;
-			fake_vs.end.y = fake_vs.vtx_droite->ptr->y * METRE;
-		}
+			fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 		else
-		{
 			fake_vs.end = s->tmp_intersect;
-		}
-
 		ft_limit_ceiling_floor(s, fake_player, wall1, wall2, &fake_vs, 3);
-
 		fake_vs.player = fake_player;
 		ft_create_new_wall(s, vtx, vs, 'p');
-
 		if (s->portal_nb < PORTAL_LIMIT)
 			add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
 	}
 	else
 	{
-		vs->begin.x = vtx->ptr->x * METRE;
-		vs->begin.y = vtx->ptr->y * METRE;
-		vs->tmp_wall.x = vtx->next->ptr->x * METRE;
-		vs->tmp_wall.y = vtx->next->ptr->y * METRE;
+		vs->begin = vtx->ptr->m_pos;
+		vs->tmp_wall = vtx->next->ptr->m_pos;
 		ft_find_intersection(s, vs->begin, vs->player, vs->left_plan, vs->right_plan, 1);
 		ft_create_new_wall(s, vtx, vs, 'w');
 	}

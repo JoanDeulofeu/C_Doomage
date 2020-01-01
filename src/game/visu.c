@@ -22,10 +22,8 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 	i = 0;
 	while (i++ < sct->vertex->prev->id)
 	{
-		wall1.x = s_vtx->ptr->x * METRE;
-		wall1.y = s_vtx->ptr->y * METRE;
-		wall2.x = s_vtx->next->ptr->x * METRE;
-		wall2.y = s_vtx->next->ptr->y * METRE;
+		wall1 = s_vtx->ptr->m_pos;
+		wall2 = s_vtx->next->ptr->m_pos;
 		// printf("wall1(%.1f, %.1f) | wall2(%.1f, %.1f) | player(%.1f, %.1f) | point(%.1f, %.1f)\n", wall1.x, wall1.y, wall2.x, wall2.y, player.x, player.y, point.x, point.y);
 		(void)color;
 		if (sct_id == 2)
