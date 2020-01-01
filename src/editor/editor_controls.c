@@ -362,8 +362,8 @@ void		editor_handler(t_main *s)
 		// printf("player id = %d\n", s->player.sector_id);
 		tmp_mode = s->editor->mode;
 		v = s->vertex;
-		s->time->time_ms = SDL_GetTicks();
-		ft_fps(s);
+		// s->time->time_ms = SDL_GetTicks();
+		// ft_fps(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION)

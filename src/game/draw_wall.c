@@ -23,9 +23,9 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 {
 	coord.y = ft_draw_ceiling(s, wall, coord);
 
-	if ((wall->wall_or_portal == 'w') || (wall->wall_or_portal == 'p'
+	if (((wall->wall_or_portal == 'w') || (wall->wall_or_portal == 'p'
 		&& (wall->floor_height_dest > wall->floor_height
-		|| wall->ceiling_height_dest < wall->ceiling_height)))
+		|| wall->ceiling_height_dest < wall->ceiling_height))) && coord.y < HEIGHT)
 	{
 		if (wall->image)
 			draw_texture(s, wall, coord, end);
@@ -38,7 +38,8 @@ void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color
 		}
 	}
 	coord.y = end - 1;
-	ft_draw_floor(s, wall, coord);
+	if (coord.y < HEIGHT)
+		ft_draw_floor(s, wall, coord);
 }
 
 int		ft_get_diff_height_pxl(double eyesight, int ceiling_height, int floor_height, int height_wall)
@@ -79,10 +80,14 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		// printf("height = %.2f      diff = %.2f\n", height_wall, diff_height_pxl);
 		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
 		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
-		if (i == 1 || i == width_wall)
-			ft_draw_column(s, wall, coord, bottom, 0x000000FF);
-		else
-			ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
+		if (coord.x > 0 && coord.x < WIDTH)
+		{
+			if (i == 1 || i == width_wall)
+				ft_draw_column(s, wall, coord, bottom, 0x000000FF);
+			else
+				ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
+		}
+
 		coord.x++;
 		pct_avcm = (100 * (double)i) / (double)width_wall;
 
