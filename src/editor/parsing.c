@@ -85,7 +85,16 @@ void	check_map_portals(t_main *s)
 	}
 }
 
-void	put_wall_value(t_sector *sct, char *line, int i)
+int		ft_check_bar(char *str, int i)
+{
+	while ((str[i] < '0' || str[i] > '9') && str[i] != '|' && str[i] != '\0')
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
+}
+
+void	ft_put_texture_value(t_main *s, t_sector *sct, char *line, int i)
 {
 	t_int	*tmp;
 
@@ -94,8 +103,9 @@ void	put_wall_value(t_sector *sct, char *line, int i)
 		return ;
 	while (line[i] != '\0')
 	{
-		tmp->wall_value = ft_atoi(&line[i]);
-		i += ft_longlen(tmp->wall_value);
+		tmp->tex_nb = ft_atoi(&line[i]);
+		tmp->image = s->editor->all_texture.image[tmp->tex_nb]; //temporaire
+		i += ft_longlen(tmp->tex_nb);
 		i = ft_find_next_number(line, i);
 		if (i == -1)
 			return ;
@@ -103,13 +113,25 @@ void	put_wall_value(t_sector *sct, char *line, int i)
 	}
 }
 
-int		ft_check_bar(char *str, int i)
+int		ft_put_wall_value(t_sector *sct, char *line, int i)
 {
-	while ((str[i] < '0' || str[i] > '9') && str[i] != '|' && str[i] != '\0')
-		i++;
-	if (str[i] == '|')
-		return (1);
-	return (0);
+	t_int	*tmp;
+
+	tmp = sct->vertex;
+	if (tmp == NULL)
+		return (0);
+	while (line[i] != '|' && line[i] != '\0')
+	{
+		tmp->wall_value = ft_atoi(&line[i]);
+		i += ft_longlen(tmp->wall_value);
+		if (ft_check_bar(line, i))
+			break;
+		i = ft_find_next_number(line, i);
+		if (i == -1)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (i);
 }
 
 void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
@@ -132,8 +154,11 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 	}
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
-		// printf("chocolat5\n");
-	put_wall_value(sct, line, i);
+	i = ft_put_wall_value(sct, line, i);
+	if ((i = ft_find_next_number(line, i)) == -1)
+		handle_error(s, MAP_ERROR);
+	if (i)
+		ft_put_texture_value(s, sct, line, i);
 	// printf("chocolat6\n");
 }
 
@@ -421,7 +446,7 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 		}
 		else if (line[0] == 'S')
 		{
-			if (ft_how_many_pipe(line) != 2)
+			if (ft_how_many_pipe(line) != 3)
 				continue;
 			ft_parse_sector(s, line);
 			ft_check_validity_last_sector(s);
@@ -449,5 +474,6 @@ int		ft_parsing(t_main *s, int x, int y, int fd)
 	ft_strdel(&line);
 	add_portal_ptr(s);
 	check_map_portals(s);
+	// ft_test_chainlist(s);
 	return (0);
 }
