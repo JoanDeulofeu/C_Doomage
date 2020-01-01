@@ -81,10 +81,8 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 		inter = 0;
 		while (wall->id != vs->vtx_droite->next->id)
 		{
-			wall1.x = wall->ptr->x * METRE;
-			wall1.y = wall->ptr->y * METRE;
-			wall2.x = wall->next->ptr->x * METRE;
-			wall2.y = wall->next->ptr->y * METRE;
+			wall1 = wall->ptr->m_pos;
+			wall2 = wall->next->ptr->m_pos;
 			if (ft_find_intersection(s, wall1, wall2, vs->player, liste->sprite->m_pos, 1))
 			{
 				// printf("inter\n");

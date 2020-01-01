@@ -10,21 +10,16 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 
 	if (!(wall = (t_walls*)malloc(sizeof(t_walls))))
 		handle_error(s, MALLOC_ERROR);
+	ft_bzero((void *)wall, sizeof(t_walls));
 	sct = NULL;
-	wall->occuped = 0;
 	wall->id = ++s->wall_fk_id;
 	// printf("creation du mur n%d\n", wall->id);
 	wall->wall_or_portal = w_or_p;
-	wall->next = NULL;
-	wall->prev = NULL;
-	wall->image = NULL;
 	if (vtx->image)
 		wall->image = vtx->image;
 	wall->player = vs->player;
-	left.x = vtx->ptr->x * METRE;
-	left.y = vtx->ptr->y * METRE;
-	right.x = vtx->next->ptr->x * METRE;
-	right.y = vtx->next->ptr->y * METRE;
+	left = vtx->ptr->m_pos;
+	right = vtx->next->ptr->m_pos;
 	wall->r_right = right;
 	wall->r_left = left;
 	wall->angle = vs->angle;
@@ -75,11 +70,6 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		sct = get_sector_by_id(s, vtx->sct_dest);
 		wall->floor_height_dest = sct->floor;
 		wall->ceiling_height_dest = sct->ceiling;
-	}
-	else
-	{
-		wall->floor_height_dest = 0;
-		wall->ceiling_height_dest = 0;
 	}
 	wall->screen_width_wall = (WIDTH * ((ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN)) / 100;
 	return (wall);

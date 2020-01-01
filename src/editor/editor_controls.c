@@ -588,8 +588,6 @@ void		editor_handler(t_main *s)
 							tmp2 = get_abs_r_pos(s, s->ft_mouse);
 							tmp2.x *= METRE;
 							tmp2.y *= METRE;
-							// tmp2.x = s->sdl->event.button.x;
-							// tmp2.y = s->sdl->event.button.y;
 							if (ft_is_in_sector(s, tmp2) != 0)
 							{
 								s->player.r_ori.x = tmp2.x / METRE;
@@ -601,9 +599,7 @@ void		editor_handler(t_main *s)
 						}
 					}
 					else if (s->display_mode == game)
-					{
 						shoot(s);
-					}
 					else if (s->display_mode == save)
 					{
 						ft_click_save(s);
