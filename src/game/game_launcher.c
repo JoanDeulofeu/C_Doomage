@@ -64,7 +64,6 @@ void		game_handler(t_main *s)
 	while (ingame)
 	{
 		s->time->time_ms = SDL_GetTicks();
-		ft_fps(s);
 		animate_weapon(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{

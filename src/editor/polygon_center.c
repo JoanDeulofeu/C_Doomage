@@ -35,8 +35,10 @@ t_pos		ft_find_polygon_center(t_sector *sct)
 	i = 0;
 	somme.x = 0.0;
 	somme.y = 0.0;
+	// printf("coord   ");
 	while (i++ < sct->vertex->prev->id)
 	{
+		// printf("(%d, %d)  ", wall->ptr->x * METRE, wall->ptr->y * METRE);
 		somme.x += (wall->ptr->x * METRE + wall->next->ptr->x * METRE)
 		* ((wall->ptr->x * METRE * wall->next->ptr->y * METRE)
 		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE));
@@ -44,9 +46,11 @@ t_pos		ft_find_polygon_center(t_sector *sct)
 		* ((wall->ptr->x * METRE * wall->next->ptr->y * METRE)
 		- (wall->next->ptr->x * METRE * wall->ptr->y * METRE));
 		wall = wall->next;
+		// printf("s(%.1f, %.1f) ", somme.x, somme.y);
 	}
+	// printf("\nsomme (%.1f, %.1f)\n", somme.x, somme.y);
 	center.x = (1 / (6 * a)) * somme.x;
 	center.y = (1 / (6 * a)) * somme.y;
-	// printf("Le centre du sct %d =  x(%d), y(%d)\n", sct->id, center.x, center.y);
+	// printf("centre (%d, %d)\n", center.x, center.y);
 	return (center);
 }
