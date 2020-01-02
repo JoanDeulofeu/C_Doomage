@@ -6,25 +6,46 @@ Vertex 10		24
 Vertex 12		21
 Vertex 13		6
 Vertex 16		9
-Vertex 19		13
-Vertex 21		9
-Vertex 23		13
+Vertex 19		2
+Vertex 22		2
+Vertex 24		4
 Vertex 26		9
 Vertex 26		19
-Vertex 23		15
-Vertex 21		19
-Vertex 19		15
+Vertex 25		21
+Vertex 24		22
+Vertex 19		23
 Vertex 16		19
 Vertex 16		25
 Vertex 26		25
 Vertex 26		29
 Vertex 16		29
+Vertex 9		35
+Vertex 9		43
+Vertex 9		40
+Vertex 9		48
+Vertex 18		46
+Vertex 15		35
+Vertex 15		40
+Vertex 27		35
+Vertex 27		39
+Vertex 32		40
+Vertex 32		33
+Vertex 26		40
+Vertex 22		40
+Vertex 25		47
+Vertex 24		47
 
 
 Sector 0 4 | 1 2 3 4 5 | -1 -1 -1 -1 -1 | 0 0 0 0 0
 Sector 0 4 | 6 15 14 13 12 11 10 9 8 7 | 17 -1 -1 -1 -1 -1 -1 -1 -1 -1 | 0 0 0 0 0 0 0 0 0 0
 Sector 0 4 | 16 19 18 17 | -1 -1 -1 6 | 0 0 0 0
+Sector 0 3 | 26 25 20 22 | -1 -1 21 -1 | 0 0 0 0
+Sector 0 3 | 21 23 24 | 20 -1 -1 | 0 0 0
+Sector 0 3 | 34 33 31 32 | -1 -1 27 -1 | 0 0 0 0
+Sector 0 3 | 27 28 29 30 | 31 -1 -1 -1 | 0 0 0 0
 
 
-Player 539 417
-Angle 809
+
+
+Player 416 1109
+Angle 112
