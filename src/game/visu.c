@@ -89,7 +89,7 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double demi_fov, t_visu vs)
 	double	l_angle;
 	double	r_angle;
 
-	l_angle = vs.angle+ demi_fov;
+	l_angle = vs.angle + demi_fov;
 	l_angle = l_angle > 360 ? l_angle - 360 : l_angle;
 	r_angle = vs.angle - demi_fov;
 	r_angle = r_angle < 0 ? r_angle + 360: r_angle;
