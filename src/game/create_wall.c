@@ -24,8 +24,8 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs)
 	fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-	fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
 	fake_vs.angle = angle_mod(fake_angle);
+	fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
 	fake_vs.vtx_droite = vtx->vtx_dest;
 	if (fake_vs.vtx_droite == NULL)
 		handle_error(s, POINTER_ERROR);
