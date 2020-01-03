@@ -46,11 +46,11 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->r_plan = s->tmp_intersect;
 	get_wall_distance(wall, vs);
-	if (vtx->ptr->id == 19) //19 mur du fond
-	{
-		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
-		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
-	}
+	// if (vtx->ptr->id == 19) //19 mur du fond
+	// {
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
+	// }
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan)
 	<= ft_dist_t_dpos(wall->r_plan, vs->left_plan)
 	&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player))
@@ -193,33 +193,14 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	t_walls		*wall;
 	t_int		*vtx;
 
+	// test
 	// s->player.eyesight = EYESIGHT + (ft_abs(sct->floor - sct->ceiling) - 2) * -50;
 	// printf("--- DEBUT VISU ---\n");
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
 		return ;
-	draw_first_wall(s, vtx, &vs);
-	wall = s->walls;
-	if (vs.begin_wall_id == vs.end_wall_id)// cas 1 seul mur
-	{
-		// print_wall_list(s);
-		if (wall != NULL)
-		{
-			// ft_fucking_threading(s);
-			while (wall)
-			{
-				ft_print_wall(s, wall);
-				wall = wall->next;
-			}
-		}
-		set_visible_sprites(s, &vs);
-		s->portal_nb = 0;
-		return ;
-	}
-	vtx = vtx->next;
-	vtx = draw_mid_walls(s, vtx, &vs);
-	draw_last_wall(s, vtx, &vs);
+	create_all_walls(s, vtx, &vs, 1);
 	wall = s->walls;
 	// ft_fucking_threading(s);
 	while (wall)
