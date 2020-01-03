@@ -67,6 +67,7 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	t_dpos	ctr_p; //center plan
 	t_visu	vs;
 
+	ft_bzero(&vs, sizeof(t_visu));
 	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;
 	ctr_p.y = player.y - sin(to_rad(angle)) * METRE;
 	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
@@ -117,7 +118,7 @@ void		ft_visu_joan(t_main *s)
 	t_visu	vs;
 	t_dpos	player;
 
-	ft_bzero(&vs, sizeof(t_visu));
+
 	player = s->player.m_pos;
 	vs.vtx_droite = NULL;
 	vs.vtx_gauche = NULL;
