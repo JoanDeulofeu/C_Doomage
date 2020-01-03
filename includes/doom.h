@@ -339,6 +339,7 @@ int							check_walls_lenght(t_int *wall1, t_int *wall2);
 t_visu						ft_place_view_plan(t_main *s, t_dpos player, double angle,
 							Uint32 color);
 t_walls 					*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p);
+void						create_all_walls(t_main *s, t_int *vtx, t_visu *vs);
 void						draw_first_wall(t_main *s, t_int *vtx, t_visu *vs);
 t_int						*draw_mid_walls(t_main *s, t_int *vtx, t_visu *vs);
 void						draw_last_wall(t_main *s, t_int *vtx, t_visu *vs);

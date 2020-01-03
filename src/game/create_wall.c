@@ -24,8 +24,8 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs)
 	fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
 		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-	fake_vs.angle = angle_mod(fake_angle);
 	fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
+	fake_vs.angle = angle_mod(fake_angle);
 	fake_vs.vtx_droite = vtx->vtx_dest;
 	if (fake_vs.vtx_droite == NULL)
 		handle_error(s, POINTER_ERROR);
@@ -52,6 +52,42 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs)
 	if (s->portal_nb < PORTAL_LIMIT)
 	{
 		add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
+	}
+}
+
+void		create_all_walls(t_main *s, t_int *vtx, t_visu *ori_vs)
+{
+	//en attente
+	t_visu 	vs;
+	int		end;
+
+	end = 1;
+	while (end)
+	{
+		// printf("ptr->id = %d, vs->end_wall_id = %d\n", vtx->ptr->id, vs->end_wall_id);
+		vs = *ori_vs;
+		// printf("begin = %d, end = %d\n", vs.begin_wall_id, vs.end_wall_id);
+		if (vtx->wall_value != -1)
+		{
+			handle_visu_portal(s, vtx, &vs);
+		}
+		else
+		{
+			vs.begin = vtx->ptr->m_pos;
+			vs.tmp_wall = vtx->next->ptr->m_pos;
+			ft_create_new_wall(s, vtx, &vs, 'w');
+			if (vtx->ptr->id == vs.end_wall_id)
+				ft_find_intersection(s, vs.begin, vs.player, vs.left_plan, vs.right_plan, 1);
+		}
+		if (vtx->ptr->id == vs.begin_wall_id && vs.begin_wall_id == vs.end_wall_id)
+		{
+			end = 0;
+			// printf("true\n");
+			print_wall_list(s);
+		}
+		if (vtx->ptr->id == vs.end_wall_id)
+			end = 0;
+		vtx = vtx->next;
 	}
 }
 
