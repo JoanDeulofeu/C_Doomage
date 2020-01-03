@@ -305,15 +305,14 @@ void		handle_editor_keys(t_main *s)
 			display_sprite_menu(s);
 
 			t_sector *sct = s->sector;
-			while (sct->next)
-				sct = sct->next;
-			if (sct->id == 13)
+			while (sct)
 			{
 				t_pos coord;
 				coord = ft_find_polygon_center(sct);
 				// coord.x /= METRE;
 				// coord.y /= METRE;
 				draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, ft_pos_to_dpos(coord))), WHITE);
+				sct = sct->next;
 			}
 
 		update_image(s, s->sdl->editor);
