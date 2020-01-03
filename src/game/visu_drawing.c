@@ -33,7 +33,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		wall->left = left;
 	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->l_plan = s->tmp_intersect;
-	if ((dist > 0 && !s->walls) || (dist > 0 && s->walls && s->walls->wall_or_portal == 'p'))
+	if (dist > 0 && !s->walls)
 		wall->x = 0;
 	else
 		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
@@ -46,11 +46,11 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
 	wall->r_plan = s->tmp_intersect;
 	get_wall_distance(wall, vs);
-	// if (vtx->ptr->id == 19) //19 mur du fond
-	// {
-	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
-	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
-	// }
+	if (vtx->ptr->id == 19) //19 mur du fond
+	{
+		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
+		draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
+	}
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan)
 	<= ft_dist_t_dpos(wall->r_plan, vs->left_plan)
 	&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player))
@@ -199,7 +199,27 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
 		return ;
-	create_all_walls(s, vtx, &vs);
+	draw_first_wall(s, vtx, &vs);
+	wall = s->walls;
+	if (vs.begin_wall_id == vs.end_wall_id)// cas 1 seul mur
+	{
+		// print_wall_list(s);
+		if (wall != NULL)
+		{
+			// ft_fucking_threading(s);
+			while (wall)
+			{
+				ft_print_wall(s, wall);
+				wall = wall->next;
+			}
+		}
+		set_visible_sprites(s, &vs);
+		s->portal_nb = 0;
+		return ;
+	}
+	vtx = vtx->next;
+	vtx = draw_mid_walls(s, vtx, &vs);
+	draw_last_wall(s, vtx, &vs);
 	wall = s->walls;
 	// ft_fucking_threading(s);
 	while (wall)
