@@ -227,6 +227,7 @@ t_main		*initialize_main(char *str)
 	s->sector = NULL;
 	s->grid = NULL;
 	s->sprite = NULL;
+	s->printf = 0;
 	ft_set_time(s);
 	ft_init_msg(s);
 	s->player.shoot = 0;

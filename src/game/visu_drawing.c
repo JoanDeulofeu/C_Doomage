@@ -134,7 +134,7 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	t_dpos	l_plan;
 	t_dpos	r_plan;
 
-	if (swich == 1) //si cest le premier mur
+	if (swich == 1 || swich == 4) //si cest le premier mur
 	{
 		l_plan = vs->left_plan;
 		ft_find_intersection(s, l_plan, vs->player, left, right, 1);
@@ -146,7 +146,7 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 		l_plan = s->tmp_intersect;
 		l_big_dist = (ft_dist_t_dpos(player, left) / METRE);
 	}
-	if (swich == 3) //si cest le dernier mur
+	if (swich == 3 || swich == 4) //si cest le dernier mur
 	{
 		r_plan = vs->right_plan;
 		ft_find_intersection(s, r_plan, vs->player, left, right, 1);
@@ -168,6 +168,10 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
 	width_wall = (WIDTH * ((ft_dist_t_dpos(l_plan, r_plan) * 100.0) / WIDTHPLAN)) / 100;
 
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xED5F18FF);
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xED5F18FF);
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, right)), 0x57C7FFFF);
+
 	if (ft_find_intersection(s, vs->left_point, vs->player, left, right, 1) > 0)
 		x = 0;
 	else
@@ -182,10 +186,16 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	vs->left_floor_limit.x = (int)x;
 	vs->left_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + l_height_wall_diff;
 
-	vs->right_ceiling_limit.x = x + width_wall > WIDTH ? WIDTH : x + width_wall;
+	vs->right_ceiling_limit.x = x + width_wall;
 	vs->right_ceiling_limit.y = (HEIGHT / 2) - (r_height_wall) + s->player.y_eye + r_height_wall_diff;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + r_height_wall_diff;
+
+
+	// if (s->printf)
+	// 	printf("swich %d     widthwall %.2f\n", swich, width_wall);
+	// printf("LEFT PLAFOND\t\tSOL\t\t\t\tRIGHT PLAFOND\t\tSOL\n");
+	// printf("x(%hd) y(%hd)\t\tx(%hd) y(%hd)\t\t\tx(%hd) y(%hd)\t\tx(%hd) y(%hd)\n\n\n", vs->left_ceiling_limit.x, vs->left_ceiling_limit.y, vs->left_floor_limit.x, vs->left_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y, vs->right_floor_limit.x, vs->right_floor_limit.y);
 }
 
 void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)

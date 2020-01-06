@@ -139,8 +139,6 @@ int		ft_put_wall_value(t_sector *sct, char *line, int i)
 	while (line[i] != '|' && line[i] != '\0')
 	{
 		tmp->wall_value = ft_atoi(&line[i]);
-		if (sct->id == 12)
-			printf("valeur portail recuperer = %d\n",tmp->wall_value);
 		i += ft_longlen(tmp->wall_value);
 		if (ft_check_bar(line, i))
 			break;

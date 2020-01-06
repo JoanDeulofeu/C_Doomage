@@ -31,7 +31,6 @@ void	ft_init_font(t_main *s)
 		;
 	while ((s->font->digit42 = TTF_OpenFont("sdl_font/digit.ttf", 42)) == NULL)
 		;
-	// ft_error_ttf("Erreur initialisation ft_init_font: ");
 }
 
 void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
@@ -100,8 +99,6 @@ void	ft_draw_ttf_play(t_main *s)
 	if (s->player.jetpack)
 	{
 		ttf.str = get_jetpack_value(s);
-		// ft_strdup("jetpack:");
-		// ttf.str = ft_strdup("jetpack:");
 		ttf.r = 0;
 		ttf.b = 0;
 		ttf.g = 250;
@@ -152,16 +149,6 @@ void	ft_draw_ttf_editor(t_main *s)
 	char*		str;
 
 	ft_display_message(s);
-	if (s->editor->mode_floor == 1 && s->display_mode == editor)
-	{
-		ttf.r = 255;
-		ttf.g = 255;
-		ttf.b = 255;
-		ttf.pos.x = 658;
-		ttf.pos.y = 35;
-		ttf.str = ft_strdup("1");
-		ft_create_ttf(ttf, s, s->font->press_start);
-	}
 	if (s->display_mode == game)
 	{
 		ttf.r = 255;
@@ -180,6 +167,65 @@ void	ft_draw_ttf_editor(t_main *s)
 		ttf.str = ft_strdup(str);
 		ft_create_ttf(ttf, s, s->font->roboto);
 		ft_memdel((void **)&str);
+
+		//---------- ft_nul
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 10;
+		// ttf.pos.y = 150;
+		// ttf.str = ft_strdup("150");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 10;
+		// ttf.pos.y = 300;
+		// ttf.str = ft_strdup("300");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 10;
+		// ttf.pos.y = 450;
+		// ttf.str = ft_strdup("450");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 10;
+		// ttf.pos.y = 600;
+		// ttf.str = ft_strdup("600");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 200;
+		// ttf.pos.y = 10;
+		// ttf.str = ft_strdup("200");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 400;
+		// ttf.pos.y = 10;
+		// ttf.str = ft_strdup("400");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 600;
+		// ttf.pos.y = 10;
+		// ttf.str = ft_strdup("600");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+		// ttf.r = 255;
+		// ttf.g = 255;
+		// ttf.b = 255;
+		// ttf.pos.x = 800;
+		// ttf.pos.y = 10;
+		// ttf.str = ft_strdup("800");
+		// ft_create_ttf(ttf, s, s->font->roboto);
+
 	}
 	if (s->display_mode == save)
 	{

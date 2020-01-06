@@ -9,45 +9,45 @@ void	ft_nul(t_main *s)
 	init.y = 150;
 	dest.x = WIDTH;
 	dest.y = 152;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 	init.x = 0;
 	init.y = 300;
 	dest.x = WIDTH;
 	dest.y = 302;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 	init.x = 0;
 	init.y = 450;
 	dest.x = WIDTH;
 	dest.y = 452;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 	init.x = 0;
 	init.y = 600;
 	dest.x = WIDTH;
 	dest.y = 602;
-	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 
 
 	//trait verticaux
-	// init.x = 400;
-	// init.y = 0;
-	// dest.x = 402;
-	// dest.y = HEIGHT;
-	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	// init.x = 450;
-	// init.y = 0;
-	// dest.x = 452;
-	// dest.y = HEIGHT;
-	// draw_rect(s->sdl->game, init, dest, 0xffff00ff);
-	// init.x = 880;
-	// init.y = 0;
-	// dest.x = 882;
-	// dest.y = HEIGHT;
-	// draw_rect(s->sdl->game, init, dest, 0xffff00ff);
-	// init.x = 930;
-	// init.y = 0;
-	// dest.x = 932;
-	// dest.y = HEIGHT;
-	// draw_rect(s->sdl->game, init, dest, 0xffff00ff);
+	init.x = 200;
+	init.y = 0;
+	dest.x = 202;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	init.x = 400;
+	init.y = 0;
+	dest.x = 402;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	init.x = 600;
+	init.y = 0;
+	dest.x = 602;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	init.x = 800;
+	init.y = 0;
+	dest.x = 802;
+	dest.y = HEIGHT;
+	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 }
 
 void		click_editor_menu(t_main *s, t_anim menu, int x)
@@ -176,7 +176,8 @@ int			key_controls_game(t_main *s, int key)
 	if (key == TAB)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
-		printf("Test = %d\n", ft_is_in_sector(s, s->player.m_pos));
+		s->printf = s->printf ? 0 : 1;
+		// printf("Test = %d\n", ft_is_in_sector(s, s->player.m_pos));
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
 		// tp_first_sector(s);
 		// s->player.y_eye = 0;
@@ -327,6 +328,7 @@ void		handle_editor_keys(t_main *s)
 		display_sprites(s);
 		clear_wall_list(s);
 		// draw_hud(s);
+		// ft_nul(s);
 		animate_weapon(s);
 		update_image(s, s->sdl->game);
 	}
