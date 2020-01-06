@@ -505,7 +505,7 @@ void						edit_portal(t_main *s);
 void						remove_portal(t_main *s);
 void						reset_temp_portals(t_main *s);
 t_dpos						ft_get_fake_player(t_main *s, t_dpos player,
-							t_int *vtx, double *angle_portal_out);
+							t_int *vtx, double *angle_portal_out, double prev_angle);
 t_visu						get_walls_to_draw(t_main *s, t_dpos player, double demi_fov, t_visu vs);
 void						add_portal_to_list(t_main *s, t_dpos player,
 							t_sector *sct, t_visu vs);
