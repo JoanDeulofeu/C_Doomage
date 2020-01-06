@@ -123,6 +123,8 @@ int		ft_put_wall_value(t_sector *sct, char *line, int i)
 	while (line[i] != '|' && line[i] != '\0')
 	{
 		tmp->wall_value = ft_atoi(&line[i]);
+		if (sct->id == 12)
+			printf("valeur portail recuperer = %d\n",tmp->wall_value);
 		i += ft_longlen(tmp->wall_value);
 		if (ft_check_bar(line, i))
 			break;
@@ -141,16 +143,12 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 	value = 0;
 	while (line[i] != '|' && line[i] != '\0')
 	{
-		// printf("chocolat1\n");
 		value = ft_atoi(&line[i]);
-		// printf("chocolat2\n");
 		ft_add_intarray(s, sct, value);
 		i += ft_longlen(value) + 1;
-		// printf("chocolat3\n");
 		if (ft_check_bar(line, i))
 			break;
 		i = ft_find_next_number(line, i);
-		// printf("chocolat4\n");
 	}
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
@@ -159,7 +157,6 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 		handle_error(s, MAP_ERROR);
 	if (i)
 		ft_put_texture_value(s, sct, line, i);
-	// printf("chocolat6\n");
 }
 
 int		ft_parse_sector(t_main *s, char *line)
@@ -177,15 +174,11 @@ int		ft_parse_sector(t_main *s, char *line)
 		handle_error(s, MAP_ERROR);
 	ceiling = ft_atoi(&line[i]);
 	sct = ft_add_sector(s, floor, ceiling);
-	// printf("entree1\n");
 	while (line[i] != '|')
 		i++;
-	// printf("sortie1\n");
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
-		// printf("entree2\n");
 	ft_norm_parse_sector(s, line, sct, i);
-	// printf("sortie2\n");
 	return (0);
 }
 
