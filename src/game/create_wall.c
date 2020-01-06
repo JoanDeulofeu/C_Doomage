@@ -63,7 +63,12 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 		if (vtx->wall_value != -1)
 		{
 			if (vtx->ptr->id == vs->begin_wall_id)
-				handle_visu_portal(s, vtx, vs, 1);
+			{
+				if (vtx->ptr->id == vs->end_wall_id)
+					handle_visu_portal(s, vtx, vs, 4);
+				else
+					handle_visu_portal(s, vtx, vs, 1);
+			}
 			else if (vtx->ptr->id == vs->end_wall_id)
 				handle_visu_portal(s, vtx, vs, 3);
 			else
