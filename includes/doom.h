@@ -317,9 +317,6 @@ typedef struct				s_main {
 	t_walls					*walls;
 	int						portal_nb;
 	t_dpos					col_pos;
-	t_dpos					fplayer_pos;
-	double					fplayer_angle;
-	int						fplayer_sct;
 	t_pos					save_coord_vtx; //utilisé pour remettre un vtx a sa place
 	//										au cas ou on le deplace dans un secteur.
 }							t_main;
@@ -349,8 +346,8 @@ int							ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
 int							ft_print_wall(t_main *s, t_walls *wall);
 void						add_wall_to_list(t_main *s, t_walls *new);
 void						clear_wall_list(t_main *s);
-void						ft_limit_ceiling_floor(t_main *s, t_dpos player,
-							t_dpos left, t_dpos right, t_visu *vs, char swich);
+void						ft_limit_ceiling_floor(t_main *s,t_dpos left,
+							t_dpos right, t_visu *vs, char swich);
 double						ft_find_angle_portal(t_dpos *left, t_dpos *right,
 							t_dpos *third, int needed);
 void						get_wall_distance(t_walls *wall, t_visu *vs);

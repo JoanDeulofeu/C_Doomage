@@ -118,7 +118,7 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	return (ft_draw_wall(s, wall, l_height_wall, r_height_wall, width_wall));
 }
 
-void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right, t_visu *vs, char swich)
+void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, char swich)
 {
 	//swich permet de savoir quelle fonction a appeller celle ci et donc de savoir si on soccupe du premier ou dernier mur ou autre.
 	double	width_wall;
@@ -138,29 +138,29 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos player, t_dpos left, t_dpos right,
 	{
 		l_plan = vs->left_plan;
 		ft_find_intersection(s, l_plan, vs->player, left, right, 1);
-		l_big_dist = (ft_dist_t_dpos(player, s->tmp_intersect) / METRE);
+		l_big_dist = (ft_dist_t_dpos(vs->player, s->tmp_intersect) / METRE);
 	}
 	else
 	{
 		ft_find_intersection(s, left, vs->player, vs->left_plan, vs->right_plan, 1);
 		l_plan = s->tmp_intersect;
-		l_big_dist = (ft_dist_t_dpos(player, left) / METRE);
+		l_big_dist = (ft_dist_t_dpos(vs->player, left) / METRE);
 	}
 	if (swich == 3 || swich == 4) //si cest le dernier mur
 	{
 		r_plan = vs->right_plan;
 		ft_find_intersection(s, r_plan, vs->player, left, right, 1);
-		r_big_dist = (ft_dist_t_dpos(player, s->tmp_intersect) / METRE);
+		r_big_dist = (ft_dist_t_dpos(vs->player, s->tmp_intersect) / METRE);
 	}
 	else
 	{
 		ft_find_intersection(s, right, vs->player, vs->left_plan, vs->right_plan, 1);
 		r_plan = s->tmp_intersect;
-		r_big_dist = (ft_dist_t_dpos(player, right) / METRE);
+		r_big_dist = (ft_dist_t_dpos(vs->player, right) / METRE);
 	}
 
-	l_small_dist = (ft_dist_t_dpos(player, l_plan) / METRE);
-	r_small_dist = (ft_dist_t_dpos(player, r_plan) / METRE);
+	l_small_dist = (ft_dist_t_dpos(vs->player, l_plan) / METRE);
+	r_small_dist = (ft_dist_t_dpos(vs->player, r_plan) / METRE);
 
 	l_height_wall = HEIGHT / ((((l_big_dist * 100.0) / l_small_dist) * 0.001) * 4)
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
