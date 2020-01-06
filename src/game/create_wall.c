@@ -1,16 +1,25 @@
 #include "doom.h"
 
+t_visu		fill_visu_values(t_main *s, t_visu fake_vs, t_dpos fake_player, double fake_angle)
+{
+	double	demi_fov;
+
+	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
+		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
+	fake_vs.angle = angle_mod(fake_angle);
+	fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
+	return (fake_vs);
+}
+
 void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 {
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 	double	fake_angle;
-	double	demi_fov;
 	t_dpos	wall1;
 	t_dpos	wall2;
 
 	fake_angle = 0;
-	// if ()
 	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
 	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 	if (s->portal_nb == 0)
@@ -22,10 +31,7 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	fake_vs.prev_sct_id = vtx->sct;
 	fake_vs.sct_id = vtx->sct_dest;
 	fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_player,
-		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-	fake_vs.angle = angle_mod(fake_angle);
-	fake_vs = get_walls_to_draw(s, fake_player, demi_fov, fake_vs);
+	fake_vs = fill_visu_values(s, fake_vs, fake_player, fake_angle);
 	fake_vs.vtx_droite = vtx->vtx_dest;
 	if (fake_vs.vtx_droite == NULL)
 		handle_error(s, POINTER_ERROR);
@@ -43,27 +49,19 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 	else
 		fake_vs.end = s->tmp_intersect;
-
 	ft_limit_ceiling_floor(s, fake_player, wall1, wall2, &fake_vs, swich);
-
 	fake_vs.player = fake_player;
 	ft_create_new_wall(s, vtx, vs, 'p');
-
 	if (s->portal_nb < PORTAL_LIMIT)
-	{
 		add_portal_to_list(s, fake_player, fake_vs.sct, fake_vs);
-	}
 }
 
 void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 {
-	// printf("begin id = %d, end id = %d\n", vs->begin_wall_id, vs->end_wall_id);
 	while (end)
 	{
-		// printf ("vertex en cours : %d, ptr = %d\n", vtx->id, vtx->ptr->id);
 		if (vtx->wall_value != -1)
 		{
-			// printf ("portail\n");
 			if (vtx->ptr->id == vs->begin_wall_id)
 				handle_visu_portal(s, vtx, vs, 1);
 			else if (vtx->ptr->id == vs->end_wall_id)
