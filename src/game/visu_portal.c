@@ -139,19 +139,19 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	//On recupere l'angle entre le joueur et le point de droite, ca donne le mur de droite.
 	vtx = vs.begin_wall;
 	// printf("vtx ptr = %d\n", vtx->ptr->id);
-	draw_first_wall(s, vtx, &vs);
-	if (vs.begin_wall_id == vs.end_wall_id)
-	{
-		set_visible_sprites(s, &vs);
-		return ;
-	}
-	plan_left = s->tmp_intersect;
-
-	vtx = vtx->next;
-	vtx = draw_mid_walls(s, vtx, &vs);
-
-	draw_last_wall(s, vtx, &vs);
-
+	// draw_first_wall(s, vtx, &vs);
+	// if (vs.begin_wall_id == vs.end_wall_id)
+	// {
+	// 	set_visible_sprites(s, &vs);
+	// 	return ;
+	// }
+	// plan_left = s->tmp_intersect;
+	//
+	// vtx = vtx->next;
+	// vtx = draw_mid_walls(s, vtx, &vs);
+	//
+	// draw_last_wall(s, vtx, &vs);
+	create_all_walls(s, vtx, &vs, 1);
 	s->portal_nb--;
 	set_visible_sprites(s, &vs);
 }
