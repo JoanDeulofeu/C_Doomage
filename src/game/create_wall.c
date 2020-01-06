@@ -57,13 +57,13 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 
 void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 {
-	printf("begin id = %d, end id = %d\n", vs->begin_wall_id, vs->end_wall_id);
+	// printf("begin id = %d, end id = %d\n", vs->begin_wall_id, vs->end_wall_id);
 	while (end)
 	{
-		printf ("vertex en cours : %d, ptr = %d\n", vtx->id, vtx->ptr->id);
+		// printf ("vertex en cours : %d, ptr = %d\n", vtx->id, vtx->ptr->id);
 		if (vtx->wall_value != -1)
 		{
-			printf ("portail\n");
+			// printf ("portail\n");
 			if (vtx->ptr->id == vs->begin_wall_id)
 				handle_visu_portal(s, vtx, vs, 1);
 			else if (vtx->ptr->id == vs->end_wall_id)

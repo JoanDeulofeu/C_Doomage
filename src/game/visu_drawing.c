@@ -193,9 +193,6 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	t_walls		*wall;
 	t_int		*vtx;
 
-	// test
-	// s->player.eyesight = EYESIGHT + (ft_abs(sct->floor - sct->ceiling) - 2) * -50;
-	// printf("--- DEBUT VISU ---\n");
 	vtx = sct->vertex;
 	vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))

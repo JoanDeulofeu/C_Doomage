@@ -194,8 +194,8 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	if (l_portal.y > r_portal.y)
 		angle_portal_out = 180 + (180 - angle_portal_out);
 	// printf("angle PLAYER  (%.1f)\n", player_angle);
-	printf("angle IN      (%.1f)\n", angle_portal_in);
-	printf("angle OUT     (%.1f)\n\n", angle_portal_out);
+	// printf("angle IN      (%.1f)\n", angle_portal_in);
+	// printf("angle OUT     (%.1f)\n\n", angle_portal_out);
 	//application de la difference d'angle des deux portail sur angle player
 	fake_angle = player_angle - (angle_portal_in - angle_portal_out);
 	// printf("angle FINAL (%.1f)=  PLAYER(%.1f) - (IN(%.1f) - OUT(%.1f))\n\n", fake_angle, player_angle, angle_portal_in, angle_portal_out);
