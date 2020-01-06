@@ -98,7 +98,7 @@ void	teleport_player(t_main *s, const unsigned char *keys)
 		// printf("TP INTERDIT\n");
 		return ;
 	}
-	s->player.m_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle);
+	s->player.m_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle, s->player.angle);
 	s->player.r_pos.x = s->player.m_pos.x / METRE;
 	s->player.r_pos.y = s->player.m_pos.y / METRE;
 	set_player(s);

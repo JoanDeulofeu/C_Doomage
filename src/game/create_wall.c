@@ -10,7 +10,8 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	t_dpos	wall2;
 
 	fake_angle = 0;
-	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
+	// if ()
+	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
 	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 	if (s->portal_nb == 0)
 	{

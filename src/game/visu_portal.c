@@ -156,7 +156,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	set_visible_sprites(s, &vs);
 }
 
-t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_fake)
+t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_fake, double prev_angle)
 {
 	t_dpos		l_portal;
 	t_dpos		r_portal;
@@ -194,8 +194,8 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	if (l_portal.y > r_portal.y)
 		angle_portal_out = 180 + (180 - angle_portal_out);
 	// printf("angle PLAYER  (%.1f)\n", player_angle);
-	// printf("angle IN      (%.1f)\n", angle_portal_in);
-	// printf("angle OUT     (%.1f)\n\n", angle_portal_out);
+	printf("angle IN      (%.1f)\n", angle_portal_in);
+	printf("angle OUT     (%.1f)\n\n", angle_portal_out);
 	//application de la difference d'angle des deux portail sur angle player
 	fake_angle = player_angle - (angle_portal_in - angle_portal_out);
 	// printf("angle FINAL (%.1f)=  PLAYER(%.1f) - (IN(%.1f) - OUT(%.1f))\n\n", fake_angle, player_angle, angle_portal_in, angle_portal_out);
@@ -206,7 +206,8 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	//ATTENTION !!!! jai ajouter le decal_x pour que le point saffiche a lecran pour mes tests.
 	// printf("coord r_portal (%.1f,%.1f)\n\n",r_portal.x, r_portal.y);
 	// printf("coord player (%f,%f)\n\n",fake_player.x, fake_player.y);
-	*angle_fake = s->player.angle - (angle_portal_in - angle_portal_out);
+	*angle_fake = prev_angle - (angle_portal_in - angle_portal_out);
+	// *angle_fake = s->player.angle - (angle_portal_in - angle_portal_out);
 	// fake_player2.x = fake_player.x + s->editor->decal_x;
 	// fake_player2.y = fake_player.y + s->editor->decal_y;
 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_player)), 0xfa00ffff); //juste pour tester la pos du fake_player
