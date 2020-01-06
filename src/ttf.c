@@ -112,8 +112,6 @@ void	ft_draw_ttf_play(t_main *s)
 		ttf.str = ft_strdup("Empty");
 		ft_create_ttf(ttf, s, s->font->digit42);
 	}
-
-
 	ft_memdel((void **)&str);
 
 

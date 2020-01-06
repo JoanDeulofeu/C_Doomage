@@ -5,26 +5,26 @@ void	ft_nul(t_main *s)
 	t_dpos		init;
 	t_dpos		dest;
 
-	// init.x = 0;
-	// init.y = 150;
-	// dest.x = WIDTH;
-	// dest.y = 151;
-	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	// init.x = 0;
-	// init.y = 300;
-	// dest.x = WIDTH;
-	// dest.y = 301;
-	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 	init.x = 0;
-	init.y = HEIGHT / 2;
+	init.y = 150;
 	dest.x = WIDTH;
-	dest.y = HEIGHT / 2 + 2;
+	dest.y = 152;
 	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
-	// init.x = 0;
-	// init.y = 600;
-	// dest.x = WIDTH;
-	// dest.y = 601;
-	// draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	init.x = 0;
+	init.y = 300;
+	dest.x = WIDTH;
+	dest.y = 302;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	init.x = 0;
+	init.y = 450;
+	dest.x = WIDTH;
+	dest.y = 452;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
+	init.x = 0;
+	init.y = 600;
+	dest.x = WIDTH;
+	dest.y = 602;
+	draw_rect(s->sdl->game, init, dest, 0x622b2bff);
 
 
 	//trait verticaux
@@ -309,8 +309,6 @@ void		handle_editor_keys(t_main *s)
 			{
 				t_pos coord;
 				coord = ft_find_polygon_center(sct);
-				// coord.x /= METRE;
-				// coord.y /= METRE;
 				draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, ft_pos_to_dpos(coord))), WHITE);
 				sct = sct->next;
 			}
