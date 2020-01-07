@@ -21,7 +21,7 @@ void	get_total_w_wall(t_walls *wall)
 	wall->left_void_side = (perc * wall->total_width_wall) / 100;
 }
 
-void	ft_limit_portal_texture(t_walls *wall, int begin, int end, int *limit_ceiling, int *limit_floor)
+void	ft_limit_portal_texture(int lol, t_walls *wall, int begin, int end, int *limit_ceiling, int *limit_floor)
 {
 	int	diff_haute; // en metre ig
 	int	diff_total; // en metre ig
@@ -31,9 +31,11 @@ void	ft_limit_portal_texture(t_walls *wall, int begin, int end, int *limit_ceili
 	diff_haute = wall->ceiling_height - wall->ceiling_height_dest;
 	diff_basse = wall->floor_height_dest - wall->floor_height;
 	diff_total = wall->ceiling_height - wall->floor_height;
-	diff_total_pxl = end - begin;
+	diff_total_pxl = wall->wall_height_tmp;
 
-	*limit_ceiling = begin + ((diff_haute * 100 / diff_total) * diff_total_pxl) / 100;
+	if (lol)
+		printf("%d + ((%d * 100 / %d) * %d) / 100  =  ", begin, diff_haute, diff_total, diff_total_pxl);
+	*limit_ceiling = (end - wall->wall_height_tmp) + ((diff_haute * 100 / diff_total) * diff_total_pxl) / 100;
 	*limit_floor = end - ((diff_basse * 100 / diff_total) * diff_total_pxl) / 100;
 	// printf("res ceiling %d      res floor %d\n\n", ((diff_haute * 100 / diff_total) * 100) / diff_total_pxl, ((diff_basse * 100 / diff_total) * 100) / diff_total_pxl);
 	// printf("begin %d | limit_ceiling %d       limit_floor %d | end %d\n\n", begin, *limit_ceiling, *limit_floor, end);
@@ -57,7 +59,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	limit_ceiling = 0;
 	limit_floor = 0;
 	if (wall->wall_or_portal == 'p')
-		ft_limit_portal_texture(wall, coord.y, end, &limit_ceiling, &limit_floor);
+		ft_limit_portal_texture(s->printf, wall, coord.y, end, &limit_ceiling, &limit_floor);
 	begin_wall = coord.y;
 	y = 1;
 	if (begin_wall < 0)
@@ -85,6 +87,8 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	}
 	if (coord.y < 0)
 		coord.y = 0;
+	if (s->printf && wall->wall_or_portal == 'p')
+		printf("ceiling(%d) floor(%d)\n\n", limit_ceiling, limit_floor);
 	while (coord.y < end && coord.y < HEIGHT)
 	{
 		if (wall->wall_or_portal == 'p')
@@ -112,9 +116,14 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	int			begin;
 	double		pct;
 
-	(void)s;
 	if ((begin = coord.y) < 0)
+	{
+		if (s->printf)
+			printf("begin = %d\n", begin);
 		return (begin);
+	}
+	if (s->printf)
+		printf("begin = %d\n", begin);
 	wall->diffx_ceiling = (wall->diffx_ceiling == 0) ? 1 : wall->diffx_ceiling;
 	pct = (((double)coord.x - (double)wall->minx_ceiling) * 100) / (double)wall->diffx_ceiling;
 	if ((wall->minx_ceiling == wall->left_ceiling_limit.x && wall->miny_ceiling

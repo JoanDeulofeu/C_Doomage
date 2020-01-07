@@ -206,6 +206,7 @@ typedef struct				s_walls {
 	int						ceiling_height;
 	int						floor_height_dest; // dans le cas dun sct
 	int						ceiling_height_dest; // dans le cas dun sct
+	int						wall_height_tmp;
 	t_image					*image;
 	struct s_walls			*prev;
 	struct s_walls			*next;

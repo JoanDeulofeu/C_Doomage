@@ -182,8 +182,8 @@ typedef struct			s_anim {
 }						t_anim;
 
 typedef struct			s_pos {
-	short				x;
-	short				y;
+	int					x;
+	int					y;
 }						t_pos;
 
 typedef struct			s_element {

@@ -71,14 +71,16 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 	get_total_w_wall(wall);
 	s->player.eyesight = s->player.foot_height - wall->floor_height + s->player.size;
 	eyesight = s->player.eyesight;
-	// printf("---\nwall size = %d       player size %d      player eyesight %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight);
 	while (i++ <= width_wall)
 	{
-		// printf("---\nwall size = %d - player size %d - player eyesight %d - floor height %d\n", wall->ceiling_height - wall->floor_height, s->player.size, s->player.eyesight, wall->floor_height);
+		wall->wall_height_tmp = height_wall;
 		wall->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, wall->ceiling_height, wall->floor_height, height_wall);
-		// printf("height = %.2f      diff = %.2f\n", height_wall, diff_height_pxl);
+		if (s->printf && wall->wall_or_portal == 'p')
+			printf("height wall = %.1f       diff_height_pxl = %.1f\n", height_wall, diff_height_pxl);
 		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
+		if (s->printf && wall->wall_or_portal == 'p')
+			printf("res = %d\n", coord.y);
 		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
 		if (coord.x > 0 && coord.x < WIDTH)
 		{
@@ -87,7 +89,6 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 			else
 				ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
 		}
-
 		coord.x++;
 		pct_avcm = (100 * (double)i) / (double)width_wall;
 
