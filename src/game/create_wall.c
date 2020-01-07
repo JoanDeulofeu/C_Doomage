@@ -7,7 +7,7 @@
 // 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_vs.player,
 // 		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
 // 	fake_vs.angle = angle_mod(fake_angle);
-// 	fake_vs = get_walls_to_draw(s, fake_vs.player, demi_fov, fake_vs);
+// 	fake_vs = get_walls_to_draw(s, fake_vs.player, fake_vs);
 // 	return (fake_vs);
 // }
 
@@ -25,7 +25,7 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 	fake_vs.sct_id = vtx->sct_dest;
 	fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 	fake_vs.angle = angle_mod(fake_angle);
-	fake_vs = get_walls_to_draw(s, fake_vs.player, s->player.demi_fov, fake_vs);
+	fake_vs = get_walls_to_draw(s, fake_vs.player, fake_vs);
 	fake_vs.vtx_droite = vtx->vtx_dest;
 	if (fake_vs.vtx_droite == NULL)
 		handle_error(s, POINTER_ERROR);

@@ -63,22 +63,16 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 
 t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 {
-	// printf("chocolat\n");
 	t_dpos	ctr_p; //center plan
 	t_visu	vs;
 
 	ft_bzero(&vs, sizeof(t_visu));
-	printf("player (%f)(%f)\nangle = %f\n", player.x, player.y, angle);
 	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;
 	ctr_p.y = player.y - sin(to_rad(angle)) * METRE;
-	printf("ctr_p (%f)(%f)\n", ctr_p.x, ctr_p.y);
 	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
 	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
-	// s->sky.player = player;
-	// s->sky.left_point = vs.left_plan;
-	// s->sky.right_point = vs.right_plan;
 	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
 	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
 	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;
@@ -87,14 +81,14 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	return (vs);
 }
 
-t_visu		get_walls_to_draw(t_main *s, t_dpos player, double demi_fov, t_visu vs)
+t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 {
 	double	l_angle;
 	double	r_angle;
 
-	l_angle = vs.angle + demi_fov;
+	l_angle = vs.angle + s->player.demi_fov;
 	l_angle = l_angle > 360 ? l_angle - 360 : l_angle;
-	r_angle = vs.angle - demi_fov;
+	r_angle = vs.angle - s->player.demi_fov;
 	r_angle = r_angle < 0 ? r_angle + 360: r_angle;
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
@@ -116,10 +110,8 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, double demi_fov, t_visu vs)
 void		ft_visu_joan(t_main *s)
 {
 
-	double	demi_fov;
 	t_visu	vs;
 	t_dpos	player;
-
 
 	player = s->player.m_pos;
 	vs.vtx_droite = NULL;
@@ -134,10 +126,8 @@ void		ft_visu_joan(t_main *s)
 	vs.left_floor_limit.y = HEIGHT;
 	vs.right_floor_limit.x = WIDTH;
 	vs.right_floor_limit.y = HEIGHT;
-	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, vs.left_plan), METRE, WIDTHPLAN / 2);
-
 	vs.angle = angle_mod(s->player.angle);
-	vs = get_walls_to_draw(s, player, demi_fov, vs);
+	vs = get_walls_to_draw(s, player, vs);
 	// printf("\n\n\n");
 	ft_draw_visu(s, get_sector_by_id(s, s->player.sector_id), vs);
 }
