@@ -21,6 +21,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	wall->wall_or_portal = w_or_p;
 	if (vtx->image)
 		wall->image = vtx->image;
+	wall->nb_tex = vtx->tex_nb;
 	wall->player = vs->player;
 	left = vtx->ptr->m_pos;
 	right = vtx->next->ptr->m_pos;

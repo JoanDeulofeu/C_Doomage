@@ -62,12 +62,11 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	y = 1;
 	if (begin_wall < 0)
 		y += abs(begin_wall);
+
 	x = wall->total_width_wall - wall->screen_width_wall + wall->avcm_x;
-	if ((wall->left.x == wall->r_left.x) && (wall->left.y == wall->r_left.y)
-		&& (wall->right.x != wall->r_right.x) && (wall->right.y != wall->r_right.y))
+	if ((wall->left.x == wall->r_left.x) && (wall->left.y == wall->r_left.y) && ((wall->right.x != wall->r_right.x) || (wall->right.y != wall->r_right.y)))
 		x = wall->avcm_x;
-	else if ((wall->left.x != wall->r_left.x) && (wall->left.y != wall->r_left.y)
-		&& (wall->right.x != wall->r_right.x) && (wall->right.y != wall->r_right.y))
+	else if (((wall->left.x != wall->r_left.x) || (wall->left.y != wall->r_left.y)) && ((wall->right.x != wall->r_right.x) || (wall->right.y != wall->r_right.y)))
 		x = wall->left_void_side + wall->avcm_x;
 	nb_tex_x = (ft_dist_t_dpos(wall->r_left, wall->r_right) / METRE) / 2;
 	nb_tex_y = abs(wall->floor_height - wall->ceiling_height);
