@@ -83,6 +83,8 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		coord.y = limit_floor;
 		y = 0;
 	}
+	if (coord.y < 0)
+		coord.y = 0;
 	while (coord.y < end && coord.y < HEIGHT)
 	{
 		if (wall->wall_or_portal == 'p')
