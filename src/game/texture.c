@@ -21,7 +21,7 @@ void	get_total_w_wall(t_walls *wall)
 	wall->left_void_side = (perc * wall->total_width_wall) / 100;
 }
 
-void	ft_limit_portal_texture(int lol, t_walls *wall, int begin, int end, int *limit_ceiling, int *limit_floor)
+void	ft_limit_portal_texture(t_walls *wall, int end, int *limit_ceiling, int *limit_floor)
 {
 	int	diff_haute; // en metre ig
 	int	diff_total; // en metre ig
@@ -33,8 +33,6 @@ void	ft_limit_portal_texture(int lol, t_walls *wall, int begin, int end, int *li
 	diff_total = wall->ceiling_height - wall->floor_height;
 	diff_total_pxl = wall->wall_height_tmp;
 
-	if (lol)
-		printf("%d + ((%d * 100 / %d) * %d) / 100  =  ", begin, diff_haute, diff_total, diff_total_pxl);
 	*limit_ceiling = (end - wall->wall_height_tmp) + ((diff_haute * 100 / diff_total) * diff_total_pxl) / 100;
 	*limit_floor = end - ((diff_basse * 100 / diff_total) * diff_total_pxl) / 100;
 	// printf("res ceiling %d      res floor %d\n\n", ((diff_haute * 100 / diff_total) * 100) / diff_total_pxl, ((diff_basse * 100 / diff_total) * 100) / diff_total_pxl);
@@ -59,7 +57,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	limit_ceiling = 0;
 	limit_floor = 0;
 	if (wall->wall_or_portal == 'p')
-		ft_limit_portal_texture(s->printf, wall, coord.y, end, &limit_ceiling, &limit_floor);
+		ft_limit_portal_texture(wall, end, &limit_ceiling, &limit_floor);
 	begin_wall = coord.y;
 	y = 1;
 	if (begin_wall < 0)
@@ -87,8 +85,6 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	}
 	if (coord.y < 0)
 		coord.y = 0;
-	if (s->printf && wall->wall_or_portal == 'p')
-		printf("ceiling(%d) floor(%d)\n\n", limit_ceiling, limit_floor);
 	while (coord.y < end && coord.y < HEIGHT)
 	{
 		if (wall->wall_or_portal == 'p')
@@ -102,8 +98,6 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
 		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
 			+ (int)((perx * (double)wall->image->w) / 100);
-		if (coord.x > 1200 || coord.x < -200 || coord.y > 1200 || coord.y < -200)
-			printf("2coord aberant (%d, %d)\nceiling(%d) floor(%d)\n\n", coord.x, coord.y, limit_ceiling, limit_floor);
 		if (px >= 0 && px < wall->image->w * wall->image->h && wall->image->tex[px] != 65280)
 			set_pixel(s->sdl->game, wall->image->tex[px], coord);
 		y++;
@@ -117,13 +111,7 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 	double		pct;
 
 	if ((begin = coord.y) < 0)
-	{
-		if (s->printf)
-			printf("begin = %d\n", begin);
 		return (begin);
-	}
-	if (s->printf)
-		printf("begin = %d\n", begin);
 	wall->diffx_ceiling = (wall->diffx_ceiling == 0) ? 1 : wall->diffx_ceiling;
 	pct = (((double)coord.x - (double)wall->minx_ceiling) * 100) / (double)wall->diffx_ceiling;
 	if ((wall->minx_ceiling == wall->left_ceiling_limit.x && wall->miny_ceiling
@@ -136,8 +124,6 @@ int		ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord)
 		coord.y = 0;
 	while (coord.y < begin && coord.y < HEIGHT)
 	{
-		if (coord.x > 1200 || coord.x < -200 || coord.y > 1200 || coord.y < -200)
-			printf("1coord aberant (%d, %d)\n", coord.x, coord.y);
 		set_pixel(s->sdl->game, 0x6e492eff, coord);
 		coord.y++;
 	}
@@ -162,8 +148,6 @@ void	ft_draw_floor(t_main *s, t_walls *wall, t_pos coord)
 		coord.y = 0;
 	while (coord.y < end && coord.y < HEIGHT)
 	{
-		if (coord.x > 1200 || coord.x < -200 || coord.y > 1200 || coord.y < -200)
-			printf("3coord aberant (%d, %d)\n", coord.x, coord.y);
 		set_pixel(s->sdl->game, 0xa8b08eff, coord);
 		coord.y++;
 	}

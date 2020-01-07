@@ -76,11 +76,7 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		wall->wall_height_tmp = height_wall;
 		wall->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, wall->ceiling_height, wall->floor_height, height_wall);
-		if (s->printf && wall->wall_or_portal == 'p')
-			printf("height wall = %.1f       diff_height_pxl = %.1f\n", height_wall, diff_height_pxl);
 		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
-		if (s->printf && wall->wall_or_portal == 'p')
-			printf("res = %d\n", coord.y);
 		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
 		if (coord.x > 0 && coord.x < WIDTH)
 		{
