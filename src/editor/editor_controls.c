@@ -176,8 +176,8 @@ int			key_controls_game(t_main *s, int key)
 	if (key == TAB)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
-		s->printf = s->printf ? 0 : 1;
-		// printf("Test = %d\n", ft_is_in_sector(s, s->player.m_pos));
+		// s->printf = s->printf ? 0 : 1;
+		printf("Test = %.3f %.3f\n", s->player.r_pos.y * METRE, s->player.r_pos.x * METRE);
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
 		// tp_first_sector(s);
 		// s->player.y_eye = 0;
