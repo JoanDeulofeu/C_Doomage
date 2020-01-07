@@ -1,5 +1,19 @@
 #include "doom.h"
 
+double		get_demi_fov(t_dpos player, double angle)
+{
+	t_dpos	plan;
+	double	demi_fov;
+
+	plan.x = player.x + cos(to_rad(angle)) * METRE;
+	plan.x = plan.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
+	plan.y = player.y - sin(to_rad(angle)) * METRE;
+	plan.y = plan.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
+	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, plan), METRE, WIDTHPLAN / 2);
+	// printf("demi_fov = %f\n", demi_fov);
+	return (demi_fov);
+}
+
 t_pos		get_subline_coord(t_main *s, t_name value)
 {
 	t_pos	new;
@@ -269,6 +283,7 @@ t_main		*initialize_main(char *str)
 	s->player.sector = NULL;
 	s->display_mode = 0;
 	s->player.init_space = s->editor->space;
+	s->player.demi_fov = get_demi_fov(s->player.m_pos, s->player.angle);
 	s->str_vtx = NULL;
 	s->walls = NULL;
 	s->portal_nb = 0;

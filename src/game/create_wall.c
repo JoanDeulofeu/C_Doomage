@@ -1,28 +1,31 @@
 #include "doom.h"
 
-t_visu		fill_visu_values_2(t_main *s, t_visu fake_vs, double fake_angle)
-{
-	double	demi_fov;
-
-	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_vs.player,
-		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
-	fake_vs.angle = angle_mod(fake_angle);
-	fake_vs = get_walls_to_draw(s, fake_vs.player, demi_fov, fake_vs);
-	return (fake_vs);
-}
+// t_visu		fill_visu_values_2(t_main *s, t_visu fake_vs, double fake_angle)
+// {
+// 	double	demi_fov;
+//
+// 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_vs.player,
+// 		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
+// 	fake_vs.angle = angle_mod(fake_angle);
+// 	fake_vs = get_walls_to_draw(s, fake_vs.player, demi_fov, fake_vs);
+// 	return (fake_vs);
+// }
 
 t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 {
 	double	fake_angle;
 	t_visu	fake_vs;
+	t_dpos	fake_player;
 
 	fake_angle = 0;
-	fake_vs.player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
-	fake_vs = ft_place_view_plan(s, fake_vs.player, fake_angle, 0x4bd9ffff); // #4bd9ff
+	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
+	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
+	fake_vs.player = fake_player;
 	fake_vs.prev_sct_id = vtx->sct;
 	fake_vs.sct_id = vtx->sct_dest;
 	fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
-	fake_vs = fill_visu_values_2(s, fake_vs, fake_angle);
+	fake_vs.angle = angle_mod(fake_angle);
+	fake_vs = get_walls_to_draw(s, fake_vs.player, s->player.demi_fov, fake_vs);
 	fake_vs.vtx_droite = vtx->vtx_dest;
 	if (fake_vs.vtx_droite == NULL)
 		handle_error(s, POINTER_ERROR);

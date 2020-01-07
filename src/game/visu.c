@@ -68,8 +68,10 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	t_visu	vs;
 
 	ft_bzero(&vs, sizeof(t_visu));
+	printf("player (%f)(%f)\nangle = %f\n", player.x, player.y, angle);
 	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;
 	ctr_p.y = player.y - sin(to_rad(angle)) * METRE;
+	printf("ctr_p (%f)(%f)\n", ctr_p.x, ctr_p.y);
 	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;

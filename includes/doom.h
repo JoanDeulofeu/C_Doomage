@@ -100,6 +100,7 @@ typedef struct				s_player
 {
 	int						dead;
 	int						i; //???
+	double					demi_fov;
 	t_dpos					r_ori;
 	t_dpos					r_pos; // position reel du joueur par rpport au repere
 	t_dpos					pos; // Position du joueur en pixel
