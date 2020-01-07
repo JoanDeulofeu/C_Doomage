@@ -54,6 +54,8 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	int		limit_ceiling; // dans le cas dun portail.
 	int		limit_floor; // dans le cas dun portail.
 
+	limit_ceiling = 0;
+	limit_floor = 0;
 	if (wall->wall_or_portal == 'p')
 		ft_limit_portal_texture(wall, coord.y, end, &limit_ceiling, &limit_floor);
 	begin_wall = coord.y;
@@ -74,6 +76,8 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	perx = (fmod((double)x, tex_size_x)) * 100 / tex_size_x;
 	if (coord.y < 0)
 		coord.y = 0;
+	if (limit_floor > HEIGHT)
+		limit_floor = HEIGHT;
 	if ((wall->wall_or_portal == 'p') && (coord.y > limit_ceiling))
 	{
 		coord.y = limit_floor;
@@ -93,7 +97,7 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 		px = (int)((pery * (double)wall->image->h) / 100) * wall->image->w
 			+ (int)((perx * (double)wall->image->w) / 100);
 		if (coord.x > 1200 || coord.x < -200 || coord.y > 1200 || coord.y < -200)
-			printf("2coord aberant (%d, %d)\n", coord.x, coord.y);
+			printf("2coord aberant (%d, %d)\nceiling(%d) floor(%d)\n\n", coord.x, coord.y, limit_ceiling, limit_floor);
 		if (px >= 0 && px < wall->image->w * wall->image->h && wall->image->tex[px] != 65280)
 			set_pixel(s->sdl->game, wall->image->tex[px], coord);
 		y++;

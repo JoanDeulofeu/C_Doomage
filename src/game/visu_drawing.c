@@ -13,6 +13,10 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	ft_bzero((void *)wall, sizeof(t_walls));
 	sct = NULL;
 	wall->id = ++s->wall_fk_id;
+	wall->ceiling_height = 0;
+	wall->floor_height = 0;
+	wall->ceiling_height_dest = 0;
+	wall->floor_height_dest = 0;
 	// printf("creation du mur n%d\n", wall->id);
 	wall->wall_or_portal = w_or_p;
 	if (vtx->image)
