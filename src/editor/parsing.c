@@ -431,56 +431,52 @@ int		ft_parse_ennemi(t_main *s, char *line)
 	return (0);
 }
 
-int		ft_parsing(t_main *s, int x, int y, int fd)
+void	ft_parsing_norm(t_main *s, char *line, int i, int y)
+{
+	if (line[0] == 'V')
+	{
+		y = ft_atoi(&line[i]);
+		i += ft_longlen(y) + 1;
+		ft_add_vertex(s, ft_atoi(&line[i]), y);
+	}
+	else if (line[0] == 'S' && ft_how_many_pipe(line) == 3)
+	{
+		ft_parse_sector(s, line);
+		ft_check_validity_last_sector(s);
+	}
+	else if (line[0] == 'E' && ft_how_many_pipe(line) == 3)
+		ft_parse_ennemi(s, line);
+	else if (line[0] == 'P')
+	{
+		s->player.r_ori.y = (float)ft_atoi(&line[i]) / METRE;
+		i += ft_longlen(s->player.r_pos.y * METRE);
+		s->player.r_ori.x = (float)ft_atoi(&line[i]) / METRE;
+		s->player.r_pos = s->player.r_ori;
+	}
+}
+
+int		ft_parsing(t_main *s, int fd)
 {
 	char	*line;
 	int		i;
-	int		test;
 
 	fd = open(s->map_name, O_RDWR);
 	if (fd < 1)
 		handle_error(s, MAP_ERROR);
-	while ((test = get_next_line(fd, &line)) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if ((i = ft_find_next_number(line, 0)) == -1)
 			continue;
-		if (line[0] == 'V')
-		{
-			y = ft_atoi(&line[i]);
-			i += ft_longlen(y) + 1;
-			x = ft_atoi(&line[i]);
-			ft_add_vertex(s, x, y);
-		}
-		else if (line[0] == 'S')
-		{
-			if (ft_how_many_pipe(line) != 3)
-				continue;
-			ft_parse_sector(s, line);
-			ft_check_validity_last_sector(s);
-		}
-		else if (line[0] == 'E')
-		{
-			if (ft_how_many_pipe(line) != 3)
-				continue;
-			ft_parse_ennemi(s, line);
-		}
-		else if (line[0] == 'P')
-		{
-			s->player.r_ori.y = (float)ft_atoi(&line[i]) / METRE;
-			i += ft_longlen(s->player.r_pos.y * METRE);
-			s->player.r_ori.x = (float)ft_atoi(&line[i]) / METRE;
-			s->player.r_pos = s->player.r_ori;
-		}
+		if (line[0] == 'V' ||  line[0] == 'S' || line[0] == 'P'
+		|| line[0] == 'E')
+			ft_parsing_norm(s, line, i, 0);
 		else if (line[0] == 'A')
-		{
 			s->player.angle = ft_atoi(&line[i]);
-		}
 		ft_strdel(&line);
 	}
 	ft_check_parsing_validity(s);
 	ft_strdel(&line);
 	add_portal_ptr(s);
 	check_map_portals(s);
-	// ft_test_chainlist(s);
 	return (0);
 }

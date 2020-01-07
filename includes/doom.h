@@ -450,7 +450,7 @@ void 						fly(t_main *s);
 /*
 ****	Fonction de gestion et de protection du parsing
 */
-int							ft_parsing(t_main *s, int x, int y, int fd);
+int							ft_parsing(t_main *s, int fd);
 int							ft_find_next_number(char *str, int i);
 void						ft_check_validity_last_sector(t_main *s);
 int							ft_check_wall_that_intersect(t_main *s,
