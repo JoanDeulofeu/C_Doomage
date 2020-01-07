@@ -72,13 +72,13 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	tex_size_x = wall->total_width_wall / nb_tex_x;
 	tex_size_y = (end - coord.y) / nb_tex_y;
 	perx = (fmod((double)x, tex_size_x)) * 100 / tex_size_x;
-	if (coord.y < 0)
-		coord.y = 0;
 	if ((wall->wall_or_portal == 'p') && (coord.y > limit_ceiling))
 	{
 		coord.y = limit_floor;
 		y = 0;
 	}
+	if (coord.y < 0)
+		coord.y = 0;
 	while (coord.y < end && coord.y < HEIGHT)
 	{
 		if (wall->wall_or_portal == 'p')
