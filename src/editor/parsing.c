@@ -248,26 +248,22 @@ int		ft_check_inside_sector_wall_intersect(t_main *s, t_sector *sct)
 	int			wic_i;
 	int			wic_stop;
 	int			w_i;
-	int			w_stop;
 	t_dpos		beg1;
 	t_dpos		beg2;
 	t_dpos		end1;
 	t_dpos		end2;
 
-	if (sct->vertex->prev->id < 4) //si le secteur a 3 murs
+	if (sct->vertex->prev->id < 4)
 		return (0);
 	wall_in_check = sct->vertex;
 	w_i = wall_in_check->id;
-	w_stop = wall_in_check->prev->id; //pas de +1 car pas besoin de check le dernier mur
 	wic_i = w_i;
-	wic_stop = w_stop + 1;
-	// printf("\n\nTEST\n");
+	wic_stop = wall_in_check->prev->id + 1;
 	while (wic_i++ < wic_stop)
 	{
 		wall = wall_in_check->next->next;
 		w_i = 1;
-		// printf("Mur testé n%d", wall_in_check->id);
-		while (w_i++ < w_stop)
+		while (w_i++ < wall_in_check->prev->id)
 		{
 			beg1 = wall_in_check->ptr->m_pos;
 			beg2 = wall_in_check->next->ptr->m_pos;
@@ -275,10 +271,8 @@ int		ft_check_inside_sector_wall_intersect(t_main *s, t_sector *sct)
 			end2 = wall->next->ptr->m_pos;
 			if ((ft_find_intersection(s, beg1, beg2, end1, end2, 1)) > 0)
 				return (1);
-			// printf(" avec mur n%d", wall->id);
 			wall = wall->next;
 		}
-		// printf("\n");
 		wall_in_check = wall_in_check->next;
 	}
 	return (0);
@@ -289,10 +283,8 @@ int		ft_check_wall_that_intersect(t_main *s, t_sector *sct_in_check)
 	t_sector	*sct;
 
 	sct = s->sector;
-	// printf("secteur testé = %d\n", sct_in_check->id);
 	while (sct)
 	{
-		// printf("test\n");
 		if (sct->id == sct_in_check->id)
 		{
 			if (ft_check_inside_sector_wall_intersect(s, sct_in_check))
@@ -382,7 +374,6 @@ void	ft_check_parsing_validity(t_main *s)
 		printf("Moins de 1 sct\n");
 		handle_error(s, MAP_ERROR);
 	}
-	i = 0;
 	if (sct->vertex->prev->id < 3)
 	{
 		printf("Moins de 3 vtx dans sct1\n");

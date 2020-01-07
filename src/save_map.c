@@ -152,13 +152,38 @@ void	ft_write_file_sprite(t_main *s, FILE *fichier)
 	}
 }
 
+void	ft_write_file_norm(FILE *fichier, t_sector *sct, t_int *wall, int end_id)
+{
+	fprintf(fichier, "Sector %d %d", sct->floor, sct->ceiling);
+	fprintf(fichier, " | ");
+	end_id = wall->prev->id;
+	while (wall->id != end_id)
+	{
+		fprintf(fichier, "%d ", wall->value);
+		wall = wall->next;
+	}
+	fprintf(fichier, "%d | ", wall->value);
+	wall = wall->next;
+	while (wall->id != end_id)
+	{
+		fprintf(fichier, "%d ", wall->wall_value);
+		wall = wall->next;
+	}
+	fprintf(fichier, "%d | ", wall->wall_value);
+	wall = wall->next;
+	while (wall->id != end_id)
+	{
+		fprintf(fichier, "%d ", wall->tex_nb);
+		wall = wall->next;
+	}
+	fprintf(fichier, "%d\n", wall->tex_nb);
+}
+
 void	ft_write_file(t_main *s)
 {
 	FILE		*fichier = NULL;
 	t_vertex	*vtx;
 	t_sector	*sct;
-	t_int		*wall;
-	int			end_id;
 
 	vtx = s->vertex;
 	sct = s->sector;
@@ -172,30 +197,7 @@ void	ft_write_file(t_main *s)
 	fprintf(fichier, "\n\n");
 	while (sct)
 	{
-		wall = sct->vertex;
-		fprintf(fichier, "Sector %d %d", sct->floor, sct->ceiling);
-		fprintf(fichier, " | ");
-		end_id = wall->prev->id;
-		while (wall->id != end_id)
-		{
-			fprintf(fichier, "%d ", wall->value);
-			wall = wall->next;
-		}
-		fprintf(fichier, "%d | ", wall->value);
-		wall = wall->next;
-		while (wall->id != end_id)
-		{
-			fprintf(fichier, "%d ", wall->wall_value);
-			wall = wall->next;
-		}
-		fprintf(fichier, "%d | ", wall->wall_value);
-		wall = wall->next;
-		while (wall->id != end_id)
-		{
-			fprintf(fichier, "%d ", wall->tex_nb);
-			wall = wall->next;
-		}
-		fprintf(fichier, "%d\n", wall->tex_nb);
+		ft_write_file_norm(fichier, sct, sct->vertex, 0);
 		sct = sct->next;
 	}
 	fprintf(fichier, "\n\n");
