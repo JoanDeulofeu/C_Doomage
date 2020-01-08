@@ -191,10 +191,6 @@ typedef struct			s_element {
 	struct s_element	*next;
 }						t_element;
 
-// typedef struct			s_pile {
-// 	t_element			*first;
-// }						t_pile;
-
 typedef struct			s_vertex {
 	int					id;
 	int					x;
