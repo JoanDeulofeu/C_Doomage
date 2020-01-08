@@ -155,6 +155,7 @@ void		load_images(t_main *s)
 		s->editor->sprite_menu.image[i] = NULL;
 		s->skybox.image[i] = NULL;
 		s->editor->all_sprite.image[i++] = NULL;
+		s->editor->all_texture.image[i++] = NULL;
 	}
 	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
 	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
@@ -237,10 +238,6 @@ t_main		*initialize_main(char *str)
 	ft_bzero((void *)s->editor, sizeof(t_editor));
 	s->savemap->error_msg = 0;
 	initialize_editor(s->editor);
-	s->vertex = NULL;
-	s->sector = NULL;
-	s->sprite = NULL;
-	s->printf = 0;
 	ft_set_time(s);
 	ft_init_msg(s);
 	s->player.shoot = 0;

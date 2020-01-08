@@ -70,11 +70,10 @@ int main (int argc, char **argv)
 	// display_map(s);
 	// ft_test_float();
 	// editor_handler(s);
+
+	free_program(s);
 	Mix_HaltMusic();
 	Mix_CloseAudio();
-	TTF_Quit();
 	SDL_Quit();
-	free_program(s);
-	while (1);
 	// event_handler(s);
 }
