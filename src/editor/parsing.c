@@ -472,6 +472,5 @@ int		ft_parsing(t_main *s, int fd)
 	ft_strdel(&line);
 	add_portal_ptr(s);
 	check_map_portals(s);
-	while (1);
 	return (0);
 }

@@ -46,6 +46,7 @@ void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
 	if (surface != NULL)
 		SDL_FreeSurface(surface);
 	SDL_RenderCopy(s->sdl->prenderer, texture, NULL, &ttf.pos);
+	ft_memdel((void **)&ttf.str);
 }
 
 void	ft_draw_ttf_play(t_main *s)
@@ -164,9 +165,11 @@ void	ft_draw_ttf_editor(t_main *s)
 		ttf.b = 255;
 		ttf.pos.x = 960;
 		ttf.pos.y = 4;
-		ttf.str = ft_strdup(str);
+		// ft_memdel((void **)&ttf.str);
+		ttf.str = ft_strdup_free(&str);
 		ft_create_ttf(ttf, s, s->font->roboto);
-		ft_memdel((void **)&str);
+		// ft_memdel((void **)&ttf.str);
+		// ft_memdel((void **)&str);
 
 		//---------- ft_nul
 		// ttf.r = 255;
@@ -243,6 +246,7 @@ void	ft_draw_ttf_editor(t_main *s)
 		ttf.pos.y = 400;
 		ttf.str = ft_strdup("Veuillez entrer le nom de la map a sauvegarder :");
 		ft_create_ttf(ttf, s, s->font->press_start);
+		// ft_memdel((void **)&ttf.str);
 		if (s->savemap->str[0] != '\0')
 		{
 			ttf.r = 255;
@@ -252,6 +256,7 @@ void	ft_draw_ttf_editor(t_main *s)
 			ttf.pos.y = 465;
 			ttf.str = ft_strdup(s->savemap->str);
 			ft_create_ttf(ttf, s, s->font->press_start);
+			// ft_memdel((void **)&ttf.str);
 		}
 		if (s->savemap->error_msg == 1)
 		{
@@ -262,6 +267,7 @@ void	ft_draw_ttf_editor(t_main *s)
 			ttf.pos.y = 620;
 			ttf.str = ft_strdup("ERROR : Le nom du fichier doit contenir au moins 3 caracteres.");
 			ft_create_ttf(ttf, s, s->font->roboto);
+			ft_memdel((void **)&ttf.str);
 		}
 		else if (s->savemap->error_msg == 2)
 		{
@@ -272,6 +278,7 @@ void	ft_draw_ttf_editor(t_main *s)
 			ttf.pos.y = 620;
 			ttf.str = ft_strdup("Sauvegarde de la map reussi.");
 			ft_create_ttf(ttf, s, s->font->roboto);
+			// ft_memdel((void **)&ttf.str);
 		}
 	}
 }
