@@ -56,6 +56,13 @@ typedef struct				s_fix_pos {
 	Uint32					y;
 }							t_fix_pos;
 
+typedef struct				s_4dpos {
+	t_dpos					pos1;
+	t_dpos					pos2;
+	t_dpos					pos3;
+	t_dpos					pos4;
+}							t_4dpos;
+
 typedef	struct				s_sounds
 {
 	Mix_Chunk				*shot;

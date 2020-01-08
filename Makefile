@@ -10,6 +10,8 @@ SRC_NAME =	main.c							\
 			sounds.c						\
 			debug.c							\
 			save_map.c						\
+			save_map2.c						\
+			save_map3.c						\
 			launching/load_storm_anim.c 	\
 			launching/load_wp_anim.c 		\
 			launching/load_anims.c			\
