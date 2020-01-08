@@ -184,10 +184,13 @@ void	ft_write_file(t_main *s)
 	FILE		*fichier = NULL;
 	t_vertex	*vtx;
 	t_sector	*sct;
+	char		*str; //Ajoute pour eviter le leak
 
 	vtx = s->vertex;
 	sct = s->sector;
-	fichier = fopen(ft_strjoin(s->savemap->str, ".map"), "w+");
+	str = ft_strjoin(s->savemap->str, ".map");
+	fichier = fopen(str, "w+");
+	ft_strdel(&str);
 	fprintf(fichier, "Map : %s\n\n", s->savemap->str);
 	while (vtx)
 	{
@@ -206,7 +209,8 @@ void	ft_write_file(t_main *s)
 	fprintf(fichier, "Player %d %d\n", (int)(s->player.r_pos.y * METRE), (int)(s->player.r_pos.x * METRE));
 	fprintf(fichier, "Angle %d\n", (int)s->player.angle);
 	fclose(fichier);
-	bzero(s->savemap->str, 41);
+	// ft_memdel((void *)s->savemap->str);
+	ft_bzero(s->savemap->str, 41);
 	ft_save_msg(s, 2);
 }
 
