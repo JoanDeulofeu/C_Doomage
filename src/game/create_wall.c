@@ -36,24 +36,23 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 {
 	t_visu	fake_vs;
-	t_dpos	wall1;
-	t_dpos	wall2;
+	t_4dpos	pos;
 
 	fake_vs = fill_visu_values(s, vs, vtx);
-	wall1 = vtx->vtx_dest->next->ptr->m_pos;
-	wall2 = vtx->vtx_dest->ptr->m_pos;
-	ft_find_intersection(s, wall1, wall2, fake_vs.left_point, fake_vs.player, 1);
-	if ((ft_find_intersection(s, wall1, wall2, fake_vs.left_point,
-		fake_vs.player, 1)) == 0)
+	pos.pos1 = vtx->vtx_dest->next->ptr->m_pos;
+	pos.pos2 = vtx->vtx_dest->ptr->m_pos;
+	pos.pos3 = fake_vs.left_point;
+	pos.pos4 = fake_vs.player;
+	if ((ft_find_intersection(s, pos, 1)) == 0)
 		fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 	else
 		fake_vs.begin = s->tmp_intersect;
-	if ((ft_find_intersection(s, wall1, wall2, fake_vs.right_point,
-		fake_vs.player, 1)) == 0)
+	pos.pos3 = fake_vs.right_point;
+	if ((ft_find_intersection(s, pos, 1)) == 0)
 		fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 	else
 		fake_vs.end = s->tmp_intersect;
-	ft_limit_ceiling_floor(s, wall1, wall2, &fake_vs, swich);
+	ft_limit_ceiling_floor(s, pos.pos1, pos.pos2, &fake_vs, swich);
 	ft_create_new_wall(s, vtx, vs, 'p');
 	if (s->portal_nb < PORTAL_LIMIT)
 		add_portal_to_list(s, fake_vs.player, fake_vs.sct, fake_vs);
@@ -61,6 +60,8 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 
 void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 {
+	t_4dpos		pos;
+
 	while (end)
 	{
 		if (vtx->wall_value != -1)
@@ -82,8 +83,12 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 			vs->begin = vtx->ptr->m_pos;
 			vs->tmp_wall = vtx->next->ptr->m_pos;
 			ft_create_new_wall(s, vtx, vs, 'w');
+			pos.pos1 = vs->begin;
+			pos.pos2 = vs->player;
+			pos.pos3 = vs->left_plan;
+			pos.pos4 = vs->right_plan;
 			if (vtx->ptr->id == vs->end_wall_id)
-				ft_find_intersection(s, vs->begin, vs->player, vs->left_plan, vs->right_plan, 1);
+				ft_find_intersection(s, pos, 1);
 		}
 		if ((vtx->ptr->id == vs->begin_wall_id && vs->begin_wall_id
 			== vs->end_wall_id) || vtx->ptr->id == vs->end_wall_id)

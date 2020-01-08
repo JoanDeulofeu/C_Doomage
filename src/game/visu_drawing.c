@@ -1,9 +1,32 @@
 #include "doom.h"
 
+void	ft_create_new_wall2(t_walls *wall, t_int *vtx, t_visu *vs, int part)
+{
+	if (part == 1)
+	{
+		if (vtx->image)
+			wall->image = vtx->image;
+		wall->nb_tex = vtx->tex_nb;
+		wall->player = vs->player;
+		wall->angle = vs->angle;
+		wall->sct_id = vs->sct_id;
+	}
+	else
+	{
+		wall->left_ceiling_limit = vs->left_ceiling_limit;
+		wall->left_floor_limit = vs->left_floor_limit;
+		wall->right_ceiling_limit = vs->right_ceiling_limit;
+		wall->right_floor_limit = vs->right_floor_limit;
+		wall->floor_height = vs->sct->floor;
+		wall->ceiling_height = vs->sct->ceiling;
+	}
+}
+
 t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 {
 	t_walls		*wall;
 	int			dist;
+	t_4dpos		pos;
 	t_dpos		left;
 	t_dpos		right;
 	t_sector	*sct;
@@ -13,63 +36,51 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	ft_bzero((void *)wall, sizeof(t_walls));
 	sct = NULL;
 	wall->id = ++s->wall_fk_id;
-	wall->ceiling_height = 0;
-	wall->floor_height = 0;
-	wall->ceiling_height_dest = 0;
-	wall->floor_height_dest = 0;
-	// printf("creation du mur n%d\n", wall->id);
+	ft_create_new_wall2(wall, vtx, vs, 1);
 	wall->wall_or_portal = w_or_p;
-	if (vtx->image)
-		wall->image = vtx->image;
-	wall->nb_tex = vtx->tex_nb;
-	wall->player = vs->player;
 	left = vtx->ptr->m_pos;
 	right = vtx->next->ptr->m_pos;
 	wall->r_right = right;
 	wall->r_left = left;
-	wall->angle = vs->angle;
-	wall->sct_id = vs->sct_id;
-	// printf("vs angle = %f\n", vs->angle);
 
-	dist = ft_find_intersection(s, vs->left_point, vs->player, left, right, 1);
+	pos.pos1 = vs->left_point;
+	pos.pos2 = vs->player;
+	pos.pos3 = left;
+	pos.pos4 = right;
+	dist = ft_find_intersection(s, pos, 1);
 	if (dist > 0)
 		wall->left = s->tmp_intersect;
 	else
 		wall->left = left;
-	ft_find_intersection(s, wall->left, vs->player, vs->left_plan, vs->right_plan, 1);
+	pos.pos1 = wall->left;
+	pos.pos3 = vs->left_plan;
+	pos.pos4 = vs->right_plan;
+	ft_find_intersection(s, pos, 1);
 	wall->l_plan = s->tmp_intersect;
 	if (dist > 0 && !s->walls)
 		wall->x = 0;
 	else
-		wall->x = (ft_dist_t_dpos(vs->left_plan, wall->l_plan) / WIDTHPLAN) * WIDTH;
-	dist = ft_find_intersection(s, vs->right_point, vs->player, left, right, 1);
+		wall->x = (ft_dist_t_dpos(pos.pos3, wall->l_plan) / WIDTHPLAN) * WIDTH;
+	pos.pos1 = vs->right_point;
+	pos.pos3 = left;
+	pos.pos4 = right;
+	dist = ft_find_intersection(s, pos, 1);
 	if (dist > 0)
 		wall->right = s->tmp_intersect;
 	else
 		wall->right = right;
-
-	ft_find_intersection(s, wall->right, vs->player, vs->left_plan, vs->right_plan, 1);
+	pos.pos1 = wall->right;
+	pos.pos3 = vs->left_plan;
+	pos.pos4 = vs->right_plan;
+	ft_find_intersection(s, pos, 1);
 	wall->r_plan = s->tmp_intersect;
 	get_wall_distance(wall, vs);
-	// if (vtx->ptr->id == 19) //19 mur du fond
-	// {
-	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->l_plan)), YELLOW);
-	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, wall->r_plan)), GREEN);
-	// }
 	if (ft_dist_t_dpos(wall->l_plan, vs->left_plan)
 	<= ft_dist_t_dpos(wall->r_plan, vs->left_plan)
 	&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player))
 	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
-	{
 		add_wall_to_list(s, wall);
-	}
-
-	wall->left_ceiling_limit = vs->left_ceiling_limit;
-	wall->left_floor_limit = vs->left_floor_limit;
-	wall->right_ceiling_limit = vs->right_ceiling_limit;
-	wall->right_floor_limit = vs->right_floor_limit;
-	wall->floor_height = vs->sct->floor;
-	wall->ceiling_height = vs->sct->ceiling;
+	ft_create_new_wall2(wall, vtx, vs, 2);
 	if (w_or_p == 'p')
 	{
 		sct = get_sector_by_id(s, vtx->sct_dest);
@@ -86,12 +97,10 @@ void	ft_init_diff_and_min(t_walls *wall)
 	wall->diffy_ceiling = ft_abs(wall->left_ceiling_limit.y - wall->right_ceiling_limit.y);
 	wall->minx_ceiling = wall->left_ceiling_limit.x < wall->right_ceiling_limit.x ? wall->left_ceiling_limit.x : wall->right_ceiling_limit.x;
 	wall->miny_ceiling = wall->left_ceiling_limit.y < wall->right_ceiling_limit.y ? wall->left_ceiling_limit.y : wall->right_ceiling_limit.y;
-
 	wall->diffx_floor = ft_abs(wall->left_floor_limit.x - wall->right_floor_limit.x);
 	wall->diffy_floor = ft_abs(wall->left_floor_limit.y - wall->right_floor_limit.y);
 	wall->minx_floor = wall->left_floor_limit.x < wall->right_floor_limit.x ? wall->left_floor_limit.x : wall->right_floor_limit.x;
 	wall->miny_floor = wall->left_floor_limit.y < wall->right_floor_limit.y ? wall->left_floor_limit.y : wall->right_floor_limit.y;
-	// printf("min_ceiling(x %d, y %d) min_floor(x %d, y %d) diff_ceiling(x %d, y %d) diff_floor(x %d, y %d)\n", wall->minx_ceiling, wall->miny_ceiling, wall->minx_floor, wall->miny_floor, wall->diffx_ceiling, wall->diffy_ceiling, wall->diffx_floor, wall->diffy_floor);
 }
 
 int		ft_print_wall(t_main *s, t_walls *wall)
@@ -125,7 +134,6 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 
 void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, char swich)
 {
-	//swich permet de savoir quelle fonction a appeller celle ci et donc de savoir si on soccupe du premier ou dernier mur ou autre.
 	double	width_wall;
 	double	l_big_dist;
 	double	r_big_dist;
@@ -136,71 +144,72 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	double	l_height_wall_diff;
 	double	r_height_wall_diff;
 	double	x;
+	t_4dpos	pos;
 	t_dpos	l_plan;
 	t_dpos	r_plan;
 
-	if (swich == 1 || swich == 4) //si cest le premier mur
+	pos.pos2 = vs->player;
+	if (swich == 1 || swich == 4)
 	{
 		l_plan = vs->left_plan;
-		ft_find_intersection(s, l_plan, vs->player, left, right, 1);
+		pos.pos1 = l_plan;
+		pos.pos3 = left;
+		pos.pos4 = right;
+		ft_find_intersection(s, pos, 1);
 		l_big_dist = (ft_dist_t_dpos(vs->player, s->tmp_intersect) / METRE);
 	}
 	else
 	{
-		ft_find_intersection(s, left, vs->player, vs->left_plan, vs->right_plan, 1);
+		pos.pos1 = left;
+		pos.pos3 = vs->left_plan;
+		pos.pos4 = vs->right_plan;
+		ft_find_intersection(s, pos, 1);
 		l_plan = s->tmp_intersect;
 		l_big_dist = (ft_dist_t_dpos(vs->player, left) / METRE);
 	}
-	if (swich == 3 || swich == 4) //si cest le dernier mur
+	if (swich == 3 || swich == 4)
 	{
 		r_plan = vs->right_plan;
-		ft_find_intersection(s, r_plan, vs->player, left, right, 1);
+		pos.pos1 = r_plan;
+		pos.pos3 = left;
+		pos.pos4 = right;
+		ft_find_intersection(s, pos, 1);
 		r_big_dist = (ft_dist_t_dpos(vs->player, s->tmp_intersect) / METRE);
 	}
 	else
 	{
-		ft_find_intersection(s, right, vs->player, vs->left_plan, vs->right_plan, 1);
+		pos.pos1 = right;
+		pos.pos3 = vs->left_plan;
+		pos.pos4 = vs->right_plan;
+		ft_find_intersection(s, pos, 1);
 		r_plan = s->tmp_intersect;
 		r_big_dist = (ft_dist_t_dpos(vs->player, right) / METRE);
 	}
-
 	l_small_dist = (ft_dist_t_dpos(vs->player, l_plan) / METRE);
 	r_small_dist = (ft_dist_t_dpos(vs->player, r_plan) / METRE);
-
 	l_height_wall = HEIGHT / ((((l_big_dist * 100.0) / l_small_dist) * 0.001) * 4)
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
 	r_height_wall = HEIGHT / ((((r_big_dist * 100.0) / r_small_dist) * 0.001) * 4)
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
 	width_wall = (WIDTH * ((ft_dist_t_dpos(l_plan, r_plan) * 100.0) / WIDTHPLAN)) / 100;
-
-	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xED5F18FF);
-	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xED5F18FF);
-	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, right)), 0x57C7FFFF);
-
-	if (ft_find_intersection(s, vs->left_point, vs->player, left, right, 1) > 0)
+	pos.pos1 = vs->left_point;
+	pos.pos3 = left;
+	pos.pos4 = right;
+	if (ft_find_intersection(s, pos, 1) > 0)
 		x = 0;
 	else
 		x = (ft_dist_t_dpos(vs->left_plan, l_plan) / WIDTHPLAN) * WIDTH;
-
 	s->player.eyesight = s->player.foot_height - vs->sct->floor + s->player.size;
 	l_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, l_height_wall);
 	r_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, r_height_wall);
-	// printf("height_wall (%.2f, %.2f)\nles deux diff (%.2f, %.2f)\n", l_height_wall, r_height_wall, l_height_wall_diff, r_height_wall_diff);
 	vs->left_ceiling_limit.x = (int)x;
 	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall) + s->player.y_eye + l_height_wall_diff;
 	vs->left_floor_limit.x = (int)x;
 	vs->left_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + l_height_wall_diff;
-
 	vs->right_ceiling_limit.x = x + width_wall;
 	vs->right_ceiling_limit.y = (HEIGHT / 2) - (r_height_wall) + s->player.y_eye + r_height_wall_diff;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + r_height_wall_diff;
-
-
-	// if (s->printf)
-	// 	printf("swich %d     widthwall %.2f\n", swich, width_wall);
-	// printf("LEFT PLAFOND\t\tSOL\t\t\t\tRIGHT PLAFOND\t\tSOL\n");
-	// printf("x(%hd) y(%hd)\t\tx(%hd) y(%hd)\t\t\tx(%hd) y(%hd)\t\tx(%hd) y(%hd)\n\n\n", vs->left_ceiling_limit.x, vs->left_ceiling_limit.y, vs->left_floor_limit.x, vs->left_floor_limit.y, vs->right_ceiling_limit.x, vs->right_ceiling_limit.y, vs->right_floor_limit.x, vs->right_floor_limit.y);
 }
 
 void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)

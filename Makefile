@@ -26,6 +26,7 @@ SRC_NAME =	main.c							\
 			editor/editor_controls.c		\
 			editor/lines.c					\
 			editor/parsing.c				\
+			editor/parsing2.c				\
 			editor/chainlist.c				\
 			editor/utils_1.c				\
 			editor/utils_2.c				\

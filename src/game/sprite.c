@@ -3,45 +3,40 @@
 int		check_if_visible(t_main *s, t_sprite *sprite)
 {
 	t_walls	*wall;
-	// double	angle;
-	t_dpos	fake_sprite;
+	t_4dpos	pos;
 
 	wall = s->walls;
+	pos.pos1 = wall->player;
+	pos.pos3 = wall->left;
+	pos.pos4 = wall->right;
 	while (wall)
 	{
-		// printf("sprite->x = %d, wall->x = %d, fin du mur = %d\n", sprite->x, wall->x, wall->x + wall->screen_width_wall);
 		if (wall->wall_or_portal == 'w' && wall->sct_id != sprite->sct_id)
 		{
-			// printf("sprite->angle = %f\nwall->angle=%f\n", sprite->angle, wall->angle);
-			// printf("dernier angle = %f\n", angle_mod(sprite->angle + wall->angle));
-			fake_sprite.x = wall->player.x + cos(to_rad(angle_mod(sprite->angle + wall->angle))) * (sprite->r_dist * METRE);
-			fake_sprite.y = wall->player.y - sin(to_rad(sprite->angle + wall->angle)) * (sprite->r_dist * METRE);
-			draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_sprite)), S_RED);
-			if (ft_find_intersection(s, wall->player, fake_sprite,
-				wall->left, wall->right, 1))
+			pos.pos2.x = wall->player.x + cos(to_rad(angle_mod(sprite->angle + wall->angle))) * (sprite->r_dist * METRE);
+			pos.pos2.y = wall->player.y - sin(to_rad(sprite->angle + wall->angle)) * (sprite->r_dist * METRE);
+			draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos.pos2)), S_RED);
+			if (ft_find_intersection(s, pos, 1))
 				return (0);
 		}
-		// sprite->x >= wall->x && sprite->x <= wall->x + wall->screen_width_wall
-		// 	&& ft_find_intersection(s, wall->player, sprite->m_pos,
-		// 	wall->left, wall->right, 1))
-		// 		return (0);
 		wall = wall->next;
 	}
-	// printf("\n");
-	// exit(-1);
 	return (1);
 }
 
 void 	get_sprite_x(t_main *s, t_visu *vs, t_sprite *sprite)
 {
 	float		per;
-	t_dpos	inter;
+	t_4dpos		pos;
 
 	per = 0;
-	ft_find_intersection(s, vs->left_plan, vs->right_plan,
-		vs->player, sprite->m_pos, 1);
-	inter = s->tmp_intersect;
-	per = ft_dist_t_dpos(vs->left_plan, inter) * 100 / ft_dist_t_dpos(vs->left_plan, vs->right_plan);
+	pos.pos1 = vs->left_plan;
+	pos.pos2 = vs->right_plan;
+	pos.pos3 = vs->player;
+	pos.pos4 = sprite->m_pos;
+	ft_find_intersection(s, pos, 1);
+	per = ft_dist_t_dpos(pos.pos1, s->tmp_intersect)
+	* 100 / ft_dist_t_dpos(pos.pos1, pos.pos2);
 	sprite->x = per * WIDTH / 100 - sprite->anim.image[sprite->anim.current]->w;
 
 }
@@ -63,16 +58,12 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 	t_lsprite 	*liste;
 	t_int		*wall;
 	int			inter;
-	t_dpos		wall1;
-	t_dpos		wall2;
+	t_4dpos		pos;
 
 
 	liste = vs->sct->liste;
 	if(!liste)
-	{
 		return ;
-	}
-
 	wall = vs->vtx_gauche;
 	if (wall == NULL || vs->vtx_droite == NULL)
 		return ;
@@ -81,18 +72,20 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 		inter = 0;
 		while (wall->id != vs->vtx_droite->next->id)
 		{
-			wall1 = wall->ptr->m_pos;
-			wall2 = wall->next->ptr->m_pos;
-			if (ft_find_intersection(s, wall1, wall2, vs->player, liste->sprite->m_pos, 1))
+			pos.pos1 = wall->ptr->m_pos;
+			pos.pos2 = wall->next->ptr->m_pos;
+			pos.pos3 = vs->player;
+			pos.pos4 = liste->sprite->m_pos;
+			if (ft_find_intersection(s, pos, 1))
 			{
-				// printf("inter\n");
 				inter = 1;;
 				break;
 			}
 			wall = wall->next;
 		}
-		if (inter == 0 && ft_find_intersection(s, vs->left_plan, vs->right_plan,
-			vs->player, liste->sprite->m_pos, 1))
+		pos.pos1 = vs->left_plan;
+		pos.pos2 = vs->right_plan;
+		if (inter == 0 && ft_find_intersection(s, pos, 1))
 		{
 			liste->sprite->r_dist = ft_dist_t_dpos(vs->player, liste->sprite->m_pos) / METRE;
 			liste->sprite->l_dist = ft_dist_t_dpos(vs->player, s->tmp_intersect);
@@ -103,13 +96,8 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 			liste->sprite->angle = (angle_mod(liste->sprite->angle - vs->angle));
 			liste->sprite->set = 1;
 		}
-
 		else
-		{
 			liste->sprite->set = 0;
-			// printf("nop\n");
-		}
-
 		liste = liste->next;
 	}
 }

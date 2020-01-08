@@ -80,56 +80,40 @@ t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos b
 	return (coord);
 }
 
-int			ft_find_intersection(t_main *s, t_dpos begin_l1, t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu)
+int			ft_find_intersection(t_main *s, t_4dpos pos, char visu)
 {
 	t_abpos	l1;
 	t_abpos	l2;
-	t_dpos	coord;
+	t_dpos	crd;
 
-	l1.a = ft_find_leading_coef(begin_l1, end_l1);
-	l2.a = ft_find_leading_coef(begin_l2, end_l2);
-	l1.b = ft_find_ordered_in_origin(begin_l1, l1.a);
-	l2.b = ft_find_ordered_in_origin(begin_l2, l2.a);
-	coord = ft_find_coord(l1, l2, end_l1, end_l2, begin_l2);
-	s->tmp_intersect.x = coord.x;
-	s->tmp_intersect.y = coord.y;
-	// printf("coord(%f,%f)\n",coord.x, coord.y);
-	if (coord.x > INT_MAX || coord.y > INT_MAX || coord.x < INT_MIN || coord.y < INT_MIN)
-	{
-		// printf("out 1\n");
+	l1.a = ft_find_leading_coef(pos.pos1, pos.pos2);
+	l2.a = ft_find_leading_coef(pos.pos3, pos.pos4);
+	l1.b = ft_find_ordered_in_origin(pos.pos1, l1.a);
+	l2.b = ft_find_ordered_in_origin(pos.pos3, l2.a);
+	crd = ft_find_coord(l1, l2, pos.pos2, pos.pos4, pos.pos3);
+	s->tmp_intersect.x = crd.x;
+	s->tmp_intersect.y = crd.y;
+	if (crd.x > INT_MAX || crd.y > INT_MAX
+		|| crd.x < INT_MIN || crd.y < INT_MIN)
 		return (0);
-	}
-	if (visu == 0 && ft_go_through_point(begin_l1, end_l1, coord))
-	{
-		// printf("out 2\n");
+	if (visu == 0 && ft_go_through_point(pos.pos1, pos.pos2, crd))
 		return (-1);
-	}
-	if (!(ft_is_in_segment(coord, begin_l1, end_l1)))
-	{
-		// printf("out 3\n");
+	if (!(ft_is_in_segment(crd, pos.pos1, pos.pos2)))
 		return (0);
-	}
-	if (!(ft_is_in_segment(coord, begin_l2, end_l2)))
-	{
-		// printf("out 4\n");
+	if (!(ft_is_in_segment(crd, pos.pos3, pos.pos4)))
 		return (0);
-	}
-	// printf("IN\n");
-	return (sqrt(powf(end_l2.x - coord.x, 2) + powf(end_l2.y - coord.y, 2)));
+	return (sqrt(powf(pos.pos4.x - crd.x, 2) + powf(pos.pos4.y - crd.y, 2)));
 }
 
 int			ft_is_in_sector(t_main *s, t_dpos position)
 {
 	t_sector	*sct;
 	t_int		*wall;
-	t_dpos		seg1;
-	t_dpos		seg2;
+	t_4dpos		pos;
 	int			count;
 	long		save_dist;
 	long		tmp_dist;
 	int			next_test;
-	t_dpos		point_1;
-	t_dpos		point_2;
 	int			n_sector;
 	int			dist_sector;
 	int			i;
@@ -140,38 +124,27 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 	tmp_dist = LONG_MAX;
 	save_dist = LONG_MAX;
 	next_test = 0;
-	point_2 = position;
-	point_1.x = point_2.x - 10000;
-	point_1.y = point_2.y + 10;
-	//debug
-	// printf("BEGIN =-=-=-=-=-=-=-=-=\n");
-	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).x;
-	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, point_1)).y;
-	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).x;
-	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point_2)).y;
-	// get_line(s, S_YELLOW, 1);
-	//debug
+	pos.pos4 = position;
+	pos.pos3.x = pos.pos4.x - 10000;
+	pos.pos3.y = pos.pos4.y + 10;
 	while (sct)
 	{
-		// printf("--- test sector %d ---\n", sct->id);
 		i = 0;
 		count = 0;
 		wall = sct->vertex;
-		point_1.y += next_test;
+		pos.pos3.y += next_test;
 		next_test = 0;
-		// printf("while ---\n");
 		while (i++ < sct->vertex->prev->id)
 		{
-			seg1 = wall->ptr->m_pos;
-			seg2 = wall->next->ptr->m_pos;
-			if ((point_2.x == seg1.x && point_2.y == seg1.y)
-				|| (point_2.x == seg2.x && point_2.y == seg2.y))
+			pos.pos1 = wall->ptr->m_pos;
+			pos.pos2 = wall->next->ptr->m_pos;
+			if ((pos.pos4.x == pos.pos1.x && pos.pos4.y == pos.pos1.y)
+				|| (pos.pos4.x == pos.pos2.x && pos.pos4.y == pos.pos2.y))
 				return (0);
-			dist_sector = ft_find_intersection(s, seg1, seg2, point_1, point_2, 0);
+			dist_sector = ft_find_intersection(s, pos, 0);
 			if (dist_sector == -1)
 			{
 				next_test = 10;
-				// printf("BREAK\n");
 				break;
 			}
 			if (dist_sector > 0)
@@ -181,22 +154,15 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 				count++;
 			}
 			wall = wall->next;
-			// printf("count = %d\n", count);
 		}
-		// printf("end ---\n");
 		if (dist_sector == -1)
 			continue;
-		if (count % 2 == 1)
-			// printf("new dist = %ld\n", tmp_dist);
 		if (count % 2 == 1 && save_dist > tmp_dist)
 		{
 			n_sector = sct->id;
 			save_dist = tmp_dist;
-			// printf("sector %d save\n", sct->id);
-			// printf("dist save = %ld\n", tmp_dist);
 		}
 		sct = sct->next;
 	}
-	// printf("END =-=-=-=-=-=-=-=-=-=\n\n\n");
 	return (n_sector);
 }

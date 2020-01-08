@@ -461,11 +461,12 @@ int							ft_parsing(t_main *s, int fd);
 int							ft_find_next_number(char *str, int i);
 void						ft_check_validity_last_sector(t_main *s);
 int							ft_check_wall_that_intersect(t_main *s,
-	t_sector *sct_in_check);
+							t_sector *sct_in_check);
 void						ft_check_move_vertex_validity(t_main *s, int id);
 t_pos						ft_find_polygon_center(t_sector *sct);
 int							ft_check_sector_sens(t_main *s, t_sector *sct);
 int							ft_check_wall_lenght(t_sector *sct);
+int							is_dest_valid(t_main *s, int id);
 
 /*
 ****	Fonction de gestion des listes chainés
@@ -524,8 +525,7 @@ t_pos						get_px_pos(t_main *s, t_pos ref);
 void						empiler(t_main *s, t_pile *pile, t_pos new_pixel);
 t_pos						depiler(t_pile *pile);
 int							ft_is_in_sector(t_main *s, t_dpos point_2);
-int							ft_find_intersection(t_main *s, t_dpos begin_l1,
-	t_dpos end_l1, t_dpos begin_l2, t_dpos end_l2, char visu);
+int							ft_find_intersection(t_main *s, t_4dpos pos, char visu);
 t_pos						ft_dpos_to_pos(t_dpos dpos);
 t_dpos						ft_pos_to_dpos(t_pos pos);
 void						ft_reset_color_screen(Uint32 *str, int size);
@@ -538,7 +538,7 @@ t_int						*get_t_int_by_id(t_int *obj, int id);
 double						ft_dist_double(double x1, double y1, double x2, double y2);
 double						ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 double						ft_dist_t_pos(t_pos pos1, t_pos pos2);
-t_dpos						to_edi_coord(t_main *s, t_dpos coord); //enleve METRE et ajoute decal_x et SPACE
+t_dpos						to_edi_coord(t_main *s, t_dpos coord);
 int							clamp (int x, int min, int max);
 void						ft_zoom(t_main *s, t_pos pos, int space);
 int							max(int value1, int value2);

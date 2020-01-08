@@ -4,12 +4,12 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 {
 	t_sector	*sct;
 	t_int		*s_vtx;
-	t_dpos		wall1;
-	t_dpos		wall2;
+	t_4dpos		pos;
 	int			id_wall = 0;
 	int			i;
 	int			dist;
 	int			new_dist;
+	(void)color; //a enlever
 
 	dist = 100000;
 	new_dist = 0;
@@ -22,42 +22,20 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 	i = 0;
 	while (i++ < sct->vertex->prev->id)
 	{
-		wall1 = s_vtx->ptr->m_pos;
-		wall2 = s_vtx->next->ptr->m_pos;
-		// printf("wall1(%.1f, %.1f) | wall2(%.1f, %.1f) | player(%.1f, %.1f) | point(%.1f, %.1f)\n", wall1.x, wall1.y, wall2.x, wall2.y, player.x, player.y, point.x, point.y);
-		(void)color;
-		if (sct_id == 2)
+		pos.pos1 = s_vtx->ptr->m_pos;
+		pos.pos2 = s_vtx->next->ptr->m_pos;
+		pos.pos3 = point;
+		pos.pos4 = player;
+		if ((new_dist = ft_find_intersection(s, pos, 1)) > 0)
 		{
-			s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
-			s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
-			s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
-			s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
-			// get_line(s, color, 1);
-		}
-		if ((new_dist = ft_find_intersection(s, wall1, wall2, point, player, 1)) > 0)
-		{
-			s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
-			s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
-			s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
-			s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
-			get_line(s, color, 1);
-			// printf("on test le mur[%d] : dist = %d, new_dist = %d\n", s_vtx->id, dist, new_dist);
-			// printf("point(%.1f, %.1f), player(%.1f, %.1f), wall1(%.1f, %.1f), wall2(%.1f, %.1f)\n", point.x, point.y, player.x, player.y, wall1.x / METRE, wall1.y / METRE, wall2.x / METRE, wall2.y / METRE);
-			// printf("play.y = %f | point.y = %f\n", player.y + s->editor->decal_y, point.y + s->editor->decal_y);
-			// return (id_wall);
 			if (new_dist < dist && new_dist != 0 && new_dist != -1)
 			{
-				// printf("on test le mur[%d] : dist = %d, new_dist = %d\n\n", s_vtx->id, dist, new_dist);
 				id_wall = s_vtx->ptr->id;
-				// printf("vertex = %d\n", id_wall);
 				dist = new_dist;
 			}
-
 		}
-		// id_wall++;
 		s_vtx = s_vtx->next;
 	}
-	// printf("wall =  %d\n", get_t_int_by_vertex_id(sct->vertex, id_wall)->id);
 	return (id_wall);
 }
 
