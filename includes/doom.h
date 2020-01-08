@@ -32,7 +32,7 @@
 # define ANGLE_MAX 360
 # define SPRITE_DETECTION 5
 # define SPRITE_SHOT_DIST 3
-# define SPRITE_MOVE_SPEED 0.1
+# define SPRITE_MOVE_SPEED 3
 # define STORM_RANGE 6
 # define JET_TIME 10000
 

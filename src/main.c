@@ -74,5 +74,6 @@ int main (int argc, char **argv)
 	Mix_CloseAudio();
 	SDL_Quit();
 	free_program(s);
+	while (1);
 	// event_handler(s);
 }
