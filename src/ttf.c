@@ -80,15 +80,14 @@ void	ft_draw_ttf_play(t_main *s)
 	else if (s->player.wp_name == gun && s->player.wp_wheel[gun] == 1)
 	{
 		str = ft_itoa(s->player.mun_gun);
-		ttf.str = ft_strdup(str);
+		ttf.str = ft_strdup_free(&str);
 	}
 	else if (s->player.wp_name == shotgun && s->player.wp_wheel[shotgun] == 1)
 	{
 		str = ft_itoa(s->player.mun_shotgun);
-		ttf.str = ft_strdup(str);
+		ttf.str = ft_strdup_free(&str);
 	}
 	ft_create_ttf(ttf, s, s->font->digit42);
-	ft_memdel((void **)&str);
 
 	ttf.pos.x = 896;
 	str = ft_itoa(s->player.keys);
@@ -267,7 +266,7 @@ void	ft_draw_ttf_editor(t_main *s)
 			ttf.pos.y = 620;
 			ttf.str = ft_strdup("ERROR : Le nom du fichier doit contenir au moins 3 caracteres.");
 			ft_create_ttf(ttf, s, s->font->roboto);
-			ft_memdel((void **)&ttf.str);
+			// ft_memdel((void **)&ttf.str);
 		}
 		else if (s->savemap->error_msg == 2)
 		{

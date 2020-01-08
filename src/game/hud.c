@@ -106,7 +106,6 @@ void		shoot(t_main *s)
 		}
 		else if (s->player.wp_name == kick)
 			animate_weapon(s);
-
 	}
 }
 
