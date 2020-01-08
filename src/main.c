@@ -72,6 +72,7 @@ int main (int argc, char **argv)
 	// editor_handler(s);
 	Mix_HaltMusic();
 	Mix_CloseAudio();
+	TTF_Quit();
 	SDL_Quit();
 	free_program(s);
 	while (1);

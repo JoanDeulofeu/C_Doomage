@@ -17,15 +17,6 @@ void	free_anim(t_anim anim)
 		free_image(anim.image[i]);
 }
 
-void	free_lanim(t_lanim *anim) // A TESTER
-{
-	int	i;
-
-	i = -1;
-	while (anim->image[++i] != NULL)
-		free_image(anim->image[i]);
-}
-
 void	free_sprite(t_main *s)
 {
 	t_sprite	*sprite;
@@ -110,6 +101,18 @@ void	free_texture(t_texture *tex)
 	ft_memdel((void **)&tex);
 }
 
+void	free_fonts(t_main *s)
+{
+	ft_memdel((void **) &s->font->press_start);
+	ft_memdel((void **) &s->font->open);
+	ft_memdel((void **) &s->font->roboto);
+	ft_memdel((void **) &s->font->stylish);
+	ft_memdel((void **) &s->font->stylish100);
+	ft_memdel((void **) &s->font->digit);
+	ft_memdel((void **) &s->font->digit42);
+	ft_memdel((void **) &s->font);
+}
+
 void	free_program(t_main *s)
 {
 	int i;
@@ -136,13 +139,17 @@ void	free_program(t_main *s)
 	free_images(s);
 	free_sectors(s);
 	free_sprite(s);
+	free_fonts(s);
 	free_texture(s->sdl->map);
 	free_texture(s->sdl->game);
 	free_texture(s->sdl->editor);
 	SDL_DestroyRenderer(s->sdl->prenderer);
 	ft_memdel((void **)&s->sdl);
+	ft_memdel((void **)&s->editor->wall);
+	ft_memdel((void **)&s->editor->wall2);
 	ft_memdel((void **)&s->editor);
 	ft_memdel((void **)&s->map_name);
+	ft_memdel((void **)&s->time);
 	ft_memdel((void **)&s->savemap);
 	ft_memdel((void **)&s);
 }

@@ -191,9 +191,9 @@ typedef struct			s_element {
 	struct s_element	*next;
 }						t_element;
 
-typedef struct			s_pile {
-	t_element			*first;
-}						t_pile;
+// typedef struct			s_pile {
+// 	t_element			*first;
+// }						t_pile;
 
 typedef struct			s_vertex {
 	int					id;
@@ -259,13 +259,6 @@ typedef enum				e_anim_name
 	dying,
 	shooting
 }							t_anim_name;
-
-typedef struct				s_lanim
-{
-	int						id;
-	int						max_current;
-	t_image					*image[15];
-}							t_lanim;
 
 typedef struct				s_sprite
 {

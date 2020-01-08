@@ -239,7 +239,6 @@ t_main		*initialize_main(char *str)
 	initialize_editor(s->editor);
 	s->vertex = NULL;
 	s->sector = NULL;
-	s->grid = NULL;
 	s->sprite = NULL;
 	s->printf = 0;
 	ft_set_time(s);
