@@ -29,18 +29,25 @@ t_int			*free_sector_struct(t_sector *temp_sector)
 {
 	t_int		*temp_vertex;
 	t_int		*temp_vertex2;
+	t_lsprite	*temp_list;
+	t_lsprite	*temp_list2;
 	int			i;
-	int			dest;
 
 	i = 0;
-	dest = temp_sector->vertex->prev->id;
 	temp_vertex = temp_sector->vertex;
 	temp_vertex2 = NULL;
-	while (i++ < dest)
+	temp_list = temp_sector->liste;
+	while (i++ < temp_sector->vertex->prev->id)
 	{
 		temp_vertex2 = temp_vertex;
 		temp_vertex = temp_vertex->next;
 		ft_memdel((void **)&temp_vertex2);
+	}
+	while (temp_list)
+	{
+		temp_list2 = temp_list;
+		temp_list = temp_list->next;
+		ft_memdel((void **)&temp_list2);
 	}
 	return (temp_vertex);
 }

@@ -132,6 +132,7 @@ void	free_program(t_main *s)
 		Mix_FreeChunk(s->sdl->sounds.gun);
 		Mix_CloseAudio();
 	}
+	clear_wall_list(s);
 	free_images(s);
 	free_sectors(s);
 	free_sprite(s);

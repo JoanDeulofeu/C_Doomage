@@ -71,13 +71,14 @@ void		rand_move(t_main *s)
 	{
 		if (sprite->set == 1 && sprite->name == storm && sprite->destroy == 0 && sprite->a_name == walking)
 		{
-			target.x = sprite->r_pos.x * METRE;
-			target.y = sprite->r_pos.y * METRE;
+			target.x = sprite->m_pos.x;
+			target.y = sprite->m_pos.y;
 			target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			if (ft_is_in_sector(s, target) != 0)
 			{
-				sprite->r_pos = target;
+				sprite->r_pos.x = target.x / METRE;
+				sprite->r_pos.y = target.y / METRE;
 				set_sprite(s);
 			}
 			else
