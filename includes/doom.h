@@ -65,7 +65,7 @@ typedef struct				s_4dpos {
 
 typedef	struct				s_sounds
 {
-	Mix_Chunk				*shot;
+	// Mix_Chunk				*shot;
 	Mix_Chunk				*select;
 	Mix_Chunk				*explode;
 	Mix_Chunk				*shotgun;
@@ -312,7 +312,6 @@ typedef struct				s_main {
 	t_dpos					intersect2;
 	t_vertex				*vertex;
 	t_sector				*sector;
-	t_point					**grid;
 	char					*str_vtx;
 	t_display_mode			display_mode;
 	int						viewline;
@@ -522,8 +521,8 @@ void						check_map_portals(t_main *s);
 int							arround(int space, int nb);
 double						angle_mod(double angle);
 t_pos						get_px_pos(t_main *s, t_pos ref);
-void						empiler(t_main *s, t_pile *pile, t_pos new_pixel);
-t_pos						depiler(t_pile *pile);
+// void						empiler(t_main *s, t_pile *pile, t_pos new_pixel);
+// t_pos						depiler(t_pile *pile);
 int							ft_is_in_sector(t_main *s, t_dpos point_2);
 int							ft_find_intersection(t_main *s, t_4dpos pos, char visu);
 t_pos						ft_dpos_to_pos(t_dpos dpos);
