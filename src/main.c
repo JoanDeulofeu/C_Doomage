@@ -75,6 +75,5 @@ int main (int argc, char **argv)
 	TTF_Quit();
 	SDL_Quit();
 	free_program(s);
-	while (1);
 	// event_handler(s);
 }

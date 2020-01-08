@@ -466,6 +466,9 @@ t_pos						ft_find_polygon_center(t_sector *sct);
 int							ft_check_sector_sens(t_main *s, t_sector *sct);
 int							ft_check_wall_lenght(t_sector *sct);
 int							is_dest_valid(t_main *s, int id);
+void						add_portal_ptr(t_main *s, t_int *wall, int i);
+void						ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i);
+void						ft_parsing_norm(t_main *s, char *line, int i, int y);
 
 /*
 ****	Fonction de gestion des listes chainés
