@@ -457,7 +457,10 @@ int		ft_parsing(t_main *s, int fd)
 	while (get_next_line(fd, &line) > 0)
 	{
 		if ((i = ft_find_next_number(line, 0)) == -1)
+		{
+			ft_strdel(&line);
 			continue;
+		}
 		if (line[0] == 'V' ||  line[0] == 'S' || line[0] == 'P'
 		|| line[0] == 'E')
 			ft_parsing_norm(s, line, i, 0);
@@ -469,5 +472,6 @@ int		ft_parsing(t_main *s, int fd)
 	ft_strdel(&line);
 	add_portal_ptr(s);
 	check_map_portals(s);
+	while (1);
 	return (0);
 }

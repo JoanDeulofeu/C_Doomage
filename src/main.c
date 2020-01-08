@@ -64,6 +64,7 @@ int main (int argc, char **argv)
 	draw_player(s, s->p_pos);
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0);
+	while (1);
 	// get_grid_tab(s);
 	s->wall_fk_id = 0;
 	while (handle_menu(s));
