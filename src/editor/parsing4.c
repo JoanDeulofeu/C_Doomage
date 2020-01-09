@@ -57,7 +57,7 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 	while (line[i] != '|' && line[i] != '\0')
 	{
 		value = ft_atoi(&line[i]);
-		ft_add_intarray(s, sct, value);
+		ft_add_intarray(s, sct, value, sct->vertex);
 		i += ft_longlen(value) + 1;
 		if (ft_check_bar(line, i))
 			break ;

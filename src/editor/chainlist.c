@@ -1,89 +1,5 @@
 #include "doom.h"
 
-int			ft_check_vertex(t_main *s, int x, int y)
-{
-	t_vertex	*tmp;
-
-	tmp = s->vertex;
-	while (tmp)
-	{
-		if (tmp->x == x && tmp->y == y)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-int			ft_add_vertex2(t_main *s, int x, int y, t_vertex *tmp)
-{
-	tmp->next = NULL;
-	tmp->pos.x = x * s->editor->space;
-	tmp->pos.y = y * s->editor->space;
-	tmp->x = x;
-	tmp->y = y;
-	tmp->m_pos.x = x * METRE;
-	tmp->m_pos.y = y * METRE;
-	tmp->selec = 0;
-	tmp->selected = 0;
-}
-
-int			ft_add_vertex(t_main *s, int x, int y)
-{
-	t_vertex	*tmp;
-
-	tmp = s->vertex;
-	if (s->vertex == NULL)
-	{
-		if (!(s->vertex = (t_vertex*)malloc(sizeof(t_vertex))))
-			handle_error(s, MALLOC_ERROR);
-		ft_bzero(s->vertex, sizeof(s->vertex));
-		tmp = s->vertex;
-	}
-	else
-	{
-		if (!(ft_check_vertex(s, x, y)))
-			return (-1);
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		if (!(tmp->next = (t_vertex*)malloc(sizeof(t_vertex))))
-			handle_error(s, MALLOC_ERROR);
-		ft_bzero(tmp->next, sizeof(tmp->next));
-		tmp->next->prev = tmp;
-		tmp = tmp->next;
-	}
-	tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
-	ft_add_vertex2(s, x, y, tmp);
-	return (0);
-}
-
-t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
-{
-	t_sector	*tmp;
-
-	tmp = s->sector;
-	if (s->sector == NULL)
-	{
-		if (!(s->sector = (t_sector*)malloc(sizeof(t_sector))))
-			handle_error(s, MALLOC_ERROR);
-		ft_bzero(s->sector, sizeof(s->sector));
-		tmp = s->sector;
-	}
-	else
-	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		if (!(tmp->next = (t_sector*)malloc(sizeof(t_sector))))
-			handle_error(s, MALLOC_ERROR);
-		ft_bzero(tmp->next, sizeof(tmp->next));
-		tmp->next->prev = tmp;
-		tmp = tmp->next;
-	}
-	tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
-	tmp->floor = floor;
-	tmp->ceiling = ceiling;
-	return (tmp);
-}
-
 t_vertex	*ft_find_vertex_ptr(t_main *s, int id)
 {
 	t_vertex	*res;
@@ -128,10 +44,12 @@ int			ft_check_vtx_used(t_main *s, int value)
 	return (0);
 }
 
-int			ft_add_intarray2(t_main *s, t_sector *sector, t_int	*tmp2, int part)
+t_int			*ft_add_intarray2(t_main *s, t_sector *sector, t_int *tmp2,
+int part)
 {
 	t_int	*tmp;
 
+	tmp = NULL;
 	if (part)
 	{
 		if (!(sector->vertex = (t_int*)malloc(sizeof(t_int))))
@@ -144,24 +62,20 @@ int			ft_add_intarray2(t_main *s, t_sector *sector, t_int	*tmp2, int part)
 	}
 	else
 	{
-		tmp2->ptr = ft_find_vertex_ptr(s, value);
-		tmp2->value = value;
 		tmp2->wall_value = -1;
 		tmp2->sct = sector->id;
 		tmp2->vtx_dest = NULL;
 		tmp2->tex_nb = 1;
-		tmp2->image = s->editor->all_texture.image[tmp->tex_nb]; //temporaire
+		tmp2->image = s->editor->all_texture.image[tmp2->tex_nb];
 		return (tmp2);
 	}
-	return (tmp)
+	return (tmp);
 }
 
-int			ft_add_intarray(t_main *s, t_sector *sector, int value)
+int			ft_add_intarray(t_main *s, t_sector *sector, int value, t_int *tmp)
 {
-	t_int	*tmp;
 	t_int	*tmp2;
 
-	tmp = sector->vertex;
 	if (ft_check_vtx_used(s, value))
 		return (-1);
 	if (!tmp)
@@ -181,6 +95,8 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value)
 		tmp->next = sector->vertex;
 		tmp = tmp2->next;
 	}
+	tmp->value = value;
+	tmp->ptr = ft_find_vertex_ptr(s, value);
 	tmp = ft_add_intarray2(s, sector, tmp, 0);
 	return (0);
 }
