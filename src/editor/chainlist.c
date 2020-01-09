@@ -54,7 +54,7 @@ int part)
 	{
 		if (!(sector->vertex = (t_int*)malloc(sizeof(t_int))))
 			handle_error(s, MALLOC_ERROR);
-		ft_bzero(sector->vertex, sizeof(sector->vertex));
+		ft_bzero((void *)sector->vertex, sizeof(t_int));
 		sector->vertex->id = 1;
 		sector->vertex->prev = sector->vertex;
 		sector->vertex->next = sector->vertex;
@@ -84,7 +84,7 @@ int			ft_add_intarray(t_main *s, t_sector *sector, int value, t_int *tmp)
 	{
 		if (!(tmp = (t_int*)malloc(sizeof(t_int))))
 			handle_error(s, MALLOC_ERROR);
-		ft_bzero(tmp, sizeof(tmp));
+		ft_bzero((void *)tmp, sizeof(t_int));
 		tmp2 = sector->vertex;
 		tmp2->prev = tmp;
 		while (tmp2->next->id != 1)
