@@ -2,6 +2,7 @@
 
 t_anim				load_face_storm(t_anim data)
 {
+	ft_bzero((void*)(&data), sizeof(t_anim));
 	data.image[0] = load_tga("images/ressources/trooper/face/standing.tga",
 		0, 0, 0);
 	data.image[1] = load_tga("images/ressources/trooper/face/walking1.tga",
@@ -26,6 +27,7 @@ t_anim				load_face_storm(t_anim data)
 
 t_anim				load_back_storm(t_anim data)
 {
+	ft_bzero((void*)(&data), sizeof(t_anim));
 	data.image[0] = load_tga("images/ressources/trooper/back/standing.tga",
 		0, 0, 0);
 	data.image[1] = load_tga("images/ressources/trooper/back/walking1.tga",
@@ -46,6 +48,7 @@ t_anim				load_back_storm(t_anim data)
 
 t_anim				load_prof_storm(t_anim data)
 {
+	ft_bzero((void*)(&data), sizeof(t_anim));
 	data.image[0] = load_tga("images/ressources/trooper/prof/standing.tga",
 		0, 0, 0);
 	data.image[1] = load_tga("images/ressources/trooper/prof/walking1.tga",
@@ -66,6 +69,7 @@ t_anim				load_prof_storm(t_anim data)
 
 t_anim				load_prof_back_storm(t_anim data)
 {
+	ft_bzero((void*)(&data), sizeof(t_anim));
 	data.image[0] = load_tga("images/ressources/trooper/profback/standing.tga",
 		0, 0, 0);
 	data.image[1] = load_tga("images/ressources/trooper/profback/walking1.tga",
@@ -106,6 +110,7 @@ t_anim				load_prof_face_storm(t_anim data)
 
 t_anim				load_dying_storm(t_anim data)
 {
+	ft_bzero((void*)(&data), sizeof(t_anim));
 	data.image[0] = load_tga("images/ressources/trooper/dying/dying1.tga",
 		0, 0, 0);
 	data.image[1] = load_tga("images/ressources/trooper/dying/dying2.tga",
@@ -128,6 +133,7 @@ t_anim				load_dying_storm(t_anim data)
 
 t_anim				load_shooting_storm(t_anim data)
 {
+	ft_bzero((void*)(&data), sizeof(t_anim));
 	data.image[0] = load_tga("images/ressources/trooper/shooting/shoot1.tga",
 		0, 0, 0);
 	data.image[1] = load_tga("images/ressources/trooper/shooting/shoot2.tga",

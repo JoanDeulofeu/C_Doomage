@@ -2,7 +2,7 @@
 
 void	load_skybox(t_main *s)
 {
-	ft_bzero((void **)&s->skybox, sizeof(t_anim));
+	ft_bzero((void *)&s->skybox, sizeof(t_anim));
 	s->skybox.image[0] = load_tga("images/skybox_00.tga", 0, 0, 0);
 	s->skybox.image[1] = load_tga("images/skybox_01.tga", 0, 0, 0);
 	s->skybox.image[2] = load_tga("images/skybox_02.tga", 0, 0, 0);
@@ -25,7 +25,7 @@ void	load_skybox(t_main *s)
 
 void	load_items(t_main *s)
 {
-	ft_bzero((void **)&s->items, sizeof(t_anim));
+	ft_bzero((void *)&s->items, sizeof(t_anim));
 	s->items.table.image[0] = load_tga("images/ressources/static/table.tga", 0, 0, 0);
 	s->items.lamp.image[0] = load_tga("images/ressources/static/lamp.tga", 0, 0, 0);
 	s->items.gun.image[0] = load_tga("images/ressources/static/gun.tga", 0, 0, 0);
@@ -37,7 +37,7 @@ void	load_items(t_main *s)
 
 void 	load_game_over(t_main *s)
 {
-	ft_bzero((void **)&s->gameover, sizeof(t_anim));
+	ft_bzero((void *)&s->gameover, sizeof(t_anim));
 	s->gameover.image[0] = load_tga("images/go/00.tga", 0, 0, 0);
 	s->gameover.image[1] = load_tga("images/go/01.tga", 0, 0, 0);
 	s->gameover.image[2] = load_tga("images/go/02.tga", 0, 0, 0);
@@ -51,7 +51,7 @@ void	fill_sprite_list(t_main *s)
 	t_name	name;
 
 	name = storm;
-	ft_bzero((void **)&s->editor->all_sprite, sizeof(t_anim));
+	ft_bzero((void *)&s->editor->all_sprite, sizeof(t_anim));
 	s->editor->all_sprite.image[storm] = s->stormtrooper.face.image[0];
 	s->editor->all_sprite.image[table] = s->items.table.image[0];
 	s->editor->all_sprite.image[lamp] = s->items.lamp.image[0];
@@ -64,7 +64,7 @@ void	fill_sprite_list(t_main *s)
 
 void	fill_texture_list(t_main *s)
 {
-	ft_bzero((void **)&s->editor->all_texture, sizeof(t_anim));
+	ft_bzero((void *)&s->editor->all_texture, sizeof(t_anim));
 	s->editor->all_texture.image[0] = load_tga("images/textures/02.tga", 0, 0, 0);
 	s->editor->all_texture.image[1] = load_tga("images/textures/01.tga", 0, 0, 0);
 	s->editor->all_texture.image[2] = load_tga("images/textures/03.tga", 0, 0, 0);

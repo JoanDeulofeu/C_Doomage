@@ -146,7 +146,7 @@ void		load_images(t_main *s)
 	int	i;
 
 	i = 0;
-	while (i < 18)
+	while (i < 19)
 	{
 		s->editor->menu.image[i] = NULL;
 		s->player.weapon.image[i] = NULL;
@@ -169,7 +169,7 @@ void		load_images(t_main *s)
 	s->editor->sprite_menu.current = 0;
 	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
 	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
-
+	ft_bzero((void **)&s->menu, sizeof(t_anim));
 	s->menu.image[0] = load_tga("images/menu.tga", 0, 0, 0);
 	s->menu.image[1] = load_tga("images/play.tga", 0, 0, 0);
 	s->menu.image[2] = load_tga("images/editor.tga", 0, 0, 0);
@@ -260,8 +260,6 @@ t_main		*initialize_main(char *str)
 
 	s->ennemi.damage = -1;
 	//
-	s->object.health_pack = 20;
-
 	s->player.eyesight = EYESIGHT;
 	s->player.y_eye = 0;
 

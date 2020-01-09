@@ -231,11 +231,6 @@ typedef struct				s_ennemi {
 
 }							t_ennemi;
 
-typedef struct				s_object {
-	int						health_pack;
-	int						armor;
-}							t_object;
-
 typedef struct				s_sdl {
 	SDL_Window				*pwindow;
 	SDL_Renderer			*prenderer;
@@ -295,7 +290,6 @@ typedef struct				s_main {
 	t_editor				*editor;
 	t_savemap				*savemap;
 	char					*map_name;
-	t_skybox				sky;
 	t_anim_enemy			stormtrooper;
 	t_anim_wp				wp_anims;
 	t_dpos					p_pos;
@@ -306,7 +300,6 @@ typedef struct				s_main {
 	t_visu					visu;
 	t_player				player;
 	t_ennemi				ennemi;
-	t_object				object;
 	t_dpos					tmp_intersect;
 	t_dpos					intersect1;
 	t_dpos					intersect2;
