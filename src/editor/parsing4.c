@@ -110,8 +110,8 @@ void	ft_check_validity_last_sector(t_main *s)
 	}
 	if (ft_check_sector_sens(s, sct))
 	{
+		printf("ERROR secteur non valide: sens du secteur n%d non valide.\n", sct->id);
 		remove_sector(s, wall->value, 0, 0);
-		printf("ERROR secteur non valide: sens du secteur non valide.\n");
 	}
 	if (ft_check_wall_lenght(sct))
 	{

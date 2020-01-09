@@ -1,21 +1,68 @@
 Map : map
 
-Vertex 3		5
-Vertex 5		20
-Vertex 10		24
-Vertex 12		21
-Vertex 13		6
-Vertex 14		22
-Vertex 15		7
-Vertex 24		18
-Vertex 25		8
+Vertex 27		4
+Vertex 17		4
+Vertex 17		9
+Vertex 17		12
+Vertex 17		17
+Vertex 27		10
+Vertex 27		11
+Vertex 27		17
+Vertex 16		9
+Vertex 16		12
+Vertex 13		12
+Vertex 13		9
+Vertex 12		9
+Vertex 12		12
+Vertex 12		3
+Vertex 7		3
+Vertex 7		8
+Vertex 7		13
+Vertex 12		18
+Vertex 7		18
+Vertex 7		19
+Vertex 12		19
+Vertex 12		22
+Vertex 7		20
+Vertex 7		21
+Vertex 12		23
+Vertex 11		26
+Vertex 7		22
+Vertex 5		25
+Vertex 9		29
+Vertex 4		25
+Vertex 5		31
+Vertex 3		25
+Vertex 4		31
+Vertex 1		31
+Vertex 1		25
+Vertex 6		13
+Vertex 6		8
+Vertex -5		8
+Vertex -5		9
+Vertex -5		12
+Vertex -5		13
+Vertex 0		25
+Vertex 0		31
+Vertex -4		35
+Vertex -4		21
+Vertex -8		21
+Vertex -8		35
+Vertex -14		28
 
 
-Sector 0 2 | 1 2 3 4 5 | -1 -1 -1 -1 8 | 0 0 0 0 0
-Sector 1 3 | 6 8 9 7 | -1 5 -1 -1 | 0 0 0 0
+Sector 7 10 | 8 7 6 1 2 3 4 5 | -1 -1 -1 -1 -1 10 -1 -1 | 7 9 7 7 7 0 7 7
+Sector 0 10 | 10 9 12 11 | 3 -1 14 -1 | 0 0 0 0
+Sector 0 5 | 14 13 15 16 17 18 20 19 | 12 -1 -1 -1 37 -1 22 -1 | 0 0 0 0 0 0 0 0
+Sector 1 5 | 21 24 23 22 | -1 26 -1 20 | 0 0 0 0
+Sector 2 6 | 25 28 27 26 | -1 30 -1 24 | 0 0 0 0
+Sector 3 7 | 31 32 30 29 | 34 -1 28 -1 | 0 0 0 0
+Sector 3 8 | 33 36 35 34 | -1 44 -1 31 | 0 0 0 0
+Sector 0 4 | 37 38 39 40 41 42 | 17 -1 -1 -1 -1 -1 | 0 0 0 0 0 0
+Sector 1 8 | 44 43 46 47 49 48 45 | 36 -1 -1 -1 -1 -1 -1 | 0 0 0 0 0 0 0
 
 
 
 
-Player 240 210
-Angle 180
+Player 597 329
+Angle 268
