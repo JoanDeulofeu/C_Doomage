@@ -31,6 +31,7 @@ SRC_NAME =	main.c							\
 			editor/parsing4.c				\
 			editor/parsing5.c				\
 			editor/chainlist.c				\
+			editor/chainlist2.c				\
 			editor/utils_1.c				\
 			editor/utils_2.c				\
 			editor/anchors_general.c		\
