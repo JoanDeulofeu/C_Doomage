@@ -32,6 +32,24 @@ int		ft_find_next_number(char *str, int i)
 	return (i);
 }
 
+// void	ft_check_parsing_validity(t_main *s)
+// {
+// 	int			i;
+// 	t_vertex	*vtx;
+// 	t_sector	*sct;
+//
+// 	vtx = s->vertex;
+// 	sct = s->sector;
+// 	i = 0;
+// 	while (vtx)
+// 	{
+// 		i++;
+// 		vtx = vtx->next;
+// 	}
+// 	if (i < 3 || sct == NULL || sct->vertex->prev->id < 3)
+// 		handle_error(s, MAP_ERROR);
+// }
+
 void	ft_check_parsing_validity(t_main *s)
 {
 	int			i;
@@ -46,8 +64,22 @@ void	ft_check_parsing_validity(t_main *s)
 		i++;
 		vtx = vtx->next;
 	}
-	if (i < 3 || sct == NULL || sct->vertex->prev->id < 3)
+	if (i < 3)
+	{
+		printf("Moins de 3 vtx\n");
 		handle_error(s, MAP_ERROR);
+	}
+	if (sct == NULL)
+	{
+		printf("Moins de 1 sct\n");
+		handle_error(s, MAP_ERROR);
+	}
+	i = 0;
+	if (sct->vertex->prev->id < 3)
+	{
+		printf("Moins de 3 vtx dans sct1\n");
+		handle_error(s, MAP_ERROR);
+	}
 }
 
 int		ft_parsing(t_main *s, int fd)

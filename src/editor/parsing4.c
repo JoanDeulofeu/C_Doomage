@@ -72,6 +72,23 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 		ft_put_texture_value(s, sct, line, i);
 }
 
+// void	ft_check_validity_last_sector(t_main *s)
+// {
+// 	t_sector	*sct;
+// 	t_int		*wall;
+//
+// 	sct = s->sector;
+// 	while (sct->next)
+// 		sct = sct->next;
+// 	wall = sct->vertex;
+// 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
+// 		remove_sector(s, wall->value, 0, 0);
+// 	if (ft_check_wall_that_intersect(s, sct) || ft_check_sector_sens(s, sct))
+// 		remove_sector(s, wall->value, 0, 0);
+// 	if (ft_check_wall_lenght(sct) || sct->id > 100)
+// 		remove_sector(s, wall->value, 0, 0);
+// }
+
 void	ft_check_validity_last_sector(t_main *s)
 {
 	t_sector	*sct;
@@ -82,9 +99,28 @@ void	ft_check_validity_last_sector(t_main *s)
 		sct = sct->next;
 	wall = sct->vertex;
 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
+	{
 		remove_sector(s, wall->value, 0, 0);
-	if (ft_check_wall_that_intersect(s, sct) || ft_check_sector_sens(s, sct))
+		printf("ERROR secteur non valide: moins de 3 vertex.\n");
+	}
+	if (ft_check_wall_that_intersect(s, sct))
+	{
 		remove_sector(s, wall->value, 0, 0);
-	if (ft_check_wall_lenght(sct) || sct->id > 100)
+		printf("ERROR secteur non valide: collision avec un autre secteur.\n");
+	}
+	if (ft_check_sector_sens(s, sct))
+	{
 		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: sens du secteur non valide.\n");
+	}
+	if (ft_check_wall_lenght(sct))
+	{
+		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: mur du secteur trop grand.\n");
+	}
+	if (sct->id > 100)
+	{
+		remove_sector(s, wall->value, 0, 0);
+		printf("ERROR secteur non valide: Trop de secteur sur cette map.\n");
+	}
 }
