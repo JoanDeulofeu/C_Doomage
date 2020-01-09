@@ -68,6 +68,7 @@ void	free_sectors(t_main *s)
 void	free_images(t_main *s)
 {
 	free_anim(s->menu);
+	free_anim(s->editor->menu);
 	free_anim(s->editor->sprite_menu);
 	free_anim(s->editor->m_floor);
 	free_anim(s->stormtrooper.face);
@@ -87,6 +88,7 @@ void	free_images(t_main *s)
 	free_anim(s->items.big_g_ammo);
 	free_anim(s->items.big_s_ammo);
 	free_anim(s->editor->all_texture);
+	free_anim(s->editor->all_sprite);
 	free_image(s->savemap->croix_rouge);
 	free_image(s->player.hud);
 	free_image(s->player.crosshair);
@@ -103,14 +105,16 @@ void	free_texture(t_texture *tex)
 
 void	free_fonts(t_main *s)
 {
-	ft_memdel((void **) &s->font->press_start);
-	ft_memdel((void **) &s->font->open);
-	ft_memdel((void **) &s->font->roboto);
-	ft_memdel((void **) &s->font->stylish);
-	ft_memdel((void **) &s->font->stylish100);
-	ft_memdel((void **) &s->font->digit);
-	ft_memdel((void **) &s->font->digit42);
-	ft_memdel((void **) &s->font);
+	// if (s->font->press_start)
+	// TTF_CloseFont(s->font->press_start);
+	// ft_memdel((void **) &s->font->press_start);
+	// ft_memdel((void **) &s->font->open);
+	// ft_memdel((void **) &s->font->roboto);
+	// ft_memdel((void **) &s->font->stylish);
+	// ft_memdel((void **) &s->font->stylish100);
+	// ft_memdel((void **) &s->font->digit);
+	// ft_memdel((void **) &s->font->digit42);
+	// ft_memdel((void **) &s->font);
 }
 
 void	free_program(t_main *s)
@@ -139,15 +143,18 @@ void	free_program(t_main *s)
 	free_images(s);
 	free_sectors(s);
 	free_sprite(s);
-	free_fonts(s);
+	// free_fonts(s);
+	TTF_Quit();
 	free_texture(s->sdl->map);
 	free_texture(s->sdl->game);
 	free_texture(s->sdl->editor);
+	free_texture(s->sdl->save);
 	SDL_DestroyRenderer(s->sdl->prenderer);
+	ft_memdel((void **)&s->map_name);
+	ft_memdel((void **)&s->msg);
 	ft_memdel((void **)&s->sdl);
-	ft_memdel((void **)&s->editor->wall);
-	ft_memdel((void **)&s->editor->wall2);
 	ft_memdel((void **)&s->editor);
+	// while (1);
 	ft_memdel((void **)&s->map_name);
 	ft_memdel((void **)&s->time);
 	ft_memdel((void **)&s->savemap);
