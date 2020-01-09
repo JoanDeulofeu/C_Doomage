@@ -1,5 +1,78 @@
 #include "doom.h"
 
+int 		test_new_pos(t_main *s, t_visu *vs, t_dpos player)
+{
+	double	l_angle;
+	double	r_angle;
+	t_visu	save;
+
+	save = *vs;
+	l_angle = vs->angle + s->player.demi_fov;
+	l_angle = l_angle > 360 ? l_angle - 360 : l_angle;
+	r_angle = vs->angle - s->player.demi_fov;
+	r_angle = r_angle < 0 ? r_angle + 360: r_angle;
+	vs->left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
+	vs->left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
+	vs->begin_wall_id = ft_find_wall2(s, player, vs->left_point, 0xffed00ff, vs->sct_id);
+	vs->right_point.x = player.x + cos(to_rad(r_angle)) * 10000;
+	vs->right_point.y = player.y - sin(to_rad(r_angle)) * 10000;
+	vs->end_wall_id = ft_find_wall2(s, player, vs->right_point, 0x59ff00ff, vs->sct_id);
+	if(vs->end_wall_id == 0 && vs->begin_wall_id != 0)
+		vs->end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs->sct_id)->vertex,
+		vs->begin_wall_id)->next->ptr->id;
+	if (s->portal_nb == 0 && (vs->end_wall_id == 0 || vs->begin_wall_id ==0))
+	{
+		*vs = save;
+		return (0);
+	}
+	else
+		return (1);
+}
+
+t_visu		move_player_near_portal(t_main *s, t_visu vs)
+{
+	int		nb;
+	t_dpos	curr;
+
+	nb = 1;
+	// On cherche autour de la position du joueur
+	//jusqu'à ce qu'on trouve un endroit où le placer
+	// printf("blop.\n");
+		// printf ("secyeur 0\n");
+	while (nb < 100)
+	{
+		curr = s->player.m_pos;
+		curr.x = s->player.m_pos.x + nb;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.x = s->player.m_pos.x - nb;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.x = s->player.m_pos.x;
+		curr.y = s->player.m_pos.y + nb;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.y = s->player.m_pos.y - nb;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.x = s->player.m_pos.x - nb;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.x = s->player.m_pos.x + nb;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.y += nb * 2;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		curr.x -= nb * 2;
+		if (test_new_pos(s, &vs, curr))
+			return (vs);
+		nb++;
+		// printf("%d\n", nb);
+	}
+	return (vs);
+}
+
 int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sct_id)
 {
 	t_sector	*sct;
@@ -82,6 +155,12 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 	vs.vtx_gauche = get_t_int_by_vertex_id(vs.sct->vertex, vs.begin_wall_id);
 	vs.vtx_droite = get_t_int_by_vertex_id(vs.sct->vertex, vs.end_wall_id);
 	vs.player = player;
+	if (s->portal_nb == 0 && (vs.end_wall_id == 0 || vs.begin_wall_id ==0))
+	{
+		vs = move_player_near_portal(s, vs);
+
+	}
+
 	return(vs);
 }
 
