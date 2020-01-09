@@ -52,7 +52,11 @@ int			ft_add_vertex(t_main *s, int x, int y)
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
-	tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	// tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	if (!tmp->prev)
+		tmp->id = 1;
+	else
+		tmp->id = tmp->prev->id + 1;
 	ft_add_vertex2(s, x, y, tmp);
 	return (0);
 }
@@ -80,7 +84,11 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
-	tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	// tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	if (!tmp->prev)
+		tmp->id = 1;
+	else
+		tmp->id = tmp->prev->id + 1;
 	tmp->floor = floor;
 	tmp->ceiling = ceiling;
 	return (tmp);
