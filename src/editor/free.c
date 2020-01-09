@@ -109,6 +109,18 @@ void	free_texture(t_texture *tex)
 	ft_memdel((void **)&tex);
 }
 
+void	free_fonts(t_main *s)
+{
+		TTF_CloseFont(s->font->press_start);
+		TTF_CloseFont(s->font->press_start25);
+		TTF_CloseFont(s->font->open);
+		TTF_CloseFont(s->font->roboto);
+		TTF_CloseFont(s->font->stylish);
+		TTF_CloseFont(s->font->stylish100);
+		TTF_CloseFont(s->font->digit);
+		TTF_CloseFont(s->font->digit42);
+}
+
 void	free_program(t_main *s)
 {
 	int i;
@@ -135,6 +147,7 @@ void	free_program(t_main *s)
 	free_images(s);
 	free_sectors(s);
 	free_sprite(s);
+	free_fonts(s);
 	TTF_Quit();
 	ft_memdel((void **) &s->font);
 	free_texture(s->sdl->map);
@@ -152,5 +165,5 @@ void	free_program(t_main *s)
 	ft_memdel((void **)&s->str_vtx);
 	ft_memdel((void **)&s->player);
 	ft_memdel((void **)&s);
-	// while (1);
+	while (1);
 }

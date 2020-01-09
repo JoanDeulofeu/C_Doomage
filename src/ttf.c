@@ -31,14 +31,6 @@ void	ft_init_font(t_main *s)
 		;
 	while ((s->font->digit42 = TTF_OpenFont("sdl_font/digit.ttf", 42)) == NULL)
 		;
-	TTF_CloseFont(s->font->press_start);
-	TTF_CloseFont(s->font->press_start25);
-	TTF_CloseFont(s->font->open);
-	TTF_CloseFont(s->font->roboto);
-	TTF_CloseFont(s->font->stylish);
-	TTF_CloseFont(s->font->stylish100);
-	TTF_CloseFont(s->font->digit);
-	TTF_CloseFont(s->font->digit42);
 }
 
 void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
