@@ -36,8 +36,9 @@ int			ft_add_vertex(t_main *s, int x, int y)
 	{
 		if (!(s->vertex = (t_vertex*)malloc(sizeof(t_vertex))))
 			handle_error(s, MALLOC_ERROR);
-		ft_bzero(s->vertex, sizeof(s->vertex));
+		ft_bzero((void *)s->vertex, sizeof(t_vertex));
 		tmp = s->vertex;
+		tmp->prev = NULL;
 	}
 	else
 	{
@@ -47,11 +48,15 @@ int			ft_add_vertex(t_main *s, int x, int y)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_vertex*)malloc(sizeof(t_vertex))))
 			handle_error(s, MALLOC_ERROR);
-		ft_bzero(tmp->next, sizeof(tmp->next));
+		ft_bzero((void *)tmp->next, sizeof(tmp->next));
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
-	tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	// tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	if (!tmp->prev)
+		tmp->id = 1;
+	else
+		tmp->id = tmp->prev->id + 1;
 	ft_add_vertex2(s, x, y, tmp);
 	return (0);
 }
@@ -65,8 +70,9 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 	{
 		if (!(s->sector = (t_sector*)malloc(sizeof(t_sector))))
 			handle_error(s, MALLOC_ERROR);
-		ft_bzero(s->sector, sizeof(s->sector));
+		ft_bzero(s->sector, sizeof(t_sector));
 		tmp = s->sector;
+		// tmp->prev = NULL;
 	}
 	else
 	{
@@ -74,11 +80,15 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_sector*)malloc(sizeof(t_sector))))
 			handle_error(s, MALLOC_ERROR);
-		ft_bzero(tmp->next, sizeof(tmp->next));
+		ft_bzero((void *)tmp->next, sizeof(t_sector));
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
-	tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	// tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
+	if (!tmp->prev)
+		tmp->id = 1;
+	else
+		tmp->id = tmp->prev->id + 1;
 	tmp->floor = floor;
 	tmp->ceiling = ceiling;
 	return (tmp);
