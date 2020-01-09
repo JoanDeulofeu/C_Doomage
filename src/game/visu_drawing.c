@@ -80,6 +80,11 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	&& abs(ceil(ft_dist_t_dpos(wall->r_plan, vs->player))
 	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
 		add_wall_to_list(s, wall);
+	else
+	{
+		ft_memdel((void **)&wall);
+		return (NULL);
+	}
 	ft_create_new_wall2(wall, vtx, vs, 2);
 	if (w_or_p == 'p')
 	{

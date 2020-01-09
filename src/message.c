@@ -46,7 +46,7 @@ void	ft_display_message(t_main *s)
 		ttf.b = s->msg->b;
 		ttf.pos.x = 50;
 		ttf.pos.y = 700;
-		ttf.str = ft_strdup(s->msg->message);
+		ttf.str = ft_strdup_free(&s->msg->message);
 		ft_create_ttf(ttf, s, s->font->press_start25);
 	}
 	else
