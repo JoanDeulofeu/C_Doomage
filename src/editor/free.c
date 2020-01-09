@@ -165,5 +165,5 @@ void	free_program(t_main *s)
 	ft_memdel((void **)&s->str_vtx);
 	ft_memdel((void **)&s->player);
 	ft_memdel((void **)&s);
-	while (1);
+	// while (1);
 }
