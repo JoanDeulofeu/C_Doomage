@@ -23,7 +23,7 @@
 
 # define PORTAL_LIMIT 20
 # define PLAYER_SIZE 2
-# define PLAYER_SPEED 3
+# define PLAYER_SPEED 4
 # define JUMP_SIZE 1.1
 
 # define MAP "map.map"
