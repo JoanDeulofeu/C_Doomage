@@ -37,6 +37,7 @@ void print_wall_list(t_main *s)
 	      printf("\033[0m==========\n");
 	      printf("MUR[%d]\n", i);
 	      printf("----------\n");
+	      printf("mur[%d].nb_tex = %d\n", i, tmp->nb_tex);
 	      printf("mur[%d].l_dist = %f\n", i, tmp->l_dist);
 	      printf("mur[%d].b_dist = %f\n", i, tmp->b_dist);
 	      printf("mur[%d].x = %d\n", i, tmp->x);

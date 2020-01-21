@@ -155,12 +155,8 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 	vs.vtx_gauche = get_t_int_by_vertex_id(vs.sct->vertex, vs.begin_wall_id);
 	vs.vtx_droite = get_t_int_by_vertex_id(vs.sct->vertex, vs.end_wall_id);
 	vs.player = player;
-	if (s->portal_nb == 0 && (vs.end_wall_id == 0 || vs.begin_wall_id ==0))
-	{
+	if (s->portal_nb == 0 && (vs.end_wall_id == 0 || vs.begin_wall_id == 0))
 		vs = move_player_near_portal(s, vs);
-
-	}
-
 	return(vs);
 }
 

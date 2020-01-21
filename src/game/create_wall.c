@@ -58,14 +58,31 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		add_portal_to_list(s, fake_vs.player, fake_vs.sct, fake_vs);
 }
 
+int		ft_nb_walls(t_main *s)
+{
+	t_walls *tmp;
+	int i;
+
+	tmp = s->walls;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
 void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 {
 	t_4dpos		pos;
 
-	while (end)
+	while (end && ft_nb_walls(s) < 50)
 	{
+		// printf("DEBUT BOUCLE\n");
 		if (vtx->wall_value != -1)
 		{
+			// printf("portail entree(%d)   ", s->portal_nb);
 			if (vtx->ptr->id == vs->begin_wall_id)
 			{
 				if (vtx->ptr->id == vs->end_wall_id)
@@ -77,9 +94,11 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 				handle_visu_portal(s, vtx, vs, 3);
 			else
 				handle_visu_portal(s, vtx, vs, 2);
+				// printf("sortie(%d)\n", s->portal_nb);
 		}
 		else
 		{
+			// printf("wall\n");
 			vs->begin = vtx->ptr->m_pos;
 			vs->tmp_wall = vtx->next->ptr->m_pos;
 			ft_create_new_wall(s, vtx, vs, 'w');
@@ -95,4 +114,5 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 			end = 0;
 		vtx = vtx->next;
 	}
+	// printf("\n\n");
 }

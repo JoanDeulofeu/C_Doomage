@@ -80,7 +80,10 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	if ((wall->wall_or_portal == 'p') && (coord.y > limit_ceiling))
 	{
 		coord.y = limit_floor;
-		y = 0;
+		if (limit_floor < 0)
+			y = 0 - limit_floor;
+		else
+			y = 0;
 	}
 	if (coord.y < 0)
 		coord.y = 0;
