@@ -154,6 +154,7 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	t_dpos	r_plan;
 
 	pos.pos2 = vs->player;
+	// printf("switch = %d\n", swich);
 	if (swich == 1 || swich == 4)
 	{
 		l_plan = vs->left_plan;

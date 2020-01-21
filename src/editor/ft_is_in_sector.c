@@ -134,10 +134,14 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 		wall = sct->vertex;
 		pos.pos3.y += next_test;
 		next_test = 0;
+		// if (sct->id == 4)
+			// printf("TEST\nplayer (%.1f, %.1f)     point (%.1f, %.1f)\n", pos.pos4.x, pos.pos4.y, pos.pos3.x, pos.pos3.y);
 		while (i++ < sct->vertex->prev->id)
 		{
 			pos.pos1 = wall->ptr->m_pos;
 			pos.pos2 = wall->next->ptr->m_pos;
+			// if (sct->id == 4)
+			// 	printf("wall1 (%.1f, %.1f)      wall2 (%.1f, %.1f)\n", pos.pos1.x, pos.pos1.y, pos.pos2.x, pos.pos2.y);
 			if ((pos.pos4.x == pos.pos1.x && pos.pos4.y == pos.pos1.y)
 				|| (pos.pos4.x == pos.pos2.x && pos.pos4.y == pos.pos2.y))
 				return (0);
@@ -162,7 +166,10 @@ int			ft_is_in_sector(t_main *s, t_dpos position)
 			n_sector = sct->id;
 			save_dist = tmp_dist;
 		}
+		// if (sct->id == 4)
+		// 	printf("\n\n\n");
 		sct = sct->next;
 	}
+	// printf("---sector return %d---\n", n_sector);
 	return (n_sector);
 }
