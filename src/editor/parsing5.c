@@ -74,7 +74,9 @@ void	ft_parsing_norm(t_main *s, char *line, int i, int y)
 	else if (line[0] == 'P')
 	{
 		s->player.r_ori.y = (float)ft_atoi(&line[i]) / METRE;
-		i += ft_longlen(s->player.r_pos.y * METRE);
+		i += ft_longlen(s->player.r_ori.y * METRE);
+		if ((i = ft_find_next_number(line, i)) == -1)
+			handle_error(s, MAP_ERROR);
 		s->player.r_ori.x = (float)ft_atoi(&line[i]) / METRE;
 		s->player.r_pos = s->player.r_ori;
 	}

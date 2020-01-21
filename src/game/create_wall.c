@@ -17,20 +17,50 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 
+	if (s->printf)
+	{
+		s->display_mode = editor;
+		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
+		ft_draw_editor(s->editor, s->sdl->editor);
+		display_map(s);
+		draw_sprites_ori(s);
+		ft_draw_all_wall(s);
+			if (s->editor->mode == portal)
+			change_over_wall(s);
+		draw_editor_menu(s, 0, WIDTH / 2
+			- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_space_menu(s);
+	}
 	fake_angle = 0;
 	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
 	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
 	fake_vs.player = fake_player;
 	fake_vs.prev_sct_id = vtx->sct;
 	fake_vs.sct_id = vtx->sct_dest;
+	// printf("sct_id = %d\n", fake_vs.sct_id);
 	fake_vs.sct = get_sector_by_id(s, vtx->sct_dest);
 	fake_vs.angle = angle_mod(fake_angle);
 	fake_vs = get_walls_to_draw(s, fake_vs.player, fake_vs);
+	// printf("begin wall = %d, end wall = %d\n", fake_vs.begin_wall_id, fake_vs.end_wall_id);
 	fake_vs.vtx_droite = vtx->vtx_dest;
 	if (fake_vs.vtx_droite == NULL)
 		handle_error(s, POINTER_ERROR);
 	fake_vs.vtx_gauche = vtx->vtx_dest->next;
 	return (fake_vs);
+}
+
+int			check_portal_doover(t_main *s, t_int *vtx)
+{
+	t_walls *wall;
+
+	wall = s->walls;
+	while (wall)
+	{
+		if (wall->portal_value == vtx->ptr->id)
+			return (0);
+		wall = wall->next;
+	}
+	return (1);
 }
 
 void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
@@ -53,6 +83,16 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	else
 		fake_vs.end = s->tmp_intersect;
 	ft_limit_ceiling_floor(s, pos.pos1, pos.pos2, &fake_vs, swich);
+	if (!check_portal_doover(s, vtx))
+		return ;
+	if (s->printf)
+	{
+		s->display_mode = editor;
+		printf("sector %d", vs->sct_id);
+		printf("     angle %.2f\n", vs->angle);
+		update_image(s, s->sdl->editor);
+		sleep(1);
+	}
 	ft_create_new_wall(s, vtx, vs, 'p');
 	if (s->portal_nb < PORTAL_LIMIT)
 		add_portal_to_list(s, fake_vs.player, fake_vs.sct, fake_vs);

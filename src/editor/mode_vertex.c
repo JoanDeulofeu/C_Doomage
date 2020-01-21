@@ -109,6 +109,7 @@ void	move_anchor(t_main *s, int id)
 			temp->y = abs.y;
 			temp->m_pos.x = temp->x * METRE;
 			temp->m_pos.y = temp->y * METRE;
+			printf("ptr id = %d\n", temp->id);
 			check_map_portals(s);
 			return ;
 		}

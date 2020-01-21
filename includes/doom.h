@@ -181,6 +181,7 @@ typedef struct				s_walls {
 	int						id;
 	int						occuped;
 	char					wall_or_portal; //wall = "w", portal = "p";
+	int						portal_value;
 	int						sct_id;
 	double					l_dist;
 	double					b_dist;
@@ -280,6 +281,7 @@ typedef struct				s_msg {
 
 typedef struct				s_main {
 	int						printf;
+	int						count_wall;
 	int						pthread;
 	int						wall_fk_id;
 	int						play_or_editor;

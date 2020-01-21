@@ -69,6 +69,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		wall->right = s->tmp_intersect;
 	else
 		wall->right = right;
+	wall->portal_value = 0;
 	pos.pos1 = wall->right;
 	pos.pos3 = vs->left_plan;
 	pos.pos4 = vs->right_plan;
@@ -91,6 +92,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		sct = get_sector_by_id(s, vtx->sct_dest);
 		wall->floor_height_dest = sct->floor;
 		wall->ceiling_height_dest = sct->ceiling;
+		wall->portal_value = vtx->vtx_dest->ptr->id;
 	}
 	wall->screen_width_wall = (WIDTH * ((ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN)) / 100;
 	return (wall);

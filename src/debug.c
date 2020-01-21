@@ -30,8 +30,11 @@ void print_wall_list(t_main *s)
   i = 1;
   while (tmp)
   {
-	  if (tmp->wall_or_portal == 'p')
-	  	printf("\033[33mPORTAIL\n");
+	if (tmp->wall_or_portal == 'p')
+	{
+		printf("\033[33mPORTAIL\n");
+		printf("portail[%d].portal_value = %d\n", i, tmp->portal_value);
+	}
 	  if (tmp->wall_or_portal == 'w')
 	  {
 	      printf("\033[0m==========\n");
