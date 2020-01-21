@@ -105,64 +105,133 @@ int			ft_find_intersection(t_main *s, t_4dpos pos, char visu)
 	return (sqrt(powf(pos.pos4.x - crd.x, 2) + powf(pos.pos4.y - crd.y, 2)));
 }
 
+int			check_pos_sector(t_main *s, t_4dpos pos, t_sector *sct)
+{
+		t_int		*wall;
+		int			count;
+		long		save_dist;
+		long		tmp_dist;
+		int			next_test;
+		int			n_sector;
+		int			dist_sector;
+		int			i;
+
+		n_sector = 0;
+		dist_sector = 0;
+		tmp_dist = LONG_MAX;
+		save_dist = LONG_MAX;
+		next_test = 0;
+		while (sct)
+		{
+			i = 0;
+			count = 0;
+			wall = sct->vertex;
+			pos.pos3.x += next_test;
+			pos.pos3.y += next_test;
+			next_test = 0;
+			// printf("boucle 1\n");
+			while (i++ < sct->vertex->prev->id)
+			{
+				pos.pos1 = wall->ptr->m_pos;
+				pos.pos2 = wall->next->ptr->m_pos;
+				if ((pos.pos4.x == pos.pos1.x && pos.pos4.y == pos.pos1.y)
+					|| (pos.pos4.x == pos.pos2.x && pos.pos4.y == pos.pos2.y))
+					return (0);
+				dist_sector = ft_find_intersection(s, pos, 0);
+				if (dist_sector == -1)
+				{
+					next_test = 50;
+					break;
+				}
+				if (dist_sector > 0)
+				{
+					if (tmp_dist > dist_sector)
+						tmp_dist = dist_sector;
+					count++;
+				}
+				// printf("sct->prev->id = %d, i = %d\n", sct->vertex->prev->id, i);
+				wall = wall->next;
+			}
+			if (dist_sector == -1)
+				continue;
+			if (count % 2 == 1 && save_dist > tmp_dist)
+			{
+				n_sector = sct->id;
+				save_dist = tmp_dist;
+			}
+			sct = sct->next;
+		}
+		return (n_sector);
+}
+
 int			ft_is_in_sector(t_main *s, t_dpos position)
 {
 	t_sector	*sct;
-	t_int		*wall;
+	// t_int		*wall;
 	t_4dpos		pos;
-	int			count;
-	long		save_dist;
-	long		tmp_dist;
-	int			next_test;
+	t_4dpos		pos2;
+	// int			count;
+	// long		save_dist;
+	// long		tmp_dist;
+	// int			next_test;
 	int			n_sector;
-	int			dist_sector;
-	int			i;
+	// int			dist_sector;
+	// int			i;
 
 	sct = s->sector;
-	n_sector = 0;
-	dist_sector = 0;
-	tmp_dist = LONG_MAX;
-	save_dist = LONG_MAX;
-	next_test = 0;
 	pos.pos4 = position;
 	pos.pos3.x = pos.pos4.x - 10000;
 	pos.pos3.y = pos.pos4.y + 10;
-	while (sct)
+	pos.pos1 = position;
+	pos.pos2 = position;
+	pos2.pos4 = position;
+	pos2.pos3.x = pos.pos4.x + 10000;
+	pos2.pos3.y = pos.pos4.y + 10;
+	pos2.pos1 = position;
+	pos2.pos2 = position;
+	if (((n_sector = check_pos_sector(s, pos, sct)) == check_pos_sector(s, pos2, sct)))
 	{
-		i = 0;
-		count = 0;
-		wall = sct->vertex;
-		pos.pos3.y += next_test;
-		next_test = 0;
-		while (i++ < sct->vertex->prev->id)
-		{
-			pos.pos1 = wall->ptr->m_pos;
-			pos.pos2 = wall->next->ptr->m_pos;
-			if ((pos.pos4.x == pos.pos1.x && pos.pos4.y == pos.pos1.y)
-				|| (pos.pos4.x == pos.pos2.x && pos.pos4.y == pos.pos2.y))
-				return (0);
-			dist_sector = ft_find_intersection(s, pos, 0);
-			if (dist_sector == -1)
-			{
-				next_test = 10;
-				break;
-			}
-			if (dist_sector > 0)
-			{
-				if (tmp_dist > dist_sector)
-					tmp_dist = dist_sector;
-				count++;
-			}
-			wall = wall->next;
-		}
-		if (dist_sector == -1)
-			continue;
-		if (count % 2 == 1 && save_dist > tmp_dist)
-		{
-			n_sector = sct->id;
-			save_dist = tmp_dist;
-		}
-		sct = sct->next;
+		// printf("sector = %d\n", n_sector);
+		return (n_sector);
 	}
-	return (n_sector);
+	else
+		return(0);
+	// while (sct)
+	// {
+	// 	i = 0;
+	// 	count = 0;
+	// 	wall = sct->vertex;
+	// 	pos.pos3.y += next_test;
+	// 	next_test = 0;
+	// 	while (i++ < sct->vertex->prev->id)
+	// 	{
+	// 		pos.pos1 = wall->ptr->m_pos;
+	// 		pos.pos2 = wall->next->ptr->m_pos;
+	// 		if ((pos.pos4.x == pos.pos1.x && pos.pos4.y == pos.pos1.y)
+	// 			|| (pos.pos4.x == pos.pos2.x && pos.pos4.y == pos.pos2.y))
+	// 			return (0);
+	// 		dist_sector = ft_find_intersection(s, pos, 0);
+	// 		if (dist_sector == -1)
+	// 		{
+	// 			next_test = 10;
+	// 			break;
+	// 		}
+	// 		if (dist_sector > 0)
+	// 		{
+	// 			if (tmp_dist > dist_sector)
+	// 				tmp_dist = dist_sector;
+	// 			count++;
+	// 		}
+	// 		wall = wall->next;
+	// 	}
+	// 	if (dist_sector == -1)
+	// 		continue;
+	// 	if (count % 2 == 1 && save_dist > tmp_dist)
+	// 	{
+	// 		n_sector = sct->id;
+	// 		save_dist = tmp_dist;
+	// 	}
+	// 	sct = sct->next;
+	// }
+	// return (n_sector);
 }

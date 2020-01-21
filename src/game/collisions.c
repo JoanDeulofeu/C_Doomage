@@ -23,6 +23,8 @@ void	tp_first_sector(t_main *s)
 
 static int	check_pos(t_main *s, t_dpos curr)
 {
+	// printf("cur.x = %f\n", curr.x);
+
 	if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 	{
 		s->player.r_pos.x = curr.x / METRE;
@@ -49,8 +51,8 @@ int		handle_sector_zero(t_main *s)
 	// printf("blop.\n");
 	if (ft_is_in_sector(s, s->player.m_pos) == 0)
 	{
-		// printf ("secyeur 0\n");
-		while (nb < 100 * s->editor->space)
+		// printf ("secteur 0\n");
+		while (nb < 100 * METRE)
 		{
 			curr = s->player.m_pos;
 			curr.x = s->player.m_pos.x + nb;
