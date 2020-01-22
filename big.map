@@ -1,0 +1,21 @@
+Map : big
+
+Vertex 27		4
+Vertex -14		4
+Vertex -14		9
+Vertex -14		36
+Vertex -14		41
+Vertex 27		10
+Vertex 27		11
+Vertex 27		41
+
+
+Sector 0 10 | 8 7 6 1 2 3 4 5 | -1 -1 -1 -1 -1 -1 -1 -1 | 7 9 7 7 7 0 7 7
+
+
+Ennemi 1 | 2680 86 | 0 | 3
+Ennemi 1 | 2900 -620 | 0 | 3
+
+
+Player -209 247
+Angle 310

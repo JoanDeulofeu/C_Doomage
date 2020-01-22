@@ -70,12 +70,13 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 	while (liste)
 	{
 		inter = 0;
+		wall = vs->vtx_gauche;
+		pos.pos3 = vs->player;
+		pos.pos4 = liste->sprite->m_pos;
 		while (wall->id != vs->vtx_droite->next->id)
 		{
 			pos.pos1 = wall->ptr->m_pos;
 			pos.pos2 = wall->next->ptr->m_pos;
-			pos.pos3 = vs->player;
-			pos.pos4 = liste->sprite->m_pos;
 			if (ft_find_intersection(s, pos, 1))
 			{
 				inter = 1;;
