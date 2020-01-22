@@ -77,15 +77,15 @@ void	teleport_player(t_main *s, const unsigned char *keys)
 	wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
 	if (wall->vtx_dest == NULL)
 	{
-		printf("true\n");
+		// printf("true\n");
 		if (wall->next->vtx_dest != NULL) // Au cas où find intersection ne renvoie pas le bon mur, on check lequel a coté est un portail
 		{
-			printf("vertex suivant");
+			// printf("vertex suivant");
 			wall = wall->next;
 		}
 		else if (wall->prev->vtx_dest != NULL)
 		{
-			printf("vertex precedent\n");
+			// printf("vertex precedent\n");
 			wall = wall->prev;
 		}
 		else

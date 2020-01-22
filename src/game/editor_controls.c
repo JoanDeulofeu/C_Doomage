@@ -569,7 +569,7 @@ void		editor_handler(t_main *s)
 							// point_2.x = s->sdl->event.button.x;
 							// point_2.y = s->sdl->event.button.y;
 							iii = ft_is_in_sector(s, point_2);
-							printf("mouse (%.0f, %.0f)\n", point_2.x, point_2.y);
+							// printf("mouse (%.0f, %.0f)\n", point_2.x, point_2.y);
 							if (iii == 0 || iii == 1)
 							{
 								printf("SECTOR IS %d\n", iii);

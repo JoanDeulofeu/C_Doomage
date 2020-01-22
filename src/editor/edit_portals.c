@@ -38,7 +38,7 @@ void        create_struct_portals(t_main *s)
 	// wall1->ptr = s->editor->wall2->ptr;
 	// wall2->ptr = s->editor->wall->ptr;
 	reset_temp_portals(s);
-	ft_test_chainlist(s);
+	// ft_test_chainlist(s);
 	// printf("wall1->id = %d et wall1->value = %d\n", wall1->id, wall1->value);
 	//modifier structure pour in et out
 }
