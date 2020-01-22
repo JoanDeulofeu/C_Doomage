@@ -170,6 +170,8 @@ void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 		{
 			v->x = v->old.x + tmp_move.x;
 			v->y = v->old.y + tmp_move.y;
+			v->m_pos.x = v->x * METRE;
+			v->m_pos.y = v->y * METRE;
 		}
 		if (v)
 			v = v->next;
