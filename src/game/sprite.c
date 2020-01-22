@@ -45,9 +45,11 @@ void 	unset_sprites(t_main *s)
 {
 	t_sprite *sprite;
 
-	sprite = s->sprite;
+	if ((sprite = s->sprite) == NULL)
+		return ;
 	while (sprite)
 	{
+		sprite->dist = ft_dist_t_dpos(s->player.m_pos, sprite->m_pos);
 		sprite->set = 0;
 		sprite = sprite->next;
 	}
@@ -106,20 +108,43 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 void 	display_sprites(t_main *s)
 {
 	t_sprite *sprite;
+	int		display;
+	int		far_away_dist;
+	int		far_away_id;
 
 	sprite = s->sprite;
+	display = 1;
 	if (!sprite)
 		return ;
-	while (sprite)
+	while (display) //tant quil reste des sprites a afficher
 	{
-		// printf("boucle\n");
-		if (sprite->set == 1 && sprite->destroy == 0 && check_if_visible(s, sprite))
+		display = 0;
+		far_away_dist = 0;
+		far_away_id = 0;
+		sprite = s->sprite;
+		while (sprite) // cherche le sprite le plus loin
 		{
-			// printf("sprite ok\n");
-			play_sprites_anims(s);
-			draw_sprite(s, sprite->angle, sprite);
+			if (sprite->set == 1 && sprite->dist > far_away_dist)
+			{
+				display = 1;
+				far_away_dist = sprite->dist;
+				far_away_id = sprite->id;
+			}
+			sprite = sprite->next;
 		}
-		sprite = sprite->next;
+		if (!display)
+			break ;
+		sprite = s->sprite;
+		while (sprite) //avance jusquau sprite le plus loin pour lafficher
+		{
+			if (sprite->id == far_away_id && sprite->set == 1 && sprite->destroy == 0 && check_if_visible(s, sprite))
+			{
+				play_sprites_anims(s);
+				draw_sprite(s, sprite->angle, sprite);
+				sprite->set = 0;
+			}
+			sprite = sprite->next;
+		}
 	}
 }
 

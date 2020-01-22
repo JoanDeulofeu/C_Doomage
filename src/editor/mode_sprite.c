@@ -385,7 +385,6 @@ t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 	sprite = NULL;
 	pos.x = r_pos.x * METRE;
 	pos.y = r_pos.y * METRE;
-	 //pos = ft_pos_to_dpos(get_px_r_pos(s, r_pos));
 	if ((sct_id = ft_is_in_sector(s, pos)) == 0)
 		return (NULL);
 	if (!(sprite = ft_memalloc(sizeof(t_sprite))))

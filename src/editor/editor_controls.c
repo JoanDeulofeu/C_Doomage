@@ -309,7 +309,7 @@ void		handle_editor_keys(t_main *s)
 			display_sprite_menu(s);
 
 			t_sector *sct = s->sector;
-			while (sct)
+			while (sct) //MERDE
 			{
 				t_pos coord;
 				coord = ft_find_polygon_center(sct);
@@ -327,10 +327,8 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s);
-
 		display_sprites(s);
 		clear_wall_list(s);
-		// draw_hud(s);
 		// ft_nul(s);
 		animate_weapon(s);
 		update_image(s, s->sdl->game);
@@ -341,7 +339,6 @@ void		handle_editor_keys(t_main *s)
 		ft_save_map(s);
 		update_image(s, s->sdl->save);
 	}
-	// printf("s->player.y_eye = %d\ns->player.eyesight = %d\n\n", s->player.y_eye, s->player.eyesight);
 }
 
 void		editor_handler(t_main *s)
