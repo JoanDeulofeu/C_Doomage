@@ -121,7 +121,7 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 {
 	t_4dpos		pos;
 
-	while (end && ft_nb_walls(s) < 600) //MERDE a enlever la securitê si possible
+	while (end && ft_nb_walls(s) < 5000) //MERDE a enlever la securitê si possible
 	{
 		// printf("DEBUT BOUCLE\n");
 		if (vtx->wall_value != -1)

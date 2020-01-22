@@ -139,6 +139,62 @@ Vertex 34		40
 Vertex 43		40
 Vertex 43		73
 Vertex 34		73
+Vertex 31		49
+Vertex 24		52
+Vertex 31		55
+Vertex 31		56
+Vertex 25		56
+Vertex 28		63
+Vertex 45		42
+Vertex 56		42
+Vertex 56		43
+Vertex 45		43
+Vertex 45		44
+Vertex 56		44
+Vertex 56		45
+Vertex 45		45
+Vertex 45		46
+Vertex 45		47
+Vertex 56		47
+Vertex 56		46
+Vertex 45		54
+Vertex 49		56
+Vertex 49		58
+Vertex 45		60
+Vertex 50		54
+Vertex 52		50
+Vertex 56		54
+Vertex 54		50
+Vertex 47		73
+Vertex 47		78
+Vertex 50		75
+Vertex 50		76
+Vertex 51		77
+Vertex 52		77
+Vertex 53		76
+Vertex 53		75
+Vertex 52		74
+Vertex 51		74
+Vertex 49		71
+Vertex 62		70
+Vertex 63		71
+Vertex 63		80
+Vertex 62		81
+Vertex 49		80
+Vertex 61		47
+Vertex 61		60
+Vertex 64		60
+Vertex 63		57
+Vertex 63		56
+Vertex 64		56
+Vertex 64		57
+Vertex 64		47
+Vertex 66		47
+Vertex 66		56
+Vertex 66		57
+Vertex 66		60
+Vertex 70		60
+Vertex 70		47
 
 
 Sector 7 10 | 8 7 6 1 2 3 4 5 | -1 -1 -1 -1 -1 10 -1 -1 | 7 9 7 7 7 0 7 7
@@ -163,10 +219,23 @@ Sector 0 3 | 117 118 119 120 121 122 123 124 | 111 104 108 106 110 107 113 112 |
 Sector 0 10 | 133 130 131 132 135 134 | -1 129 -1 -1 -1 -1 | 0 0 0 0 0 0
 Sector 6 10 | 127 126 128 129 | -1 -1 -1 130 | 0 0 0 0
 Sector 0 3 | 136 139 138 137 | -1 137 -1 139 | 0 0 0 0
+Sector 0 3 | 144 145 143 | 140 141 -1 | 0 0 0
+Sector 0 3 | 140 141 142 | 144 145 -1 | 0 0 0
+Sector 0 3 | 146 149 148 147 | -1 151 -1 155 | 0 0 0 0
+Sector 0 3 | 150 153 152 151 | -1 157 -1 149 | 0 0 0 0
+Sector 0 3 | 154 155 156 157 | -1 147 -1 153 | 0 0 0 0
+Sector 0 3 | 159 158 161 160 | 163 -1 164 -1 | 0 0 0 0
+Sector 0 3 | 164 165 163 162 | 161 -1 159 -1 | 0 0 0 0
+Sector 0 3 | 166 167 169 168 | -1 170 -1 176 | 0 0 0 0
+Sector 0 3 | 170 181 180 171 | 167 -1 172 -1 | 0 0 0 0
+Sector 0 3 | 172 179 178 173 | 180 -1 174 -1 | 0 0 0 0
+Sector 0 3 | 177 176 175 174 | -1 168 -1 178 | 0 0 0 0
+Sector 0 3 | 182 183 184 188 185 186 187 189 | -1 189 192 -1 -1 -1 190 183 | 0 0 0 0 0 0 0 0
+Sector 0 3 | 190 191 192 193 194 195 | 187 -1 184 195 -1 193 | 0 0 0 0 0 0
 
 
 Ennemi 2 | 1993 -73 | 0 | 6
 
 
-Player 1169 1751
-Angle 183
+Player 2046 1771
+Angle 180
