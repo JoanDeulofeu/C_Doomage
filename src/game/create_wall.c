@@ -71,6 +71,7 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	fake_vs = fill_visu_values(s, vs, vtx);
 	pos.pos1 = vtx->vtx_dest->next->ptr->m_pos;
 	pos.pos2 = vtx->vtx_dest->ptr->m_pos;
+	// printf("id1 = %d, id2 = %d\n", vtx->vtx_dest->next->ptr->id, vtx->vtx_dest->ptr->id);
 	pos.pos3 = fake_vs.left_point;
 	pos.pos4 = fake_vs.player;
 	if ((ft_find_intersection(s, pos, 1)) == 0)
@@ -82,8 +83,11 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 	else
 		fake_vs.end = s->tmp_intersect;
+	// printf("fake_vs.end = %d\n", fake_vs.vtx_droite->ptr->id);
 	ft_limit_ceiling_floor(s, pos.pos1, pos.pos2, &fake_vs, swich);
 	if (!check_portal_doover(s, vtx))
+		return ;
+	if (!check_portal_validity(s, vtx, &fake_vs))
 		return ;
 	if (s->printf)
 	{
@@ -123,6 +127,7 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 		if (vtx->wall_value != -1)
 		{
 			// printf("portail entree(%d)   ", s->portal_nb);
+
 			if (vtx->ptr->id == vs->begin_wall_id)
 			{
 				if (vtx->ptr->id == vs->end_wall_id)

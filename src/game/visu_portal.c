@@ -1,5 +1,57 @@
 #include "doom.h"
 
+int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
+{
+	t_4dpos pos;
+	t_dpos	l_plan;
+	t_dpos	r_plan;
+	int		dist;
+
+	pos.pos1 = vs->left_point;
+	pos.pos2 = vs->player;
+	pos.pos3 = vtx->ptr->m_pos;
+	pos.pos4 = vtx->next->ptr->m_pos;
+	dist = ft_find_intersection(s, pos, 1);
+	if (dist > 0)
+		pos.pos1 = s->tmp_intersect;
+	else
+		pos.pos1 = pos.pos3;
+	pos.pos3 = vs->left_plan;
+	pos.pos4 = vs->right_plan;
+	ft_find_intersection(s, pos, 1);
+	l_plan = s->tmp_intersect;
+
+	pos.pos1 = vs->right_point;
+	pos.pos3 = vtx->ptr->m_pos;
+	pos.pos4 = vtx->next->ptr->m_pos;
+	dist = ft_find_intersection(s, pos, 1);
+	if (dist > 0)
+		pos.pos1 = s->tmp_intersect;
+	else
+		pos.pos1 = pos.pos4;
+	pos.pos3 = vs->left_plan;
+	pos.pos4 = vs->right_plan;
+	ft_find_intersection(s, pos, 1);
+	r_plan = s->tmp_intersect;
+
+	printf("dist left = %f, dist right = %f\n", ft_dist_t_dpos(l_plan, vs->left_plan), ft_dist_t_dpos(r_plan, vs->left_plan));
+	if (ft_dist_t_dpos(l_plan, vs->left_plan)
+	<= ft_dist_t_dpos(r_plan, vs->left_plan)
+	&& abs(ceil(ft_dist_t_dpos(r_plan, vs->player))
+	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
+	{
+		printf("true id = %d\n", vtx->ptr->id);
+		return (1);
+
+	}
+	else
+	{
+		printf("false id = %d\n", vtx->ptr->id);
+		return (0);
+
+	}
+}
+
 int			check_walls_lenght(t_int *wall1, t_int *wall2)
 {
 	t_dpos	beg1;
@@ -129,11 +181,17 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	vs.right_point.y = player.y - sin(to_rad(angle_right)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
 	if (vs.end_wall_id == 0 || s->count_wall % 2 == 0)
+	{
+		// printf("true\n");
 		vs.end_wall_id = vs.vtx_droite->prev->ptr->id;
+
+	}
 	else
 	{
 		vs.end = s->tmp_intersect;
 	}
+	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);
+	// exit(-1);
 	if (vs.begin_wall_id == 81)
 		printf("vs.begin_wall = %d\n", vs.begin_wall_id);
 	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);

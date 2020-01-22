@@ -1,21 +1,167 @@
 Map : yoyo
 
-Vertex 3		5
-Vertex 5		20
-Vertex 10		24
-Vertex 12		21
-Vertex 13		6
-Vertex 14		22
-Vertex 15		7
-Vertex 24		18
-Vertex 25		8
+Vertex 27		4
+Vertex 17		4
+Vertex 17		9
+Vertex 17		12
+Vertex 17		17
+Vertex 27		10
+Vertex 27		11
+Vertex 27		17
+Vertex 16		9
+Vertex 16		12
+Vertex 13		12
+Vertex 13		9
+Vertex 12		9
+Vertex 12		12
+Vertex 12		3
+Vertex 7		3
+Vertex 7		8
+Vertex 7		13
+Vertex 12		18
+Vertex 7		18
+Vertex 7		19
+Vertex 12		19
+Vertex 12		22
+Vertex 7		20
+Vertex 7		21
+Vertex 12		23
+Vertex 11		26
+Vertex 7		22
+Vertex 5		25
+Vertex 9		29
+Vertex 4		25
+Vertex 5		31
+Vertex 3		25
+Vertex 4		31
+Vertex 1		31
+Vertex 1		25
+Vertex 6		13
+Vertex 6		8
+Vertex -5		8
+Vertex -5		9
+Vertex -5		12
+Vertex -5		13
+Vertex 0		31
+Vertex -4		35
+Vertex -4		21
+Vertex -8		21
+Vertex -8		35
+Vertex -14		28
+Vertex 0		25
+Vertex -2		23
+Vertex -3		20
+Vertex -1		22
+Vertex 1		20
+Vertex -1		18
+Vertex -10		9
+Vertex -10		12
+Vertex -11		12
+Vertex -11		9
+Vertex -11		4
+Vertex -11		17
+Vertex -18		17
+Vertex -18		4
+Vertex -18		2
+Vertex -11		2
+Vertex -11		-5
+Vertex -18		-5
+Vertex -17		-5
+Vertex -12		-5
+Vertex -12		-6
+Vertex -17		-6
+Vertex -26		-6
+Vertex -26		-29
+Vertex -4		-29
+Vertex -4		-6
+Vertex -4		-17
+Vertex -13		-17
+Vertex -4		-16
+Vertex -13		-16
+Vertex -13		-13
+Vertex -13		-20
+Vertex -20		-20
+Vertex -20		-13
+Vertex -26		-16
+Vertex -26		-17
+Vertex -21		-20
+Vertex -21		-17
+Vertex -21		-16
+Vertex -21		-13
+Vertex -28		-20
+Vertex -35		-14
+Vertex -35		-20
+Vertex -35		-17
+Vertex -36		-14
+Vertex -36		-17
+Vertex -36		-20
+Vertex -37		-20
+Vertex -37		-14
+Vertex -28		-14
+Vertex -28		-17
+Vertex 15		26
+Vertex 15		19
+Vertex 25		19
+Vertex 25		26
+Vertex 22		24
+Vertex 22		26
+Vertex 20		24
+Vertex 18		24
+Vertex 18		26
+Vertex 18		27
+Vertex 18		29
+Vertex 20		29
+Vertex 22		29
+Vertex 22		27
+Vertex 25		27
+Vertex 25		34
+Vertex 15		34
+Vertex 27		24
+Vertex 27		26
+Vertex 27		28
+Vertex 29		28
+Vertex 31		28
+Vertex 31		26
+Vertex 31		24
+Vertex 29		24
+Vertex 15		27
+Vertex 0		43
+Vertex 3		43
+Vertex 0		46
+Vertex 3		46
+Vertex 5		43
+Vertex 5		46
+Vertex 9		51
+Vertex 9		38
+Vertex 18		39
+Vertex 17		51
 
 
-Sector 0 6 | 1 2 3 4 5 | -1 -1 -1 -1 8
-Sector 1 5 | 6 8 9 7 | -1 5 -1 -1
+Sector 7 10 | 8 7 6 1 2 3 4 5 | -1 -1 -1 -1 -1 10 -1 -1 | 7 9 7 7 7 0 7 7
+Sector 0 10 | 10 9 12 11 | 3 -1 14 -1 | 0 0 0 0
+Sector 0 5 | 14 13 15 16 17 18 20 19 | 12 -1 -1 -1 37 -1 22 -1 | 0 0 0 0 0 0 0 0
+Sector 1 5 | 21 24 23 22 | -1 26 -1 20 | 0 0 0 0
+Sector 2 6 | 25 28 27 26 | -1 30 -1 24 | 0 0 0 0
+Sector 3 7 | 31 32 30 29 | 34 -1 28 -1 | 0 0 0 0
+Sector 3 8 | 33 36 35 34 | -1 43 -1 31 | 0 0 0 0
+Sector 0 4 | 37 38 39 40 41 42 | 17 -1 -1 56 -1 -1 | 0 0 0 0 0 0
+Sector 0 8 | 49 50 45 46 48 47 44 43 | -1 51 -1 -1 -1 -1 -1 36 | 0 0 0 0 0 0 0 0
+Sector 0 3 | 53 54 51 52 | -1 -1 50 -1 | 0 0 0 0
+Sector 1 10 | 56 55 58 59 62 61 60 57 | 40 -1 -1 63 -1 -1 -1 -1 | 0 0 11 0 8 0 0 0
+Sector 0 10 | 64 65 68 67 66 63 | -1 -1 -1 -1 -1 59 | 10 6 7 1 5 0
+Sector 0 3 | 83 71 70 69 74 77 78 79 82 88 87 | -1 -1 -1 -1 -1 76 -1 81 -1 -1 -1 | 0 0 0 0 0 0 0 0 0 0 0
+Sector 0 3 | 75 73 72 84 86 85 81 80 76 | -1 -1 -1 -1 -1 -1 79 -1 77 | 0 0 0 0 0 0 0 0 0
+Sector 0 3 | 98 99 89 91 92 90 | -1 -1 -1 -1 -1 -1 | 0 0 0 0 0 0
+Sector 0 3 | 93 94 95 96 97 | -1 -1 -1 -1 -1 | 0 0 0 0 0
+Sector 0 3 | 101 100 108 107 106 104 105 103 102 | -1 -1 119 122 120 118 -1 -1 -1 | 0 0 0 0 0 0 0 0 0
+Sector 0 3 | 125 116 115 114 113 112 111 110 109 | -1 -1 -1 -1 123 124 117 121 -1 | 0 0 0 0 0 0 0 0 0
+Sector 0 3 | 117 118 119 120 121 122 123 124 | 111 104 108 106 110 107 113 112 | 0 0 0 0 0 0 0 0
+Sector 0 10 | 133 130 131 132 135 134 | -1 129 -1 -1 -1 -1 | 0 0 0 0 0 0
+Sector 6 10 | 127 126 128 129 | -1 -1 -1 130 | 0 0 0 0
 
 
+Ennemi 2 | 1993 -73 | 0 | 6
 
 
-Player 447 618
-Angle 171
+Player -192 -204
+Angle 164
