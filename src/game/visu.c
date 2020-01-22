@@ -13,10 +13,10 @@ int 		test_new_pos(t_main *s, t_visu *vs, t_dpos player)
 	r_angle = r_angle < 0 ? r_angle + 360: r_angle;
 	vs->left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs->left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
-	vs->begin_wall_id = ft_find_wall2(s, player, vs->left_point, 0xa5d65dff, vs->sct_id);
+	vs->begin_wall_id = ft_find_wall2(s, player, vs->left_point, APPLE_GREEN, vs->sct_id);
 	vs->right_point.x = player.x + cos(to_rad(r_angle)) * 10000;
 	vs->right_point.y = player.y - sin(to_rad(r_angle)) * 10000;
-	vs->end_wall_id = ft_find_wall2(s, player, vs->right_point, 0xd05ddaff, vs->sct_id);
+	vs->end_wall_id = ft_find_wall2(s, player, vs->right_point, PINK, vs->sct_id);
 	if(vs->end_wall_id == 0 && vs->begin_wall_id != 0)
 		vs->end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs->sct_id)->vertex,
 		vs->begin_wall_id)->next->ptr->id;
@@ -150,11 +150,13 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 	r_angle = r_angle < 0 ? r_angle + 360: r_angle;
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
-	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, 0xffed00ff, vs.sct_id);
+	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, YELLOW, vs.sct_id);
+	if (vs.begin_wall_id == 0 && s->player.m_pos.x == player.x && s->player.m_pos.y == player.y)
+		printf("vs.begin_wall_id = 0\n");
 	vs.begin = s->tmp_intersect;
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 10000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 10000;
-	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, 0x59ff00ff, vs.sct_id);
+	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, GREEN, vs.sct_id);
 	if(vs.end_wall_id == 0 && vs.begin_wall_id != 0)
 		vs.end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs.sct_id)->vertex,
 		vs.begin_wall_id)->next->ptr->id;
@@ -162,8 +164,11 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 	vs.vtx_gauche = get_t_int_by_vertex_id(vs.sct->vertex, vs.begin_wall_id);
 	vs.vtx_droite = get_t_int_by_vertex_id(vs.sct->vertex, vs.end_wall_id);
 	vs.player = player;
-	// if (s->portal_nb == 0 && (vs.end_wall_id == 0 || vs.begin_wall_id == 0))
-	// 	vs = move_player_near_portal(s, vs);
+	if (s->player.m_pos.x == player.x && s->player.m_pos.y == player.y && (vs.end_wall_id == 0 || vs.begin_wall_id == 0))
+	{
+		printf("true\n");
+		vs = move_player_near_portal(s, vs);
+	}
 	return(vs);
 }
 

@@ -179,7 +179,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	vs.left_point.x = player.x + cos(to_rad(angle_left)) * 2000;
 	vs.left_point.y = player.y - sin(to_rad(angle_left)) * 2000;
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
-	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, 0x37f3ffff, vs.sct_id); //#37f3ff
+	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, WHITE, vs.sct_id); //#37f3ff
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	if (vs.begin_wall_id == 0 || s->count_wall % 2 == 0)
 	{
@@ -205,8 +205,8 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	}
 	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);
 	// exit(-1);
-	if (vs.begin_wall_id == 81)
-		printf("vs.begin_wall = %d\n", vs.begin_wall_id);
+	// if (vs.begin_wall_id == 81)
+	// 	printf("vs.begin_wall = %d\n", vs.begin_wall_id);
 	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);
 	//On recuper l'angle entre le joueur et le point de gauche, ca donne le mur de gauche.
 	//On recupere l'angle entre le joueur et le point de droite, ca donne le mur de droite.

@@ -7,8 +7,10 @@ t_sector	*get_sector_by_id(t_main *s, int id)
 	tmp_sct = s->sector;
 	if (id == 0)
 		handle_error(s, SECTOR_ERROR);
-	while (tmp_sct->id != id)
+	while (tmp_sct && tmp_sct->id != id)
 		tmp_sct = tmp_sct->next;
+	if (tmp_sct == NULL || tmp_sct->id != id)
+		return (NULL);
 	return (tmp_sct);
 }
 

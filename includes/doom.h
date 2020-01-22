@@ -498,6 +498,8 @@ int							ft_sector_mode(t_main *s, int x, int y);
 void						fill_sectors(t_main *s);
 void						draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int						*free_sector_struct(t_sector *temp_sector);
+void						remove_sprite(t_main *s, int id);
+void						remove_sprite_from_sector(t_main *s, t_sprite *sprite);
 int							get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos);
 int							handle_sector_zero(t_main *s);
 

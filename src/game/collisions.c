@@ -125,7 +125,7 @@ int			check_col(t_main *s, t_dpos haut, t_dpos bas)
 	t_sector	*sct;
 	t_int		*wall;
 
-	id = ft_find_wall2(s, haut, bas, 0x37f3ffff, s->player.sector_id);
+	id = ft_find_wall2(s, haut, bas, S_PURPLE, s->player.sector_id);
 	if (id != 0)
 	{
 		sct = get_sector_by_id(s, s->player.sector_id);

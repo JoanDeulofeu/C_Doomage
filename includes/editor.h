@@ -81,7 +81,7 @@
 # define SPRINT	SDL_SCANCODE_LSHIFT
 
 # define YELLOW 0xFFF73611
-# define PINK 0xFF36F7FF
+# define PINK 0xd05ddaff
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
 # define GREEN 0x32CD32FF
@@ -99,6 +99,8 @@
 # define S_ORANGE 0xED5F18FF
 # define S_DBLUE 0x081EDBFF
 # define S_DGREEN 0x288333FF
+# define APPLE_GREEN 0xa5d65dff
+
 
 typedef enum			e_type {
 	enemy,

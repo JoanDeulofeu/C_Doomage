@@ -189,6 +189,8 @@ void		move_sprite(t_main *s)
 			sprite->r_ori = get_abs_r_pos(s, s->ft_mouse);
 			sprite->r_pos = sprite->r_ori;
 			set_sprite(s);
+			// sprite->sct_id = ft_is_in_sector(s, sprite->m_pos);
+			printf("sprite->sct_id = %d\n", sprite->sct_id);
 			break ;
 		}
 		sprite = sprite->next;

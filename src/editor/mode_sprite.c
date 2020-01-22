@@ -193,6 +193,8 @@ void	remove_sprite_from_sector(t_main *s, t_sprite *sprite)
 	t_lsprite	*del;
 
 	sct = get_sector_by_id(s, sprite->sct_id);
+	if (!sct)
+		return ;
 	temp = sct->liste;
 	// printf("sprite a supprimer = %d\n", sprite->id);
 	// printf("secteur du sprite a supprimer = %d\n", sct->id);

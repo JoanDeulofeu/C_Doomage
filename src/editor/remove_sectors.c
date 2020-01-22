@@ -1,5 +1,16 @@
 #include "doom.h"
 
+void			remove_all_sector_sprites(t_main *s, t_sector *sct)
+{
+	// t_lsprite *liste;
+
+	// liste = sct->liste;
+	while (sct->liste)
+	{
+		remove_sprite(s, sct->liste->sprite->id);
+	}
+}
+
 t_sector		*update_sector_walls(t_main *s, t_int *tmp_vtx,
 				t_sector *tmp_sct, int sector_id)
 {
@@ -96,6 +107,7 @@ int			remove_sector(t_main *s, int id, int del, int sct_id)
 			{
 				if (ft_is_in_sector(s, s->player.m_pos) == tmp_sct->id)
 					return (0);
+				remove_all_sector_sprites(s, tmp_sct);
 				tmp_vtx = free_sector_struct(tmp_sct);
 				tmp_sct = update_sector_list(s, tmp_sct);
 				tmp_sct = update_sector_walls(s, tmp_vtx, tmp_sct, sct_id);
