@@ -176,13 +176,13 @@ int			key_controls_game(t_main *s, int key)
 	if (key == TAB)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
-		s->printf = s->printf ? 0 : 1;
+		// s->printf = s->printf ? 0 : 1;
 		// printf("Test = %.3f %.3f\n", s->player.r_pos.y * METRE, s->player.r_pos.x * METRE);
 		// printf("Player Sector = %d\n", ft_is_in_sector(s, s->player.pos));
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
 		// tp_first_sector(s);
 		// s->player.y_eye = 0;
-		// ft_print_sprite_list(s);
+		ft_print_sprite_list(s);
 	return (1);
 }
 
@@ -569,7 +569,7 @@ void		editor_handler(t_main *s)
 							// point_2.x = s->sdl->event.button.x;
 							// point_2.y = s->sdl->event.button.y;
 							iii = ft_is_in_sector(s, point_2);
-							printf("mouse (%.0f, %.0f)\n", point_2.x, point_2.y);
+							// printf("mouse (%.0f, %.0f)\n", point_2.x, point_2.y);
 							if (iii == 0 || iii == 1)
 							{
 								printf("SECTOR IS %d\n", iii);

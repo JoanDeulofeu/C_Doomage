@@ -17,20 +17,20 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 
-	if (s->printf)
-	{
-		s->display_mode = editor;
-		ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
-		ft_draw_editor(s->editor, s->sdl->editor);
-		display_map(s);
-		draw_sprites_ori(s);
-		ft_draw_all_wall(s);
-			if (s->editor->mode == portal)
-			change_over_wall(s);
-		draw_editor_menu(s, 0, WIDTH / 2
-			- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
-		draw_space_menu(s);
-	}
+	// if (s->printf)
+	// {
+	// 	s->display_mode = editor;
+	// 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
+	// 	ft_draw_editor(s->editor, s->sdl->editor);
+	// 	display_map(s);
+	// 	draw_sprites_ori(s);
+	// 	ft_draw_all_wall(s);
+	// 		if (s->editor->mode == portal)
+	// 		change_over_wall(s);
+	// 	draw_editor_menu(s, 0, WIDTH / 2
+	// 		- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+	// 	draw_space_menu(s);
+	// }
 	fake_angle = 0;
 	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
 	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
@@ -89,14 +89,14 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		return ;
 	if (!check_portal_validity(s, vtx, &fake_vs))
 		return ;
-	if (s->printf)
-	{
-		s->display_mode = editor;
-		printf("sector %d", vs->sct_id);
-		printf("     angle %.2f\n", vs->angle);
-		update_image(s, s->sdl->editor);
-		sleep(1);
-	}
+	// if (s->printf)
+	// {
+	// 	s->display_mode = editor;
+	// 	printf("sector %d", vs->sct_id);
+	// 	printf("     angle %.2f\n", vs->angle);
+	// 	update_image(s, s->sdl->editor);
+	// 	sleep(1);
+	// }
 	ft_create_new_wall(s, vtx, vs, 'p');
 	if (s->portal_nb < PORTAL_LIMIT)
 		add_portal_to_list(s, fake_vs.player, fake_vs.sct, fake_vs);

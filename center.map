@@ -1,4 +1,4 @@
-Map : simple
+Map : center
 
 Vertex 27		4
 Vertex 17		4
@@ -8,6 +8,14 @@ Vertex 17		17
 Vertex 27		10
 Vertex 27		11
 Vertex 27		17
+Vertex 10		19
+Vertex 9		20
+Vertex 14		23
+Vertex 12		25
+Vertex 10		8
+Vertex 9		9
+Vertex 14		12
+Vertex 12		14
 
 
 Sector 7 10 | 8 7 6 1 2 3 4 5 | -1 -1 -1 -1 -1 -1 -1 -1 | 7 9 7 7 7 0 7 7
@@ -15,5 +23,5 @@ Sector 7 10 | 8 7 6 1 2 3 4 5 | -1 -1 -1 -1 -1 -1 -1 -1 | 7 9 7 7 7 0 7 7
 
 
 
-Player 690 370
+Player 690 369
 Angle 180
