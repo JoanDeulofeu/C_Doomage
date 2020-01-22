@@ -9,8 +9,8 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 
 	pos.pos1 = vs->left_point;
 	pos.pos2 = vs->player;
-	pos.pos3 = vtx->ptr->m_pos;
-	pos.pos4 = vtx->next->ptr->m_pos;
+	pos.pos3 = vtx->vtx_dest->next->ptr->m_pos;
+	pos.pos4 = vtx->vtx_dest->ptr->m_pos;
 	dist = ft_find_intersection(s, pos, 1);
 	if (dist > 0)
 		pos.pos1 = s->tmp_intersect;
@@ -22,8 +22,8 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 	l_plan = s->tmp_intersect;
 
 	pos.pos1 = vs->right_point;
-	pos.pos3 = vtx->ptr->m_pos;
-	pos.pos4 = vtx->next->ptr->m_pos;
+	pos.pos3 = vtx->vtx_dest->next->ptr->m_pos;
+	pos.pos4 = vtx->vtx_dest->ptr->m_pos;
 	dist = ft_find_intersection(s, pos, 1);
 	if (dist > 0)
 		pos.pos1 = s->tmp_intersect;
@@ -34,19 +34,32 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 	ft_find_intersection(s, pos, 1);
 	r_plan = s->tmp_intersect;
 
-	printf("dist left = %f, dist right = %f\n", ft_dist_t_dpos(l_plan, vs->left_plan), ft_dist_t_dpos(r_plan, vs->left_plan));
+	// printf("dist left = %f, dist right = %f\n", ft_dist_t_dpos(l_plan, vs->left_plan), ft_dist_t_dpos(r_plan, vs->left_plan));
+
+	// if (vtx->ptr->id == 79)
+	// {
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff0000ff);
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xffffffff);
+	// }
+	// if (vtx->ptr->id == 77)
+	// {
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff00ffff);
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xffffffff);
+	// }
+
 	if (ft_dist_t_dpos(l_plan, vs->left_plan)
 	<= ft_dist_t_dpos(r_plan, vs->left_plan)
 	&& abs(ceil(ft_dist_t_dpos(r_plan, vs->player))
 	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
 	{
-		printf("true id = %d\n", vtx->ptr->id);
+		// printf("true id = %d\n\n", vtx->ptr->id);
 		return (1);
 
 	}
 	else
 	{
-		printf("false id = %d\n", vtx->ptr->id);
+		// printf("l_plan(%.1f, %.1f), r_plan(%.1f, %.1f), leftplan(%.1f, %.1f)\n", l_plan.x, l_plan.y, r_plan.x, r_plan.y, vs->left_plan.x, vs->left_plan.y);
+		// printf("false id = %d\n\n", vtx->ptr->id);
 		return (0);
 
 	}
