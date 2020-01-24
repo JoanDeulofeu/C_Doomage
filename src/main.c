@@ -12,7 +12,7 @@ void 	reset(t_main *s)
 	s->player.wp_wheel[gun] = 0;
 	s->player.wp_wheel[shotgun] = 0;
 	s->player.wp_name = kick;
-	s->jetpack = 0;
+	// s->jetpack = 0;
 	select_weapon_anim(s);
 	set_weapon_range(s);
 	sprite = s->sprite;

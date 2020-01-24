@@ -67,8 +67,39 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 {
 	t_visu	fake_vs;
 	t_4dpos	pos;
+	double	l_angle;
+	double	r_angle;
 
 	fake_vs = fill_visu_values(s, vs, vtx);
+
+	// if (swich == 1 || swich == 4)
+	// {
+	// 	l_angle = ft_find_angle_portal(&fake_vs.player, &fake_vs.vtx_gauche->ptr->m_pos, NULL, 1);
+	// 	fake_vs.left_point.x = fake_vs.player.x + cos(to_rad(l_angle)) * 10000;
+	// 	fake_vs.left_point.y = fake_vs.player.y - sin(to_rad(l_angle)) * 10000;
+	// 	// pos.pos1 = fake_vs.left_plan;
+	// 	// pos.pos2 = fake_vs.right_plan;
+	// 	// pos.pos3 = fake_vs.left_point;
+	// 	// pos.pos4 = fake_vs.player;
+	// 	// if ((ft_find_intersection(s, pos, 1)) == 0)
+	// 	// fake_vs.left_plan = s->tmp_intersect;
+	// }
+	//
+	// if (swich == 3 || swich == 4)
+	// {
+	// 	r_angle = ft_find_angle_portal(&fake_vs.player, &fake_vs.vtx_droite->ptr->m_pos, NULL, 1);
+	// 	fake_vs.right_point.x = fake_vs.player.x + cos(to_rad(r_angle)) * 10000;
+	// 	fake_vs.right_point.y = fake_vs.player.y - sin(to_rad(r_angle)) * 10000;
+	// 	// pos.pos1 = fake_vs.left_plan;
+	// 	// pos.pos2 = fake_vs.right_plan;
+	// 	// pos.pos3 = fake_vs.right_point;
+	// 	// pos.pos4 = fake_vs.player;
+	// 	// if ((ft_find_intersection(s, pos, 1)) == 0)
+	// 	// fake_vs.right_plan = s->tmp_intersect;
+	// }
+	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.left_plan)), 0xff0000ff);
+	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.right_plan)), 0xffffffff);
+
 	pos.pos1 = vtx->vtx_dest->next->ptr->m_pos;
 	pos.pos2 = vtx->vtx_dest->ptr->m_pos;
 	pos.pos3 = fake_vs.left_point;
@@ -77,14 +108,11 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 	else
 		fake_vs.begin = s->tmp_intersect;
-	// printf("vs.begin (%f), (%f)\n", vs->begin.x, vs->begin.y);
-	// printf("fake_vs.begin (%f), (%f)\n", fake_vs.begin.x, fake_vs.begin.y);
 	pos.pos3 = fake_vs.right_point;
 	if ((ft_find_intersection(s, pos, 1)) == 0)
 		fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 	else
 		fake_vs.end = s->tmp_intersect;
-	// printf("fake_vs.end = %d\n", fake_vs.vtx_droite->ptr->id);
 	ft_limit_ceiling_floor(s, pos.pos1, pos.pos2, &fake_vs, swich);
 	if (!check_portal_doover(s, vtx))
 		return ;

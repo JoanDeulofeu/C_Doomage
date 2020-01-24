@@ -105,10 +105,10 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 	// printf("dist left = %f, dist right = %f\n", ft_dist_t_dpos(l_plan, vs->left_plan), ft_dist_t_dpos(r_plan, vs->left_plan));
 
 	// if (vtx->ptr->id == 79)
-	// {
-	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff0000ff);
-	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xffffffff);
-	// }
+	{
+		// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff0000ff);
+		// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xffffffff);
+	}
 	// if (vtx->ptr->id == 77)
 	// {
 	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff00ffff);
@@ -118,7 +118,7 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 	if (ft_dist_t_dpos(l_plan, vs->left_plan)
 	<= ft_dist_t_dpos(r_plan, vs->left_plan)
 	&& abs(ceil(ft_dist_t_dpos(r_plan, vs->player))
-	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
+	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < METRE))
 	{
 		// printf("true id = %d\n\n", vtx->ptr->id);
 		return (1);
@@ -260,6 +260,9 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// 	vs.begin = s->tmp_intersect;
 	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
 	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
+
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.end))), WHITE);
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.right_point))), GREEN);
 	if (vs.end_wall_id == 0 || s->count_wall % 2 == 0)
 	{
 		// printf("true\n");
@@ -270,27 +273,8 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	{
 		vs.end = s->tmp_intersect;
 	}
-	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);
-	// exit(-1);
-	// if (vs.begin_wall_id == 81)
-	// 	printf("vs.begin_wall = %d\n", vs.begin_wall_id);
-	// printf("vs.end_wall_id = %d\n", vs.end_wall_id);
-	//On recuper l'angle entre le joueur et le point de gauche, ca donne le mur de gauche.
-	//On recupere l'angle entre le joueur et le point de droite, ca donne le mur de droite.
+
 	vtx = vs.begin_wall;
-	// printf("vtx ptr = %d\n", vtx->ptr->id);
-	// draw_first_wall(s, vtx, &vs);
-	// if (vs.begin_wall_id == vs.end_wall_id)
-	// {
-	// 	set_visible_sprites(s, &vs);
-	// 	return ;
-	// }
-	// plan_left = s->tmp_intersect;
-	//
-	// vtx = vtx->next;
-	// vtx = draw_mid_walls(s, vtx, &vs);
-	//
-	// draw_last_wall(s, vtx, &vs);
 	create_all_walls(s, vtx, &vs, 1);
 	s->portal_nb--;
 	set_visible_sprites(s, &vs);
@@ -308,6 +292,7 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	double		dist_player;
 	t_dpos		lwall;
 	t_dpos		rwall;
+	(void)s;
 
 	// printf("player (%.1f, %.1f)\n", s->player.r_pos.x *METRE, s->player.r_pos.y *METRE);
 	lwall = vtx->ptr->m_pos;
