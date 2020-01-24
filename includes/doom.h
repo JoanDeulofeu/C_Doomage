@@ -516,6 +516,7 @@ void						add_portal_to_list(t_main *s, t_dpos player,
 							t_sector *sct, t_visu vs);
 void						check_map_portals(t_main *s);
 int							check_portal_validity(t_main *s, t_int *vtx, t_visu *vs);
+int							check_portal_validity_player(t_main *s, t_int *vtx, t_visu *vs);
 
 /*
 ****	Fonction utilitaire

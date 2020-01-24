@@ -1,6 +1,6 @@
 #include "doom.h"
 
-int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
+int			check_portal_validity_player(t_main *s, t_int *vtx, t_visu *vs)
 {
 	t_4dpos pos;
 	t_dpos	l_plan;
@@ -9,8 +9,8 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 
 	pos.pos1 = vs->left_point;
 	pos.pos2 = vs->player;
-	pos.pos3 = vtx->vtx_dest->next->ptr->m_pos;
-	pos.pos4 = vtx->vtx_dest->ptr->m_pos;
+	pos.pos3 = vtx->ptr->m_pos;
+	pos.pos4 = vtx->next->ptr->m_pos;
 	dist = ft_find_intersection(s, pos, 1);
 	if (dist > 0)
 		pos.pos1 = s->tmp_intersect;
@@ -22,8 +22,8 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 	l_plan = s->tmp_intersect;
 
 	pos.pos1 = vs->right_point;
-	pos.pos3 = vtx->vtx_dest->next->ptr->m_pos;
-	pos.pos4 = vtx->vtx_dest->ptr->m_pos;
+	pos.pos3 = vtx->ptr->m_pos;
+	pos.pos4 = vtx->next->ptr->m_pos;
 	dist = ft_find_intersection(s, pos, 1);
 	if (dist > 0)
 		pos.pos1 = s->tmp_intersect;
@@ -33,6 +33,74 @@ int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
 	pos.pos4 = vs->right_plan;
 	ft_find_intersection(s, pos, 1);
 	r_plan = s->tmp_intersect;
+
+	// printf("dist left = %f, dist right = %f\n", ft_dist_t_dpos(l_plan, vs->left_plan), ft_dist_t_dpos(r_plan, vs->left_plan));
+
+	// if (vtx->ptr->id == 79)
+	// {
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff0000ff);
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xffffffff);
+	// }
+	// if (vtx->ptr->id == 77)
+	// {
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), 0xff00ffff);
+	// 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), 0xffffffff);
+	// }
+
+	if (ft_dist_t_dpos(l_plan, vs->left_plan)
+	<= ft_dist_t_dpos(r_plan, vs->left_plan)
+	&& abs(ceil(ft_dist_t_dpos(r_plan, vs->player))
+	- ceil(ft_dist_t_dpos(vs->left_plan, vs->player)) < 1))
+	{
+		// printf("true id = %d\n\n", vtx->ptr->id);
+		return (1);
+
+	}
+	else
+	{
+		// printf("l_plan(%.1f, %.1f), r_plan(%.1f, %.1f), leftplan(%.1f, %.1f)\n", l_plan.x, l_plan.y, r_plan.x, r_plan.y, vs->left_plan.x, vs->left_plan.y);
+		// printf("false id = %d\n\n", vtx->ptr->id);
+		return (0);
+
+	}
+}
+
+int			check_portal_validity(t_main *s, t_int *vtx, t_visu *vs)
+{
+	t_4dpos pos;
+	t_dpos	l_plan;
+	t_dpos	r_plan;
+	int		dist;
+
+	// printf("mur gauche = %d, mur droite = %d\n", vtx->next->ptr->id, vtx->ptr->id);
+	pos.pos1 = vs->left_point;
+	pos.pos2 = vs->player;
+	pos.pos3 = vtx->next->ptr->m_pos;
+	pos.pos4 = vtx->ptr->m_pos;
+	dist = ft_find_intersection(s, pos, 1);
+	if (dist > 0)
+		pos.pos1 = s->tmp_intersect;
+	else
+		pos.pos1 = pos.pos3;
+	pos.pos3 = vs->left_plan;
+	pos.pos4 = vs->right_plan;
+	ft_find_intersection(s, pos, 1);
+	l_plan = s->tmp_intersect;
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, l_plan)), BLUE);
+
+	pos.pos1 = vs->right_point;
+	pos.pos3 = vtx->next->ptr->m_pos;
+	pos.pos4 = vtx->ptr->m_pos;
+	dist = ft_find_intersection(s, pos, 1);
+	if (dist > 0)
+		pos.pos1 = s->tmp_intersect;
+	else
+		pos.pos1 = pos.pos4;
+	pos.pos3 = vs->left_plan;
+	pos.pos4 = vs->right_plan;
+	ft_find_intersection(s, pos, 1);
+	r_plan = s->tmp_intersect;
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, r_plan)), S_RED);
 
 	// printf("dist left = %f, dist right = %f\n", ft_dist_t_dpos(l_plan, vs->left_plan), ft_dist_t_dpos(r_plan, vs->left_plan));
 
@@ -169,6 +237,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	s->portal_nb++;
 	vtx = sct->vertex;
+
 	angle_right = ft_find_angle_portal(&player, &vs.end, NULL, 1);
 	if (player.y < vs.end.y)
 		angle_right = 180 + (180 - angle_right);
@@ -176,22 +245,20 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	if (player.y < vs.begin.y)
 		angle_left = 180 + (180 - angle_left);
 	// vs.angle = (angle_right + angle_left) / 2;
-	vs.left_point.x = player.x + cos(to_rad(angle_left)) * 2000;
-	vs.left_point.y = player.y - sin(to_rad(angle_left)) * 2000;
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, WHITE, vs.sct_id); //#37f3ff
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.begin))), WHITE);
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	if (vs.begin_wall_id == 0 || s->count_wall % 2 == 0)
 	{
 		// vs.begin_wall_id = vs.begin_wall->ptr->id;
 		vs.begin_wall_id = vs.vtx_gauche->ptr->id;
+		vs.begin = vs.vtx_gauche->ptr->m_pos;
 		// printf("true\n");
 	}
-	else
-		vs.begin = s->tmp_intersect;
+	// else
+	// 	vs.begin = s->tmp_intersect;
 	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
-	vs.right_point.x = player.x + cos(to_rad(angle_right)) * 2000;
-	vs.right_point.y = player.y - sin(to_rad(angle_right)) * 2000;
 	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
 	if (vs.end_wall_id == 0 || s->count_wall % 2 == 0)
 	{
@@ -283,12 +350,6 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	// *angle_fake = s->player.angle - (angle_portal_in - angle_portal_out);
 	// fake_player2.x = fake_player.x + s->editor->decal_x;
 	// fake_player2.y = fake_player.y + s->editor->decal_y;
-	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_player)), 0xfa00ffff); //juste pour tester la pos du fake_player
-	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).x;
-	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).y;
-	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).x + cos(to_rad(*angle_fake)) * 25;
-	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_player)).y - sin(to_rad(*angle_fake)) * 25;
-	get_line(s, 0xff66f0ff, 1);
 	// printf("fake player.x = %f, fake_player.y = %f\n", fake_player.x, fake_player.y);
 	return (fake_player);
 }

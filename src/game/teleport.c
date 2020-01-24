@@ -72,7 +72,7 @@ void	teleport_player(t_main *s, const unsigned char *keys)
 		handle_sector_zero(s);
 		return ;
 	}
-	else
+	// else
 		// printf("point de teleport trouvé !\n");
 	wall = get_t_int_by_vertex_id(get_sector_by_id(s, sct_id)->vertex, ptr_id);
 	if (wall->vtx_dest == NULL)

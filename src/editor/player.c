@@ -67,11 +67,33 @@ t_dpos	get_direction(t_main *s, const Uint8 *keys, double speed, t_dpos target)
 	return (target);
 }
 
+int		check_wall_security(t_main *s, t_dpos target) //au cas où le joueur est pile sur un mur ou portail
+{
+	t_dpos		m_target;
+	int			wall_id;
+	t_sector	*sct;
+	t_int		*wall;
+
+	m_target.x = target.x * METRE;
+	m_target.y = target.y * METRE;
+	if ((wall_id = ft_find_wall2(s, s->player.m_pos, m_target, WHITE, s->player.sector_id)) != 0)
+	{
+		sct = get_sector_by_id(s, s->player.sector_id);
+		wall = get_t_int_by_vertex_id(sct->vertex, wall_id);
+		if (wall == NULL)
+			return (0);
+		return (wall->wall_value);
+	}
+	return (0);
+}
+
 void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 {
 	t_dpos	target;
 	double	speed;
 	int		col;
+	int		check;
+
 
 	if (s->display_mode == save)
 		return ;
@@ -90,7 +112,12 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	check_collectible(s);
 	if ((col = is_colliding(s, target)) == 0)
 	{
-		// printf("BOUYAAA\n");
+		if ((check = check_wall_security(s, target)) != 0)
+		{
+			if (check != -1)
+				teleport_player(s, keys);
+			return ;
+		}
 		if (handle_sector_zero(s))
 			return ;
 		// printf("snf\n");
@@ -98,7 +125,10 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 		set_player(s);
 	}
 	if (col > 0)
+	{
 		teleport_player(s, keys);
+
+	}
 }
 
 void	ft_trace_vertical(t_main *s, t_line line, Uint32 color)

@@ -71,13 +71,14 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	fake_vs = fill_visu_values(s, vs, vtx);
 	pos.pos1 = vtx->vtx_dest->next->ptr->m_pos;
 	pos.pos2 = vtx->vtx_dest->ptr->m_pos;
-	// printf("id1 = %d, id2 = %d\n", vtx->vtx_dest->next->ptr->id, vtx->vtx_dest->ptr->id);
 	pos.pos3 = fake_vs.left_point;
 	pos.pos4 = fake_vs.player;
 	if ((ft_find_intersection(s, pos, 1)) == 0)
 		fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 	else
 		fake_vs.begin = s->tmp_intersect;
+	// printf("vs.begin (%f), (%f)\n", vs->begin.x, vs->begin.y);
+	// printf("fake_vs.begin (%f), (%f)\n", fake_vs.begin.x, fake_vs.begin.y);
 	pos.pos3 = fake_vs.right_point;
 	if ((ft_find_intersection(s, pos, 1)) == 0)
 		fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
@@ -87,8 +88,19 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	ft_limit_ceiling_floor(s, pos.pos1, pos.pos2, &fake_vs, swich);
 	if (!check_portal_doover(s, vtx))
 		return ;
-	if (!check_portal_validity(s, vtx, &fake_vs))
+	if (!check_portal_validity(s, vtx->vtx_dest, &fake_vs))
 		return ;
+	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)), PINK); //juste pour tester la pos du fake_player
+	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).x;
+	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).y;
+	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).x + cos(to_rad(*angle_fake)) * 25;
+	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).y - sin(to_rad(*angle_fake)) * 25;
+	// get_line(s, 0xff66f0ff, 1);
+	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.left_plan)).x;
+	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.left_plan)).y;
+	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.right_plan)).x;
+	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.right_plan)).y;
+	// get_line(s, YELLOW, 1);
 	// if (s->printf)
 	// {
 	// 	s->display_mode = editor;
@@ -127,7 +139,12 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 		if (vtx->wall_value != -1)
 		{
 			// printf("portail entree(%d)   ", s->portal_nb);
-
+			if (vs->player.x == s->player.m_pos.x && vs->player.y == s->player.m_pos.y
+				&& !check_portal_validity_player(s, vtx, vs))
+			{
+				vtx = vtx->next;
+				continue ;
+			}
 			if (vtx->ptr->id == vs->begin_wall_id)
 			{
 				if (vtx->ptr->id == vs->end_wall_id)
@@ -159,5 +176,4 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 			end = 0;
 		vtx = vtx->next;
 	}
-	// printf("\n\n");
 }

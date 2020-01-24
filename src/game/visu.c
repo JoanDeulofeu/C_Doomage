@@ -131,11 +131,11 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
 	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
-	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
-	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
-	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;
-	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).y;
-	get_line(s, color, 1);
+	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
+	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
+	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;
+	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).y;
+	// get_line(s, color, 1);
 	return (vs);
 }
 
@@ -195,4 +195,6 @@ void		ft_visu_joan(t_main *s)
 	vs = get_walls_to_draw(s, player, vs);
 	// printf("\n\n\n");
 	ft_draw_visu(s, get_sector_by_id(s, s->player.sector_id), vs);
+	// printf("\n");
+
 }
