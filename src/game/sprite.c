@@ -107,10 +107,10 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 
 void 	display_sprites(t_main *s)
 {
-	t_sprite *sprite;
-	int		display;
-	int		far_away_dist;
-	int		far_away_id;
+	t_sprite	*sprite;
+	int			display;
+	int			far_away_dist;
+	int			far_away_id;
 
 	sprite = s->sprite;
 	display = 1;
@@ -124,7 +124,7 @@ void 	display_sprites(t_main *s)
 		sprite = s->sprite;
 		while (sprite) // cherche le sprite le plus loin
 		{
-			if (sprite->set == 1 && sprite->dist > far_away_dist)
+			if (sprite->set == 1 && sprite->dist > far_away_dist && sprite->destroy == 0)
 			{
 				display = 1;
 				far_away_dist = sprite->dist;
