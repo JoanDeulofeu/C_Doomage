@@ -275,7 +275,7 @@ typedef struct				s_sprite
 	int						damage;
 	double					angle;
 	double					s_angle; //direction du regard du sprite
-	double					dist;
+	int						dist;
 	double					r_dist;
 	t_dpos					r_pos;
 	t_dpos					r_ori; //Position a sauvegarder
