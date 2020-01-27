@@ -12,7 +12,10 @@ void 	reset(t_main *s)
 	s->player.wp_wheel[gun] = 0;
 	s->player.wp_wheel[shotgun] = 0;
 	s->player.wp_name = kick;
-	s->jetpack = 0;
+	s->player.jetpack = 0;
+	s->time->jetpack_reserve = JET_TIME;
+	s->player.fly = 0;
+	s->player.jump_height = 0;
 	select_weapon_anim(s);
 	set_weapon_range(s);
 	sprite = s->sprite;
