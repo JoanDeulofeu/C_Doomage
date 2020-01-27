@@ -6,18 +6,25 @@ int		check_if_visible(t_main *s, t_sprite *sprite)
 	t_4dpos	pos;
 
 	wall = s->walls;
-	pos.pos1 = wall->player;
-	pos.pos3 = wall->left;
-	pos.pos4 = wall->right;
 	while (wall)
 	{
-		if (wall->wall_or_portal == 'w' && wall->sct_id != sprite->sct_id)
+		pos.pos1 = wall->player;
+		pos.pos3 = wall->left;
+		pos.pos4 = wall->right;
+		if (wall->wall_or_portal == 'w')
 		{
 			pos.pos2.x = wall->player.x + cos(to_rad(angle_mod(sprite->angle + wall->angle))) * (sprite->r_dist * METRE);
 			pos.pos2.y = wall->player.y - sin(to_rad(sprite->angle + wall->angle)) * (sprite->r_dist * METRE);
+			// if (s->printf)
+			// {
+			// 	// printf("check sector (%d)    pos player (%.1f, %.1f)\n", wall->sct_id, wall->player.x, wall->player.y);
+			// }
 			draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos.pos2)), S_RED);
 			if (ft_find_intersection(s, pos, 1))
+			{
+				sprite->set = 0;
 				return (0);
+			}
 		}
 		wall = wall->next;
 	}
@@ -64,6 +71,7 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 
 
 	liste = vs->sct->liste;
+	// printf("test secteur tester par set_visibe_sprites (%d)\n", vs->sct->id);
 	if(!liste)
 		return ;
 	wall = vs->vtx_gauche;
@@ -79,9 +87,9 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 		{
 			pos.pos1 = wall->ptr->m_pos;
 			pos.pos2 = wall->next->ptr->m_pos;
-			if (ft_find_intersection(s, pos, 1))
+			if (wall->wall_value == -1 && ft_find_intersection(s, pos, 1))
 			{
-				inter = 1;;
+				inter = 1;
 				break;
 			}
 			wall = wall->next;

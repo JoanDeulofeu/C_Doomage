@@ -176,13 +176,13 @@ int			key_controls_game(t_main *s, int key)
 	if (key == TAB)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
-		// s->printf = s->printf ? 0 : 1;
+		s->printf = s->printf ? 0 : 1;
 		// printf("Test = %.3f %.3f\n", s->player.r_pos.y * METRE, s->player.r_pos.x * METRE);
 		// printf("Player Sector = %d\n", ft_is_in_sector(s, s->player.pos));
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
 		// tp_first_sector(s);
 		// s->player.y_eye = 0;
-		ft_print_sprite_list(s);
+		// ft_print_sprite_list(s);
 	return (1);
 }
 
@@ -667,7 +667,14 @@ void		editor_handler(t_main *s)
 		if (tmp_mode != s->editor->mode)
 			deselect_vertex(s);
 		s->wall_fk_id = 0;
-		// printf("\n\n\n===================\n        FPS\n===================\n\n\n\n\n\n");
+		if (s->printf)
+		{
+			// ft_test_chainlist(s);
+			ft_print_sprite_list(s);
+			// printf("player pos (%.1f, %.1f)\n", s->player.m_pos.x, s->player.m_pos.y);
+			// printf("\n\n===================\n        FPS\n===================\n\n\n\n");
+		}
+		// printf("\n\n===================\n        FPS\n===================\n\n\n\n");
 		// ft_test_chainlist(s);
 		// sleep(10);
 	}
