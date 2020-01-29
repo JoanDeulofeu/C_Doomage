@@ -75,11 +75,10 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 	//pour player->jump, 0 = pas de jump, 1 = phase montante, 2 = descendante, 3 = chute apres fly
 	// printf("jump = %d, jump_height = %f, jump size = %f\ntime = %ld, j_time + 10 = %ld\n",s->player.jump, s->player.jump_height, JUMP_SIZE, s->time->time_ms, s->time->jump_ms + 10);
 
-	if (keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size
+	if (s->player.fly == 0 && (s->player.jetpack == 0 || s->play_or_editor == 1) && keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size
 		+ JUMP_SIZE - 0.1 <= s->player.ceiling_height - s->player.floor_height))
 			s->player.jump = 1;
-	if (s->player.jump == 1 && (s->time->time_ms > s->time->jump_ms + 10)
-	&& s->player.jump_height < JUMP_SIZE)
+	if (s->player.jump == 1 && (s->time->time_ms > s->time->jump_ms + 10))
 	{
 		if (s->player.jump_height < 0.5)
 			s->player.jump_height += 0.2;
@@ -90,7 +89,7 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 			s->player.jump = 2;
 	}
 	if (s->player.jump == 2 && (s->time->time_ms > s->time->jump_ms + 10)
-	&& s->player.jump_height > 0)
+	&& s->player.jump_height + 0.1 > 0)
 	{
 		if (s->player.jump_height < 0.7)
 			s->player.jump_height -= 0.2;

@@ -280,7 +280,6 @@ void		handle_editor_keys(t_main *s)
 		ft_activ_fly(s);
 	if (s->player.fly)
 		ft_fly_mode(s, keys);
-	// printf("-\n-\n-\n-\n-\n");
 
 	if (s->display_mode == editor)
 	{

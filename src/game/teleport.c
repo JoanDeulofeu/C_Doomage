@@ -98,11 +98,21 @@ void	teleport_player(t_main *s, const unsigned char *keys)
 		// printf("TP INTERDIT\n");
 		return ;
 	}
+
 	s->player.m_pos = ft_get_fake_player(s, s->col_pos, wall, &s->player.angle, s->player.angle);
 	s->player.r_pos.x = s->player.m_pos.x / METRE;
 	s->player.r_pos.y = s->player.m_pos.y / METRE;
 	set_player(s);
 	s->player.sector_id = wall->sct_dest;
+	t_sector	*sct;
+	sct = get_sector_by_id(s, s->player.sector_id);
+	if (s->player.foot_height > (double)sct->floor + 0.01)
+	{
+		s->player.jump_height += s->player.floor_height - (double)sct->floor;
+		s->player.prev_jump_height = s->player.jump_height;
+		if (s->player.jump == 0)
+			s->player.jump = 2;
+	}
 	s->portal_nb = 0;
 	handle_sector_zero(s);
 }
