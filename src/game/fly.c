@@ -83,14 +83,5 @@ void 	fly(t_main *s)
 		}
 	}
 	else
-	{
-		if (s->player.fly ==  0 && s->player.foot_height - 0.2 > s->player.floor_height)
-			s->player.jump_height -= 0.2;
-		// else
-		// {
-		// 	s->player.fly = 0;
-		//
-		// }
 		s->time->jetpack_ms = s->time->time_ms;
-	}
 }

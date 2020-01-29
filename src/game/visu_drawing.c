@@ -163,39 +163,38 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	{
 		l_plan = vs->left_plan;
 		pos.pos1 = l_plan;
-		pos.pos3 = vs->vtx_gauche->ptr->m_pos;
-		pos.pos4 = vs->vtx_droite->ptr->m_pos;
+		pos.pos3 = left;
+		pos.pos4 = right;
 		ft_find_intersection(s, pos, 1);
 		l_big_dist = (ft_dist_t_dpos(vs->player, s->tmp_intersect) / METRE);
 	}
 	else
 	{
-		pos.pos1 = vs->vtx_gauche->ptr->m_pos;
+		pos.pos1 = left;
 		pos.pos3 = vs->left_plan;
 		pos.pos4 = vs->right_plan;
 		ft_find_intersection(s, pos, 1);
 		l_plan = s->tmp_intersect;
-		l_big_dist = (ft_dist_t_dpos(vs->player, vs->vtx_gauche->ptr->m_pos) / METRE);
+		l_big_dist = (ft_dist_t_dpos(vs->player, left) / METRE);
 	}
 	if (swich == 3 || swich == 4)
 	{
 		r_plan = vs->right_plan;
 		pos.pos1 = r_plan;
-		pos.pos3 = vs->vtx_gauche->ptr->m_pos;
-		pos.pos4 = vs->vtx_droite->ptr->m_pos;
+		pos.pos3 = left;
+		pos.pos4 = right;
 		ft_find_intersection(s, pos, 1);
 		r_big_dist = (ft_dist_t_dpos(vs->player, s->tmp_intersect) / METRE);
 	}
 	else
 	{
-		pos.pos1 = vs->vtx_droite->ptr->m_pos;
+		pos.pos1 = right;
 		pos.pos3 = vs->left_plan;
 		pos.pos4 = vs->right_plan;
 		ft_find_intersection(s, pos, 1);
 		r_plan = s->tmp_intersect;
-		r_big_dist = (ft_dist_t_dpos(vs->player, vs->vtx_droite->ptr->m_pos) / METRE);
+		r_big_dist = (ft_dist_t_dpos(vs->player, right) / METRE);
 	}
-	// printf("l_plan(%.1f, %.1f)   r_plan(%.1f, %.1f)\n\n", l_plan.x, l_plan.y, r_plan.x, r_plan.y);
 	l_small_dist = (ft_dist_t_dpos(vs->player, l_plan) / METRE);
 	r_small_dist = (ft_dist_t_dpos(vs->player, r_plan) / METRE);
 	l_height_wall = HEIGHT / ((((l_big_dist * 100.0) / l_small_dist) * 0.001) * 4)
@@ -204,26 +203,15 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
 	width_wall = (WIDTH * ((ft_dist_t_dpos(l_plan, r_plan) * 100.0) / WIDTHPLAN)) / 100;
 	pos.pos1 = vs->left_point;
-	pos.pos3 = vs->vtx_gauche->ptr->m_pos;
-	pos.pos4 = vs->vtx_droite->ptr->m_pos;
-	if (vs->left_point.x == vs->vtx_gauche->ptr->m_pos.x && vs->left_point.y == vs->vtx_gauche->ptr->m_pos.y)
-	// if (ft_find_intersection(s, pos, 1) > 0)
+	pos.pos3 = left;
+	pos.pos4 = right;
+	if (ft_find_intersection(s, pos, 1) > 0)
 		x = 0;
 	else
 		x = (ft_dist_t_dpos(vs->left_plan, l_plan) / WIDTHPLAN) * WIDTH;
 	s->player.eyesight = s->player.foot_height - vs->sct->floor + s->player.size;
 	l_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, l_height_wall);
 	r_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, r_height_wall);
-	// printf("l_big_dist = %f\n", l_big_dist);
-	// printf("l_small_dist = %f\n", l_small_dist);
-	// printf("r_big_dist = %f\n", r_big_dist);
-	// printf("r_small_dist = %f\n\n", r_small_dist);
-	// printf("l_height_wall = %f\n", l_height_wall);
-	// printf("r_height_wall = %f\n\n", r_height_wall);
-	// printf("width_wall = %f\n", width_wall);
-	// printf("l_height_wall_diff = %f\n", l_height_wall_diff);
-	// printf("r_height_wall_diff = %f\n\n", r_height_wall_diff);
-
 	vs->left_ceiling_limit.x = (int)x;
 	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall) + s->player.y_eye + l_height_wall_diff;
 	vs->left_floor_limit.x = (int)x;
@@ -232,14 +220,6 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	vs->right_ceiling_limit.y = (HEIGHT / 2) - (r_height_wall) + s->player.y_eye + r_height_wall_diff;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
 	vs->right_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + r_height_wall_diff;
-	// printf("vs->left_ceiling_limit.x = %d\n", vs->left_ceiling_limit.x);
-	// printf("vs->left_ceiling_limit.y = %d\n", vs->left_ceiling_limit.y);
-	// printf("vs->left_floor_limit.x = %d\n", vs->left_floor_limit.x);
-	// printf("vs->left_floor_limit.y = %d\n", vs->left_floor_limit.y);
-	// printf("vs->right_ceiling_limit.x = %d\n", vs->right_ceiling_limit.x);
-	// printf("vs->right_ceiling_limit.y = %d\n", vs->right_ceiling_limit.y);
-	// printf("vs->right_floor_limit.x = %d\n", vs->right_floor_limit.x);
-	// printf("vs->right_floor_limit.y = %d\n\n", vs->right_floor_limit.y);
 }
 
 void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)

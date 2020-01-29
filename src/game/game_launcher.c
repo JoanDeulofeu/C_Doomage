@@ -10,15 +10,21 @@ void		handle_game_keys(t_main *s)
 		keys = SDL_GetKeyboardState(NULL);
 		if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
 			&& (s->player.sector_id != 0))
-			ft_move_player(s, keys, 2);
+			ft_move_player(s, keys, PLAYER_SPEED);
 		if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 			rotate_player(s, keys);
 
 		if (s->player.jetpack == 1 && keys[SDL_SCANCODE_SPACE])
 			s->player.fly = 1;
+		else if (s->player.jetpack == 1)
+		{
+			s->player.fly = 0;
+			s->player.jump = 2;
+		}
 		if (s->player.jump_height == 0)
 			ft_crouch(s, keys);
-		if (s->player.size == PLAYER_SIZE && s->player.fly == 0)
+		printf("player.size %f           player.fly %d     hauteur pied %f\n", s->player.size, s->player.fly, s->player.foot_height);
+		if (s->player.size == PLAYER_SIZE)
 			ft_jump(s, keys);
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
@@ -104,10 +110,6 @@ void		game_handler(t_main *s)
 					ingame = 0;
 
 			}
-
-			if (s->sdl->event.type == SDL_KEYUP)
-				if (s->sdl->event.key.keysym.sym == SDLK_SPACE)
-					s->player.fly = 0;
 				// if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0)
 				// 		ingame = 0;
 		}

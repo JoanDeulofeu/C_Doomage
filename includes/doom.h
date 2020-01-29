@@ -117,6 +117,7 @@ typedef struct				s_player
 	double					foot_height;
 	char					jump; //0 = pas de jump, 1 = phase montante, 2 = descendante
 	double					jump_height;
+	double					prev_jump_height;
 	char					fly; //0 = pas de fly, 1 = fly
 	double					tumble;
 	int						set;

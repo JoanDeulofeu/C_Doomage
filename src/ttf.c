@@ -141,6 +141,22 @@ void	ft_draw_ttf_play(t_main *s)
 		ttf.str = ft_strdup("Weapon 3 : Shotgun");
 		ft_create_ttf(ttf, s, s->font->digit);
 	}
+	ttf.r = 255;
+	ttf.g = 255;
+	ttf.b = 255;
+	ttf.pos.x = 920;
+	ttf.pos.y = 4;
+	ttf.str = ft_strdup("FPS");
+	ft_create_ttf(ttf, s, s->font->roboto);
+	str = ft_itoa(s->time->fps);
+	ttf.r = 255;
+	ttf.g = 255;
+	ttf.b = 255;
+	ttf.pos.x = 960;
+	ttf.pos.y = 4;
+	// ft_memdel((void **)&ttf.str);
+	ttf.str = ft_strdup_free(&str);
+	ft_create_ttf(ttf, s, s->font->roboto);
 }
 
 void	ft_draw_ttf_editor(t_main *s)
