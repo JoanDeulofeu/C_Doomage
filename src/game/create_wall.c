@@ -77,7 +77,6 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	int		wall_id;
 
 	fake_vs = fill_visu_values(s, vs, vtx);
-	printf("fake_vs.begin_wall_id = %d\n", fake_vs.begin_wall_id);
 	if (fake_vs.begin_wall_id == 0 || get_t_int_by_vertex_id(fake_vs.sct->vertex, fake_vs.begin_wall_id)->wall_value != -1)
 	{
 		fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
@@ -97,7 +96,6 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	if ((wall_id == 0) || wall_id != fake_vs.vtx_droite->ptr->id)
 	{
 		// ptr_id = get_t_int_by_id(fake_vs.sct->vertex, wall_id)->ptr->id;
-		printf("wall_id = %d\n", wall_id);
 		l_angle = ft_find_angle_portal(&fake_vs.player, &fake_vs.vtx_gauche->ptr->m_pos, NULL, 1);
 		if (fake_vs.player.y < fake_vs.vtx_gauche->ptr->m_pos.y)
 			l_angle = 360 - l_angle;
@@ -106,9 +104,8 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	}
 		fake_vs.begin_wall_id = ft_find_wall2(s, fake_vs.begin, fake_vs.left_point, BLUE, fake_vs.sct_id);
 		fake_vs.begin = s->tmp_intersect;
-		if (fake_vs.begin_wall_id == 0 || s->count_wall % 2 == 0 || wall_id != fake_vs.vtx_droite->ptr->id)
+		if (fake_vs.begin_wall_id == 0 || s->count_wall % 2 == 0)
 		{
-			printf("true\n");
 			// printf("wall_id = %d, vtx = %d\n", wall_id, fake_vs.vtx_droite->ptr->id);
 			fake_vs.begin = fake_vs.vtx_gauche->ptr->m_pos;
 			fake_vs.begin_wall_id = fake_vs.vtx_gauche->ptr->id;
@@ -127,7 +124,7 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		fake_vs.end_wall_id = ft_find_wall2(s, fake_vs.end, fake_vs.right_point, GREEN, fake_vs.sct_id);
 		fake_vs.end = s->tmp_intersect;
 		// fake_vs.end_wall_id = get_t_int_by_vertex_id(fake_vs.sct->vertex, fake_vs.end_wall_id)->prev->ptr->id;
-		if (fake_vs.end_wall_id == 0 || s->count_wall % 2 == 0 || wall_id != fake_vs.vtx_droite->ptr->id)
+		if (fake_vs.end_wall_id == 0 || s->count_wall % 2 == 0)
 		{
 			fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 			fake_vs.end_wall_id = fake_vs.vtx_droite->ptr->id;
@@ -250,8 +247,9 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 				ft_find_intersection(s, pos, 1);
 		}
 		if (((vtx->ptr->id == vs->begin_wall_id && vs->begin_wall_id
-			== vs->end_wall_id) || vtx->ptr->id == vs->end_wall_id) || (vs->prev_sct_id != 0 && ((vtx->next->ptr->id == vs->begin_wall_id && vs->begin_wall_id
-				== vs->end_wall_id) || vtx->next->ptr->id == vs->end_wall_id)))
+			== vs->end_wall_id) || vtx->ptr->id == vs->end_wall_id)
+			 || (vs->prev_sct_id != 0 && ((vtx->next->ptr->id == vs->begin_wall_id && vs->begin_wall_id
+				== vs->end_wall_id) || (vtx->next->ptr->id == vs->end_wall_id && vs->end_wall_id == vs->vtx_droite->ptr->id))))
 			end = 0;
 		vtx = vtx->next;
 	}
