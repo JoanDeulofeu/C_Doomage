@@ -23,7 +23,12 @@ void		handle_game_keys(t_main *s)
 		}
 		if (s->player.jump_height == 0)
 			ft_crouch(s, keys);
-		printf("player.size %f           player.fly %d     hauteur pied %f\n", s->player.size, s->player.fly, s->player.foot_height);
+
+		printf("jetpack %d     ", s->player.jetpack);
+		printf("foot_height %.1f    ", s->player.foot_height);
+		printf("jump %d    ", s->player.jump);
+		printf("jump_height %.1f\n\n-------\n", s->player.jump_height);
+
 		if (s->player.size == PLAYER_SIZE)
 			ft_jump(s, keys);
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
