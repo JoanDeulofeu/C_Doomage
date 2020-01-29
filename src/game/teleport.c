@@ -111,7 +111,7 @@ void	teleport_player(t_main *s, const unsigned char *keys)
 		s->player.jump_height += s->player.floor_height - (double)sct->floor;
 		s->player.prev_jump_height = s->player.jump_height;
 		if (s->player.jump == 0)
-			s->player.jump = 2;
+			s->player.jump = 3;
 	}
 	s->portal_nb = 0;
 	handle_sector_zero(s);
