@@ -238,41 +238,41 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	s->portal_nb++;
 	vtx = sct->vertex;
 
-	// angle_right = ft_find_angle_portal(&player, &vs.end, NULL, 1);
-	// if (player.y < vs.end.y)
-	// 	angle_right = 180 + (180 - angle_right);
-	// angle_left = ft_find_angle_portal(&player, &vs.begin, NULL, 1);
-	// if (player.y < vs.begin.y)
-	// 	angle_left = 180 + (180 - angle_left);
-	// // vs.angle = (angle_right + angle_left) / 2;
-	// // printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
-	// vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, WHITE, vs.sct_id); //#37f3ff
-	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.begin))), WHITE);
-	// // printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
-	// if (vs.begin_wall_id == 0 || s->count_wall % 2 == 0)
-	// {
-	// 	// vs.begin_wall_id = vs.begin_wall->ptr->id;
-	// 	vs.begin_wall_id = vs.vtx_gauche->ptr->id;
-	// 	vs.begin = vs.vtx_gauche->ptr->m_pos;
-	// 	// printf("true\n");
-	// }
-	// // else
-	// // 	vs.begin = s->tmp_intersect;
-	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
-	// vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
-	//
-	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.end))), WHITE);
-	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.right_point))), GREEN);
-	// if (vs.end_wall_id == 0 || s->count_wall % 2 == 0)
-	// {
-	// 	// printf("true\n");
-	// 	vs.end_wall_id = vs.vtx_droite->prev->ptr->id;
-	//
-	// }
+	angle_right = ft_find_angle_portal(&player, &vs.end, NULL, 1);
+	if (player.y < vs.end.y)
+		angle_right = 180 + (180 - angle_right);
+	angle_left = ft_find_angle_portal(&player, &vs.begin, NULL, 1);
+	if (player.y < vs.begin.y)
+		angle_left = 180 + (180 - angle_left);
+	// vs.angle = (angle_right + angle_left) / 2;
+	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
+	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, WHITE, vs.sct_id); //#37f3ff
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.begin))), WHITE);
+	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
+	if (vs.begin_wall_id == 0 || s->count_wall % 2 == 0)
+	{
+		// vs.begin_wall_id = vs.begin_wall->ptr->id;
+		vs.begin_wall_id = vs.vtx_gauche->ptr->id;
+		vs.begin = vs.vtx_gauche->ptr->m_pos;
+		// printf("true\n");
+	}
 	// else
-	// {
-	// 	vs.end = s->tmp_intersect;
-	// }
+	// 	vs.begin = s->tmp_intersect;
+	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
+	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
+
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.end))), WHITE);
+	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.right_point))), GREEN);
+	if (vs.end_wall_id == 0 || s->count_wall % 2 == 0)
+	{
+		// printf("true\n");
+		vs.end_wall_id = vs.vtx_droite->prev->ptr->id;
+
+	}
+	else
+	{
+		vs.end = s->tmp_intersect;
+	}
 
 	vtx = vs.begin_wall;
 	create_all_walls(s, vtx, &vs, 1);
