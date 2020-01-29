@@ -100,13 +100,18 @@ int			ft_find_wall2(t_main *s, t_dpos player, t_dpos point, Uint32 color, int sc
 		pos.pos2 = s_vtx->next->ptr->m_pos;
 		pos.pos3 = point;
 		pos.pos4 = player;
+		s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
+		s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
+		s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
+		s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
+		get_line(s, color, 1);
 		if ((new_dist = ft_find_intersection(s, pos, 1)) > 0)
 		{
-			s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
-			s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
-			s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
-			s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
-			get_line(s, color, 1);
+			// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, player)).x;
+			// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, player)).y;
+			// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, point)).x;
+			// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, point)).y;
+			// get_line(s, color, 1);
 			s->count_wall++;
 			if (new_dist < dist && new_dist != 0 && new_dist != -1)
 			{
@@ -131,11 +136,11 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
 	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
 	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
-	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
-	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
-	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;
-	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).y;
-	// get_line(s, color, 1);
+	s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
+	s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
+	s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;
+	s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).y;
+	get_line(s, color, 1);
 	return (vs);
 }
 
@@ -151,16 +156,22 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 	vs.left_point.x = player.x + cos(to_rad(l_angle)) * 10000;
 	vs.left_point.y = player.y - sin(to_rad(l_angle)) * 10000;
 	vs.begin_wall_id = ft_find_wall2(s, player, vs.left_point, YELLOW, vs.sct_id);
+	vs.begin = s->tmp_intersect;
 	if (vs.begin_wall_id == 0 && s->player.m_pos.x == player.x && s->player.m_pos.y == player.y)
 		printf("vs.begin_wall_id = 0\n");
-	vs.begin = s->tmp_intersect;
 	vs.right_point.x = player.x + cos(to_rad(r_angle)) * 10000;
 	vs.right_point.y = player.y - sin(to_rad(r_angle)) * 10000;
 	vs.end_wall_id = ft_find_wall2(s, player, vs.right_point, GREEN, vs.sct_id);
+	vs.end = s->tmp_intersect;
 	if(vs.end_wall_id == 0 && vs.begin_wall_id != 0)
+	{
 		vs.end_wall_id = get_t_int_by_vertex_id(get_sector_by_id(s, vs.sct_id)->vertex,
 		vs.begin_wall_id)->next->ptr->id;
-	vs.end = s->tmp_intersect;
+		vs.end =  get_t_int_by_vertex_id(get_sector_by_id(s, vs.sct_id)->vertex,
+		vs.begin_wall_id)->next->ptr->m_pos;
+	}
+
+
 	vs.vtx_gauche = get_t_int_by_vertex_id(vs.sct->vertex, vs.begin_wall_id);
 	vs.vtx_droite = get_t_int_by_vertex_id(vs.sct->vertex, vs.end_wall_id);
 	vs.player = player;
