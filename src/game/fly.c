@@ -11,6 +11,9 @@ void 	reset_jetpack(t_main *s)
 			sprite->destroy = 0;
 		sprite = sprite->next;
 	}
+	s->player.jetpack = 0;
+	s->player.fly = 0;
+	s->player.jump = 3;
 }
 
 char	*get_jetpack_value(t_main *s)
