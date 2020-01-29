@@ -177,7 +177,7 @@ t_visu		get_walls_to_draw(t_main *s, t_dpos player, t_visu vs)
 	vs.player = player;
 	if (s->player.m_pos.x == player.x && s->player.m_pos.y == player.y && (vs.end_wall_id == 0 || vs.begin_wall_id == 0))
 	{
-		printf("true\n");
+		// printf("true\n");
 		vs = move_player_near_portal(s, vs);
 	}
 	return(vs);

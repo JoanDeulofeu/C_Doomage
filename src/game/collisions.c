@@ -119,6 +119,22 @@ void 		check_collectible(t_main *s)
 	}
 }
 
+void 		check_bomb(t_main *s)
+{
+	t_sprite	*sprite;
+
+	sprite = s->sprite;
+	printf("current = %d\n", sprite->anim.current);
+	while (sprite)
+	{
+		if (sprite->name == bomb && sprite->r_dist < 3.5 && sprite->set == 1)
+		{
+			sprite->current = 1;
+		}
+		sprite = sprite->next;
+	}
+}
+
 int			check_col(t_main *s, t_dpos haut, t_dpos bas)
 {
 	int id;

@@ -206,12 +206,12 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	pct = (100 * wp->w) / wp->h;
 	width = (pct * height) / 100;
 	i = 0;
-	coord.x = cur->x;
-	while (coord.x < cur->x + width && coord.x >= 0 && coord.x <= WIDTH)
+	coord.x = cur->x - (width / 2);
+	while (coord.x < cur->x + width / 2 && coord.x >= 0 && coord.x <= WIDTH)
 	{
 		j = 0;
 		// coord.x = cur->x + i;
-		perx = (double)((coord.x - cur->x) * 100) / (width);
+		perx = (double)((coord.x - cur->x - width / 2) * 100) / (width);
 		// printf("perx = %f\n", perx);
 
 		diff_height_pxl = ft_get_sprite_height_pxl(s, cur, height);

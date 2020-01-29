@@ -112,6 +112,7 @@ typedef enum			e_name {
 	none,
 	storm,
 	table,
+	bomb,
 	lamp,
 	o_gun,
 	o_shotgun,
@@ -249,6 +250,7 @@ typedef struct				s_static
 	t_anim					big_g_ammo;
 	t_anim					big_s_ammo;
 	t_anim					jetpack;
+	t_anim					bomb;
 }							t_static;
 
 typedef enum				e_anim_name

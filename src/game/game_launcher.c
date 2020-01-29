@@ -27,16 +27,14 @@ void		handle_game_keys(t_main *s)
 		display_map(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
-
-
-		// if (keys[SDL_SCANCODE_SPACE] && s->player.jetpack == 1)
-		// 	ft_activ_fly(s);
 		ft_visu_joan(s);
 		fly(s);
 		// play_anim(s);
 		//	sprite_move(s);
 		rand_move(s);
 		play_sprites_anims(s);
+		if (keys[SDL_SCANCODE_E])
+			 check_bomb(s);
 		display_sprites(s);
 		draw_hud(s);
 		animate_weapon(s);

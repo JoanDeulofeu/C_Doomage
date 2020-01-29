@@ -90,6 +90,7 @@ void	free_images(t_main *s)
 	free_anim(s->items.big_g_ammo);
 	free_anim(s->items.big_s_ammo);
 	free_anim(s->items.jetpack);
+	free_anim(s->items.bomb);
 	free_anim(s->editor->all_texture);
 	// free_anim(s->editor->all_sprite);
 	free_anim(s->gameover);
