@@ -6,7 +6,7 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2019/06/24 15:47:01 by jgehin           ###   ########.fr        #
+#    Updated: 2020/01/30 11:29:22 by jgehin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ HEADER_NAME = libft.h get_next_line.h
 
 HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 
-OK = echo "[32m OK ✓ [0m"
+OK = echo "[32m Libft OK ✓ [0m"
 
 all: $(NAME)
 

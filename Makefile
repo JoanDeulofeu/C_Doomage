@@ -107,7 +107,6 @@ SDL2_SRC = $(ABSOLUTE_DIR)/SDL2-2.0.9
 SDL2_MIX_SRC = $(ABSOLUTE_DIR)/SDL2_mixer-2.0.4
 SDL2_TTF_SRC = $(ABSOLUTE_DIR)/SDL2_ttf-2.0.15
 
-OK = echo "[32m OK ✓ [0m"
 
 all: $(NAME)
 
@@ -152,7 +151,7 @@ https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
 $(NAME): $(OBJ)
 	@make -C libft/
 	@$(CC) $(CFLAGS) $(LDFLAGS) $(SDLFLAGS) $(MIXFLAGS) $(MIXINCL) $(LDLIBS) $(SDLFMK) $^ -o $@
-	@$(OK)
+	@echo "[32m Doom_nukem OK ✓ [0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -I $(HEADER_PATH) $(SDLINCL) $(MIXINCL) -o $@ -c $<
@@ -162,18 +161,18 @@ $(OBJ_PATH):
 
 sdlclean:
 	@rm -rf $(SDL2_SRC) $(SDL2_MIX_SRC) SDL_2.0.9.tar.gz SDL2_mixer-2.0.4.tar.gz SDL2
-	@$(OK)
+	@echo "[32m Sdlclean OK ✓ [0m"
 
 clean:
 	@make clean -C libft/
 	@rm -f $(OBJ) $(OBJ:.o=.d)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	@$(OK)
+	@echo "[32m Clean OK ✓ [0m"
 
 fclean: clean
 	@make fclean -C libft/
 	@rm -f $(NAME)
-	@$(OK)
+	@echo "[32m Clean OK ✓ [0m"
 
 re: fclean
 	$(MAKE) all
