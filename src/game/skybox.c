@@ -4,7 +4,8 @@ void 			destroy_planet(t_main *s)
 {
 		if (s->skybox.current == 0)
 			Mix_PlayChannel(2, s->sdl->sounds.explode, 0);
-		s->skybox.current ++;
+		if (s->skybox.image[s->skybox.current +1])
+			s->skybox.current ++;
 }
 
 void			display_sky(t_main *s)

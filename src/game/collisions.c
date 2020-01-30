@@ -100,7 +100,11 @@ void 		get_item(t_main *s, t_sprite *sprite)
 	else if (sprite->name == o_gun)
 		s->player.wp_wheel[gun] = 1;
 	else if (sprite->name == jetpack)
+	{
 		s->player.jetpack = 1;
+		s->time->jetpack_reserve = JET_TIME;
+		// s->time->jetpack_ms = s->time->time_ms;
+	}
 }
 
 void 		check_collectible(t_main *s)
