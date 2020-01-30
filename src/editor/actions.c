@@ -1,5 +1,24 @@
 #include "doom.h"
 
+void		ft_transition(t_main *s)
+{
+	int diff_y_eye;
+	int diff_abs_angle;
+
+	diff_y_eye = abs(s->transition_y_eye - 520);
+	diff_abs_angle = abs(s->transition_angle - 74);
+	if (s->transition_angle < 74)
+		s->player.angle += diff_abs_angle / 10;
+	else
+		s->player.angle -= diff_abs_angle / 10;
+	if (s->transition_y_eye < 540)
+		s->player.y_eye += diff_y_eye / 10;
+	else
+		s->player.y_eye -= diff_y_eye / 10;
+	if (s->transition++ > 11)
+		s->transition = 0;
+}
+
 void		ft_zoom(t_main *s, t_pos mouse, int space)
 {
 	t_pos		ori;
