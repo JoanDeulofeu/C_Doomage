@@ -2,10 +2,16 @@
 
 void 			destroy_planet(t_main *s)
 {
+		t_pos 	coord;
+
+		coord.x = 0;
+		coord.y = 0;
 		if (s->skybox.current == 0)
 			Mix_PlayChannel(2, s->sdl->sounds.explode, 0);
 		if (s->skybox.image[s->skybox.current +1])
 			s->skybox.current ++;
+		else
+			draw_plain_sprite(s, coord, s->cinematic.image[4], s->sdl->game);
 }
 
 void			display_sky(t_main *s)

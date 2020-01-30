@@ -95,12 +95,6 @@ void		game_handler(t_main *s)
 					|| s->player.wp_name == kick)
 					{
 						shoot(s);
-						if (s->skybox.current < 17 && s->player.abs_angle > 62
-							&& s->player.abs_angle < 82 && s->player.y_eye >= 376
-							&& s->player.y_eye <= 782)
-						{
-							destroy_planet(s);
-						}
 					}
 				}
 			}

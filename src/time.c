@@ -2,14 +2,15 @@
 
 void	ft_set_time(t_main *s)
 {
+	ft_bzero((void *)s->time, sizeof(t_timer));
 	s->time->time_ms = SDL_GetTicks();
 	s->time->tmp_sec_fps = s->time->time_ms * 0.001;
-	s->time->count_fps = 0;
-	s->time->fps = 0;
-	s->time->msg_tmp_ms = 0;
-	s->time->explosion_ms = 0;
-	s->time->crouch_ms = 0;
-	s->time->jump_ms = 0;
+	// s->time->count_fps = 0;
+	// s->time->fps = 0;
+	// s->time->msg_tmp_ms = 0;
+	// s->time->explosion_ms = 0;
+	// s->time->crouch_ms = 0;
+	// s->time->jump_ms = 0;
 }
 
 void	ft_fps(t_main* s)
