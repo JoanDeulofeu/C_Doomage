@@ -131,7 +131,9 @@ void 		check_bomb(t_main *s)
 		{
 			sprite->current = 1;
 			s->sct_without_ceiling = s->player.sector_id;
-			destroy_planet(s);
+			s->player.abs_angle = 74;
+			s->player.y_eye = 520;
+			s->time->explosion_ms = s->time->time_ms;
 		}
 		sprite = sprite->next;
 	}

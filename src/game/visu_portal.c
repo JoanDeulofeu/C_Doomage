@@ -299,6 +299,10 @@ t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *angle_f
 	rwall = vtx->next->ptr->m_pos;
 	// printf("lwall.x = %f\nlwall.y = %f\nrwall.x = %f\nrwall.y = %f\n", lwall.x, lwall.y, rwall.x, rwall.y);
 	//trouver le sector dans lequel amene le portail et les coordonees des vtx du portal
+	if (!vtx)
+		handle_error(s, POINTER_ERROR);
+	else if (!vtx->vtx_dest)
+		handle_error(s, POINTER_ERROR);
 	l_portal = vtx->vtx_dest->ptr->m_pos;
 	// printf("l_portal = %d\n", vtx->vtx_dest->ptr->id);
 	// printf("r_portal = %d\n", vtx->vtx_dest->next->ptr->id);

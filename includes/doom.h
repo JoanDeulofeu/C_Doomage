@@ -268,6 +268,7 @@ typedef struct				s_timer {
 	long					jump_ms;
 	long					shotgun_ms;
 	long					g_o_ms;
+	long					explosion_ms;
 	long					jetpack_ms;
 	long					jetpack_reserve;
 }							t_timer;

@@ -177,6 +177,7 @@ int			key_controls_game(t_main *s, int key)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
 		s->printf = s->printf ? 0 : 1;
+		// printf("angle skybox %d\n", s->player.y_eye);
 		// printf("Test = %.3f %.3f\n", s->player.r_pos.y * METRE, s->player.r_pos.x * METRE);
 		// printf("Player Sector = %d\n", ft_is_in_sector(s, s->player.pos));
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
@@ -574,13 +575,6 @@ void		editor_handler(t_main *s)
 							}
 							else
 								printf("\033[31mSECTOR IS %d\033[0m\n", iii);
-							// if (iii != 9) //test
-							// {
-								// printf("donnees envoyees = x(%f puis %f) y(%f puis %f)\n", get_abs_r_pos(s, s->ft_mouse).x, point_2.x, get_abs_r_pos(s, s->ft_mouse).y, point_2.y);
-							// 	// printf("waiting...\n");
-							// 	// sleep(100);
-							// }
-							// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 						}
 						else if (s->editor->mode == player)
 						{
