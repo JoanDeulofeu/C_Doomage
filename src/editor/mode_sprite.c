@@ -345,7 +345,7 @@ void 		get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite)
 	}
 	else if (sprite->name == bomb)
 	{
-		sprite->size = 1.7;
+		sprite->size = 3;
 		sprite->anim = s->items.bomb;
 		sprite->type = obstacle;
 	}
