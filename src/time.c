@@ -7,6 +7,7 @@ void	ft_set_time(t_main *s)
 	s->time->count_fps = 0;
 	s->time->fps = 0;
 	s->time->msg_tmp_ms = 0;
+	s->time->explosion_ms = 0;
 	s->time->crouch_ms = 0;
 	s->time->jump_ms = 0;
 }

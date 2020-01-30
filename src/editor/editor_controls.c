@@ -177,6 +177,7 @@ int			key_controls_game(t_main *s, int key)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
 		s->printf = s->printf ? 0 : 1;
+		// printf("angle skybox %d\n", s->player.y_eye);
 		// printf("Test = %.3f %.3f\n", s->player.r_pos.y * METRE, s->player.r_pos.x * METRE);
 		// printf("Player Sector = %d\n", ft_is_in_sector(s, s->player.pos));
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
@@ -356,6 +357,7 @@ void		editor_handler(t_main *s)
 	int			remove_achr;
 	t_vertex    *v;
 	t_mode		tmp_mode;
+	int iii = -1;
 
 	ingame = 1;
 	selected = 0;
@@ -430,6 +432,7 @@ void		editor_handler(t_main *s)
 					s->editor->decal_y = tmp.y + s->ft_mouse.y - mouse_save.y;
 					s->player.pos.x += s->editor->decal_x;
 					s->player.pos.y += s->editor->decal_y;
+
 				}
 			}
 			if (s->sdl->event.type == SDL_QUIT)
@@ -558,7 +561,6 @@ void		editor_handler(t_main *s)
 							s->editor->color_sector = ft_sector_mode(s,
 								s->sdl->event.button.x, s->sdl->event.button.y);
 							t_dpos point_2;
-							int iii = -1;
 							point_2 = get_abs_r_pos(s, s->ft_mouse);
 							point_2.x *= METRE;
 							point_2.y *= METRE;
@@ -573,13 +575,6 @@ void		editor_handler(t_main *s)
 							}
 							else
 								printf("\033[31mSECTOR IS %d\033[0m\n", iii);
-							// if (iii != 9) //test
-							// {
-								// printf("donnees envoyees = x(%f puis %f) y(%f puis %f)\n", get_abs_r_pos(s, s->ft_mouse).x, point_2.x, get_abs_r_pos(s, s->ft_mouse).y, point_2.y);
-							// 	// printf("waiting...\n");
-							// 	// sleep(100);
-							// }
-							// printf("\n\n\n\n\n\n\n\n-------------------------------------\n\n\n");
 						}
 						else if (s->editor->mode == player)
 						{
@@ -593,6 +588,13 @@ void		editor_handler(t_main *s)
 								s->player.r_pos = s->player.r_ori;
 								s->player.set = 1;
 								s->player.correc = 0;
+								s->player.m_pos = tmp2;
+								iii = get_sector_by_id(s, s->player.sector_id)->floor;
+								s->player.sector_id = ft_is_in_sector(s, s->player.m_pos);
+								s->player.foot_height = get_sector_by_id(s, s->player.sector_id)->floor;
+								if (iii > s->player.foot_height)
+									s->player.jump_height = iii - s->player.foot_height;
+								s->player.jump = 3;
 							}
 						}
 					}

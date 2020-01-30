@@ -21,7 +21,8 @@ void	get_wall_distance(t_walls *wall, t_visu *vs)
 
 void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color)
 {
-	coord.y = ft_draw_ceiling(s, wall, coord);
+	if (s->sct_without_ceiling != wall->sct_id)
+		coord.y = ft_draw_ceiling(s, wall, coord);
 
 	if (((wall->wall_or_portal == 'w') || (wall->wall_or_portal == 'p'
 		&& (wall->floor_height_dest > wall->floor_height

@@ -172,7 +172,6 @@ clean:
 fclean: clean
 	@make fclean -C libft/
 	@rm -f $(NAME)
-	@echo "[32m Clean OK ✓ [0m"
 
 re: fclean
 	$(MAKE) all

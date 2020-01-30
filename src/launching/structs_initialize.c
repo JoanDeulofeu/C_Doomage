@@ -240,6 +240,7 @@ t_main		*initialize_main(char *str)
 	initialize_editor(s->editor);
 	ft_set_time(s);
 	ft_init_msg(s);
+	s->sct_without_ceiling = 0;
 	s->player.shoot = 0;
 	s->player.set = 1;
 	s->player.size = PLAYER_SIZE;
