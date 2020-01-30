@@ -356,6 +356,7 @@ void		editor_handler(t_main *s)
 	int			remove_achr;
 	t_vertex    *v;
 	t_mode		tmp_mode;
+	int iii = -1;
 
 	ingame = 1;
 	selected = 0;
@@ -430,6 +431,7 @@ void		editor_handler(t_main *s)
 					s->editor->decal_y = tmp.y + s->ft_mouse.y - mouse_save.y;
 					s->player.pos.x += s->editor->decal_x;
 					s->player.pos.y += s->editor->decal_y;
+
 				}
 			}
 			if (s->sdl->event.type == SDL_QUIT)
@@ -558,7 +560,6 @@ void		editor_handler(t_main *s)
 							s->editor->color_sector = ft_sector_mode(s,
 								s->sdl->event.button.x, s->sdl->event.button.y);
 							t_dpos point_2;
-							int iii = -1;
 							point_2 = get_abs_r_pos(s, s->ft_mouse);
 							point_2.x *= METRE;
 							point_2.y *= METRE;
@@ -593,6 +594,13 @@ void		editor_handler(t_main *s)
 								s->player.r_pos = s->player.r_ori;
 								s->player.set = 1;
 								s->player.correc = 0;
+								s->player.m_pos = tmp2;
+								iii = get_sector_by_id(s, s->player.sector_id)->floor;
+								s->player.sector_id = ft_is_in_sector(s, s->player.m_pos);
+								s->player.foot_height = get_sector_by_id(s, s->player.sector_id)->floor;
+								if (iii > s->player.foot_height)
+									s->player.jump_height = iii - s->player.foot_height;
+								s->player.jump = 3;
 							}
 						}
 					}

@@ -130,6 +130,7 @@ void 		check_bomb(t_main *s)
 		if (sprite->name == bomb && sprite->r_dist < 3.5 && sprite->set == 1)
 		{
 			sprite->current = 1;
+			s->sct_without_ceiling = s->player.sector_id;
 			destroy_planet(s);
 		}
 		sprite = sprite->next;

@@ -281,6 +281,7 @@ typedef struct				s_msg {
 }							t_msg;
 
 typedef struct				s_main {
+	int						sct_without_ceiling;
 	int						printf;
 	int						count_wall;
 	int						pthread;
