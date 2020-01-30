@@ -23,6 +23,8 @@ void		handle_game_keys(t_main *s)
 		}
 		if (s->player.jump_height == 0)
 			ft_crouch(s, keys);
+		if (s->transition)
+			ft_transition(s);
 		if (s->time->explosion_ms != 0 && s->time->explosion_ms + 2000 < s->time->time_ms)
 			destroy_planet(s);
 

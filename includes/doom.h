@@ -282,6 +282,9 @@ typedef struct				s_msg {
 }							t_msg;
 
 typedef struct				s_main {
+	int						transition;
+	int						transition_y_eye;
+	int						transition_angle;
 	int						sct_without_ceiling;
 	int						printf;
 	int						count_wall;
