@@ -1,5 +1,35 @@
 #include "doom.h"
 
+int		play_intro(t_main *s)
+{
+	t_pos 	coord;
+	int		key;
+
+	coord.x = 0;
+	coord.y = 0;
+	while (s->cinematic.current < 4)
+	{
+		draw_plain_sprite(s, coord, s->cinematic.image[s->cinematic.current], s->sdl->game);
+		update_image(s, s->sdl->game);
+		SDL_WaitEvent(&s->sdl->event);
+		if (s->sdl->event.type == SDL_QUIT)
+			return (0);
+		else if (s->sdl->event.type == SDL_KEYDOWN)
+		{
+			key = s->sdl->event.key.keysym.sym;
+			if (key == SDLK_RETURN
+				|| s->sdl->event.key.keysym.sym == SDLK_KP_ENTER)
+				s->cinematic.current++;
+			else if (key == SDLK_ESCAPE)
+				return (1);
+		}
+		else
+			continue;
+	}
+	s->cinematic.current = 0;
+	return (1);
+}
+
 void	display_menu(t_main *s, int i, int j)
 {
 	double		perx;
@@ -87,6 +117,10 @@ int		handle_menu(t_main *s)
 	if (s->menu.current == 2 || s->menu.current == 0)
 		launch_editor(s);
 	else
+	{
+		if (!play_intro(s))
+			return (0);
 		launch_game(s);
+	}
 	return (1);
 }

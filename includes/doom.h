@@ -318,6 +318,7 @@ typedef struct				s_main {
 	t_anim					gameover;
 	t_image					*interface;
 	t_anim					skybox;
+	t_anim					cinematic;
 	short					fov;
 	t_sprite				*sprite;
 	t_static				items;

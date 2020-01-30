@@ -94,6 +94,7 @@ void	free_images(t_main *s)
 	free_anim(s->editor->all_texture);
 	// free_anim(s->editor->all_sprite);
 	free_anim(s->gameover);
+	free_anim(s->cinematic);
 	free_anim(s->skybox);
 	free_image(s->interface);
 	free_image(s->savemap->croix_rouge);

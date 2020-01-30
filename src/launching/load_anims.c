@@ -37,6 +37,16 @@ void	load_items(t_main *s)
 	s->items.bomb.image[1] = load_tga("images/ressources/static/bomb01.tga", 0, 0, 0);
 }
 
+void 	load_cinematic(t_main *s)
+{
+	ft_bzero((void *)&s->cinematic, sizeof(t_anim));
+	s->cinematic.image[0] = load_tga("images/ressources/scenar/intro_00.tga", 0, 0, 0);
+	s->cinematic.image[1] = load_tga("images/ressources/scenar/intro_01.tga", 0, 0, 0);
+	s->cinematic.image[2] = load_tga("images/ressources/scenar/intro_02.tga", 0, 0, 0);
+	s->cinematic.image[3] = load_tga("images/ressources/scenar/intro_03.tga", 0, 0, 0);
+	s->cinematic.image[4] = load_tga("images/ressources/scenar/ending.tga", 0, 0, 0);
+}
+
 void 	load_game_over(t_main *s)
 {
 	ft_bzero((void *)&s->gameover, sizeof(t_anim));
@@ -88,5 +98,6 @@ void	load_anims(t_main *s)
 	s->stormtrooper = load_storm_anim(s);
 	load_items(s);
 	load_game_over(s);
+	load_cinematic(s);
 	s->wp_anims = load_wp_anims(s);
 }
