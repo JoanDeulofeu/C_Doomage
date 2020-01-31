@@ -158,6 +158,9 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 
 $(OBJ_PATH):
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/editor 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/launching 2> /dev/null || true
+	@mkdir $(OBJ_PATH)/game 2> /dev/null || true
 
 sdlclean:
 	@rm -rf $(SDL2_SRC) $(SDL2_MIX_SRC) SDL_2.0.9.tar.gz SDL2_mixer-2.0.4.tar.gz SDL2
