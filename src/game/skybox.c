@@ -11,7 +11,7 @@ void 			destroy_planet(t_main *s)
 		if (s->skybox.image[s->skybox.current +1])
 			s->skybox.current ++;
 		else
-			draw_plain_sprite(s, coord, s->cinematic.image[4], s->sdl->game);
+			ending(s, 0);
 }
 
 void			display_sky(t_main *s)

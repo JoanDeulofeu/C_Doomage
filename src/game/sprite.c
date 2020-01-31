@@ -1,5 +1,21 @@
 #include "doom.h"
 
+void		reset_statue(t_main *s)
+{
+	t_sprite *sprite;
+
+	sprite = s->sprite;
+	while (sprite)
+	{
+		if (sprite->name == bomb)
+		{
+			sprite->current = 0;
+			printf("true\n");
+		}
+		sprite = sprite->next;
+	}
+}
+
 int		check_if_visible(t_main *s, t_sprite *sprite)
 {
 	t_walls	*wall;

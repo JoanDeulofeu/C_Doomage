@@ -338,6 +338,8 @@ typedef struct				s_main {
 }							t_main;
 
 void 						reset(t_main *s);
+void 						ending(t_main *s, int key);
+void						reset_statue(t_main *s);
 /*
 ****	Fonction du multithreading
 */
