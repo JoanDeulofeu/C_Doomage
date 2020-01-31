@@ -9,19 +9,19 @@ void		handle_game_keys(t_main *s)
 		s->player.sector_id = ft_is_in_sector(s, s->player.m_pos);
 		keys = SDL_GetKeyboardState(NULL);
 		if ((keys[LEFT] || keys[RIGHT] || keys[UP] || keys[DOWN] || keys[SPRINT])
-			&& (s->player.sector_id != 0))
+			&& (s->player.sector_id != 0 && !s->block_move))
 			ft_move_player(s, keys, PLAYER_SPEED);
-		if (keys[LEFT_NUM] || keys[RIGHT_NUM])
+		if ((keys[LEFT_NUM] || keys[RIGHT_NUM]) && !s->block_move)
 			rotate_player(s, keys);
 
-		if (s->player.jetpack == 1 && keys[SDL_SCANCODE_SPACE])
+		if (s->player.jetpack == 1 && keys[SDL_SCANCODE_SPACE] && !s->block_move)
 			s->player.fly = 1;
 		else if (s->player.jetpack == 1)
 		{
 			s->player.fly = 0;
 			s->player.jump = 2;
 		}
-		if (s->player.jump_height == 0)
+		if (s->player.jump_height == 0 && !s->block_move)
 			ft_crouch(s, keys);
 		if (s->transition)
 			ft_transition(s);
@@ -29,7 +29,7 @@ void		handle_game_keys(t_main *s)
 			destroy_planet(s);
 
 
-		if (s->player.size == PLAYER_SIZE)
+		if (s->player.size == PLAYER_SIZE && !s->block_move)
 			ft_jump(s, keys);
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
@@ -54,8 +54,6 @@ void		handle_game_keys(t_main *s)
 		play_g_o_anim(s);
 	}
 
-	// print_hp(s);
-	// ft_nul(s);
 	update_image(s, s->sdl->game);
 }
 
@@ -74,7 +72,7 @@ void		game_handler(t_main *s)
 		animate_weapon(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
-			if (s->sdl->event.type == SDL_MOUSEMOTION)
+			if (s->sdl->event.type == SDL_MOUSEMOTION && !s->block_move)
 			{
 				s->ft_mouse.x = s->sdl->event.motion.x;
 				s->ft_mouse.y = s->sdl->event.motion.y;
@@ -84,7 +82,7 @@ void		game_handler(t_main *s)
 				ingame = 0;
 			if (s->sdl->event.type == SDL_MOUSEBUTTONDOWN)
 			{
-				if (s->sdl->event.button.button == SDL_BUTTON_LEFT && !s->player.dead)
+				if (s->sdl->event.button.button == SDL_BUTTON_LEFT && !s->player.dead && !s->block_move)
 				{
 					if ((s->player.wp_name == gun && s->player.mun_gun > 0)
 					|| (s->player.wp_name == shotgun && s->player.mun_shotgun > 0)
@@ -94,7 +92,7 @@ void		game_handler(t_main *s)
 					}
 				}
 			}
-			if (s->sdl->event.type == SDL_MOUSEWHEEL && !s->player.dead)
+			if (s->sdl->event.type == SDL_MOUSEWHEEL && !s->player.dead && !s->block_move)
 			{
 				if (s->sdl->event.wheel.y > 0)
 					change_weapon(s, 1);

@@ -123,6 +123,8 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 {
 	t_dpos	ctr_p; //center plan
 	t_visu	vs;
+	(void)s;
+	(void)color;
 
 	ft_bzero(&vs, sizeof(t_visu));
 	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;

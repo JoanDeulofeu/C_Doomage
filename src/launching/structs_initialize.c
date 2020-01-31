@@ -241,6 +241,7 @@ t_main		*initialize_main(char *str)
 	ft_set_time(s);
 	ft_init_msg(s);
 	s->transition = 0;
+	s->block_move = 0;
 	s->sct_without_ceiling = 15;
 	s->player.shoot = 0;
 	s->player.set = 1;

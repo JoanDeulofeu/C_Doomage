@@ -286,6 +286,7 @@ typedef struct				s_msg {
 }							t_msg;
 
 typedef struct				s_main {
+	int						block_move;
 	int						transition;
 	int						transition_y_eye;
 	int						transition_angle;

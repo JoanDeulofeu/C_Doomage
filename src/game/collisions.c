@@ -140,6 +140,7 @@ void 		check_bomb(t_main *s)
 			// s->player.abs_angle = 74;
 			// s->player.y_eye = 520;
 			s->transition = 1;
+			s->block_move = 1;
 			s->time->explosion_ms = s->time->time_ms;
 		}
 		sprite = sprite->next;

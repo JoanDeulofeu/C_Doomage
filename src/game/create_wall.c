@@ -67,8 +67,6 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 {
 	t_visu	fake_vs;
 	t_4dpos	pos;
-	double	l_angle;
-	double	r_angle;
 
 	fake_vs = fill_visu_values(s, vs, vtx);
 
