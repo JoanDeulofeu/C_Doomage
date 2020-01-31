@@ -25,13 +25,9 @@ void		handle_game_keys(t_main *s)
 			ft_crouch(s, keys);
 		if (s->transition)
 			ft_transition(s);
-		if (s->time->explosion_ms != 0 && s->time->explosion_ms + 2000 < s->time->time_ms)
+		if (s->time->explosion_ms != 0 && s->time->explosion_ms + 2500 < s->time->time_ms)
 			destroy_planet(s);
 
-		// printf("jetpack %d     ", s->player.jetpack);
-		// printf("foot_height %.1f    ", s->player.foot_height);
-		// printf("jump %d    ", s->player.jump);
-		// printf("jump_height %.1f\n\n-------\n", s->player.jump_height);
 
 		if (s->player.size == PLAYER_SIZE)
 			ft_jump(s, keys);
@@ -44,8 +40,6 @@ void		handle_game_keys(t_main *s)
 		unset_sprites(s);
 		ft_visu_joan(s);
 		fly(s);
-		// play_anim(s);
-		//	sprite_move(s);
 		rand_move(s);
 		play_sprites_anims(s);
 		if (keys[SDL_SCANCODE_E])

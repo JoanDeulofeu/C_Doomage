@@ -21,6 +21,10 @@
 # define HITBOX 2
 # define SPRITE_HITBOX 10
 
+# define TRANSITION_SPEED 30
+# define MOON_X 60
+# define MOON_Y 520
+
 # define PORTAL_LIMIT 20
 # define PLAYER_SIZE 2
 # define PLAYER_SPEED 4
@@ -456,6 +460,7 @@ void						change_weapon(t_main *s, int up);
 void						ft_fly_mode(t_main *s, const Uint8 *keys);
 void						ft_activ_fly(t_main *s);
 void 						fly(t_main *s);
+void						ft_transition(t_main *s);
 
 /*
 ****	Fonction de gestion et de protection du parsing
