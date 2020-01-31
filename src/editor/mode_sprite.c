@@ -36,6 +36,28 @@ void 	select_sprite_in_menu(t_main *s)
 	}
 }
 
+int		check_limit_sprite(t_main *s, int sct_id, t_sprite *sprite)
+{
+	t_sector	*sct;
+	t_lsprite	*sct_sprite;
+	int			counter;
+
+	sct = get_sector_by_id(s, sct_id);
+	if (sct == NULL)
+		return (0);
+	counter = 0;
+	sct_sprite = sct->liste;
+	while (sct_sprite)
+	{
+		if (sct_sprite->sprite->type == sprite->type)
+			counter++;
+		sct_sprite = sct_sprite->next;
+	}
+	if (counter >= 5)
+		return (0);
+	return (1);
+}
+
 void 	draw_plain_sprite(t_main *s, t_pos coord, t_image *img, t_texture *tex)
 {
 	double		perx;
@@ -405,6 +427,12 @@ t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 	sprite->life = 100;
 	sprite->set = 0;
 	get_sprite_info_by_name(s, name, sprite);
+	if (!check_limit_sprite(s, sct_id, sprite))
+	{
+		ft_memdel((void **)sprite);
+		return (NULL);
+	}
+
 
 	if (!s->sprite)
 	{
