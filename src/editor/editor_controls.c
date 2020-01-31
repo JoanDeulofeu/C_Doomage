@@ -176,8 +176,15 @@ int			key_controls_game(t_main *s, int key)
 	if (key == TAB)
 		ft_test_chainlist(s);
 	if (key == SDLK_KP_PLUS)
-		s->printf = s->printf ? 0 : 1;
-		// printf("angle skybox %d\n", s->player.y_eye);
+		// s->printf = s->printf ? 0 : 1;
+		{
+			s->transition++;
+			s->transition_y_eye = s->player.y_eye;
+			if (s->player.angle < 0)
+				s->player.angle += 360;
+			s->transition_angle = (int)s->player.angle % 360;
+
+		}
 		// printf("Test = %.3f %.3f\n", s->player.r_pos.y * METRE, s->player.r_pos.x * METRE);
 		// printf("Player Sector = %d\n", ft_is_in_sector(s, s->player.pos));
 		// ft_create_message(s, 2, 4000, "Vive le chocolat !");
@@ -276,7 +283,8 @@ void		handle_editor_keys(t_main *s)
 		ft_jump(s, keys);
 
 
-
+	if (s->transition)
+		ft_transition(s);
 	if (keys[SDL_SCANCODE_F5])
 		ft_activ_fly(s);
 	if (s->player.fly)
@@ -321,6 +329,7 @@ void		handle_editor_keys(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
+		ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
 		display_sky(s);
 		display_map(s);
 
