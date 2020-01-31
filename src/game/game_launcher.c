@@ -37,7 +37,7 @@ void		handle_game_keys(t_main *s)
 			ft_jump(s, keys);
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
-		if (s->skybox.current != 0 && s->skybox.current < 17)
+		if (s->skybox.current != 0)
 			destroy_planet(s);
 		display_map(s);
 		handle_sector_zero(s);

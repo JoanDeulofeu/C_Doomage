@@ -54,6 +54,8 @@ void	ft_draw_ttf_play(t_main *s)
 	t_ttf		ttf;
 	char*		str;
 
+	if (s->skybox.current >= 17)
+		return ;
 	ft_display_message(s);
 
 	ttf.r = 210;

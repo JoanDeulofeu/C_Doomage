@@ -1,5 +1,33 @@
 #include "doom.h"
 
+void 	ending(t_main *s, int key)
+{
+	t_pos coord;
+
+	coord.x = 0;
+	coord.y = 0;
+
+	draw_plain_sprite(s, coord, s->cinematic.image[4], s->sdl->game);
+	update_image(s, s->sdl->game);
+	while (1)
+	{
+		SDL_WaitEvent(&s->sdl->event);
+		if (s->sdl->event.type == SDL_QUIT)
+			handle_error(s, 0);
+		else if (s->sdl->event.type == SDL_KEYDOWN)
+		{
+			key = s->sdl->event.key.keysym.sym;
+			if (key == SDLK_RETURN
+				|| s->sdl->event.key.keysym.sym == SDLK_KP_ENTER)
+				break ;
+			else if (key == SDLK_ESCAPE)
+				handle_error(s, 0);
+		}
+	}
+
+	reset(s);
+}
+
 void 	reset(t_main *s)
 {
 	t_sprite *sprite;
@@ -16,8 +44,12 @@ void 	reset(t_main *s)
 	s->time->jetpack_reserve = JET_TIME;
 	s->player.fly = 0;
 	s->player.jump_height = 0;
+	s->cinematic.current = 0;
+	s->skybox.current = 0;
+	s->time->explosion_ms = 0;
 	select_weapon_anim(s);
 	set_weapon_range(s);
+	reset_statue(s);
 	sprite = s->sprite;
 	while (sprite)
 	{
