@@ -32,6 +32,7 @@ void 	reset(t_main *s)
 {
 	t_sprite *sprite;
 
+	s->block_move = 0;
 	s->player.r_pos = s->player.r_ori;
 	set_player(s);
 	s->player.health = 100;
