@@ -67,6 +67,7 @@ void 	reset(t_main *s)
 		sprite->angle = 0;
 		sprite->r_dist = 100;
 		sprite->set = 0;
+		sprite->displayed = 0;
 
 
 		sprite = sprite->next;

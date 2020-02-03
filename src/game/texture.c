@@ -58,6 +58,14 @@ void 	draw_texture(t_main *s, t_walls *wall, t_pos coord, int end)
 	limit_floor = 0;
 	if (wall->wall_or_portal == 'p')
 		ft_limit_portal_texture(wall, end, &limit_ceiling, &limit_floor);
+	// if (wall->id == 2 && wall->avcm_x == 50){
+	// 		printf("limit_ceiling %d , limit_floor %d\n", limit_ceiling , limit_floor);
+	// 		printf("height_wall %d\n", wall->wall_height_tmp);
+	// 		printf("mur = %c\n", wall->wall_or_portal);
+	// 		printf("floor_dest (%d) > floor (%d)\n", wall->floor_height_dest, wall->floor_height);
+	// 		printf("ceiling_dest (%d) < ceiling (%d)\n", wall->ceiling_height_dest, wall->ceiling_height);
+	// 		printf("end %d\n", end);
+	// 	}
 	begin_wall = coord.y;
 	y = 1;
 	if (begin_wall < 0)

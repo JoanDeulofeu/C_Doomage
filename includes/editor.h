@@ -265,6 +265,7 @@ typedef struct				s_sprite
 	int						id;
 	int						x;
 	int						set;
+	int						displayed;
 	int						inverse; //savoir si on inverse le display sprite
 	int						anim_ms;
 	int						shoot_ms;

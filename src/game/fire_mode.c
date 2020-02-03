@@ -129,6 +129,9 @@ void		fire(t_main *s)
 	save_sprite = NULL;
 	while (sprite)
 	{
+		// printf("sprite->r_dist = %f, perso = %d\n", sprite->r_dist, s->player.range);
+		// if(sprite->set == 1)
+		// 	printf("sprite set");
 		if (sprite->name == storm && sprite->set == 1 &&
 			sprite->r_dist < s->player.range
 			&& (WIDTH / 2) > sprite->x && WIDTH / 2 <
