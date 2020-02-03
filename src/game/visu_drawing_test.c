@@ -248,7 +248,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	create_all_walls(s, vtx, &vs, 1);
 	// print_wall_list(s);
 	wall = s->walls;
-	// ft_fucking_threading(s);
+	// ft_multi_threading(s);
 	while (wall)
 	{
 		ft_print_wall(s, wall);

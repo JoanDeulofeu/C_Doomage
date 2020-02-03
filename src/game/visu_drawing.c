@@ -138,7 +138,7 @@ void	ft_print_wall(t_main *s, t_walls *wall)
 	width_wall = wall->screen_width_wall;
 	ft_init_diff_and_min(wall);
 
-	ft_fucking_threading(s, wall, l_height_wall, r_height_wall, width_wall);
+	ft_multi_threading(s, wall, l_height_wall, r_height_wall, width_wall);
 }
 
 void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, char swich)

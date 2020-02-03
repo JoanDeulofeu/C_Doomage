@@ -344,7 +344,7 @@ void						reset_statue(t_main *s);
 /*
 ****	Fonction du multithreading
 */
-void	ft_fucking_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall);
+void	ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall);
 
 /*
 ****	Fonction du visualisateur

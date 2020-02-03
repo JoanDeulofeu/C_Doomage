@@ -201,12 +201,12 @@ void	ft_fill_mt(t_multithread *mt, t_walls *wall, double l_height_wall, double r
 	mt->width_wall = width_wall;
 }
 
-void	ft_fucking_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
+void	ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
 {
 	int	i;
 	t_multithread mt[4];
 	pthread_t thread[4];
-	
+
 	i = -1;
 	get_total_w_wall(wall);
 
