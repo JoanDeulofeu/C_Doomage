@@ -19,28 +19,28 @@ void	get_wall_distance(t_walls *wall, t_visu *vs)
 	}
 }
 
-void	ft_draw_column(t_main *s, t_walls *wall, t_pos coord, int end, Uint32 color)
+void	ft_draw_column(t_pos coord, int end, t_multithread *mt)
 {
-	if (s->sct_without_ceiling != wall->sct_id)
-		coord.y = ft_draw_ceiling(s, wall, coord);
+	if (mt->s->sct_without_ceiling != mt->wall->sct_id)
+		coord.y = ft_draw_ceiling(mt->s, mt->wall, coord);
 
-	if (((wall->wall_or_portal == 'w') || (wall->wall_or_portal == 'p'
-		&& (wall->floor_height_dest > wall->floor_height
-		|| wall->ceiling_height_dest < wall->ceiling_height))) && coord.y < HEIGHT)
+	if (((mt->wall->wall_or_portal == 'w') || (mt->wall->wall_or_portal == 'p'
+		&& (mt->wall->floor_height_dest > mt->wall->floor_height
+		|| mt->wall->ceiling_height_dest < mt->wall->ceiling_height))) && coord.y < HEIGHT)
 	{
-		if (wall->image)
-			draw_texture(s, wall, coord, end);
+		if (mt->wall->image)
+			draw_texture(mt, coord, end);
 		else
 		{
 			if (coord.y < 0)
 				coord.y = -1;
 			while (coord.y++ < end)
-				set_pixel(s->sdl->game, color, coord);
+				set_pixel(mt->s->sdl->game, 0xb0842fff, coord);
 		}
 	}
 	coord.y = end - 1;
 	if (coord.y < HEIGHT)
-		ft_draw_floor(s, wall, coord);
+		ft_draw_floor(mt->s, mt->wall, coord);
 }
 
 int		ft_get_diff_height_pxl(double eyesight, int ceiling_height, int floor_height, int height_wall)
@@ -50,7 +50,6 @@ int		ft_get_diff_height_pxl(double eyesight, int ceiling_height, int floor_heigh
 
 	ig_height_wall = ceiling_height - floor_height;
 	pct_eyesight = (eyesight * 100 / ig_height_wall);
-	// printf("pct = %.2f      ", pct_eyesight);
 	return ((pct_eyesight * height_wall) / 100);
 }
 
@@ -79,13 +78,13 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, wall->ceiling_height, wall->floor_height, height_wall);
 		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
 		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
-		if (coord.x > 0 && coord.x < WIDTH)
-		{
-			if (i == 1 || i == width_wall)
-				ft_draw_column(s, wall, coord, bottom, 0x000000FF);
-			else
-				ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
-		}
+		// if (coord.x > 0 && coord.x < WIDTH)
+		// {
+		// 	if (i == 1 || i == width_wall)
+		// 		ft_draw_column(s, wall, coord, bottom, 0x000000FF);
+		// 	else
+		// 		ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
+		// }
 		coord.x++;
 		pct_avcm = (100 * (double)i) / (double)width_wall;
 
@@ -96,6 +95,5 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		else
 			height_wall = l_height_wall;
 	}
-	// printf("-----------------------------------------------\n\n\n\n");
 	return (coord.x);
 }

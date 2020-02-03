@@ -112,7 +112,7 @@ void	ft_init_diff_and_min(t_walls *wall)
 	wall->miny_floor = wall->left_floor_limit.y < wall->right_floor_limit.y ? wall->left_floor_limit.y : wall->right_floor_limit.y;
 }
 
-int		ft_print_wall(t_main *s, t_walls *wall)
+void	ft_print_wall(t_main *s, t_walls *wall)
 {
 	double	l_big_dist; //distance joueur -> vertex
 	double	r_big_dist;
@@ -138,7 +138,7 @@ int		ft_print_wall(t_main *s, t_walls *wall)
 	width_wall = wall->screen_width_wall;
 	ft_init_diff_and_min(wall);
 
-	return (ft_draw_wall(s, wall, l_height_wall, r_height_wall, width_wall));
+	ft_fucking_threading(s, wall, l_height_wall, r_height_wall, width_wall);
 }
 
 void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, char swich)
@@ -235,7 +235,6 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	set_visible_sprites(s, &vs);
 	// print_wall_list(s);
 	wall = s->walls;
-	// ft_fucking_threading(s);
 	while (wall)
 	{
 		ft_print_wall(s, wall);
@@ -243,5 +242,4 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	}
 	// set_visible_sprites(s, &vs);
 	s->portal_nb = 0;
-	// printf("--- FIN VISU ---\n\n");
 }

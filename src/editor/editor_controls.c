@@ -5,49 +5,49 @@ void	ft_nul(t_main *s)
 	t_dpos		init;
 	t_dpos		dest;
 
-	init.x = 0;
-	init.y = 150;
-	dest.x = WIDTH;
-	dest.y = 152;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
-	init.x = 0;
-	init.y = 300;
-	dest.x = WIDTH;
-	dest.y = 302;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
-	init.x = 0;
-	init.y = 450;
-	dest.x = WIDTH;
-	dest.y = 452;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
-	init.x = 0;
-	init.y = 600;
-	dest.x = WIDTH;
-	dest.y = 602;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 0;
+	// init.y = 150;
+	// dest.x = WIDTH;
+	// dest.y = 152;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 0;
+	// init.y = 300;
+	// dest.x = WIDTH;
+	// dest.y = 302;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 0;
+	// init.y = 450;
+	// dest.x = WIDTH;
+	// dest.y = 452;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 0;
+	// init.y = 600;
+	// dest.x = WIDTH;
+	// dest.y = 602;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 
 
 	//trait verticaux
-	init.x = 200;
+	init.x = 235;
 	init.y = 0;
-	dest.x = 202;
+	dest.x = 237;
 	dest.y = HEIGHT;
 	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
-	init.x = 400;
-	init.y = 0;
-	dest.x = 402;
-	dest.y = HEIGHT;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
-	init.x = 600;
-	init.y = 0;
-	dest.x = 602;
-	dest.y = HEIGHT;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
-	init.x = 800;
-	init.y = 0;
-	dest.x = 802;
-	dest.y = HEIGHT;
-	draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 400;
+	// init.y = 0;
+	// dest.x = 402;
+	// dest.y = HEIGHT;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 600;
+	// init.y = 0;
+	// dest.x = 602;
+	// dest.y = HEIGHT;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
+	// init.x = 800;
+	// init.y = 0;
+	// dest.x = 802;
+	// dest.y = HEIGHT;
+	// draw_rect(s->sdl->game, init, dest, 0xffffaaff);
 }
 
 void		click_editor_menu(t_main *s, t_anim menu, int x)
@@ -329,7 +329,6 @@ void		handle_editor_keys(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
-		ft_reset_color_screen(s->sdl->save->content, WIDTH * HEIGHT);
 		display_sky(s);
 		display_map(s);
 

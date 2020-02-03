@@ -159,12 +159,10 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 {
 	t_4dpos		pos;
 
-	while (end && ft_nb_walls(s) < 5000) //MERDE a enlever la securitê si possible
+	while (end && ft_nb_walls(s) < 2500)
 	{
-		// printf("DEBUT BOUCLE\n");
 		if (vtx->wall_value != -1)
 		{
-			// printf("portail entree(%d)   ", s->portal_nb);
 			if (vs->player.x == s->player.m_pos.x && vs->player.y == s->player.m_pos.y
 				&& !check_portal_validity_player(s, vtx, vs))
 			{
@@ -182,11 +180,9 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 				handle_visu_portal(s, vtx, vs, 3);
 			else
 				handle_visu_portal(s, vtx, vs, 2);
-				// printf("sortie(%d)\n", s->portal_nb);
 		}
 		else
 		{
-			// printf("wall\n");
 			vs->begin = vtx->ptr->m_pos;
 			vs->tmp_wall = vtx->next->ptr->m_pos;
 			ft_create_new_wall(s, vtx, vs, 'w');

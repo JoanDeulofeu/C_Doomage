@@ -5,43 +5,22 @@ void		ft_transition(t_main *s)
 	int diff_y_eye;
 	double diff_abs_angle;
 
-	// if (s->transition == 1)
-	// printf("\n--\nangle au debut %d\n", s->transition_angle);
-	// printf("angle player %.1f\n", s->player.angle);
-	// printf("angle abs %.1f\n", s->player.abs_angle);
-
 	diff_y_eye = abs(s->transition_y_eye - MOON_Y) / TRANSITION_SPEED;
 	diff_abs_angle = (double)(abs(s->transition_angle - 70)) / TRANSITION_SPEED;
-	// printf("diff_abs_angle %.2f(%.2f)\n", diff_abs_angle * TRANSITION_SPEED, diff_abs_angle);
-
 	if (s->transition_angle < 70)
 	{
 		s->player.angle += diff_abs_angle;
 		s->player.abs_angle += diff_abs_angle;
-		// s->player.angle = fmod(s->player.angle, 360);
-		// if (s->player.angle < 0)
-		// 	s->player.angle += 360;
-		// s->player.abs_angle = fmod(s->player.abs_angle, 360);
-		// if (s->player.abs_angle < 0)
-		// 	s->player.abs_angle += 360;
 	}
 	else
 	{
 		s->player.angle -= diff_abs_angle;
 		s->player.abs_angle -= diff_abs_angle;
-		// s->player.angle = fmod(s->player.angle, 360);
-		// if (s->player.angle < 0)
-		// 	s->player.angle += 360;
-		// s->player.abs_angle = fmod(s->player.abs_angle, 360);
-		// if (s->player.abs_angle < 0)
-		// 	s->player.abs_angle += 360;
 	}
-
 	if (s->transition_y_eye < MOON_Y)
 		s->player.y_eye += diff_y_eye;
 	else
 		s->player.y_eye -= diff_y_eye;
-
 	if (s->transition++ > TRANSITION_SPEED)
 		s->transition = 0;
 }

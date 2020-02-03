@@ -65,7 +65,6 @@ void		game_handler(t_main *s)
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	s->display_mode = game;
 	s->play_or_editor = 0;
-	// draw_interface(s);
 	while (ingame)
 	{
 		s->time->time_ms = SDL_GetTicks();
@@ -105,10 +104,7 @@ void		game_handler(t_main *s)
 					ingame = 0;
 
 			}
-				// if (key_controls_game(s, s->sdl->event.key.keysym.sym) == 0)
-				// 		ingame = 0;
 		}
-		// printf("current = %d\n", s->player.weapon.current);
 		handle_game_keys(s);
 	}
 }
