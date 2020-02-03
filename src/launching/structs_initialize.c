@@ -6,10 +6,10 @@ double		get_demi_fov(t_dpos player, double angle)
 	double	demi_fov;
 
 	plan.x = player.x + cos(to_rad(angle)) * METRE;
-	plan.x = plan.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
+	plan.x = plan.x + cos(to_rad(angle + 90)) * WIDTHPLAN* 0.5;
 	plan.y = player.y - sin(to_rad(angle)) * METRE;
-	plan.y = plan.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
-	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, plan), METRE, WIDTHPLAN / 2);
+	plan.y = plan.y - sin(to_rad(angle + 90)) * WIDTHPLAN* 0.5;
+	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, plan), METRE, WIDTHPLAN* 0.5);
 	// printf("demi_fov = %f\n", demi_fov);
 	return (demi_fov);
 }
@@ -19,7 +19,7 @@ t_pos		get_subline_coord(t_main *s, t_name value)
 	t_pos	new;
 	t_name	name;
 
-	new.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;;
+	new.x = WIDTH* 0.5 - s->editor->sprite_menu.image[0]->w* 0.5 + 205;;
 	new.y = 0;
 	name = 0;
 	if (value < table) //si on est sur les enemeis
@@ -43,8 +43,8 @@ void 		fill_sprite_list_value(t_main *s)
 	t_pos	coord;
 	t_pos	end;
 
-	coord.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;
-	coord.y = HEIGHT / 2 - s->editor->sprite_menu.image[0]->h / 2 + 5;
+	coord.x = WIDTH* 0.5 - s->editor->sprite_menu.image[0]->w* 0.5 + 205;
+	coord.y = HEIGHT* 0.5 - s->editor->sprite_menu.image[0]->h* 0.5 + 5;
 	end.x = coord.x + s->editor->sprite_menu.image[0]->w;
 	end.y = coord.y + s->editor->sprite_menu.image[0]->h;
 	// printf("select sprite = %d\n", s->editor->select_sprite);
@@ -53,8 +53,8 @@ void 		fill_sprite_list_value(t_main *s)
 	{
 		if (name == storm || name == table || name == o_gun)
 		{
-			coord.x = WIDTH / 2 - s->editor->sprite_menu.image[0]->w / 2 + 205;
-			coord.y = HEIGHT / 2 - s->editor->sprite_menu.image[0]->h / 2 + 5;
+			coord.x = WIDTH* 0.5 - s->editor->sprite_menu.image[0]->w* 0.5 + 205;
+			coord.y = HEIGHT* 0.5 - s->editor->sprite_menu.image[0]->h* 0.5 + 5;
 		}
 		if (coord.x + s->editor->all_sprite.image[name]->w < end.x)
 			s->editor->m_sprite_pos[name] = coord;
@@ -126,8 +126,8 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 		exit(-1);
 	if (!(sdl->save = initialize_texture(sdl, WIDTH, HEIGHT)))
 		exit(-1);
-	// sdl->x_o = WIDTH / 2 - ((SPACE * s->width) / 2);
-	// sdl->y_o = HEIGHT / 2 - ((SPACE * s->height) / 2);
+	// sdl->x_o = WIDTH* 0.5 - ((SPACE * s->width)* 0.5);
+	// sdl->y_o = HEIGHT* 0.5 - ((SPACE * s->height)* 0.5);
 	sdl->musique = NULL;
 	create_sounds(sdl);
 	// if (s->interface->h > HEIGHT * 0.3)

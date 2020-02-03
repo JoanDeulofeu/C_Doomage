@@ -148,8 +148,8 @@ void 	select_sprite_type(t_main *s)
 	t_pos	end;
 
 	img = s->editor->sprite_menu.image[0];
-	begin.x = WIDTH / 2 - img->w / 2;
-	begin.y = HEIGHT / 2 - img->h / 2;
+	begin.x = WIDTH* 0.5 - img->w* 0.5;
+	begin.y = HEIGHT* 0.5 - img->h* 0.5;
 	end.x = begin.x + img->w;
 	end.y = begin.y + img->h;
 	if (s->ft_mouse.x >= begin.x && s->ft_mouse.x <= begin.x + 200)
@@ -182,8 +182,8 @@ void 	display_sprite_menu(t_main *s)
 
 
 	menu = s->editor->sprite_menu;
-	coord.x = WIDTH / 2 - menu.image[0]->w / 2;
-	coord.y = HEIGHT / 2 - menu.image[0]->h / 2;
+	coord.x = WIDTH* 0.5 - menu.image[0]->w* 0.5;
+	coord.y = HEIGHT* 0.5 - menu.image[0]->h* 0.5;
 	ori = coord;
 	i = 0;
 

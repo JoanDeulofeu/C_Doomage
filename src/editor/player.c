@@ -20,10 +20,10 @@ void	rotate_player(t_main *s, const Uint8 *keys)
 	if (keys[LEFT_NUM] || keys[RIGHT_NUM])
 	{
 		angle = s->player.angle + (keys[RIGHT_NUM] - keys[LEFT_NUM])
-			* ROTATE_SPEED / 10 + 360;
+			* ROTATE_SPEED* 0.1+ 360;
 		s->player.angle = (int)angle % 360;
 		s->player.abs_angle = (int)(s->player.abs_angle + (keys[RIGHT_NUM] - keys[LEFT_NUM])
-			* ROTATE_SPEED / 10 + 360) % 360;
+			* ROTATE_SPEED* 0.1+ 360) % 360;
 			// printf("angle = %f, abs_angle = %f\n", s->player.angle, s->player.abs_angle);
 	}
 }

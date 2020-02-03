@@ -18,7 +18,7 @@ void	get_total_w_wall(t_walls *wall)
 	//---------------LEFT-------------------
 	dist_total = (dist_total == 0) ? 1 : dist_total;
 	perc = (dist_left * 100) / dist_total;
-	wall->left_void_side = (perc * wall->total_width_wall) / 100;
+	wall->left_void_side = (perc * wall->total_width_wall)* 0.01;
 }
 
 void	ft_limit_portal_texture(t_multithread *mt, int end, int *limit_ceiling, int *limit_floor)
@@ -32,8 +32,8 @@ void	ft_limit_portal_texture(t_multithread *mt, int end, int *limit_ceiling, int
 	diff_basse = mt->wall->floor_height_dest - mt->wall->floor_height;
 	diff_total = mt->wall->ceiling_height - mt->wall->floor_height;
 	diff_total_pxl = mt->wall_height_tmp;
-	*limit_ceiling = (end - mt->wall_height_tmp) + ((diff_haute * 100 / diff_total) * diff_total_pxl) / 100;
-	*limit_floor = end - ((diff_basse * 100 / diff_total) * diff_total_pxl) / 100;
+	*limit_ceiling = (end - mt->wall_height_tmp) + ((diff_haute * 100 / diff_total) * diff_total_pxl)* 0.01;
+	*limit_floor = end - ((diff_basse * 100 / diff_total) * diff_total_pxl)* 0.01;
 }
 
 void 	draw_texture(t_multithread *mt, t_pos coord, int end)
@@ -70,7 +70,7 @@ void 	draw_texture(t_multithread *mt, t_pos coord, int end)
 		!= mt->wall->r_left.y)) && ((mt->wall->right.x != mt->wall->r_right.x)
 		|| (mt->wall->right.y != mt->wall->r_right.y)))
 		x = mt->wall->left_void_side + mt->avcm_x;
-	nb_tex_x = (ft_dist_t_dpos(mt->wall->r_left, mt->wall->r_right) / METRE) / 2;
+	nb_tex_x = (ft_dist_t_dpos(mt->wall->r_left, mt->wall->r_right) / METRE)* 0.5;
 	nb_tex_y = abs(mt->wall->floor_height - mt->wall->ceiling_height);
 	tex_size_x = mt->wall->total_width_wall / nb_tex_x;
 	tex_size_y = (end - coord.y) / nb_tex_y;
@@ -100,8 +100,8 @@ void 	draw_texture(t_multithread *mt, t_pos coord, int end)
 			}
 		}
 		pery = (fmod((double)y, tex_size_y)) * 100 / tex_size_y;
-		px = (int)((pery * (double)mt->wall->image->h) / 100) * mt->wall->image->w
-			+ (int)((perx * (double)mt->wall->image->w) / 100);
+		px = (int)((pery * (double)mt->wall->image->h)* 0.01) * mt->wall->image->w
+			+ (int)((perx * (double)mt->wall->image->w)* 0.01);
 		// pthread_mutex_lock(&mutex_stock);
 		if (px >= 0 && px < mt->wall->image->w * mt->wall->image->h && mt->wall->image->tex[px] != 65280)
 			set_pixel(mt->s->sdl->game, mt->wall->image->tex[px], coord);

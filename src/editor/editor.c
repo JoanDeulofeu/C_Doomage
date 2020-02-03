@@ -29,7 +29,7 @@ void	draw_space_menu(t_main *s)
 	t_pos ori;
 	t_pos dest;
 
-	ori.x = WIDTH / 2 + (s->editor->menu.image[0]->w / 2) + 1;
+	ori.x = WIDTH* 0.5 + (s->editor->menu.image[0]->w* 0.5) + 1;
 	ori.y = -1;
 	dest.x = ori.x + s->editor->m_floor.image[0]->w;
 	dest.y = ori.y + s->editor->m_floor.image[0]->h + 1;
@@ -45,7 +45,7 @@ void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
 	t_image		*menu;
 
 	menu = s->editor->menu.image[s->editor->menu.current];
-	dest.x = WIDTH / 2 + (menu->w / 2) + 1;
+	dest.x = WIDTH* 0.5 + (menu->w* 0.5) + 1;
 	dest.y = menu->h;
 	coord.x = orig_x;
 	while (coord.x < dest.x)

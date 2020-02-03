@@ -32,7 +32,7 @@ t_dpos		to_edi_coord(t_main *s, t_dpos coord)
 
 double		ft_find_angle_plan(double a, double b, double c)
 {	//la variable c correspond a la longueur en face de langle a calculer
-	// printf("a(%f) + b(%f) - c(%f) / 2*a*b\n",a, b, c);
+	// printf("a(%f) + b(%f) - c(%f)* 0.5*a*b\n",a, b, c);
 	return (to_degres(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b))));
 }
 

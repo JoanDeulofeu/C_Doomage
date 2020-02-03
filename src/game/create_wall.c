@@ -5,7 +5,7 @@
 // 	double	demi_fov;
 //
 // 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(fake_vs.player,
-// 		fake_vs.left_plan), METRE, WIDTHPLAN / 2);
+// 		fake_vs.left_plan), METRE, WIDTHPLAN* 0.5);
 // 	fake_vs.angle = angle_mod(fake_angle);
 // 	fake_vs = get_walls_to_draw(s, fake_vs.player, fake_vs);
 // 	return (fake_vs);
@@ -27,8 +27,8 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 	// 	ft_draw_all_wall(s);
 	// 		if (s->editor->mode == portal)
 	// 		change_over_wall(s);
-	// 	draw_editor_menu(s, 0, WIDTH / 2
-	// 		- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+	// 	draw_editor_menu(s, 0, WIDTH* 0.5
+	// 		- (s->editor->menu.image[s->editor->menu.current]->w* 0.5), -1);
 	// 	draw_space_menu(s);
 	// }
 	fake_angle = 0;

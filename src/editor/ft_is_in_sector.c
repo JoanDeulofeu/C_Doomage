@@ -64,7 +64,7 @@ t_dpos		ft_find_coord(t_abpos l1, t_abpos l2, t_dpos p_l1, t_dpos p_l2, t_dpos b
 	// if (l1.a == -999935168.0)
 	// {
 	// 	coord.x = p_l1.x;
-	// 	mid = fabs(begin_l2.y - p_l2.y) / 2;
+	// 	mid = fabs(begin_l2.y - p_l2.y)* 0.5;
 	// 	coord.y = begin_l2.y < p_l2.y ? begin_l2.y + mid : p_l2.y + mid;
 	// }
 	// else if (l2.a == -999935168.0)
