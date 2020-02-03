@@ -81,7 +81,7 @@ void	play_sprites_anims(t_main *s)
 		{
 			if (sprite->a_name == walking && !sprite->destroy)
 			{
-				if (sprite->set)
+				if (sprite->displayed)
 					select_anim(s, sprite);
 				enemy_walk_anim(s, sprite);
 			}
@@ -106,6 +106,7 @@ void		kill_anim(t_main *s, t_sprite *sprite)
 		{
 			sprite->destroy = 1;
 			sprite->set = 0;
+			sprite->displayed = 0;
 			sprite->current = 0;
 		}
 

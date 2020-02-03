@@ -232,12 +232,14 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
 		return ;
 	create_all_walls(s, vtx, &vs, 1);
+	set_visible_sprites(s, &vs);
+	// print_wall_list(s);
 	wall = s->walls;
 	while (wall)
 	{
 		ft_print_wall(s, wall);
 		wall = wall->next;
 	}
-	set_visible_sprites(s, &vs);
+	// set_visible_sprites(s, &vs);
 	s->portal_nb = 0;
 }

@@ -425,7 +425,6 @@ t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 	sprite->r_ori = sprite->r_pos;
 	sprite->m_pos = pos;
 	sprite->life = 100;
-	sprite->set = 0;
 	get_sprite_info_by_name(s, name, sprite);
 	if (!check_limit_sprite(s, sct_id, sprite))
 	{

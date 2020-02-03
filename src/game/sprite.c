@@ -8,10 +8,7 @@ void		reset_statue(t_main *s)
 	while (sprite)
 	{
 		if (sprite->name == bomb)
-		{
 			sprite->current = 0;
-			printf("true\n");
-		}
 		sprite = sprite->next;
 	}
 }
@@ -39,6 +36,7 @@ int		check_if_visible(t_main *s, t_sprite *sprite)
 			if (ft_find_intersection(s, pos, 1))
 			{
 				sprite->set = 0;
+				sprite->displayed = 0;
 				return (0);
 			}
 		}
@@ -74,6 +72,7 @@ void 	unset_sprites(t_main *s)
 	{
 		sprite->dist = ft_dist_t_dpos(s->player.m_pos, sprite->m_pos);
 		sprite->set = 0;
+		sprite->displayed = 0;
 		sprite = sprite->next;
 	}
 }
@@ -122,6 +121,7 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 				liste->sprite->angle = 180 + (180 - liste->sprite->angle);
 			liste->sprite->angle = (angle_mod(liste->sprite->angle - vs->angle));
 			liste->sprite->set = 1;
+			liste->sprite->displayed = 1;
 		}
 		else
 			liste->sprite->set = 0;
@@ -148,7 +148,8 @@ void 	display_sprites(t_main *s)
 		sprite = s->sprite;
 		while (sprite) // cherche le sprite le plus loin
 		{
-			if (sprite->set == 1 && sprite->dist > far_away_dist && sprite->destroy == 0)
+
+			if (sprite->displayed == 1 && sprite->dist > far_away_dist && sprite->destroy == 0)
 			{
 				display = 1;
 				far_away_dist = sprite->dist;
@@ -161,11 +162,12 @@ void 	display_sprites(t_main *s)
 		sprite = s->sprite;
 		while (sprite) //avance jusquau sprite le plus loin pour lafficher
 		{
-			if (sprite->id == far_away_id && sprite->set == 1 && sprite->destroy == 0 && check_if_visible(s, sprite))
+
+			if (sprite->id == far_away_id && sprite->displayed == 1 && sprite->set == 1 & sprite->destroy == 0 && check_if_visible(s, sprite))
 			{
 				play_sprites_anims(s);
 				draw_sprite(s, sprite->angle, sprite);
-				sprite->set = 0;
+				sprite->displayed = 0;
 			}
 			sprite = sprite->next;
 		}
@@ -216,6 +218,7 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	int			tmp;
 	(void)angle;
 
+	draw_sprite_hitbox(s);
 	wp = cur->anim.image[cur->current];
 	pct = (cur->r_dist * METRE * 100) / cur->l_dist;
 	height = HEIGHT / ((pct * 0.001) * 4) * cur->size * HEIGHT_MULT;
