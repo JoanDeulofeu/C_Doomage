@@ -98,15 +98,6 @@ typedef struct				s_visu_sct
 	int						sx2;
 }							t_visu_sct;
 
-
-// typedef struct				s_lsprite
-// {
-// 	int						id;
-// 	t_image					*img;
-// 	t_lanim					*anim;
-// 	struct s_lsprite		*next;
-// }							t_lsprite;
-
 typedef struct				s_player
 {
 	int						dead;
@@ -244,7 +235,7 @@ typedef struct				s_sdl {
 	t_texture				*map;
 	t_texture				*game;
 	t_texture				*editor;
-	t_texture				*save; //ecran de sauvegarde
+	t_texture				*save;
 	int						x_o;
 	int						y_o;
 	t_sounds				sounds;
@@ -286,6 +277,7 @@ typedef struct				s_msg {
 }							t_msg;
 
 typedef struct				s_main {
+	pthread_t				thread[4];
 	int						block_move;
 	int						transition;
 	int						transition_y_eye;
@@ -293,7 +285,6 @@ typedef struct				s_main {
 	int						sct_without_ceiling;
 	int						printf;
 	int						count_wall;
-	int						pthread;
 	int						wall_fk_id;
 	int						play_or_editor;
 	t_timer					*time;
@@ -337,13 +328,23 @@ typedef struct				s_main {
 	//										au cas ou on le deplace dans un secteur.
 }							t_main;
 
+typedef struct				s_multithread {
+	t_main					*s;
+	t_walls					*wall;
+	double					l_height_wall;
+	double					r_height_wall;
+	int						width_wall;
+	int						wall_height_tmp;
+	int						avcm_x;
+}							t_multithread;
+
 void 						reset(t_main *s);
 void 						ending(t_main *s, int key);
 void						reset_statue(t_main *s);
 /*
 ****	Fonction du multithreading
 */
-void						ft_fucking_threading(t_main *s);
+void	ft_fucking_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall);
 
 /*
 ****	Fonction du visualisateur
@@ -358,10 +359,7 @@ t_walls 					*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 void						create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end);
 int							ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
 							Uint32 color, int sct_id);
-int							ft_draw_wall2(t_main *s, int start_wallx, int l_height_wall,
-							int r_height_wall, double width_wall, double longeur,
-							double start_tex);
-int							ft_print_wall(t_main *s, t_walls *wall);
+void						ft_print_wall(t_main *s, t_walls *wall);
 void						add_wall_to_list(t_main *s, t_walls *new);
 void						clear_wall_list(t_main *s);
 void						ft_limit_ceiling_floor(t_main *s,t_dpos left,
@@ -645,9 +643,10 @@ void						ft_print_sectors_sprites(t_main *s);
 void						display_sky(t_main *s);
 void						ft_draw_floor(t_main *s, t_walls *wall, t_pos coord);
 int							ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord);
-void 						draw_texture(t_main *s, t_walls *wall, t_pos coord, int end);
+void 						draw_texture(t_multithread *mt, t_pos coord, int end);
 void						get_total_w_wall(t_walls *wall);
 void 						change_wall_texture(t_main *s, int up);
+void						ft_draw_column(t_pos coord, int end, t_multithread *mt);
 
 /*
 ****	Fonction sprite chainlist

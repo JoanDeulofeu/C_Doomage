@@ -206,8 +206,5 @@ void		ft_visu_joan(t_main *s)
 	vs.right_floor_limit.y = HEIGHT;
 	vs.angle = angle_mod(s->player.angle);
 	vs = get_walls_to_draw(s, player, vs);
-	// printf("\n\n\n");
 	ft_draw_visu(s, get_sector_by_id(s, s->player.sector_id), vs);
-	// printf("\n");
-
 }
