@@ -105,6 +105,18 @@ void 		get_item(t_main *s, t_sprite *sprite)
 		s->time->jetpack_reserve = JET_TIME;
 		// s->time->jetpack_ms = s->time->time_ms;
 	}
+	else if (sprite->name == big_s_ammo)
+	{
+		s->player.mun_shotgun += 5;
+		if (s->player.mun_shotgun > 15)
+			s->player.mun_shotgun = 15;
+	}
+	else if (sprite->name == big_g_ammo)
+	{
+		s->player.mun_gun += 10;
+		if (s->player.mun_gun > 100)
+			s->player.mun_gun = 100;
+	}
 }
 
 void 		check_collectible(t_main *s)
@@ -128,7 +140,6 @@ void 		check_bomb(t_main *s)
 	t_sprite	*sprite;
 
 	sprite = s->sprite;
-	printf("current = %d\n", sprite->anim.current);
 	while (sprite)
 	{
 		if (sprite->name == bomb && sprite->r_dist < 3.5 && sprite->set == 1)
