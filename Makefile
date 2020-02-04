@@ -4,6 +4,8 @@ SRC_PATH = src
 
 SRC_NAME =	main.c							\
 			ttf.c							\
+			ttf2.c							\
+			ttf3.c							\
 			time.c							\
 			message.c						\
 			menu.c							\
