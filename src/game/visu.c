@@ -129,10 +129,10 @@ t_visu		ft_place_view_plan(t_main *s, t_dpos player, double angle, Uint32 color)
 	ft_bzero(&vs, sizeof(t_visu));
 	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;
 	ctr_p.y = player.y - sin(to_rad(angle)) * METRE;
-	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN / 2;
-	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN / 2;
-	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN / 2;
-	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN / 2;
+	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN* 0.5;
+	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN* 0.5;
+	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN* 0.5;
+	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN* 0.5;
 	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).x;
 	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, vs.left_plan)).y;
 	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, vs.right_plan)).x;

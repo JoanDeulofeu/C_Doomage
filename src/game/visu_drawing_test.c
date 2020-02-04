@@ -102,7 +102,7 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 		wall->ceiling_height_dest = sct->ceiling;
 		wall->portal_value = vtx->vtx_dest->ptr->id;
 	}
-	wall->screen_width_wall = (WIDTH * ((ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN)) / 100;
+	wall->screen_width_wall = (WIDTH * ((ft_dist_t_dpos(wall->l_plan, wall->r_plan) * 100.0) / WIDTHPLAN))* 0.01;
 	return (wall);
 }
 
@@ -214,7 +214,7 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
 	r_height_wall = HEIGHT / ((((r_big_dist * 100.0) / r_small_dist) * 0.001) * 4)
 	* ft_abs(vs->sct->floor - vs->sct->ceiling) * HEIGHT_MULT;
-	width_wall = (WIDTH * ((ft_dist_t_dpos(l_plan, r_plan) * 100.0) / WIDTHPLAN)) / 100;
+	width_wall = (WIDTH * ((ft_dist_t_dpos(l_plan, r_plan) * 100.0) / WIDTHPLAN))* 0.01;
 	pos.pos1 = vs->left_point;
 	pos.pos2 = vs->player;
 	pos.pos3 = left;
@@ -227,13 +227,13 @@ void	ft_limit_ceiling_floor(t_main *s, t_dpos left, t_dpos right, t_visu *vs, ch
 	l_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, l_height_wall);
 	r_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight, vs->sct->ceiling, vs->sct->floor, r_height_wall);
 	vs->left_ceiling_limit.x = (int)x;
-	vs->left_ceiling_limit.y = (HEIGHT / 2) - (l_height_wall) + s->player.y_eye + l_height_wall_diff;
+	vs->left_ceiling_limit.y = (HEIGHT* 0.5) - (l_height_wall) + s->player.y_eye + l_height_wall_diff;
 	vs->left_floor_limit.x = (int)x;
-	vs->left_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + l_height_wall_diff;
+	vs->left_floor_limit.y = (HEIGHT* 0.5) + s->player.y_eye + l_height_wall_diff;
 	vs->right_ceiling_limit.x = x + width_wall;
-	vs->right_ceiling_limit.y = (HEIGHT / 2) - (r_height_wall) + s->player.y_eye + r_height_wall_diff;
+	vs->right_ceiling_limit.y = (HEIGHT* 0.5) - (r_height_wall) + s->player.y_eye + r_height_wall_diff;
 	vs->right_floor_limit.x = vs->right_ceiling_limit.x;
-	vs->right_floor_limit.y = (HEIGHT / 2) + s->player.y_eye + r_height_wall_diff;
+	vs->right_floor_limit.y = (HEIGHT* 0.5) + s->player.y_eye + r_height_wall_diff;
 }
 
 void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
@@ -248,7 +248,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	create_all_walls(s, vtx, &vs, 1);
 	// print_wall_list(s);
 	wall = s->walls;
-	// ft_fucking_threading(s);
+	// ft_multi_threading(s);
 	while (wall)
 	{
 		ft_print_wall(s, wall);

@@ -19,7 +19,7 @@ void	*ft_draw_wall1(void *void_mt)
 	coord.x = mt->wall->x;
 	eyesight = mt->s->player.foot_height - mt->wall->floor_height + mt->s->player.size;
 
-	limit_thread = mt->width_wall / 4;
+	limit_thread = mt->width_wall* 0.25;
 	i = 0;
 	// printf("WALL(%d)  -  ft_draw_wall1 i %d        limit %d\n", mt->wall->id, i, limit_thread);
 
@@ -29,8 +29,8 @@ void	*ft_draw_wall1(void *void_mt)
 		mt->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, mt->wall->ceiling_height,
 			mt->wall->floor_height, height_wall);
-		coord.y = (HEIGHT / 2) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT / 2) + mt->s->player.y_eye + diff_height_pxl;
+		coord.y = (HEIGHT* 0.5) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT* 0.5) + mt->s->player.y_eye + diff_height_pxl;
 		if (coord.x > 0 && coord.x < WIDTH)
 		{
 			ft_draw_column(coord, bottom, mt);
@@ -39,9 +39,9 @@ void	*ft_draw_wall1(void *void_mt)
 		pct_avcm = (100 * (double)i) / (double)mt->width_wall;
 
 		if (mt->l_height_wall < mt->r_height_wall)
-			height_wall = mt->l_height_wall + (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall + (diff_wall * pct_avcm)* 0.01;
 		else if (mt->l_height_wall > mt->r_height_wall)
-			height_wall = mt->l_height_wall - (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall - (diff_wall * pct_avcm)* 0.01;
 		else
 			height_wall = mt->l_height_wall;
 	}
@@ -64,11 +64,11 @@ void	*ft_draw_wall2(void *void_mt)
 	mt = (t_multithread *)void_mt;
 	diff_wall = fabs(mt->l_height_wall - mt->r_height_wall);
 	height_wall = mt->l_height_wall;
-	coord.x = mt->wall->x + (mt->width_wall / 4);
+	coord.x = mt->wall->x + (mt->width_wall* 0.25);
 	eyesight = mt->s->player.foot_height - mt->wall->floor_height + mt->s->player.size;
 
-	limit_thread = mt->width_wall / 2;
-	i = mt->width_wall / 4;
+	limit_thread = mt->width_wall* 0.5;
+	i = mt->width_wall* 0.25;
 	// printf("WALL(%d)  -  ft_draw_wall1 i %d        limit %d\n", mt->wall->id, i, limit_thread);
 
 	while (i++ <= limit_thread)
@@ -76,17 +76,17 @@ void	*ft_draw_wall2(void *void_mt)
 		pct_avcm = (100 * (double)i) / (double)mt->width_wall;
 
 		if (mt->l_height_wall < mt->r_height_wall)
-			height_wall = mt->l_height_wall + (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall + (diff_wall * pct_avcm)* 0.01;
 		else if (mt->l_height_wall > mt->r_height_wall)
-			height_wall = mt->l_height_wall - (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall - (diff_wall * pct_avcm)* 0.01;
 		else
 			height_wall = mt->l_height_wall;
 		mt->wall_height_tmp = height_wall;
 		mt->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, mt->wall->ceiling_height,
 			mt->wall->floor_height, height_wall);
-		coord.y = (HEIGHT / 2) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT / 2) + mt->s->player.y_eye + diff_height_pxl;
+		coord.y = (HEIGHT* 0.5) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT* 0.5) + mt->s->player.y_eye + diff_height_pxl;
 		if (coord.x > 0 && coord.x < WIDTH)
 		{
 			ft_draw_column(coord, bottom, mt);
@@ -112,11 +112,11 @@ void	*ft_draw_wall3(void *void_mt)
 	mt = (t_multithread *)void_mt;
 	diff_wall = fabs(mt->l_height_wall - mt->r_height_wall);
 	height_wall = mt->l_height_wall;
-	coord.x = mt->wall->x + (mt->width_wall / 2);
+	coord.x = mt->wall->x + (mt->width_wall* 0.5);
 	eyesight = mt->s->player.foot_height - mt->wall->floor_height + mt->s->player.size;
 
-	limit_thread = (mt->width_wall / 4) * 3;
-	i = mt->width_wall / 2;
+	limit_thread = (mt->width_wall* 0.25) * 3;
+	i = mt->width_wall* 0.5;
 	// printf("WALL(%d)  -  ft_draw_wall1 i %d        limit %d\n", mt->wall->id, i, limit_thread);
 
 	while (i++ <= limit_thread)
@@ -124,17 +124,17 @@ void	*ft_draw_wall3(void *void_mt)
 		pct_avcm = (100 * (double)i) / (double)mt->width_wall;
 
 		if (mt->l_height_wall < mt->r_height_wall)
-			height_wall = mt->l_height_wall + (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall + (diff_wall * pct_avcm)* 0.01;
 		else if (mt->l_height_wall > mt->r_height_wall)
-			height_wall = mt->l_height_wall - (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall - (diff_wall * pct_avcm)* 0.01;
 		else
 			height_wall = mt->l_height_wall;
 		mt->wall_height_tmp = height_wall;
 		mt->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, mt->wall->ceiling_height,
 			mt->wall->floor_height, height_wall);
-		coord.y = (HEIGHT / 2) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT / 2) + mt->s->player.y_eye + diff_height_pxl;
+		coord.y = (HEIGHT* 0.5) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT* 0.5) + mt->s->player.y_eye + diff_height_pxl;
 		if (coord.x > 0 && coord.x < WIDTH)
 		{
 			ft_draw_column(coord, bottom, mt);
@@ -161,11 +161,11 @@ void	*ft_draw_wall4(void *void_mt)
 	mt = (t_multithread *)void_mt;
 	diff_wall = fabs(mt->l_height_wall - mt->r_height_wall);
 	height_wall = mt->l_height_wall;
-	coord.x = mt->wall->x + (mt->width_wall / 4) * 3;
+	coord.x = mt->wall->x + (mt->width_wall* 0.25) * 3;
 	eyesight = mt->s->player.foot_height - mt->wall->floor_height + mt->s->player.size;
 
 	limit_thread = mt->width_wall;
-	i = (mt->width_wall / 4) * 3;
+	i = (mt->width_wall* 0.25) * 3;
 	// printf("WALL(%d)  -  ft_draw_wall1 i %d        limit %d\n", mt->wall->id, i, limit_thread);
 
 	while (i++ <= limit_thread)
@@ -173,17 +173,17 @@ void	*ft_draw_wall4(void *void_mt)
 		pct_avcm = (100 * (double)i) / (double)mt->width_wall;
 
 		if (mt->l_height_wall < mt->r_height_wall)
-			height_wall = mt->l_height_wall + (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall + (diff_wall * pct_avcm)* 0.01;
 		else if (mt->l_height_wall > mt->r_height_wall)
-			height_wall = mt->l_height_wall - (diff_wall * pct_avcm) / 100;
+			height_wall = mt->l_height_wall - (diff_wall * pct_avcm)* 0.01;
 		else
 			height_wall = mt->l_height_wall;
 		mt->wall_height_tmp = height_wall;
 		mt->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, mt->wall->ceiling_height,
 			mt->wall->floor_height, height_wall);
-		coord.y = (HEIGHT / 2) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT / 2) + mt->s->player.y_eye + diff_height_pxl;
+		coord.y = (HEIGHT* 0.5) - (height_wall) + mt->s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT* 0.5) + mt->s->player.y_eye + diff_height_pxl;
 		if (coord.x > 0 && coord.x < WIDTH)
 		{
 			ft_draw_column(coord, bottom, mt);
@@ -201,12 +201,12 @@ void	ft_fill_mt(t_multithread *mt, t_walls *wall, double l_height_wall, double r
 	mt->width_wall = width_wall;
 }
 
-void	ft_fucking_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
+void	ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
 {
 	int	i;
 	t_multithread mt[4];
 	pthread_t thread[4];
-	
+
 	i = -1;
 	get_total_w_wall(wall);
 

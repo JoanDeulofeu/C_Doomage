@@ -93,7 +93,7 @@ void	ft_save_map(t_main *s)
 	coord.x = 0;
 	coord.y = 0;
 	gettimeofday(&tv, NULL);
-	mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+	mill = (tv.tv_sec) * 1000 + (tv.tv_usec)* 0.001;
 	sec = mill;
 	display_croix_rouge(s, 20, 20, coord);
 	ft_draw_rect_text(s);

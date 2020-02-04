@@ -80,13 +80,13 @@ void		change_weapon(t_main *s, int up)
 // 			j = 0;
 // 			ret.x = i;
 // 			ret.x += cur->angle * (double)(WIDTH / 80)
-// 				- ((cur->img->w * value) / 2);
+// 				- ((cur->img->w * value)* 0.5);
 // 			while (j < (cur->img->h) * value)
 // 			{
 // 				ret.y = j++;
-// 				ret.y += HEIGHT / 2 + s->player.y_eye + s->player.eyesight
+// 				ret.y += HEIGHT* 0.5 + s->player.y_eye + s->player.eyesight
 // 					- (((cur->img->h * value) / 3.5));
-// 				if ((int)ret.x == (WIDTH / 2) && (int)ret.y == (HEIGHT / 2))
+// 				if ((int)ret.x == (WIDTH* 0.5) && (int)ret.y == (HEIGHT* 0.5))
 // 				{
 // 					if (cur->r_dist < dist || dist == -1)
 // 					{
@@ -134,7 +134,7 @@ void		fire(t_main *s)
 		// 	printf("sprite set");
 		if (sprite->name == storm && sprite->set == 1 &&
 			sprite->r_dist < s->player.range
-			&& (WIDTH / 2) > sprite->x && WIDTH / 2 <
+			&& (WIDTH* 0.5) > sprite->x && WIDTH* 0.5 <
 			sprite->x + (sprite->anim.image[sprite->current]->w
 				* ((HEIGHT / sprite->r_dist) / 60)))
 		{

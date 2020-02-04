@@ -18,7 +18,7 @@ static void		ft_printnb(long nb, int fd)
 
 	if (nb > 9)
 	{
-		ft_printnb(nb / 10, fd);
+		ft_printnb(nb* 0.1, fd);
 		c = '0' + nb % 10;
 		write(fd, &c, 1);
 	}

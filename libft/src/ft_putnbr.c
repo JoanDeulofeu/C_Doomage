@@ -17,7 +17,7 @@ static void	ft_printnb(long nb)
 {
 	if (nb > 9)
 	{
-		ft_printnb(nb / 10);
+		ft_printnb(nb* 0.1);
 		ft_putchar(nb % 10 + '0');
 	}
 	else

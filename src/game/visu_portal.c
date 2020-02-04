@@ -244,7 +244,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	angle_left = ft_find_angle_portal(&player, &vs.begin, NULL, 1);
 	if (player.y < vs.begin.y)
 		angle_left = 180 + (180 - angle_left);
-	// vs.angle = (angle_right + angle_left) / 2;
+	// vs.angle = (angle_right + angle_left)* 0.5;
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, WHITE, vs.sct_id); //#37f3ff
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.begin))), WHITE);

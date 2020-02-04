@@ -147,7 +147,7 @@ void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
 void		draw_hud(t_main *s)
 {
 	if (s->player.weapon.image[s->player.weapon.current])
-		draw_weapon(s, 0, WIDTH / 2 + (s->player.weapon.image[s->player.weapon.current]->w), HEIGHT - (s->player.weapon.image[s->player.weapon.current]->h * 2) - s->player.hud->h);
+		draw_weapon(s, 0, WIDTH* 0.5 + (s->player.weapon.image[s->player.weapon.current]->w), HEIGHT - (s->player.weapon.image[s->player.weapon.current]->h * 2) - s->player.hud->h);
 	display_crosshair(s, 0, 0);
 	display_hud(s, 0, 0);
 }
@@ -163,18 +163,18 @@ void		display_crosshair(t_main *s, int i, int j)
 	coord.x = 0;
 	coord.y = 0;
 	wp = s->player.crosshair;
-	//coord.x = WIDTH / 2 - (wp->w / 2);
+	//coord.x = WIDTH* 0.5 - (wp->w* 0.5);
 	while (i < wp->w)
 	{
 		j = 0;//dont touch
 		coord.x = i;
 		perx = (double)coord.x / (double)wp->w;
-		coord.x += WIDTH / 2 - (wp->w / 2);
+		coord.x += WIDTH* 0.5 - (wp->w* 0.5);
 		while (j < wp->h)
 		{
 			coord.y = j++;
 			pery = (double)coord.y / (double)wp->h;
-			coord.y += HEIGHT / 2 - (wp->h / 2);
+			coord.y += HEIGHT* 0.5 - (wp->h* 0.5);
 			px = (int)(pery * (double)wp->h) * wp->w + (int)(perx
 				* (double)wp->w);
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 10676224)

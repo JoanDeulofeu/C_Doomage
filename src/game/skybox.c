@@ -66,7 +66,7 @@ void			display_sky(t_main *s)
 //    coord.x = -1;
 //    fov = ft_find_angle_portal(&s->sky.player, &s->sky.left_point, &s->sky.right_point, 1);
 //    // printf("fov = %.2f\n", fov);
-//    angle_left = s->player.angle - (fov / 2);
+//    angle_left = s->player.angle - (fov* 0.5);
 //    // printf("angle = %.2f\n", angle_left);
 //    pct_text = (fov * 100) / 360;
 //    // printf("pct = %.2f\n", pct_text);

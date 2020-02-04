@@ -50,7 +50,7 @@ int		ft_get_diff_height_pxl(double eyesight, int ceiling_height, int floor_heigh
 
 	ig_height_wall = ceiling_height - floor_height;
 	pct_eyesight = (eyesight * 100 / ig_height_wall);
-	return ((pct_eyesight * height_wall) / 100);
+	return ((pct_eyesight * height_wall)* 0.01);
 }
 
 int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
@@ -76,8 +76,8 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		wall->wall_height_tmp = height_wall;
 		wall->avcm_x = i;
 		diff_height_pxl = ft_get_diff_height_pxl(eyesight, wall->ceiling_height, wall->floor_height, height_wall);
-		coord.y = (HEIGHT / 2) - (height_wall) + s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
+		coord.y = (HEIGHT* 0.5) - (height_wall) + s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT* 0.5) + s->player.y_eye + diff_height_pxl;
 		// if (coord.x > 0 && coord.x < WIDTH)
 		// {
 		// 	if (i == 1 || i == width_wall)
@@ -89,9 +89,9 @@ int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_heigh
 		pct_avcm = (100 * (double)i) / (double)width_wall;
 
 		if (l_height_wall < r_height_wall)
-			height_wall = l_height_wall + (diff_wall * pct_avcm) / 100;
+			height_wall = l_height_wall + (diff_wall * pct_avcm)* 0.01;
 		else if (l_height_wall > r_height_wall)
-			height_wall = l_height_wall - (diff_wall * pct_avcm) / 100;
+			height_wall = l_height_wall - (diff_wall * pct_avcm)* 0.01;
 		else
 			height_wall = l_height_wall;
 	}

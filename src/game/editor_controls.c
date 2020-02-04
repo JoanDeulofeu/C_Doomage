@@ -55,7 +55,7 @@ void		click_editor_menu(t_main *s, t_anim menu, int x)
 	int		case_size;
 	int		ori_x;
 
-	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
+	ori_x = WIDTH* 0.5 - (s->editor->menu.image[s->editor->menu.current]->w* 0.5);
 	case_size = menu.image[0]->w / 6;
 	if (s->display_mode)
 		return ;
@@ -90,7 +90,7 @@ int			check_click_menu(t_main *s)
 	x = s->ft_mouse.x;
 	y = s->ft_mouse.y;
 	case_size = s->editor->menu.image[0]->w / 6;
-	ori_x = WIDTH / 2 - (s->editor->menu.image[s->editor->menu.current]->w / 2);
+	ori_x = WIDTH* 0.5 - (s->editor->menu.image[s->editor->menu.current]->w* 0.5);
 	dest_x = ori_x + s->editor->menu.image[s->editor->menu.current]->w;
 	if (x >= ori_x && y >= 0 && x < dest_x + case_size && y <
 		s->editor->menu.image[s->editor->menu.current]->h)
@@ -298,8 +298,8 @@ void		handle_editor_keys(t_main *s)
 			s->editor->m_floor.current = 0;
 		if (s->editor->mode == portal)
 			change_over_wall(s);
-		draw_editor_menu(s, 0, WIDTH / 2
-			- (s->editor->menu.image[s->editor->menu.current]->w / 2), -1);
+		draw_editor_menu(s, 0, WIDTH* 0.5
+			- (s->editor->menu.image[s->editor->menu.current]->w* 0.5), -1);
 		draw_space_menu(s);
 		handle_sector_zero(s);
 		unset_sprites(s);

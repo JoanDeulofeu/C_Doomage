@@ -205,7 +205,7 @@ int		ft_get_sprite_height_pxl(t_main *s, t_sprite *sprite, double height)
 	s->player.eyesight = s->player.foot_height - sct->floor + s->player.size;
 	pct_eyesight = (s->player.eyesight * 100 / sprite->size);
 	// printf("pct = %.2f      ", pct_eyesight);
-	return ((pct_eyesight * height) / 100);
+	return ((pct_eyesight * height)* 0.01);
 }
 
 void		draw_sprite(t_main *s, double angle, t_sprite *cur)
@@ -230,29 +230,29 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	pct = (cur->r_dist * METRE * 100) / cur->l_dist;
 	height = HEIGHT / ((pct * 0.001) * 4) * cur->size * HEIGHT_MULT;
 	pct = (100 * wp->w) / wp->h;
-	width = (pct * height) / 100;
+	width = (pct * height)* 0.01;
 	i = 0;
-	coord.x = cur->x - (width / 2);
-	while (coord.x < cur->x + width / 2 && coord.x >= 0 && coord.x <= WIDTH)
+	coord.x = cur->x - (width* 0.5);
+	while (coord.x < cur->x + width* 0.5 && coord.x >= 0 && coord.x <= WIDTH)
 	{
 		j = 0;
 		// coord.x = cur->x + i;
-		perx = (double)((coord.x - cur->x - width / 2) * 100) / (width);
+		perx = (double)((coord.x - cur->x - width* 0.5) * 100) / (width);
 		// printf("perx = %f\n", perx);
 
 		diff_height_pxl = ft_get_sprite_height_pxl(s, cur, height);
-		coord.y = (HEIGHT / 2) - height + s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT / 2) + s->player.y_eye + diff_height_pxl;
+		coord.y = (HEIGHT* 0.5) - height + s->player.y_eye + diff_height_pxl;
+		bottom = (HEIGHT* 0.5) + s->player.y_eye + diff_height_pxl;
 		tmp = coord.y;
 		while (coord.y < bottom) //J'ai ajouté la protection pour pas que ca rame mais ça fait disparaitre le sprite quand on ets trop pres
 		{
 			pery = (double)((coord.y - tmp) * 100) / height;
 			if (cur->inverse == 0)
-				px = (int)(pery / 100 * (double)wp->h) * wp->w
-					+ (int)(perx / 100 * (double)wp->w);
+				px = (int)(pery* 0.01* (double)wp->h) * wp->w
+					+ (int)(perx* 0.01* (double)wp->w);
 			else
-				px = (int)(pery / 100 * (double)wp->h) * wp->w
-					- (int)(perx / 100 * (double)wp->w);
+				px = (int)(pery* 0.01* (double)wp->h) * wp->w
+					- (int)(perx* 0.01* (double)wp->w);
 
 			if (px >= 0 && px < wp->w * wp->h && wp->tex[px] != 65280)
 				set_pixel(s->sdl->game, wp->tex[px], coord);
