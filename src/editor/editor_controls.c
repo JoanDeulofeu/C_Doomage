@@ -330,7 +330,8 @@ void		handle_editor_keys(t_main *s)
 	if (s->display_mode == game)
 	{
 		display_sky(s);
-		display_map(s);
+		// display_map(s); // MERDE (pas de segfault)
+		set_player(s);
 
 		handle_sector_zero(s);
 		unset_sprites(s);

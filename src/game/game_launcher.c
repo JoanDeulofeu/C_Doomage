@@ -31,11 +31,12 @@ void		handle_game_keys(t_main *s)
 
 		if (s->player.size == PLAYER_SIZE && !s->block_move)
 			ft_jump(s, keys);
+
 		ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
 		display_sky(s);
 		if (s->skybox.current != 0)
 			destroy_planet(s);
-		display_map(s);
+		set_player(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s);
@@ -43,7 +44,7 @@ void		handle_game_keys(t_main *s)
 		rand_move(s);
 		play_sprites_anims(s);
 		if (keys[SDL_SCANCODE_E])
-			 check_bomb(s);
+			check_bomb(s);
 		display_sprites(s);
 		draw_hud(s);
 		animate_weapon(s);
@@ -68,7 +69,6 @@ void		game_handler(t_main *s)
 	while (ingame)
 	{
 		s->time->time_ms = SDL_GetTicks();
-		animate_weapon(s);
 		while ((SDL_PollEvent(&(s->sdl->event))) != 0)
 		{
 			if (s->sdl->event.type == SDL_MOUSEMOTION && !s->block_move)
