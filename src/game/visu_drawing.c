@@ -33,7 +33,6 @@ int		print_wall_or_sprite(t_main *s, t_walls *wall)
 
 		if (ft_find_intersection(s, pos, 1) && wall->wall_or_portal == 'w')
 		{
-			printf("here\n");
 			print_sprite(s, farthest);
 			return (0);
 		}
