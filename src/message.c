@@ -13,13 +13,13 @@ void	ft_create_message(t_main *s, int color, int duration, char *str)
 {
 	if (str == NULL)
 		return ;
-	if (color == 1) //vert
+	if (color == 1)
 	{
 		s->msg->r = 0;
 		s->msg->g = 255;
 		s->msg->b = 0;
 	}
-	else if (color == 2) //rouge
+	else if (color == 2)
 	{
 		s->msg->r = 255;
 		s->msg->g = 0;
