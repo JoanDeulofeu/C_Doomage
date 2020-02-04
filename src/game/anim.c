@@ -129,75 +129,66 @@ void 	enemy_walk_anim(t_main *s, t_sprite *sprite)
 void 	select_anim(t_main *s, t_sprite *sprite)
 {
 	t_walls 	*wall;
-	double		angle;
-	t_dpos		point;
+	double		angle = 0.0;
+	// t_dpos		point;
 
 	wall = s->walls;
 	while (wall && wall->sct_id != sprite->sct_id)
 		wall = wall->next;
-	point.x = sprite->m_pos.x + cos(to_rad(sprite->s_angle)) * 2;
-	point.y = sprite->m_pos.y - sin(to_rad(sprite->s_angle)) * 2;
+	// point.x = sprite->m_pos.x + cos(to_rad(sprite->s_angle)) * 2;
+	// point.y = sprite->m_pos.y - sin(to_rad(sprite->s_angle)) * 2;
 	// printf("angle sprite = %f\n", sprite->s_angle);
-	angle = ft_find_angle_portal(&sprite->m_pos, &wall->player, &point, 1);
+	// angle = ft_find_angle_portal(&sprite->m_pos, &wall->player, &point, 1);
+
+	if (wall->angle > 360)
+		wall->angle = fmod(wall->angle, 360);
+	if (sprite->s_angle > 360)
+		sprite->s_angle = fmod(sprite->s_angle, 360);
+
+	angle = wall->angle - sprite->s_angle;
 	// printf("angle = %f\n", angle);
-	if (wall->player.y > sprite->m_pos.y)
-		angle = 180 + (180 - angle);
-	if (angle > 202)
+	// if (wall->player.y > sprite->m_pos.y)
+	// 	angle = 180 + (180 - angle);
+	if (angle > 180 || (angle > -180 && angle < 0))
 		sprite->inverse = 0;
 	else
 		sprite->inverse = 1;
-	if (angle > 337 || angle <= 22)
+	if ((angle >= 0 && angle <= 23) || (angle >= 338 && angle <= 360)
+	|| (angle >= -23 && angle <= 0) || (angle >= -360 && angle <= -338))
 	{
-		sprite->anim = s->stormtrooper.face;
-		// printf("face\n");
-		if (sprite->r_dist < STORM_RANGE) //ajouter find intersection pour savoir s'il y a un mur entre nous
-		{
-			sprite->current = 0;
-			sprite->anim = s->stormtrooper.shooting;
-			sprite->a_name = shooting;
-			// sprite_shooting(s, sprite);
-		}
+		sprite->anim = s->stormtrooper.back;
 	}
-	else if ((angle > 22 && angle <= 67) || (angle > 292 && angle <= 337))
+	else if ((angle >= 203 && angle <= 248) || (angle >= -158 && angle <= -113)
+		|| (angle >= 113 && angle <= 158) || (angle >= -248 && angle <= -203))
 	{
-		// printf("3/4 face");
-		// if (sprite->inverse)
-		// 	printf (" droite\n");
-		// else
-		// 	printf("\n");
 		sprite->anim = s->stormtrooper.prof_face;
 		if (sprite->r_dist < STORM_RANGE) //ajouter find intersection pour savoir s'il y a un mur entre nous
 		{
 			sprite->current = 0;
 			sprite->anim = s->stormtrooper.shooting;
 			sprite->a_name = shooting;
-			// sprite_shooting(s, sprite);
 		}
 
 	}
-
-	else if ((angle > 67 && angle <= 112) || (angle > 247 && angle <= 292))
+	else if ((angle >= 248 && angle <= 293) || (angle >= -113 && angle <= -68)
+		|| (angle >= 68 && angle <= 113) || (angle >= -293 && angle <= -248))
 	{
-		// printf("prof");
-		// if (sprite->inverse)
-		// 	// printf (" droite\n");
-		// else
-		// 	printf("\n");
 		sprite->anim = s->stormtrooper.prof;
 	}
-	else if ((angle > 112 && angle <= 157) || (angle > 202 && angle <= 247))
+	else if ((angle >= 23 && angle <= 68) || (angle >= 293 && angle <= 338)
+		|| (angle >= -338 && angle <= -293) || (angle >= -68 && angle <= -23))
 	{
-		// printf("3/4 dos");
-		// if (sprite->inverse)
-		// 	printf (" droite\n");
-		// else
-		// 	printf("\n");
 		sprite->anim = s->stormtrooper.prof_back;
 	}
-	else if (angle > 157 && angle <= 202)
+	else if ((angle >= 158 && angle <= 203) || (angle >= -203 && angle <= -158))
 	{
-		// printf("dos\n");
-		sprite->anim = s->stormtrooper.back;
+		sprite->anim = s->stormtrooper.face;
+		if (sprite->r_dist < STORM_RANGE) //ajouter find intersection pour savoir s'il y a un mur entre nous
+		{
+			sprite->current = 0;
+			sprite->anim = s->stormtrooper.shooting;
+			sprite->a_name = shooting;
+		}
 	}
 
 }
