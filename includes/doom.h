@@ -690,6 +690,7 @@ void						set_sprite(t_main *s);
 void 						add_sprite_to_sector(t_main *s, t_sprite *sprite);
 void 						draw_plain_sprite(t_main *s, t_pos coord, t_image *img, t_texture *tex);
 int							check_if_visible(t_main *s, t_sprite *sprite);
+void						print_sprite(t_main *s, t_sprite *farthest);
 void 						check_bomb(t_main *s);
 
 /*

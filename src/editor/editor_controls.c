@@ -336,7 +336,7 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s);
-		display_sprites(s);
+		// display_sprites(s);
 		clear_wall_list(s);
 		// ft_nul(s);
 		animate_weapon(s);

@@ -39,13 +39,12 @@ void		handle_game_keys(t_main *s)
 		set_player(s);
 		handle_sector_zero(s);
 		unset_sprites(s);
+		if (keys[SDL_SCANCODE_E])
+			 check_bomb(s);
+		play_sprites_anims(s);
 		ft_visu_joan(s);
 		fly(s);
 		rand_move(s);
-		play_sprites_anims(s);
-		if (keys[SDL_SCANCODE_E])
-			check_bomb(s);
-		display_sprites(s);
 		draw_hud(s);
 		animate_weapon(s);
 		clear_wall_list(s);
