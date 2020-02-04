@@ -7,7 +7,7 @@ void	ft_set_time(t_main *s)
 	s->time->tmp_sec_fps = s->time->time_ms * 0.001;
 }
 
-void	ft_fps(t_main* s)
+void	ft_fps(t_main *s)
 {
 	int		time;
 
