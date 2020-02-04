@@ -32,7 +32,7 @@ int		check_if_visible(t_main *s, t_sprite *sprite)
 			// {
 			// 	// printf("check sector (%d)    pos player (%.1f, %.1f)\n", wall->sct_id, wall->player.x, wall->player.y);
 			// }
-			draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos.pos2)), S_RED);
+			// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, pos.pos2)), S_RED);
 			if (ft_find_intersection(s, pos, 1))
 			{
 				sprite->set = 0;
@@ -70,7 +70,8 @@ void 	unset_sprites(t_main *s)
 		return ;
 	while (sprite)
 	{
-		sprite->dist = ft_dist_t_dpos(s->player.m_pos, sprite->m_pos);
+		// sprite->dist = ft_dist_t_dpos(s->player.m_pos, sprite->m_pos);
+		sprite->dist = sprite->r_dist * METRE;
 		sprite->set = 0;
 		sprite->displayed = 0;
 		sprite = sprite->next;
