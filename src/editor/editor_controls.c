@@ -312,6 +312,7 @@ void		handle_editor_keys(t_main *s)
 		handle_sector_zero(s);
 		unset_sprites(s);
 		ft_visu_joan(s);
+		// printf("sprite->set = %d\n", s->sprite->set);
 		clear_wall_list(s);
 		if (s->editor->select_sprite)
 			display_sprite_menu(s);

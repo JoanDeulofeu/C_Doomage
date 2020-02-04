@@ -69,24 +69,43 @@ void		rand_move(t_main *s)
 	sprite = s->sprite;
 	while (sprite)
 	{
-		if (sprite->set == 1 && sprite->name == storm && sprite->destroy == 0 && sprite->a_name == walking)
+		printf("sprite->set = %d\n", sprite->set);
+		if (sprite->name == storm && sprite->destroy == 0 && sprite->a_name == walking)
 		{
 			target.x = sprite->m_pos.x;
 			target.y = sprite->m_pos.y;
 			target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
-			if (ft_is_in_sector(s, target) != 0)
-			{
-				sprite->r_pos.x = target.x / METRE;
-				sprite->r_pos.y = target.y / METRE;
-				set_sprite(s);
-			}
-			else
-			{
-				angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
-				// printf("angle =%f\n",angle);
-				sprite->s_angle = angle;
-			}
+			// if (sprite->set == 1)
+			// {
+				if (ft_find_wall2(s, sprite->m_pos, target, S_RED, sprite->sct_id))
+				{
+					angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
+					sprite->s_angle = angle;
+				}
+				else
+				{
+					sprite->r_pos.x = target.x / METRE;
+					sprite->r_pos.y = target.y / METRE;
+					set_sprite(s);
+				}
+			// }
+			// else
+			// {
+			// 	if (ft_is_in_sector(s, target) != 0)
+			// 	{
+			// 		sprite->r_pos.x = target.x / METRE;
+			// 		sprite->r_pos.y = target.y / METRE;
+			// 		set_sprite(s);
+			// 	}
+			// 	else
+			// 	{
+			// 		angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
+			// 		// printf("angle =%f\n",angle);
+			// 		sprite->s_angle = angle;
+			// 	}
+			// }
+
 		}
 		sprite = sprite->next;
 
