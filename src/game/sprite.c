@@ -58,7 +58,7 @@ void 	get_sprite_x(t_main *s, t_visu *vs, t_sprite *sprite)
 	ft_find_intersection(s, pos, 1);
 	per = ft_dist_t_dpos(pos.pos1, s->tmp_intersect)
 	* 100 / ft_dist_t_dpos(pos.pos1, pos.pos2);
-	sprite->x = per * WIDTH / 100 - sprite->anim.image[sprite->anim.current]->w;
+	sprite->x = per * WIDTH / 100;
 
 }
 
@@ -127,6 +127,13 @@ void 	set_visible_sprites(t_main *s, t_visu *vs)
 			liste->sprite->set = 0;
 		liste = liste->next;
 	}
+}
+
+void	print_sprite(t_main *s, t_sprite *sprite)
+{
+	play_sprites_anims(s);
+	draw_sprite(s, sprite->angle, sprite);
+	sprite->displayed = 0;
 }
 
 void 	display_sprites(t_main *s)
@@ -218,7 +225,7 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	int			tmp;
 	(void)angle;
 
-	draw_sprite_hitbox(s);
+	// draw_sprite_hitbox(s);
 	wp = cur->anim.image[cur->current];
 	pct = (cur->r_dist * METRE * 100) / cur->l_dist;
 	height = HEIGHT / ((pct * 0.001) * 4) * cur->size * HEIGHT_MULT;

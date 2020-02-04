@@ -1,5 +1,56 @@
 #include "doom.h"
 
+int		print_wall_or_sprite(t_main *s, t_walls *wall)
+{
+	t_sprite 	*sprite;
+	t_sprite 	*farthest;
+	t_4dpos		pos;
+	int			dist;
+
+	sprite = s->sprite;
+	farthest = NULL;
+	dist = 0;
+	while (sprite)
+	{
+		if (sprite->set && sprite->displayed && sprite->dist > dist && sprite->destroy == 0)
+		{
+			farthest = sprite;
+			dist = farthest->dist;
+		}
+		sprite = sprite->next;
+	}
+	if (!farthest)
+	{
+		ft_print_wall(s, wall);
+		return (1);
+	}
+	if (wall->l_dist > farthest->dist || wall->b_dist > farthest->dist)
+	{
+		pos.pos1 = wall->left;
+		pos.pos2 = wall->right;
+		pos.pos3 = wall->player;
+		pos.pos4 = farthest->m_pos;
+
+		if (ft_find_intersection(s, pos, 1) && wall->wall_or_portal == 'w')
+		{
+			printf("here\n");
+			print_sprite(s, farthest);
+			return (0);
+		}
+		else
+		{
+			ft_print_wall(s, wall);
+			return (1);
+		}
+	}
+	else
+	{
+		print_sprite(s, farthest);
+		return (0);
+	}
+
+}
+
 void	ft_create_new_wall2(t_walls *wall, t_int *vtx, t_visu *vs, int part)
 {
 	if (part == 1)
@@ -237,9 +288,10 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	wall = s->walls;
 	while (wall)
 	{
-		ft_print_wall(s, wall);
-		wall = wall->next;
+		if (print_wall_or_sprite(s, wall) == 1)
+			wall = wall->next;
 	}
+	display_sprites(s);
 	// set_visible_sprites(s, &vs);
 	s->portal_nb = 0;
 }

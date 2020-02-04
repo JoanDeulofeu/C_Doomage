@@ -152,7 +152,7 @@ void		fire(t_main *s)
 	{
 		printf("hit\n");
 		save_sprite->life -= s->player.power;
-		if (save_sprite->life <= 0)
+		if (save_sprite->life <= 0 && save_sprite->a_name != dying)
 		{
 			save_sprite->anim = s->stormtrooper.dying;
 			save_sprite->a_name = dying;
