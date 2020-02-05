@@ -611,18 +611,6 @@ void						ft_save_msg(t_main *s, int error);
 void						ft_write_file(t_main *s);
 
 /*
-****	Fonction des fixed float
-*/
-void						ft_test_float(void);
-t_dpos						ft_fixfloat_to_dpos(t_fix_pos fix);
-t_fix_pos					ft_dpos_to_fixfloat(t_dpos dpos);
-fixed_float					ft_float_to_fixed(double input);
-double						ft_fixed_to_float(fixed_float input);
-fixed_float					ft_fixed_pow(fixed_float nb, int power);
-fixed_float					ft_fixed_sqrt(fixed_float nb);
-fixed_float					ft_fixed_mul(fixed_float a, fixed_float b);
-
-/*
 ****	Fonction des ttf
 */
 void						ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);

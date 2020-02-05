@@ -52,7 +52,6 @@ SRC_NAME =	main.c							\
 			editor/mode_floor.c				\
 			editor/free.c					\
 			editor/free_images.c			\
-			editor/fixed_float.c			\
 			editor/parser_tga.c				\
 			editor/edit_portals.c			\
 			editor/list_utils.c				\
