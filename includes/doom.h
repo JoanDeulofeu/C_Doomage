@@ -36,7 +36,7 @@
 # define ANGLE_MAX 360
 # define SPRITE_DETECTION 5
 # define SPRITE_SHOT_DIST 3
-# define SPRITE_MOVE_SPEED 3
+# define SPRITE_MOVE_SPEED 0.1
 # define STORM_RANGE 6
 # define JET_TIME 10000
 
@@ -344,7 +344,7 @@ void						reset_statue(t_main *s);
 /*
 ****	Fonction du multithreading
 */
-void	ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall);
+void						ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall);
 
 /*
 ****	Fonction du visualisateur
@@ -371,6 +371,7 @@ int							ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall,
 	 						double r_height_wall, int width_wall);
 int							ft_get_diff_height_pxl(double eyesight, int ceiling_height,
 							int floor_height, int height_wall);
+int							ft_get_sprite_height_pxl(t_main *s, t_sprite *sprite, double height);
 
 /*
 ****	Fonction d'initialisation
@@ -590,7 +591,7 @@ void						display_hud(t_main *s, int i, int j);
 void						shoot(t_main *s);
 void						display_crosshair(t_main *s, int i, int j);
 // void						draw_weapon2(t_main *s, int i, int j);
-int							is_colliding(t_main *s, t_dpos target);
+int							is_colliding(t_main *s, t_dpos target, int sct_id);
 void 						check_collectible(t_main *s);
 void						tp_first_sector(t_main *s);
 

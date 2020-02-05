@@ -158,16 +158,16 @@ void 		check_bomb(t_main *s)
 	}
 }
 
-int			check_col(t_main *s, t_dpos haut, t_dpos bas)
+int			check_col(t_main *s, t_dpos haut, t_dpos bas, int sct_id)
 {
 	int id;
 	t_sector	*sct;
 	t_int		*wall;
 
-	id = ft_find_wall2(s, haut, bas, S_PURPLE, s->player.sector_id);
+	id = ft_find_wall2(s, haut, bas, S_PURPLE, sct_id);
 	if (id != 0)
 	{
-		sct = get_sector_by_id(s, s->player.sector_id);
+		sct = get_sector_by_id(s, sct_id);
 		wall = get_t_int_by_vertex_id(sct->vertex, id);
 		return (wall->wall_value);
 	}
@@ -175,7 +175,7 @@ int			check_col(t_main *s, t_dpos haut, t_dpos bas)
 		return (0);
 }
 
-int			is_colliding(t_main *s, t_dpos target)
+int			is_colliding(t_main *s, t_dpos target, int sct_id)
 {
 	int			id;
 	// t_sector	*sct;
@@ -192,21 +192,21 @@ int			is_colliding(t_main *s, t_dpos target)
 	bas = target;
 	haut.x = target.x + value;
 	bas.x = target.x - value;
-	if ((id = (check_col(s, haut, bas))) != 0)
+	if ((id = (check_col(s, haut, bas, sct_id))) != 0)
 		return (id);
 	haut = target;
 	bas = target;
 	haut.y = target.y - value;
 	bas.y = target.y + value;
-	if ((id = (check_col(s, haut, bas))) != 0)
+	if ((id = (check_col(s, haut, bas, sct_id))) != 0)
 		return (id);
 	haut.x = target.x - value;
 	bas.x = target.x + value;
-	if ((id = (check_col(s, haut, bas))) != 0)
+	if ((id = (check_col(s, haut, bas, sct_id))) != 0)
 		return (id);
 	haut.x = target.x + value;
 	bas.x = target.x - value;
-	if ((id = (check_col(s, haut, bas))) != 0)
+	if ((id = (check_col(s, haut, bas, sct_id))) != 0)
 		return (id);
 	return (0);
 }

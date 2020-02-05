@@ -233,8 +233,8 @@ void		draw_sprite(t_main *s, double angle, t_sprite *cur)
 	pct = (100 * wp->w) / wp->h;
 	width = (pct * height)* 0.01;
 	i = 0;
-	coord.x = cur->x - (width* 0.5);
-	while (coord.x < cur->x + width* 0.5 && coord.x >= 0 && coord.x <= WIDTH)
+	coord.x = cur->x - (width * 0.5);
+	while (coord.x < cur->x + width * 0.5 && coord.x >= 0 && coord.x <= WIDTH)
 	{
 		j = 0;
 		// coord.x = cur->x + i;

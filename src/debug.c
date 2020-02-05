@@ -5,16 +5,31 @@ void		draw_sprite_hitbox(t_main *s)
 	t_sprite 	*sprite;
 	t_dpos		init1;
 	t_dpos		dest1;
+	double 		pct;
+	double		height;
+	double		width;
+	double 		diff_height_pxl;
+	int			bottom;
+
+	// diff_height_pxl = ft_get_sprite_height_pxl(s, sprite, height);
+	// coord.y = (HEIGHT* 0.5) - height + s->player.y_eye + diff_height_pxl;
+	// bottom = (HEIGHT* 0.5) + s->player.y_eye + diff_height_pxl;
 
 	sprite = s->sprite;
 	while (sprite)
 	{
 		if (sprite->set == 1)
 		{
-			init1.y = 0;
-			init1.x = sprite->x;
-			dest1.y = HEIGHT;
-			dest1.x = sprite->x + (sprite->anim.image[sprite->current]->w * ((HEIGHT / sprite->r_dist) / 60));
+			pct = (sprite->r_dist * METRE * 100) / sprite->l_dist;
+			height = HEIGHT / ((pct * 0.001) * 4) * sprite->size * HEIGHT_MULT;
+			pct = (100 * sprite->anim.image[sprite->current]->w) / sprite->anim.image[sprite->current]->h;
+			width = (pct * height)* 0.01;
+			diff_height_pxl = ft_get_sprite_height_pxl(s, sprite, height);
+			bottom = (HEIGHT* 0.5) + s->player.y_eye + diff_height_pxl;
+			init1.y = (HEIGHT* 0.5) - height + s->player.y_eye + diff_height_pxl;
+			init1.x = sprite->x - (width * 0.5);
+			dest1.y = bottom;
+			dest1.x = sprite->x +  (width * 0.5);
 			draw_rect(s->sdl->game, init1, dest1, 0x622b2bff);
 		}
 		sprite = sprite->next;

@@ -61,49 +61,29 @@ double		found_player(t_main *s, t_sprite *cur)
 void		rand_move(t_main *s)
 {
 	t_dpos		target;
+	t_dpos		target2;
 	double		angle;
 	t_sprite	*sprite;
 
 	sprite = s->sprite;
 	while (sprite)
 	{
-		printf("sprite->set = %d\n", sprite->set);
+		// printf("sprite->set = %d\n", sprite->set);
 		if (sprite->name == storm && sprite->destroy == 0 && sprite->a_name == walking)
 		{
-			target.x = sprite->m_pos.x;
-			target.y = sprite->m_pos.y;
+			target = sprite->r_pos;
 			target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
-			// if (sprite->set == 1)
-			// {
-				if (ft_find_wall2(s, sprite->m_pos, target, S_RED, sprite->sct_id))
-				{
-					angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
+			while(is_colliding(s, target, sprite->sct_id))
+			{
+					target = sprite->r_pos;
+					angle = fmod(rand(), 360);
 					sprite->s_angle = angle;
-				}
-				else
-				{
-					sprite->r_pos.x = target.x / METRE;
-					sprite->r_pos.y = target.y / METRE;
-					set_sprite(s);
-				}
-			// }
-			// else
-			// {
-			// 	if (ft_is_in_sector(s, target) != 0)
-			// 	{
-			// 		sprite->r_pos.x = target.x / METRE;
-			// 		sprite->r_pos.y = target.y / METRE;
-			// 		set_sprite(s);
-			// 	}
-			// 	else
-			// 	{
-			// 		angle = (int)(rand() / (double)RAND_MAX * (ANGLE_MAX - 1));
-			// 		// printf("angle =%f\n",angle);
-			// 		sprite->s_angle = angle;
-			// 	}
-			// }
-
+					target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
+					target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
+			}
+			sprite->r_pos = target;
+			set_sprite(s);
 		}
 		sprite = sprite->next;
 

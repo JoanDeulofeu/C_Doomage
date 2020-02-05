@@ -314,6 +314,7 @@ void		handle_editor_keys(t_main *s)
 		ft_visu_joan(s);
 		// printf("sprite->set = %d\n", s->sprite->set);
 		clear_wall_list(s);
+		// rand_move(s);
 		if (s->editor->select_sprite)
 			display_sprite_menu(s);
 
@@ -330,6 +331,7 @@ void		handle_editor_keys(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
+	
 		display_sky(s);
 		// display_map(s); // MERDE (pas de segfault)
 		set_player(s);
@@ -339,6 +341,8 @@ void		handle_editor_keys(t_main *s)
 		ft_visu_joan(s);
 		// display_sprites(s);
 		clear_wall_list(s);
+		// rand_move(s);
+
 		// ft_nul(s);
 		animate_weapon(s);
 		update_image(s, s->sdl->game);
