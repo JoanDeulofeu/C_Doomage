@@ -30,6 +30,8 @@
 # define PLAYER_SPEED 4
 # define JUMP_SIZE 1.1
 
+# define W_MUL 2.6
+
 # define MAP "map.map"
 
 //sprite
@@ -644,7 +646,7 @@ void						ft_print_sectors_sprites(t_main *s);
 /*
 ****	Fonction des textures
 */
-void						display_sky(t_main *s);
+void						display_sky(t_main *s, int px, int j, double value);
 void						ft_draw_floor(t_main *s, t_walls *wall, t_pos coord);
 int							ft_draw_ceiling(t_main *s, t_walls *wall, t_pos coord);
 void 						draw_texture(t_multithread *mt, t_pos coord, int end);
