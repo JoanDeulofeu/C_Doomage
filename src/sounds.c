@@ -3,8 +3,7 @@
 void	create_sounds(t_sdl *sdl)
 {
 	Mix_AllocateChannels(10);
-	Mix_Volume(1, MIX_MAX_VOLUME* 0.5);
-	// sdl->sounds.shot = Mix_LoadWAV("sounds/Pistol.wav");
+	Mix_Volume(1, MIX_MAX_VOLUME * 0.5);
 	sdl->sounds.select = Mix_LoadWAV("sounds/menu_mode.wav");
 	sdl->sounds.explode = Mix_LoadWAV("sounds/explosion.wav");
 	sdl->sounds.shotgun = Mix_LoadWAV("sounds/shotgun.wav");
