@@ -36,6 +36,8 @@ SRC_NAME =	main.c							\
 			editor/chainlist2.c				\
 			editor/utils_1.c				\
 			editor/utils_2.c				\
+			editor/utils_3.c				\
+			editor/utils_4.c				\
 			editor/anchors_general.c		\
 			editor/mode_vertex.c			\
 			editor/mode_sprite.c			\

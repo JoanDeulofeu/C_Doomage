@@ -1,9 +1,16 @@
-#include "doom.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/05 15:44:09 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/05 15:57:17 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-double		ft_dist_double(double x1, double y1, double x2, double y2)
-{
-	return (sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)));
-}
+#include "doom.h"
 
 double		ft_dist_t_dpos(t_dpos pos1, t_dpos pos2)
 {
@@ -31,18 +38,14 @@ t_dpos		to_edi_coord(t_main *s, t_dpos coord)
 }
 
 double		ft_find_angle_plan(double a, double b, double c)
-{	//la variable c correspond a la longueur en face de langle a calculer
-	// printf("a(%f) + b(%f) - c(%f)* 0.5*a*b\n",a, b, c);
+{
 	return (to_degres(acos((pow(a, 2) + pow(b, 2) - pow(c, 2)) / (2 * a * b))));
 }
 
-void		*ft_memalloc(size_t size)
+Uint32		get_pixel_color(t_texture *text, int x, int y)
 {
-	void	*ptr;
-
-	ptr = (void *)malloc(sizeof(void *) * size);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, size);
-	return (ptr);
+	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+		return (text->content[x + y * WIDTH]);
+	else
+		return (2);
 }

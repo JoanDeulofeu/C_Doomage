@@ -415,7 +415,7 @@ t_sprite	*create_new_sprite(t_main *s, t_name name, t_dpos r_pos)
 	pos.y = r_pos.y * METRE;
 	if ((sct_id = ft_is_in_sector(s, pos)) == 0)
 		return (NULL);
-	if (!(sprite = ft_memalloc(sizeof(t_sprite))))
+	if (!(sprite = malloc(sizeof(t_sprite))))
 		handle_error(s, MALLOC_ERROR);
 	ft_bzero((void*)sprite, sizeof(t_sprite));
 	sprite->sct_id = ft_is_in_sector(s, pos);
