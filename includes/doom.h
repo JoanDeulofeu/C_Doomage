@@ -717,7 +717,7 @@ void						fire(t_main *s);
 void						sprite_move_on_player(t_main *s, t_sprite *cur);
 void						ia(t_main*s, t_sprite *cur);
 
-void						rand_move(t_main *s);
+void						rand_move(t_main *s, double angle, t_sprite *sprite);
 
 /*
 ****	Fonction animations
