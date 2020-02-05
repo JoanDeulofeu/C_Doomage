@@ -331,8 +331,8 @@ void		handle_editor_keys(t_main *s)
 	}
 	if (s->display_mode == game)
 	{
-	
-		display_sky(s);
+
+		display_sky(s, 0, 0, 0);
 		// display_map(s); // MERDE (pas de segfault)
 		set_player(s);
 
