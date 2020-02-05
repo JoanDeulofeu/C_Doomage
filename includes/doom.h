@@ -79,6 +79,16 @@ typedef	struct				s_sounds
 	Mix_Chunk				*blaster;
 }							t_sounds;
 
+typedef struct				s_check_pos_sector {
+	t_int					*wall;
+	int						count;
+	long					save_dist;
+	long					tmp_dist;
+	int						n_test;
+	int						dist_sector;
+	int						i;
+}							t_check_pos_sector;
+
 typedef struct				s_ttf {
 	SDL_Rect				pos;
 	char					*str;
@@ -548,6 +558,7 @@ t_pos						get_px_pos(t_main *s, t_pos ref);
 // t_pos						depiler(t_pile *pile);
 int							ft_is_in_sector(t_main *s, t_dpos point_2);
 int							ft_find_intersection(t_main *s, t_4dpos pos, char visu);
+t_dpos						ft_find_coord(t_abpos l1, t_abpos l2);
 t_pos						ft_dpos_to_pos(t_dpos dpos);
 t_dpos						ft_pos_to_dpos(t_pos pos);
 void						ft_reset_color_screen(Uint32 *str, int size);
