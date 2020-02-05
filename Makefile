@@ -15,6 +15,7 @@ SRC_NAME =	main.c							\
 			save_map2.c						\
 			save_map3.c						\
 			launching/load_storm_anim.c 	\
+			launching/load_storm_anim_2.c 	\
 			launching/load_wp_anim.c 		\
 			launching/load_anims.c			\
 			launching/structs_initialize.c	\
