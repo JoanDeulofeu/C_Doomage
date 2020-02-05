@@ -79,6 +79,13 @@ void	play_sprites_anims(t_main *s)
 	{
 		if (sprite->name == storm)
 		{
+			if (sprite->a_name == shooting && !sprite->destroy)
+			{
+				// printf ("shooting\n");
+				sprite->current = 0;
+				sprite->anim = s->stormtrooper.shooting;
+				sprite_shooting(s, sprite);
+			}
 			if (sprite->a_name == walking && !sprite->destroy)
 			{
 				if (sprite->set)
@@ -89,8 +96,6 @@ void	play_sprites_anims(t_main *s)
 			{
 				kill_anim(s, sprite);
 			}
-			else if (sprite->a_name == shooting && !sprite->destroy)
-				sprite_shooting(s, sprite);
 
 		}
 		sprite = sprite->next;
@@ -116,7 +121,6 @@ void		kill_anim(t_main *s, t_sprite *sprite)
 
 void 	enemy_walk_anim(t_main *s, t_sprite *sprite)
 {
-
 	if (s->time->time_ms - sprite->anim_ms > 200)
 	{
 		sprite->current++;
@@ -167,6 +171,7 @@ void 	select_anim(t_main *s, t_sprite *sprite)
 			sprite->current = 0;
 			sprite->anim = s->stormtrooper.shooting;
 			sprite->a_name = shooting;
+			printf("true\n");
 		}
 
 	}
@@ -183,11 +188,12 @@ void 	select_anim(t_main *s, t_sprite *sprite)
 	else if ((angle >= 158 && angle <= 203) || (angle >= -203 && angle <= -158))
 	{
 		sprite->anim = s->stormtrooper.face;
-		if (sprite->r_dist < STORM_RANGE) //ajouter find intersection pour savoir s'il y a un mur entre nous
+		if (sprite->r_dist < STORM_RANGE && sprite->a_name != dying) //ajouter find intersection pour savoir s'il y a un mur entre nous
 		{
 			sprite->current = 0;
 			sprite->anim = s->stormtrooper.shooting;
 			sprite->a_name = shooting;
+			printf("true\n");
 		}
 	}
 

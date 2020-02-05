@@ -41,6 +41,13 @@ void		handle_game_keys(t_main *s)
 		unset_sprites(s);
 
 		play_sprites_anims(s);
+			// if (s->sprite->a_name == walking)
+			// 	printf("walking\n");
+			// else if (s->sprite->a_name == shooting)
+			// 	printf("shooting\n");
+			// else if (s->sprite->a_name == dying)
+			// 	printf("dying\n");
+		
 		ft_visu_joan(s);
 		if (keys[SDL_SCANCODE_E])
 			 check_bomb(s);

@@ -22,12 +22,9 @@ int		print_wall_or_sprite(t_main *s, t_walls *wall)
 	}
 	if (!farthest)
 	{
-		// printf("%d mur dessiné\n", wall->nb_tex);
 		ft_print_wall(s, wall);
 		return (1);
 	}
-	// if (wall->nb_tex == 11)
-		// printf("---wall ldist %.1f    bdist %.1f   sprite->dist = %d\n", wall->l_dist, wall->b_dist, farthest->dist);
 	if (wall->l_dist > farthest->dist || wall->b_dist > farthest->dist)
 	{
 		pos.pos1 = wall->left;
@@ -37,20 +34,17 @@ int		print_wall_or_sprite(t_main *s, t_walls *wall)
 
 		if (ft_find_intersection(s, pos, 1) && wall->wall_or_portal == 'w')
 		{
-			// printf("true 1\n");
 			print_sprite(s, farthest);
 			return (0);
 		}
 		else
 		{
-			// printf("%d mur dessiné\n", wall->nb_tex);
 			ft_print_wall(s, wall);
 			return (1);
 		}
 	}
 	else
 	{
-		// printf("true 2\n sprite->dist = %d, wall->l_dist = %f, wall->b_dist = %f, wall = %d\n", farthest->dist, wall->l_dist, wall->b_dist, wall->nb_tex);
 		print_sprite(s, farthest);
 		return (0);
 	}

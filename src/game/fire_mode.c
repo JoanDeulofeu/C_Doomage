@@ -124,27 +124,37 @@ void		fire(t_main *s)
 {
 	t_sprite 	*sprite;
 	t_sprite	*save_sprite;
+	double 		pct;
+	double		height;
+	double		width;
+	double		diff_height_pxl;
+	int			bottom;
 
 	sprite = s->sprite;
 	save_sprite = NULL;
 	while (sprite)
 	{
-		// printf("sprite->r_dist = %f, perso = %d\n", sprite->r_dist, s->player.range);
-		// if(sprite->set == 1)
-		// 	printf("sprite set");
-		if (sprite->name == storm && sprite->set == 1 &&
-			sprite->r_dist < s->player.range
-			&& (WIDTH* 0.5) > sprite->x && WIDTH* 0.5 <
-			sprite->x + (sprite->anim.image[sprite->current]->w
-				* ((HEIGHT / sprite->r_dist) / 60)))
-		{
-			if (save_sprite)
-			{
-				if (sprite->r_dist < save_sprite->r_dist)
-					save_sprite = sprite;
-			}
-			else
-				save_sprite = sprite;
+		if (sprite->name == storm && sprite->set == 1 && !sprite->destroy)
+		 {
+			pct = (sprite->r_dist * METRE * 100) / sprite->l_dist;
+	 		height = HEIGHT / ((pct * 0.001) * 4) * sprite->size * HEIGHT_MULT;
+	 		pct = (100 * sprite->anim.image[sprite->current]->w) / sprite->anim.image[sprite->current]->h;
+	 		width = (pct * height)* 0.01;
+			diff_height_pxl = ft_get_sprite_height_pxl(s, sprite, height);
+			bottom = (HEIGHT* 0.5) + s->player.y_eye + diff_height_pxl;
+			 if (sprite->r_dist < s->player.range
+ 			&& (WIDTH* 0.5) > sprite->x - (width * 0.5) && WIDTH * 0.5 <
+ 			sprite->x + (width * 0.5) && (HEIGHT * 0.5) > (HEIGHT* 0.5) - height + s->player.y_eye + diff_height_pxl
+			&& (HEIGHT * 0.5) < bottom)
+				{
+					if (save_sprite)
+					{
+						if (sprite->r_dist < save_sprite->r_dist)
+							save_sprite = sprite;
+					}
+					else
+						save_sprite = sprite;
+				}
 		}
 		sprite = sprite->next;
 	}
