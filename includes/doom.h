@@ -551,7 +551,6 @@ double						percent(double value, double total);
 t_sector					*get_sector_by_id(t_main *s, int id);
 t_vertex					*get_vertex_by_id(t_main *s, int id);
 t_int						*get_t_int_by_id(t_int *obj, int id);
-double						ft_dist_double(double x1, double y1, double x2, double y2);
 double						ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 double						ft_dist_t_pos(t_pos pos1, t_pos pos2);
 t_dpos						to_edi_coord(t_main *s, t_dpos coord);
