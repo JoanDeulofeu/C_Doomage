@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fly.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/05 15:38:14 by jgehin            #+#    #+#             */
+/*   Updated: 2020/02/05 15:38:31 by jgehin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
-void 	reset_jetpack(t_main *s)
+void	reset_jetpack(t_main *s)
 {
 	t_sprite *sprite;
 
@@ -18,10 +30,10 @@ void 	reset_jetpack(t_main *s)
 
 char	*get_jetpack_value(t_main *s)
 {
-	char *str;
-	char *str2;
-	char *str3;
-	int	pct;
+	char	*str;
+	char	*str2;
+	char	*str3;
+	int		pct;
 
 	str = ft_strdup("jetpack:");
 	pct = s->time->jetpack_reserve * 100 / JET_TIME;
@@ -35,20 +47,16 @@ char	*get_jetpack_value(t_main *s)
 
 void	ft_fly_mode(t_main *s, const Uint8 *keys)
 {
-	// printf("ft_fly\n");
 	if (keys[SDL_SCANCODE_BACKSLASH])
 	{
-		// printf("%.1f + %.1f + 0.2 < plafond %d\n", s->player.foot_height, s->player.size, s->player.ceiling_height);
-		if (s->player.foot_height + s->player.size + 0.2 < s->player.ceiling_height)
+		if (s->player.foot_height + s->player.size + 0.2
+			< s->player.ceiling_height)
 			s->player.jump_height += 0.2;
-		// printf("fly up\n");
 	}
 	if (keys[SDL_SCANCODE_DELETE])
 	{
-		// printf("%.1f - 0.2 > sol %d\n", s->player.foot_height, s->player.floor_height);
 		if (s->player.foot_height - 0.2 > s->player.floor_height)
 			s->player.jump_height -= 0.2;
-		// printf("fly down\n");
 	}
 }
 
@@ -68,11 +76,12 @@ void	ft_activ_fly(t_main *s)
 	}
 }
 
-void 	fly(t_main *s)
+void	fly(t_main *s)
 {
- 	if (s->player.jetpack == 1 && s->player.fly == 1)
+	if (s->player.jetpack == 1 && s->player.fly == 1)
 	{
-		if (s->player.foot_height + s->player.size + 0.2 < s->player.ceiling_height)
+		if (s->player.foot_height + s->player.size + 0.2
+			< s->player.ceiling_height)
 			s->player.jump_height += 0.2;
 		if (s->time->time_ms - s->time->jetpack_ms >= 100)
 		{
