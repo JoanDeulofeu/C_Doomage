@@ -15,6 +15,7 @@ SRC_NAME =	main.c							\
 			save_map2.c						\
 			save_map3.c						\
 			launching/load_storm_anim.c 	\
+			launching/load_storm_anim_2.c 	\
 			launching/load_wp_anim.c 		\
 			launching/load_anims.c			\
 			launching/structs_initialize.c	\
@@ -45,13 +46,11 @@ SRC_NAME =	main.c							\
 			editor/wall.c					\
 			editor/mode_deplacement.c		\
 			editor/ft_is_in_sector.c		\
-			editor/piles.c					\
-			editor/fill_sector.c			\
 			editor/display_map.c			\
 			editor/player.c					\
 			editor/mode_floor.c				\
 			editor/free.c					\
-			editor/fixed_float.c			\
+			editor/free_images.c			\
 			editor/parser_tga.c				\
 			editor/edit_portals.c			\
 			editor/list_utils.c				\

@@ -395,6 +395,10 @@ t_anim_wp 					load_wp_anims(t_main *s);
 void						fill_sprite_list(t_main *s);
 t_main						*initialize_main(char *str);
 void						free_program(t_main *s);
+void						free_images_1(t_main *s);
+void						free_image(t_image *img);
+void						free_anim(t_anim anim);
+void						free_sprite(t_main *s);
 
 /*
 ****	Fonction de gestion d'erreur
@@ -618,18 +622,6 @@ void						ft_save_msg(t_main *s, int error);
 void						ft_write_file(t_main *s);
 
 /*
-****	Fonction des fixed float
-*/
-void						ft_test_float(void);
-t_dpos						ft_fixfloat_to_dpos(t_fix_pos fix);
-t_fix_pos					ft_dpos_to_fixfloat(t_dpos dpos);
-fixed_float					ft_float_to_fixed(double input);
-double						ft_fixed_to_float(fixed_float input);
-fixed_float					ft_fixed_pow(fixed_float nb, int power);
-fixed_float					ft_fixed_sqrt(fixed_float nb);
-fixed_float					ft_fixed_mul(fixed_float a, fixed_float b);
-
-/*
 ****	Fonction des ttf
 */
 void						ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police);
@@ -744,6 +736,9 @@ void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void 						destroy_planet(t_main *s);
 void						load_anims(t_main *s);
 t_anim_enemy 				load_storm_anim(t_main *s);
+t_anim						load_face_storm(t_anim data);
+t_anim						load_back_storm(t_anim data);
+t_anim						load_prof_storm(t_anim data);
 void						fill_texture_list(t_main *s);
 void						animate_weapon(t_main *s);
 void						select_weapon_anim(t_main *s);
