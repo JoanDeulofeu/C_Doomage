@@ -118,6 +118,7 @@ void	ft_draw_ttf_play(t_main *s)
 	ft_memdel((void **)&str);
 	ft_draw_ttf_play2(s, ttf, str);
 	ft_draw_ttf_play3(s, ttf, str);
+	ttf.pos.x = 290;
 	ft_draw_ttf_play4(s, ttf);
 	ft_draw_ttf_play5(s, ttf, str);
 }
