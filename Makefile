@@ -62,6 +62,7 @@ SRC_NAME =	main.c							\
 			game/visu.c						\
 			game/visu_portal.c				\
 			game/visu_drawing.c				\
+			editor/ft_find_intersection.c	\
 			game/utils_2.c					\
 			game/hud.c						\
 			game/anim.c						\
