@@ -1,11 +1,16 @@
-#include "doom.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ia.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/05 15:52:33 by jgehin            #+#    #+#             */
+/*   Updated: 2020/02/05 15:52:36 by jgehin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// int			is_player_shot(t_main *s, t_sprite *sprite)
-// {
-// 	(void)s;
-// 	(void)sprite;
-// 	return (0);
-// }
+#include "doom.h"
 
 int			check_exist(t_main *s, t_dpos target, int id)
 {
@@ -14,17 +19,13 @@ int			check_exist(t_main *s, t_dpos target, int id)
 
 	hitbox = 0.5;
 	cur = s->sprite;
-	// if (id == found_closer(s) && cur->id != id)
-	//   return (cur->id);
 	while (cur != NULL)
 	{
-		//cur->id == found_closer(s)
-		// value = HEIGHT / (cur->dist);
 		if (((target.x >= (cur->r_pos.x - hitbox)
 			&& target.x <= (cur->r_pos.x + hitbox))
-				&& (target.y >= (cur->r_pos.y - hitbox))
-					&& target.y <= (cur->r_pos.y + hitbox))
-						&& cur->id != id)
+			&& (target.y >= (cur->r_pos.y - hitbox))
+			&& target.y <= (cur->r_pos.y + hitbox))
+			&& cur->id != id)
 		{
 			return (cur->id);
 		}
@@ -47,45 +48,40 @@ double		found_player(t_main *s, t_sprite *cur)
 		ctr_l.x = cur->pos.x + cos(to_rad(angle)) * cur->dist;
 		ctr_l.y = cur->pos.y - sin(to_rad(angle)) * cur->dist;
 		ret = ft_dpos_to_pos(ctr_l);
-		//	 set_pixel(s->sdl->editor, BLUE, ret);
 		if ((ret.x >= (s->player.pos.x - HITBOX)
 			&& ret.x <= (s->player.pos.x + HITBOX))
-				&& (ret.y >= (s->player.pos.y - HITBOX)
-					&& ret.y <= (s->player.pos.y + HITBOX)))
+			&& (ret.y >= (s->player.pos.y - HITBOX)
+			&& ret.y <= (s->player.pos.y + HITBOX)))
 			break ;
 		angle += 0.1;
 	}
 	return (angle);
 }
 
-void		rand_move(t_main *s)
+void		rand_move(t_main *s, double angle, t_sprite *sprite)
 {
 	t_dpos		target;
-	t_dpos		target2;
-	double		angle;
-	t_sprite	*sprite;
 
 	sprite = s->sprite;
 	while (sprite)
 	{
-		// printf("sprite->set = %d\n", sprite->set);
-		if (sprite->name == storm && sprite->destroy == 0 && sprite->a_name == walking)
+		if (sprite->name == storm && sprite->destroy == 0
+			&& sprite->a_name == walking)
 		{
 			target = sprite->r_pos;
 			target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
-			while(is_colliding(s, target, sprite->sct_id))
+			while (is_colliding(s, target, sprite->sct_id))
 			{
-					target = sprite->r_pos;
-					angle = fmod(rand(), 360);
-					sprite->s_angle = angle;
-					target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
-					target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
+				target = sprite->r_pos;
+				angle = fmod(rand(), 360);
+				sprite->s_angle = angle;
+				target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
+				target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			}
 			sprite->r_pos = target;
 			set_sprite(s);
 		}
 		sprite = sprite->next;
-
 	}
 }
