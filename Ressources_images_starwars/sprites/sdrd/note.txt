@@ -1,1 +1,0 @@
-use view type 7, ignore unused tiles -- duke3d does not support the required viewtype for them

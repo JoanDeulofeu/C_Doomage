@@ -28,6 +28,7 @@ SRC_NAME =	main.c							\
 			editor/errors.c					\
 			editor/editor_controls.c		\
 			editor/lines.c					\
+			editor/ft_lines.c					\
 			editor/parsing.c				\
 			editor/parsing2.c				\
 			editor/parsing3.c				\

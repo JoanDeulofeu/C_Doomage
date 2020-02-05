@@ -1,7 +1,0 @@
-texture tile ranges
-
-tiles020.art - tiles023.art for textures
-tile numbers 5120-6143
-
-textures are added to the game using the tilefromtexture def command in duke3d.def
-the textures are png files

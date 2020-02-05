@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:22:46 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/05 15:25:43 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/05 17:59:30 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	create_sounds(t_sdl *sdl)
 {
 	Mix_AllocateChannels(10);
-	Mix_Volume(1, MIX_MAX_VOLUME* 0.5);
+	Mix_Volume(1, MIX_MAX_VOLUME / 2);
 	sdl->sounds.select = Mix_LoadWAV("sounds/menu_mode.wav");
 	sdl->sounds.explode = Mix_LoadWAV("sounds/explosion.wav");
 	sdl->sounds.shotgun = Mix_LoadWAV("sounds/shotgun.wav");
