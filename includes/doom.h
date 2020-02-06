@@ -597,7 +597,7 @@ double						ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 double						ft_dist_t_pos(t_pos pos1, t_pos pos2);
 t_dpos						to_edi_coord(t_main *s, t_dpos coord);
 int							clamp (int x, int min, int max);
-void						ft_zoom(t_main *s, t_pos pos, int space);
+void						ft_zoom(t_main *s, int space);
 int							max(int value1, int value2);
 int							min(int value1, int value2);
 double						ft_find_angle_plan(double a, double b, double c);

@@ -6,11 +6,36 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:15:06 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/05 16:15:09 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/06 16:26:16 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+void	ft_transition(t_main *s)
+{
+	int		diff_y_eye;
+	double	diff_abs_angle;
+
+	diff_y_eye = abs(s->transition_y_eye - MOON_Y) / TRANSITION_SPEED;
+	diff_abs_angle = (double)(abs(s->transition_angle - 70)) / TRANSITION_SPEED;
+	if (s->transition_angle < 70)
+	{
+		s->player.angle += diff_abs_angle;
+		s->player.abs_angle += diff_abs_angle;
+	}
+	else
+	{
+		s->player.angle -= diff_abs_angle;
+		s->player.abs_angle -= diff_abs_angle;
+	}
+	if (s->transition_y_eye < MOON_Y)
+		s->player.y_eye += diff_y_eye;
+	else
+		s->player.y_eye -= diff_y_eye;
+	if (s->transition++ > TRANSITION_SPEED)
+		s->transition = 0;
+}
 
 void	destroy_planet(t_main *s)
 {

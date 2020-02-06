@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 15:58:09 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 15:58:55 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/06 16:38:55 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	change_mode(t_main *s, int key)
 		ft_reset_color_vertex(s);
 	}
 	else
-		change_mode_2(s, keys);
+		change_mode_2(s, key);
 	reset_temp_portals(s);
 }
 

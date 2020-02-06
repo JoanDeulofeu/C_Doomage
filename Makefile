@@ -27,6 +27,7 @@ SRC_NAME =	main.c							\
 			editor/selected.c				\
 			editor/images.c					\
 			editor/editor.c					\
+			editor/editor_2.c				\
 			editor/errors.c					\
 			editor/editor_controls.c		\
 			editor/lines.c					\
