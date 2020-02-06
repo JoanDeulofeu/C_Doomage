@@ -162,7 +162,8 @@ void		load_images(t_main *s)
 	s->editor->menu.image[2] = load_tga("images/sector.tga", 0, 0, 0);
 	s->editor->menu.image[3] = load_tga("images/player.tga", 0, 0, 0);
 	s->editor->menu.image[4] = load_tga("images/portal.tga", 0, 0, 0);
-	s->editor->menu.image[5] = load_tga("images/save.tga", 0, 0, 0);
+	s->editor->menu.image[5] = load_tga("images/sprite.tga", 0, 0, 0);
+	s->editor->menu.image[6] = load_tga("images/save.tga", 0, 0, 0);
 	s->editor->sprite_menu.image[0] = load_tga("images/ressources/sprite_menu/sprite_01.tga", 0, 0, 0);
 	s->editor->sprite_menu.image[1] = load_tga("images/ressources/sprite_menu/sprite_02.tga", 0, 0, 0);
 	s->editor->sprite_menu.image[2] = load_tga("images/ressources/sprite_menu/sprite_03.tga", 0, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:53:55 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/05 15:57:55 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/05 17:08:40 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,32 @@ t_pos		get_abs_pos(t_main *s, t_pos ori)
 	res.x = s->editor->ref.x + (ori.x / s->editor->space) + correc_x;
 	res.y = s->editor->ref.y + (ori.y / s->editor->space) + correc_y;
 	return (res);
+}
+
+t_dpos		get_direction(t_main *s, const Uint8 *keys,
+	double speed, t_dpos target)
+{
+	if (keys == NULL || keys[UP])
+	{
+		target.x += cos(to_rad(s->player.angle)) * speed;
+		target.y -= sin(to_rad(s->player.angle)) * speed;
+		if (keys == NULL)
+			return (target);
+	}
+	if (keys[DOWN])
+	{
+		target.x -= cos(to_rad(s->player.angle * -1)) * speed;
+		target.y -= sin(to_rad(s->player.angle * -1)) * speed;
+	}
+	if (keys[LEFT])
+	{
+		target.x += cos(to_rad(s->player.angle + 90)) * speed;
+		target.y -= sin(to_rad(s->player.angle + 90)) * speed;
+	}
+	if (keys[RIGHT])
+	{
+		target.x += cos(to_rad(s->player.angle - 90)) * speed;
+		target.y -= sin(to_rad(s->player.angle - 90)) * speed;
+	}
+	return (target);
 }

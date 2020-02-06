@@ -1,9 +1,0 @@
-tile numbers
-
-tiles014 and tiles015 are set aside for enemies
-that's tile numbers 3584-4093
-if we need more we will go to tiles025 next (6401) and continue from there
-
-
-enemies are added to the game using the tilefromtexture def command in duke3d.def
-the sprites are png files
