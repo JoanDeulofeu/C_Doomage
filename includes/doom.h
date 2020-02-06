@@ -757,6 +757,8 @@ void 						enemy_walk_anim(t_main *s, t_sprite *sprite);
 
 // void						sprite_shooting(t_main *s, t_sprite *cur);
 void						kill_anim(t_main *s, t_sprite *cur);
+void						check_sprite_shooting(t_main *s, t_sprite * sprite);
+void						get_anim_by_angle(t_main *s, t_sprite *sprite, double angle);
 void						set_img(t_main *s, t_sprite *cur, int id, int orientation);
 void 						destroy_planet(t_main *s);
 void						load_anims(t_main *s);

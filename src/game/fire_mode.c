@@ -160,7 +160,7 @@ void		fire(t_main *s)
 	}
 	if (save_sprite)
 	{
-		printf("hit\n");
+		//inserer un son
 		save_sprite->life -= s->player.power;
 		if (save_sprite->life <= 0 && save_sprite->a_name != dying)
 		{
