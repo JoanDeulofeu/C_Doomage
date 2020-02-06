@@ -402,6 +402,7 @@ t_texture					*initialize_texture(t_sdl *sdl, int width, int height);
 t_anim_wp 					load_wp_anims(t_main *s);
 void						fill_sprite_list(t_main *s);
 t_main						*initialize_main(char *str);
+void						load_images(t_main *s);
 void						free_program(t_main *s);
 void						free_images_1(t_main *s);
 void						free_image(t_image *img);
