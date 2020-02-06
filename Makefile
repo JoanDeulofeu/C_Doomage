@@ -66,6 +66,8 @@ SRC_NAME =	main.c							\
 			game/visu2.c					\
 			game/visu_portal.c				\
 			game/visu_drawing.c				\
+			game/create_new_wall.c			\
+			game/ft_limit_ceiling_floor.c	\
 			editor/ft_find_intersection.c	\
 			game/utils_2.c					\
 			game/hud.c						\

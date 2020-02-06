@@ -71,7 +71,6 @@ typedef struct				s_4dpos {
 
 typedef	struct				s_sounds
 {
-	// Mix_Chunk				*shot;
 	Mix_Chunk				*select;
 	Mix_Chunk				*explode;
 	Mix_Chunk				*shotgun;
@@ -290,6 +289,24 @@ typedef struct				s_timer {
 	long					jetpack_reserve;
 }							t_timer;
 
+typedef struct				s_ft_limit_ceiling_floor {
+	double					width_wall;
+	double					l_big_dist;
+	double					r_big_dist;
+	double					l_small_dist;
+	double					r_small_dist;
+	double					l_height_wall;
+	double					r_height_wall;
+	double					l_height_wall_diff;
+	double					r_height_wall_diff;
+	double					x;
+	t_4dpos					pos;
+	t_dpos					l_plan;
+	t_dpos					r_plan;
+	t_visu 					*vs;
+	char					swich;
+}							t_ft_limit_ceiling_floor;
+
 typedef struct				s_msg {
 	int						r;
 	int						g;
@@ -382,8 +399,7 @@ int							ft_find_wall(t_main *s, t_dpos player, t_dpos point, int sct_id);
 void						ft_print_wall(t_main *s, t_walls *wall);
 void						add_wall_to_list(t_main *s, t_walls *new);
 void						clear_wall_list(t_main *s);
-void						ft_limit_ceiling_floor(t_main *s,t_dpos left,
-							t_dpos right, t_visu *vs, char swich);
+void						ft_limit_ceiling_floor(t_main *s, t_4dpos pos, t_visu *vs, char swich);
 double						ft_find_angle_portal(t_dpos *left, t_dpos *right,
 							t_dpos *third, int needed);
 void						get_wall_distance(t_walls *wall, t_visu *vs);
