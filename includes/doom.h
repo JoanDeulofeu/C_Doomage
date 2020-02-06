@@ -79,6 +79,16 @@ typedef	struct				s_sounds
 	Mix_Chunk				*blaster;
 }							t_sounds;
 
+typedef struct				s_ft_find_wall {
+	t_sector				*sct;
+	t_int					*s_vtx;
+	t_4dpos					pos;
+	int						id_wall;
+	int						i;
+	int						dist;
+	int						new_dist;
+}							t_ft_find_wall;
+
 typedef struct				s_check_pos_sector {
 	t_int					*wall;
 	int						count;
@@ -336,8 +346,7 @@ typedef struct				s_main {
 	t_walls					*walls;
 	int						portal_nb;
 	t_dpos					col_pos;
-	t_pos					save_coord_vtx; //utilisé pour remettre un vtx a sa place
-	//										au cas ou on le deplace dans un secteur.
+	t_pos					save_coord_vtx;
 }							t_main;
 
 typedef struct				s_multithread {
@@ -362,15 +371,14 @@ void						ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, dou
 ****	Fonction du visualisateur
 */
 void						ft_visu(t_main *s);
+t_visu						move_player_near_portal(t_main *s, t_visu vs, int nb);
 void						ft_visu_joan(t_main *s);
 void 						ft_draw_visu(t_main *s, t_sector *sct, t_visu vs);
 int							check_walls_lenght(t_int *wall1, t_int *wall2);
-t_visu						ft_place_view_plan(t_main *s, t_dpos player, double angle,
-							Uint32 color);
+t_visu						ft_place_view_plan(t_dpos player, double angle);
 t_walls 					*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p);
 void						create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end);
-int							ft_find_wall2(t_main *s, t_dpos player, t_dpos point,
-							Uint32 color, int sct_id);
+int							ft_find_wall(t_main *s, t_dpos player, t_dpos point, int sct_id);
 void						ft_print_wall(t_main *s, t_walls *wall);
 void						add_wall_to_list(t_main *s, t_walls *new);
 void						clear_wall_list(t_main *s);

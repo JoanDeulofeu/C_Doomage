@@ -46,21 +46,21 @@ void	teleport_player(t_main *s, const unsigned char *keys)
 		player_bas = s->col_pos;
 		player_haut.y += nb;
 		player_bas.y -= nb;
-		if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
+		if ((ptr_id = ft_find_wall(s, player_bas, player_haut, sct_id)) == 0)
 		{
 			player_haut = s->col_pos;
 			player_bas = s->col_pos;
 			player_haut.x += nb;
 			player_bas.x -= nb;
-			if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
+			if ((ptr_id = ft_find_wall(s, player_bas, player_haut, sct_id)) == 0)
 			{
 				player_haut.y += nb;
 				player_bas.y -= nb;
-				if ((ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id)) == 0)
+				if ((ptr_id = ft_find_wall(s, player_bas, player_haut, sct_id)) == 0)
 				{
 					player_haut.x += nb * 2;
 					player_bas.x -= nb * 2;
-					ptr_id = ft_find_wall2(s, player_bas, player_haut, BLUE, sct_id);
+					ptr_id = ft_find_wall(s, player_bas, player_haut, sct_id);
 				}
 			}
 		}

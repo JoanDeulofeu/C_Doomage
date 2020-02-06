@@ -45,7 +45,7 @@ void		sprite_shooting(t_main *s, t_sprite *cur)
 	if (cur->anim.image[cur->current] != NULL)
 	{
 		// cur->s_angle = s->player.angle + 180;
-		if (cur->r_dist < STORM_RANGE && !ft_find_wall2(s, s->player.m_pos, cur->m_pos, YELLOW, s->player.sector_id))
+		if (cur->r_dist < STORM_RANGE && !ft_find_wall(s, s->player.m_pos, cur->m_pos, s->player.sector_id))
 		{
 			cur->current = 1;
 			if (s->time->time_ms - cur->shoot_ms > 1000)

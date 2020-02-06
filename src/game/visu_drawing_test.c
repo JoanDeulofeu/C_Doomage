@@ -54,7 +54,6 @@ t_walls	*ft_create_new_wall(t_main *s, t_int *vtx, t_visu *vs, char w_or_p)
 	pos.pos3 = left;
 	pos.pos4 = right;
 	dist = ft_find_intersection(s, pos, 1);
-	// ft_find_wall2(s, vs->player, vs->left_point, APPLE_GREEN, vs->sct_id);
 	if (dist > 0)
 		wall->left = s->tmp_intersect;
 	else
