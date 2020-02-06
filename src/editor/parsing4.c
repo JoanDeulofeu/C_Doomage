@@ -96,7 +96,7 @@ void	ft_check_validity_last_sector(t_main *s)
 		printf("ERROR secteur non valide: sens du secteur n%d non valide.\n", sct->id);
 		remove_sector(s, wall->value, 0, 0);
 	}
-	if (ft_check_wall_lenght(sct))
+	if (ft_check_wall_lenght(sct, 0))
 	{
 		remove_sector(s, wall->value, 0, 0);
 		printf("ERROR secteur non valide: mur du secteur trop grand.\n");

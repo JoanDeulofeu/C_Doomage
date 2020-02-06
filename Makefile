@@ -45,6 +45,7 @@ SRC_NAME =	main.c							\
 			editor/utils_4.c				\
 			editor/anchors_general.c		\
 			editor/mode_vertex.c			\
+			editor/mode_vertex2.c			\
 			editor/mode_sprite.c			\
 			editor/remove_sectors.c			\
 			editor/wall.c					\
