@@ -6,11 +6,28 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:52:33 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/05 15:52:36 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/06 18:26:02 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+void		give_damage(t_main *s, int id)
+{
+	t_sprite	*cur;
+
+	cur = s->sprite;
+	while (cur != NULL)
+	{
+		if (cur->id == id && cur->life != 0)
+		{
+			cur->life = 0;
+			cur->current = 0;
+			break ;
+		}
+		cur = cur->next;
+	}
+}
 
 int			check_exist(t_main *s, t_dpos target, int id)
 {
