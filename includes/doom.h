@@ -513,8 +513,9 @@ int							ft_check_wall_that_intersect(t_main *s,
 							t_sector *sct_in_check);
 void						ft_check_move_vertex_validity(t_main *s, int id);
 t_pos						ft_find_polygon_center(t_sector *sct);
-int							ft_check_sector_sens(t_main *s, t_sector *sct);
-int							ft_check_wall_lenght(t_sector *sct);
+int							ft_check_sector_sens(t_sector *sct, int i);
+t_4double					ft_check_sector_sens2(t_int *wall, t_4double score, t_pos center);
+int							ft_check_wall_lenght(t_sector *sct, int i);
 int							is_dest_valid(t_main *s, int id);
 void						add_portal_ptr(t_main *s, t_int *wall, int i);
 void						ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i);

@@ -45,6 +45,7 @@ SRC_NAME =	main.c							\
 			editor/utils_4.c				\
 			editor/anchors_general.c		\
 			editor/mode_vertex.c			\
+			editor/mode_vertex2.c			\
 			editor/mode_sprite.c			\
 			editor/remove_sectors.c			\
 			editor/wall.c					\
@@ -60,6 +61,7 @@ SRC_NAME =	main.c							\
 			editor/list_utils.c				\
 			editor/polygon_center.c			\
 			editor/sector_sens.c			\
+			editor/sector_sens2.c			\
 			game/texture.c					\
 			game/game_launcher.c			\
 			game/visu.c						\
