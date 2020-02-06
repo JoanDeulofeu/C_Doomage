@@ -18,12 +18,11 @@ SRC_NAME =	main.c							\
 			launching/load_storm_anim_2.c 	\
 			launching/load_wp_anim.c 		\
 			launching/load_anims.c			\
-			launching/load_anims_2.c			\
+			launching/load_anims_2.c		\
 			launching/structs_initialize.c	\
 			launching/structs_initialize_2.c\
 			launching/structs_initialize_3.c\
 			editor/editor_launcher.c		\
-			editor/controls.c				\
 			editor/actions.c				\
 			editor/selected.c				\
 			editor/images.c					\

@@ -172,5 +172,5 @@ void	draw_wall(t_main *s, t_pos ori)
 {
 	s->line.x1 = ori.x;
 	s->line.y1 = ori.y;
-	get_line(s, WHITE, 1);
+	get_line(s, WHITE);
 }

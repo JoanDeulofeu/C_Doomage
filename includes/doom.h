@@ -480,9 +480,9 @@ void						draw_editor_menu(t_main *s, double perx,
 /*
 ****	Fonction de creation de ligne
 */
-int							trace_line(t_main *s, Uint32 color, int w);
-void						trace_vertical(t_main *s, Uint32 color, int w);
-void						get_line(t_main *s, Uint32 color, int w);
+int							trace_line(t_main *s, Uint32 color);
+void						trace_vertical(t_main *s, Uint32 color);
+void						get_line(t_main *s, Uint32 color);
 void						ft_draw_all_wall(t_main *s);
 
 /*
