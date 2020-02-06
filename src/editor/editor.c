@@ -29,11 +29,11 @@ void	draw_space_menu(t_main *s)
 	t_pos ori;
 	t_pos dest;
 
-	ori.x = WIDTH* 0.5 + (s->editor->menu.image[0]->w* 0.5) + 1;
+	ori.x = WIDTH * 0.5 + (s->editor->menu.image[0]->w * 0.5) + 1;
 	ori.y = -1;
 	dest.x = ori.x + s->editor->m_floor.image[0]->w;
 	dest.y = ori.y + s->editor->m_floor.image[0]->h + 1;
-	//draw_image(s->sdl->editor, ori, dest, s->editor->m_floor.image[s->editor->m_floor.current]);
+	draw_image(s->sdl->editor, ori, dest, s->editor->m_floor.image[s->editor->m_floor.current]);
 }
 
 void	draw_editor_menu(t_main *s, double perx, short orig_x, short orig_y)
@@ -101,14 +101,14 @@ void	change_mode(t_main *s, int key)
 	else if (key == SAVE)
 	{
 		s->editor->mode = save_edi;
-		s->editor->menu.current = 5;
+		s->editor->menu.current = 6;
 		ft_reset_color_vertex(s);
 		s->display_mode = 2;
 	}
 	else if (key == SPRITE)
 	{
 		s->editor->mode = sprite;
-		s->editor->menu.current = 4; //TODO CHANGE FOR SPRITE IMG
+		s->editor->menu.current = 5; //TODO CHANGE FOR SPRITE IMG
 		ft_reset_color_vertex(s);
 	}
 	reset_temp_portals(s);

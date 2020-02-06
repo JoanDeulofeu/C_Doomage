@@ -1,9 +1,7 @@
 #include "doom.h"
 
-void		animate_shotgun(t_main *s)
+void		animate_shotgun(t_main *s, long time)
 {
-	long	time;
-
 	if (s->player.shoot == 0)
 		return ;
 	time = s->time->time_ms - s->time->shotgun_ms;
@@ -70,13 +68,12 @@ void		animate_kick(t_main *s)
 		s->player.weapon.current = 0;
 		s->player.shoot = 0;
 	}
-
 }
 
 void		animate_weapon(t_main *s)
 {
 	if (s->player.wp_name == shotgun)
-		animate_shotgun(s);
+		animate_shotgun(s, 0);
 	else if (s->player.wp_name == gun)
 		animate_gun(s);
 	else if (s->player.wp_name == kick)
@@ -89,7 +86,6 @@ void		shoot(t_main *s)
 	{
 		s->player.shoot = 1;
 		s->time->shotgun_ms = s->time->time_ms;
-
 		fire(s);
 		if (s->player.wp_name == gun && s->player.mun_gun > 0)
 		{
@@ -97,7 +93,6 @@ void		shoot(t_main *s)
 			animate_weapon(s);
 			s->player.mun_gun--;
 		}
-
 		else if (s->player.wp_name == shotgun && s->player.mun_shotgun > 0)
 		{
 			Mix_PlayChannel(2, s->sdl->sounds.shotgun, 0);
@@ -125,7 +120,6 @@ void	draw_weapon(t_main *s, double perx, short orig_x, short orig_y)
 		orig_y += 50;
 		dest.y += 50;
 	}
-
 	coord.x = orig_x;
 	while (coord.x < dest.x)
 	{

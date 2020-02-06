@@ -56,7 +56,7 @@ void		click_editor_menu(t_main *s, t_anim menu, int x)
 	int		ori_x;
 
 	ori_x = WIDTH* 0.5 - (s->editor->menu.image[s->editor->menu.current]->w* 0.5);
-	case_size = menu.image[0]->w / 6;
+	case_size = menu.image[0]->w / 7;
 	if (s->display_mode)
 		return ;
 	if (x < ori_x + case_size)
@@ -70,11 +70,13 @@ void		click_editor_menu(t_main *s, t_anim menu, int x)
 	else if (x < ori_x + (case_size * 5) && x > ori_x + (case_size * 4))
 		change_mode(s, PORTAL);
 	else if (x < ori_x + (case_size * 6) && x > ori_x + (case_size * 5))
+		change_mode(s, SPRITE);
+	else if (x < ori_x + (case_size * 7) && x > ori_x + (case_size * 5))
 		change_mode(s, SAVE);
-	else if (x < ori_x + (case_size * 7) && x > ori_x + (case_size * 6)
+	else if (x < ori_x + (case_size * 8) && x > ori_x + (case_size * 6)
 		&& s->editor->mode_floor == 0)
 		s->editor->mode_floor = 1;
-	else if (x < ori_x + (case_size * 7) && x > ori_x + (case_size * 6)
+	else if (x < ori_x + (case_size * 8) && x > ori_x + (case_size * 7)
 		&& s->editor->mode_floor != 0)
 		s->editor->mode_floor = 0;
 }
@@ -89,7 +91,7 @@ int			check_click_menu(t_main *s)
 
 	x = s->ft_mouse.x;
 	y = s->ft_mouse.y;
-	case_size = s->editor->menu.image[0]->w / 6;
+	case_size = s->editor->menu.image[0]->w / 7;
 	ori_x = WIDTH* 0.5 - (s->editor->menu.image[s->editor->menu.current]->w* 0.5);
 	dest_x = ori_x + s->editor->menu.image[s->editor->menu.current]->w;
 	if (x >= ori_x && y >= 0 && x < dest_x + case_size && y <
