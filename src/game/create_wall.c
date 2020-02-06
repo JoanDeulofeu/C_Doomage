@@ -56,35 +56,6 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	t_4dpos	pos;
 
 	fake_vs = fill_visu_values(s, vs, vtx);
-
-	// if (swich == 1 || swich == 4)
-	// {
-	// 	l_angle = ft_find_angle_portal(&fake_vs.player, &fake_vs.vtx_gauche->ptr->m_pos, NULL, 1);
-	// 	fake_vs.left_point.x = fake_vs.player.x + cos(to_rad(l_angle)) * 10000;
-	// 	fake_vs.left_point.y = fake_vs.player.y - sin(to_rad(l_angle)) * 10000;
-	// 	// pos.pos1 = fake_vs.left_plan;
-	// 	// pos.pos2 = fake_vs.right_plan;
-	// 	// pos.pos3 = fake_vs.left_point;
-	// 	// pos.pos4 = fake_vs.player;
-	// 	// if ((ft_find_intersection(s, pos, 1)) == 0)
-	// 	// fake_vs.left_plan = s->tmp_intersect;
-	// }
-	//
-	// if (swich == 3 || swich == 4)
-	// {
-	// 	r_angle = ft_find_angle_portal(&fake_vs.player, &fake_vs.vtx_droite->ptr->m_pos, NULL, 1);
-	// 	fake_vs.right_point.x = fake_vs.player.x + cos(to_rad(r_angle)) * 10000;
-	// 	fake_vs.right_point.y = fake_vs.player.y - sin(to_rad(r_angle)) * 10000;
-	// 	// pos.pos1 = fake_vs.left_plan;
-	// 	// pos.pos2 = fake_vs.right_plan;
-	// 	// pos.pos3 = fake_vs.right_point;
-	// 	// pos.pos4 = fake_vs.player;
-	// 	// if ((ft_find_intersection(s, pos, 1)) == 0)
-	// 	// fake_vs.right_plan = s->tmp_intersect;
-	// }
-	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.left_plan)), 0xff0000ff);
-	// // draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.right_plan)), 0xffffffff);
-
 	pos.pos1 = vtx->vtx_dest->next->ptr->m_pos;
 	pos.pos2 = vtx->vtx_dest->ptr->m_pos;
 	pos.pos3 = fake_vs.left_point;
@@ -98,30 +69,12 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 		fake_vs.end = fake_vs.vtx_droite->ptr->m_pos;
 	else
 		fake_vs.end = s->tmp_intersect;
-	ft_limit_ceiling_floor(s, pos.pos1, pos.pos2, &fake_vs, swich);
+	ft_limit_ceiling_floor(s, pos, &fake_vs, swich);
 	if (!check_portal_doover(s, vtx))
 		return ;
 	if (!check_portal_validity(s, vtx->vtx_dest, &fake_vs))
 		return ;
-	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)), PINK); //juste pour tester la pos du fake_player
-	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).x;
-	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).y;
-	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).x + cos(to_rad(*angle_fake)) * 25;
-	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)).y - sin(to_rad(*angle_fake)) * 25;
-	// get_line(s, 0xff66f0ff, 1);
-	// s->line.x1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.left_plan)).x;
-	// s->line.y1 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.left_plan)).y;
-	// s->line.x2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.right_plan)).x;
-	// s->line.y2 = ft_dpos_to_pos(to_edi_coord(s, fake_vs.right_plan)).y;
-	// get_line(s, YELLOW, 1);
-	// if (s->printf)
-	// {
-	// 	s->display_mode = editor;
-	// 	printf("sector %d", vs->sct_id);
-	// 	printf("     angle %.2f\n", vs->angle);
-	// 	update_image(s, s->sdl->editor);
-	// 	sleep(1);
-	// }
+	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)), PINK);
 	ft_create_new_wall(s, vtx, vs, 'p');
 	if (s->portal_nb < PORTAL_LIMIT)
 		add_portal_to_list(s, fake_vs.player, fake_vs.sct, fake_vs);
