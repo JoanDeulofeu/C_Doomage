@@ -60,6 +60,7 @@ SRC_NAME =	main.c							\
 			editor/list_utils.c				\
 			editor/polygon_center.c			\
 			editor/sector_sens.c			\
+			editor/sector_sens2.c			\
 			game/texture.c					\
 			game/game_launcher.c			\
 			game/visu.c						\
