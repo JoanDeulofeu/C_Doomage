@@ -19,6 +19,8 @@ SRC_NAME =	main.c							\
 			launching/load_wp_anim.c 		\
 			launching/load_anims.c			\
 			launching/structs_initialize.c	\
+			launching/structs_initialize_2.c\
+			launching/structs_initialize_3.c\
 			editor/editor_launcher.c		\
 			editor/controls.c				\
 			editor/actions.c				\
