@@ -180,13 +180,6 @@ double		ft_find_angle_portal(t_dpos *left, t_dpos *right, t_dpos *third, int nee
 	return (angle);
 }
 
-// t_visu		ft_get_fake_vs(t_main *s, t_dpos fake_player, double fake_angle)
-// {
-// 	t_visu	fake_vs;
-//
-// 	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff);
-// }
-
 double		ft_get_fake_angle(t_main *s, t_dpos player, t_int *vtx)
 {
 	double		angle_fake_player;
@@ -246,7 +239,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 		angle_left = 180 + (180 - angle_left);
 	// vs.angle = (angle_right + angle_left)* 0.5;
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
-	vs.begin_wall_id = ft_find_wall2(s, vs.begin, vs.left_point, WHITE, vs.sct_id); //#37f3ff
+	vs.begin_wall_id = ft_find_wall(s, vs.begin, vs.left_point, vs.sct_id); //#37f3ff
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.begin))), WHITE);
 	// printf("vs.begin_wall_id = %d\n", vs.begin_wall_id);
 	if (vs.begin_wall_id == 0 || s->count_wall % 2 == 0)
@@ -259,7 +252,7 @@ void		add_portal_to_list(t_main *s, t_dpos player, t_sector *sct, t_visu vs)
 	// else
 	// 	vs.begin = s->tmp_intersect;
 	vs.begin_wall = get_t_int_by_vertex_id(vtx, vs.begin_wall_id);
-	vs.end_wall_id = ft_find_wall2(s, vs.end, vs.right_point, S_PINK, vs.sct_id);
+	vs.end_wall_id = ft_find_wall(s, vs.end, vs.right_point, vs.sct_id);
 
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.end))), WHITE);
 	// draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, (vs.right_point))), GREEN);

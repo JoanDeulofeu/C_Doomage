@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:40:20 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/05 18:00:08 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/06 12:32:37 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int		check_wall_security(t_main *s, t_dpos target)
 
 	m_target.x = target.x * METRE;
 	m_target.y = target.y * METRE;
-	if ((wall_id = ft_find_wall2(s, s->player.m_pos,
-					m_target, WHITE, s->player.sector_id)) != 0)
+	if ((wall_id = ft_find_wall(s, s->player.m_pos, m_target,
+		s->player.sector_id)) != 0)
 	{
 		sct = get_sector_by_id(s, s->player.sector_id);
 		wall = get_t_int_by_vertex_id(sct->vertex, wall_id);

@@ -17,23 +17,10 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 	t_visu	fake_vs;
 	t_dpos	fake_player;
 
-	// if (s->printf)
-	// {
-	// 	s->display_mode = editor;
-	// 	ft_reset_color_screen(s->sdl->editor->content, WIDTH * HEIGHT);
-	// 	ft_draw_editor(s->editor, s->sdl->editor);
-	// 	display_map(s);
-	// 	draw_sprites_ori(s);
-	// 	ft_draw_all_wall(s);
-	// 		if (s->editor->mode == portal)
-	// 		change_over_wall(s);
-	// 	draw_editor_menu(s, 0, WIDTH* 0.5
-	// 		- (s->editor->menu.image[s->editor->menu.current]->w* 0.5), -1);
-	// 	draw_space_menu(s);
-	// }
+
 	fake_angle = 0;
 	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
-	fake_vs = ft_place_view_plan(s, fake_player, fake_angle, 0x4bd9ffff); // #4bd9ff
+	fake_vs = ft_place_view_plan(fake_player, fake_angle);
 	fake_vs.player = fake_player;
 	fake_vs.prev_sct_id = vtx->sct;
 	fake_vs.sct_id = vtx->sct_dest;

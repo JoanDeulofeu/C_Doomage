@@ -11,7 +11,7 @@ void 	change_wall_texture(t_main *s, int up)
 	if (sct == NULL)
 		return ;
 	pos = get_direction(s, NULL, 1000, s->player.m_pos);
-	ptr_id = ft_find_wall2(s, s->player.m_pos, pos, YELLOW, sct->id);
+	ptr_id = ft_find_wall(s, s->player.m_pos, pos, sct->id);
 	wall = get_t_int_by_vertex_id(sct->vertex, ptr_id);
 	if (wall == NULL)
 		return ;

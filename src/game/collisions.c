@@ -164,7 +164,7 @@ int			check_col(t_main *s, t_dpos haut, t_dpos bas, int sct_id)
 	t_sector	*sct;
 	t_int		*wall;
 
-	id = ft_find_wall2(s, haut, bas, S_PURPLE, sct_id);
+	id = ft_find_wall(s, haut, bas, sct_id);
 	if (id != 0)
 	{
 		sct = get_sector_by_id(s, sct_id);
@@ -178,8 +178,6 @@ int			check_col(t_main *s, t_dpos haut, t_dpos bas, int sct_id)
 int			is_colliding(t_main *s, t_dpos target, int sct_id)
 {
 	int			id;
-	// t_sector	*sct;
-	// t_int		*wall;
 	t_dpos		haut;
 	t_dpos		bas;
 	int			value;
