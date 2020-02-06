@@ -1,48 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/06 16:27:02 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/06 16:32:13 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
-void		ft_transition(t_main *s)
-{
-	int diff_y_eye;
-	double diff_abs_angle;
-
-	diff_y_eye = abs(s->transition_y_eye - MOON_Y) / TRANSITION_SPEED;
-	diff_abs_angle = (double)(abs(s->transition_angle - 70)) / TRANSITION_SPEED;
-	if (s->transition_angle < 70)
-	{
-		s->player.angle += diff_abs_angle;
-		s->player.abs_angle += diff_abs_angle;
-	}
-	else
-	{
-		s->player.angle -= diff_abs_angle;
-		s->player.abs_angle -= diff_abs_angle;
-	}
-	if (s->transition_y_eye < MOON_Y)
-		s->player.y_eye += diff_y_eye;
-	else
-		s->player.y_eye -= diff_y_eye;
-	if (s->transition++ > TRANSITION_SPEED)
-		s->transition = 0;
-}
-
-void		ft_zoom(t_main *s, t_pos mouse, int space)
+void		ft_zoom(t_main *s, int space)
 {
 	t_pos		ori;
 	t_pos		p_ori;
 	t_pos		diff;
-	t_dpos		r_pos;
-	t_editor	*edi;
 
-	edi = s->editor;
-	ori.x = arround(s->editor->space, mouse.x
+	ori.x = arround(s->editor->space, s->ft_mouse.x
 		- (s->editor->decal_x % s->editor->space));
-	ori.y = arround(s->editor->space, mouse.y
+	ori.y = arround(s->editor->space, s->ft_mouse.y
 		- (s->editor->decal_y % s->editor->space));
-	p_ori.x = mouse.x - ori.x;
-	p_ori.y = mouse.y - ori.y;
+	p_ori.x = s->ft_mouse.x - ori.x;
+	p_ori.y = s->ft_mouse.y - ori.y;
 	ori = get_abs_pos(s, ori);
-	r_pos.x = (double)ori.x + ((double)p_ori.x / edi->space);
-	r_pos.y = (double)ori.y + ((double)p_ori.y / edi->space);
 	s->player.pos.x -= s->editor->decal_x;
 	s->player.pos.y -= s->editor->decal_y;
 	s->player.pos.x /= (double)(s->editor->space);
@@ -50,8 +32,8 @@ void		ft_zoom(t_main *s, t_pos mouse, int space)
 	s->editor->space += space;
 	s->player.pos.x *= (double)(s->editor->space);
 	s->player.pos.y *= (double)(s->editor->space);
-	diff.x = r_pos.x * (-space);
-	diff.y = r_pos.y * (-space);
+	diff.x = (double)ori.x + ((double)p_ori.x / s->editor->space) * (-space);
+	diff.y = (double)ori.y + ((double)p_ori.y / s->editor->space) * (-space);
 	s->editor->decal_x += diff.x;
 	s->editor->decal_y += diff.y;
 	s->player.pos.x += s->editor->decal_x;
@@ -65,21 +47,23 @@ void		rotate_mouse(t_main *s)
 	angle = s->player.angle + (-s->sdl->event.motion.xrel)
 		* ROTATE_SPEED / 50 + 360;
 	s->player.angle = (int)angle % 360;
-	s->player.abs_angle = (int)(s->player.abs_angle + + (-s->sdl->event.motion.xrel)
+	s->player.abs_angle = (int)(s->player.abs_angle
+	+ (-s->sdl->event.motion.xrel)
 		* ROTATE_SPEED / 50 + 360) % 360;
 	s->player.y_eye = (s->player.y_eye + (-s->sdl->event.motion.yrel)
-		* ROTATE_SPEED* 0.1);
+		* ROTATE_SPEED * 0.1);
 	if (s->player.y_eye > 1000)
 		s->player.y_eye = 1000;
 	else if (s->player.y_eye < -1000)
 		s->player.y_eye = -1000;
 }
 
-void	ft_crouch(t_main *s, const Uint8 *keys)
+void		ft_crouch(t_main *s, const Uint8 *keys)
 {
 	if (keys[LCTRL])
 	{
-		if ((s->time->time_ms > s->time->crouch_ms + 25) && s->player.size > 1.05)
+		if ((s->time->time_ms > s->time->crouch_ms + 25)
+		&& s->player.size > 1.05)
 		{
 			s->player.size -= 0.1;
 			s->time->crouch_ms = s->time->time_ms;
@@ -87,7 +71,8 @@ void	ft_crouch(t_main *s, const Uint8 *keys)
 	}
 	else
 	{
-		if ((s->time->time_ms > s->time->crouch_ms + 25) && s->player.size < PLAYER_SIZE)
+		if ((s->time->time_ms > s->time->crouch_ms + 25)
+		&& s->player.size < PLAYER_SIZE)
 		{
 			s->player.size += 0.1;
 			s->time->crouch_ms = s->time->time_ms;
@@ -95,14 +80,8 @@ void	ft_crouch(t_main *s, const Uint8 *keys)
 	}
 }
 
-void	ft_jump(t_main *s, const Uint8 *keys)
+void		jump_2(t_main *s)
 {
-	//pour player->jump, 0 = pas de jump, 1 = phase montante, 2 = descendante, 3 = chute apres fly
-	// printf("jump = %d, jump_height = %f, jump size = %f\ntime = %ld, j_time + 10 = %ld\n",s->player.jump, s->player.jump_height, JUMP_SIZE, s->time->time_ms, s->time->jump_ms + 10);
-
-	if (s->player.fly == 0 && (s->player.jetpack == 0 || s->play_or_editor == 1) && keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size
-		+ JUMP_SIZE - 0.1 <= s->player.ceiling_height - s->player.floor_height))
-			s->player.jump = 1;
 	if (s->player.jump == 1 && (s->time->time_ms > s->time->jump_ms + 10))
 	{
 		if (s->player.jump_height < 0.5)
@@ -127,6 +106,16 @@ void	ft_jump(t_main *s, const Uint8 *keys)
 			s->player.jump_height = 0;
 		}
 	}
+}
+
+void		ft_jump(t_main *s, const Uint8 *keys)
+{
+	if (s->player.fly == 0 && (s->player.jetpack == 0 || s->play_or_editor == 1)
+	&& keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size
+	+ JUMP_SIZE - 0.1 <= s->player.ceiling_height - s->player.floor_height))
+		s->player.jump = 1;
+	if (s->player.jump == 1 || s->player.jump == 2)
+		jump_2(s);
 	if (s->player.jump == 3 && (s->time->time_ms > s->time->jump_ms + 10)
 	&& s->player.jump_height > 0)
 	{

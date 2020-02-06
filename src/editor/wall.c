@@ -253,7 +253,7 @@ void	ft_trump(t_main *s, t_int *s_vtx)
 	s->line.x2 = vtx->pos.x + s->editor->decal_x;
 	s->line.y2 = vtx->pos.y + s->editor->decal_y;
 	// printf("s_vtx->ptr id2 = %d\n------------\n", vtx->id );
-	get_line(s, color, 1);
+	get_line(s, color);
 }
 
 void	ft_draw_all_wall(t_main *s)

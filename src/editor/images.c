@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   images.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/06 16:45:46 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/06 16:45:48 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
 void	update_image(t_main *s, t_texture *texture)
@@ -19,9 +31,7 @@ void	update_image(t_main *s, t_texture *texture)
 void	set_pixel(t_texture *text, Uint32 color, t_pos coord)
 {
 	if (coord.x >= 0 && coord.x < WIDTH && coord.y >= 0 && coord.y < HEIGHT)
-	{
 		text->content[coord.x + coord.y * WIDTH] = color;
-	}
 }
 
 void	draw_rect(t_texture *text, t_dpos orig, t_dpos dest, Uint32 color)
