@@ -28,7 +28,7 @@ SRC_NAME =	main.c							\
 			editor/errors.c					\
 			editor/editor_controls.c		\
 			editor/lines.c					\
-			editor/ft_lines.c					\
+			editor/ft_lines.c				\
 			editor/parsing.c				\
 			editor/parsing2.c				\
 			editor/parsing3.c				\
@@ -65,6 +65,7 @@ SRC_NAME =	main.c							\
 			editor/ft_find_intersection.c	\
 			game/utils_2.c					\
 			game/hud.c						\
+			game/hud_2.c					\
 			game/anim.c						\
 			game/sprite.c					\
 			game/sprite_menu.c				\
