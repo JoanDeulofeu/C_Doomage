@@ -18,8 +18,8 @@ t_visu		fill_visu_values(t_main *s, t_visu *vs, t_int *vtx)
 	t_dpos	fake_player;
 
 
-	fake_angle = 0;
-	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle, vs->angle);
+	fake_angle = vs->angle;
+	fake_player = ft_get_fake_player(s, vs->player, vtx, &fake_angle);
 	fake_vs = ft_place_view_plan(fake_player, fake_angle);
 	fake_vs.player = fake_player;
 	fake_vs.prev_sct_id = vtx->sct;
@@ -72,12 +72,12 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	ft_limit_ceiling_floor(s, pos, &fake_vs, swich);
 	if (!check_portal_doover(s, vtx))
 		return ;
-	if (!check_portal_validity(s, vtx->vtx_dest, &fake_vs))
+	if (!check_portal_validity(s, vtx->vtx_dest, &fake_vs, METRE))
 		return ;
 	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)), PINK);
 	ft_create_new_wall(s, vtx, vs, 'p');
 	if (s->portal_nb < PORTAL_LIMIT)
-		add_portal_to_list(s, fake_vs.player, fake_vs.sct, fake_vs);
+		add_portal_to_list(s, fake_vs.sct, fake_vs);
 }
 
 int		ft_nb_walls(t_main *s)
@@ -104,7 +104,7 @@ void		create_all_walls(t_main *s, t_int *vtx, t_visu *vs, int end)
 		if (vtx->wall_value != -1)
 		{
 			if (vs->player.x == s->player.m_pos.x && vs->player.y == s->player.m_pos.y
-				&& !check_portal_validity_player(s, vtx, vs))
+				&& !check_portal_validity(s, vtx, vs, 1))
 			{
 				vtx = vtx->next;
 				continue ;
