@@ -318,7 +318,7 @@ void		handle_editor_keys(t_main *s)
 		clear_wall_list(s);
 		// rand_move(s);
 		if (s->editor->select_sprite)
-			display_sprite_menu(s);
+			display_sprite_menu(s, -1, 0, 0);
 
 			t_sector *sct = s->sector;
 			while (sct) //MERDE
@@ -493,7 +493,7 @@ void		editor_handler(t_main *s)
 						// s->editor->selected = 0;
 						if (!is_sprite_selected(s) && !is_sprite_under_mouse(s) && selected == 0)
 						{
-							create_new_sprite(s, none, get_abs_r_pos(s, s->ft_mouse));
+							create_new_sprite(s, none, get_abs_r_pos(s, s->ft_mouse), s->sprite);
 							// deselect_sprite(s);
 						}
 						else if (is_sprite_selected(s))

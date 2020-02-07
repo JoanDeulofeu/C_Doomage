@@ -692,34 +692,33 @@ void 						set_visible_sprites(t_main *s, t_visu *vs);
 int							check_sprite_menu_click(t_main *s, t_pos pos);
 void						draw_sprite_menu(t_main *s);
 void						display_sprite_inverse(t_main *s, double angle,
-	t_sprite *cur);
+							t_sprite *cur);
+void 						select_sprite_in_menu(t_main *s);
+void						draw_sprite_list(t_main *s);
+int							check_limit_sprite(t_main *s, int sct_id, t_sprite *sprite);
 
 void						free_sprite(t_main *s);
 void						free_lsprite(t_main *s);
 void						free_anim(t_anim anim);
-// void						free_lanim(t_lanim *anim);
 
 void						remove_sprite_by_id(t_main *s, int id);
-// void						remove_sprite_by_select(t_main *s);
-// void						remove_sprite(t_main *s, t_sprite *cur, t_sprite *next,
-	// t_sprite *prev);
 
 t_dpos						get_abs_r_pos(t_main *s, t_pos ori);
 /*
 ****	Fonction sprite Yohann
 */
-t_sprite					*create_new_sprite(t_main *s, t_name name, t_dpos pos);
+t_sprite					*create_new_sprite(t_main *s, t_name name, t_dpos pos, t_sprite *temp);
 void 						get_sprite_info_by_name(t_main *s, t_name name, t_sprite *sprite);
 t_sprite					*is_sprite_under_mouse(t_main *s);
 int							is_sprite_selected(t_main *s);
-void 						display_sprite_menu(t_main *s);
+void 						display_sprite_menu(t_main *s, int i, int j, int px);
 void 						select_sprite_type(t_main *s);
 void						remove_selected_sprite(t_main *s);
 void						move_sprite(t_main *s);
 void 						draw_sprites_ori(t_main *s);
 void						set_sprite(t_main *s);
 void 						add_sprite_to_sector(t_main *s, t_sprite *sprite);
-void 						draw_plain_sprite(t_main *s, t_pos coord, t_image *img, t_texture *tex);
+void 						draw_plain_sprite(int i, t_pos coord, t_image *img, t_texture *tex);
 int							check_if_visible(t_main *s, t_sprite *sprite);
 void						print_sprite(t_main *s, t_sprite *farthest);
 void 						check_bomb(t_main *s);

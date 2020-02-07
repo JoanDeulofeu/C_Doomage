@@ -49,6 +49,9 @@ SRC_NAME =	main.c							\
 			editor/mode_vertex.c			\
 			editor/mode_vertex2.c			\
 			editor/mode_sprite.c			\
+			editor/mode_sprite2.c			\
+			editor/mode_sprite3.c			\
+			editor/mode_sprite4.c			\
 			editor/remove_sectors.c			\
 			editor/wall.c					\
 			editor/mode_deplacement.c		\
@@ -79,7 +82,7 @@ SRC_NAME =	main.c							\
 			game/hud.c						\
 			game/hud_2.c					\
 			game/anim.c						\
-			game/anim_2.c						\
+			game/anim_2.c					\
 			game/sprite.c					\
 			game/fire_mode.c				\
 			game/skybox.c					\

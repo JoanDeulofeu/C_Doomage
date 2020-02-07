@@ -23,20 +23,20 @@ void		play_g_o_anim(t_main *s)
 		s->time->g_o_ms = s->time->time_ms;
 	time = s->time->time_ms - s->time->g_o_ms;
 	if (time < 250)
-		draw_plain_sprite(s, pos, s->gameover.image[0], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[0], s->sdl->game);
 	else if (time >= 250 && time < 500)
-		draw_plain_sprite(s, pos, s->gameover.image[1], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[1], s->sdl->game);
 	else if (time >= 500 && time < 750)
-		draw_plain_sprite(s, pos, s->gameover.image[2], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[2], s->sdl->game);
 	else if (time >= 750 && time < 1000)
-		draw_plain_sprite(s, pos, s->gameover.image[3], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[3], s->sdl->game);
 	else if (time >= 1000 && time < 1250)
-		draw_plain_sprite(s, pos, s->gameover.image[4], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[4], s->sdl->game);
 	else if (time >= 1250 && time < 1500)
-		draw_plain_sprite(s, pos, s->gameover.image[5], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[5], s->sdl->game);
 	else if (time >= 1500 && time < 2000)
 	{
-		draw_plain_sprite(s, pos, s->gameover.image[6], s->sdl->game);
+		draw_plain_sprite(0, pos, s->gameover.image[6], s->sdl->game);
 	}
 }
 
