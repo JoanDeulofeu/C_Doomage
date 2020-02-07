@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:59:33 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 15:10:29 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 19:51:18 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,7 @@ void	ft_print_wall(t_main *s, t_walls *wall)
 	r_height_wall = HEIGHT / ((r_pct * 0.001) * 4)
 	* (double)abs(wall->floor_height - wall->ceiling_height) * HEIGHT_MULT;
 	ft_init_diff_and_min(wall);
-	ft_multi_threading(s, wall, l_height_wall, r_height_wall,
-	wall->screen_width_wall);
+	ft_multi_threading(s, wall, l_height_wall, r_height_wall);
 }
 
 void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)

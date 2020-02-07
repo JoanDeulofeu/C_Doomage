@@ -402,6 +402,14 @@ typedef struct				s_multithread {
 	int						width_wall;
 	int						wall_height_tmp;
 	int						avcm_x;
+	int						limit_thread;
+	int						i;
+	double					diff_wall;
+	double					hw;
+	t_pos					coord;
+	int						bottom;
+	double					pct_avcm;
+	double					dhp;
 }							t_multithread;
 
 void 						reset(t_main *s);
@@ -410,7 +418,7 @@ void						reset_statue(t_main *s);
 /*
 ****	Fonction du multithreading
 */
-void						ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall);
+void						ft_multi_threading(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall);
 
 /*
 ****	Fonction du visualisateur
