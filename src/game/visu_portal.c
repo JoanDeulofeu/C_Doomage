@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 17:15:36 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 17:16:47 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 14:46:52 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		add_portal_to_list(t_main *s, t_sector *sct, t_visu vs)
 	vtx = vs.begin_wall;
 	create_all_walls(s, vtx, &vs, 1);
 	s->portal_nb--;
-	set_visible_sprites(s, &vs);
+	set_visible_sprites(s, &vs, 0);
 }
 
 t_dpos		ft_get_fake_player(t_main *s, t_dpos player, t_int *vtx, double *a)

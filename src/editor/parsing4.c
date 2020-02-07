@@ -1,13 +1,16 @@
-#include "doom.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing4.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 14:04:27 by jgehin            #+#    #+#             */
+/*   Updated: 2020/02/07 14:18:06 by jgehin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		ft_check_bar(char *str, int i)
-{
-	while ((str[i] < '0' || str[i] > '9') && str[i] != '|' && str[i] != '\0')
-		i++;
-	if (str[i] == '|')
-		return (1);
-	return (0);
-}
+#include "doom.h"
 
 void	ft_put_texture_value(t_main *s, t_sector *sct, char *line, int i)
 {
@@ -72,6 +75,30 @@ void	ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i)
 		ft_put_texture_value(s, sct, line, i);
 }
 
+void	ft_check_validity_last_sector2(t_main *s, t_sector *sct, t_int *wall)
+{
+	if (ft_check_wall_that_intersect(s, sct))
+	{
+		remove_sector(s, wall->value, 0);
+		ft_putstr("ERROR sector non valide: collision avec un autre secteur\n");
+	}
+	else if (ft_check_sector_sens(sct, 0))
+	{
+		ft_putstr("ERROR secteur non valide: sens du secteur non valide.\n");
+		remove_sector(s, wall->value, 0);
+	}
+	else if (ft_check_wall_lenght(sct, 0))
+	{
+		remove_sector(s, wall->value, 0);
+		ft_putstr("ERROR secteur non valide: mur du secteur trop grand.\n");
+	}
+	else if (sct->id > 50)
+	{
+		remove_sector(s, wall->value, 0);
+		ft_putstr("ERROR secteur non valide: Trop de secteur sur cette map.\n");
+	}
+}
+
 void	ft_check_validity_last_sector(t_main *s)
 {
 	t_sector	*sct;
@@ -84,26 +111,7 @@ void	ft_check_validity_last_sector(t_main *s)
 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
 	{
 		remove_sector(s, wall->value, 0);
-		printf("ERROR secteur non valide: moins de 3 vertex.\n");
+		ft_putstr("ERROR secteur non valide: moins de 3 vertex.\n");
 	}
-	if (ft_check_wall_that_intersect(s, sct))
-	{
-		remove_sector(s, wall->value, 0);
-		printf("ERROR secteur non valide: collision avec un autre secteur.\n");
-	}
-	if (ft_check_sector_sens(sct, 0))
-	{
-		printf("ERROR secteur non valide: sens du secteur n%d non valide.\n", sct->id);
-		remove_sector(s, wall->value, 0);
-	}
-	if (ft_check_wall_lenght(sct, 0))
-	{
-		remove_sector(s, wall->value, 0);
-		printf("ERROR secteur non valide: mur du secteur trop grand.\n");
-	}
-	if (sct->id > 100)
-	{
-		remove_sector(s, wall->value, 0);
-		printf("ERROR secteur non valide: Trop de secteur sur cette map.\n");
-	}
+	ft_check_validity_last_sector2(s, sct, wall);
 }

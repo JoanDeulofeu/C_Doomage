@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing5.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 14:04:22 by jgehin            #+#    #+#             */
+/*   Updated: 2020/02/07 14:04:24 by jgehin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
 int		ft_how_many_pipe(char *str)
@@ -80,4 +92,13 @@ void	ft_parsing_norm(t_main *s, char *line, int i, int y)
 		s->player.r_ori.x = (float)ft_atoi(&line[i]) / METRE;
 		s->player.r_pos = s->player.r_ori;
 	}
+}
+
+int		ft_check_bar(char *str, int i)
+{
+	while ((str[i] < '0' || str[i] > '9') && str[i] != '|' && str[i] != '\0')
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);
 }

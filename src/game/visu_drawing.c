@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:59:33 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 14:59:36 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 14:46:44 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	if (!(vtx = get_t_int_by_vertex_id(vtx, vs.begin_wall_id)))
 		return ;
 	create_all_walls(s, vtx, &vs, 1);
-	set_visible_sprites(s, &vs);
+	set_visible_sprites(s, &vs, 0);
 	wall = s->walls;
 	while (wall)
 		if (print_wall_or_sprite(s, wall) == 1)
