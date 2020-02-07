@@ -88,6 +88,7 @@ SRC_NAME =	main.c							\
 			game/skybox.c					\
 			game/ia.c						\
 			game/collisions.c				\
+			game/collisions_2.c				\
 			game/walls.c					\
 			game/teleport.c					\
 			game/draw_wall.c				\

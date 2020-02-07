@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:52:33 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 18:26:02 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 14:36:37 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		rand_move(t_main *s, double angle, t_sprite *sprite)
 			target = sprite->r_pos;
 			target.x += cos(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
 			target.y -= sin(to_rad(sprite->s_angle)) * SPRITE_MOVE_SPEED;
-			while (is_colliding(s, target, sprite->sct_id))
+			while (is_colliding(s, target, sprite->sct_id, target))
 			{
 				target = sprite->r_pos;
 				angle = fmod(rand(), 360);
