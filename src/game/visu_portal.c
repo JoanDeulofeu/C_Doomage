@@ -6,11 +6,40 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 17:15:36 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 14:46:52 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 18:02:04 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+int			ft_nb_walls(t_main *s)
+{
+	t_walls	*tmp;
+	int		i;
+
+	tmp = s->walls;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
+int			check_portal_doover(t_main *s, t_int *vtx)
+{
+	t_walls *wall;
+
+	wall = s->walls;
+	while (wall)
+	{
+		if (wall->portal_value == vtx->ptr->id)
+			return (0);
+		wall = wall->next;
+	}
+	return (1);
+}
 
 void		add_portal_to_list(t_main *s, t_sector *sct, t_visu vs)
 {

@@ -609,6 +609,8 @@ t_visu						get_walls_to_draw(t_main *s, t_dpos player, t_visu vs);
 void						add_portal_to_list(t_main *s,
 							t_sector *sct, t_visu vs);
 void						check_map_portals(t_main *s);
+int							check_portal_doover(t_main *s, t_int *vtx);
+int							ft_nb_walls(t_main *s);
 int							check_portal_validity(t_main *s, t_int *vtx, t_visu *vs, int gap);
 
 /*
