@@ -650,7 +650,7 @@ t_dpos						get_direction(t_main *s, const Uint8 *keys, double speed,
 void						ft_move_player(t_main *s, const Uint8 *keys,
 	int move_speed);
 void						rotate_player(t_main *s, const Uint8 *keys);
-void						teleport_player(t_main *s, const unsigned char *keys);
+void						teleport_player(t_main *s);
 void						ft_trace_vertical(t_main *s, t_line line, Uint32 color);
 void						ft_get_line(t_main *s, t_line line, Uint32 color);
 int							ft_trace_line(t_main *s, t_line line, Uint32 color);

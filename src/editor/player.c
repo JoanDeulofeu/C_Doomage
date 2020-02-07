@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:40:20 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 14:36:29 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 15:21:55 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		check_player_collision(t_main *s, t_dpos target, const Uint8 *keys)
 		if ((check = check_wall_security(s, target)) != 0)
 		{
 			if (check != -1)
-				teleport_player(s, keys);
+				teleport_player(s);
 			return (0);
 		}
 		if (handle_sector_zero(s))
@@ -80,7 +80,7 @@ int		check_player_collision(t_main *s, t_dpos target, const Uint8 *keys)
 		set_player(s);
 	}
 	if (col > 0)
-		teleport_player(s, keys);
+		teleport_player(s);
 	return (1);
 }
 
