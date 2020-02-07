@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:13:02 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:42:42 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,6 +568,12 @@ void						ft_norm_parse_sector(t_main *s, char *line,
 							t_sector *sct, int i);
 void						ft_parsing_norm(t_main *s, char *line,
 							int i, int y);
+int							ft_norm_close_sector(t_main *s, int part,
+							char *end);
+int							ft_norm_close_sector2(t_main *s, int part,
+							char *end);
+int							ft_howmany_char(char *str, char c);
+void						ft_save_sector_vextex(t_main *s, int id_vtx);
 
 /*
 ****	Fonction de gestion des listes chainés
