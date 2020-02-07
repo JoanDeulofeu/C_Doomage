@@ -6,19 +6,18 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:20:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:21:01 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:27:13 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void 	ending(t_main *s, int key)
+void	ending(t_main *s, int key)
 {
 	t_pos coord;
 
 	coord.x = 0;
 	coord.y = 0;
-
 	draw_plain_sprite(0, coord, s->cinematic.image[4], s->sdl->game);
 	update_image(s, s->sdl->game);
 	while (1)
@@ -36,14 +35,11 @@ void 	ending(t_main *s, int key)
 				handle_error(s, 0);
 		}
 	}
-
 	reset(s);
 }
 
-void 	reset(t_main *s)
+void	reset2(t_main *s)
 {
-	t_sprite *sprite;
-
 	s->block_move = 0;
 	s->player.r_pos = s->player.r_ori;
 	set_player(s);
@@ -63,6 +59,13 @@ void 	reset(t_main *s)
 	select_weapon_anim(s);
 	set_weapon_range(s);
 	reset_statue(s);
+}
+
+void	reset(t_main *s)
+{
+	t_sprite *sprite;
+
+	reset2(s);
 	sprite = s->sprite;
 	while (sprite)
 	{
@@ -80,8 +83,6 @@ void 	reset(t_main *s)
 		sprite->r_dist = 100;
 		sprite->set = 0;
 		sprite->displayed = 0;
-
-
 		sprite = sprite->next;
 	}
 	set_sprite(s);
@@ -96,13 +97,11 @@ void	draw_player(t_main *s, t_dpos p_pos)
 	draw_rect(s->sdl->game, p_pos, p_size, s->sdl->game->color_tmp);
 }
 
-int main (int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_main *s;
 
-	printf("init (%d)\n", SDL_GetTicks());
+	(void)argc;
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)
 		== -1)
 		ft_putstr(Mix_GetError());
@@ -110,16 +109,13 @@ int main (int argc, char **argv)
 		s = initialize_main(NULL);
 	else
 		s = initialize_main(argv[1]);
-	printf("step 1 (%d)\n", SDL_GetTicks());
 	s->p_pos.x = 500;
 	s->p_pos.y = 330;
-	printf("step 2 (%d)\n", SDL_GetTicks());
 	draw_player(s, s->p_pos);
 	SDL_ShowCursor(1);
-	printf("step 3 (%d)\n", SDL_GetTicks());
 	ft_parsing(s, 0);
-	printf("step 4 (%d)\n", SDL_GetTicks());
 	s->wall_fk_id = 0;
-	while (handle_menu(s));
+	while (handle_menu(s))
+		;
 	free_program(s);
 }
