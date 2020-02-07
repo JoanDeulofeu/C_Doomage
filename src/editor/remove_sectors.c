@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:55:32 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 11:57:41 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 12:58:04 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int			remove_sector_content(t_main *s,
 	sct_id = (**tmp_sct).id;
 	if (ft_is_in_sector(s, s->player.m_pos) == sct_id)
 		return (0);
-	while (tmp_sct->liste)
-		remove_sprite(s, tmp_sct->liste->sprite->id);
+	while ((*tmp_sct)->liste)
+		remove_sprite(s, (*tmp_sct)->liste->sprite->id);
 	*tmp_vtx = free_sector_struct(*tmp_sct);
 	*tmp_sct = update_sector_list(s, *tmp_sct);
 	*tmp_sct = update_sector_walls(s, *tmp_vtx, *tmp_sct, sct_id);
