@@ -7,7 +7,7 @@ void 	ending(t_main *s, int key)
 	coord.x = 0;
 	coord.y = 0;
 
-	draw_plain_sprite(s, coord, s->cinematic.image[4], s->sdl->game);
+	draw_plain_sprite(0, coord, s->cinematic.image[4], s->sdl->game);
 	update_image(s, s->sdl->game);
 	while (1)
 	{

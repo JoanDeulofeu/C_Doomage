@@ -8,7 +8,7 @@ int		play_intro(t_main *s)
 	ft_bzero((void*)&coord, sizeof(t_pos));
 	while (s->cinematic.current < 4)
 	{
-		draw_plain_sprite(s, coord, s->cinematic.image[s->cinematic.current],
+		draw_plain_sprite(0, coord, s->cinematic.image[s->cinematic.current],
 			s->sdl->game);
 		update_image(s, s->sdl->game);
 		SDL_WaitEvent(&s->sdl->event);

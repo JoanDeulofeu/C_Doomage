@@ -51,7 +51,7 @@ int		ft_parse_ennemi(t_main *s, char *line)
 	i += ft_longlen((int)pos.y) + 1;
 	pos.x /= 100;
 	pos.y /= 100;
-	sprite = create_new_sprite(s, 0, pos);
+	sprite = create_new_sprite(s, 0, pos, s->sprite);
 	ft_parse_ennemi_part2(s, line, i, sprite);
 	return (0);
 }
