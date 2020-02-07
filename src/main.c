@@ -90,6 +90,7 @@ int main (int argc, char **argv)
 	(void)argv;
 	t_main *s;
 
+	printf("init (%d)\n", SDL_GetTicks());
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)
 		== -1)
 		ft_putstr(Mix_GetError());
@@ -97,19 +98,16 @@ int main (int argc, char **argv)
 		s = initialize_main(NULL);
 	else
 		s = initialize_main(argv[1]);
+	printf("step 1 (%d)\n", SDL_GetTicks());
 	s->p_pos.x = 500;
 	s->p_pos.y = 330;
+	printf("step 2 (%d)\n", SDL_GetTicks());
 	draw_player(s, s->p_pos);
 	SDL_ShowCursor(1);
+	printf("step 3 (%d)\n", SDL_GetTicks());
 	ft_parsing(s, 0);
-	// get_grid_tab(s);
+	printf("step 4 (%d)\n", SDL_GetTicks());
 	s->wall_fk_id = 0;
 	while (handle_menu(s));
-	// display_map(s);
-	// ft_test_float();
-	// editor_handler(s);
-
 	free_program(s);
-	// SDL_Quit();
-	// event_handler(s);
 }
