@@ -69,6 +69,7 @@ SRC_NAME =	main.c							\
 			editor/sector_sens.c			\
 			editor/sector_sens2.c			\
 			game/texture.c					\
+			game/texture2.c					\
 			game/game_launcher.c			\
 			game/game_controls.c			\
 			game/visu.c						\
