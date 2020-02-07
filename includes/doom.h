@@ -586,13 +586,15 @@ void						draw_sector(t_main *s, int x, int y, Uint32 r_color);
 t_int						*free_sector_struct(t_sector *temp_sector);
 void						remove_sprite(t_main *s, int id);
 void						remove_sprite_from_sector(t_main *s, t_sprite *sprite);
-int							get_nearest_sector(t_main *s, t_pos pos, t_pos *new_pos);
+int							get_nearest_sector(t_main *s, t_pos pos);
 int							handle_sector_zero(t_main *s);
 
 /*
 ****	Fonction de gestion des portails
 */
 void						change_over_wall(t_main *s);
+void						create_struct_portals(t_main *s);
+int							check_between_wall(t_main *s, t_int *wall, t_pos mouse);
 void						edit_portal(t_main *s);
 void						remove_portal(t_main *s);
 void						reset_temp_portals(t_main *s);

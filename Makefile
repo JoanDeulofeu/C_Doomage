@@ -64,6 +64,8 @@ SRC_NAME =	main.c							\
 			editor/free_images.c			\
 			editor/parser_tga.c				\
 			editor/edit_portals.c			\
+			editor/edit_portals2.c			\
+			editor/edit_portals3.c			\
 			editor/list_utils.c				\
 			editor/polygon_center.c			\
 			editor/sector_sens.c			\

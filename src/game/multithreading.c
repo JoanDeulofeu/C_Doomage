@@ -18,11 +18,8 @@ void	*ft_draw_wall1(void *void_mt)
 	height_wall = mt->l_height_wall;
 	coord.x = mt->wall->x;
 	eyesight = mt->s->player.foot_height - mt->wall->floor_height + mt->s->player.size;
-
 	limit_thread = mt->width_wall* 0.25;
 	i = 0;
-	// printf("WALL(%d)  -  ft_draw_wall1 i %d        limit %d\n", mt->wall->id, i, limit_thread);
-
 	while (i++ <= limit_thread)
 	{
 		mt->wall_height_tmp = height_wall;
