@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:59:33 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 14:46:44 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 15:10:29 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ void	ft_draw_visu(t_main *s, t_sector *sct, t_visu vs)
 	while (wall)
 		if (print_wall_or_sprite(s, wall) == 1)
 			wall = wall->next;
-	display_sprites(s);
+	display_sprites(s, 1, 0, 0);
 	s->portal_nb = 0;
 }
