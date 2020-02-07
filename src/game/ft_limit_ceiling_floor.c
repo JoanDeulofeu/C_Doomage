@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:58:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 14:58:56 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:12:17 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_limit_ceiling_floor2(t_main *s, t_ft_limit_ceiling_floor l)
 	if (ft_find_intersection(s, l.pos, 1) > 0)
 		l.x = 0;
 	else
-		l.x = (ft_dist_t_dpos(l.vs->left_plan, l.l_plan) / WIDTHPLAN) * WIDTH;
+		l.x = (ft_dist_t_dpos(l.vs->left_plan, l.l_plan) / (WIDTH / DIVPLAN))
+		* WIDTH;
 	s->player.eyesight = s->player.foot_height
 	- l.vs->sct->floor + s->player.size;
 	l.l_height_wall_diff = ft_get_diff_height_pxl(s->player.eyesight,
@@ -32,7 +33,7 @@ void	ft_limit_ceiling_floor2(t_main *s, t_ft_limit_ceiling_floor l)
 	l.vs->left_floor_limit.y = (HEIGHT * 0.5) + s->player.y_eye
 	+ l.l_height_wall_diff;
 	l.vs->right_ceiling_limit.x = l.x + ((WIDTH * ((ft_dist_t_dpos(l.l_plan,
-	l.r_plan) * 100.0) / WIDTHPLAN)) * 0.01);
+	l.r_plan) * 100.0) / (WIDTH / DIVPLAN))) * 0.01);
 	l.vs->right_ceiling_limit.y = (HEIGHT * 0.5) - (l.r_height_wall)
 	+ s->player.y_eye + l.r_height_wall_diff;
 	l.vs->right_floor_limit.x = l.vs->right_ceiling_limit.x;

@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:07:32 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 14:08:11 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:12:03 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ t_4dpos		ft_create_new_wall3(t_main *s, t_4dpos pos, t_walls *wall,
 	if (dist > 0 && !s->walls)
 		wall->x = 0;
 	else
-		wall->x = (ft_dist_t_dpos(pos.pos3, wall->l_plan) / WIDTHPLAN) * WIDTH;
+		wall->x = (ft_dist_t_dpos(pos.pos3, wall->l_plan) / (WIDTH / DIVPLAN))
+		* WIDTH;
 	pos.pos1 = vs->right_point;
 	pos.pos2 = vs->player;
 	return (pos);
@@ -98,7 +99,7 @@ t_walls		*ft_create_new_wall5(t_main *s, t_int *vtx, t_walls *wall,
 		wall->portal_value = vtx->vtx_dest->ptr->id;
 	}
 	wall->screen_width_wall = (WIDTH * ((ft_dist_t_dpos(wall->l_plan,
-		wall->r_plan) * 100.0) / WIDTHPLAN)) / 100;
+		wall->r_plan) * 100.0) / (WIDTH / DIVPLAN))) / 100;
 	return (wall);
 }
 
