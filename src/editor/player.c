@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:40:20 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 12:32:37 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 14:36:29 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		check_player_collision(t_main *s, t_dpos target, const Uint8 *keys)
 	int		col;
 	int		check;
 
-	if ((col = is_colliding(s, target, s->player.sector_id)) == 0)
+	if ((col = is_colliding(s, target, s->player.sector_id, target)) == 0)
 	{
 		if ((check = check_wall_security(s, target)) != 0)
 		{
