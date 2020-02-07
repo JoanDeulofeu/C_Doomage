@@ -14,7 +14,7 @@ int		ft_parse_sector(t_main *s, char *line)
 	if ((i = ft_find_next_number(line, i)) == -1)
 		handle_error(s, MAP_ERROR);
 	ceiling = ft_atoi(&line[i]);
-	sct = ft_add_sector(s, floor, ceiling);
+	sct = ft_add_sector(s, floor, ceiling, NULL);
 	while (line[i] != '|')
 		i++;
 	if ((i = ft_find_next_number(line, i)) == -1)

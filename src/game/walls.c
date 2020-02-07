@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   walls.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 13:22:44 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/07 13:23:37 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
-void clear_wall_list(t_main *s)
+void	clear_wall_list(t_main *s)
 {
 	t_walls *tmp;
 
@@ -29,7 +41,6 @@ void	put_wall_before(t_main *s, t_walls *new, t_walls *current)
 		new->prev->next = new;
 		current->prev = new;
 	}
-
 }
 
 void	put_wall_after(t_walls *new, t_walls *current)
@@ -46,43 +57,18 @@ void	put_wall_after(t_walls *new, t_walls *current)
 		current->next->prev = new;
 		current->next = new;
 	}
-
 }
-
-// void	add_wall_to_list(t_main *s, t_walls *new)
-// {
-// 	t_walls *tmp;
-//
-// 	tmp = s->walls;
-// 	// printf("new->distqnce = %f\n", new->distance);
-// 	if (tmp == NULL) //S'il n'y a aucun mur dans la liste
-// 	{
-// 		s->walls = new;
-// 		// printf("pas de mur\n");
-// 		return ;
-// 	}
-//
-// 	while (tmp->next && new->distance < tmp->distance) //On avance tant que la distance du nouveau mur est plus petite que le mur actuek
-// 		tmp = tmp->next;
-// 		if (new->distance > tmp->distance)
-// 			put_wall_before(s, new, tmp);
-// 		else
-// 			put_wall_after(new, tmp);
-// }
 
 void	add_wall_to_list(t_main *s, t_walls *new)
 {
 	t_walls *tmp;
 
 	tmp = s->walls;
-	// printf("new->distqnce = %f\n", new->distance);
-	if (tmp == NULL) //S'il n'y a aucun mur dans la liste
+	if (tmp == NULL)
 	{
 		s->walls = new;
-		// printf("pas de mur\n");
 		return ;
 	}
-	//On avance tant que la distance du nouveau mur est plus petite que le mur actuel
 	while (tmp->next && new->l_dist < tmp->l_dist)
 		tmp = tmp->next;
 	if ((new->l_dist == tmp->l_dist) && tmp->wall_or_portal != 'p')

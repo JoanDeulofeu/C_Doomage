@@ -524,9 +524,9 @@ void						ft_parsing_norm(t_main *s, char *line, int i, int y);
 /*
 ****	Fonction de gestion des listes chainés
 */
-int							ft_add_vertex(t_main *s, int x, int y);
+int							ft_add_vertex(t_main *s, int x, int y, t_vertex *tmp);
 int							ft_check_vertex(t_main *s, int x, int y);
-t_sector					*ft_add_sector(t_main *s, int floor, int ceiling);
+t_sector					*ft_add_sector(t_main *s, int floor, int ceiling, t_sector *tmp);
 int							ft_add_intarray(t_main *s, t_sector *sector,
 							int value, t_int *tmp);
 void						put_wall_value(t_sector *sector, char *line, int i);
@@ -543,7 +543,7 @@ void						set_selected(t_main *s, t_pos ori, char on);
 t_pos						get_abs_pos(t_main *s, t_pos ori);
 void						move_anchor(t_main *s, int id);
 void						remove_anchor(t_main *s, int id);
-int							remove_sector(t_main *s, int id, int del, int sct_id);
+int							remove_sector(t_main *s, int id, int del);
 void						ft_reset_color_vertex(t_main *s);
 
 /*

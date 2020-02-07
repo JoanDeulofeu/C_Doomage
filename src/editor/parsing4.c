@@ -83,27 +83,27 @@ void	ft_check_validity_last_sector(t_main *s)
 	wall = sct->vertex;
 	if (wall->prev->id < 3 || sct->floor == sct->ceiling)
 	{
-		remove_sector(s, wall->value, 0, 0);
+		remove_sector(s, wall->value, 0);
 		printf("ERROR secteur non valide: moins de 3 vertex.\n");
 	}
 	if (ft_check_wall_that_intersect(s, sct))
 	{
-		remove_sector(s, wall->value, 0, 0);
+		remove_sector(s, wall->value, 0);
 		printf("ERROR secteur non valide: collision avec un autre secteur.\n");
 	}
 	if (ft_check_sector_sens(sct, 0))
 	{
 		printf("ERROR secteur non valide: sens du secteur n%d non valide.\n", sct->id);
-		remove_sector(s, wall->value, 0, 0);
+		remove_sector(s, wall->value, 0);
 	}
 	if (ft_check_wall_lenght(sct, 0))
 	{
-		remove_sector(s, wall->value, 0, 0);
+		remove_sector(s, wall->value, 0);
 		printf("ERROR secteur non valide: mur du secteur trop grand.\n");
 	}
 	if (sct->id > 100)
 	{
-		remove_sector(s, wall->value, 0, 0);
+		remove_sector(s, wall->value, 0);
 		printf("ERROR secteur non valide: Trop de secteur sur cette map.\n");
 	}
 }

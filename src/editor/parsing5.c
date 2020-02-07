@@ -62,7 +62,7 @@ void	ft_parsing_norm(t_main *s, char *line, int i, int y)
 	{
 		y = ft_atoi(&line[i]);
 		i += ft_longlen(y) + 1;
-		ft_add_vertex(s, ft_atoi(&line[i]), y);
+		ft_add_vertex(s, ft_atoi(&line[i]), y, NULL);
 	}
 	else if (line[0] == 'S' && ft_how_many_pipe(line) == 3)
 	{
