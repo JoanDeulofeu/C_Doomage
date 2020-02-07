@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chainlist2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 13:28:32 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/07 13:50:31 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
 int			ft_check_vertex(t_main *s, int x, int y)
@@ -27,10 +39,8 @@ void		ft_add_vertex2(t_main *s, int x, int y, t_vertex *tmp)
 	tmp->selected = 0;
 }
 
-int			ft_add_vertex(t_main *s, int x, int y)
+int			ft_add_vertex(t_main *s, int x, int y, t_vertex *tmp)
 {
-	t_vertex	*tmp;
-
 	tmp = s->vertex;
 	if (s->vertex == NULL)
 	{
@@ -52,19 +62,13 @@ int			ft_add_vertex(t_main *s, int x, int y)
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
-	// tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
-	if (!tmp->prev)
-		tmp->id = 1;
-	else
-		tmp->id = tmp->prev->id + 1;
+	tmp->id = tmp->prev ? tmp->prev->id + 1 : 1;
 	ft_add_vertex2(s, x, y, tmp);
 	return (0);
 }
 
-t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
+t_sector	*ft_add_sector(t_main *s, int floor, int ceiling, t_sector *tmp)
 {
-	t_sector	*tmp;
-
 	tmp = s->sector;
 	if (s->sector == NULL)
 	{
@@ -72,7 +76,6 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 			handle_error(s, MALLOC_ERROR);
 		ft_bzero(s->sector, sizeof(t_sector));
 		tmp = s->sector;
-		// tmp->prev = NULL;
 	}
 	else
 	{
@@ -84,7 +87,6 @@ t_sector	*ft_add_sector(t_main *s, int floor, int ceiling)
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
 	}
-	// tmp->id = tmp->prev == NULL ? 1 : tmp->prev->id + 1;
 	if (!tmp->prev)
 		tmp->id = 1;
 	else

@@ -136,3 +136,70 @@ void	ft_print_sectors_sprites(t_main *s)
 	}
 	printf("\n\n");
 }
+
+void		ft_test_chainlist(t_main *s)
+{
+	t_vertex	*v_tmp;
+	t_sector	*s_tmp;
+	t_int		*i_tmp;
+	int			i;
+	int 		j;
+	t_lsprite	*sp_tmp;
+
+	printf("\n\n\n\033[32m------VERTEX------\033[0m\n");
+	v_tmp = s->vertex;
+	s_tmp = s->sector;
+	if (s->vertex != NULL)
+	{
+		while (v_tmp->next != NULL)
+		{
+			printf("Vertex[%d] =   X %d   |   Y %d\n", v_tmp->id, v_tmp->x, v_tmp->y);
+			v_tmp = v_tmp->next;
+		}
+		printf("Vertex[%d] =   X %d   |   Y %d\n\n", v_tmp->id, v_tmp->x, v_tmp->y);
+	}
+
+	printf("\033[32m------SECTOR------\033[0m\n");
+	if (s->sector != NULL)
+	{
+		while (s_tmp != NULL)
+		{
+			j = 0;
+			sp_tmp = s_tmp->liste;
+			while (sp_tmp)
+			{
+				j++;
+				sp_tmp = sp_tmp->next;
+			}
+			printf ("\033[31mCe secteur contient %d sprites\n", j);
+			printf("\033[36mSector[%d] =  sol %d  |  plafond %d\033[0m\n-------------\n", s_tmp->id, s_tmp->floor, s_tmp->ceiling);
+			if (s_tmp->vertex != NULL)
+			{
+				i = 0;
+				i_tmp = s_tmp->vertex;
+				while (i < s_tmp->vertex->prev->id)
+				{
+					printf("--   vertex[%d] = %d\n", i_tmp->id, i_tmp->value);
+					printf("--  ptr vertex = %p\n",i_tmp->ptr);
+					printf("--  vertex x y = x(%d) y(%d)\n",i_tmp->ptr->x, i_tmp->ptr->y);
+					printf("--  vertex pos = x(%d) y(%d)\n",i_tmp->ptr->pos.x, i_tmp->ptr->pos.y);
+					printf("--  vertex m_pos = x(%.2f) y(%.2f)\n",i_tmp->ptr->m_pos.x, i_tmp->ptr->m_pos.y);
+					if (i_tmp->wall_value != -1)
+						printf("\033[33m--     wall[%d] =", i_tmp->id);
+					else
+						printf("--     wall[%d] =", i_tmp->id);
+					printf(" %d \033[0m \n", i_tmp->wall_value);
+					printf("--  texture nb = %d \n", i_tmp->tex_nb);
+					printf("--  sct actuel = %d\n",i_tmp->sct);
+					if (i_tmp->sct_dest != 0)
+						printf("--  sector_dest = %d\n",i_tmp->sct_dest);
+					i_tmp = i_tmp->next;
+					i++;
+					printf("-------------\n");
+				}
+			}
+			s_tmp = s_tmp->next;
+			printf("\n");
+		}
+	}
+}

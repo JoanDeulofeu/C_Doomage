@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 11:50:34 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 13:45:45 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ void	create_anchor(t_main *s, t_pos ori)
 	while (vtx->next != NULL)
 		vtx = vtx->next;
 	if (vtx->id < 500)
-		ft_add_vertex(s, ori.x, ori.y);
+		ft_add_vertex(s, ori.x, ori.y, NULL);
 }
