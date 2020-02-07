@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mode_floor.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 10:31:44 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/07 10:31:46 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
 int		ft_prev_next_floor(t_main *s, char prev_next)
@@ -25,6 +37,5 @@ int		ft_prev_next_floor(t_main *s, char prev_next)
 	}
 	if (block == INT_MAX || block == INT_MIN)
 		block = floor;
-	// printf("block = %d\n", block);
 	return (block);
 }
