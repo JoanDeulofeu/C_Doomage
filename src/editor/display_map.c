@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 16:47:15 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/07 16:47:18 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
 int			ft_vertex_worst_sector(t_main *s, int id)
@@ -40,33 +52,38 @@ void		ft_choose_draw_vertex(t_main *s, t_vertex *temp, t_pos pos)
 	}
 }
 
+t_pos		get_map_pos(t_main *s, t_vertex *temp, t_pos pos)
+{
+	int			correc;
+
+	if (s->editor->decal_x <= 0)
+		correc = s->editor->decal_x % s->editor->space != 0 ? 1 : 0;
+	else
+		correc = 0;
+	pos.x = (temp->x - s->editor->ref.x + correc) *
+		s->editor->space + (s->editor->decal_x % s->editor->space);
+	if (s->editor->decal_y <= 0)
+		correc = s->editor->decal_y % s->editor->space != 0 ? 1 : 0;
+	else
+		correc = 0;
+	pos.y = (temp->y - s->editor->ref.y + correc) *
+		s->editor->space + (s->editor->decal_y % s->editor->space);
+	return (pos);
+}
+
 void		display_map(t_main *s)
 {
 	t_vertex	*temp;
-	t_editor	*edi;
 	t_pos		pos;
-	int			correc;
 
 	temp = NULL;
-	edi = s->editor;
 	if (s->vertex)
 		temp = s->vertex;
 	while (temp)
 	{
-		if (edi->decal_x <= 0)
-			correc = edi->decal_x % edi->space != 0 ? 1 : 0;
-		else
-			correc = 0;
-		pos.x = (temp->x - edi->ref.x + correc) *
-			edi->space + (edi->decal_x % edi->space);
-		if (edi->decal_y <= 0)
-			correc = edi->decal_y % edi->space != 0 ? 1 : 0;
-		else
-			correc = 0;
-		pos.y = (temp->y - edi->ref.y + correc) *
-			edi->space + (edi->decal_y % edi->space);
-		temp->pos.x = temp->x * edi->space;
-		temp->pos.y = temp->y * edi->space;
+		pos = get_map_pos(s, temp, pos);
+		temp->pos.x = temp->x * s->editor->space;
+		temp->pos.y = temp->y * s->editor->space;
 		if (!(pos.x < 0 || pos.y < 0 || pos.x > WIDTH || pos.y > HEIGHT))
 			ft_choose_draw_vertex(s, temp, pos);
 		temp = temp->next;
@@ -74,5 +91,4 @@ void		display_map(t_main *s)
 	set_player(s);
 	if (s->editor->selected == 1)
 		trace_select(s);
-	// refresh_sprite_pos(s);
 }
