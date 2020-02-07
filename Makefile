@@ -85,6 +85,8 @@ SRC_NAME =	main.c							\
 			game/anim.c						\
 			game/anim_2.c					\
 			game/sprite.c					\
+			game/sprite2.c					\
+			game/sprite3.c					\
 			game/fire_mode.c				\
 			game/skybox.c					\
 			game/ia.c						\
