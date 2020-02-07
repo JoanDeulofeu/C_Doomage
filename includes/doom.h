@@ -507,6 +507,7 @@ void						ft_transition(t_main *s);
 ****	Fonction de gestion et de protection du parsing
 */
 int							ft_parsing(t_main *s, int fd);
+int							ft_check_bar(char *str, int i);
 int							ft_find_next_number(char *str, int i);
 void						ft_check_validity_last_sector(t_main *s);
 int							ft_check_wall_that_intersect(t_main *s,
@@ -517,7 +518,7 @@ int							ft_check_sector_sens(t_sector *sct, int i);
 t_4double					ft_check_sector_sens2(t_int *wall, t_4double score, t_pos center);
 int							ft_check_wall_lenght(t_sector *sct, int i);
 int							is_dest_valid(t_main *s, int id);
-void						add_portal_ptr(t_main *s, t_int *wall, int i);
+void						add_portal_ptr(t_main *s, t_int *wall, int i, t_sector *sct);
 void						ft_norm_parse_sector(t_main *s, char *line, t_sector *sct, int i);
 void						ft_parsing_norm(t_main *s, char *line, int i, int y);
 
