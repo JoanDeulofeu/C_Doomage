@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:20:54 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:20:56 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:45:40 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_save_map(t_main *s)
 	coord.x = 0;
 	coord.y = 0;
 	gettimeofday(&tv, NULL);
-	mill = (tv.tv_sec) * 1000 + (tv.tv_usec)* 0.001;
+	mill = (tv.tv_sec) * 1000 + (tv.tv_usec) * 0.001;
 	sec = mill;
 	display_croix_rouge(s, 20, 20, coord);
 	ft_draw_rect_text(s);
