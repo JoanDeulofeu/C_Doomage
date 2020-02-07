@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:40:20 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 15:21:55 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:07:07 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		check_wall_security(t_main *s, t_dpos target)
 	return (0);
 }
 
-int		check_player_collision(t_main *s, t_dpos target, const Uint8 *keys)
+int		check_player_collision(t_main *s, t_dpos target)
 {
 	int		col;
 	int		check;
@@ -100,5 +100,5 @@ void	ft_move_player(t_main *s, const Uint8 *keys, int move_speed)
 	target = get_direction(s, keys, speed, target);
 	s->col_pos = get_direction(s, keys, speed + 10, s->player.m_pos);
 	check_collectible(s);
-	check_player_collision(s, target, keys);
+	check_player_collision(s, target);
 }

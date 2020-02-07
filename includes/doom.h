@@ -431,8 +431,6 @@ void						ft_limit_ceiling_floor(t_main *s, t_4dpos pos, t_visu *vs, char swich)
 double						ft_find_angle_portal(t_dpos *left, t_dpos *right,
 							t_dpos *third, int needed);
 void						get_wall_distance(t_walls *wall, t_visu *vs);
-int							ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall,
-	 						double r_height_wall, int width_wall);
 int							ft_get_diff_height_pxl(double eyesight, int ceiling_height,
 							int floor_height, int height_wall);
 int							ft_get_sprite_height_pxl(t_main *s, t_sprite *sprite, double height);
