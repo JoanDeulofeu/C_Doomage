@@ -289,6 +289,20 @@ typedef struct				s_timer {
 	long					jetpack_reserve;
 }							t_timer;
 
+typedef struct				s_draw_texture {
+	int						x;
+	int						y;
+	double					nb_tex_x;
+	double					nb_tex_y;
+	double					tex_size_x;
+	double					tex_size_y;
+	int						perx;
+	int						pery;
+	int						px;
+	int						limit_ceiling;
+	int						limit_floor;
+}							t_draw_texture;
+
 typedef struct				s_draw_sprite {
 	double					perx;
 	double					pery;
