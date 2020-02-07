@@ -289,6 +289,20 @@ typedef struct				s_timer {
 	long					jetpack_reserve;
 }							t_timer;
 
+typedef struct				s_draw_sprite {
+	double					perx;
+	double					pery;
+	t_pos					coord;
+	int						px;
+	t_image					*wp;
+	double					height;
+	double					w;
+	double					pct;
+	double					dhp;
+	int						bottom;
+	int						tmp;
+}							t_draw_sprite;
+
 typedef struct				s_ft_limit_ceiling_floor {
 	double					width_wall;
 	double					l_big_dist;
@@ -687,8 +701,8 @@ t_pos						get_px_r_pos(t_main *s, t_dpos ref);
 void						*ft_memalloc(size_t size);
 int							check_if_visible(t_main *s, t_sprite *sprite);
 void						add_sprite(t_main *s, t_dpos pos, int idimg);
-void						draw_sprite(t_main *s, double angle, t_sprite *sprite);
-void 						display_sprites(t_main *s);
+void						draw_sprite(t_main *s, t_sprite *sprite);
+void 						display_sprites(t_main *s, int display, int fad, int fai);
 void 						unset_sprites(t_main *s);
 void 						set_visible_sprites(t_main *s, t_visu *vs, int inter);
 int							check_sprite_menu_click(t_main *s, t_pos pos);

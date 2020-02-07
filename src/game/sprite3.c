@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 15:54:42 by jgehin            #+#    #+#             */
+/*   Updated: 2020/02/07 15:55:01 by jgehin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
-void	set_sprite(t_main *s)
+void		set_sprite(t_main *s)
 {
 	t_sprite *tmp;
 
@@ -27,14 +39,14 @@ void		reset_statue(t_main *s)
 	}
 }
 
-void	print_sprite(t_main *s, t_sprite *sprite)
+void		print_sprite(t_main *s, t_sprite *sprite)
 {
 	play_sprites_anims(s);
-	draw_sprite(s, sprite->angle, sprite);
+	draw_sprite(s, sprite);
 	sprite->displayed = 0;
 }
 
-int		check_if_visible(t_main *s, t_sprite *sprite)
+int			check_if_visible(t_main *s, t_sprite *sprite)
 {
 	t_walls	*wall;
 	t_4dpos	pos;
