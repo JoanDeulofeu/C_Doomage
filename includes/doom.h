@@ -543,7 +543,7 @@ void						set_selected(t_main *s, t_pos ori, char on);
 t_pos						get_abs_pos(t_main *s, t_pos ori);
 void						move_anchor(t_main *s, int id);
 void						remove_anchor(t_main *s, int id);
-int							remove_sector(t_main *s, int id, int del, int sct_id);
+int							remove_sector(t_main *s, int id, int del);
 void						ft_reset_color_vertex(t_main *s);
 
 /*
