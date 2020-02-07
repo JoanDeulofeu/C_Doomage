@@ -492,6 +492,7 @@ int							keyboard_controls(t_main *s, int key);
 void						editor_handler(t_main *s);
 void						event_handler(t_main *s);
 void						handle_keys(t_main *s);
+void						handle_game_keys(t_main *s);
 void						change_mode(t_main *s, int key);
 int							ft_prev_next_floor(t_main *s, char prev_next);
 void						move_editor(t_main *s, const Uint8 *keys);
