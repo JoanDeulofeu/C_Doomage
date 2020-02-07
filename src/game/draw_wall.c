@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_wall.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 17:26:59 by ydonse            #+#    #+#             */
+/*   Updated: 2020/02/07 17:27:30 by ydonse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom.h"
 
 void	get_wall_distance(t_walls *wall, t_visu *vs)
@@ -23,10 +35,10 @@ void	ft_draw_column(t_pos coord, int end, t_multithread *mt)
 {
 	if (mt->s->sct_without_ceiling != mt->wall->sct_id)
 		coord.y = ft_draw_ceiling(mt->s, mt->wall, coord);
-
 	if (((mt->wall->wall_or_portal == 'w') || (mt->wall->wall_or_portal == 'p'
 		&& (mt->wall->floor_height_dest > mt->wall->floor_height
-		|| mt->wall->ceiling_height_dest < mt->wall->ceiling_height))) && coord.y < HEIGHT)
+		|| mt->wall->ceiling_height_dest < mt->wall->ceiling_height)))
+		&& coord.y < HEIGHT)
 	{
 		if (mt->wall->image)
 			draw_texture(mt, coord, end);
@@ -43,57 +55,13 @@ void	ft_draw_column(t_pos coord, int end, t_multithread *mt)
 		ft_draw_floor(mt->s, mt->wall, coord);
 }
 
-int		ft_get_diff_height_pxl(double eyesight, int ceiling_height, int floor_height, int height_wall)
+int		ft_get_diff_height_pxl(double eyesight, int ceiling_height,
+	int floor_height, int height_wall)
 {
-	int		ig_height_wall; // hauteur du mur in game (en metre)
-	double	pct_eyesight; //pourcentage vision player
+	int		ig_height_wall;
+	double	pct_eyesight;
 
 	ig_height_wall = ceiling_height - floor_height;
 	pct_eyesight = (eyesight * 100 / ig_height_wall);
-	return ((pct_eyesight * height_wall)* 0.01);
-}
-
-int		ft_draw_wall(t_main *s, t_walls *wall, double l_height_wall, double r_height_wall, int width_wall)
-{
-	double	diff_wall;
-	int		i;
-	double	height_wall;
-	t_pos	coord;
-	int		bottom;
-	double	pct_avcm; //pourcentage avancement
-	double	diff_height_pxl;
-	double	eyesight;
-
-	i = 0;
-	diff_wall = fabs(l_height_wall - r_height_wall);
-	height_wall = l_height_wall;
-	coord.x = wall->x;
-	get_total_w_wall(wall);
-	s->player.eyesight = s->player.foot_height - wall->floor_height + s->player.size;
-	eyesight = s->player.eyesight;
-	while (i++ <= width_wall)
-	{
-		wall->wall_height_tmp = height_wall;
-		wall->avcm_x = i;
-		diff_height_pxl = ft_get_diff_height_pxl(eyesight, wall->ceiling_height, wall->floor_height, height_wall);
-		coord.y = (HEIGHT* 0.5) - (height_wall) + s->player.y_eye + diff_height_pxl;
-		bottom = (HEIGHT* 0.5) + s->player.y_eye + diff_height_pxl;
-		// if (coord.x > 0 && coord.x < WIDTH)
-		// {
-		// 	if (i == 1 || i == width_wall)
-		// 		ft_draw_column(s, wall, coord, bottom, 0x000000FF);
-		// 	else
-		// 		ft_draw_column(s, wall, coord, bottom, 0xb0842fff);
-		// }
-		coord.x++;
-		pct_avcm = (100 * (double)i) / (double)width_wall;
-
-		if (l_height_wall < r_height_wall)
-			height_wall = l_height_wall + (diff_wall * pct_avcm)* 0.01;
-		else if (l_height_wall > r_height_wall)
-			height_wall = l_height_wall - (diff_wall * pct_avcm)* 0.01;
-		else
-			height_wall = l_height_wall;
-	}
-	return (coord.x);
+	return ((pct_eyesight * height_wall) * 0.01);
 }
