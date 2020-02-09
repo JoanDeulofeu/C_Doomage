@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 11:50:29 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 21:00:05 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:47:10 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			key_controls_save(t_main *s, int key)
 
 void		ft_change_height(t_main *s, int key, char *str)
 {
-	t_sector 	*sct;
+	t_sector	*sct;
 
 	sct = get_sector_by_id(s, s->player.sector_id);
 	if (key == PAGE_DOWN && sct->floor > 0)
