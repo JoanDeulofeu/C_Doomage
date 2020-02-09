@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:30:37 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 12:31:05 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:12:34 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ t_visu		ft_place_view_plan(t_dpos player, double angle)
 	ft_bzero(&vs, sizeof(t_visu));
 	ctr_p.x = player.x + cos(to_rad(angle)) * METRE;
 	ctr_p.y = player.y - sin(to_rad(angle)) * METRE;
-	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90)) * WIDTHPLAN * 0.5;
-	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90)) * WIDTHPLAN * 0.5;
-	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90)) * WIDTHPLAN * 0.5;
-	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90)) * WIDTHPLAN * 0.5;
+	vs.left_plan.x = ctr_p.x + cos(to_rad(angle + 90))
+	* (WIDTH / DIVPLAN) * 0.5;
+	vs.left_plan.y = ctr_p.y - sin(to_rad(angle + 90))
+	* (WIDTH / DIVPLAN) * 0.5;
+	vs.right_plan.x = ctr_p.x + cos(to_rad(angle - 90))
+	* (WIDTH / DIVPLAN) * 0.5;
+	vs.right_plan.y = ctr_p.y - sin(to_rad(angle - 90))
+	* (WIDTH / DIVPLAN) * 0.5;
 	return (vs);
 }
 

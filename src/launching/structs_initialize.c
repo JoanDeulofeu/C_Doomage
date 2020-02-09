@@ -18,11 +18,11 @@ double		get_demi_fov(t_dpos player, double angle)
 	double	demi_fov;
 
 	plan.x = player.x + cos(to_rad(angle)) * METRE;
-	plan.x = plan.x + cos(to_rad(angle + 90)) * WIDTHPLAN * 0.5;
+	plan.x = plan.x + cos(to_rad(angle + 90)) * (WIDTH / DIVPLAN) * 0.5;
 	plan.y = player.y - sin(to_rad(angle)) * METRE;
-	plan.y = plan.y - sin(to_rad(angle + 90)) * WIDTHPLAN * 0.5;
+	plan.y = plan.y - sin(to_rad(angle + 90)) * (WIDTH / DIVPLAN) * 0.5;
 	demi_fov = ft_find_angle_plan(ft_dist_t_dpos(player, plan),
-	METRE, WIDTHPLAN * 0.5);
+	METRE, (WIDTH / DIVPLAN) * 0.5);
 	return (demi_fov);
 }
 

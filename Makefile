@@ -56,6 +56,8 @@ SRC_NAME =	main.c							\
 			editor/mode_sprite4.c			\
 			editor/remove_sectors.c			\
 			editor/wall.c					\
+			editor/wall2.c					\
+			editor/wall3.c					\
 			editor/mode_deplacement.c		\
 			editor/ft_is_in_sector.c		\
 			editor/display_map.c			\
