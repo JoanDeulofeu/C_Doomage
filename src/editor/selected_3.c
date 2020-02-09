@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:17:41 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 20:11:14 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 12:05:38 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int			exist_vertex(t_main *s, t_pos *mouse_save)
 		- (s->editor->decal_x % s->editor->space));
 	s->editor->ori.y = arround(s->editor->space, s->sdl->event.button.y
 		- (s->editor->decal_y % s->editor->space));
-	if (s->editor->ori.x >= 0 && s->editor->ori.x <= WIDTH && s->editor->ori.y >= 0 && s->editor->ori.y <= HEIGHT)
+	if (s->editor->ori.x >= 0 && s->editor->ori.x <= WIDTH &&
+	s->editor->ori.y >= 0 && s->editor->ori.y <= HEIGHT)
 	{
 		if ((s->editor->id = anchor_exists(s, s->editor->ori)) != 0)
 		{

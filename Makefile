@@ -10,7 +10,6 @@ SRC_NAME =	main.c							\
 			message.c						\
 			menu.c							\
 			sounds.c						\
-			debug.c							\
 			save_map.c						\
 			save_map2.c						\
 			save_map3.c						\
@@ -32,7 +31,11 @@ SRC_NAME =	main.c							\
 			editor/editor_2.c				\
 			editor/errors.c					\
 			editor/editor_controls.c		\
+			editor/editor_controls_2.c		\
+			editor/editor_controls_3.c		\
 			editor/mouse_left_click.c		\
+			editor/mouse_left_release.c		\
+			editor/mouse_move.c				\
 			editor/lines.c					\
 			editor/ft_lines.c				\
 			editor/parsing.c				\

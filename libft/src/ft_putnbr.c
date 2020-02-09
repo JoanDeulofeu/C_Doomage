@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 11:28:29 by ydonse            #+#    #+#             */
-/*   Updated: 2019/04/15 11:07:48 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 12:15:13 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_printnb(long nb)
 {
 	if (nb > 9)
 	{
-		ft_printnb(nb* 0.1);
+		ft_printnb(nb * 0.1);
 		ft_putchar(nb % 10 + '0');
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 10:56:58 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 12:07:04 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -502,7 +502,17 @@ void						ft_draw_editor(t_editor *edi,
 void						mouse_grid(t_main *s, t_pos save);
 void						handle_editor_mouse_pressed_event(t_main *s);
 int							check_click_menu(t_main *s);
-void						click_editor_menu(t_main *s, t_anim menu, int x);
+void						click_editor_menu(t_main *s, t_anim menu,
+							int x, int ori_x);
+void						handle_editor_mouse_release_event(t_main *s);
+void						handle_editor_mouse_move_event(t_main *s,
+							t_editor *edi);
+void						handle_global_keys(t_main *s);
+void						handle_game_mode_keys(t_main *s);
+void						handle_editor_mode_keys(t_main *s);
+int							key_controls_edi(t_main *s, int key);
+int							key_controls_game(t_main *s, int key);
+int							key_controls_save(t_main *s, int key);
 
 /*
 ****	Fonction de gestion d'images
@@ -589,7 +599,6 @@ t_sector					*ft_add_sector(t_main *s, int floor, int ceiling,
 int							ft_add_intarray(t_main *s, t_sector *sector,
 							int value, t_int *tmp);
 void						put_wall_value(t_sector *sector, char *line, int i);
-void						ft_test_chainlist(t_main *s);
 t_int						*get_t_int_by_vertex_id(t_int *vtx, int ptr_id);
 
 /*
@@ -732,15 +741,6 @@ void						ft_create_message(t_main *s, int color,
 							int duration, char *str);
 void						ft_init_msg(t_main *s);
 char						*get_jetpack_value(t_main *s);
-
-/*
-****	Fonction de debug
-*/
-void						print_wall_list(t_main *s);
-void						print_player_values(t_main *s);
-void						draw_sprite_hitbox(t_main *s);
-void						ft_print_sprite_list(t_main *s);
-void						ft_print_sectors_sprites(t_main *s);
 
 /*
 ****	Fonction des textures

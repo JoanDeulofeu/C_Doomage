@@ -6,17 +6,15 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 10:35:42 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 10:53:29 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 11:42:56 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	check_left_click_1(t_main *s)
+static inline void	check_left_click_1(t_main *s)
 {
-	if (check_click_menu(s))
-		click_editor_menu(s, s->editor->menu, s->ft_mouse.x);
-	else if (s->editor->mode == sprite)
+	if (s->editor->mode == sprite)
 	{
 		if (!is_sprite_selected(s) && !s->editor->select_sprite)
 			s->editor->selected2 = select_sprite(s);
@@ -33,7 +31,7 @@ void	check_left_click_1(t_main *s)
 	}
 }
 
-void	check_left_click_2(t_main *s)
+static inline void	check_left_click_2(t_main *s)
 {
 	if (s->editor->mode == move)
 	{
@@ -62,7 +60,7 @@ void	check_left_click_2(t_main *s)
 	}
 }
 
-void	check_left_click_3(t_main *s)
+static inline void	check_left_click_3(t_main *s)
 {
 	if (s->editor->mode == player)
 	{
@@ -90,19 +88,18 @@ void	check_left_click_3(t_main *s)
 	}
 }
 
-void	handle_editor_mouse_pressed_event(t_main *s)
+void				handle_editor_mouse_pressed_event(t_main *s)
 {
 	if (s->sdl->event.button.button == SDL_BUTTON_LEFT)
 	{
-		if (s->display_mode == editor && (s->editor->mode == sprite
-			|| s->editor->mode == sprite || s->editor->mode == portal
-			|| s->editor->mode == vertex))
+		if (!s->display_mode && check_click_menu(s))
+			click_editor_menu(s, s->editor->menu, s->ft_mouse.x, 0);
+		else if (s->display_mode == editor)
+		{
 			check_left_click_1(s);
-		else if (s->display_mode == editor && (s->editor->mode == move
-			|| s->editor->mode == sector))
 			check_left_click_2(s);
-		else if (s->display_mode == editor && s->editor->mode == player)
 			check_left_click_3(s);
+		}
 		else if (s->display_mode == game)
 			shoot(s);
 		else if (s->display_mode == save)
