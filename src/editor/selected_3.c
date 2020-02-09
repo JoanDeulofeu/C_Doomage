@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:17:41 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 12:05:38 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 18:21:54 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ void		deselect_sprite(t_main *s)
 	}
 }
 
+int			ft_check_move_vertex(t_main *s, int id)
+{
+	t_sector	*sct;
+
+	sct = get_sector_by_vertex_id(s, id);
+	if (ft_check_wall_that_intersect(s, sct) || ft_check_sector_sens(sct, 0)
+	|| ft_check_wall_lenght(sct, 0))
+	{printf("NOT MOVE!!!!!\n");
+		return (0);}
+	printf("Move ok\n");
+	return (1);
+}
+
 void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 {
 	t_vertex	*v;
@@ -62,7 +75,7 @@ void		move_vertex(t_main *s, t_pos tmp_move, t_pos ori, int id)
 	tmp_move.y /= s->editor->space;
 	while (v)
 	{
-		if (v->selec == 1 && v->id != id)
+		if (v->selec == 1 && v->id != id && ft_check_move_vertex(s, id))
 		{
 			v->x = v->old.x + tmp_move.x;
 			v->y = v->old.y + tmp_move.y;

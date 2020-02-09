@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:28:32 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 13:50:31 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:24:05 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void		ft_add_vertex2(t_main *s, int x, int y, t_vertex *tmp)
 	tmp->pos.y = y * s->editor->space;
 	tmp->x = x;
 	tmp->y = y;
+	tmp->old.x = x;
+	tmp->old.y = y;
 	tmp->m_pos.x = x * METRE;
 	tmp->m_pos.y = y * METRE;
 	tmp->selec = 0;
