@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 18:22:01 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:15:14 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	move_anchor(t_main *s, int id)
 	abs = get_abs_pos(s, ori);
 	while (temp)
 	{
-		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y)
-		&& ft_check_move_vertex(s, id))
+		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y))
 		{
 			temp->pos = ori;
 			temp->x = abs.x;
@@ -81,19 +80,24 @@ int		ft_check_wall_lenght(t_sector *sct, int i)
 void	ft_check_move_vertex_validity2(t_main *s, t_sector *sct, t_int *wall)
 {
 	t_pos		abs;
+	t_vertex	*vtx;
 
+	vtx = get_vertex_by_id(s, wall->ptr->id);
 	if (ft_check_wall_that_intersect(s, sct)
 	|| ft_check_wall_lenght(sct, 0) || ft_check_sector_sens(sct, 0))
 	{
-		wall->ptr->pos = s->save_coord_vtx;
-		abs = get_abs_pos(s, s->save_coord_vtx);
-		wall->ptr->x = abs.x;
-		wall->ptr->y = abs.y;
+		vtx->x = vtx->old.x;
+		vtx->y = vtx->old.y;
+		wall->ptr->pos.x = vtx->x * s->editor->space;
+		wall->ptr->pos.y = vtx->y * s->editor->space;
 		wall->ptr->m_pos.x = wall->ptr->x * METRE;
 		wall->ptr->m_pos.y = wall->ptr->y * METRE;
 	}
-	s->save_coord_vtx.x = 0;
-	s->save_coord_vtx.y = 0;
+	else
+	{
+		vtx->old.x = vtx->x;
+		vtx->old.y = vtx->y;
+	}
 }
 
 void	ft_check_move_vertex_validity(t_main *s, int id)
@@ -101,21 +105,15 @@ void	ft_check_move_vertex_validity(t_main *s, int id)
 	t_sector	*sct;
 	t_int		*wall;
 	int			i;
-	int			stop;
 
 	sct = s->sector;
 	while (sct)
 	{
 		wall = sct->vertex;
-		i = 1;
-		stop = wall->prev->id + 1;
-		while (i++ < stop)
+		i = 0;
+		while (i++ < sct->vertex->prev->id)
 		{
-			if (wall->ptr->id == id)
-			{
-				ft_check_move_vertex_validity2(s, sct, wall);
-				return ;
-			}
+			ft_check_move_vertex_validity2(s, sct, wall);
 			wall = wall->next;
 		}
 		sct = sct->next;
