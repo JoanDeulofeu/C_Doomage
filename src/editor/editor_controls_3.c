@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 11:51:52 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 12:06:30 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:06:37 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void		handle_global_keys(t_main *s)
 	if (s->editor->mode == move && (keys[RIGHT_AR] || keys[LEFT_AR] ||
 		keys[UP_AR] || keys[DOWN_AR]))
 		move_editor(s, keys);
-	if (s->player.jump_height == 0 && !s->player.fly)
+	if (s->player.jump == 0 && !s->player.fly)
 		ft_crouch(s, keys);
-	if (s->player.size == PLAYER_SIZE && !s->player.fly)
+	if (!s->player.fly)
 		ft_jump(s, keys);
 	if (s->transition)
 		ft_transition(s);
