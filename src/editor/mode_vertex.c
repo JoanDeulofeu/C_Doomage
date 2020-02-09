@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 16:39:33 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 18:22:01 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	move_anchor(t_main *s, int id)
 	abs = get_abs_pos(s, ori);
 	while (temp)
 	{
-		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y))
+		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y)
+		&& ft_check_move_vertex(s, id))
 		{
 			temp->pos = ori;
 			temp->x = abs.x;
