@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:50:09 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 13:50:13 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:45:44 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_sprite	*create_new_sprite(t_main *s, t_name name,
 	get_sprite_info_by_name(s, name, sprite);
 	if (!check_limit_sprite(s, sct_id, sprite))
 	{
-		ft_memdel((void **)sprite);
+		ft_memdel((void **)&sprite);
 		return (NULL);
 	}
 	if (!s->sprite)

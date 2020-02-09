@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:52:24 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 13:53:19 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:29:39 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void		add_sprite_to_sector(t_main *s, t_sprite *sprite)
 	t_lsprite	*tmp;
 	t_lsprite	*liste;
 
+	if (!check_limit_sprite(s, sprite->sct_id, sprite))
+		return ;
 	sct = get_sector_by_id(s, sprite->sct_id);
 	if ((liste = malloc(sizeof(t_lsprite))) == NULL)
 		handle_error(s, MALLOC_ERROR);

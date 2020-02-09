@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:21:16 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 19:23:28 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:49:02 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 TTF_Font		*load_ttf(char *str, int size)
 {
-	int 		i;
+	int			i;
 	TTF_Font	*font;
 
 	i = 0;
@@ -27,7 +27,7 @@ TTF_Font		*load_ttf(char *str, int size)
 	return (NULL);
 }
 
-void	ft_all_ttf_to_null(t_main *s)
+void			ft_all_ttf_to_null(t_main *s)
 {
 	s->font->press_start = NULL;
 	s->font->press_start25 = NULL;
@@ -39,7 +39,7 @@ void	ft_all_ttf_to_null(t_main *s)
 	s->font->digit42 = NULL;
 }
 
-void	ft_init_font(t_main *s)
+void			ft_init_font(t_main *s)
 {
 	ft_all_ttf_to_null(s);
 	if (!(s->font->press_start = load_ttf("font/ps.ttf", 10)))
@@ -60,7 +60,7 @@ void	ft_init_font(t_main *s)
 		handle_error(s, TTF_ERROR);
 }
 
-void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
+void			ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)
 {
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
