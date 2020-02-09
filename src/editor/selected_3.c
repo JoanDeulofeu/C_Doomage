@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:17:41 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 18:21:54 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 20:55:40 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void		deselect_sprite(t_main *s)
 		{
 			if (ft_is_in_sector(s, v->m_pos) == 0)
 			{
-				ft_create_message(s, 2, 200, "sprite must be in sector!");
+				if (!s->msg->message)
+					ft_create_message(s, 2, 200, "sprite must be in sector!");
 				v->r_ori = v->old;
 				v->r_pos = v->old;
 				set_sprite(s);

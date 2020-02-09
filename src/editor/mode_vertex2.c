@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 13:45:45 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 20:53:36 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	remove_anchor(t_main *s, int id)
 		{
 			if (remove_sector(s, id, 0) == 0)
 			{
-				ft_create_message(s, 2, 200, "Cannot remove player's sector!");
+				if (!s->msg->message)
+					ft_create_message(s, 2, 200, "Cannot remove player's sector!");
 				return ;
 			}
 			update_anchor_list(s, temp);

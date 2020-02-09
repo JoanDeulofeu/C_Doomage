@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:38:14 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/05 15:38:31 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 20:56:15 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ void	ft_activ_fly(t_main *s)
 	if (!s->player.fly)
 	{
 		s->player.fly = 1;
-		ft_create_message(s, 0, 1000, "Fly active");
+		if (!s->msg->message)
+			ft_create_message(s, 0, 1000, "Fly active");
 	}
 	else
 	{
 		s->player.fly = 0;
-		ft_create_message(s, 0, 1000, "Fly down");
+		if (!s->msg->message)
+			ft_create_message(s, 0, 1000, "Fly down");
 		if (s->player.foot_height > s->player.floor_height)
 			s->player.jump = 3;
 	}
