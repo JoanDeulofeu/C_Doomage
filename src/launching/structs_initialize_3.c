@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:26:46 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 14:40:38 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:51:25 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void		initialize_sdl(t_main *s, t_sdl *sdl)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
-		ft_error_sdl("Échec de l'initialisation de la SDL");
+		ft_error_sdl(s, "Échec de l'initialisation de la SDL");
 	if (TTF_Init() == -1)
-		ft_error_ttf("Erreur initialisation TTF_Init: ");
+		ft_error_ttf(s, "Erreur initialisation TTF_Init: ");
 	if (!(sdl->pwindow = SDL_CreateWindow("Doom Nukem", 100,
 					100, WIDTH, HEIGHT, SDL_WINDOW_SHOWN)))
-		ft_error_sdl("Échec de creation de la fenetre");
+		ft_error_sdl(s, "Échec de creation de la fenetre");
 	if (!(sdl->prenderer = SDL_CreateRenderer(sdl->pwindow, -1, 0)))
-		ft_error_sdl("Échec de chargement du renderer");
+		ft_error_sdl(s, "Échec de chargement du renderer");
 	if (!(sdl->map = initialize_texture(sdl, WIDTH, HEIGHT)))
 		handle_error(s, MALLOC_ERROR);
 	if (!(sdl->game = initialize_texture(sdl, WIDTH, HEIGHT)))

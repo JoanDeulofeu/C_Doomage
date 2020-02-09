@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 18:21:33 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 18:25:15 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -474,8 +474,8 @@ void						free_music(Mix_Music *music);
 */
 void						display_error(int error_nb);
 void						handle_error(t_main *s, int error_nb);
-void						ft_error_sdl(char *str);
-void						ft_error_ttf(char *str);
+void						ft_error_sdl(t_main *s, char *str);
+void						ft_error_ttf(t_main *s, char *str);
 
 /*
 ****	Fonction du menu principal
@@ -605,6 +605,7 @@ int							ft_add_intarray(t_main *s, t_sector *sector,
 							int value, t_int *tmp);
 void						put_wall_value(t_sector *sector, char *line, int i);
 t_int						*get_t_int_by_vertex_id(t_int *vtx, int ptr_id);
+t_sector					*get_sector_by_vertex_id(t_main *s, int id);
 int							vtx_is_in_sct(t_main *s, int id);
 
 /*
@@ -679,12 +680,10 @@ t_int						*get_t_int_by_id(t_int *obj, int id);
 double						ft_dist_t_dpos(t_dpos pos1, t_dpos pos2);
 double						ft_dist_t_pos(t_pos pos1, t_pos pos2);
 t_dpos						to_edi_coord(t_main *s, t_dpos coord);
-int							clamp (int x, int min, int max);
 void						ft_zoom(t_main *s, int space);
 int							max(int value1, int value2);
 int							min(int value1, int value2);
 double						ft_find_angle_plan(double a, double b, double c);
-double						vxs(double x1, double y1, double x2, double y2);
 int							ft_is_in_segment(t_dpos coord, t_dpos begin,
 							t_dpos end);
 void						ft_trace_vertical_select(t_main *s, t_line line,
@@ -768,7 +767,6 @@ void						ft_draw_column(t_pos coord, int end,
 ****	Fonction sprite chainlist
 */
 t_pos						get_px_r_pos(t_main *s, t_dpos ref);
-void						*ft_memalloc(size_t size);
 int							check_if_visible(t_main *s, t_sprite *sprite);
 void						add_sprite(t_main *s, t_dpos pos, int idimg);
 void						draw_sprite(t_main *s, t_sprite *sprite);

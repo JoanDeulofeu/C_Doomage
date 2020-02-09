@@ -6,11 +6,33 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:00:45 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 17:00:51 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 18:08:07 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+t_sector	*get_sector_by_vertex_id(t_main *s, int id)
+{
+	t_sector	*sct;
+	t_int		*wall;
+	int			i;
+
+	sct = s->sector;
+	while (sct)
+	{
+		i = 0;
+		wall = sct->vertex;
+		while (i++ < sct->vertex->prev->id)
+		{
+			if (wall->ptr->id == id)
+				return (sct);
+			wall = wall->next;
+		}
+		sct = sct->next;
+	}
+	return (NULL);
+}
 
 t_sector	*get_sector_by_id(t_main *s, int id)
 {

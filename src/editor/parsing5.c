@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:22 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 14:04:24 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:31:47 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	ft_parsing_norm(t_main *s, char *line, int i, int y)
 			handle_error(s, MAP_ERROR);
 		s->player.r_ori.x = (float)ft_atoi(&line[i]) / METRE;
 		s->player.r_pos = s->player.r_ori;
+		set_player(s);
 	}
 }
 
