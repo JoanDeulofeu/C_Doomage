@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:13:51 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 10:56:12 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 10:57:30 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,7 @@ typedef struct				s_sector
 	struct s_sector			*prev;
 }							t_sector;
 
-typedef struct				s_editor 
+typedef struct				s_editor
 {
 	t_line					line;
 	int						selected;

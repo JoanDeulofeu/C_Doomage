@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 10:54:30 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 10:56:58 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -813,7 +813,8 @@ void						check_bomb(t_main *s);
 */
 void						select_vertex(t_main *s);
 void						deselect_vertex(t_main *s);
-void						move_vertex(t_main *s, t_pos tmp_mosve, t_pos ori, int id);
+void						move_vertex(t_main *s, t_pos tmp_mosve,
+							t_pos ori, int id);
 int							exist_vertex(t_main *s, t_pos *mouse_save);
 void						reset_id(t_main *s);
 int							found_id_sprite(t_main *s, t_pos start, t_pos end);
