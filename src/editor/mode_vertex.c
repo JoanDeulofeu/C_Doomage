@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 21:15:14 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:13:16 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	move_anchor(t_main *s, int id)
 	abs = get_abs_pos(s, ori);
 	while (temp)
 	{
-		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y))
+		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y)
+		&& ft_is_in_sector(s, ft_pos_to_dpos(ori)) == 0)
 		{
 			temp->pos = ori;
 			temp->x = abs.x;
@@ -79,11 +80,13 @@ int		ft_check_wall_lenght(t_sector *sct, int i)
 
 void	ft_check_move_vertex_validity2(t_main *s, t_sector *sct, t_int *wall)
 {
-	t_pos		abs;
 	t_vertex	*vtx;
+	int			sct_id;
 
 	vtx = get_vertex_by_id(s, wall->ptr->id);
+	sct_id = ft_is_in_sector(s, vtx->m_pos);
 	if (ft_check_wall_that_intersect(s, sct)
+	|| (sct_id != 0 && sct_id != sct->id)
 	|| ft_check_wall_lenght(sct, 0) || ft_check_sector_sens(sct, 0))
 	{
 		vtx->x = vtx->old.x;
@@ -100,7 +103,7 @@ void	ft_check_move_vertex_validity2(t_main *s, t_sector *sct, t_int *wall)
 	}
 }
 
-void	ft_check_move_vertex_validity(t_main *s, int id)
+void	ft_check_move_vertex_validity(t_main *s)
 {
 	t_sector	*sct;
 	t_int		*wall;

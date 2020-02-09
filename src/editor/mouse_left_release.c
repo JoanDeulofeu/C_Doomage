@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 10:59:39 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 11:19:40 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:13:07 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static inline void		left_release(t_main *s)
 		if (s->editor->selected == 0)
 		{
 			deselect_vertex(s);
-			ft_check_move_vertex_validity(s, s->editor->id);
+			ft_check_move_vertex_validity(s);
 		}
 		if (s->editor->selected == 1)
 			select_vertex(s);
