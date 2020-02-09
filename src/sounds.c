@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:22:46 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 14:18:18 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 16:27:23 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	create_sounds(t_sdl *sdl)
 
 void	play_music(Mix_Music *music)
 {
-		Mix_PlayMusic(music, -1);
+	Mix_PlayMusic(music, -1);
 }
