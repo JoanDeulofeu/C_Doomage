@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 11:50:29 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 11:57:23 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 21:00:05 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,33 @@ int			key_controls_save(t_main *s, int key)
 	return (1);
 }
 
-void		ft_change_height(t_main *s, int key)
+void		ft_change_height(t_main *s, int key, char *str)
 {
-	t_sector *sct;
+	t_sector 	*sct;
 
 	sct = get_sector_by_id(s, s->player.sector_id);
 	if (key == PAGE_DOWN && sct->floor > 0)
 	{
 		sct->floor--;
-		ft_create_message(s, 0, 1000, "Floor down");
+		str = "Floor down";
 	}
 	else if (key == END && sct->ceiling > 0 && sct->ceiling > sct->floor + 1)
 	{
 		sct->ceiling--;
-		ft_create_message(s, 0, 1000, "Ceiling down");
+		str = "Ceiling down";
 	}
 	else if (key == PAGE_UP && sct->floor < 10 && sct->ceiling > sct->floor + 1)
 	{
 		sct->floor++;
-		ft_create_message(s, 0, 1000, "Floor up");
+		str = "Floor up";
 	}
 	else if (key == HOME && sct->ceiling < 10)
 	{
 		sct->ceiling++;
-		ft_create_message(s, 0, 1000, "Ceiling up");
+		str = "Ceiling up";
 	}
+	if (!s->msg->message)
+		ft_create_message(s, 0, 1000, str);
 }
 
 int			key_controls_game(t_main *s, int key)
@@ -120,7 +122,7 @@ int			key_controls_game(t_main *s, int key)
 		return (0);
 	if ((!s->player.fly) && (key == HOME || key == END
 		|| key == PAGE_UP || key == PAGE_DOWN))
-		ft_change_height(s, key);
+		ft_change_height(s, key, NULL);
 	if (key == SDLK_RETURN || key == SDLK_KP_ENTER)
 		s->display_mode = s->display_mode == 1 ? 0 : 1;
 	if (key == SDLK_KP_PLUS)

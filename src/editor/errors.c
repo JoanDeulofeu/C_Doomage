@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 15:51:41 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 17:49:38 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 19:06:59 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void		display_error(int error_nb)
 		ft_putstr("Error : Pointer should not be NULL !\n");
 	else if (error_nb == SECTOR_ERROR)
 		ft_putstr("Error : Looking for sector 0\n");
+	else if (error_nb == TTF_ERROR)
+		ft_putstr("Error : Font not found\n");
 }
 
 void		handle_error(t_main *s, int error_nb)
