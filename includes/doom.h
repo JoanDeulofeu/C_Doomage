@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 14:18:31 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 16:02:17 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -604,6 +604,7 @@ int							ft_add_intarray(t_main *s, t_sector *sector,
 							int value, t_int *tmp);
 void						put_wall_value(t_sector *sector, char *line, int i);
 t_int						*get_t_int_by_vertex_id(t_int *vtx, int ptr_id);
+int							vtx_is_in_sct(t_main *s, int id);
 
 /*
 ****	Fonction de gestion des vecteurs

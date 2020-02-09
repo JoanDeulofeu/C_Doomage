@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:35:19 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:35:37 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 15:24:20 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_save_sector_vextex(t_main *s, int id_vtx)
 
 	tmp = ft_itoa(id_vtx);
 	if (s->str_vtx == NULL)
-		s->str_vtx = tmp;
+		s->str_vtx = ft_strdup(tmp);
 	else if ((ft_nb_is_in_str(s->str_vtx, id_vtx)) == 0)
 	{
 		if (!(space = (char*)malloc(sizeof(char) * 2)))
@@ -67,6 +67,7 @@ void	ft_save_sector_vextex(t_main *s, int id_vtx)
 		s->str_vtx = ft_strjoin_free(&s->str_vtx, &space);
 		s->str_vtx = ft_strjoin_free(&s->str_vtx, &tmp);
 	}
+	ft_memdel((void **)&tmp);
 }
 
 int		ft_norm_close_sector(t_main *s, int part, char *end)
