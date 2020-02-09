@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 15:22:46 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/05 17:59:30 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:18:18 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	create_sounds(t_sdl *sdl)
 	sdl->sounds.shotgun = Mix_LoadWAV("sounds/shotgun.wav");
 	sdl->sounds.gun = Mix_LoadWAV("sounds/Pistol.wav");
 	sdl->sounds.blaster = Mix_LoadWAV("sounds/blaster.wav");
+	sdl->sounds.hurt = Mix_LoadWAV("sounds/hurt.wav");
+	sdl->musique = Mix_LoadMUS("musics/menu.wav");
+	sdl->game_musique = Mix_LoadMUS("musics/mandalorian.wav");
+	if (sdl->musique == NULL || !sdl->game_musique)
+		ft_putstr("Error : music not loaded\n");
 }
 
-void	play_music(t_main *s)
+void	play_music(Mix_Music *music)
 {
-	s->sdl->musique = Mix_LoadMUS("musics/menu.wav");
-	if (s->sdl->musique == NULL)
-		ft_putstr("Error : music not loaded\n");
-	else
-		Mix_PlayMusic(s->sdl->musique, -1);
+		Mix_PlayMusic(music, -1);
 }

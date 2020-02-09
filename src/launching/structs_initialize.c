@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:41:31 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 20:37:23 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:40:11 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ t_main		*initialize_main(char *str)
 	initialize_editor(s);
 	malloc_main(s, str);
 	initialize_player(s);
-	initialize_editor(s);
 	ft_set_time(s);
 	ft_init_msg(s);
 	s->sct_without_ceiling = 15;

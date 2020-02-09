@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:15:06 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 16:26:16 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 12:51:30 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	destroy_planet(t_main *s)
 	coord.x = 0;
 	coord.y = 0;
 	if (s->skybox.current == 0)
-		Mix_PlayChannel(2, s->sdl->sounds.explode, 0);
+		Mix_PlayChannel(3, s->sdl->sounds.explode, 0);
 	if (s->skybox.image[s->skybox.current + 1])
 		s->skybox.current++;
 	else

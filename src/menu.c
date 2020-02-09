@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:20:41 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:20:44 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:47:27 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,14 @@ int		handle_menu2(t_main *s)
 
 int		handle_menu(t_main *s)
 {
-	play_music(s);
 	reset(s);
+	play_music(s->sdl->musique);
 	s->play_or_editor = 2;
 	display_menu(s, 0, 0, 0);
 	if (handle_menu2(s) == 0)
 		return (0);
 	if (s->sdl->musique != NULL)
-	{
 		Mix_HaltMusic();
-		Mix_FreeMusic(s->sdl->musique);
-		s->sdl->musique = NULL;
-	}
 	if (s->menu.current == 2 || s->menu.current == 0)
 		launch_editor(s);
 	else

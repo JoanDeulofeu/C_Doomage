@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:54:14 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 14:26:14 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:21:25 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	game_handler(t_main *s)
 
 void	launch_game(t_main *s)
 {
+	play_music(s->sdl->game_musique);
 	display_map(s);
 	game_handler(s);
 }

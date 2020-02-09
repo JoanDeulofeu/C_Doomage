@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:31:18 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 18:10:54 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 12:17:01 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void		handle_visu_portal(t_main *s, t_int *vtx, t_visu *vs, int swich)
 	if (!check_portal_doover(s, vtx) || !check_portal_validity(s, vtx->vtx_dest,
 		&fake_vs, METRE))
 		return ;
-	draw_anchor(s, ft_dpos_to_pos(to_edi_coord(s, fake_vs.player)), PINK);
 	ft_create_new_wall(s, vtx, vs, 'p');
 	if (s->portal_nb < PORTAL_LIMIT)
 		add_portal_to_list(s, fake_vs.sct, fake_vs);

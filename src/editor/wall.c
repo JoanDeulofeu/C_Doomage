@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:30:30 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:44:16 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:59:02 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_close_sector2(t_main *s)
 {
 	ft_parse_sector(s, s->str_vtx);
-	s->str_vtx = NULL;
+	ft_strdel(&s->str_vtx);
 	ft_check_validity_last_sector(s);
 	ft_reset_color_vertex(s);
 }

@@ -67,6 +67,7 @@ SRC_NAME =	main.c							\
 			editor/player.c					\
 			editor/mode_floor.c				\
 			editor/free.c					\
+			editor/free_sounds.c			\
 			editor/free_images.c			\
 			editor/parser_tga.c				\
 			editor/edit_portals.c			\

@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 12:07:04 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:18:31 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef	struct				s_sounds
 	Mix_Chunk				*shotgun;
 	Mix_Chunk				*gun;
 	Mix_Chunk				*blaster;
+	Mix_Chunk				*hurt;
 }							t_sounds;
 
 typedef struct				s_ft_find_wall {
@@ -257,6 +258,7 @@ typedef struct				s_sdl {
 	int						y_o;
 	t_sounds				sounds;
 	Mix_Music				*musique;
+	Mix_Music				*game_musique;
 }							t_sdl;
 
 typedef struct				s_font {
@@ -464,6 +466,8 @@ void						free_images_1(t_main *s);
 void						free_image(t_image *img);
 void						free_anim(t_anim anim);
 void						free_sprite(t_main *s);
+void						free_sound(Mix_Chunk *sound);
+void						free_music(Mix_Music *music);
 
 /*
 ****	Fonction de gestion d'erreur
@@ -484,7 +488,7 @@ void						launch_editor(t_main *s);
 ****	Fonction des sons
 */
 void						create_sounds(t_sdl *sdl);
-void						play_music(t_main *s);
+void						play_music(Mix_Music *music);
 
 /*
 ****	Fonction de temps
