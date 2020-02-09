@@ -6,11 +6,26 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:21:16 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:21:17 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 19:23:28 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+TTF_Font		*load_ttf(char *str, int size)
+{
+	int 		i;
+	TTF_Font	*font;
+
+	i = 0;
+	while (i++ < 100)
+	{
+		font = TTF_OpenFont(str, size);
+		if (font)
+			return (font);
+	}
+	return (NULL);
+}
 
 void	ft_all_ttf_to_null(t_main *s)
 {
@@ -27,22 +42,22 @@ void	ft_all_ttf_to_null(t_main *s)
 void	ft_init_font(t_main *s)
 {
 	ft_all_ttf_to_null(s);
-	while ((s->font->press_start = TTF_OpenFont("font/ps.ttf", 10)) == NULL)
-		;
-	while ((s->font->press_start25 = TTF_OpenFont("font/ps.ttf", 25)) == NULL)
-		;
-	while ((s->font->open = TTF_OpenFont("font/Open.ttf", 10)) == NULL)
-		;
-	while ((s->font->roboto = TTF_OpenFont("font/Roboto.ttf", 20)) == NULL)
-		;
-	while ((s->font->stylish = TTF_OpenFont("font/Styli.ttf", 10)) == NULL)
-		;
-	while ((s->font->stylish100 = TTF_OpenFont("font/Styli.ttf", 100)) == NULL)
-		;
-	while ((s->font->digit = TTF_OpenFont("font/digit.ttf", 20)) == NULL)
-		;
-	while ((s->font->digit42 = TTF_OpenFont("font/digit.ttf", 42)) == NULL)
-		;
+	if (!(s->font->press_start = load_ttf("font/ps.ttf", 10)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->press_start25 = load_ttf("font/ps.ttf", 25)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->open = load_ttf("font/Open.ttf", 10)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->roboto = load_ttf("font/Roboto.ttf", 20)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->stylish = load_ttf("font/Styli.ttf", 10)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->stylish100 = load_ttf("font/Styli.ttf", 100)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->digit = load_ttf("font/digit.ttf", 20)))
+		handle_error(s, TTF_ERROR);
+	if (!(s->font->digit42 = load_ttf("font/digit.ttf", 42)))
+		handle_error(s, TTF_ERROR);
 }
 
 void	ft_create_ttf(t_ttf ttf, t_main *s, TTF_Font *police)

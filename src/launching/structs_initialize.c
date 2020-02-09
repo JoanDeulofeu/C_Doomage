@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:41:31 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 14:40:11 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 19:30:24 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ t_main		*initialize_main(char *str)
 	load_images(s);
 	s->save_coord_vtx.x = 0;
 	s->save_coord_vtx.y = 0;
+	ft_init_font(s);
 	return (s);
 }

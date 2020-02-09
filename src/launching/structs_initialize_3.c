@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:26:46 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 17:51:25 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 19:30:09 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void		initialize_sdl(t_main *s, t_sdl *sdl)
 		handle_error(s, MALLOC_ERROR);
 	sdl->musique = NULL;
 	create_sounds(sdl);
-	ft_init_font(s);
 }
