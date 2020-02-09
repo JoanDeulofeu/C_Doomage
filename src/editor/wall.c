@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:30:30 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:44:16 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 16:17:35 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int		ft_sector_mode(t_main *s, int x, int y)
 			return (1);
 		}
 	}
-	return (0);
+	return (1);
 }
