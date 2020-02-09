@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:28:09 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 18:31:04 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 12:52:04 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		fire(t_main *s)
 	}
 	if (save_sprite)
 	{
-		printf("hit\n");
+		Mix_PlayChannel(4, s->sdl->sounds.hurt, 0);
 		save_sprite->life -= s->player.power;
 		if (save_sprite->life <= 0 && save_sprite->a_name != dying)
 		{

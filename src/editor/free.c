@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:12:13 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/05 16:21:35 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:04:38 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,16 @@ void	free_fonts(t_main *s)
 
 void	free_sounds(t_main *s)
 {
-	if (s->sdl->musique != NULL)
-	{
-		Mix_HaltMusic();
-		Mix_FreeMusic(s->sdl->musique);
-		Mix_FreeChunk(s->sdl->sounds.explode);
-		Mix_FreeChunk(s->sdl->sounds.select);
-		Mix_FreeChunk(s->sdl->sounds.shotgun);
-		Mix_FreeChunk(s->sdl->sounds.blaster);
-		Mix_FreeChunk(s->sdl->sounds.gun);
-		Mix_CloseAudio();
-	}
+	Mix_HaltMusic();
+	free_music(s->sdl->musique);
+	free_music(s->sdl->game_musique);
+	free_sound(s->sdl->sounds.explode);
+	free_sound(s->sdl->sounds.select);
+	free_sound(s->sdl->sounds.shotgun);
+	free_sound(s->sdl->sounds.blaster);
+	free_sound(s->sdl->sounds.gun);
+	free_sound(s->sdl->sounds.hurt);
+	Mix_CloseAudio();
 }
 
 void	free_program(t_main *s)
