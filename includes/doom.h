@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 18:25:15 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 19:19:58 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -572,7 +572,6 @@ int							ft_find_next_number(char *str, int i);
 void						ft_check_validity_last_sector(t_main *s);
 int							ft_check_wall_that_intersect(t_main *s,
 							t_sector *sct_in_check);
-int							ft_check_move_vertex(t_main *s, int id);
 void						ft_check_move_vertex_validity(t_main *s, int id);
 t_pos						ft_find_polygon_center(t_sector *sct);
 int							ft_check_sector_sens(t_sector *sct, int i);
