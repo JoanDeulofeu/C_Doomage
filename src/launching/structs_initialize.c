@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:41:31 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 14:49:04 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:37:23 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,9 @@ void		initialize_editor(t_main *s)
 	s->editor->space = G_SPACE;
 	s->editor->anchor_size = 5;
 	s->editor->mode = move;
-	s->editor->decal_x = 0;
-	s->editor->decal_y = 0;
-	s->editor->ref.x = 0;
-	s->editor->ref.y = 0;
 	s->editor->color_sector = 2;
-	s->editor->dply_floor = 0;
-	s->editor->mode_floor = 0;
-	s->editor->portal_temp = 0;
-	s->editor->selected = 0;
-	s->editor->over_portal = 0;
-	s->editor->over_sector = 0;
-	s->editor->over_sector2 = 0;
-	s->editor->wall = NULL;
-	s->editor->wall2 = NULL;
 	s->editor->sprite_selected = storm;
+	s->editor->tmp_floor = -1;
 }
 
 void		initialize_player(t_main *s)

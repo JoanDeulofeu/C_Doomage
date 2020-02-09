@@ -485,6 +485,9 @@ void						display_map(t_main *s);
 void						get_grid_tab(t_main *s);
 void						ft_draw_editor(t_editor *edi, t_texture *tex);
 void						mouse_grid(t_main *s, t_pos save);
+void						handle_editor_mouse_pressed_event(t_main *s);
+int							check_click_menu(t_main *s);
+void						click_editor_menu(t_main *s, t_anim menu, int x);
 
 /*
 ****	Fonction de gestion d'images
@@ -515,7 +518,7 @@ void						ft_draw_all_wall(t_main *s);
 ****	Fonction de gestion des controls
 */
 int							keyboard_controls(t_main *s, int key);
-void						editor_handler(t_main *s);
+void						editor_handler(t_main *s, int ingame);
 void						event_handler(t_main *s);
 void						handle_keys(t_main *s);
 void						handle_game_keys(t_main *s);
@@ -761,8 +764,7 @@ void 						check_bomb(t_main *s);
 void						select_vertex(t_main *s);
 void						deselect_vertex(t_main *s);
 void						move_vertex(t_main *s, t_pos tmp_mosve, t_pos ori, int id);
-int							exist_vertex(t_main *s, t_pos *mouse_save, int *id,
-	t_pos *ori);
+int							exist_vertex(t_main *s, t_pos *mouse_save);
 void						reset_id(t_main *s);
 int							found_id_sprite(t_main *s, t_pos start, t_pos end);
 

@@ -315,6 +315,7 @@ typedef struct			s_sector {
 typedef struct			s_editor {
 	t_line				line;
 	int					selected;
+	int					selected2;
 	int					space;
 	int					anchor_size;
 	int					decal_x;
@@ -339,6 +340,16 @@ typedef struct			s_editor {
 	int					over_portal;
 	int					over_sector;
 	int					over_sector2;
+	t_pos				mouse_save;
+	t_mode				tmp_mode;
+	int					id;
+	t_pos				tmp_move;
+	t_pos				ori;
+	t_pos				tmp;
+	t_dpos				tmp2;
+	int					remove;
+	int					zoom;
+	int					tmp_floor;
 }						t_editor;
 
 #endif

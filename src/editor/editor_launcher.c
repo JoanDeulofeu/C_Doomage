@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:52:56 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 13:53:33 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 10:32:09 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	launch_editor(t_main *s)
 {
 	display_map(s);
-	editor_handler(s);
+	editor_handler(s, 1);
 }

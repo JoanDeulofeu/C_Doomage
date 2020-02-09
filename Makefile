@@ -32,6 +32,7 @@ SRC_NAME =	main.c							\
 			editor/editor_2.c				\
 			editor/errors.c					\
 			editor/editor_controls.c		\
+			editor/mouse_left_click.c		\
 			editor/lines.c					\
 			editor/ft_lines.c				\
 			editor/parsing.c				\

@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:17:41 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 13:20:18 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/07 20:11:14 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			is_sprite_selected(t_main *s)
 	return (0);
 }
 
-int			exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
+int			exist_vertex(t_main *s, t_pos *mouse_save)
 {
 	int		selected;
 
@@ -98,13 +98,13 @@ int			exist_vertex(t_main *s, t_pos *mouse_save, int *id, t_pos *ori)
 	mouse_save->y = s->sdl->event.button.y;
 	s->editor->line.x1 = mouse_save->x;
 	s->editor->line.y1 = mouse_save->y;
-	ori->x = arround(s->editor->space, s->sdl->event.button.x
+	s->editor->ori.x = arround(s->editor->space, s->sdl->event.button.x
 		- (s->editor->decal_x % s->editor->space));
-	ori->y = arround(s->editor->space, s->sdl->event.button.y
+	s->editor->ori.y = arround(s->editor->space, s->sdl->event.button.y
 		- (s->editor->decal_y % s->editor->space));
-	if (ori->x >= 0 && ori->x <= WIDTH && ori->y >= 0 && ori->y <= HEIGHT)
+	if (s->editor->ori.x >= 0 && s->editor->ori.x <= WIDTH && s->editor->ori.y >= 0 && s->editor->ori.y <= HEIGHT)
 	{
-		if ((*id = anchor_exists(s, *ori)) != 0)
+		if ((s->editor->id = anchor_exists(s, s->editor->ori)) != 0)
 		{
 			selected = 1;
 			s->editor->selected = 0;
