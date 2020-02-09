@@ -6,20 +6,11 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:00:17 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/05 16:00:24 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 16:31:19 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-int		clamp(int x, int min, int max)
-{
-	if (x < min)
-		x = min;
-	else if (x > max)
-		x = max;
-	return (x);
-}
 
 int		max(int value1, int value2)
 {

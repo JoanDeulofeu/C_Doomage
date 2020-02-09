@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:20:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 14:34:00 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:58:07 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,6 @@ void	reset(t_main *s)
 	set_sprite(s);
 }
 
-void	draw_player(t_main *s, t_dpos p_pos)
-{
-	t_dpos p_size;
-
-	p_size.x = p_pos.x + 20;
-	p_size.y = p_pos.y + 20;
-	draw_rect(s->sdl->game, p_pos, p_size, s->sdl->game->color_tmp);
-}
-
 int		main(int argc, char **argv)
 {
 	t_main *s;
@@ -109,9 +100,6 @@ int		main(int argc, char **argv)
 		s = initialize_main(NULL);
 	else
 		s = initialize_main(argv[1]);
-	s->p_pos.x = 500;
-	s->p_pos.y = 330;
-	draw_player(s, s->p_pos);
 	SDL_ShowCursor(1);
 	ft_parsing(s, 0);
 	s->wall_fk_id = 0;

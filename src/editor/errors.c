@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 15:51:41 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 15:51:43 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:49:38 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		display_error(int error_nb)
 
 void		handle_error(t_main *s, int error_nb)
 {
-	(void)s;
 	if (error_nb != 0)
 		display_error(error_nb);
 	Mix_HaltMusic();
@@ -46,17 +45,17 @@ void		handle_error(t_main *s, int error_nb)
 	exit(-1);
 }
 
-void		ft_error_sdl(char *str)
+void		ft_error_sdl(t_main *s, char *str)
 {
 	ft_putstr(str);
 	ft_putchar(' ');
 	ft_putstr(SDL_GetError());
-	exit(-1);
+	handle_error(s, 0);
 }
 
-void		ft_error_ttf(char *str)
+void		ft_error_ttf(t_main *s, char *str)
 {
 	ft_putstr(str);
 	ft_putstr(TTF_GetError());
-	exit(-1);
+	handle_error(s, 0);
 }

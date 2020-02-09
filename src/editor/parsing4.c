@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:27 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 14:18:06 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:39:55 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,20 @@ void	ft_check_validity_last_sector2(t_main *s, t_sector *sct, t_int *wall)
 	if (ft_check_wall_that_intersect(s, sct))
 	{
 		remove_sector(s, wall->value, 0);
+		return ;
 		ft_putstr("ERROR sector non valide: collision avec un autre secteur\n");
 	}
 	else if (ft_check_sector_sens(sct, 0))
 	{
 		ft_putstr("ERROR secteur non valide: sens du secteur non valide.\n");
 		remove_sector(s, wall->value, 0);
+		return ;
 	}
 	else if (ft_check_wall_lenght(sct, 0))
 	{
 		remove_sector(s, wall->value, 0);
 		ft_putstr("ERROR secteur non valide: mur du secteur trop grand.\n");
+		return ;
 	}
 	else if (sct->id > 50)
 	{
@@ -112,6 +115,7 @@ void	ft_check_validity_last_sector(t_main *s)
 	{
 		remove_sector(s, wall->value, 0);
 		ft_putstr("ERROR secteur non valide: moins de 3 vertex.\n");
+		return ;
 	}
 	ft_check_validity_last_sector2(s, sct, wall);
 }

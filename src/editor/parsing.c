@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:35 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 14:16:08 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 17:58:58 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	ft_check_parsing_validity(t_main *s)
 		handle_error(s, MAP_ERROR);
 	if (sct->vertex->prev->id < 3)
 		handle_error(s, MAP_ERROR);
+	if (!ft_is_in_sector(s, s->player.m_pos))
+		tp_first_sector(s);
 }
 
 int		ft_parsing(t_main *s, int fd)
