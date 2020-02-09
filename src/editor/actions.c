@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 16:27:02 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 16:32:13 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 14:07:16 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void		jump_2(t_main *s)
 
 void		ft_jump(t_main *s, const Uint8 *keys)
 {
-	if (s->player.fly == 0 && (s->player.jetpack == 0 || s->play_or_editor == 1)
+	if (s->player.size == PLAYER_SIZE && s->player.fly == 0
+	&& (s->player.jetpack == 0 || s->play_or_editor == 1)
 	&& keys[SDL_SCANCODE_SPACE] && s->player.jump == 0 && (s->player.size
 	+ JUMP_SIZE - 0.1 <= s->player.ceiling_height - s->player.floor_height))
 		s->player.jump = 1;
