@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/06 18:24:42 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 16:39:33 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_check_move_vertex_validity2(t_main *s, t_sector *sct, t_int *wall)
 	t_pos		abs;
 
 	if (ft_check_wall_that_intersect(s, sct)
-	|| ft_check_wall_lenght(sct, 0))
+	|| ft_check_wall_lenght(sct, 0) || ft_check_sector_sens(sct, 0))
 	{
 		wall->ptr->pos = s->save_coord_vtx;
 		abs = get_abs_pos(s, s->save_coord_vtx);
