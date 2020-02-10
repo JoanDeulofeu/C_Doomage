@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:52:36 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 15:53:01 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 13:39:23 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void		display_sprites(t_main *s, int display, int fad, int fai)
 		spt = s->sprite;
 		while (spt)
 		{
-			if (spt->displayed == 1 && spt->dist > fad && spt->destroy == 0)
+			if (spt->set == 1 && spt->displayed == 1
+			&& spt->dist > fad && spt->destroy == 0)
 			{
 				display = 1;
 				fad = spt->dist;
