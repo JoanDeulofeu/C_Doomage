@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:20:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 17:58:07 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:15:25 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,15 @@ void	ending(t_main *s, int key)
 
 void	reset2(t_main *s)
 {
+	t_sector *sct;
+
 	s->block_move = 0;
 	s->player.r_pos = s->player.r_ori;
 	set_player(s);
+	s->player.sector_id = ft_is_in_sector(s, s->player.m_pos);
+	sct = get_sector_by_id(s, s->player.sector_id);
+	s->player.jump_height = 0;
+	s->player.foot_height = sct->floor + s->player.jump_height;
 	s->player.health = 100;
 	s->player.armor = 100;
 	s->player.dead = 0;
@@ -52,7 +58,7 @@ void	reset2(t_main *s)
 	s->player.jetpack = 0;
 	s->time->jetpack_reserve = JET_TIME;
 	s->player.fly = 0;
-	s->player.jump_height = 0;
+	s->player.foot_height = -1;
 	s->cinematic.current = 0;
 	s->skybox.current = 0;
 	s->time->explosion_ms = 0;

@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:10:27 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 15:17:36 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:22:36 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void		tp_first_sector(t_main *s)
 		s->player.r_pos.x = (center.x / METRE);
 		s->player.r_pos.y = (center.y / METRE);
 		set_player(s);
+		s->player.jump_height = 0;
+		s->player.foot_height = sct->floor + s->player.jump_height;
 		if ((s->player.sector_id = ft_is_in_sector(s, s->player.m_pos)) == 0)
 			handle_sector_zero(s);
 	}
@@ -52,11 +54,16 @@ void		tp_first_sector(t_main *s)
 
 static int	check_pos(t_main *s, t_dpos curr)
 {
+	t_sector *sct;
+
 	if ((s->player.sector_id = ft_is_in_sector(s, curr)) != 0)
 	{
 		s->player.r_pos.x = curr.x / METRE;
 		s->player.r_pos.y = curr.y / METRE;
 		set_player(s);
+		sct = get_sector_by_id(s, s->player.sector_id);
+		s->player.jump_height = 0;
+		s->player.foot_height = sct->floor + s->player.jump_height;
 		return (1);
 	}
 	else
@@ -89,8 +96,8 @@ int			handle_sector_zero_2(t_main *s, t_dpos *curr, int nb)
 
 int			handle_sector_zero(t_main *s)
 {
-	int		nb;
-	t_dpos	curr;
+	int			nb;
+	t_dpos		curr;
 
 	nb = 1;
 	if (ft_is_in_sector(s, s->player.m_pos) == 0)
