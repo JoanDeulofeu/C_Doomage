@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 16:27:02 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 14:07:16 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 23:30:25 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ void		ft_jump(t_main *s, const Uint8 *keys)
 		s->player.jump = 1;
 	if (s->player.jump == 1 || s->player.jump == 2)
 		jump_2(s);
-	if (s->player.jump == 3 && (s->time->time_ms > s->time->jump_ms + 10)
-	&& s->player.jump_height > 0)
+	if (s->player.jump == 3 && (s->time->time_ms > s->time->jump_ms + 10))
 	{
 		s->player.jump_height -= 0.6 * s->player.tumble;
 		s->player.tumble += 0.15;
