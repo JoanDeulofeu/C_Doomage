@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:12:13 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 14:04:38 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 15:53:03 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_sectors(t_main *s)
 	{
 		s_tmp = s->sector;
 		s->sector = s_tmp->next;
-		free_sector_struct(s_tmp);
+		free_sector_struct(s_tmp, 0);
 		ft_memdel((void **)&s_tmp);
 	}
 	while (s->vertex)

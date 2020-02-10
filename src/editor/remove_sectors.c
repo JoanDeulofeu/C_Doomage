@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:55:32 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 12:58:04 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 15:53:10 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_sector	*update_sector_walls(t_main *s, t_int *tmp_vtx,
 	return (tmp_sct);
 }
 
-t_int		*free_sector_struct(t_sector *temp_sector)
+t_int		*free_sector_struct(t_sector *temp_sector, int id)
 {
 	t_int		*temp_vertex;
 	t_int		*temp_vertex2;
@@ -47,10 +47,11 @@ t_int		*free_sector_struct(t_sector *temp_sector)
 	int			i;
 
 	i = 0;
+	id = temp_sector->vertex->id;
 	temp_vertex = temp_sector->vertex;
 	temp_vertex2 = NULL;
 	temp_list = temp_sector->liste;
-	while (i++ < temp_sector->vertex->prev->id)
+	while (i++ < id)
 	{
 		temp_vertex2 = temp_vertex;
 		temp_vertex = temp_vertex->next;
@@ -100,7 +101,7 @@ int			remove_sector_content(t_main *s,
 		return (0);
 	while ((*tmp_sct)->liste)
 		remove_sprite(s, (*tmp_sct)->liste->sprite->id);
-	*tmp_vtx = free_sector_struct(*tmp_sct);
+	*tmp_vtx = free_sector_struct(*tmp_sct, 0);
 	*tmp_sct = update_sector_list(s, *tmp_sct);
 	*tmp_sct = update_sector_walls(s, *tmp_vtx, *tmp_sct, sct_id);
 	return (1);
