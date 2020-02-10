@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:31 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 20:41:32 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:32:12 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	check_map_portals(t_main *s)
 			}
 			wall = wall->next;
 		}
+		ft_sector_eat_another(s, s->sector, sct->id);
 		sct = sct->next;
 	}
 }
