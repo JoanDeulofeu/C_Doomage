@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 22:15:35 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 13:39:31 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	remove_selected_anchor(t_main *s)
 
 void	create_anchor(t_main *s, t_pos ori)
 {
-	t_vertex *vtx;
-	t_dpos mouse;
+	t_vertex	*vtx;
+	t_dpos		mouse;
 
 	vtx = s->vertex;
 	ori = get_abs_pos(s, ori);
