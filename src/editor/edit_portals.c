@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:38:17 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 17:38:19 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 14:14:53 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	edit_portal(t_main *s)
 	{
 		if (s->editor->wall2->selected == 3)
 			create_struct_portals(s);
+		check_map_portals(s);
 	}
 	else
 		reset_temp_portals(s);

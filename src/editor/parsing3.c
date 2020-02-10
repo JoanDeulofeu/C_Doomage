@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:31 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 14:20:00 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 14:10:52 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ void	check_map_portals2(t_int *wall)
 	wall->selected = 0;
 }
 
+int		check_portal_boundary(t_int *wall)
+{
+	if (wall->next->wall_value != -1 || wall->prev->wall_value != -1)
+		return (0);
+	return (1);
+}
+
 void	check_map_portals(t_main *s)
 {
 	t_sector	*sct;
@@ -77,7 +84,7 @@ void	check_map_portals(t_main *s)
 			if (wall->vtx_dest != NULL)
 			{
 				if (!check_walls_lenght(wall->vtx_dest, wall)
-				|| wall->vtx_dest->vtx_dest == NULL
+				|| !wall->vtx_dest->vtx_dest || !check_portal_boundary(wall)
 				|| wall->vtx_dest->vtx_dest->ptr->id != wall->ptr->id
 				|| !is_dest_valid(s, wall->vtx_dest->ptr->id)
 				|| !vtx_is_in_sct(s, wall->vtx_dest->ptr->id))
