@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 18:44:08 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:19:54 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ void	create_anchor(t_main *s, t_pos ori)
 		- (s->editor->decal_x % s->editor->space));
 	mouse.y = arround(s->editor->space, s->ft_mouse.y
 		- (s->editor->decal_y % s->editor->space));
+	mouse = ft_pos_to_dpos(get_abs_pos(s, ft_dpos_to_pos(mouse)));
+	mouse.x *= METRE;
+	mouse.y *= METRE;
 	if (vtx->id < 500 && ft_is_in_sector(s, mouse) == 0)
 		ft_add_vertex(s, ori.x, ori.y, NULL);
 }

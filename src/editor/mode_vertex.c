@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 21:07:45 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:09:39 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,6 @@ void	ft_check_move_vertex_validity2(t_main *s, t_sector *sct, t_int *wall)
 	}
 	else
 	{
-		if (vtx->old.x != vtx->x || vtx->old.y != vtx->y)
-			printf("save des old\n");
 		vtx->old.x = vtx->x;
 		vtx->old.y = vtx->y;
 	}
