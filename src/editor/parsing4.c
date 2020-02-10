@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:27 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 17:41:14 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 20:05:10 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	ft_check_validity_last_sector2(t_main *s, t_sector *sct, t_int *wall)
 	if (ft_check_wall_that_intersect(s, sct))
 	{
 		remove_sector(s, wall->value, 0, s->sector);
-		return ;
 		ft_putstr("ERROR sector non valide: collision avec un autre secteur\n");
+		return ;
 	}
 	else if (ft_check_sector_sens(sct, 0))
 	{

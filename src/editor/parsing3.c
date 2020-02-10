@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:31 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 17:04:07 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 20:41:32 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		vtx_is_in_sct(t_main *s, int id)
 	int			i;
 
 	sct = s->sector;
+	i = 0;
 	while (sct)
 	{
 		vtx = sct->vertex;

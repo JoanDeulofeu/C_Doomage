@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 18:44:04 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 20:31:26 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -669,6 +669,8 @@ t_pos						get_px_pos(t_main *s, t_pos ref);
 int							ft_is_in_sector(t_main *s, t_dpos point_2);
 int							fiis(t_main *s, t_dpos position,
 							int sct_id, t_sector *sct);
+void						ft_sector_eat_another(t_main *s, t_sector *sct,
+							int sct_id);
 int							check_pos_sector2(t_main *s, t_4dpos *pos,
 							t_check_pos_sector *c);
 void						check_pos_sector3(t_sector *sct, t_4dpos *pos,
