@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 18:22:05 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:44:04 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -619,7 +619,8 @@ t_pos						get_abs_pos(t_main *s, t_pos ori);
 void						move_anchor(t_main *s, int id, int fiis,
 							t_vertex *temp);
 void						remove_anchor(t_main *s, int id);
-int							remove_sector(t_main *s, int id, int del);
+int							remove_sector(t_main *s, int id, int del,
+							t_sector *sct);
 void						ft_reset_color_vertex(t_main *s);
 
 /*
@@ -630,7 +631,7 @@ int							ft_sector_mode(t_main *s, int x, int y);
 void						fill_sectors(t_main *s);
 void						draw_sector(t_main *s, int x, int y,
 							Uint32 r_color);
-t_int						*free_sector_struct(t_sector *temp_sector);
+t_int						*free_sector_struct(t_sector *temp_sector, int id);
 void						remove_sprite(t_main *s, int id);
 void						remove_sprite_from_sector(t_main *s,
 							t_sprite *sprite);
