@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 11:50:29 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 21:47:10 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:25:12 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ void		ft_change_height(t_main *s, int key, char *str)
 		sct->floor--;
 		str = "Floor down";
 	}
-	else if (key == END && sct->ceiling > 0 && sct->ceiling > sct->floor + 1)
+	else if (key == END && sct->ceiling > 0 && sct->ceiling > sct->floor + 2)
 	{
 		sct->ceiling--;
 		str = "Ceiling down";
 	}
-	else if (key == PAGE_UP && sct->floor < 10 && sct->ceiling > sct->floor + 1)
+	else if (key == PAGE_UP && sct->floor < 10 && sct->ceiling > sct->floor + 2)
 	{
 		sct->floor++;
 		str = "Floor up";
