@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:10:27 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/10 20:13:24 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:58:46 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static int	check_pos(t_main *s, t_dpos curr)
 		sct = get_sector_by_id(s, s->player.sector_id);
 		if (s->player.foot_height > (double)sct->floor + 0.01)
 		{
-			s->player.jump_height += s->player.floor_height - (double)sct->floor;
+			s->player.jump_height += s->player.floor_height
+			- (double)sct->floor;
 			s->player.prev_jump_height = s->player.jump_height;
 			if (s->player.jump == 0 && s->player.fly == 0)
 				s->player.jump = 3;
