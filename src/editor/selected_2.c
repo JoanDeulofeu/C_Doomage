@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:17:45 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 21:15:20 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:14:20 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void		select_vertex(t_main *s)
 	t_vertex	*v;
 	t_line		line;
 	t_pos		pos;
-	t_pos		abs;
 
 	deselect_vertex(s);
 	v = s->vertex;

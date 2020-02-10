@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 21:47:45 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/09 22:15:35 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,16 @@ void	remove_selected_anchor(t_main *s)
 void	create_anchor(t_main *s, t_pos ori)
 {
 	t_vertex *vtx;
+	t_dpos mouse;
 
 	vtx = s->vertex;
 	ori = get_abs_pos(s, ori);
 	while (vtx->next != NULL)
 		vtx = vtx->next;
-	if (vtx->id < 500)
+	mouse.x = arround(s->editor->space, s->ft_mouse.x
+		- (s->editor->decal_x % s->editor->space));
+	mouse.y = arround(s->editor->space, s->ft_mouse.y
+		- (s->editor->decal_y % s->editor->space));
+	if (vtx->id < 500 && ft_is_in_sector(s, mouse) == 0)
 		ft_add_vertex(s, ori.x, ori.y, NULL);
 }
