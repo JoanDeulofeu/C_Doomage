@@ -6,16 +6,18 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 17:44:27 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 18:22:28 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:57:18 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-int			check_pos_sector8(t_main *s, t_4dpos pos, t_sector *sct, int res, int sct_id)
+int			check_pos_sector8(t_main *s, t_4dpos pos, t_sector *sct, int sct_id)
 {
-	t_check_pos_sector c;
+	t_check_pos_sector	c;
+	int					res;
 
+	res = 0;
 	check_pos_sector3(sct, &pos, &c, 1);
 	while (sct)
 	{
@@ -54,13 +56,14 @@ int			fiis(t_main *s, t_dpos position, int sct_id, t_sector *sct)
 	pos2.pos3.y = pos.pos4.y + 10;
 	pos2.pos1 = position;
 	pos2.pos2 = position;
-	n_sector = check_pos_sector8(s, pos, sct, 0, sct_id);
-	n_sector2 = check_pos_sector8(s, pos2, sct, 0, sct_id);
-	if (n_sector == n_sector2 && n_sector == sct_id)
+	n_sector = check_pos_sector8(s, pos, sct, sct_id);
+	n_sector2 = check_pos_sector8(s, pos2, sct, sct_id);
+	if ((n_sector) == n_sector2 && n_sector == sct_id)
 		return (sct_id);
 	else
+	{
 		if (n_sector == sct_id)
 			return (n_sector2);
-		else
-			return (n_sector);
+		return (n_sector);
+	}
 }
