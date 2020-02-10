@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:31 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 21:32:12 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:59:24 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	check_map_portals(t_main *s)
 	int			i;
 
 	sct = s->sector;
-	i = 0;
 	while (sct != NULL)
 	{
 		i = 0;

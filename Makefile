@@ -53,6 +53,7 @@ SRC_NAME =	main.c							\
 			editor/anchors_general.c		\
 			editor/mode_vertex.c			\
 			editor/mode_vertex2.c			\
+			editor/mode_vertex3.c			\
 			editor/mode_sprite.c			\
 			editor/mode_sprite2.c			\
 			editor/mode_sprite3.c			\
