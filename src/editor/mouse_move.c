@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 11:20:20 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 11:26:08 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:08:21 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline void	mouse_move_1(t_main *s, t_editor *edi)
 	}
 	if (edi->selected2 && edi->mode == vertex && !s->display_mode)
 	{
-		move_anchor(s, edi->id);
+		move_anchor(s, edi->id, 0, (s->vertex) ? s->vertex : NULL);
 		move_vertex(s, edi->tmp_move, edi->ori, edi->id);
 	}
 	if (s->display_mode == game)

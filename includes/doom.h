@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 10:50:03 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:22:05 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -616,7 +616,8 @@ void						create_anchor(t_main *s, t_pos ori);
 int							anchor_exists(t_main *s, t_pos ori);
 void						set_selected(t_main *s, t_pos ori, char on);
 t_pos						get_abs_pos(t_main *s, t_pos ori);
-void						move_anchor(t_main *s, int id);
+void						move_anchor(t_main *s, int id, int fiis,
+							t_vertex *temp);
 void						remove_anchor(t_main *s, int id);
 int							remove_sector(t_main *s, int id, int del);
 void						ft_reset_color_vertex(t_main *s);
@@ -665,6 +666,12 @@ int							arround(int space, int nb);
 double						angle_mod(double angle);
 t_pos						get_px_pos(t_main *s, t_pos ref);
 int							ft_is_in_sector(t_main *s, t_dpos point_2);
+int							fiis(t_main *s, t_dpos position,
+							int sct_id, t_sector *sct);
+int							check_pos_sector2(t_main *s, t_4dpos *pos,
+							t_check_pos_sector *c);
+void						check_pos_sector3(t_sector *sct, t_4dpos *pos,
+							t_check_pos_sector *c, int part);
 int							ft_find_intersection(t_main *s, t_4dpos pos,
 							char visu);
 t_dpos						ft_find_coord(t_abpos l1, t_abpos l2);

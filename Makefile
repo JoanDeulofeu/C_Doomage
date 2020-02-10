@@ -63,6 +63,7 @@ SRC_NAME =	main.c							\
 			editor/wall3.c					\
 			editor/mode_deplacement.c		\
 			editor/ft_is_in_sector.c		\
+			editor/ft_is_in_sector2.c		\
 			editor/display_map.c			\
 			editor/player.c					\
 			editor/mode_floor.c				\

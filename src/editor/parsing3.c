@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:04:31 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 14:10:52 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:04:07 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		vtx_is_in_sct(t_main *s, int id)
 		while (i++ < sct->vertex->prev->id)
 		{
 			if (vtx->ptr->id == id)
-				return (1);
+				return (sct->id);
 			vtx = vtx->next;
 		}
 		sct = sct->next;

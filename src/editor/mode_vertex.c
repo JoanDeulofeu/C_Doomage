@@ -6,28 +6,38 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 22:13:16 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:22:22 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	move_anchor(t_main *s, int id)
+t_pos	ft_get_ori_move_anchor(t_main *s)
 {
-	t_vertex	*temp;
 	t_pos		ori;
-	t_pos		abs;
 
-	temp = (s->vertex) ? s->vertex : NULL;
 	ori.x = arround(s->editor->space, s->ft_mouse.x
 		- (s->editor->decal_x % s->editor->space));
 	ori.y = arround(s->editor->space, s->ft_mouse.y
 		- (s->editor->decal_y % s->editor->space));
+	return (ori);
+}
+
+void	move_anchor(t_main *s, int id, int ftiis, t_vertex *temp)
+{
+	t_pos		ori;
+	t_pos		abs;
+	t_dpos		mouse;
+
+	ori = ft_get_ori_move_anchor(s);
 	abs = get_abs_pos(s, ori);
+	mouse.x = abs.x * METRE;
+	mouse.y = abs.y * METRE;
+	ftiis = fiis(s, mouse, vtx_is_in_sct(s, id), s->sector);
 	while (temp)
 	{
 		if (temp->id == id && ft_check_vertex(s, abs.x, abs.y)
-		&& ft_is_in_sector(s, ft_pos_to_dpos(ori)) == 0)
+		&& (ftiis == 0 || ftiis == vtx_is_in_sct(s, id)))
 		{
 			temp->pos = ori;
 			temp->x = abs.x;
