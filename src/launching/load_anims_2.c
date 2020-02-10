@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:52:44 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 14:56:25 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 10:35:29 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	fill_texture_list(t_main *s)
 
 	edi = s->editor;
 	ft_bzero((void *)&s->editor->all_texture, sizeof(t_anim));
-	edi->all_texture.image[0] = load_tga("images/textures/02.tga", 0, 0, 0);
-	edi->all_texture.image[1] = load_tga("images/textures/01.tga", 0, 0, 0);
-	edi->all_texture.image[2] = load_tga("images/textures/03.tga", 0, 0, 0);
-	edi->all_texture.image[3] = load_tga("images/textures/04.tga", 0, 0, 0);
-	edi->all_texture.image[4] = load_tga("images/textures/05.tga", 0, 0, 0);
-	edi->all_texture.image[5] = load_tga("images/textures/06.tga", 0, 0, 0);
-	edi->all_texture.image[6] = load_tga("images/textures/07.tga", 0, 0, 0);
-	edi->all_texture.image[7] = load_tga("images/textures/08.tga", 0, 0, 0);
-	edi->all_texture.image[8] = load_tga("images/textures/09.tga", 0, 0, 0);
-	edi->all_texture.image[9] = load_tga("images/textures/10.tga", 0, 0, 0);
-	edi->all_texture.image[10] = load_tga("images/textures/11.tga", 0, 0, 0);
-	edi->all_texture.image[11] = load_tga("images/textures/12.tga", 0, 0, 0);
+	edi->all_texture.image[0] = load_tga(s, "images/textures/02.tga");
+	edi->all_texture.image[1] = load_tga(s, "images/textures/01.tga");
+	edi->all_texture.image[2] = load_tga(s, "images/textures/03.tga");
+	edi->all_texture.image[3] = load_tga(s, "images/textures/04.tga");
+	edi->all_texture.image[4] = load_tga(s, "images/textures/05.tga");
+	edi->all_texture.image[5] = load_tga(s, "images/textures/06.tga");
+	edi->all_texture.image[6] = load_tga(s, "images/textures/07.tga");
+	edi->all_texture.image[7] = load_tga(s, "images/textures/08.tga");
+	edi->all_texture.image[8] = load_tga(s, "images/textures/09.tga");
+	edi->all_texture.image[9] = load_tga(s, "images/textures/10.tga");
+	edi->all_texture.image[10] = load_tga(s, "images/textures/11.tga");
+	edi->all_texture.image[11] = load_tga(s, "images/textures/12.tga");
 }

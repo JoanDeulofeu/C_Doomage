@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:34:39 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/07 10:34:58 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 10:44:10 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			get_info_header(t_image *image, unsigned char *str)
 	return (1);
 }
 
-t_image		*load_tga(char *path, int i, int idx, int ret)
+t_image		*load_tga_2(char *path, int i, int idx, int ret)
 {
 	unsigned char	str[PARSE_BUFF_SIZE];
 	t_image			*image;
@@ -76,10 +76,10 @@ t_image		*load_tga(char *path, int i, int idx, int ret)
 	if (fd == -1 || (ret = read(fd, str, 18)) < 18)
 	{
 		ft_memdel((void **)&image);
-		return (0);
+		return (NULL);
 	}
 	if (get_info_header(image, str) == 0)
-		return (0);
+		return (NULL);
 	while ((ret = read(fd, str, PARSE_BUFF_SIZE)) != 0)
 	{
 		i = 0;
@@ -91,4 +91,13 @@ t_image		*load_tga(char *path, int i, int idx, int ret)
 		}
 	}
 	return (image);
+}
+
+t_image		*load_tga(t_main *s, char *path)
+{
+	t_image *img;
+
+	if (!(img = load_tga_2(path, 0, 0, 0)))
+		s->error_tga = 1;
+	return (img);
 }

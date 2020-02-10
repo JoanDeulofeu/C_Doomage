@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 14:18:01 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/06 14:46:36 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 10:36:39 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,35 @@ void		fill_sprite_list_value(t_main *s, t_editor *edi)
 void		load_editor_menu(t_main *s)
 {
 	ft_bzero((void **)&s->editor->menu, sizeof(t_anim));
-	s->editor->menu.image[0] = load_tga("images/move.tga", 0, 0, 0);
-	s->editor->menu.image[1] = load_tga("images/vertex.tga", 0, 0, 0);
-	s->editor->menu.image[2] = load_tga("images/sector.tga", 0, 0, 0);
-	s->editor->menu.image[3] = load_tga("images/player.tga", 0, 0, 0);
-	s->editor->menu.image[4] = load_tga("images/portal.tga", 0, 0, 0);
-	s->editor->menu.image[5] = load_tga("images/sprite.tga", 0, 0, 0);
-	s->editor->menu.image[6] = load_tga("images/save.tga", 0, 0, 0);
+	s->editor->menu.image[0] = load_tga(s, "images/move.tga");
+	s->editor->menu.image[1] = load_tga(s, "images/vertex.tga");
+	s->editor->menu.image[2] = load_tga(s, "images/sector.tga");
+	s->editor->menu.image[3] = load_tga(s, "images/player.tga");
+	s->editor->menu.image[4] = load_tga(s, "images/portal.tga");
+	s->editor->menu.image[5] = load_tga(s, "images/sprite.tga");
+	s->editor->menu.image[6] = load_tga(s, "images/save.tga");
 	s->editor->sprite_menu.image[0] =
-	load_tga("images/ressources/sprite_menu/sprite_01.tga", 0, 0, 0);
+	load_tga(s, "images/ressources/sprite_menu/sprite_01.tga");
 	s->editor->sprite_menu.image[1] =
-	load_tga("images/ressources/sprite_menu/sprite_02.tga", 0, 0, 0);
+	load_tga(s, "images/ressources/sprite_menu/sprite_02.tga");
 	s->editor->sprite_menu.image[2] =
-	load_tga("images/ressources/sprite_menu/sprite_03.tga", 0, 0, 0);
+	load_tga(s, "images/ressources/sprite_menu/sprite_03.tga");
 }
 
 void		load_images(t_main *s)
 {
 	load_editor_menu(s);
 	s->editor->sprite_menu.current = 0;
-	s->editor->m_floor.image[0] = load_tga("images/stage.tga", 0, 0, 0);
-	s->editor->m_floor.image[1] = load_tga("images/s_enabled.tga", 0, 0, 0);
+	s->editor->m_floor.image[0] = load_tga(s, "images/stage.tga");
+	s->editor->m_floor.image[1] = load_tga(s, "images/s_enabled.tga");
 	ft_bzero((void **)&s->menu, sizeof(t_anim));
-	s->menu.image[0] = load_tga("images/menu.tga", 0, 0, 0);
-	s->menu.image[1] = load_tga("images/play.tga", 0, 0, 0);
-	s->menu.image[2] = load_tga("images/editor.tga", 0, 0, 0);
+	s->menu.image[0] = load_tga(s, "images/menu.tga");
+	s->menu.image[1] = load_tga(s, "images/play.tga");
+	s->menu.image[2] = load_tga(s, "images/editor.tga");
 	s->menu.current = 0;
-	s->savemap->croix_rouge = load_tga("images/croix_rouge.tga", 0, 0, 0);
-	s->player.hud = load_tga("images/hud_doom.tga", 0, 0, 0);
-	s->player.crosshair = load_tga("images/crosshair.tga", 0, 0, 0);
+	s->savemap->croix_rouge = load_tga(s, "images/croix_rouge.tga");
+	s->player.hud = load_tga(s, "images/hud_doom.tga");
+	s->player.crosshair = load_tga(s, "images/crosshair.tga");
 	load_anims(s);
 	fill_sprite_list(s);
 	fill_sprite_list_value(s, s->editor);

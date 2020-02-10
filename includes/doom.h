@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 19:19:58 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 10:43:42 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,6 +390,7 @@ typedef struct				s_main {
 	int						portal_nb;
 	t_dpos					col_pos;
 	t_pos					save_coord_vtx;
+	int						error_tga;
 }							t_main;
 
 typedef struct				s_multithread {
@@ -529,7 +530,7 @@ void						set_pixel(t_texture *text, Uint32 color,
 Uint32						get_pixel_color(t_texture *text, int x, int y);
 void						draw_player(t_main *s, t_dpos p_pos);
 void						draw_wall(t_main *s, t_pos ori);
-t_image						*load_tga(char *path, int i, int idx, int ret);
+t_image						*load_tga(t_main *s, char *path);
 void						draw_image(t_texture *texture, t_pos ori,
 							t_pos dest, t_image *image);
 void						draw_space_menu(t_main *s);
@@ -848,9 +849,9 @@ void						set_img(t_main *s, t_sprite *cur, int id,
 void						destroy_planet(t_main *s);
 void						load_anims(t_main *s);
 t_anim_enemy				load_storm_anim(t_main *s);
-t_anim						load_face_storm(t_anim data);
-t_anim						load_back_storm(t_anim data);
-t_anim						load_prof_storm(t_anim data);
+t_anim						load_face_storm(t_main *s, t_anim data);
+t_anim						load_back_storm(t_main *s, t_anim data);
+t_anim						load_prof_storm(t_main *s, t_anim data);
 void						fill_texture_list(t_main *s);
 void						animate_weapon(t_main *s);
 void						select_weapon_anim(t_main *s);

@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:13:51 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 19:07:35 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 10:43:04 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define SECTOR_ERROR 8
 # define MAP_ERROR 9
 # define TTF_ERROR 10
+# define TGA_ERROR 11
 # define LEFT_AR		SDL_SCANCODE_LEFT
 # define RIGHT_AR		SDL_SCANCODE_RIGHT
 # define UP_AR			SDL_SCANCODE_UP
