@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:55:32 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/10 15:53:10 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:42:27 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_int		*free_sector_struct(t_sector *temp_sector, int id)
 	int			i;
 
 	i = 0;
-	id = temp_sector->vertex->id;
+	id = temp_sector->vertex->prev->id;
 	temp_vertex = temp_sector->vertex;
 	temp_vertex2 = NULL;
 	temp_list = temp_sector->liste;
@@ -107,19 +107,19 @@ int			remove_sector_content(t_main *s,
 	return (1);
 }
 
-int			remove_sector(t_main *s, int id, int del)
+int			remove_sector(t_main *s, int id, int del, t_sector *tmp_sct)
 {
-	t_sector	*tmp_sct;
 	t_int		*tmp_vtx;
 	int			i;
+	int			id2;
 
-	tmp_sct = s->sector;
 	while (tmp_sct)
 	{
 		i = 0;
+		id2 = tmp_sct->vertex->prev->id;
 		tmp_vtx = tmp_sct->vertex;
 		del = 0;
-		while (i++ < tmp_sct->vertex->prev->id)
+		while (i++ < id2)
 		{
 			if (tmp_vtx->ptr->id == id)
 			{

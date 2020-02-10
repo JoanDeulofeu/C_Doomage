@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 16:12:58 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:39:20 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -618,7 +618,8 @@ void						set_selected(t_main *s, t_pos ori, char on);
 t_pos						get_abs_pos(t_main *s, t_pos ori);
 void						move_anchor(t_main *s, int id);
 void						remove_anchor(t_main *s, int id);
-int							remove_sector(t_main *s, int id, int del);
+int							remove_sector(t_main *s, int id, int del,
+							t_sector *sct);
 void						ft_reset_color_vertex(t_main *s);
 
 /*

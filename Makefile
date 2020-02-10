@@ -116,7 +116,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -g3 -fsanitize=address -Werror
+CFLAGS = -Wall -Wextra -g3 #-fsanitize=address -Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

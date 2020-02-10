@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:53 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 16:21:09 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:44:41 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	remove_anchor(t_main *s, int id)
 	{
 		if (temp->id == id)
 		{
-			if (remove_sector(s, id, 0) == 0)
+			if (remove_sector(s, id, 0, s->sector) == 0)
 			{
 				if (!s->msg->message)
 					ft_create_message(s, 2, 200,
