@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:30:30 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/09 21:43:10 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 13:38:59 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int		ft_sector_mode(t_main *s, int x, int y)
 		- (s->editor->decal_x % s->editor->space));
 	mouse.y = arround(s->editor->space, y
 		- (s->editor->decal_y % s->editor->space));
-	if ((id = anchor_exists(s, mouse)) && ft_is_in_sector(s, ft_pos_to_dpos(mouse)) == 0)
+	if ((id = anchor_exists(s, mouse)) &&
+	ft_is_in_sector(s, ft_pos_to_dpos(mouse)) == 0)
 	{
 		if (s->str_vtx != NULL && ft_atoi(s->str_vtx) == id)
 		{
