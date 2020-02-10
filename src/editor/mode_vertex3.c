@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 22:00:47 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 22:00:53 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 22:48:38 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_sector_eat_another(t_main *s, t_sector *sct, int sct_id)
 		if (sct->id == sct_id)
 		{
 			sct = sct->next;
-			continue;
+			continue ;
 		}
 		wall = sct->vertex;
 		i = 0;
@@ -43,8 +43,8 @@ void	ft_sector_eat_another(t_main *s, t_sector *sct, int sct_id)
 		{
 			if (ft_is_in_sector(s, wall->ptr->m_pos) == sct_id)
 			{
-				remove_sector(s, wall->value, 0, s->sector);
-				ft_putstr("Sector delete: sector is in another\n");
+				remove_sector(s, wall->id, 0, s->sector);
+				break ;
 			}
 			wall = wall->next;
 		}
