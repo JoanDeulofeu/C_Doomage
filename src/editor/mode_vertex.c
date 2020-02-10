@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:40 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 20:37:02 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:07:45 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,20 @@ void	ft_check_move_vertex_validity2(t_main *s, t_sector *sct, t_int *wall)
 	}
 	else
 	{
+		if (vtx->old.x != vtx->x || vtx->old.y != vtx->y)
+			printf("save des old\n");
 		vtx->old.x = vtx->x;
 		vtx->old.y = vtx->y;
+	}
+}
+
+void	ft_save_old_pos_vtx(t_vertex *vtx)
+{
+	while (vtx)
+	{
+		vtx->old.x = vtx->x;
+		vtx->old.y = vtx->y;
+		vtx = vtx->next;
 	}
 }
 
@@ -161,4 +173,5 @@ void	ft_check_move_vertex_validity(t_main *s)
 		sct = sct->next;
 	}
 	ft_sector_eat_another(s, s->sector, vtx_is_in_sct(s, s->editor->id));
+	ft_save_old_pos_vtx(s->vertex);
 }
