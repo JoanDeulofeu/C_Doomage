@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:21:25 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:21:28 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 22:07:19 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,13 @@ void	ft_draw_ttf_editor2(t_main *s, t_ttf ttf)
 void	ft_draw_ttf_editor(t_main *s)
 {
 	t_ttf		ttf;
-	char		*str;
 
+	ttf.r = 0;
+	ttf.g = 0;
+	ttf.b = 0;
+	ttf.pos.x = 0;
+	ttf.pos.y = 0;
 	ft_display_message(s);
-	if (s->display_mode == game)
-	{
-		ttf.r = 255;
-		ttf.g = 255;
-		ttf.b = 255;
-		ttf.pos.x = 920;
-		ttf.pos.y = 4;
-		ttf.str = ft_strdup("FPS");
-		ft_create_ttf(ttf, s, s->font->roboto);
-		str = ft_itoa(s->time->fps);
-		ttf.r = 255;
-		ttf.g = 255;
-		ttf.b = 255;
-		ttf.pos.x = 960;
-		ttf.pos.y = 4;
-		ttf.str = ft_strdup_free(&str);
-		ft_create_ttf(ttf, s, s->font->roboto);
-	}
 	if (s->display_mode == save)
 		ft_draw_ttf_editor2(s, ttf);
 }

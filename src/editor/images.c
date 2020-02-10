@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 16:45:46 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/10 10:35:04 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/10 22:03:09 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	update_image(t_main *s, t_texture *texture)
 {
-	s->time->time_ms = SDL_GetTicks();
-	ft_fps(s);
 	SDL_SetRenderTarget(s->sdl->prenderer, texture->texture);
 	SDL_UpdateTexture(texture->texture, NULL, texture->content, WIDTH
 		* sizeof(Uint32));

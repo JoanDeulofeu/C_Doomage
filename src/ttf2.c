@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:21:20 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/07 20:21:21 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/10 22:05:59 by ydonse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_draw_ttf_play5(t_main *s, t_ttf ttf, char *str)
 {
+	(void)str;
 	ttf.r = 0;
 	ttf.g = 140;
 	ttf.b = 0;
@@ -23,14 +24,6 @@ void	ft_draw_ttf_play5(t_main *s, t_ttf ttf, char *str)
 	ttf.pos.y = 715;
 	ttf.str = ft_strdup("Weapon 1 : Kick");
 	ft_create_ttf(ttf, s, s->font->digit);
-	str = ft_itoa(s->time->fps);
-	ttf.r = 255;
-	ttf.g = 255;
-	ttf.b = 255;
-	ttf.pos.x = 960;
-	ttf.pos.y = 4;
-	ttf.str = ft_strdup_free(&str);
-	ft_create_ttf(ttf, s, s->font->roboto);
 }
 
 void	ft_draw_ttf_play4(t_main *s, t_ttf ttf)
@@ -53,13 +46,6 @@ void	ft_draw_ttf_play4(t_main *s, t_ttf ttf)
 		ttf.str = ft_strdup("Weapon 3 : Shotgun");
 		ft_create_ttf(ttf, s, s->font->digit);
 	}
-	ttf.r = 255;
-	ttf.g = 255;
-	ttf.b = 255;
-	ttf.pos.x = 920;
-	ttf.pos.y = 4;
-	ttf.str = ft_strdup("FPS");
-	ft_create_ttf(ttf, s, s->font->roboto);
 }
 
 void	ft_draw_ttf_play3(t_main *s, t_ttf ttf, char *str)
