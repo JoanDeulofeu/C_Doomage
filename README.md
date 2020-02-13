@@ -35,3 +35,6 @@ SDL will install automatically.
 `./doom-nukem`
 To load a specific map, use
 `./doom-nukem [path_to_the_map]`
+
+Credits :
+Sprites come from the Duke Force mod of Duke Nukem. 
