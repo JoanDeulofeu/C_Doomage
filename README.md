@@ -6,7 +6,7 @@ Creation of a 3D engine and a Doom-like game
 The goal of the project is to create from scratch a 3D engine, an game editor and a level. 
 It was written in C and uses only a few functions of the SDL.
 
-<img src="https://donsefactory.files.wordpress.com/2020/02/doom_05.gif" width=500 height=500/>
+<img src="https://donsefactory.files.wordpress.com/2020/02/doom_05-1.gif" width=500 height=500/>
 
 Main features:
 * Creation of concav sectors
