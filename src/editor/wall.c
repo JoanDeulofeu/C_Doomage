@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:30:30 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 21:46:04 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/24 16:11:11 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,25 @@ void	ft_close_sector(t_main *s, int i, int nb_wall, int init)
 	ft_close_sector2(s);
 }
 
-t_pos	ft_get_mouse(t_main *s, int x, int y)
+t_pos	ft_get_mouse(t_main *s)
 {
 	t_pos		mouse;
 
-	mouse.x = arround(s->editor->space, x
-		- (s->editor->decal_x % s->editor->space));
-	mouse.y = arround(s->editor->space, y
-		- (s->editor->decal_y % s->editor->space));
-	mouse = get_abs_pos(s, mouse);
+	mouse = get_abs_pos(s, s->editor->ori);
 	mouse.x *= METRE;
 	mouse.y *= METRE;
 	return (mouse);
 }
 
-int		ft_sector_mode(t_main *s, int x, int y)
+int		ft_sector_mode(t_main *s)
 {
 	t_vertex	*vtx;
 	t_pos		mouse;
 	int			id;
 
 	vtx = s->vertex;
-	mouse = ft_get_mouse(s, x, y);
-	if ((id = anchor_exists(s, mouse))
+	mouse = ft_get_mouse(s);
+	if ((id = anchor_exists(s, s->editor->ori))
 	&& ft_is_in_sector(s, ft_pos_to_dpos(mouse)) == 0)
 	{
 		if (s->str_vtx != NULL && ft_atoi(s->str_vtx) == id)

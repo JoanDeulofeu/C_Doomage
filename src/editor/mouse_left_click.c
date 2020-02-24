@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 10:35:42 by ydonse            #+#    #+#             */
-/*   Updated: 2020/02/09 16:26:06 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/02/24 16:11:42 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static inline void	check_left_click_2(t_main *s)
 	if (s->editor->mode == sector)
 	{
 		s->editor->ori.x = arround(s->editor->space,
-			s->sdl->event.button.x -
-			(s->editor->decal_x % s->editor->space));
+			s->sdl->event.button.x - (s->editor->decal_x % s->editor->space));
 		s->editor->ori.y = arround(s->editor->space,
 			s->sdl->event.button.y - (s->editor->decal_y % s->editor->space));
 		if (s->editor->ori.x >= 0 && s->editor->ori.x <= WIDTH
@@ -55,8 +54,7 @@ static inline void	check_left_click_2(t_main *s)
 			!vtx_is_in_sct(s, s->editor->id))
 			{
 				set_selected(s, s->editor->ori, s->editor->color_sector);
-				s->editor->color_sector = ft_sector_mode(s,
-				s->sdl->event.button.x, s->sdl->event.button.y);
+				s->editor->color_sector = ft_sector_mode(s);
 			}
 		}
 	}

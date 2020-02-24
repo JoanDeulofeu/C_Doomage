@@ -6,7 +6,7 @@
 /*   By: jgehin <jgehin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:12:59 by jgehin            #+#    #+#             */
-/*   Updated: 2020/02/10 20:31:26 by jgehin           ###   ########.fr       */
+/*   Updated: 2020/02/24 16:11:33 by jgehin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -627,7 +627,7 @@ void						ft_reset_color_vertex(t_main *s);
 ****	Fonction de gestion des secteurs
 */
 int							ft_parse_sector(t_main *s, char *line);
-int							ft_sector_mode(t_main *s, int x, int y);
+int							ft_sector_mode(t_main *s);
 void						fill_sectors(t_main *s);
 void						draw_sector(t_main *s, int x, int y,
 							Uint32 r_color);
