@@ -14,10 +14,8 @@
 
 int		ft_check_high_coll(t_main *s, t_int *wall)
 {
-	t_sector	*sct_player;
 	t_sector	*sct_dest;
 
-	sct_player = get_sector_by_id(s, s->player.sector_id);
 	sct_dest = get_sector_by_id(s, wall->sct_dest);
 	if (s->player.foot_height < (double)sct_dest->floor)
 		return (0);

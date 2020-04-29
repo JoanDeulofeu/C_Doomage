@@ -109,7 +109,7 @@ void		handle_global_keys(t_main *s)
 
 void		handle_game_mode_keys(t_main *s)
 {
-	display_sky(s, 0, 0, 0);
+	display_sky(s, 0, 0);
 	set_player(s);
 	handle_sector_zero(s);
 	unset_sprites(s);

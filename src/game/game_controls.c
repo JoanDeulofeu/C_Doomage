@@ -24,7 +24,7 @@ void	handle_game_keys_2(t_main *s, const Uint8 *keys)
 	if (s->player.size == PLAYER_SIZE && !s->block_move)
 		ft_jump(s, keys);
 	ft_reset_color_screen(s->sdl->game->content, WIDTH * HEIGHT);
-	display_sky(s, 0, 0, 0);
+	display_sky(s, 0, 0);
 	if (s->skybox.current != 0)
 		destroy_planet(s);
 	set_player(s);

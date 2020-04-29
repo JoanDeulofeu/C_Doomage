@@ -15,13 +15,11 @@
 
 static void		putnb(int i, long l, char *str)
 {
-	char	c;
 	int		j;
 
 	j = l % 10;
 	while (l > 9)
 	{
-		c = '0' + j;
 		str[i] = '0' + j;
 		l /= 10;
 		j = l % 10;

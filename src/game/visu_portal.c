@@ -43,12 +43,8 @@ int			check_portal_doover(t_main *s, t_int *vtx)
 
 void		add_portal_to_list(t_main *s, t_sector *sct, t_visu vs)
 {
-	int			x;
 	t_int		*vtx;
-	int			new_x;
 
-	x = 0;
-	new_x = 0;
 	s->portal_nb++;
 	vtx = sct->vertex;
 	vs.begin_wall_id = ft_find_wall(s, vs.begin, vs.left_point, vs.sct_id);

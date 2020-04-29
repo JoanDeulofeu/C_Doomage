@@ -16,10 +16,8 @@ static int	verif(const char *haystack, const char *needle, int i)
 {
 	int j;
 	int needle_size;
-	int count;
 
 	j = 0;
-	count = 0;
 	needle_size = ft_strlen(needle);
 	while (needle[j])
 	{

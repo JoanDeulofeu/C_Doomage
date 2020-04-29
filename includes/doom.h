@@ -760,7 +760,7 @@ char						*get_jetpack_value(t_main *s);
 /*
 ****	Fonction des textures
 */
-void						display_sky(t_main *s, int px, int j,
+void						display_sky(t_main *s, int px,
 							double value);
 void						ft_draw_floor(t_main *s, t_walls *wall,
 							t_pos coord);

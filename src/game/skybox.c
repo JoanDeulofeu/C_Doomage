@@ -39,10 +39,6 @@ void	ft_transition(t_main *s)
 
 void	destroy_planet(t_main *s)
 {
-	t_pos	coord;
-
-	coord.x = 0;
-	coord.y = 0;
 	if (s->skybox.current == 0)
 		Mix_PlayChannel(3, s->sdl->sounds.explode, 0);
 	if (s->skybox.image[s->skybox.current + 1])
@@ -64,7 +60,7 @@ int		display_sky2(t_main *s, t_pos *coord, t_dpos *per, double *value)
 	+ (int)(per->x * (double)s->skybox.image[s->skybox.current]->w));
 }
 
-void	display_sky(t_main *s, int px, int j, double value)
+void	display_sky(t_main *s, int px, double value)
 {
 	t_dpos	per;
 	t_pos	coord;
@@ -74,7 +70,6 @@ void	display_sky(t_main *s, int px, int j, double value)
 	coord.x = -1;
 	while (coord.x < WIDTH)
 	{
-		j = 0;
 		coord.y = -1;
 		per.x = (double)(coord.x - value)
 		/ (double)s->skybox.image[s->skybox.current]->w * W_MUL;

@@ -14,9 +14,6 @@
 
 void	fill_sprite_list(t_main *s)
 {
-	t_name	name;
-
-	name = storm;
 	ft_bzero((void *)&s->editor->all_sprite, sizeof(t_anim));
 	s->editor->all_sprite.image[storm] = s->stormtrooper.face.image[0];
 	s->editor->all_sprite.image[table] = s->items.table.image[0];

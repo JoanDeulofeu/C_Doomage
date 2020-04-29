@@ -59,11 +59,9 @@ t_pos	ft_get_mouse(t_main *s)
 
 int		ft_sector_mode(t_main *s)
 {
-	t_vertex	*vtx;
 	t_pos		mouse;
 	int			id;
 
-	vtx = s->vertex;
 	mouse = ft_get_mouse(s);
 	if ((id = anchor_exists(s, s->editor->ori))
 	&& ft_is_in_sector(s, ft_pos_to_dpos(mouse)) == 0)
