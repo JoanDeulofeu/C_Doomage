@@ -30,5 +30,6 @@ void	create_sounds(t_sdl *sdl)
 
 void	play_music(Mix_Music *music)
 {
-	Mix_PlayMusic(music, -1);
+	if (music)
+		Mix_PlayMusic(music, -1);
 }

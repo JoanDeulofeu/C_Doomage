@@ -82,8 +82,8 @@ void	free_program(t_main *s)
 	free_texture(s->sdl->game);
 	free_texture(s->sdl->editor);
 	free_texture(s->sdl->save);
-	SDL_Quit();
 	SDL_DestroyRenderer(s->sdl->prenderer);
+	SDL_Quit();
 	ft_memdel((void **)&s->map_name);
 	ft_memdel((void **)&s->msg);
 	ft_memdel((void **)&s->sdl);

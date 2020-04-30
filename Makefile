@@ -118,7 +118,7 @@ LDFLAGS = -L libft/ -lft  -L /usr/local/include/ -lm -pthread
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
