@@ -57,8 +57,8 @@ $(NAME): $(OBJ)
 	@$(OK)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@gcc  -Wall -Werror -Wextra -I $(HEADER_PATH) -MMD -o $@ -c $<
+	mkdir $(OBJ_PATH) 2> /dev/null || true
+	clang  -Wall -Werror -Wextra -I $(HEADER_PATH) -MMD -o $@ -c $<
 
 clean:
 	@rm -f $(OBJ) $(OBJ:.o=.d)

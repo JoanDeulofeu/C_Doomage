@@ -2,7 +2,7 @@ NAME = doom-nukem
 
 SRC_PATH = src
 
-SRC_NAME =	main.c							\
+SRC_NAME =	main.c			\
 			ttf.c							\
 			ttf2.c							\
 			ttf3.c							\
@@ -112,11 +112,11 @@ SRC_NAME =	main.c							\
 			game/multithreading.c
 
 
-CPPFLAGS = -I libft/includes/ -I /usr/local/include/ -MMD
+LIBINC = -I libft/includes/ -I /usr/local/include/ -MMD
 
-LDFLAGS = -L libft/ -lft  -L /usr/local/include/
+LDFLAGS = -L libft/ -lft  -L /usr/local/include/ -lm -pthread
 
-CC = gcc
+CC = clang
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -126,13 +126,15 @@ OBJ_PATH = obj
 HEADER_PATH = includes/
 HEADER_NAME = doom.h
 
+SDL2 = SDL2
+
 ID = $(shell id -un)
 
 SDLINCL = $(shell $(ABSOLUTE_DIR)/SDL2/bin/sdl2-config --cflags)
 SDLFLAGS =  $(SDLINCL) $(shell $(ABSOLUTE_DIR)/SDL2/bin/sdl2-config --libs)
 
 MIXINCL = -I ./SDL2/include/SDL2/
-MIXFLAGS = $(MIXINCL) -L./SDL2/lib -lSDL2_MIXER -lSDL2_ttf
+MIXFLAGS = $(MIXINCL) -L./SDL2/lib -lSDL2_mixer -lSDL2_ttf
 
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -143,7 +145,6 @@ ABSOLUTE_DIR = $(shell pwd)
 SDL2_SRC = $(ABSOLUTE_DIR)/SDL2-2.0.9
 SDL2_MIX_SRC = $(ABSOLUTE_DIR)/SDL2_mixer-2.0.4
 SDL2_TTF_SRC = $(ABSOLUTE_DIR)/SDL2_ttf-2.0.15
-
 
 all: $(NAME)
 
@@ -186,14 +187,17 @@ sdl :
 https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
 
 $(NAME): $(OBJ)
-	@make -C libft/
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(SDLFLAGS) $(MIXFLAGS) $(MIXINCL) $(LDLIBS) $(SDLFMK) $^ -o $@
-	@echo "[32m Doom_nukem OK ✓ [0m"
-
+	make -C libft/
+	# @$(CC) $(CFLAGS) $(LDFLAGS) $(SDLFLAGS) $(MIXFLAGS) $(MIXINCL) $(LDLIBS) $(SDLFMK) $^ -o $@
+	$(CC) $(CFLAGS) $(MIXINCL) $(SDLINCL) $(LIBINC) $(SDLFMK) $^ -o $@ $(SDLFLAGS) $(MIXFLAGS) $(LDFLAGS)
+	echo "[32m Doom_nukem OK ✓ [0m"
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -I $(HEADER_PATH) $(SDLINCL) $(MIXINCL) -o $@ -c $<
+	$(CC) $(CFLAGS) $(LIBINC) -I $(HEADER_PATH) $(SDLINCL) $(MIXINCL) -o $@ -c $<
 
-$(OBJ_PATH):
+$(SDL2):
+	make sdl
+
+$(OBJ_PATH): $(SDL2)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)/editor 2> /dev/null || true
 	@mkdir $(OBJ_PATH)/launching 2> /dev/null || true
@@ -206,7 +210,7 @@ sdlclean:
 clean:
 	@make clean -C libft/
 	@rm -f $(OBJ) $(OBJ:.o=.d)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@rm -rf $(OBJ_PATH) 2> /dev/null || true
 	@echo "[32m Clean OK ✓ [0m"
 
 fclean: clean
